@@ -9,7 +9,7 @@
                     "publishedLabel": "",
                     "unpublishedLabel": "",
                     "modifiedLabel": "",
-                    
+
                     "template": "{{ D }}. {{ MMM }}. {{ YYYY }}"
                 }
             },
@@ -17,12 +17,7 @@
                 "show_section": true
             }
         },
-        "resourceAllocation": {
-            "resourceMaps": [
-                "_resources_demosite"
-            ],
-            "mergeMaps": true
-        },
+
         "data": {
             "elements": {
                 "articleHeader": {
