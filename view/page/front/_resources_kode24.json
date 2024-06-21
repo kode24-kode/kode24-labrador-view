@@ -1,21 +1,2 @@
 {
-    "presentation": {
-        "stage": {
-            "lab-default": {
-                "template": {
-                    "kode24": "page/front/kode24/template/default",
-                    "default": "page/front/kode24/template/default"
-                }
-            }
-        }
-    },
-    "edit": {
-        "stage": {
-            "lab-default": {
-                "properties": {
-                    "default": "page/front/kode24/editor/default.json"
-                }
-            }
-        }
-    }
 }
