@@ -1,7 +1,7 @@
 {
-    "site_config_demosite": {
+    "site_config_kode24": {
         "lang": "en",
-        "contentLanguage": "en-GB",
+        "contentLanguage": "nb-NO",
         "contentbox_settings": {
             "articleMeta": {
                 "hideModifiedDate": true,
@@ -19,7 +19,7 @@
         },
         "resourceAllocation": {
             "resourceMaps": [
-                "_resources_demosite"
+                "_resources_kode24"
             ],
             "mergeMaps": true
         },
@@ -58,29 +58,29 @@
         },
         "tags": {
             "section": [
-                "Nyheter"
+                "Artikkel"
             ]
         },
         "faviconList": [
             {
-                "iconPath": "/view-resources/custom-starter-view/public/kode24/favicon.ico"
+                "iconPath": "/view-resources/kode24-labrador-view/public/kode24/favicon.ico"
             },
             {
-                "iconPath": "/view-resources/custom-starter-view/public/kode24/favicon/favicon-16x16.png",
+                "iconPath": "/view-resources/kode24-labrador-view/public/kode24/favicon/favicon-16x16.png",
                 "iconSize": {
                     "width": 16,
                     "height": 16
                 }
             },
             {
-                "iconPath": "/view-resources/custom-starter-view/public/kode24/favicon/favicon-32x32.png",
+                "iconPath": "/view-resources/kode24-labrador-view/public/kode24/favicon/favicon-32x32.png",
                 "iconSize": {
                     "width": 32,
                     "height": 32
                 }
             },
             {
-                "iconPath": "/view-resources/custom-starter-view/public/kode24/favicon/apple-touch-icon.png",
+                "iconPath": "/view-resources/kode24-labrador-view/public/kode24/favicon/apple-touch-icon.png",
                 "iconRel": "apple-touch-icon",
                 "iconSize": {
                     "width": 180,
@@ -88,7 +88,7 @@
                 }
             },
             {
-                "iconPath": "/view-resources/custom-starter-view/public/kode24/android-chrome-192x192.png",
+                "iconPath": "/view-resources/kode24-labrador-view/public/kode24/android-chrome-192x192.png",
                 "iconRel": "android-chrome",
                 "iconSize": {
                     "width": 192,
@@ -96,7 +96,7 @@
                 }
             },
             {
-                "iconPath": "/view-resources/custom-starter-view/public/kode24/android-chrome-512x512.png",
+                "iconPath": "/view-resources/kode24-labrador-view/public/kode24/android-chrome-512x512.png",
                 "iconRel": "android-chrome",
                 "iconSize": {
                     "width": 512,
@@ -108,7 +108,7 @@
             "default": {
                 "title": "kode24.no",
                 "type": "img",
-                "src": "/view-resources/custom-starter-view/public/kode24/logo.png",
+                "src": "/view-resources/kode24-labrador-view/public/kode24/logo.png",
                 "href": "//kode24.no",
                 "size": {
                     "width": 70

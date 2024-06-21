@@ -3,7 +3,7 @@
         "stage": {
             "lab-default": {
                 "template": {
-                    "custom": "page/front/kode24/template/default",
+                    "kode24": "page/front/kode24/template/default",
                     "default": "page/front/kode24/template/default"
                 }
             }
