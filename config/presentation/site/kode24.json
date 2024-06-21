@@ -132,33 +132,6 @@
                     ]
                 }
             ]
-        },
-        "pageElements": {
-            "page_header": {
-                "settings": {
-                    "tag": "header",
-                    "classes": ["pageHeader"]
-                },
-                "children": [
-                    {
-                        "type": "structures/row",
-                        "settings": {
-                            "classes": []
-                        },
-                        "children": [
-                            {
-                                "type": "ui/logo"
-                            },
-                            {
-                                "type": "ui/menu",
-                                "settings": {
-                                    "type": "mainMenu"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
         }
     }
 }
