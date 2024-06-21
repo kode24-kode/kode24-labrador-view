@@ -17,6 +17,12 @@
                 "show_section": true
             }
         },
+        "resourceAllocation": {
+            "resourceMaps": [
+                "_resources_kode24"
+            ],
+            "mergeMaps": true
+        },
         "data": {
             "elements": {
                 "articleHeader": {
