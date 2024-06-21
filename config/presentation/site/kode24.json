@@ -17,12 +17,6 @@
                 "show_section": true
             }
         },
-        "resourceAllocation": {
-            "resourceMaps": [
-                "_resources_kode24"
-            ],
-            "mergeMaps": true
-        },
         "data": {
             "elements": {
                 "articleHeader": {
@@ -40,20 +34,6 @@
                         }
                     }
                 }
-            }
-        },
-        "elementListAdditions": {
-            "all": [
-                "demoElement"
-            ]
-        },
-        "customMenuData": {
-            "ArticleSettings": {
-                "additions": [
-                    "ArticleDemoApp"
-                ],
-                "removals": [],
-                "items": {}
             }
         },
         "tags": {
