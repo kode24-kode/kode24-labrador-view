@@ -1,8 +1,7 @@
 {
     "site_styles": {
-        "demosite": [
-            "/view-resources/custom-starter-view/view/css/elements.css",
-            "/view-resources/custom-starter-view/view/css/site/demosite.css"
+        "kode24": [
+            "/view-resources/kode24-labrador-view/view/css/kode24.css"
         ]
     }
 }

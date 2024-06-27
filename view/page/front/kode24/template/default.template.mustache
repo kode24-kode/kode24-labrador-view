@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html {{ #get.current.filtered.contentLanguage }}lang="{{ . }}"{{ /get.current.filtered.contentLanguage }} dir="{{ getConfig.textDirection }}" class="{{ #get.current.filtered.featureFlags.responsive_mobile_fonts }}resp_fonts{{ /get.current.filtered.featureFlags.responsive_mobile_fonts }}" data-hostpath="{{ get.current.fields.hostpath }}">
+<html {{ #get.current.filtered.contentLanguage }}lang="{{ . }}"{{ /get.current.filtered.contentLanguage }} dir="{{ getConfig.textDirection }}" class="{{ #get.current.filtered.featureFlags.responsive_mobile_fonts }}resp_fonts{{ /get.current.filtered.featureFlags.responsive_mobile_fonts }} dark" data-hostpath="{{ get.current.fields.hostpath }}">
     <head>
-        <div id="hello">hello</div>
-        {{> partial/lab4/page_head }}
-        {{> partial/lab4/page_head_after }}
+        <div id="hello" className="grid grid-cols-2">hello</div>
         {{ #get.current.filtered.analytics.kilkayaSettings.showKilkayaMetatags }}{{ > partial/lab4/analytics/kilkaya_metadata }}{{ /get.current.filtered.analytics.kilkayaSettings.showKilkayaMetatags }}
         {{ > partial/lab4/analytics/kilkaya }}
+        {{ #app.isEditor }}<link rel="stylesheet" href="/view-resources/baseview/view/css/edit.css">{{ /app.isEditor }}
         {{ #app.isEditor }}<link rel="stylesheet" href="/view-resources/baseview/view/css/edit.css">{{ /app.isEditor }}
         {{ ^app.isEditor }}
         {{ #getPreload.ab_collections }}
@@ -20,13 +19,13 @@
         {{ #get.current.fields.pageBackgroundColorStyle }} custom-background-color{{ /get.current.fields.pageBackgroundColorStyle }}
         {{ #get.current.fields.pageFontColor }} custom-font-color{{ get.current.fields.pageFontColor }}
         {{ /get.current.fields.pageFontColor }}
-        {{ /helper.trim }}"
+        {{ /helper.trim }}
+        dark:bg-gray-900 bg-gray-200
+        "
         {{ #get.current.fields.pageBackgroundColorStyle }} style="background-color:{{ get.current.fields.pageBackgroundColorStyle }};{{ #get.current.fields.pageBackgroundColorStyleDark }}color:#fff;{{ /get.current.fields.pageBackgroundColorStyleDark }}"{{ /get.current.fields.pageBackgroundColorStyle }}
         {{ #render.partial }}page_body_tag_inside{{ /render.partial }}>
         {{ > partial/lab4/page_body_prefix }}
         <a href="#main" class="skip-link">Jump to main content</a>
-
-        {{ #render.pageElement }}page_header lab4/page_header{{ /render.pageElement }}
 
         {{{ selector.placement_non-relative }}}
 
@@ -38,7 +37,6 @@
 
             {{{ children.dropZone }}}
         </section>
-        {{ #render.partial }}lab4/page_footer{{ /render.partial }}
         {{> partial/lab4/page_foot }}
     </body>
 </html>
