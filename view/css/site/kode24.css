@@ -567,6 +567,10 @@ video {
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
+#kode24 .main .row:not([class*=bg-]), section.related .row:not([class*=bg-]), main.pageWidth>article:not([class*=bg-]) {
+  background: transparent
+}
+
 .dark\:bg-gray-900:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
