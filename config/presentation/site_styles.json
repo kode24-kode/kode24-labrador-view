@@ -1,8 +1,6 @@
 {
     "site_styles": {
         "kode24": [
-          "/view-resources/baseview/view/css/colors.css",
-          "/view-resources/baseview/view/css/embed.css",
             "/view-resources/baseview/view/css/main.css",
            "/view-resources/baseview/view/css/grid.css",
             "/view-resources/kode24-labrador-view/view/css/kode24.css"
