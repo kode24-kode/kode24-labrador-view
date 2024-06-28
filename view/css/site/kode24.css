@@ -727,6 +727,10 @@ html {
   padding-bottom: 0.5rem;
 }
 
+.font-mono {
+  font-family: IBM Plex Mono, monospace;
+}
+
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
@@ -748,6 +752,11 @@ html {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-gray-700 {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
 .transition-colors {
@@ -778,6 +787,11 @@ html {
 .dark\:bg-gray-900:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+
+.dark\:text-gray-50:is(.dark *) {
+  --tw-text-opacity: 1;
+  color: rgb(249 250 251 / var(--tw-text-opacity));
 }
 
 @media (min-width: 1024px) {
