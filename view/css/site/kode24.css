@@ -448,6 +448,9 @@ video {
 
 html {
   font-family: "IBM Plex Sans", system-ui, sans-serif;
+  --bg-pink-500: rgb(236 72 153);
+  --bg-tertiary: rgb(55 65 81);
+  --bg-quaternary: rgb(31 41 55);
 }
 
 *, ::before, ::after {
@@ -768,6 +771,14 @@ html {
 
 #kode24 .main .row:not([class*=bg-]), section.related .row:not([class*=bg-]), main.pageWidth>article:not([class*=bg-]) {
   background: transparent
+}
+
+.bg-quaternary {
+  background-color: var(--bg-quaternary);
+}
+
+.bg-tertiary {
+  background-color: var(--bg-tertiary);
 }
 
 .focus\:outline-none:focus {
