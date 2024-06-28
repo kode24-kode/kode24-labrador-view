@@ -8,3 +8,9 @@
 #kode24 .main .row:not([class*=bg-]), section.related .row:not([class*=bg-]), main.pageWidth>article:not([class*=bg-]) {
   background: transparent
 }
+
+@layer base {
+  html {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+  }
+}

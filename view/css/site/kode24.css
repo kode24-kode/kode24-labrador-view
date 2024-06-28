@@ -446,6 +446,10 @@ video {
   display: none;
 }
 
+html {
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+}
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
