@@ -25,7 +25,7 @@ row-section
     <{{ get.current.metadata.rowTitleTag }} class="row_header_text large-12 small-12 {{ #style.collection }}text_decoration metadata{{ /style.collection }} {{ #style.definition }}text_align_row{{ /style.definition }}">{{{ get.current.metadata.rowTitle }}}</{{ get.current.metadata.rowTitleTag }}>
     {{ /get.current.metadata.rowTitleTag }}
     {{ ^get.current.metadata.rowTitleTag }}
-    <h5 class="row_header_text text-2xl font-semibold dark:bg-gray-100 bg-gray-600 large-12 small-12 {{ #style.collection }}text_decoration metadata{{ /style.collection }} {{ #style.definition }}text_align_row{{ /style.definition }}">{{{ get.current.metadata.rowTitle }}}</h5>
+    <h5 class="row_header_text text-xl font-semibold dark:text-gray-100 text-gray-600 large-12 small-12 {{ #style.collection }}text_decoration metadata{{ /style.collection }} {{ #style.definition }}text_align_row{{ /style.definition }}">{{{ get.current.metadata.rowTitle }}}</h5>
     {{ /get.current.metadata.rowTitleTag }}
     {{ /get.current.metadata.hasRowTitle }}{{ #get.current.metadata.movableContent }}{{{ get.current.filtered.movableStyle }}}{{ /get.current.metadata.movableContent }}{{{ children.all }}}</div>
 {{ #get.current.metadata.isSection }}
