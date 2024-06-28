@@ -10,6 +10,7 @@ row-section
 {{ /get.current.metadata.isSection }}
 <div {{ ^get.current.metadata.isSection }}data-element-guid="{{ get.current.guid }}" {{ /get.current.metadata.isSection }}class="{{ #helper.trim }}
     row
+    rounded-lg
     {{ size.grid.css }}
     {{ #get.current.metadata.fullWidthContent }}fullWidthContent{{ /get.current.metadata.fullWidthContent }}
     {{ #style.collection }}box_decoration{{ /style.collection }}
