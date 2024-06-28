@@ -590,24 +590,8 @@ html {
   height: 2.5rem;
 }
 
-.w-44 {
-  width: 11rem;
-}
-
 .w-full {
   width: 100%;
-}
-
-.w-40 {
-  width: 10rem;
-}
-
-.w-48 {
-  width: 12rem;
-}
-
-.w-80 {
-  width: 20rem;
 }
 
 .max-w-screen-xl {
@@ -749,14 +733,14 @@ html {
   color: rgb(243 244 246 / var(--tw-text-opacity));
 }
 
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
 .text-gray-700 {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .transition-colors {
