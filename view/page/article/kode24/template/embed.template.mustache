@@ -1,0 +1,105 @@
+<html {{ #get.current.filtered.seolanguage }}lang="{{ . }}"{{ /get.current.filtered.seolanguage }}{{ ^get.current.filtered.seolanguage }}{{ #get.current.filtered.contentLanguage }}lang="{{ . }}"{{ /get.current.filtered.contentLanguage }}{{ /get.current.filtered.seolanguage }} dir="{{ getConfig.textDirection }}" class="{{ #get.current.filtered.featureFlags.responsive_mobile_fonts }}resp_fonts{{ /get.current.filtered.featureFlags.responsive_mobile_fonts }}">
+    <head>
+        {{> partial/lab4/page_head }}
+        {{> partial/lab4/page_head_after }}
+        <meta property="article:section" content="{{{ get.current.filtered.section }}}">
+        {{ #get.current.filtered.analytics.kilkayaSettings.showKilkayaMetatags }}{{ > partial/lab4/analytics/kilkaya_metadata }}{{ /get.current.filtered.analytics.kilkayaSettings.showKilkayaMetatags }}
+        {{ > partial/lab4/analytics/kilkaya }}
+        <link rel="stylesheet" href="/view-resources/view/css/embed.css{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
+        <script>
+            // The embed-script needs to know the height of the page and will post a message requesting data.
+            function receiveMessage(event) {
+                if (!event.data || !event.data.request || event.data.request !== 'labCmsGetPageHeight') {
+                    return;
+                }
+                if (Array.isArray(event.data.cssList)) {
+                    document.body.classList.add(...event.data.cssList);
+                }
+                document.documentElement.style.setProperty('--viewport-height', (event.data.viewportHeight || 1000) + 'px');
+                const updateHeight = () => {
+                    // While embeds in the bodytext are loading the added iframe-element etc. can have a very large height. Restrict.
+                    const pageHeight = Math.min(document.querySelector('.bodycontent').scrollHeight, 100000);
+                    event.source.postMessage({ request: 'labCmsGetPageHeight', frameId: event.data.frameId, result: pageHeight }, event.origin);
+                }
+                updateHeight();
+                if (window.ResizeObserver) {
+                    const observer = new ResizeObserver((entries) => {
+                        window.requestAnimationFrame(() => {
+                            updateHeight();
+                        });
+                    });
+                    observer.observe(document.body);
+                }
+            }
+            window.addEventListener("message", receiveMessage, false);
+        </script>
+        <style>
+            :root {
+                {{ #get.current.fields.bodytextWidth }}--bodytext-width: var({{ get.current.fields.bodytextWidth }});{{ /get.current.fields.bodytextWidth }}
+                {{ #get.current.fields.bodytextAlignment }}--bodytext-alignment: var({{ get.current.fields.bodytextAlignment }});{{ /get.current.fields.bodytextAlignment }}
+            }
+        </style>
+    </head>
+
+    <body class="{{ #helper.trim }}
+        {{ #get.current.filtered.embeddable.hasParallax }}hasParallax{{ /get.current.filtered.embeddable.hasParallax }}
+        embed l4 article site_{{{ get.current.filtered.site.alias }}}
+        {{ get.current.fields.articleStyle }}
+        {{ #get.current.filtered.section }} section_{{ get.current.filtered.section }}{{ /get.current.filtered.section }}
+        {{ get.current.filtered.autodata_css }}
+        {{ #get.current.fields.pageBackgroundColorStyleDark }} dark-mode{{ /get.current.fields.pageBackgroundColorStyleDark }}
+        {{ #get.current.fields.pageBackgroundColor }}{{ get.current.fields.pageBackgroundColor }} custom-background-color{{ /get.current.fields.pageBackgroundColor }}
+        {{ #get.current.fields.pageBackgroundColorStyle }} custom-background-color{{ /get.current.fields.pageBackgroundColorStyle }}
+        {{ #get.current.fields.pageFontColor }} custom-font-color{{ get.current.fields.pageFontColor }}{{ /get.current.fields.pageFontColor }}
+        {{ #get.current.filtered.paywall.enabled }} has-paywall{{ /get.current.filtered.paywall.enabled }}
+        {{ #get.current.fields.bodytextWidth }} custom-bodytext-width{{ /get.current.fields.bodytextWidth }}
+        {{ #get.current.fields.bodytextAlignment }} custom-bodytext-alignment{{ /get.current.fields.bodytextAlignment }}
+        {{ #get.current.fields.articleHeaderBodytextWidth }} articleHeader-bodytext-width{{ /get.current.fields.articleHeaderBodytextWidth }}
+        {{ #get.current.fields.articleHeaderImageBodytextWidth }} articleHeader-image-bodytext-width{{ /get.current.fields.articleHeaderImageBodytextWidth }}
+        {{ #get.current.fields.articleMetaBodytextWidth }} articleHeader-meta-bodytext-width{{ /get.current.fields.articleMetaBodytextWidth }}
+        {{ get.current.fields.pageHeaderDisplay }}
+        {{ /helper.trim }}"
+        {{ #get.current.fields.pageBackgroundColorStyle }} style="background-color:{{ get.current.fields.pageBackgroundColorStyle }};{{ #get.current.fields.pageBackgroundColorStyleDark }}color:#fff;{{ /get.current.fields.pageBackgroundColorStyleDark }}"{{ /get.current.fields.pageBackgroundColorStyle }}
+        {{ #render.partial }}page_body_tag_inside{{ /render.partial }}>
+        <div class="bodycontent">
+        {{ > partial/lab4/page_body_prefix }}
+        <a href="#main" class="skip-link">Jump to main content</a>
+
+        <section class="main article">
+            <main class="pageWidth">
+                <article class="{{ #get.current.fields.pageBackgroundColor }}bg-baseview-custom{{ /get.current.fields.pageBackgroundColor }} {{ get.current.fields.pageFontColor }}{{ #get.current.fields.pageBackgroundColorStyle }} bg-baseview-custom{{ /get.current.fields.pageBackgroundColorStyle }}">
+                    {{ #get.current.filtered.embeddable.isFullContent }}
+                    {{ > page/article/default/template/embed_full }}
+                    {{ /get.current.filtered.embeddable.isFullContent }}
+                    {{ ^get.current.filtered.embeddable.isFullContent }}
+                    {{ > page/article/default/template/embed_teaser }}
+                    {{ /get.current.filtered.embeddable.isFullContent }}
+                    <footer class="page">
+                        <div class="row">
+                            <div class="columns large-12 small-12">
+                                <a target="_parent" href="{{ get.current.filtered.site.domain }}">
+                                    {{ get.current.filtered.embeddable.sitelink.prefix }}
+                                    {{ #lang }}embed.page_sitelink_prefix{{ /lang }}
+                                    {{ #get.current.filtered.logo }}
+                                        {{ #is_img }}
+                                            <img src="{{ src }}" alt="{{ title }}" />
+                                        {{ /is_img }}
+                                        {{ #is_svg }}
+                                            {{{ src }}}
+                                        {{ /is_svg }}
+                                    {{ /get.current.filtered.logo }}
+                                    {{ ^get.current.filtered.logo }}
+                                        {{ get.current.filtered.site.domain_no_protocol }}
+                                    {{ /get.current.filtered.logo }}
+                                    {{ #lang }}embed.page_sitelink_postfix{{ /lang }}
+                                </a>
+                            </div>
+                        </div>
+                    </footer>
+                </article>
+            </main>
+        </section>
+        {{> partial/lab4/page_foot }}
+    </div>
+    </body>
+</html>

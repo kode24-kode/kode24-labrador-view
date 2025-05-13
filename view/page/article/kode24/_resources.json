@@ -1,0 +1,19 @@
+{
+    "presentation": {
+        "stage": {
+            "lab-default": {
+                "template": {
+                    "default": "page/article/kode24/template/default",
+                    "embed": "page/article/kode24/template/embed"
+                },
+                "properties": {
+                    "default": [
+                        "page/article/kode24/front/default.json",
+                        "content_settings/front/grid/default.json",
+                        "content_settings/front/vp_data.json"
+                        ]
+                }
+            }
+        }
+    }
+}
