@@ -17,17 +17,11 @@
         </style>
 
         {{ #app.isEditor }}<link rel="stylesheet" href="/view-resources/baseview/view/css/edit.css">{{ /app.isEditor }}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
-        {{> partial/site/kode24/scripts}}
-        {{> partial/site/kode24/scripts.lightswitch}}
     </head>
 
     <body class="{{ #helper.trim }}
-
-
         l4 article site_{{{ get.current.filtered.site.alias }}}
         {{ get.current.fields.articleStyle }}
-
         {{ #get.current.filtered.section }} section_{{ get.current.filtered.section }}{{ /get.current.filtered.section }}
         {{ get.current.filtered.autodata_css }}
         {{ #app.isFront }}
@@ -36,7 +30,6 @@
                 iteras-paywall
             {{ /getConfig.iteras.id }}
         {{ /app.isFront }}
-        {{ #app.isEditor }}is-editor{{ /app.isEditor }}
         {{ #get.current.fields.pageBackgroundColorStyleDark }} dark-mode{{ /get.current.fields.pageBackgroundColorStyleDark }}
         {{ #get.current.fields.pageBackgroundColor }}{{ get.current.fields.pageBackgroundColor }} custom-background-color{{ /get.current.fields.pageBackgroundColor }}
         {{ #get.current.fields.pageBackgroundColorStyle }} custom-background-color{{ /get.current.fields.pageBackgroundColorStyle }}
@@ -55,11 +48,8 @@
         {{ /helper.trim }}"
         {{ #get.current.fields.pageBackgroundColorStyle }} style="background-color:{{ get.current.fields.pageBackgroundColorStyle }};{{ #get.current.fields.pageBackgroundColorStyleDark }}color:#fff;{{ /get.current.fields.pageBackgroundColorStyleDark }}"{{ /get.current.fields.pageBackgroundColorStyle }}
         {{ #render.partial }}page_body_tag_inside{{ /render.partial }}>
-        {{ #app.isEditor }}<div id="is-editor"></div>{{ /app.isEditor }}
         {{ > partial/lab4/page_body_prefix }}
-
-        {{> partial/site/kode24/skipto}}
-        {{> partial/site/kode24/header}}
+        <a href="#main" class="skip-link">Jump to main content</a>
 
         {{ #render.pageElement }}page_header lab4/page_header{{ /render.pageElement }}
         {{ > partial/lab4/after_page_header }}
@@ -80,13 +70,12 @@
         {{ /getConfig.paywall.article.blurAllContent }}
         {{ /app.isFront }}
 
-        <section class="frontpage wide">
-
+        <section class="main article">
             {{{ selector.placement_top }}}
-            <main class="pageWidth" id="main-content">
+            <main class="pageWidth">
                 <article class="{{ #get.current.fields.pageBackgroundColor }}bg-baseview-custom{{ /get.current.fields.pageBackgroundColor }} {{ get.current.fields.pageFontColor }}{{ #get.current.fields.pageBackgroundColorStyle }} bg-baseview-custom{{ /get.current.fields.pageBackgroundColorStyle }}">
 
-                    <section class="main article k5a-article article-entity" id="main">
+                    <section class="main article k5a-article" id="main">
 
                         {{{ child.articlePreHeader }}}
 
@@ -158,16 +147,7 @@
                 <section class="related desktop-fullWidth mobile-fullWidth fullwidthTarget">
                 {{{ child.dropZone }}}
                 </section>
-                {{>partial/site/kode24/article.comments}}
-                <div id="desktop-rows">
-                  <div id="articles-above-first-banner"></div>
-                  <div id="articles-below-first-banner"></div>
-                  <div id="articles-below-second-banner"></div>
-                </div>
             </main>
-            {{> partial/site/kode24/leftmenu}}
-            <aside id="desktop-sidemenu-front"></aside>
-
             {{{ selector.placement_left }}}
             {{{ selector.placement_right }}}
         </section>

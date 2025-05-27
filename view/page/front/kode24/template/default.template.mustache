@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html id="kode24" {{ #get.current.filtered.contentLanguage }}lang="{{ . }}"{{ /get.current.filtered.contentLanguage }} dir="{{ getConfig.textDirection }}" class="{{ #get.current.filtered.featureFlags.responsive_mobile_fonts }}resp_fonts{{ /get.current.filtered.featureFlags.responsive_mobile_fonts }} dark" data-hostpath="{{ get.current.fields.hostpath }}">
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {{> partial/lab4/page_head_before }}
+        {{> partial/lab4/page_head }}
+        {{> partial/lab4/page_head_after }}
         <!-- Google Analytics -->
         <!-- End Google Analytics -->
         <!--
@@ -43,6 +47,7 @@
         {{ /getPreload.ab_collections }}
         {{ /app.isEditor }}
         {{> partial/site/kode24/scripts}}
+        {{> partial/site/kode24/scripts.lightswitch}}
     </head>
     <body id="page-body" class="{{ #helper.trim }}
         l4 front site_{{{ get.current.filtered.site.alias }}}
@@ -57,6 +62,7 @@
         {{ #get.current.fields.pageBackgroundColorStyle }} style="background-color:{{ get.current.fields.pageBackgroundColorStyle }};{{ #get.current.fields.pageBackgroundColorStyleDark }}color:#fff;{{ /get.current.fields.pageBackgroundColorStyleDark }}"{{ /get.current.fields.pageBackgroundColorStyle }}
         {{ #render.partial }}page_body_tag_inside{{ /render.partial }}>
         {{ > partial/lab4/page_body_prefix }}
+
         {{> partial/site/kode24/skipto}}
         {{> partial/site/kode24/header}}
 

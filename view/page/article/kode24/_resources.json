@@ -15,5 +15,14 @@
                 }
             }
         }
+    },
+    "edit": {
+        "stage": {
+            "lab-default": {
+                "properties": {
+                    "default": "page/article/default/editor/default.json"
+                }
+            }
+        }
     }
 }
