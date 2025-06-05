@@ -306,12 +306,12 @@ html.light {
 }
 
 @media (prefers-color-scheme: light) {
- .page-content .bg-gray .headline {
+ html:not(.dark) .page-content .bg-gray .headline {
     color: hsl(230, 15%, 20%);
 }
-.page-content .bg-gray .kicker,
-.page-content .bg-gray p,
-.page-content .bg-gray .byline .name {
+html:not(.dark) .page-content .bg-gray .kicker,
+html:not(.dark) .page-content .bg-gray p,
+html:not(.dark) .page-content .bg-gray .byline .name {
     color: hsl(230, 10%, 42%);
 }
 }

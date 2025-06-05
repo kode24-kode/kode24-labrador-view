@@ -1,6 +1,7 @@
 <div id="hyvor-talk-view"></div>
 <script>
-if(document.querySelector('meta[name="keywords"]').content.includes("annonse")) {
+if(Array.from(document.querySelectorAll('meta[property="article:tag"]'))
+  .some(meta => meta.content === "annonse")) {
  // comments should not be loaded for ads
 } else {
     // The page id from Labrador is the identifier. Need to grab it before init
