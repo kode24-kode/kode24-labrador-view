@@ -87,7 +87,10 @@
                 <article class="{{ #get.current.fields.pageBackgroundColor }}bg-baseview-custom{{ /get.current.fields.pageBackgroundColor }} {{ get.current.fields.pageFontColor }}{{ #get.current.fields.pageBackgroundColorStyle }} bg-baseview-custom{{ /get.current.fields.pageBackgroundColorStyle }}">
 
                     <section class="main article k5a-article article-entity" id="main">
-
+                    <header class="row">
+                          {{ & placeholder.lab-dz-articletop }}
+                          {{ & placeholder.lab-dz-byline }}
+                        </header>
                         {{{ child.articlePreHeader }}}
 
                         {{{ child.articleHeader }}}

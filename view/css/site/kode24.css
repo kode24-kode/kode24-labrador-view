@@ -14,24 +14,24 @@
     --v2-card-border-background: var(--v2-card-background-highlight);
 
     --v2-card-headline-color: hsl(0, 0%, 100%);
-    --v2-card-paragraph-color: hsl(0, 0%, 80%);
+    --v2-card-paragraph-color: hsla(0, 0%, 100%, 80%);
     --v2-card-always-white: hsl(0, 0%, 100%);
     --v2-card-always-black: hsl(230, 8%, 8%);
 
   --v2-card-label-background: hsl(245, 14%, 14%);
-    --v2-label-color-teal: hsl(180, 100%, 79%);
-    --v2-label-color-teal-darker: hsl(180, 100%, 30%);
-    --v2-label-color-pink-lighter: hsl(327, 100%, 60%);
-    --v2-label-color-pink: hsl(327, 81%, 54%);
+  --v2-label-color-teal: hsl(166, 100%, 50%);
+    --v2-label-color-teal-darker: hsl(166, 100%, 20%);
+    --v2-label-color-pink-lighter: hsl(327, 100%, 75%);
+    --v2-label-color-pink: hsl(327, 100%, 50%);
     --v2-label-color-pink-darker: hsl(327, 100%, 40%);
-    --v2-label-color-purple: hsl(300, 66%, 43%);
-    --v2-label-color-purple-darker: hsl(300, 100%, 40%);
-    --v2-label-color-mint: hsl(115, 100%, 75%);
+    --v2-label-color-purple: hsl(280, 100%, 50%);
+    --v2-label-color-purple-darker: hsl(260, 100%, 40%);
+    --v2-label-color-mint: hsl(115, 100%, 50%);
     --v2-label-color-mint-darker: hsl(115, 100%, 30%);
-    --v2-label-color-yellow: hsl(60, 100%, 75%);
-    --v2-label-color-yellow-darker: hsl(60, 100%, 40%);
-    --v2-label-color-orange: hsl(35, 100%, 75%);
-    --v2-label-color-orange-darker: hsl(35, 100%, 40%);
+    --v2-label-color-yellow: hsl(68, 100%, 50%);
+    --v2-label-color-yellow-darker: hsl(68, 100%, 10%);
+    --v2-label-color-orange: hsl(14, 100%, 50%);
+    --v2-label-color-orange-darker: hsl(14, 100%, 40%);
 
     --v2-button-background-color: hsl(327, 81%, 54%);
     --v2-notification-background-color: hsl(327, 81%, 54%);
@@ -58,24 +58,24 @@ html.dark {
       --v2-card-border-background: var(--v2-card-background-highlight);
 
       --v2-card-headline-color: hsl(0, 0%, 100%);
-      --v2-card-paragraph-color: hsl(0, 0%, 80%);
+      --v2-card-paragraph-color: hsla(0, 0%, 100%, 80%);
       --v2-card-always-white: hsl(0, 0%, 100%);
       --v2-card-always-black: hsl(240, 40%, 12%);
 
       --v2-card-label-background: hsl(245, 14%, 14%);
-      --v2-label-color-teal: hsl(180, 100%, 79%);
-      --v2-label-color-teal-darker: hsl(180, 100%, 30%);
-      --v2-label-color-pink-lighter: hsl(327, 100%, 60%);
-      --v2-label-color-pink: hsl(327, 81%, 54%);
-      --v2-label-color-pink-darker: hsl(327, 100%, 40%);
-      --v2-label-color-purple: hsl(300, 66%, 43%);
-      --v2-label-color-purple-darker: hsl(300, 100%, 40%);
-      --v2-label-color-mint: hsl(115, 100%, 75%);
-      --v2-label-color-mint-darker: hsl(115, 100%, 30%);
-      --v2-label-color-yellow: hsl(60, 100%, 75%);
-      --v2-label-color-yellow-darker: hsl(60, 100%, 40%);
-      --v2-label-color-orange: hsl(35, 100%, 75%);
-      --v2-label-color-orange-darker: hsl(35, 100%, 40%);
+      --v2-label-color-teal: hsl(166, 100%, 50%);
+        --v2-label-color-teal-darker: hsl(166, 100%, 20%);
+        --v2-label-color-pink-lighter: hsl(327, 100%, 75%);
+        --v2-label-color-pink: hsl(327, 100%, 50%);
+        --v2-label-color-pink-darker: hsl(327, 100%, 40%);
+        --v2-label-color-purple: hsl(280, 100%, 50%);
+        --v2-label-color-purple-darker: hsl(260, 100%, 40%);
+        --v2-label-color-mint: hsl(115, 100%, 50%);
+        --v2-label-color-mint-darker: hsl(115, 100%, 30%);
+        --v2-label-color-yellow: hsl(68, 100%, 50%);
+        --v2-label-color-yellow-darker: hsl(68, 100%, 10%);
+        --v2-label-color-orange: hsl(14, 100%, 50%);
+        --v2-label-color-orange-darker: hsl(14, 100%, 40%);
 
       --v2-button-background-color: hsl(327, 81%, 54%);
       --v2-notification-background-color: hsl(327, 81%, 54%);
@@ -109,20 +109,19 @@ html.dark {
 
 
       --v2-card-label-background: hsl(245, 14%, 14%);
-      --v2-label-color-teal: hsl(180, 100%, 79%);
-      --v2-label-color-teal-darker: hsl(180, 100%, 30%);
-      --v2-label-color-pink-lighter: hsl(327, 100%, 60%);
-      --v2-label-color-pink: hsl(327, 81%, 54%);
-      --v2-label-color-pink-darker: hsl(327, 100%, 40%);
-      --v2-label-color-purple: hsl(300, 66%, 43%);
-      --v2-label-color-purple-darker: hsl(300, 100%, 40%);
-      --v2-label-color-mint: hsl(115, 100%, 75%);
-      --v2-label-color-mint-darker: hsl(115, 100%, 30%);
-      --v2-label-color-yellow: hsl(60, 100%, 75%);
-      --v2-label-color-yellow-darker: hsl(60, 100%, 40%);
-      --v2-label-color-orange: hsl(35, 100%, 75%);
-      --v2-label-color-orange-darker: hsl(35, 100%, 40%);
-
+      --v2-label-color-teal: hsl(166, 100%, 10%);
+        --v2-label-color-teal-darker: hsl(166, 100%, 80%);
+        --v2-label-color-pink-lighter: hsl(327, 100%, 20%);
+        --v2-label-color-pink: hsl(327, 100%, 10%);
+        --v2-label-color-pink-darker: hsl(327, 100%, 80%);
+        --v2-label-color-purple: hsl(260, 100%, 10%);
+        --v2-label-color-purple-darker: hsl(260, 100%, 80%);
+        --v2-label-color-mint: hsl(115, 100%, 10%);
+        --v2-label-color-mint-darker: hsl(115, 100%, 80%);
+        --v2-label-color-yellow: hsl(68, 100%, 10%);
+        --v2-label-color-yellow-darker: hsl(68, 100%, 80%);
+        --v2-label-color-orange: hsl(14, 100%, 10%);
+        --v2-label-color-orange-darker: hsl(14, 100%, 80%);
       --v2-button-background-color: hsl(327, 81%, 54%);
       --v2-notification-background-color: hsl(327, 81%, 54%);
 
@@ -157,19 +156,19 @@ html.light {
 
 
       --v2-card-label-background: hsl(245, 14%, 14%);
-      --v2-label-color-teal: hsl(180, 100%, 79%);
-      --v2-label-color-teal-darker: hsl(180, 100%, 30%);
-      --v2-label-color-pink-lighter: hsl(327, 100%, 60%);
-      --v2-label-color-pink: hsl(327, 81%, 54%);
-      --v2-label-color-pink-darker: hsl(327, 100%, 40%);
-      --v2-label-color-purple: hsl(300, 66%, 43%);
-      --v2-label-color-purple-darker: hsl(300, 100%, 40%);
-      --v2-label-color-mint: hsl(115, 100%, 75%);
-      --v2-label-color-mint-darker: hsl(115, 100%, 30%);
-      --v2-label-color-yellow: hsl(60, 100%, 75%);
-      --v2-label-color-yellow-darker: hsl(60, 100%, 40%);
-      --v2-label-color-orange: hsl(35, 100%, 75%);
-      --v2-label-color-orange-darker: hsl(35, 100%, 40%);
+      --v2-label-color-teal: hsl(166, 100%, 20%);
+        --v2-label-color-teal-darker: hsl(166, 100%, 80%);
+        --v2-label-color-pink-lighter: hsl(327, 100%, 20%);
+        --v2-label-color-pink: hsl(327, 100%, 20%);
+        --v2-label-color-pink-darker: hsl(327, 100%, 80%);
+        --v2-label-color-purple: hsl(260, 100%, 20%);
+        --v2-label-color-purple-darker: hsl(260, 100%, 80%);
+        --v2-label-color-mint: hsl(115, 100%, 20%);
+        --v2-label-color-mint-darker: hsl(115, 100%, 80%);
+        --v2-label-color-yellow: hsl(68, 100%, 20%);
+        --v2-label-color-yellow-darker: hsl(68, 100%, 80%);
+        --v2-label-color-orange: hsl(14, 100%, 20%);
+        --v2-label-color-orange-darker: hsl(14, 100%, 80%);
 
       --v2-button-background-color: hsl(327, 81%, 54%);
       --v2-notification-background-color: hsl(327, 81%, 54%);
@@ -182,40 +181,7 @@ html.light {
     }
 }
 
-.page-content .bg-gray .headline,
-.page-content .bg-pink .headline,
-.page-content .bg-purple .headline,
-.page-content .bg-teal .headline,
-.page-content .bg-blue .headline,
-.page-content .bg-yellow .headline,
-.page-content .bg-orange .headline {
-    color: hsl(0, 0%, 100%);
-}
 
-.page-content .bg-gray .kicker,
-.page-content .bg-pink .kicker,
-.page-content .bg-purple .kicker,
-.page-content .bg-teal .kicker,
-.page-content .bg-blue .kicker,
-.page-content .bg-yellow .kicker,
-.page-content .bg-orange .kicker,
-.page-content .bg-gray p,
-.page-content .bg-pink p,
-.page-content .bg-purple p,
-.page-content .bg-teal p,
-.page-content .bg-blue p,
-.page-content .bg-yellow p,
-.page-content .bg-orange p,
-.page-content .bg-gray .byline .name,
-.page-content .bg-pink .byline .name,
-.page-content .bg-purple .byline .name,
-.page-content .bg-teal .byline .name,
-.page-content .bg-blue .byline .name,
-.page-content .bg-yellow .byline .name,
-.page-content .bg-orange .byline .name
- {
-    color: hsl(0, 0%, 90%);
-}
 
 .page-content .bg-gray .text-regular,
 .page-content .bg-pink .text-regular,
@@ -316,10 +282,6 @@ html:not(.dark) .page-content .bg-gray .byline .name {
 }
 }
 
-.light .page-content .bg-gray .text-yellow {
-
-  color: var(--v2-label-color-yellow-darker);
-}
 
 .bg-gray {
   background-color: var(--v2-card-background);
@@ -354,25 +316,25 @@ html:not(.dark) .page-content .bg-gray .byline .name {
 }
 
 .text-pink {
-  color: var(--v2-label-color-pink-darker);
+  color: var(--v2-label-color-pink);
 }
 
 .text-purple {
-  color: var(--v2-label-color-purple-darker);
+  color: var(--v2-label-color-purple);
 }
 
 .text-teal {
-  color: var(--v2-label-color-teal-darker);
+  color: var(--v2-label-color-teal);
 }
 
 .text-blue {
-  color: var(--v2-label-color-mint-darker);
+  color: var(--v2-label-color-mint);
 }
 
 .text-yellow {
-  color: var(--v2-label-color-yellow-darker);
+  color: var(--v2-label-color-yellow);
 }
 
 .text-orange {
-  color: var(--v2-label-color-orange-darker);
+  color: var(--v2-label-color-orange);
 }

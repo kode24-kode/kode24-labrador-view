@@ -1,0 +1,24 @@
+{
+    "lab-comment-structureTemplates": "Used by empty pages to set up default structure and content.",
+    "structureTemplates": [
+
+        {
+            "type": "article_top",
+            "selector": "#lab-dz-articletop",
+            "metadata": {}
+        },
+        {
+           "selector": "#lab-dz-byline",
+           "type": "bylineZone",
+           "width" : 100,
+           "metadata": {}
+        },
+        {
+            "selector": "#lab-dz-bodytxt",
+            "type": "bodytext",
+            "width": 100,
+            "metadata": {},
+            "sourceField": "fields.bodytext"
+        }
+    ]
+}
