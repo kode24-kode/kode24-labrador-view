@@ -40,6 +40,8 @@
     --v2-flame-red-light: hsl(12deg 100% 50% / 0);
 
     --v2-light-toggle-partner-logos: grayscale(100%) brightness(200%);
+    --showBlockForDark: block;
+    --showBlockForLight: none;
 
 }
 
@@ -84,6 +86,8 @@ html.dark {
       --v2-flame-red-light: hsl(12deg 100% 50% / 0);
 
       --v2-light-toggle-partner-logos: grayscale(100%) brightness(200%);
+      --showBlockForDark: block;
+      --showBlockForLight: none;
 }
 
 @media (prefers-color-scheme: light) {
@@ -109,19 +113,22 @@ html.dark {
 
 
       --v2-card-label-background: hsl(245, 14%, 14%);
-      --v2-label-color-teal: hsl(166, 100%, 10%);
+        --v2-label-color-teal: hsl(166, 100%, 50%);
         --v2-label-color-teal-darker: hsl(166, 100%, 80%);
+        --v2-label-color-teal-adjusted: hsl(166, 100%, 40%);
         --v2-label-color-pink-lighter: hsl(327, 100%, 20%);
-        --v2-label-color-pink: hsl(327, 100%, 10%);
+        --v2-label-color-pink: hsl(327, 100%, 50%);
         --v2-label-color-pink-darker: hsl(327, 100%, 80%);
-        --v2-label-color-purple: hsl(260, 100%, 10%);
+        --v2-label-color-purple: hsl(260, 100%, 50%);
         --v2-label-color-purple-darker: hsl(260, 100%, 80%);
-        --v2-label-color-mint: hsl(115, 100%, 10%);
+        --v2-label-color-mint: hsl(115, 100%, 50%);
         --v2-label-color-mint-darker: hsl(115, 100%, 80%);
-        --v2-label-color-yellow: hsl(68, 100%, 10%);
+        --v2-label-color-mint-adjusted: hsl(116, 100%, 40%);
+        --v2-label-color-yellow: hsl(68, 100%, 50%);
         --v2-label-color-yellow-darker: hsl(68, 100%, 80%);
-        --v2-label-color-orange: hsl(14, 100%, 10%);
-        --v2-label-color-orange-darker: hsl(14, 100%, 80%);
+        --v2-label-color-yellow-adjusted: hsl(44, 100%, 50%);
+        --v2-label-color-orange: hsl(14, 100%, 50%);
+        --v2-label-color-orange-darker: hsl(14, 100%, 60%);
       --v2-button-background-color: hsl(327, 81%, 54%);
       --v2-notification-background-color: hsl(327, 81%, 54%);
 
@@ -130,11 +137,13 @@ html.dark {
 
 
       --v2-light-toggle-partner-logos: grayscale(100%) brightness(0%);
+      --showBlockForDark: none;
+        --showBlockForLight: block;
   }
 }
 
 html.light {
-  :root {
+
       --v2-main-color: 302;
 
       --v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.8);
@@ -156,19 +165,24 @@ html.light {
 
 
       --v2-card-label-background: hsl(245, 14%, 14%);
-      --v2-label-color-teal: hsl(166, 100%, 20%);
+        --v2-label-color-teal: hsl(166, 100%, 50%);
         --v2-label-color-teal-darker: hsl(166, 100%, 80%);
+        --v2-label-color-teal-adjusted: hsl(166, 100%, 40%);
         --v2-label-color-pink-lighter: hsl(327, 100%, 20%);
-        --v2-label-color-pink: hsl(327, 100%, 20%);
+        --v2-label-color-pink: hsl(327, 100%, 50%);
         --v2-label-color-pink-darker: hsl(327, 100%, 80%);
-        --v2-label-color-purple: hsl(260, 100%, 20%);
+        --v2-label-color-purple: hsl(260, 100%, 50%);
         --v2-label-color-purple-darker: hsl(260, 100%, 80%);
-        --v2-label-color-mint: hsl(115, 100%, 20%);
+        --v2-label-color-mint: hsl(115, 100%, 50%);
         --v2-label-color-mint-darker: hsl(115, 100%, 80%);
-        --v2-label-color-yellow: hsl(68, 100%, 20%);
+        --v2-label-color-mint-adjusted: hsl(116, 100%, 40%);
+        --v2-label-color-yellow: hsl(68, 100%, 50%);
         --v2-label-color-yellow-darker: hsl(68, 100%, 80%);
-        --v2-label-color-orange: hsl(14, 100%, 20%);
-        --v2-label-color-orange-darker: hsl(14, 100%, 80%);
+        --v2-label-color-yellow-adjusted: hsl(44, 100%, 50%);
+        --v2-label-color-orange: hsl(14, 100%, 50%);
+        --v2-label-color-orange-darker: hsl(14, 100%, 60%);
+        --v2-button-background-color: hsl(327, 81%, 54%);
+        --v2-notification-background-color: hsl(327, 81%, 54%);
 
       --v2-button-background-color: hsl(327, 81%, 54%);
       --v2-notification-background-color: hsl(327, 81%, 54%);
@@ -178,7 +192,8 @@ html.light {
 
 
       --v2-light-toggle-partner-logos: grayscale(100%) brightness(0%);
-    }
+      --showBlockForDark: none;
+        --showBlockForLight: block;
 }
 
 
@@ -259,6 +274,31 @@ html.light {
 .page-content .bg-yellow .text-orange,
 .page-content .bg-orange .text-orange {
     color: var(--v2-label-color-orange);
+}
+
+.light .text-teal {
+  color: var(--v2-label-color-teal-adjusted)
+}
+
+.light .text-yellow {
+  color: var(--v2-label-color-yellow-adjusted)
+}
+
+.light .text-blue {
+  color: var(--v2-label-color-mint-adjusted)
+}
+
+
+.light .bg-gray .text-teal {
+  color: var(--v2-label-color-teal-adjusted)
+}
+
+.light .bg-gray .text-yellow {
+  color: var(--v2-label-color-yellow-adjusted)
+}
+
+.light .bg-gray .text-blue {
+  color: var(--v2-label-color-mint-adjusted)
 }
 
 

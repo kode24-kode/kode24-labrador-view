@@ -1,0 +1,12 @@
+<figure>
+    <img
+        itemprop="image"
+        title="{{fields.caption}}"
+        alt="{{fields.caption}}"
+        src="{{filtered.image}}"
+        class="{{ filtered.imgClasses }} cover-image-landscape"
+        {{#filtered.imageLoadingClass}}
+            style="height:{{filtered.imageLoadingHeight}}px;"
+        {{/filtered.imageLoadingClass}}
+    >
+</figure>
