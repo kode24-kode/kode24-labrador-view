@@ -1,0 +1,22 @@
+<div id="hyvor-talk-view"></div>
+<script>
+if(Array.from(document.querySelectorAll('meta[property="article:tag"]'))
+  .some(meta => meta.content === "annonse")) {
+ // comments should not be loaded for ads
+} else {
+    // The page id from Labrador is the identifier. Need to grab it before init
+    const pageId = document.querySelector('meta[property="og:url"]').content.replace("http://www.kode24.no/a/", "");
+    if(pageId) {
+        const script = document.createElement('script');
+        script.src = 'https://talk.hyvor.com/embed/embed.js';
+        script.type = 'module';
+        document.head.appendChild(script);
+
+        // create the element
+        const comments = document.createElement("hyvor-talk-comments");
+        comments.setAttribute('website-id', 6242);
+        comments.setAttribute('page-id', pageId);
+        document.getElementById("hyvor-talk-view").appendChild(comments);
+    }
+}
+</script>

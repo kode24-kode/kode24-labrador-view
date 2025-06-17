@@ -1,6 +1,16 @@
 {
     "site_config_kode24": {
-        "lang": "en",
+        "background_colors": [
+          "bg-gray",
+          "bg-pink",
+          "bg-purple",
+          "bg-teal",
+          "bg-blue",
+          "bg-yellow",
+          "bg-orange"
+        ],
+        "font_colors": ["text-regular", "text-pink", "text-purple", "text-teal", "text-blue", "text-yellow", "text-orange"],
+        "lang": "no",
         "contentLanguage": "nb-NO",
         "contentbox_settings": {
             "articleMeta": {
@@ -44,7 +54,8 @@
         },
         "tags": {
             "section": [
-                "Artikkel"
+                "Artikkel",
+                "Annonse"
             ]
         },
         "faviconList": [

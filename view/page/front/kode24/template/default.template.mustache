@@ -1,7 +1,35 @@
 <!DOCTYPE html>
 <html id="kode24" {{ #get.current.filtered.contentLanguage }}lang="{{ . }}"{{ /get.current.filtered.contentLanguage }} dir="{{ getConfig.textDirection }}" class="{{ #get.current.filtered.featureFlags.responsive_mobile_fonts }}resp_fonts{{ /get.current.filtered.featureFlags.responsive_mobile_fonts }} dark" data-hostpath="{{ get.current.fields.hostpath }}">
     <head>
-        {{ > partial/site/kode24/header/page_header }}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {{> partial/lab4/page_head_before }}
+        {{> partial/lab4/page_head }}
+        {{> partial/lab4/page_head_after }}
+        <!-- Google Analytics -->
+        <!-- End Google Analytics -->
+        <!--
+                                          |\    /|
+                                        ___| \,,/_/
+                                    ---__/ \/    \
+                                    __--/     (D)  \
+                                    _ -/    (_      \
+                                  // /       \_ / ==\
+            __-------_____--___--/           / \_ O o)
+            /                                 /   \==/
+            /                                 /
+            ||          )                   \_/\
+            ||         /              _      /  |
+            | |      /--______      ___\    /\  :
+            | /   __-  - _/   ------    |  |   \ \
+            |   -  -   /                | |     \ )
+            |  |   -  |                 | )     | |
+            | |    | |                 | |    | |
+            | |    < |                 | |   |_/
+            < |    /__\                <  \
+            /__\                       /___\
+            - Vrinsk, vrinsk, ha en hestelig dag!
+        -->
+
         {{ #get.current.filtered.analytics.kilkayaSettings.showKilkayaMetatags }}{{ > partial/lab4/analytics/kilkaya_metadata }}{{ /get.current.filtered.analytics.kilkayaSettings.showKilkayaMetatags }}
         {{ > partial/lab4/analytics/kilkaya }}
         {{ #app.isEditor }}<link rel="stylesheet" href="/view-resources/baseview/view/css/edit.css">{{ /app.isEditor }}
@@ -9,7 +37,6 @@
         <link rel="stylesheet" href="/view-resources/baseview/view/css/grid.css">
         <link rel="stylesheet" href="/view-resources/baseview/view/css/colors.css">
         <link rel="stylesheet" href="/view-resources/baseview/view/css/print.css">
-        <link rel="stylesheet" href="/view-resources/kode24-labrador-view/view/css/site/kode24.css?v0.3">
         <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
@@ -19,8 +46,10 @@
         {{> partial/lab4/abtest/kilkaya }}
         {{ /getPreload.ab_collections }}
         {{ /app.isEditor }}
+        {{> partial/site/kode24/scripts}}
+        {{> partial/site/kode24/scripts.lightswitch}}
     </head>
-    <body class="{{ #helper.trim }}
+    <body id="page-body" class="{{ #helper.trim }}
         l4 front site_{{{ get.current.filtered.site.alias }}}
         {{ #fields.pageBackgroundColorStyleDark }} dark-mode{{ /fields.pageBackgroundColorStyleDark }}
         {{ #get.current.fields.pageBackgroundColor }}{{ get.current.fields.pageBackgroundColor }} custom-background-color{{ /get.current.fields.pageBackgroundColor }}
@@ -33,18 +62,30 @@
         {{ #get.current.fields.pageBackgroundColorStyle }} style="background-color:{{ get.current.fields.pageBackgroundColorStyle }};{{ #get.current.fields.pageBackgroundColorStyleDark }}color:#fff;{{ /get.current.fields.pageBackgroundColorStyleDark }}"{{ /get.current.fields.pageBackgroundColorStyle }}
         {{ #render.partial }}page_body_tag_inside{{ /render.partial }}>
         {{ > partial/lab4/page_body_prefix }}
-        <a href="#main" class="skip-link">Jump to main content</a>
+
+        {{> partial/site/kode24/skipto}}
+        {{> partial/site/kode24/header}}
 
         {{{ selector.placement_non-relative }}}
 
-        <section class="main front" id="main">
-        <h1 class="hidden-heading">{{ get.current.filtered.seotitle }}</h1>
-            {{{ selector.placement_top }}}
-            {{{ selector.placement_left }}}
-            {{{ selector.placement_right }}}
-
-            {{{ children.dropZone }}}
+        <section class="frontpage wide" id="main">
+          <main class="" id="main-content" role="main">
+            <div id="front-articles-list">
+              {{{ selector.placement_top }}}
+              {{{ selector.placement_left }}}
+              {{{ selector.placement_right }}}
+              {{{ children.dropZone }}}
+              <div id="articles-above-first-banner">
+              </div>
+            </div>
+          </main>
+          {{> partial/site/kode24/leftmenu}}
+          <aside id="desktop-sidemenu-front"></aside>
         </section>
-        {{> partial/lab4/page_foot }}
+
+        <h1 class="hidden-heading">{{ get.current.filtered.seotitle }}</h1>
+
+        </section>
+        {{> partial/site/kode24/footer}}
     </body>
 </html>

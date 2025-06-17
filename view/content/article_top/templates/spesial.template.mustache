@@ -1,0 +1,25 @@
+<header class="row">
+    {{# view.metadata.show_image}}
+        {{ & placeholder.children }}
+        {{& placeholder.nocontent }}
+    {{/ view.metadata.show_image}}
+
+    {{#filtered.menuNyheter}}{{>partial/submenus/spesial/nyheter}}{{/filtered.menuNyheter}}
+    {{#filtered.menuMeninger}}{{>partial/submenus/spesial/meninger}}{{/filtered.menuMeninger}}
+    {{#filtered.menuSport}}{{>partial/submenus/spesial/sport}}{{/filtered.menuSport}}
+    {{#filtered.menuPluss}}{{>partial/submenus/spesial/pluss}}{{/filtered.menuPluss}}
+    {{#filtered.menuMagasinet}}{{>partial/submenus/spesial/magasinet}}{{/filtered.menuMagasinet}}
+    {{#filtered.menuKjendisArticle}}{{>partial/submenus/kjendisArticle}}{{/filtered.menuKjendisArticle}}
+    {{#filtered.menuMat}}{{>partial/submenus/matArticle}}{{/filtered.menuMat}}
+    {{#filtered.dinsideStories}}{{>partial/submenus/dinsideTag}}{{/filtered.dinsideStories}}
+    {{#filtered.menuKlima}}{{>partial/submenus/spesial/klimaisArticle}}{{/filtered.menuKlima}}
+    <div class="large-8 medium-10 large-centered medium-centered small-12 columns">
+        <h1 class="headline {{ view.labCss.title }}" itemprop="headline">
+            {{& fields.title}}
+        </h1>
+        <p class="standfirst" itemprop="description">
+            {{& fields.subtitle}}
+        </p>
+        {{> content/article_top/partials/spesial_meta }}
+    </div>
+</header>

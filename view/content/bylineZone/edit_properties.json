@@ -1,0 +1,18 @@
+{
+    "edit": [
+        {
+          "selector": "form.advancedSettings",
+          "fn": "editForm",
+          "isNonLazy": true
+        }
+    ],
+    
+    "menus": null,
+    
+    "external": {
+        "admin": {
+            "isModal": true,
+            "width": 500
+        }
+    }
+}

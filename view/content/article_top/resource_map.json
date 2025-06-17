@@ -1,0 +1,41 @@
+{
+    "presentation": {
+        "stage": {
+            "lab-default": {
+                "properties": {
+                    "default": "content/article_top/properties.json"
+                },
+                "template": {
+                    "default": "content/article_top/templates/default",
+                    "amp": "content/article_top/templates/amp",
+                    "ia": "content/article_top/templates/ia"
+                }
+            }
+        }
+    },
+
+    "edit": {
+        "stage": {
+            "lab-default": {
+                "properties": {
+                    "default": "content/article_top/edit_properties.json"
+                }
+            }
+        },
+        "menu": {
+          "contentboxes": {
+                "template": {
+                    "default": "content/article_top/menu"
+                }
+            }
+        },
+        "modal": {
+            "lab-default": {
+                "template": {
+                    "default": "content/article_top/templates/admin"
+                }
+            }
+        }
+    },
+    "override": "dblab.resourceOverride.content.article_top"
+}

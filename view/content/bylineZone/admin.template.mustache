@@ -1,0 +1,139 @@
+<div class="edit">
+    <form class="advancedSettings" method="POST" action="">
+        <div class="row">
+            <div class="large-12 columns">
+                <h5 class="section-title"><span>Avanserte innstillinger</span></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label style="margin-bottom: 0.5rem;">
+                            Juster tekst
+                        </label>
+                    </div>
+                    <div class="large-4 columns">
+                        <label>
+                            <input type="radio" name="fields.textAlign" value="text-left" {{#filtered.isChecked}}fields.textAlign|text-left{{/filtered.isChecked}}> Venstre
+                        </label>
+                    </div>
+                    <div class="large-4 columns">
+                        <label>
+                            <input type="radio" name="fields.textAlign" value="text-center" {{#filtered.isChecked}}fields.textAlign|text-center{{/filtered.isChecked}}> Midtstill
+                        </label>
+                    </div>
+                    <div class="large-4 columns">
+                        <label>
+                            <input type="radio" name="fields.textAlign" value="text-right" {{#filtered.isChecked}}fields.textAlign|text-right{{/filtered.isChecked}}> Høyre
+                        </label>
+                    </div>
+                </div>
+            </div>            
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <h5 class="section-title"><span>Mobil</span></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label>
+                    Bredde:
+                    <input type="number" min="1" max="12" name="fields.width_json.small" placeholder="12" value="{{fields.width_json.small}}">
+                </label>
+            </div>
+            <div class="large-12 columns">
+                <div class="row">
+                    <div class="large-4 columns">
+                        <label>
+                            <input type="radio" name="fields.bylineAlign_json.small" value="small-left" {{#filtered.isChecked}}fields.bylineAlign_json.small|small-left{{/filtered.isChecked}}> Venstre
+                        </label>
+                    </div>
+                    <div class="large-4 columns">
+                        <label>
+                            <input type="radio" name="fields.bylineAlign_json.small" value="small-centered" {{#filtered.isChecked}}fields.bylineAlign_json.small|small-centered{{/filtered.isChecked}}> Midtstill
+                        </label>
+                    </div>
+                    <div class="large-4 columns">
+                        <label>
+                            <input type="radio" name="fields.bylineAlign_json.small" value="small-right" {{#filtered.isChecked}}fields.bylineAlign_json.small|small-right{{/filtered.isChecked}}> Høyre
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <h5 class="section-title"><span>Tablet</span></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label>
+                    Bredde:
+                    <input type="number" min="1" max="12" name="fields.width_json.medium" placeholder="10" value="{{fields.width_json.medium}}">
+                </label>
+            </div>
+            <div class="large-12 columns">
+                <div class="row">
+                    <div class="large-4 columns">
+                        <label>
+                            <input type="radio" name="fields.bylineAlign_json.medium" value="medium-left" {{#filtered.isChecked}}fields.bylineAlign_json.medium|medium-left{{/filtered.isChecked}}> Venstre
+                        </label>
+                    </div>
+                    <div class="large-4 columns">
+                        <label>
+                            <input type="radio" name="fields.bylineAlign_json.medium" value="medium-centered" {{#filtered.isChecked}}fields.bylineAlign_json.medium|medium-centered{{/filtered.isChecked}}> Midtstill
+                        </label>
+                    </div>
+                    <div class="large-4 columns">
+                        <label>
+                            <input type="radio" name="fields.bylineAlign_json.medium" value="medium-right" {{#filtered.isChecked}}fields.bylineAlign_json.medium|medium-right{{/filtered.isChecked}}> Høyre
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <h5 class="section-title"><span>Desktop</span></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label>
+                    Bredde:
+                    <input type="number" min="1" max="12" name="fields.width_json.large" placeholder="8" value="{{fields.width_json.large}}">
+                </label>
+            </div>
+            <div class="large-12 columns">
+                <div class="row">
+                    <div class="large-4 columns">
+                        <label>
+                            <input type="radio" name="fields.bylineAlign_json.large" value="large-left" {{#filtered.isChecked}}fields.bylineAlign_json.large|large-left{{/filtered.isChecked}}> Venstre
+                        </label>
+                    </div>
+                    <div class="large-4 columns">
+                        <label>
+                            <input type="radio" name="fields.bylineAlign_json.large" value="large-centered" {{#filtered.isChecked}}fields.bylineAlign_json.large|large-centered{{/filtered.isChecked}}> Midtstill
+                        </label>
+                    </div>
+                    <div class="large-4 columns">
+                        <label>
+                            <input type="radio" name="fields.bylineAlign_json.large" value="large-right" {{#filtered.isChecked}}fields.bylineAlign_json.large|large-right{{/filtered.isChecked}}> Høyre
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="large-12 columns">
+            <hr />
+            <button type="submit" class="button ui expand">Lagre</button>
+        </div>
+    </form>
+</div>
