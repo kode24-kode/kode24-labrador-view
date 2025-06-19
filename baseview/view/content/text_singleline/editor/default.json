@@ -1,0 +1,118 @@
+{
+    "editors": [
+        {
+            "selector": ".singleline",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.text",
+            "placeholder": "Click to add text",
+            "modal": false,
+            "allowReverting": true
+        }
+    ],
+    "toolMenus": {
+        "rich_text": {
+            "inheritPath": "menu/tool/rich_text.json"
+        }
+    },
+    "contentMenus": {
+        "default": {
+            "items": {
+                "style":{
+                    "inheritPath": "menu/buttons/styles.json",
+                    "group": "g1"
+                },
+                "elementType": {
+                    "icon": "labicon-text_options",
+                    "title": "Select text type",
+                    "items": {
+                        "h2": {
+                            "text": "Heading 1",
+                            "icon": "labicon-text_title",
+                            "callback": "toggleKeyAndValue",
+                            "key": "fields.elementType",
+                            "onValue": "h2",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "fields.elementType",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "h3": {
+                            "text": "Heading 2",
+                            "icon": "labicon-text_title",
+                            "callback": "toggleKeyAndValue",
+                            "key": "fields.elementType",
+                            "onValue": "h3",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "fields.elementType",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "h4": {
+                            "text": "Heading 3",
+                            "icon": "labicon-text_title",
+                            "callback": "toggleKeyAndValue",
+                            "key": "fields.elementType",
+                            "onValue": "h4",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "fields.elementType",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "h5": {
+                            "text": "Heading 4",
+                            "icon": "labicon-text_title",
+                            "callback": "toggleKeyAndValue",
+                            "key": "fields.elementType",
+                            "onValue": "h5",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "fields.elementType",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "h6": {
+                            "text": "Heading 5",
+                            "icon": "labicon-text_title",
+                            "callback": "toggleKeyAndValue",
+                            "key": "fields.elementType",
+                            "onValue": "h6",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "fields.elementType",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "p": {
+                            "text": "Paragraph",
+                            "icon": "labicon-text_title",
+                            "callback": "toggleKeyAndValue",
+                            "key": "fields.elementType",
+                            "onValue": "p",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "fields.elementType",
+                                    "attribute": "value"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

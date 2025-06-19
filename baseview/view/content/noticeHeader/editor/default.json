@@ -1,0 +1,74 @@
+{
+    "editors": {
+        "title": {
+            "selector": "h1.title",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.title",
+            "placeholder": "Click to add title",
+            "modal": false,
+            "allowReverting": true
+        },
+        "author": {
+            "selector": ".author",
+            "fn": "EditClean",
+            "key": "fields.userName",
+            "placeholder": "Click to add author",
+            "modal": false,
+            "allowReverting": true
+        }
+    },
+    "toolMenus": {
+        "rich_text": {
+            "inheritPath": "menu/tool/rich_text.json"
+        }
+    },
+    "contentMenus": {
+        "default": {
+            "snapToTop": true,
+            "labels": {
+                "before": ["lab-content-type"]
+            },
+            "items": {
+                "uiColor": {
+                    "inheritPath": "menu/buttons/backgroundColor.json",
+                    "icon": "labicon-color_palette",
+                    "group": "g4",
+                    "bindings": [
+                        {
+                            "path": "fields.uiColor",
+                            "attribute": "value"
+                        }
+                    ],
+                    "params": {
+                        "colorPicker": {
+                            "preview": {
+                                "active": true,
+                                "styleDefinition": "background_color",
+                                "stylePath": null,
+                                "groupSelectors": {
+                                    "fields.uiColor": ".timeline-marker, .tags span[data-tag]"
+                                }
+                            },
+                            "groups": [
+                                {
+                                    "values": "background_colors",
+                                    "title": "Notice marker and tags color",
+                                    "label": "",
+                                    "useValueAsLabel": false,
+                                    "cssPrefix": "",
+                                    "key": "fields.uiColor",
+                                    "removeBtn": true,
+                                    "bordered": false,
+                                    "autoborder": {
+                                        "attribute": "backgroundColor"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }        
+    }
+}

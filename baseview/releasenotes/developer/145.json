@@ -1,0 +1,55 @@
+{
+    "releasenotes": {
+        "version": {
+            "int": 145,
+            "str": "1.4.5"
+        },
+        "items": [
+            {
+                "isFeature": true,
+                "date": "20240628",
+                "title": "Auto Font Size Adjustment for Article Teaser Titles",
+                "description": "We have introduced a new feature that allows automatic font size adjustment for article teaser titles, ensuring the title text splits into lines and adjusts its size to fit the width of the text block. This feature can be enabled in the admin panel under text options using a checkbox, and then adjusted for each front page in the editor. Developers can override the default configuration and add custom rules for line length and regex patterns to tailor the title formatting. To disable this feature for individual teasers, use the new setting under the article teaser title. Note that when this feature is enabled, other styling options for the title will be unavailable. Line breaks can be added by pressing Shift+Enter to force breaks at specific points."
+            },
+            {
+                "isBug": true,
+                "date": "20240516",
+                "title": "Fixed wrong domain in URLs",
+                "description": "Baseview sometimes used the wrong domain in URLs. The domain defined for current site is now always used."
+            },
+            {
+                "isImprovement": true,
+                "date": "20241014",
+                "title": "Admin self service: Allow 'style' in Custom Tags",
+                "description": "In addition to styling elements in the customer view, users can now add `&lt;style&gt;` tags for the page in Admin -> Custom Tags. This allows for custom CSS to be added to the page.",
+                "links": [
+                    "/settings/cp?page=customtags"
+                ]
+            },
+            {
+                "isFeature": true,
+                "date": "20241010",
+                "title": "Labrador AI: Custom prompt",
+                "description": "A new admin page, 'Labrador AI', is available for editing prompts for AI features. This release includes editable prompts for 'articleSummary' and 'extractQuote'. A custom prompt is added on top of the base prompt defined in 'promptInstructions.json'. The goald of custom prompt is for users to be able to customize the prompt, both for their site and on the element model itself.",
+                "links": [
+                    "/settings/cp?page=labradorAi"
+                ]
+            },
+            {
+                "isFeature": true,
+                "date": "20241010",
+                "title": "Labrador AI: Extract quote",
+                "description": "Users can now extract a quote from the article vy using AI in the quotebox-element. The feature prompt is editable in the admin page for AI 'Labrador AI'.",
+                "links": [
+                    "/settings/cp?page=labradorAi"
+                ]
+            },
+            {
+                "isImprovement": true,
+                "date": "20241010",
+                "title": "Labrador AI: Article summary",
+                "description": "The updated version of Article Summary lets users define a custom prompt and edit the prompt in the admin page for AI 'Labrador AI', as well as in AI settings on the element."
+            }
+        ]
+    }
+}

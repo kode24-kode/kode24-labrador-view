@@ -1,0 +1,19 @@
+{
+    "releasenotes": {
+        "version": {
+            "int": 146,
+            "str": "1.4.6"
+        },
+        "items": [
+            {
+                "isImprovement": true,
+                "date": "20240925",
+                "title": "Improved embed functionality for articles",
+                "description": "End users can now see a preview of the embedded content before copying the code. It is also possible to customize the embedded content. Options for title, subtitle, main image and padding added. To use: First activate the embed functionality in the admin settings for your site, then activate per article or prototype in the article settings. When activated an embed button is displayed below the article.",
+                "links": [
+                    "/settings/cp?page=articleSettings"
+                ]
+            }
+        ]
+    }
+}

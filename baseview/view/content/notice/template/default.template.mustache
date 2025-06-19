@@ -1,0 +1,12 @@
+<div class="notice column
+  {{ #style.collection }}box_decoration{{ /style.collection }}" id="notice-{{ get.current.id }}" data-tags="{{{ get.current.tags }}}">
+    <div class="content {{ #style.collection }}content_decoration{{ /style.collection }}" title="{{{ get.current.fields.title }}}">
+        <h2><a href="/notice/{{ get.current.id }}">{{{ get.current.fields.title }}}</a></h2>
+        <div class="meta">
+            <time class="fi-clock" datetime="{{ get.current.filtered.isoDate }}" title="{{ get.current.filtered.publishedDate }}">{{ get.current.filtered.niceDate }}</time>
+            {{ #get.current.fields.userName }}<span class="author fi-torsos">{{{ get.current.fields.userName }}}</span>{{ /get.current.fields.userName }}
+            {{ #get.current.fields.pinned }}{{ ^get.parent.metadata.hidePinIcon }} <span class="pinned fi-marker"> {{ #lang }}notice.pinnedLabel{{ /lang }}</span>{{ /get.parent.metadata.hidePinIcon }}{{ /get.current.fields.pinned }}
+        </div>
+        <div class="text bodytext">{{{ get.current.filtered.bodytext }}}</div>
+    </div>
+</div>

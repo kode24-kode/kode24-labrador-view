@@ -1,0 +1,97 @@
+<form method="post">
+    <h2 class="lab-title lab-space-below-medium">Settings for Labrador Search</h2>
+    <p>You can click on the title and buttons in the editor to edit labels</p>
+    <div class="labrador-search-form">
+        <div class="lab-formgroup lab-grid lab-grid-gap ">
+            <h4 class="lab-title lab-grid-large-12 lab-grid-gap">Options</h4>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap">
+                <label for="id-fields.searchPlaceholder">Placeholder for search</label>
+                <input type="text" id="id-fields.searchPlaceholder" name="fields.searchPlaceholder" value="{{ get.current.fields.searchPlaceholder }}">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap">
+                <label for="id-fields.nohitsLabel">Text for no hits</label>
+                <input type="text" id="id-fields.nohitsLabel" name="fields.nohitsLabel" value="{{ get.current.fields.nohitsLabel }}">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap">
+                <label for="id-fields.orderBy">Order search result by</label>
+                <select id="id-fields.orderBy" name="fields.orderBy">
+                    {{ #get.current.filtered.orderByOptions }}
+                        <option value="{{ value }}" {{ #selected }}selected{{ /selected }}>{{ label }}</option>
+                    {{ /get.current.filtered.orderByOptions }}
+                </select>
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap">
+                <label for="id-fields.desktopWidth">Article width (desktop)</label>
+                <select id="id-fields.desktopWidth" name="fields.desktopWidth">
+                    {{ #get.current.filtered.desktopWidth }}
+                        <option value="{{ value }}"{{ #selected }} selected{{ /selected }}>{{ key }}</option>
+                    {{ /get.current.filtered.desktopWidth }}
+                </select>
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+                <label for="id-fields.displayAdvanced">Display search options on front</label>
+                <input type="checkbox" id="id-fields.displayAdvanced" name="fields.displayAdvanced" value="1" {{ #get.current.fields.displayAdvanced }}checked="true"{{ /get.current.fields.displayAdvanced }}>
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap" data-require="displayAdvanced">
+                <label for="id-fields.advancedOpenText">Label for opening settings</label>
+                <input type="text" id="id-fields.advancedOpenText" name="fields.advancedOpenText" value="{{ get.current.fields.advancedOpenText }}">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap" data-require="displayAdvanced">
+                <label for="id-fields.advancedCloseText">Label for closing settings</label>
+                <input type="text" id="id-fields.advancedCloseText" name="fields.advancedCloseText" value="{{ get.current.fields.advancedCloseText }}">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap" data-require="displayAdvanced">
+                <label for="id-fields.fromDateLabel">Label for from date</label>
+                <input type="text" id="id-fields.fromDateLabel" name="fields.fromDateLabel" value="{{ get.current.fields.fromDateLabel }}">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap" data-require="displayAdvanced">
+                <label for="id-fields.toDateLabel">Label for to date</label>
+                <input type="text" id="id-fields.toDateLabel" name="fields.toDateLabel" value="{{ get.current.fields.toDateLabel }}">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap" data-require="displayAdvanced">
+                <label for="id-fields.tagLabel">Label for tag</label>
+                <input type="text" id="id-fields.tagLabel" name="fields.tagLabel" value="{{ get.current.fields.tagLabel }}">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap" data-require="displayAdvanced">
+                <label for="id-fields.authorLabel">Label for author</label>
+                <input type="text" id="id-fields.authorLabel" name="fields.authorLabel" value="{{ get.current.fields.authorLabel }}">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap" data-require="displayAdvanced">
+                <label for="id-fields.allSitesLabel">Label for all sites</label>
+                <input type="text" id="id-fields.allSitesLabel" name="fields.allSitesLabel" value="{{ get.current.fields.allSitesLabel }}">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                <p class="lab-info">Note: For articles without image you can select a <a href="/settings/cp?page=fallback_image" target="_blank">fallback image in the admin pages</a>.</p>
+            </div>
+        </div>
+        <div class="lab-formgroup lab-grid lab-grid-gap ">
+            <h4 class="lab-title lab-grid-large-12 lab-grid-gap">Sites</h4>
+            <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+                <label for="id-fields.displaySites">Display site list on published page</label>
+                <input type="checkbox" id="id-fields.displaySites" name="fields.displaySites" value="1" {{ #get.current.fields.displaySites }}checked="true"{{ /get.current.fields.displaySites }}>
+            </div>
+            <hr class="lab-grid-large-12">
+            {{ #get.current.filtered.sites }}
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-inline">
+                <label for="id-fields.allowedSites_json.{{ alias }}">{{ displayName }}</label>
+                <input type="checkbox" id="id-fields.allowedSites_json.{{ alias }}" name="fields.allowedSites_json.{{ alias }}" value="{{ id }}" {{ #selected }}checked="true"{{ /selected }}>
+            </div>
+            {{ /get.current.filtered.sites }}
+        </div>
+    </div>
+    <script type="module">
+        const displayAdvanced = document.querySelector('.labrador-search-form [name="fields.displayAdvanced"]');
+        console.log('displayAdvanced: ', displayAdvanced);
+        if (displayAdvanced) {
+            const targets = document.querySelectorAll('.labrador-search-form [data-require="displayAdvanced"]');
+            const updateUi = () => {
+                for (const element of targets) {
+                    element.style.display = displayAdvanced.checked ? 'block' : 'none';
+                }
+            };
+            updateUi();
+            displayAdvanced.addEventListener('change', updateUi);
+            console.log('targets: ', targets);
+        }
+    </script>
+</form>

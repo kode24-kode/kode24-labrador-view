@@ -1,0 +1,144 @@
+{
+    "int_de-DE": {
+        "dates": {
+            "sunday": "Sonntag",
+            "monday": "Montag",
+            "tuesday": "Dienstag",
+            "wednesday": "Mittwoch",
+            "thursday": "Donnerstag",
+            "friday": "Freitag",
+            "saturday": "Samstag",
+            "january": "Januar",
+            "february": "Februar",
+            "mars": "März",
+            "april": "April",
+            "may": "Mai",
+            "june": "Juni",
+            "july": "Juli",
+            "august": "August",
+            "september": "September",
+            "october": "Oktober",
+            "november": "November",
+            "december": "Dezember",
+            "ago": "vor",
+            "now": "jetzt",
+            "minute": "Minute",
+            "min": "Min.",
+            "minutes": "Minuten",
+            "hour": "Stunde",
+            "hours": "Stunden",
+            "day": "Tag",
+            "days": "Tage",
+            "durationSince": "{{count}} {{period}} {{ago}}",
+            "monthdayyear": "{{D}}. {{MMMM}} {{YYYY}}",
+            "hourminute": "{{HH}}:{{mm}}",
+            "dateTime": "{{D}}. {{MMMM}} {{YYYY}} - {{HH}}:{{mm}}",
+            "articleScrollerPublishedDatePrefix": "",
+            "articleScrollerPublishedFormat": "{{DD}}.{{MM}} - {{HH}}:{{mm}}"
+        },
+        "newsletter": {
+            "generic": {
+                "signup": "Für den Newsletter anmelden",
+                "hiddenValue": "Anmeldung von der Webseite",
+                "yourEmail": "E-Mail eingeben",
+                "subscribeButton": "Abonnieren"
+            },
+            "mailmojo": {
+                "title": "Newsletter",
+                "notice": "Sie erhalten diese E-Mail, weil Sie sich für unsere Mailingliste angemeldet haben.",
+                "preferences": "Ihre Einstellungen",
+                "unsubscribe": "Abmelden",
+                "view": "Im Browser öffnen",
+                "date": "d. MMMM Y"
+            }
+        },
+        "embed": {
+            "embed_label": "Einbetten",
+            "heading": "Artikel einbetten",
+            "description": "Kopieren Sie den HTML-Code unten und fügen Sie ihn auf der Seite ein, auf der Sie diesen Artikel einbetten möchten.",
+            "label_teaser": "Vorschau",
+            "label_full": "Vollständiger Artikel",
+            "label_copy": "Code kopieren",
+            "title_customize": "Eingebetteten Inhalt anpassen",
+            "label_content_title": "Titel anzeigen",
+            "label_content_subtitle": "Untertitel anzeigen",
+            "label_content_image": "Hauptbild anzeigen",
+            "label_content_padding": "Abstand",
+            "label_content_sitelink": "Link zur Seite anzeigen",
+            "label_content_sitelinkLogo": "Logo im Link zur Seite anzeigen",
+            "label_content_poweredby": "'Powered by'-Link anzeigen",
+            "text_code_copied": "Kopiert!",
+            "close": "Schließen",
+            "page_sitelink_prefix": "Mehr lesen",
+            "page_sitelink_postfix": ""
+        },
+        "ai": {
+            "factbox_disclaimer": "Diese Infobox wurde von Labrador AI generiert und von einem Journalisten geprüft."
+        },
+        "tags": {
+            "title_text": "{{tagPath}}: {{tag}}"
+        },
+        "search": {
+            "placeholder": "Suche...",
+            "label": "Suche"
+        },
+        "header": {
+            "logo_link_text": "Zur Startseite gehen"
+        },
+        "slack_notifier": {
+            "publish": {
+                "article": "*Artikel veröffentlicht*\n*Titel*: {{{title}}}\n*Seiten-ID*: {{id}}\n{{#modified}}*Datum*: {{modified}}\n{{/modified}}{{#published_ahead}}*Hinweis: Voraus veröffentlicht*\n{{/published_ahead}}{{#hidden}}*Versteckt veröffentlicht*\n{{/hidden}}*Benutzer*: {{user}}\n*<{{{url_front}}}|Seite anzeigen>* - *<{{{url_editor}}}|Seite bearbeiten>*",
+                "front": "*Startseite veröffentlicht*\n*Titel*: {{{title}}}\n*Seiten-ID*: {{id}}\n*Datum*: {{modified}}\n{{#published_ahead}}*Hinweis: Voraus veröffentlicht*\n{{/published_ahead}}{{#hidden}}*Versteckt veröffentlicht*\n{{/hidden}}*Benutzer*: {{user}}\n*<{{{url_front}}}|Seite anzeigen>* - *<{{{url_editor}}}|Seite bearbeiten>*",
+                "notice": "*Hinweis veröffentlicht*\n*Titel*: {{{title}}}\n*Seiten-ID*: {{id}}\n*Datum*: {{modified}}{{#hidden}}*Versteckt veröffentlicht*\n{{/hidden}}*Benutzer*: {{user}}\n*<{{{url_front}}}|Seite anzeigen>* - *<{{{url_editor}}}|Seite bearbeiten>*"
+            },
+            "error": {
+                "all": "*{{#isCmsError}}CMS-Fehler{{/isCmsError}}{{^isCmsError}}Ansichtsfehler{{/isCmsError}}*: {{{message}}}\n*Stack Trace*: ```{{{stackTrace}}}```\n*Benutzer*: {{user}}\n*<{{{url_editor}}}|Seite bearbeiten>* - *<{{{url_monitor}}}|Entwickler-Monitor>*"
+            }
+        },
+        "contentboxes": {
+            "articleScrollerLeftButton": "Nach links gehen",
+            "articleScrollerRightButton": "Nach rechts gehen"
+        },
+        "metadata": {
+            "publishedLabel": "Veröffentlicht",
+            "modifiedLabel": "Geändert",
+            "unpublishedLabel": "Nicht veröffentlicht"
+        },
+        "notice": {
+            "relatedContent": {
+                "header": "Verwandte Inhalte"
+            },
+            "pinnedLabel": "Fixiert"
+        },
+        "changelog": {
+            "changelogLabel": "Änderungsprotokoll"
+        },
+        "paywall": {
+            "shareableArticle": {
+                "shareArticleButton": "Artikel teilen",
+                "trySubscriptionButton": "Abonnement ausprobieren",
+                "trySubscriptionLink": "-",
+                "messageTitle": "Vielen Dank, dass Sie diesen Artikel geteilt haben",
+                "messageBeforeSharing": "Ihr Freund wird den gesamten Artikel lesen können",
+                "messageAfterSharing": "Ihr Freund kann den gesamten Artikel jetzt lesen",
+                "bannerGuestReader": "Sie haben Zugriff auf den Artikel, weil ein Freund ihn mit Ihnen geteilt hat",
+                "shareByMail": "E-Mail",
+                "shareByMailSubject": "Ich möchte diesen Artikel mit Ihnen teilen",
+                "shareByMailBody": "Sie können diesen Paywall-Artikel lesen, indem Sie auf diesen Link klicken",
+                "shareByFacebook": "Facebook",
+                "shareByCopy": "Link kopieren",
+                "sharedByCopy": "Link kopiert"
+            }
+        },
+        "emptyState": {
+            "noContentText": "Kein Innhalt"
+        },
+        "image": {
+            "caption": {
+                "showCaptionLabel": "Bildunterschrift anzeigen",
+                "hideCaptionLabel": "Bildunterschrift ausblenden",
+                "showMoreLabel": "Mehr anzeigen"
+            }
+        }
+    }
+}

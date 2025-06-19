@@ -1,0 +1,20 @@
+
+import { DateTimeHelperInt } from '/view-resources/baseview/modules/lib/helpers/datetime/DateTimeHelperInt.js';
+let itemList = [];
+const dateTimeHelper = new DateTimeHelperInt();
+function updateTimestamps() {
+    if (!itemList.length) {
+        itemList = [ ...container.querySelectorAll('.meta time')];
+    }
+    for (const element of itemList) {
+        const timestamp = element.getAttribute('datetime');
+        if (timestamp) {
+            const text = dateTimeHelper.timestampToNiceDate(Math.min(new Date(timestamp).getTime()) / 1000);
+            if (element.textContent !== text) {
+                element.textContent = text;
+            } 
+        }
+    }
+}
+setInterval(updateTimestamps, 60000);
+updateTimestamps();

@@ -1,0 +1,26 @@
+<div class="{{ #helper.trim }}
+    column graphic type_{{ get.current.fields.fileType }}
+    {{ #style.collection }}box_decoration{{ /style.collection }}
+    {{ #style.collection }}box_fullWidth{{ /style.collection }}
+    {{ size.grid.css }}
+    {{ size.grid.absCss }}
+{{ /helper.trim }}" data-element-guid="{{ get.current.guid }}">
+{{{ get.current.filtered.styleSheets }}}
+    <div class="content fullwidthTarget {{ #style.collection }}content_decoration{{ /style.collection }}">
+        {{ #get.current.fields.linkUrl }}
+        <a href="{{ get.current.fields.linkUrl }}" 
+        aria-label="{{ get.current.fields.linkAltText }}"
+        {{ #get.current.fields.openInNewWindow }}target="_blank"{{ /get.current.fields.openInNewWindow }} rel="{{ #get.current.fields.addRelNoFollow }}nofollow{{ /get.current.fields.addRelNoFollow }}{{ #get.current.fields.openInNewWindow }} noopener{{ /get.current.fields.openInNewWindow }}{{ #get.current.fields.sponsored }} sponsored{{ /get.current.fields.sponsored }}"
+        >
+        {{ /get.current.fields.linkUrl }}
+        <div class="img">
+            <img src="{{ get.current.fields.url }}" alt="{{ get.current.fields.alt }}" {{ #get.current.filtered.lazyloadImages }}loading="lazy"{{ /get.current.filtered.lazyloadImages }}/>
+        </div>
+        {{ #get.current.fields.linkUrl }}
+        </a>
+        {{ /get.current.fields.linkUrl }}
+        {{ #get.current.fields.displayCaption }}
+        {{ > content/image/template/partials/caption_links }}
+        {{ /get.current.fields.displayCaption }}
+    </div>
+</div>
