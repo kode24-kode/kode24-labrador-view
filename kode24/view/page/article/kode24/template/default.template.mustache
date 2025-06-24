@@ -147,11 +147,9 @@
                         </div>
                         {{ /get.current.filtered.embeddable.display }}
                     </section>
-                    {{ #get.current.filtered.displayComments }}
-                    <section class="comments">
-                        {{>partial/site/kode24/article.comments}}
+                    <section class="comments updated">
+                        {{> partial/site/kode24/article.comments}}
                     </section>
-                    {{ /get.current.filtered.displayComments }}
                     {{ #get.current.filtered.widgets.strossle }}<div class="column large-12 small-12">{{ > widgets/strossle }}</div>{{ /get.current.filtered.widgets.strossle }}
                 </article>
                 <section class="related desktop-fullWidth mobile-fullWidth fullwidthTarget">
