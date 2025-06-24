@@ -5,9 +5,9 @@ if(Array.from(document.querySelectorAll('meta[property="article:tag"]'))
  // comments should not be loaded for ads
 } else {
     // The page id from Labrador is the identifier. Need to grab it before init
-    let pageId = document.querySelector('meta[property="og:url"]').content.replace("http://www.kode24.no/a/", "");
-    if(window.Dac?.clientData?.page?.exitId)
-      pageId = window.Dac?.clientData?.page?.exitId.replace("kode24-", "");
+    let pageId = window.Dac?.clientData?.page?.id;
+    if(window.Dac?.clientData?.page?.extId)
+      pageId = window.Dac?.clientData?.page?.extId.replace("kode24-", "");
     if(pageId) {
         const script = document.createElement('script');
         script.src = 'https://talk.hyvor.com/embed/embed.js';
