@@ -60,24 +60,24 @@
         },
         "faviconList": [
             {
-                "iconPath": "/view-resources/kode24-labrador-view/public/kode24/favicon.ico"
+                "iconPath": "/favicon.ico"
             },
             {
-                "iconPath": "/view-resources/kode24-labrador-view/public/kode24/favicon/favicon-16x16.png",
+                "iconPath": "/favicon-16x16.png",
                 "iconSize": {
                     "width": 16,
                     "height": 16
                 }
             },
             {
-                "iconPath": "/view-resources/kode24-labrador-view/public/kode24/favicon/favicon-32x32.png",
+                "iconPath": "/favicon-32x32.png",
                 "iconSize": {
                     "width": 32,
                     "height": 32
                 }
             },
             {
-                "iconPath": "/view-resources/kode24-labrador-view/public/kode24/favicon/apple-touch-icon.png",
+                "iconPath": "/apple-touch-icon.png",
                 "iconRel": "apple-touch-icon",
                 "iconSize": {
                     "width": 180,
@@ -85,7 +85,7 @@
                 }
             },
             {
-                "iconPath": "/view-resources/kode24-labrador-view/public/kode24/android-chrome-192x192.png",
+                "iconPath": "/android-chrome-192x192.png",
                 "iconRel": "android-chrome",
                 "iconSize": {
                     "width": 192,
@@ -93,7 +93,7 @@
                 }
             },
             {
-                "iconPath": "/view-resources/kode24-labrador-view/public/kode24/android-chrome-512x512.png",
+                "iconPath": "/android-chrome-512x512.png",
                 "iconRel": "android-chrome",
                 "iconSize": {
                     "width": 512,
