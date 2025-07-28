@@ -9,22 +9,12 @@
             }]
         },
         {
-            "url": "/view-resources/public/common/JWTCookie.js",
-            "placeholderKey": "headerTop"
-        },
-        {
-            "url": "/view-resources/public/common/Paywall.js",
-            "placeholderKey": "headerTop"
-        },
-        {
             "url": "/view-resources/baseview/public/common/baseview/moduleHandlers.js",
-            "isModule": true
-        },
-        {
-            "url": "/view-resources/custom-starter-view/build/front/custom-starter-view.js",
             "isModule": true
         }
     ],
     "site_scripts": {
     }
 }
+
+
