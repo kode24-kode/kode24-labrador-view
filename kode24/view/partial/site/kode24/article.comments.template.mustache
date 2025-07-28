@@ -1,5 +1,48 @@
 <div id="hyvor-talk-view"></div>
 <script>
+  // Ikke last kommentarer dersom artikkelen er merket som annonse
+  const isAd = Array.from(document.querySelectorAll('meta[property="article:tag"]'))
+    .some(meta => meta.content === "annonse");
+
+  if (!isAd) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Slutt å observere når vi har lastet inn
+          obs.unobserve(entry.target);
+
+          let pageId = window.Dac?.clientData?.page?.id;
+          if (window.Dac?.clientData?.page?.extId) {
+            pageId = window.Dac.clientData.page.extId.replace("kode24-", "");
+          }
+
+          if (pageId) {
+            const script = document.createElement('script');
+            script.src = 'https://talk.hyvor.com/embed/embed.js';
+            script.type = 'module';
+            document.head.appendChild(script);
+
+            const comments = document.createElement("hyvor-talk-comments");
+            comments.setAttribute('website-id', 6242);
+            comments.setAttribute('page-id', pageId);
+            document.getElementById("hyvor-talk-view").appendChild(comments);
+          }
+        }
+      });
+    }, {
+      rootMargin: '200px', // start lastingen litt før den er i viewport
+      threshold: 0.1
+    });
+
+    const commentsEl = document.getElementById("hyvor-talk-view");
+    if (commentsEl) {
+      observer.observe(commentsEl);
+    }
+  }
+
+
+
+/**
 if(Array.from(document.querySelectorAll('meta[property="article:tag"]'))
   .some(meta => meta.content === "annonse")) {
  // comments should not be loaded for ads
@@ -21,4 +64,5 @@ if(Array.from(document.querySelectorAll('meta[property="article:tag"]'))
         document.getElementById("hyvor-talk-view").appendChild(comments);
     }
 }
+**/
 </script>
