@@ -1,7 +1,7 @@
-<header id="top-bar" class="text-gray-100  z-10 relative bg-gray-950 w-full flex justify-center lg:p-3 p-2 ">
-   <div class="flex items-center justify-center justify-between w-full items-center max-w-screen-xl">
-      <div id="top-bar-logo-navigation" class="flex  flex-row  gap-8 items-center w-full lg:w-auto justify-between lg:justify-start">
-         <a id="top-bar-logo" class="flex flex-col gap-1 items-center justify-center" href="/">
+<header id="top-bar" class="relative z-10 flex justify-center w-full p-2 text-gray-100 bg-gray-950 lg:p-3 ">
+   <div class="flex items-center justify-center justify-between w-full max-w-screen-xl">
+      <div id="top-bar-logo-navigation" class="flex flex-row items-center justify-between w-full gap-8 lg:w-auto lg:justify-start">
+         <a id="top-bar-logo" class="flex flex-col items-center justify-center gap-1" href="/" aria-label="lenke til forside">
             <svg width="170px" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
       viewBox="0 0 400.5 101">
               <style type="text/css">
@@ -78,28 +78,28 @@
     </g>
     </svg>
          </a>
-         <button class="m-2 py-2 px-4 border border-gray-300 rounded-xl flex gap-2 items-center font-bold lg:hidden" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:R15ja:" data-state="closed">
+         <button class="flex items-center gap-2 px-4 py-2 m-2 font-bold border border-gray-300 rounded-xl lg:hidden" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:R15ja:" data-state="closed">
             Meny
             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                <path fill="none" stroke-width="2" d="M2,19 L22,19 M2,5 L22,5 M2,12 L22,12"></path>
             </svg>
          </button>
       </div>
-      <nav class="hidden gap-8 font-bold items-center justify-center hidden lg:flex flex-1">
-         <a class="flex gap-2 items-center" href="/">
+      <nav class="items-center justify-center flex-1 hidden gap-8 font-bold lg:flex">
+         <a class="flex items-center gap-2" href="/">
             <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                <path stroke-width="2" d="M1 22V9.76a2 2 0 01.851-1.636l9.575-6.72a1 1 0 011.149 0l9.574 6.72A2 2 0 0123 9.76V22a1 1 0 01-1 1h-5.333a1 1 0 01-1-1v-5.674a1 1 0 00-1-1H9.333a1 1 0 00-1 1V22a1 1 0 01-1 1H2a1 1 0 01-1-1z"></path>
             </svg>
             Forside
          </a>
-         <a class="flex gap-2 items-center" href="/stillinger">
+         <a class="flex items-center gap-2" href="/stillinger">
             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                <path fill="none" stroke-linecap="round" stroke-width="2" d="M9,6 L21,6 M9,12 L21,12 M9,18 L17,18 M4,7 C4.55228475,7 5,6.55228475 5,6 C5,5.44771525 4.55228475,5 4,5 C3.44771525,5 3,5.44771525 3,6 C3,6.55228475 3.44771525,7 4,7 Z M4,13 C4.55228475,13 5,12.5522847 5,12 C5,11.4477153 4.55228475,11 4,11 C3.44771525,11 3,11.4477153 3,12 C3,12.5522847 3.44771525,13 4,13 Z M4,19 C4.55228475,19 5,18.5522847 5,18 C5,17.4477153 4.55228475,17 4,17 C3.44771525,17 3,17.4477153 3,18 C3,18.5522847 3.44771525,19 4,19 Z"></path>
             </svg>
             kodejobber<!-- -->
             <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-white">14</div>
          </a>
-         <a class="flex gap-2 items-center" href="/lonn">
+         <a class="flex items-center gap-2" href="/lonn">
             <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
                <path d="M21 21l-6 -6"></path>
@@ -108,12 +108,12 @@
             </svg>
             Lønnskalkulator
          </a>
-         <a class="flex gap-2 items-center" href="/priser">
+         <a class="flex items-center gap-2" href="/priser">
             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-width="2" d="M2,5 L22,5 L22,22 L2,22 L2,5 Z M18,5 L18,1 M6,5 L6,1 M2,10 L22,10"></path></svg>
             Kalender
          </a>
       </nav>
-      <div class="items-center gap-4 hidden justify-end lg:flex">
+      <div class="items-center justify-end hidden gap-4 lg:flex">
          <div id="mode-toggle" class="">
             <button title="Skru på lys modus" aria-label="Skru på lys modus" class="p-2 rounded-md false transparent">
                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
