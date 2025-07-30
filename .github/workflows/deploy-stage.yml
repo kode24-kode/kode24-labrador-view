@@ -1,0 +1,41 @@
+name: Deploy stage
+
+on:
+  push:
+    branches:
+      - stage
+  pull_request:
+    branches:
+      - stage
+    types: [closed] # bare når PR-er lukkes (og vi sjekker at det var en merge)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Sjekk ut repo (kreves av GitHub Actions)
+        uses: actions/checkout@v3
+
+      - name: Last ned tarball
+        run: |
+          FILENAME="kode24-labrador-view-stage.tar.gz"
+          URL="https://github.com/kode24-kode/kode24-labrador-view/archive/refs/heads/stage.tar.gz"
+          echo "Laster ned $URL ..."
+          curl -L -o "$FILENAME" "$URL"
+
+      - name: Deploy til CMS
+        run: |
+          echo "Sender til server (1)..."
+          curl -X POST \
+            --data-binary @"kode24-labrador-view-stage.tar.gz" \
+            -H "X-Authorization: Bearer ${{ secrets.LABRADOR_DEPLOY_TOKEN }}" \
+            "https://kode24-stage.labradorcms.io/ajax/deploy/uploadAndDeploy?target=cms&repo=view-resources"
+
+      - name: Deploy til Front
+        run: |
+          echo "Sender til server (2)..."
+          curl -X POST \
+            --data-binary @"kode24-labrador-view-stage.tar.gz" \
+            -H "X-Authorization: Bearer ${{ secrets.LABRADOR_DEPLOY_TOKEN }}" \
+            "https://kode24-stage.labradorcms.io/ajax/deploy/uploadAndDeploy?target=front&repo=view-resources"
