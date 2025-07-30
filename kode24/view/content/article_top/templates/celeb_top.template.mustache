@@ -1,0 +1,21 @@
+<div class="row celeb-top">
+	<h2 class="celeb-name spotlight-brand-line headline" itemprop="headline">{{& fields.title}}</h2>
+	<div class="columns large-4 large-offset-2">
+		{{& placeholder.children }}
+		{{& placeholder.nocontent }}
+	</div>
+	<div class="columns large-6">
+		<dl class="celeb-fact">
+			<dt>Navn: </dt> <dd> <span class="name">{{& fields.name}}</span></dd>
+			<dt>Tittel: </dt> <dd> <span class="social-title"> {{&fields.socialTitle}}</span> </dd>
+			<dt>Yrke: </dt> <dd><span class="occupation"> {{&fields.occupation}}</span></dd>
+			<dt>Født: </dt> <dd> <span class="birthday"> {{&fields.birthday}}</span></dd>
+			<dt>Fødested: </dt> <dd> <span class="birthplace"> {{&fields.birthplace}}</span></dd>
+			<dt>Kjent fra: </dt> <dd><span class="known-from"> {{&fields.knownFrom}}</span>
+			<dt>Sivilstatus: </dt> <dd><span class="marital-status"> {{&fields.maritalStatus}}</span></dd>
+			<dt>Familie: </dt> <dd> <span class="family"> {{&fields.family}}</span></dd>
+			<dt>Kort intro:</dt><dd><span class="intro">{{&fields.intro}}</span></dd>
+		</dl>
+	</div>
+	<div class="clearfix"></div>
+</div>

@@ -1,0 +1,24 @@
+<div data-element-guid="{{ get.current.guid }}" id="changelog-{{ get.current.id }}" class="{{ #helper.trim }}column globalChangelog
+    {{ #style.collection }}box_decoration{{ /style.collection }}
+    {{ size.grid.css }}
+    {{ size.grid.absCss }}
+    {{ get.current.filtered.options.cssString }}
+    {{ #app.isEditor }}is-editor{{ /app.isEditor }}
+    {{ /helper.trim }}">
+    {{{ get.current.filtered.styleSheets }}}
+    <div class="content {{ #style.collection }}content_decoration{{ /style.collection }}" style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
+        <ul>{{ #get.current.filtered.templateData }}
+        <li>
+            <article>
+                <a href="{{{published_url}}}"><h2>{{ title }}</h2></a>
+                <ul>{{ #changelog }}
+                    <li>
+                        <time>{{ time }}</time>
+                        <div>{{{ changelog }}}</div>
+                    </li>
+                {{ /changelog }}</ul>
+            </article>
+        </li>
+        {{ /get.current.filtered.templateData }}</ul>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+{
+    "icon": "labicon-image_gradient",
+    "title": "Image styling",
+    "group": "g4",
+    "callback": "colorPicker",
+    "autocloseSubmenuAfterAction": false,
+    "params": {
+        "recursive": false,
+        "colorPicker": {
+            "display": {
+                "position": "after",
+                "align": "start"
+            },
+            "preview": {
+                "active": true
+            },
+            "groups": [
+                {
+                    "values": "background_colors",
+                    "valuePrefix": "image-gradient-",
+                    "objectValues": false,
+                    "title": "Image-gradients",
+                    "label": "<div class=\"img\"><figure></figure></div>",
+                    "useValueAsLabel": false,
+                    "key": "metadata.image_gradient",
+                    "styleDefinition": "image_gradient",
+                    "removeBtn": true,
+                    "bordered": false
+                },
+                {
+                    "values": "imageGradientDirections",
+                    "title": "Gradient direction",
+                    "useValueAsLabel": true,
+                    "key": "metadata.image_gradient_direction",
+                    "bordered": true
+                },
+                {
+                    "values": [
+                        20,
+                        40,
+                        60,
+                        80
+                    ],
+                    "valuePrefix": "image_gradient_opacity-",
+                    "title": "Opacity for selected gradient",
+                    "label": "<div class=\"img\"><figure></figure></div>",
+                    "key": "metadata.image_gradient_opacity",
+                    "styleDefinition": "image_gradient_opacity",
+                    "removeBtn": true,
+                    "bordered": false
+                }
+            ]
+        }
+    }
+}

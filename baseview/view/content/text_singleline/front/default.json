@@ -1,0 +1,10 @@
+{
+    "boxTitle": "Text - Adjustable Font Size",
+    "boxKeywords": "title subtitle headers paragraph",
+    "boxDescription": "Display a single line header or paragraph",
+    "viewportMap": {
+        "fields": {
+            "text": "presets.vp_content_attributes"
+        }
+    }
+}

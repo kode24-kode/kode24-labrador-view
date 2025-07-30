@@ -1,0 +1,50 @@
+<div data-element-guid="{{ get.current.guid }}" class="column articlesByTag toplist {{ #helper.trim }}
+    {{ #style.collection }}box_decoration{{ /style.collection }}
+    {{ size.grid.css }}
+    {{ size.grid.absCss }}
+    {{ /helper.trim }}">
+    {{{ get.current.filtered.styleSheets }}}
+    <div class="content {{ #style.collection }}content_decoration{{ /style.collection }}" style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
+        {{ #app.isEditor }}
+            <h3 itemprop="headline" class="{{ #style.collection }}text_decoration fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</h3>
+        {{ /app.isEditor }}
+        {{ #app.isFront }}
+            {{ #get.current.fields.title }}
+                <h3 itemprop="headline" class="{{ #style.collection }}text_decoration fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</h3>
+            {{ /get.current.fields.title }}
+        {{ /app.isFront }}
+        {{ ^get.current.fields.hideTags }}
+        <p class="tags" style="margin-top: 0; padding-top: 0;"> 
+        {{ #get.current.fields.selectedTags_json }}
+            <a href="{{{ get.current.filtered.tagPagePath }}}{{{.}}}">{{{.}}}</a>
+        {{ /get.current.fields.selectedTags_json }}
+        </p>
+        {{ /get.current.fields.hideTags }}
+        {{ ^get.current.filtered.templateData.length }}
+            {{ #app.isEditor }}
+                <p class="noContent">{{ get.current.filtered.placeholder }}</p>
+                <p class="lab-defaultTextValue help">Configure in element settings</p>
+            {{ /app.isEditor }}
+            {{ #app.isFront }}
+                {{ #get.current.fields.title }}
+                    <p class="noContent">{{ get.current.filtered.placeholder }}</p>
+                {{ /get.current.fields.title }}
+            {{ /app.isFront }}
+        {{ /get.current.filtered.templateData.length }}
+        {{ #get.current.filtered.templateData.length }}
+            <ul>{{ #get.current.filtered.templateData }}
+                <li>
+                    <a href="{{{published_url}}}">
+                        {{ #get.current.filtered.displayOptions.image }}{{ #frontCropUrl }}<img src="{{{ get.current.filtered.imageServer }}}/{{{ frontCropUrl }}}&{{{ get.current.filtered.imgArgs }}}"{{ #get.current.filtered.lazyloadImages }} loading="lazy"{{ /get.current.filtered.lazyloadImages }}>{{ /frontCropUrl }}{{ /get.current.filtered.displayOptions.image }}
+                        <div class="text-container">                    
+                            {{ #get.current.filtered.displayOptions.kicker }}<p class="abt-kicker">{{{ kicker }}}</p>{{ /get.current.filtered.displayOptions.kicker }}
+                            {{ #get.current.filtered.displayOptions.title }}<h4 class="abt-title">{{{ title }}}</h4>{{ /get.current.filtered.displayOptions.title }}
+                            {{ #get.current.filtered.displayOptions.subtitle }}<p class="abt-subtitle">{{{ subtitle }}}</p>{{ /get.current.filtered.displayOptions.subtitle }}
+                            {{ #get.current.filtered.displayOptions.published }}<time datetime="{{{ formatted }}}" class="publishedTime fi-clock">{{{ formatted }}}</time>{{ /get.current.filtered.displayOptions.published }}
+                        </div>
+                    </a>
+                </li>
+            {{ /get.current.filtered.templateData }}</ul>
+        {{ /get.current.filtered.templateData.length }}
+    </div>
+</div>

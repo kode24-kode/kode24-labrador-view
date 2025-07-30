@@ -1,0 +1,31 @@
+.lab-collection-drawer nav ul li .lab-lbl.paywall-btn-active {
+    background-color: green;
+    transform: scale(1.2);
+}
+
+.lab-collection-drawer nav ul li .lab-lbl.paywall-btn-active span {
+    color: white;
+}
+
+#labrador-menu > ul > li.lab-item.lab-logo > div.lab-status-area > span.labicon-ad_content {
+    display: none;
+}
+
+#labrador-menu > ul > li.lab-item.lab-logo > div.lab-status-area > span.labicon-ad_content.paywall-collection-btn-visible {
+    display: inline-block;
+    position: absolute;
+    margin-left: 40px;
+    margin-top: -5px;
+    color: white;
+}
+
+.lab-collection-drawer.lab-content nav ul li div.paywall-btn {
+    display: none;
+}
+
+.lab-collection-drawer.lab-content nav ul li[data-collection="no-collection"] div.paywall-btn.paywall-collection-btn-visible {
+    display: inline-block;
+}
+.lab-collection-drawer.lab-content nav ul li[data-collection="no-collection"] div.lab-desc.paywall-btn.paywall-collection-btn-visible {
+    display: block;
+}

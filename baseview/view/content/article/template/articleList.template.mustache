@@ -1,0 +1,8 @@
+<li class="{{ #style.definition }}background_color{{ /style.definition }}" itemtype="http://schema.org/NewsArticle" itemscope="">
+    <a itemprop="url" href="{{get.current.fields.published_url}}" data-k5a-url="{{{ get.current.filtered.canonical_url }}}">
+        {{ ^get.parent.fields.hideImage }}{{{ children.image }}}{{ /get.parent.fields.hideImage }}
+        {{ #get.parent.fields.displayKicker }}<p itemprop="kicker" class="al-kicker {{ #style.collection }}text_decoration fields.subtitle{{ /style.collection }}">{{{ get.current.fields.kicker }}}</p>{{ /get.parent.fields.displayKicker }}
+        {{ ^get.parent.fields.hideTitle }}<h3 itemprop="name headline" class="al-title {{ #style.collection }}text_decoration fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</h3>{{ /get.parent.fields.hideTitle }}
+        {{ #get.parent.fields.displaySubtitle }}<p itemprop="description" class="subtitle {{ #style.collection }}text_decoration fields.subtitle{{ /style.collection }}">{{{ get.current.fields.subtitle }}}</p>{{ /get.parent.fields.displaySubtitle }}
+    </a>
+</li>

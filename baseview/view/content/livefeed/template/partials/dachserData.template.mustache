@@ -1,0 +1,17 @@
+<script>
+    (function () {
+        window.dachserData.push('swipehelper', {
+            selector: '#livefeed_{{ get.current.id }}',
+            // itemsContainerSelector: '.timeline',
+            itemsContainerSelector: '.notices',
+            itemsSelector: '.livefeed-item',
+            isHorizontal: {{ #get.current.fields.isHorizontal }}true{{ /get.current.fields.isHorizontal }}{{ ^get.current.fields.isHorizontal }}false{{ /get.current.fields.isHorizontal }},
+            navItems: {
+                forwardSelector: 'nav .arrow.right',
+                backwardSelector: 'nav .arrow.left',
+            },
+            threshold: {{ #get.current.fields.isHorizontal }}0.5{{ /get.current.fields.isHorizontal }}{{ ^get.current.fields.isHorizontal }}0{{ /get.current.fields.isHorizontal }},
+            debug: true
+        });
+    }());
+</script>
