@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - stage
+  pull_request:
+    branches:
+      - stage
+    types: [closed] # bare når PR-er lukkes (og vi sjekker at det var en merge)
 
 jobs:
   deploy:
