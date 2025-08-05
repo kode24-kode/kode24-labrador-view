@@ -9,6 +9,15 @@
             }]
         },
         {
+            "url": "/view-resources/baseview/public/common/imageExpand.js",
+            "requireDom": true
+        },
+        {
+            "url": "/view-resources/baseview/public/common/ImageZoom.js",
+            "requireDom": true,
+            "pageType": "article"
+        },
+        {
             "url": "/view-resources/baseview/public/common/baseview/moduleHandlers.js",
             "isModule": true
         }
