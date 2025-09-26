@@ -1,199 +1,200 @@
 @import url("https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,400i,500,500i|IBM+Plex+Sans:400,400i,500,500i");
+
 :root {
   --v2-main-color: 230;
 
-    --v2-header-background: hsla(var(--v2-main-color), 14%, 17%, 0.8);
+  --v2-header-background: hsla(var(--v2-main-color), 14%, 17%, 0.8);
 
-    --v2-background: hsl(var(--v2-main-color), 8%, 8%);
-    --v2-background-highlight: hsl(var(--v2-main-color), 12%, 16%);
-    --v2-background-always-dark: hsl(var(--v2-main-color), 12%, 12%);
+  --v2-background: hsl(var(--v2-main-color), 8%, 8%);
+  --v2-background-highlight: hsl(var(--v2-main-color), 12%, 16%);
+  --v2-background-always-dark: hsl(var(--v2-main-color), 12%, 12%);
 
-    --v2-card-background: hsl(var(--v2-main-color), 14%, 16%);
-    --v2-card-background-highlight: hsl(var(--v2-main-color), 14%, 24%);
-    --v2-card-background-highlight-2: hsl(var(--v2-main-color), 14%, 32%);
-    --v2-card-border-background: var(--v2-card-background-highlight);
+  --v2-card-background: hsl(var(--v2-main-color), 14%, 16%);
+  --v2-card-background-highlight: hsl(var(--v2-main-color), 14%, 24%);
+  --v2-card-background-highlight-2: hsl(var(--v2-main-color), 14%, 32%);
+  --v2-card-border-background: var(--v2-card-background-highlight);
 
-    --v2-card-headline-color: hsl(0, 0%, 100%);
-    --v2-card-paragraph-color: hsla(0, 0%, 100%, 80%);
-    --v2-card-always-white: hsl(0, 0%, 100%);
-    --v2-card-always-black: hsl(230, 8%, 8%);
+  --v2-card-headline-color: hsl(0, 0%, 100%);
+  --v2-card-paragraph-color: hsla(0, 0%, 100%, 80%);
+  --v2-card-always-white: hsl(0, 0%, 100%);
+  --v2-card-always-black: hsl(230, 8%, 8%);
 
   --v2-card-label-background: hsl(245, 14%, 14%);
   --v2-label-color-teal: hsl(166, 100%, 50%);
-    --v2-label-color-teal-darker: hsl(166, 100%, 20%);
-    --v2-label-color-pink-lighter: hsl(327, 100%, 75%);
-    --v2-label-color-pink: hsl(327, 100%, 50%);
-    --v2-label-color-pink-darker: hsl(327, 100%, 40%);
-    --v2-label-color-purple: hsl(280, 100%, 50%);
-    --v2-label-color-purple-darker: hsl(260, 100%, 40%);
-    --v2-label-color-mint: hsl(115, 100%, 50%);
-    --v2-label-color-mint-darker: hsl(115, 100%, 30%);
-    --v2-label-color-yellow: hsl(68, 100%, 50%);
-    --v2-label-color-yellow-darker: hsl(68, 100%, 10%);
-    --v2-label-color-orange: hsl(14, 100%, 50%);
-    --v2-label-color-orange-darker: hsl(14, 100%, 40%);
+  --v2-label-color-teal-darker: hsl(166, 100%, 20%);
+  --v2-label-color-pink-lighter: hsl(327, 100%, 75%);
+  --v2-label-color-pink: hsl(327, 100%, 50%);
+  --v2-label-color-pink-darker: hsl(327, 100%, 40%);
+  --v2-label-color-purple: hsl(280, 100%, 50%);
+  --v2-label-color-purple-darker: hsl(270, 100%, 40%);
+  --v2-label-color-mint: hsl(115, 100%, 50%);
+  --v2-label-color-mint-darker: hsl(115, 100%, 30%);
+  --v2-label-color-yellow: hsl(68, 100%, 50%);
+  --v2-label-color-yellow-darker: hsl(68, 100%, 10%);
+  --v2-label-color-orange: hsl(14, 100%, 50%);
+  --v2-label-color-orange-darker: hsl(14, 100%, 40%);
 
-    --v2-button-background-color: hsl(327, 81%, 54%);
-    --v2-notification-background-color: hsl(327, 81%, 54%);
+  --v2-button-background-color: hsl(327, 81%, 54%);
+  --v2-notification-background-color: hsl(327, 81%, 54%);
 
-    --v2-flame-red: hsl(12deg 100% 50% / 40%);
-    --v2-flame-red-light: hsl(12deg 100% 50% / 0);
+  --v2-flame-red: hsl(12deg 100% 50% / 40%);
+  --v2-flame-red-light: hsl(12deg 100% 50% / 0);
 
-    --v2-light-toggle-partner-logos: grayscale(100%) brightness(200%);
-    --showBlockForDark: block;
-    --showBlockForLight: none;
+  --v2-light-toggle-partner-logos: grayscale(100%) brightness(200%);
+  --showBlockForDark: block;
+  --showBlockForLight: none;
 
 }
 
 html.dark {
-    --v2-main-color: 230;
+  --v2-main-color: 230;
 
-      --v2-header-background: hsla(var(--v2-main-color), 14%, 17%, 0.8);
+  --v2-header-background: hsla(var(--v2-main-color), 14%, 17%, 0.8);
 
-      --v2-background: hsl(var(--v2-main-color), 8%, 8%);
-      --v2-background-highlight: hsl(var(--v2-main-color), 12%, 16%);
-      --v2-background-always-dark: hsl(var(--v2-main-color), 12%, 12%);
+  --v2-background: hsl(var(--v2-main-color), 8%, 8%);
+  --v2-background-highlight: hsl(var(--v2-main-color), 12%, 16%);
+  --v2-background-always-dark: hsl(var(--v2-main-color), 12%, 12%);
 
-      --v2-card-background: hsl(var(--v2-main-color), 14%, 16%);
-      --v2-card-background-highlight: hsl(var(--v2-main-color), 14%, 24%);
-      --v2-card-background-highlight-2: hsl(var(--v2-main-color), 14%, 32%);
-      --v2-card-border-background: var(--v2-card-background-highlight);
+  --v2-card-background: hsl(var(--v2-main-color), 14%, 16%);
+  --v2-card-background-highlight: hsl(var(--v2-main-color), 14%, 24%);
+  --v2-card-background-highlight-2: hsl(var(--v2-main-color), 14%, 32%);
+  --v2-card-border-background: var(--v2-card-background-highlight);
 
-      --v2-card-headline-color: hsl(0, 0%, 100%);
-      --v2-card-paragraph-color: hsla(0, 0%, 100%, 80%);
-      --v2-card-always-white: hsl(0, 0%, 100%);
-      --v2-card-always-black: hsl(240, 40%, 12%);
+  --v2-card-headline-color: hsl(0, 0%, 100%);
+  --v2-card-paragraph-color: hsla(0, 0%, 100%, 80%);
+  --v2-card-always-white: hsl(0, 0%, 100%);
+  --v2-card-always-black: hsl(240, 40%, 12%);
 
-      --v2-card-label-background: hsl(245, 14%, 14%);
-      --v2-label-color-teal: hsl(166, 100%, 50%);
-        --v2-label-color-teal-darker: hsl(166, 100%, 20%);
-        --v2-label-color-pink-lighter: hsl(327, 100%, 75%);
-        --v2-label-color-pink: hsl(327, 100%, 50%);
-        --v2-label-color-pink-darker: hsl(327, 100%, 40%);
-        --v2-label-color-purple: hsl(280, 100%, 50%);
-        --v2-label-color-purple-darker: hsl(260, 100%, 40%);
-        --v2-label-color-mint: hsl(115, 100%, 50%);
-        --v2-label-color-mint-darker: hsl(115, 100%, 30%);
-        --v2-label-color-yellow: hsl(68, 100%, 50%);
-        --v2-label-color-yellow-darker: hsl(68, 100%, 10%);
-        --v2-label-color-orange: hsl(14, 100%, 50%);
-        --v2-label-color-orange-darker: hsl(14, 100%, 40%);
+  --v2-card-label-background: hsl(245, 14%, 14%);
+  --v2-label-color-teal: hsl(166, 100%, 50%);
+  --v2-label-color-teal-darker: hsl(166, 100%, 20%);
+  --v2-label-color-pink-lighter: hsl(327, 100%, 75%);
+  --v2-label-color-pink: hsl(327, 100%, 50%);
+  --v2-label-color-pink-darker: hsl(327, 100%, 40%);
+  --v2-label-color-purple: hsl(280, 100%, 50%);
+  --v2-label-color-purple-darker: hsl(260, 100%, 40%);
+  --v2-label-color-mint: hsl(115, 100%, 50%);
+  --v2-label-color-mint-darker: hsl(115, 100%, 30%);
+  --v2-label-color-yellow: hsl(68, 100%, 50%);
+  --v2-label-color-yellow-darker: hsl(68, 100%, 10%);
+  --v2-label-color-orange: hsl(14, 100%, 50%);
+  --v2-label-color-orange-darker: hsl(14, 100%, 40%);
 
-      --v2-button-background-color: hsl(327, 81%, 54%);
-      --v2-notification-background-color: hsl(327, 81%, 54%);
+  --v2-button-background-color: hsl(327, 81%, 54%);
+  --v2-notification-background-color: hsl(327, 81%, 54%);
 
-      --v2-flame-red: hsl(12deg 100% 50% / 40%);
-      --v2-flame-red-light: hsl(12deg 100% 50% / 0);
+  --v2-flame-red: hsl(12deg 100% 50% / 40%);
+  --v2-flame-red-light: hsl(12deg 100% 50% / 0);
 
-      --v2-light-toggle-partner-logos: grayscale(100%) brightness(200%);
-      --showBlockForDark: block;
-      --showBlockForLight: none;
+  --v2-light-toggle-partner-logos: grayscale(100%) brightness(200%);
+  --showBlockForDark: block;
+  --showBlockForLight: none;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     --v2-main-color: 302;
 
-      --v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.8);
+    --v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.8);
 
-      --v2-background: hsl(302, 20%, 95%);
-      --v2-background-highlight: hsl(216, 20%, 95%);
-      --v2-background-always-dark: hsl(210, 4%, 10%);
+    --v2-background: hsl(302, 20%, 95%);
+    --v2-background-highlight: hsl(216, 20%, 95%);
+    --v2-background-always-dark: hsl(210, 4%, 10%);
 
-      --v2-card-background: hsla(0, 0%, 100%, 1);
-      --v2-card-background-highlight: hsl(var(--v2-main-color), 30%, 95%);
-      --v2-card-background-highlight-2: hsl(var(--v2-main-color), 30%, 90%);
-      --v2-card-border-background: hsla(244, 14%, 20%, 0.10);
+    --v2-card-background: hsla(0, 0%, 100%, 1);
+    --v2-card-background-highlight: hsl(var(--v2-main-color), 30%, 95%);
+    --v2-card-background-highlight-2: hsl(var(--v2-main-color), 30%, 90%);
+    --v2-card-border-background: hsla(244, 14%, 20%, 0.10);
 
-      --v2-card-headline-color: hsl(230, 15%, 20%);
-      --v2-card-paragraph-color: hsl(230, 10%, 42%);
-      --v2-card-always-white: hsl(0, 0%, 100%);
-      --v2-card-always-black: hsl(230, 8%, 8%);
-      --v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.8);
-
-
-      --v2-card-label-background: hsl(245, 14%, 14%);
-        --v2-label-color-teal: hsl(166, 100%, 50%);
-        --v2-label-color-teal-darker: hsl(166, 100%, 80%);
-        --v2-label-color-teal-adjusted: hsl(166, 100%, 40%);
-        --v2-label-color-pink-lighter: hsl(327, 100%, 20%);
-        --v2-label-color-pink: hsl(327, 100%, 50%);
-        --v2-label-color-pink-darker: hsl(327, 100%, 80%);
-        --v2-label-color-purple: hsl(260, 100%, 50%);
-        --v2-label-color-purple-darker: hsl(260, 100%, 80%);
-        --v2-label-color-mint: hsl(115, 100%, 50%);
-        --v2-label-color-mint-darker: hsl(115, 100%, 80%);
-        --v2-label-color-mint-adjusted: hsl(116, 100%, 40%);
-        --v2-label-color-yellow: hsl(68, 100%, 50%);
-        --v2-label-color-yellow-darker: hsl(68, 100%, 80%);
-        --v2-label-color-yellow-adjusted: hsl(44, 100%, 50%);
-        --v2-label-color-orange: hsl(14, 100%, 50%);
-        --v2-label-color-orange-darker: hsl(14, 100%, 60%);
-      --v2-button-background-color: hsl(327, 81%, 54%);
-      --v2-notification-background-color: hsl(327, 81%, 54%);
-
-      --v2-flame-red: hsl(12deg 100% 50% / 40%);
-      --v2-flame-red-light: hsl(12deg 100% 50% / 0);
+    --v2-card-headline-color: hsl(230, 15%, 20%);
+    --v2-card-paragraph-color: hsl(230, 10%, 42%);
+    --v2-card-always-white: hsl(0, 0%, 100%);
+    --v2-card-always-black: hsl(230, 8%, 8%);
+    --v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.8);
 
 
-      --v2-light-toggle-partner-logos: grayscale(100%) brightness(0%);
-      --showBlockForDark: none;
-        --showBlockForLight: block;
+    --v2-card-label-background: hsl(245, 14%, 14%);
+    --v2-label-color-teal: hsl(166, 100%, 50%);
+    --v2-label-color-teal-darker: hsl(166, 100%, 80%);
+    --v2-label-color-teal-adjusted: hsl(166, 100%, 40%);
+    --v2-label-color-pink-lighter: hsl(327, 100%, 20%);
+    --v2-label-color-pink: hsl(327, 100%, 50%);
+    --v2-label-color-pink-darker: hsl(327, 100%, 80%);
+    --v2-label-color-purple: hsl(260, 100%, 50%);
+    --v2-label-color-purple-darker: hsl(260, 100%, 80%);
+    --v2-label-color-mint: hsl(115, 100%, 50%);
+    --v2-label-color-mint-darker: hsl(115, 100%, 80%);
+    --v2-label-color-mint-adjusted: hsl(116, 100%, 40%);
+    --v2-label-color-yellow: hsl(68, 100%, 50%);
+    --v2-label-color-yellow-darker: hsl(68, 100%, 80%);
+    --v2-label-color-yellow-adjusted: hsl(44, 100%, 50%);
+    --v2-label-color-orange: hsl(14, 100%, 50%);
+    --v2-label-color-orange-darker: hsl(14, 100%, 60%);
+    --v2-button-background-color: hsl(327, 81%, 54%);
+    --v2-notification-background-color: hsl(327, 81%, 54%);
+
+    --v2-flame-red: hsl(12deg 100% 50% / 40%);
+    --v2-flame-red-light: hsl(12deg 100% 50% / 0);
+
+
+    --v2-light-toggle-partner-logos: grayscale(100%) brightness(0%);
+    --showBlockForDark: none;
+    --showBlockForLight: block;
   }
 }
 
 html.light {
 
-      --v2-main-color: 302;
+  --v2-main-color: 302;
 
-      --v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.8);
+  --v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.8);
 
-      --v2-background: hsl(302, 20%, 95%);
-      --v2-background-highlight: hsl(216, 20%, 95%);
-      --v2-background-always-dark: hsl(210, 4%, 10%);
+  --v2-background: hsl(302, 20%, 95%);
+  --v2-background-highlight: hsl(216, 20%, 95%);
+  --v2-background-always-dark: hsl(210, 4%, 10%);
 
-      --v2-card-background: hsla(0, 0%, 100%, 1);
-      --v2-card-background-highlight: hsl(var(--v2-main-color), 30%, 95%);
-      --v2-card-background-highlight-2: hsl(var(--v2-main-color), 30%, 90%);
-      --v2-card-border-background: hsla(244, 14%, 20%, 0.10);
+  --v2-card-background: hsla(0, 0%, 100%, 1);
+  --v2-card-background-highlight: hsl(var(--v2-main-color), 30%, 95%);
+  --v2-card-background-highlight-2: hsl(var(--v2-main-color), 30%, 90%);
+  --v2-card-border-background: hsla(244, 14%, 20%, 0.10);
 
-      --v2-card-headline-color: hsl(230, 15%, 20%);
-      --v2-card-paragraph-color: hsl(230, 10%, 42%);
-      --v2-card-always-white: hsl(0, 0%, 100%);
-      --v2-card-always-black: hsl(230, 8%, 8%);
-      --v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.8);
-
-
-      --v2-card-label-background: hsl(245, 14%, 14%);
-        --v2-label-color-teal: hsl(166, 100%, 50%);
-        --v2-label-color-teal-darker: hsl(166, 100%, 80%);
-        --v2-label-color-teal-adjusted: hsl(166, 100%, 40%);
-        --v2-label-color-pink-lighter: hsl(327, 100%, 20%);
-        --v2-label-color-pink: hsl(327, 100%, 50%);
-        --v2-label-color-pink-darker: hsl(327, 100%, 80%);
-        --v2-label-color-purple: hsl(260, 100%, 50%);
-        --v2-label-color-purple-darker: hsl(260, 100%, 80%);
-        --v2-label-color-mint: hsl(115, 100%, 50%);
-        --v2-label-color-mint-darker: hsl(115, 100%, 80%);
-        --v2-label-color-mint-adjusted: hsl(116, 100%, 40%);
-        --v2-label-color-yellow: hsl(68, 100%, 50%);
-        --v2-label-color-yellow-darker: hsl(68, 100%, 80%);
-        --v2-label-color-yellow-adjusted: hsl(44, 100%, 50%);
-        --v2-label-color-orange: hsl(14, 100%, 50%);
-        --v2-label-color-orange-darker: hsl(14, 100%, 60%);
-        --v2-button-background-color: hsl(327, 81%, 54%);
-        --v2-notification-background-color: hsl(327, 81%, 54%);
-
-      --v2-button-background-color: hsl(327, 81%, 54%);
-      --v2-notification-background-color: hsl(327, 81%, 54%);
-
-      --v2-flame-red: hsl(12deg 100% 50% / 40%);
-      --v2-flame-red-light: hsl(12deg 100% 50% / 0);
+  --v2-card-headline-color: hsl(230, 15%, 20%);
+  --v2-card-paragraph-color: hsl(230, 10%, 42%);
+  --v2-card-always-white: hsl(0, 0%, 100%);
+  --v2-card-always-black: hsl(230, 8%, 8%);
+  --v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.8);
 
 
-      --v2-light-toggle-partner-logos: grayscale(100%) brightness(0%);
-      --showBlockForDark: none;
-        --showBlockForLight: block;
+  --v2-card-label-background: hsl(245, 14%, 14%);
+  --v2-label-color-teal: hsl(166, 100%, 50%);
+  --v2-label-color-teal-darker: hsl(166, 100%, 80%);
+  --v2-label-color-teal-adjusted: hsl(166, 100%, 40%);
+  --v2-label-color-pink-lighter: hsl(327, 100%, 20%);
+  --v2-label-color-pink: hsl(327, 100%, 50%);
+  --v2-label-color-pink-darker: hsl(327, 100%, 80%);
+  --v2-label-color-purple: hsl(260, 100%, 50%);
+  --v2-label-color-purple-darker: hsl(260, 100%, 80%);
+  --v2-label-color-mint: hsl(115, 100%, 50%);
+  --v2-label-color-mint-darker: hsl(115, 100%, 80%);
+  --v2-label-color-mint-adjusted: hsl(116, 100%, 40%);
+  --v2-label-color-yellow: hsl(68, 100%, 50%);
+  --v2-label-color-yellow-darker: hsl(68, 100%, 80%);
+  --v2-label-color-yellow-adjusted: hsl(44, 100%, 50%);
+  --v2-label-color-orange: hsl(14, 100%, 50%);
+  --v2-label-color-orange-darker: hsl(14, 100%, 60%);
+  --v2-button-background-color: hsl(327, 81%, 54%);
+  --v2-notification-background-color: hsl(327, 81%, 54%);
+
+  --v2-button-background-color: hsl(327, 81%, 54%);
+  --v2-notification-background-color: hsl(327, 81%, 54%);
+
+  --v2-flame-red: hsl(12deg 100% 50% / 40%);
+  --v2-flame-red-light: hsl(12deg 100% 50% / 0);
+
+
+  --v2-light-toggle-partner-logos: grayscale(100%) brightness(0%);
+  --showBlockForDark: none;
+  --showBlockForLight: block;
 }
 
 
@@ -205,8 +206,9 @@ html.light {
 .page-content .bg-blue .text-regular,
 .page-content .bg-yellow .text-regular,
 .page-content .bg-orange .text-regular {
-    color: var(--v2-card-headline-color);
+  color: var(--v2-card-headline-color);
 }
+
 .page-content .bg-gray .text-pink,
 .page-content .bg-pink .text-pink,
 .page-content .bg-purple .text-pink,
@@ -214,7 +216,7 @@ html.light {
 .page-content .bg-blue .text-pink,
 .page-content .bg-yellow .text-pink,
 .page-content .bg-orange .text-pink {
-    color: var(--v2-label-color-pink);
+  color: var(--v2-label-color-pink);
 }
 
 .page-content .bg-gray .text-purple,
@@ -224,7 +226,7 @@ html.light {
 .page-content .bg-blue .text-purple,
 .page-content .bg-yellow .text-purple,
 .page-content .bg-orange .text-purple {
-    color: var(--v2-label-color-purple);
+  color: var(--v2-label-color-purple);
 }
 
 .page-content .bg-gray .text-teal,
@@ -234,7 +236,7 @@ html.light {
 .page-content .bg-blue .text-teal,
 .page-content .bg-yellow .text-teal,
 .page-content .bg-orange .text-teal {
-    color: var(--v2-label-color-teal);
+  color: var(--v2-label-color-teal);
 }
 
 .page-content .bg-gray .text-teal,
@@ -244,7 +246,7 @@ html.light {
 .page-content .bg-blue .text-teal,
 .page-content .bg-yellow .text-teal,
 .page-content .bg-orange .text-teal {
-    color: var(--v2-label-color-teal);
+  color: var(--v2-label-color-teal);
 }
 
 .page-content .bg-gray .text-blue,
@@ -254,7 +256,7 @@ html.light {
 .page-content .bg-blue .text-blue,
 .page-content .bg-yellow .text-blue,
 .page-content .bg-orange .text-blue {
-    color: var(--v2-label-color-mint);
+  color: var(--v2-label-color-mint);
 }
 
 .page-content .bg-gray .text-yellow,
@@ -264,8 +266,9 @@ html.light {
 .page-content .bg-blue .text-yellow,
 .page-content .bg-yellow .text-yellow,
 .page-content .bg-orange .text-yellow {
-    color: var(--v2-label-color-yellow);
+  color: var(--v2-label-color-yellow);
 }
+
 .page-content .bg-gray .text-orange,
 .page-content .bg-pink .text-orange,
 .page-content .bg-purple .text-orange,
@@ -273,7 +276,7 @@ html.light {
 .page-content .bg-blue .text-orange,
 .page-content .bg-yellow .text-orange,
 .page-content .bg-orange .text-orange {
-    color: var(--v2-label-color-orange);
+  color: var(--v2-label-color-orange);
 }
 
 .light .text-teal {
@@ -303,23 +306,25 @@ html.light {
 
 
 .light .page-content .bg-gray .headline {
-    color: hsl(230, 15%, 20%);
+  color: hsl(230, 15%, 20%);
 }
+
 .light .page-content .bg-gray .kicker,
 .light .page-content .bg-gray p,
 .light .page-content .bg-gray .byline .name {
-    color: hsl(230, 10%, 42%);
+  color: hsl(230, 10%, 42%);
 }
 
 @media (prefers-color-scheme: light) {
- html:not(.dark) .page-content .bg-gray .headline {
+  html:not(.dark) .page-content .bg-gray .headline {
     color: hsl(230, 15%, 20%);
-}
-html:not(.dark) .page-content .bg-gray .kicker,
-html:not(.dark) .page-content .bg-gray p,
-html:not(.dark) .page-content .bg-gray .byline .name {
+  }
+
+  html:not(.dark) .page-content .bg-gray .kicker,
+  html:not(.dark) .page-content .bg-gray p,
+  html:not(.dark) .page-content .bg-gray .byline .name {
     color: hsl(230, 10%, 42%);
-}
+  }
 }
 
 
