@@ -95,7 +95,7 @@ html.dark {
   :root {
     --v2-main-color: 302;
 
-    --v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.8);
+    //--v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.8);
 
     --v2-background: hsl(302, 20%, 95%);
     --v2-background-highlight: hsl(216, 20%, 95%);
@@ -106,7 +106,7 @@ html.dark {
     --v2-card-background-highlight-2: hsl(var(--v2-main-color), 30%, 90%);
     --v2-card-border-background: hsla(244, 14%, 20%, 0.10);
 
-    --v2-card-headline-color: hsl(230, 15%, 20%);
+    --v2-card-headline-color: hsl(0,0,0);
     --v2-card-paragraph-color: hsl(230, 10%, 42%);
     --v2-card-always-white: hsl(0, 0%, 100%);
     --v2-card-always-black: hsl(230, 8%, 8%);
