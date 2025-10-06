@@ -158,7 +158,7 @@ html.light {
   --v2-card-background-highlight-2: hsl(var(--v2-main-color), 30%, 90%);
   --v2-card-border-background: hsla(244, 14%, 20%, 0.10);
 
-  --v2-card-headline-color: hsl(230, 15%, 20%);
+  --v2-card-headline-color: hsl(0,0,0);
   --v2-card-paragraph-color: hsl(230, 10%, 42%);
   --v2-card-always-white: hsl(0, 0%, 100%);
   --v2-card-always-black: hsl(230, 8%, 8%);
@@ -306,7 +306,7 @@ html.light {
 
 
 .light .page-content .bg-gray .headline {
-  color: hsl(230, 15%, 20%);
+  color: hsl(0,0,0);
 }
 
 .light .page-content .bg-gray .kicker,
@@ -317,7 +317,7 @@ html.light {
 
 @media (prefers-color-scheme: light) {
   html:not(.dark) .page-content .bg-gray .headline {
-    color: hsl(230, 15%, 20%);
+    color: hsl(0,0,0);
   }
 
   html:not(.dark) .page-content .bg-gray .kicker,
