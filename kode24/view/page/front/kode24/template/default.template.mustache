@@ -33,21 +33,14 @@
         {{ #get.current.filtered.analytics.kilkayaSettings.showKilkayaMetatags }}{{ > partial/lab4/analytics/kilkaya_metadata }}{{ /get.current.filtered.analytics.kilkayaSettings.showKilkayaMetatags }}
         {{ > partial/lab4/analytics/kilkaya }}
         {{ #app.isEditor }}<link rel="stylesheet" href="/view-resources/baseview/view/css/edit.css">{{ /app.isEditor }}
-        <link rel="stylesheet" href="/view-resources/baseview/view/css/main.css">
-        <link rel="stylesheet" href="/view-resources/baseview/view/css/grid.css">
-        <link rel="stylesheet" href="/view-resources/baseview/view/css/colors.css">
-        <link rel="stylesheet" href="/view-resources/baseview/view/css/print.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
 
         {{ ^app.isEditor }}
         {{ #getPreload.ab_collections }}
         {{> partial/lab4/abtest/kilkaya }}
         {{ /getPreload.ab_collections }}
         {{ /app.isEditor }}
-        {{> partial/site/kode24/scripts}}
-        {{> partial/site/kode24/scripts.lightswitch}}
+
     </head>
     <body id="page-body" class="{{ #helper.trim }}
         l4 front site_{{{ get.current.filtered.site.alias }}}
@@ -86,6 +79,16 @@
         <h1 class="hidden-heading">{{ get.current.filtered.seotitle }}</h1>
 
         </section>
+        <link rel="stylesheet" href="/view-resources/baseview/view/css/main.css">
+        <link rel="stylesheet" href="/view-resources/baseview/view/css/grid.css">
+        <link rel="stylesheet" href="/view-resources/baseview/view/css/colors.css">
+        <link rel="stylesheet" href="/view-resources/baseview/view/css/print.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+        {{ > partial/lab4/page_body_suffix }}
         {{> partial/site/kode24/footer}}
+        {{> partial/site/kode24/scripts}}
+        {{> partial/site/kode24/scripts.lightswitch}}
     </body>
 </html>
