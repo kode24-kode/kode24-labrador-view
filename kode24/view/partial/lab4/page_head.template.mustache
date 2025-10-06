@@ -101,7 +101,7 @@
         {{ /get.current.filtered.siteScriptList }}
         {{ > partial/lab4/clientData }}
         {{ #get.current.filtered.modules }}
-            <script type="module" src="{{{ url }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}" data-cookieconsent="ignore"></script>
+            <script type="module" src="{{{ url }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}" data-cookieconsent="ignore" defer></script>
         {{ /get.current.filtered.modules }}
         {{ #get.current.filtered.siteFiles.js }}
             <script src="{{{ . }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}" data-cookieconsent="ignore"></script>
