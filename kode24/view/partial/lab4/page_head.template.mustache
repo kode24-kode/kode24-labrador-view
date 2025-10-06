@@ -90,6 +90,14 @@
         {{ /get.current.filtered.favicons }}
         {{ > partial/lab4/faviconList }}
 
+        <link rel="stylesheet" href="/view-resources/view/css/grid.css{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
+        <link rel="stylesheet" href="/view-resources/view/css/main.css{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
+        <link rel="stylesheet" href="/view-resources/view/css/colors.css{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
+        <link rel="stylesheet" href="/view-resources/view/css/print.css{{ #helper.cachebuster }}{{ /helper.cachebuster }}" media="print">
+        <link rel="stylesheet" href="/view-resources/view/css/foundation-icons/foundation-icons.css{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
+        {{ #get.current.filtered.siteStylesheetList }}
+        <link rel="stylesheet" href="{{{ . }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
+        {{ /get.current.filtered.siteStylesheetList }}
         {{ #get.current.filtered.css_build }}{{ #value }}
         <style data-key="{{ key }}">
             {{{ value }}}
