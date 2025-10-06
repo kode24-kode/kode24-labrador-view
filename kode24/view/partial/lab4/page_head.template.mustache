@@ -90,10 +90,6 @@
         {{ /get.current.filtered.favicons }}
         {{ > partial/lab4/faviconList }}
 
-
-        {{ #get.current.filtered.siteStylesheetList }}
-        <link rel="stylesheet" href="{{{ . }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
-        {{ /get.current.filtered.siteStylesheetList }}
         {{ #get.current.filtered.css_build }}{{ #value }}
         <style data-key="{{ key }}">
             {{{ value }}}
