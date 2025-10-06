@@ -90,6 +90,7 @@
         {{ /get.current.filtered.favicons }}
         {{ > partial/lab4/faviconList }}
 
+        {{ #get.current.filtered.css_build }}{{ #value }}
         <style data-key="{{ key }}">
             {{{ value }}}
         </style>
