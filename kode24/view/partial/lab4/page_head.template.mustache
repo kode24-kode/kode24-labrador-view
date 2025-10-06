@@ -104,7 +104,7 @@
             <script type="module" src="{{{ url }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}" data-cookieconsent="ignore" defer></script>
         {{ /get.current.filtered.modules }}
         {{ #get.current.filtered.siteFiles.js }}
-            <script src="{{{ . }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}" data-cookieconsent="ignore"></script>
+            <script src="{{{ . }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}" data-cookieconsent="ignore" defer></script>
         {{ /get.current.filtered.siteFiles.js }}
         {{ #get.current.filtered.siteFiles.css }}
             <link rel="stylesheet" href="{{{ . }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
@@ -123,11 +123,11 @@
                     {{ #get.current.filtered.siteScriptList }}
                         {{ #placeholderKey.adnuntius-prebid }}{{ > partial/lab4/elements/script }}{{ /placeholderKey.adnuntius-prebid }}
                     {{ /get.current.filtered.siteScriptList }}
-                    <script src="https://cdn.adnuntius.com/adn.js" data-cookieconsent="ignore"></script>
+                    <script src="https://cdn.adnuntius.com/adn.js" data-cookieconsent="ignore" defer></script>
                     {{ > content/adnuntiusAd/template/multirequestBidding }}
                 {{ /get.current.filtered.adnuntius.bidding.enabled }}
                 {{ ^get.current.filtered.adnuntius.bidding.enabled }}
-                    <script src="https://cdn.adnuntius.com/adn.js" data-cookieconsent="ignore"></script>
+                    <script src="https://cdn.adnuntius.com/adn.js" data-cookieconsent="ignore" defer></script>
                     {{ > content/adnuntiusAd/template/multirequest }}
                 {{ /get.current.filtered.adnuntius.bidding.enabled }}
             {{ /get.current.filtered.adnuntius.connectLoading }}
