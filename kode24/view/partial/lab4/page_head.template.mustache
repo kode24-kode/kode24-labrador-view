@@ -90,14 +90,6 @@
         {{ /get.current.filtered.favicons }}
         {{ > partial/lab4/faviconList }}
 
-        <link rel="stylesheet" href="/view-resources/view/css/grid.css{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
-        <link rel="stylesheet" href="/view-resources/view/css/main.css{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
-        <link rel="stylesheet" href="/view-resources/view/css/colors.css{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
-        <link rel="stylesheet" href="/view-resources/view/css/print.css{{ #helper.cachebuster }}{{ /helper.cachebuster }}" media="print">
-        <link rel="stylesheet" href="/view-resources/view/css/foundation-icons/foundation-icons.css{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
-        {{ #get.current.filtered.siteStylesheetList }}
-        <link rel="stylesheet" href="{{{ . }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
-        {{ /get.current.filtered.siteStylesheetList }}
         {{ #get.current.filtered.css_build }}{{ #value }}
         <style data-key="{{ key }}">
             {{{ value }}}
@@ -109,10 +101,10 @@
         {{ /get.current.filtered.siteScriptList }}
         {{ > partial/lab4/clientData }}
         {{ #get.current.filtered.modules }}
-            <script type="module" src="{{{ url }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}" data-cookieconsent="ignore"></script>
+            <script type="module" src="{{{ url }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}" data-cookieconsent="ignore" defer></script>
         {{ /get.current.filtered.modules }}
         {{ #get.current.filtered.siteFiles.js }}
-            <script src="{{{ . }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}" data-cookieconsent="ignore"></script>
+            <script src="{{{ . }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}" data-cookieconsent="ignore" defer></script>
         {{ /get.current.filtered.siteFiles.js }}
         {{ #get.current.filtered.siteFiles.css }}
             <link rel="stylesheet" href="{{{ . }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
@@ -131,11 +123,11 @@
                     {{ #get.current.filtered.siteScriptList }}
                         {{ #placeholderKey.adnuntius-prebid }}{{ > partial/lab4/elements/script }}{{ /placeholderKey.adnuntius-prebid }}
                     {{ /get.current.filtered.siteScriptList }}
-                    <script src="https://cdn.adnuntius.com/adn.js" data-cookieconsent="ignore"></script>
+                    <script src="https://cdn.adnuntius.com/adn.js" data-cookieconsent="ignore" defer></script>
                     {{ > content/adnuntiusAd/template/multirequestBidding }}
                 {{ /get.current.filtered.adnuntius.bidding.enabled }}
                 {{ ^get.current.filtered.adnuntius.bidding.enabled }}
-                    <script src="https://cdn.adnuntius.com/adn.js" data-cookieconsent="ignore"></script>
+                    <script src="https://cdn.adnuntius.com/adn.js" data-cookieconsent="ignore" defer></script>
                     {{ > content/adnuntiusAd/template/multirequest }}
                 {{ /get.current.filtered.adnuntius.bidding.enabled }}
             {{ /get.current.filtered.adnuntius.connectLoading }}
