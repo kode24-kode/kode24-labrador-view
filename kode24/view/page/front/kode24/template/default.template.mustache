@@ -41,6 +41,8 @@
         {{ /getPreload.ab_collections }}
         {{ /app.isEditor }}
 
+        {{> partial/site/kode24/scripts}}
+        {{> partial/site/kode24/scripts.lightswitch}}
     </head>
     <body id="page-body" class="{{ #helper.trim }}
         l4 front site_{{{ get.current.filtered.site.alias }}}
@@ -85,7 +87,6 @@
 
         {{ > partial/lab4/page_body_suffix }}
         {{> partial/site/kode24/footer}}
-        {{> partial/site/kode24/scripts}}
-        {{> partial/site/kode24/scripts.lightswitch}}
+
     </body>
 </html>
