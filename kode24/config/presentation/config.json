@@ -25,5 +25,81 @@
                 "js": []
             }
         }
+    },
+    "viewports": {
+        "mobile": {
+            "deviceWidth": 480,
+            "editSlotWidth": 380,
+            "padding": 96,
+            "defaultVisible": true,
+            "extendToAvailableWidth": false,
+            "class_prefix": {
+                "text_size": "tm",
+                "text_color": "color_mobile_",
+                "text_background_color": "color_mobile_",
+                "text_align": "mobile_text_align_"
+            }
+        },
+        "desktop": {
+            "deviceWidth": 986,
+            "padding": 0,
+            "defaultVisible": true,
+            "extendToAvailableWidth": true
+        },
+        "rss": {
+            "deviceWidth": 986,
+            "padding": 0,
+            "noFallback": true,
+            "noEdit" : true,
+            "customHeaders": {
+                "Content-Type": "text/xml",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*"
+            },
+            "descriptionPrefix": "Artikler fra forsiden "
+        },
+        "newssitemap": {
+            "deviceWidth": 986,
+            "padding": 0,
+            "noFallback": true,
+            "noEdit" : true,
+            "customHeaders": {"Content-Type": "application/xml"}
+        },
+        "json": {
+            "deviceWidth": 986,
+            "padding": 0,
+            "noFallback": true,
+            "noEdit" : true,
+            "renderer": "PageExport.jsonData",
+            "customHeaders": {"Content-Type": "application/json"}
+        },
+        "oembed": {
+            "deviceWidth": 986,
+            "padding": 0,
+            "noFallback": true,
+            "noEdit" : true,
+            "renderer": "PageExport.oembed",
+            "customHeaders": {"Content-Type": "application/json"}
+        },
+        "mobileApp": {
+            "deviceWidth": 320,
+            "editSlotWidth": 320,
+            "padding": 0,
+            "extendToAvailableWidth": true,
+            "disallowOthers": true,
+            "noEdit" : true
+        },
+        "mailmojo": {
+            "deviceWidth": 640,
+            "padding": 0,
+            "noFallback": true,
+            "noEdit" : true
+        },
+        "embed": {
+            "deviceWidth": 640,
+            "padding": 0,
+            "noFallback": false,
+            "noEdit" : true
+        }
     }
 }
