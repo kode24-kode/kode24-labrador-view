@@ -29,8 +29,8 @@
   --v2-label-color-mint-darker: hsl(115, 100%, 30%);
   --v2-label-color-yellow: hsl(68, 100%, 50%);
   --v2-label-color-yellow-darker: hsl(68, 100%, 10%);
-  --v2-label-color-orange: hsl(14, 100%, 50%);
-  --v2-label-color-orange-darker: hsl(14, 100%, 40%);
+  --v2-label-color-orange: hsl(0, 100%, 50%);
+  --v2-label-color-orange-darker: hsl(0, 100%, 40%);
 
   --v2-button-background-color: hsl(327, 81%, 54%);
   --v2-notification-background-color: hsl(327, 81%, 54%);
@@ -75,8 +75,8 @@ html.dark {
   --v2-label-color-mint-darker: hsl(115, 100%, 30%);
   --v2-label-color-yellow: hsl(68, 100%, 50%);
   --v2-label-color-yellow-darker: hsl(68, 100%, 10%);
-  --v2-label-color-orange: hsl(14, 100%, 50%);
-  --v2-label-color-orange-darker: hsl(14, 100%, 40%);
+  --v2-label-color-orange: hsl(0, 100%, 50%);
+  --v2-label-color-orange-darker: hsl(0, 100%, 40%);
 
   --v2-button-background-color: hsl(327, 81%, 54%);
   --v2-notification-background-color: hsl(327, 81%, 54%);
@@ -125,7 +125,7 @@ html.dark {
     --v2-label-color-yellow-darker: hsl(68, 100%, 80%);
     --v2-label-color-yellow-adjusted: hsl(44, 100%, 50%);
     --v2-label-color-orange: hsl(14, 100%, 50%);
-    --v2-label-color-orange-darker: hsl(14, 100%, 60%);
+    --v2-label-color-orange-darker: hsl(0, 100%, 64%);
     --v2-button-background-color: hsl(327, 81%, 54%);
     --v2-notification-background-color: hsl(327, 81%, 54%);
 
@@ -176,8 +176,9 @@ html.light {
   --v2-label-color-yellow: hsl(68, 100%, 50%);
   --v2-label-color-yellow-darker: hsl(68, 100%, 80%);
   --v2-label-color-yellow-adjusted: hsl(44, 100%, 50%);
-  --v2-label-color-orange: hsl(14, 100%, 50%);
-  --v2-label-color-orange-darker: hsl(14, 100%, 60%);
+
+   --v2-label-color-orange: hsl(14, 100%, 50%);
+  --v2-label-color-orange-darker: hsl(0, 100%, 64%);
   --v2-button-background-color: hsl(327, 81%, 54%);
   --v2-notification-background-color: hsl(327, 81%, 54%);
 
