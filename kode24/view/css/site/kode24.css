@@ -380,3 +380,7 @@ html.light {
 .text-orange {
   color: var(--v2-label-color-orange);
 }
+
+.bodytext>p>span {
+  color: var(--v2-card-paragraph-color) !important;
+}
