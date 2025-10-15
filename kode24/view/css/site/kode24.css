@@ -381,6 +381,8 @@ html.light {
   color: var(--v2-label-color-orange);
 }
 
-.bodytext>p>span {
+.bodytext>p>span,
+.bodytext>ul>li>span {
   color: var(--v2-card-paragraph-color) !important;
 }
+
