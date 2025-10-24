@@ -32,8 +32,8 @@
   --v2-label-color-orange: hsl(0, 100%, 50%);
   --v2-label-color-orange-darker: hsl(0, 100%, 40%);
 
-  --v2-button-background-color: hsl(327, 81%, 54%);
-  --v2-notification-background-color: hsl(327, 81%, 54%);
+  --v2-button-background-color: hsl(327, 81%, 48%);
+  --v2-notification-background-color: hsl(327, 81%, 48%);
 
   --v2-flame-red: hsl(12deg 100% 50% / 40%);
   --v2-flame-red-light: hsl(12deg 100% 50% / 0);
@@ -78,8 +78,8 @@ html.dark {
   --v2-label-color-orange: hsl(0, 100%, 50%);
   --v2-label-color-orange-darker: hsl(0, 100%, 40%);
 
-  --v2-button-background-color: hsl(327, 81%, 54%);
-  --v2-notification-background-color: hsl(327, 81%, 54%);
+--v2-button-background-color: hsl(327, 81%, 48%);
+  --v2-notification-background-color: hsl(327, 81%, 48%);
 
   --v2-flame-red: hsl(12deg 100% 50% / 40%);
   --v2-flame-red-light: hsl(12deg 100% 50% / 0);
@@ -179,11 +179,9 @@ html.light {
 
    --v2-label-color-orange: hsl(14, 100%, 50%);
   --v2-label-color-orange-darker: hsl(0, 100%, 64%);
-  --v2-button-background-color: hsl(327, 81%, 54%);
-  --v2-notification-background-color: hsl(327, 81%, 54%);
 
-  --v2-button-background-color: hsl(327, 81%, 54%);
-  --v2-notification-background-color: hsl(327, 81%, 54%);
+  --v2-button-background-color: hsl(327, 81%, 48%);
+  --v2-notification-background-color: hsl(327, 81%, 48%);
 
   --v2-flame-red: hsl(12deg 100% 50% / 40%);
   --v2-flame-red-light: hsl(12deg 100% 50% / 0);
