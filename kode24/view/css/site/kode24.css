@@ -383,9 +383,3 @@ html.light {
 .bodytext>ul>li>span {
   color: var(--v2-card-paragraph-color) !important;
 }
-
-@media (max-width: 767px) and (pointer: coarse) {
-    html.resp_fonts {
-        font-size: calc(0.262vw * 17) !important;
-    }
-}
