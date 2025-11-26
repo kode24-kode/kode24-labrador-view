@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html id="kode24" {{ #get.current.filtered.contentLanguage }}lang="{{ . }}"{{ /get.current.filtered.contentLanguage }} dir="{{ getConfig.textDirection }}" class="dark" data-hostpath="{{ get.current.fields.hostpath }}">
+<html id="kode24" {{ #get.current.filtered.contentLanguage }}lang="{{ . }}"{{ /get.current.filtered.contentLanguage }} dir="{{ getConfig.textDirection }}" class="{{ #get.current.filtered.featureFlags.responsive_mobile_fonts }}resp_fonts{{ /get.current.filtered.featureFlags.responsive_mobile_fonts }} dark" data-hostpath="{{ get.current.fields.hostpath }}">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {{> partial/lab4/page_head_before }}
