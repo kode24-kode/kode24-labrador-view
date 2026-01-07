@@ -1,0 +1,43 @@
+{
+    "contentMenus": {
+        "default": null,
+        "notice": {
+            "position": "right",
+            "snapToTop": true,
+            "labels": {
+                "before": ["lab-content-type"]
+            },
+            "items": {
+                "pinNotice": {
+                    "icon": "labicon-map_pin",
+                    "title": "Pin Notice",
+                    "group": "g1",
+                    "callback": "dispatch",
+                    "params": {
+                        "function": "contextualmenu.callbacks.toggleNoticePin"
+                    },
+                    "onValue": true,
+                    "offValue": null,
+                    "bindings": [
+                        {
+                            "path": "fields.pinned",
+                            "attribute": "value"
+                        }
+                    ]
+                },
+                "gotoOriginal": {
+                    "title": "View notice",
+                    "icon": "labicon-preview",
+                    "callback": "gotoNoticeFront",
+                    "group": "g2"
+                },
+                "goToNotice": {
+                    "icon": "labicon-startEdit",
+                    "title": "Edit Notice",
+                    "callback": "gotoNoticeEditor",
+                    "group": "g2"
+                }
+            }
+        }
+    }
+}

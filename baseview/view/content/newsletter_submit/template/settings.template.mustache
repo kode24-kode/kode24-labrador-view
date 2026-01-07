@@ -1,0 +1,19 @@
+<form method="post">
+    <h2 class="lab-title lab-space-below-medium">Mailmojo newsletter - Settings</h2>
+    <div class="lab-formgroup lab-grid lab-grid-gap ">
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+            <label for="input-fields.newsletterDataAction">Mailmojo Signup URL</label>
+            <input type="url" name="fields.newsletterDataAction" value="{{ get.current.filtered.newsletter_data.action }}" id="input-fields.newsletterDataAction">
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+            <label for="input-fields.newsletterPlaceholder">Placeholder text</label>
+            <input type="text" name="fields.newsletterPlaceholder" value="{{ get.current.filtered.newsletter_data.placeholder }}" id="input-fields.newsletterPlaceholder">
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+            <label for="input-fields.newsletterButtonText">Button text</label>
+            <input type="text" name="fields.newsletterButtonText" value="{{ get.current.filtered.newsletter_data.buttonText }}" id="input-fields.newsletterButtonText">
+        </div>
+    </div>
+</form>

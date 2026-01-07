@@ -1,0 +1,42 @@
+{
+    "articleTranslationTargets": {
+        "global": {
+            "fields": {
+                "title": true,
+                "subtitle": true,
+                "bodytext": true,
+                "sometitle": true,
+                "somedescription": true,
+                "seotitle": true,
+                "seodescription": true,
+                "description": true,
+                "description2": true,
+                "kicker": true,
+                "text": true,
+                "caption": true,
+                "imageCaption": true,
+                "quote": true,
+                "author": true
+            },
+            "path": {
+                "tags": true
+            },
+            "regex": {
+                "ignore": {
+                    "onlyDigits": "^[0-9]+$",
+                    "onlyBoolean": "^(true|false)$",
+                    "zeroLength": "^$"
+                },
+                "accept": {}
+            }
+        },
+        "elements": {
+            "markup": {
+                "accept": false,
+                "fields": {},
+                "path": {},
+                "regex": {}
+            }
+        }
+    }
+}

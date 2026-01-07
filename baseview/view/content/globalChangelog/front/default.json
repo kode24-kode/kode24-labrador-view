@@ -1,0 +1,10 @@
+{
+    "boxTitle": "Global Changelog",
+    "boxKeywords": "global changelog",
+    "boxDescription": "Show changelog for all articles",
+    "viewHelper" : "external",
+    "external": {
+        "url": "{{{ getCmsConfig.front_api_url }}}/article?query=lab_changelog_json:*&site_id={{ get.current.filtered.siteID }}&orderBy=lab_changelogUpdate_date&order=desc",
+        "type": "json"
+    }
+}

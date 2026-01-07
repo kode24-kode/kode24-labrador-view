@@ -1,0 +1,28 @@
+{
+    "presentation": {
+        "stage": {
+            "lab-default": {
+                "properties": {
+                    "default": [
+                        "content/browserFeed/front/default.json"
+                    ]
+                },
+                "template": {
+                    "default": "content/browserFeed/template/default"
+                }
+            }
+        }
+    },
+    "edit": {
+        "stage": {
+            "lab-default": {
+                "properties": {
+                    "default": [
+                        "content_settings/editor/droppable/browserFeed.json",
+                        "content/browserFeed/editor/default.json"
+                    ]
+                }
+            }
+        }
+    }
+}

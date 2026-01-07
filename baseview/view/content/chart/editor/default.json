@@ -1,0 +1,164 @@
+{
+    "editors": {
+        "title": {
+            "selector": "h3",
+            "fn": "EditRich",
+            "key": "fields.title",
+            "menu": "rich_text",
+            "placeholder": "Click to add chart title",
+            "modal": false,
+            "allowReverting": true
+        },
+        "description": {
+            "selector": "p.description",
+            "fn": "EditRich",
+            "key": "fields.description",
+            "menu": "rich_text",
+            "placeholder": "Click to add chart description",
+            "modal": false,
+            "allowReverting": true
+        }
+    },
+    "toolMenus": {
+        "rich_text": {
+            "inheritPath": "menu/tool/rich_text.json"
+        }
+    },
+    "contentMenus": {
+        "default": {
+            "items": {
+                "editSettings": {
+                    "group": "g5",
+                    "icon": "labicon-edit",
+                    "callback": "displaySettingsPanel",
+                    "title": "Add data (,)",
+                    "hotkeys": [{
+                        "key": ","
+                    }],
+                    "params": {
+                        "settingsPanelOptions": "settingsPanels.admin"
+                    }
+                },
+                "chartSettings": {
+                    "group": "g5",
+                    "icon": "labicon-addShape",
+                    "title": "Chart settings",
+                    "items": {
+                        "type": {
+                            "group": "g5",
+                            "icon": "labicon-stats",
+                            "callback": "changeType",
+                            "title": "Change chart type",
+                            "text": "Chart type",
+                            "items": [
+                                {
+                                    "text": "Line",
+                                    "title": "Line layout",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "fields.chartType",
+                                    "value": false,
+                                    "onValue": "line",
+                                    "offValue": false,
+                                    "bindings": [
+                                        {
+                                            "path": "fields.chartType",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "text": "Bar",
+                                    "title": "Bar layout",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "fields.chartType",
+                                    "value": false,
+                                    "onValue": "bar",
+                                    "offValue": false,
+                                    "bindings": [
+                                        {
+                                            "path": "fields.chartType",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "text": "Pie",
+                                    "title": "Pie layout",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "fields.chartType",
+                                    "value": false,
+                                    "onValue": "pie",
+                                    "offValue": false,
+                                    "bindings": [
+                                        {
+                                            "path": "fields.chartType",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "text": "Doughnut",
+                                    "title": "Doughnut layout",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "fields.chartType",
+                                    "value": false,
+                                    "onValue": "doughnut",
+                                    "offValue": false,
+                                    "bindings": [
+                                        {
+                                            "path": "fields.chartType",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "beginAtZero": {
+                            "text": "Begin at zero",
+                            "title": "Begin at zero",
+                            "icon": "labicon-align_vertical_bottom",
+                            "callback": "toggleKeyAndValue",
+                            "key": "fields.beginAtZero",
+                            "value": false,
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "fields.beginAtZero",
+                                    "attribute": "value"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "generate": {
+                    "group": "g5",
+                    "icon": "labicon-magic_wand",
+                    "title": "Labrador AI - Generate chart",
+                    "callback": "dispatch",
+                    "params": {
+                        "function": "chart.generate"
+                    }
+                },
+                "color_bg": {
+                    "params": {
+                        "colorPicker": {
+                            "preview": {
+                                "selector": "table"
+                            }
+                        }
+                    }
+                },
+                "style": {
+                    "inheritPath": "menu/buttons/styles.json",
+                    "group": "g4"
+                }
+            }
+        }
+    },
+    "settingsPanels": {
+        "admin": {
+            "template": "content/chart/template/settings"
+        }
+    }
+}

@@ -1,0 +1,257 @@
+{
+    "editors": {
+        "paywallSalesPitchTitle": {
+            "selector": "h4.sales-pitch-title",
+            "fn": "EditRich",
+            "key": "fields.paywallSalesPitchTitle",
+            "menu": "rich_text",
+            "placeholder": "Paywall: Click to add text",
+            "inlineOnly": true,
+            "modal": false,
+            "allowReverting": true,
+            "target": "root"
+        },
+        "paywallSalesPitchContent": {
+            "selector": "div.pitch-content",
+            "fn": "EditFull",
+            "key": "fields.paywallSalesPitchContent",
+            "menu": "rich_text_bodytext",
+            "placeholder": "Paywall: Click to add text",
+            "target": "root",
+            "modal": false,
+            "allowReverting": true,
+            "allowNbsp": true,
+            "inlineOnly": true,
+            "contentReplacement": null,
+            "displayWordCount": true,
+            "displayCharCount": true,
+            "displayReadtime": false,
+            "allowedPastedTags": {
+                "a": {
+                    "attributes": ["href", "target"]
+                },
+                "p": { "attributes": [] },
+                "h2": { "attributes": [] },
+                "h3": { "attributes": [] },
+                "ul": { "attributes": [] },
+                "ol": { "attributes": [] },
+                "li": { "attributes": [] }
+            },
+            "allowedEmptyTags": {
+                "span": {
+                    "attributes": ["class"]
+                },
+                "br": {
+                    "attributes": []
+                }
+            }
+        }
+    },
+    "toolMenus": {
+        "rich_text": {
+            "inheritPath": "menu/tool/rich_text.json"
+        },
+        "rich_text_bodytext": {
+            "inheritPath": "menu/tool/rich_text_bodytext.json"
+        }
+    },
+    "contentMenus": {
+        "default": {
+            "items": {
+                "color_bg": null,
+                "paywallSalesImage": {
+                    "pathHelper": {
+                        "type": "root"
+                    },
+                    "title": "Show image",
+                    "icon": "labicon-image",
+                    "callback": ["toggleKeyAndValue", "redraw"],
+                    "key": "fields.paywallSalesImage",
+                    "onValue": "1",
+                    "offValue": false,
+                    "bindings": [
+                        {
+                            "pathHelper": {
+                                "type": "root"
+                            },
+                            "path": "fields.paywallSalesImage",
+                            "attribute": "value"
+                        }
+                    ]
+                },
+                "paywallLayoutSettings": {
+                    "group": "g5",
+                    "icon": "labicon-edit",
+                    "title": "Paywall poster layout",
+                    "items": {
+                        "paywallLayoutStandard": {
+                            "pathHelper": {
+                                "type": "root"
+                            },
+                            "text": "Standard layout",
+                            "title": "Standard layout",
+                            "icon": "labicon-align_vertical_bottom",
+                            "callback": ["toggleKeyAndValue", "redraw"],
+                            "key": "fields.paywallLayoutType",
+                            "value": false,
+                            "onValue": "paywallLayoutStandard",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "pathHelper": {
+                                        "type": "root"
+                                    },
+                                    "path": "fields.paywallLayoutType",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "paywallLayoutCentered": {
+                            "pathHelper": {
+                                "type": "root"
+                            },
+                            "text": "Centered layout",
+                            "title": "Centered layout",
+                            "icon": "labicon-align_vertical_bottom",
+                            "callback": ["toggleKeyAndValue", "redraw"],
+                            "key": "fields.paywallLayoutType",
+                            "value": false,
+                            "onValue": "paywallLayoutCentered",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "pathHelper": {
+                                        "type": "root"
+                                    },
+                                    "path": "fields.paywallLayoutType",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "paywallLayoutCenteredFull": {
+                            "pathHelper": {
+                                "type": "root"
+                            },
+                            "text": "Full Centered layout",
+                            "title": "Full Centered layout",
+                            "icon": "labicon-align_vertical_bottom",
+                            "callback": ["toggleKeyAndValue", "redraw"],
+                            "key": "fields.paywallLayoutType",
+                            "value": false,
+                            "onValue": "paywallLayoutCenteredFull",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "pathHelper": {
+                                        "type": "root"
+                                    },
+                                    "path": "fields.paywallLayoutType",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "paywallLayoutSidebarRight": {
+                            "pathHelper": {
+                                "type": "root"
+                            },
+                            "text": "Sidebar right layout",
+                            "title": "Sidebar right layout",
+                            "icon": "labicon-align_vertical_bottom",
+                            "callback": ["toggleKeyAndValue", "redraw"],
+                            "key": "fields.paywallLayoutType",
+                            "value": false,
+                            "onValue": "paywallLayoutSidebarRight",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "pathHelper": {
+                                        "type": "root"
+                                    },
+                                    "path": "fields.paywallLayoutType",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "paywallLayoutSidebar": {
+                            "pathHelper": {
+                                "type": "root"
+                            },
+                            "text": "Sidebar left layout",
+                            "title": "Sidebar left layout",
+                            "icon": "labicon-align_vertical_bottom",
+                            "callback": ["toggleKeyAndValue", "redraw"],
+                            "key": "fields.paywallLayoutType",
+                            "value": false,
+                            "onValue": "paywallLayoutSidebar",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "pathHelper": {
+                                        "type": "root"
+                                    },
+                                    "path": "fields.paywallLayoutType",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "paywallLayoutSidebarFull": {
+                            "pathHelper": {
+                                "type": "root"
+                            },
+                            "text": "Sidebar full layout",
+                            "title": "Sidebar Full layout",
+                            "icon": "labicon-align_vertical_bottom",
+                            "callback": ["toggleKeyAndValue", "redraw"],
+                            "key": "fields.paywallLayoutType",
+                            "value": false,
+                            "onValue": "paywallLayoutSidebarFull",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "pathHelper": {
+                                        "type": "root"
+                                    },
+                                    "path": "fields.paywallLayoutType",
+                                    "attribute": "value"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "ai": {
+                    "icon": "labicon-magic_wand",
+                    "title": "Labrador AI - Text completion",
+                    "group": "g5",
+                    "items": {
+                        "paywallSalesPitch": {
+                            "icon": "labicon-magic_wand",
+                            "text": "Generate Paywall salespitch",
+                            "callback": "dispatch",
+                            "group": "g5A",
+                            "params": {
+                                "function": "textAssistant.generateContent",
+                                "featureName": "paywallSalesPitch",
+                                "localizedStringPath": false,
+                                "setToRootModel": true,
+                                "setToViewAiField": true
+                            }
+                        },
+                        "paywallSalesPitch_settings": {
+                            "icon": "labicon-edit",
+                            "text": "Paywall salespitch settings",
+                            "callback": "dispatch",
+                            "group": "g5A",
+                            "params": {
+                                "function": "textAssistant.openFeatureSettings",
+                                "featureName": "paywallSalesPitch",
+                                "localizedStringPath": false,
+                                "setToRootModel": true,
+                                "setToViewAiField": true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

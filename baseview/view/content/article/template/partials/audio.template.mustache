@@ -1,0 +1,60 @@
+{{ #get.current.filtered.audio.url }}
+    <div class="teaser-audio">
+        <audio>
+            <source src="{{{ get.current.filtered.audio.url }}}" type="{{ #get.current.filtered.audio.fileType }}{{ get.current.filtered.audio.fileType }}{{ /get.current.filtered.audio.fileType }}{{ ^get.current.filtered.audio.fileType }}audio/mpeg{{ /get.current.filtered.audio.fileType }}">
+            Your browser does not support the audio element.
+        </audio>
+        <button class="fi-play" aria-label="Play audio"></button>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.audioScriptLoaded) {
+                window.audioScriptLoaded = true;
+
+                const teaserAudioElements = document.querySelectorAll('.teaser-audio');
+
+                teaserAudioElements.forEach(teaserAudio => {
+                    const audio = teaserAudio.querySelector('audio');
+                    const button = teaserAudio.querySelector('button');
+
+                    button.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        if (audio.paused) {
+                            playAudio(audio, button);
+                        } else {
+                            pauseAudio(audio, button);
+                        }
+                    });
+
+                    audio.addEventListener('ended', function() {
+                        pauseAudio(audio, button);
+                    });
+
+                    audio.addEventListener('pause', function() {
+                        pauseAudio(audio, button);
+                    });
+
+                    audio.addEventListener('play', function() {
+                        playAudio(audio, button);
+                    });
+                });
+
+                function playAudio(audio, button) {
+                    audio.play();
+                    button.setAttribute('aria-label', 'Pause audio');
+                    button.setAttribute('aria-pressed', 'true');
+                    button.classList.add('fi-pause');
+                    button.classList.remove('fi-play');
+                }
+
+                function pauseAudio(audio, button) {
+                    audio.pause();
+                    button.setAttribute('aria-label', 'Play audio');
+                    button.setAttribute('aria-pressed', 'false');
+                    button.classList.add('fi-play');
+                    button.classList.remove('fi-pause');
+                }
+            }
+        });
+    </script>
+{{ /get.current.filtered.audio.url }}
