@@ -1,7 +1,0 @@
-{
-    "icon": "labicon-refresh",
-    "respectLayoutLock": false,
-    "callback": "redraw",
-    "title": "Render element",
-    "text": "Redraw content"
-}
