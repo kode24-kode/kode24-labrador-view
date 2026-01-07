@@ -1,0 +1,232 @@
+{
+    "data": {
+        "blacklist": ["sub_content"],
+        "blacklistOptions": {
+            "sub_content": {
+                "includeChildren": true
+            }
+        },
+        "elements": {
+            "text_singleline":{
+                "fallbackData":{
+                    "contentdata":{
+                        "fields":{
+                            "elementType":"h2"
+                        }
+                    }
+                }
+            },
+            "articleHeader": {
+                "source": {
+                    "node": "page",
+                    "keys": ["fields.title", "fields.subtitle", "fields.kicker", "fields.published", "fields.modified", "fields.created"]
+                },
+                "fallbackData": {
+                    "contentdata": {
+                        "fields": {
+                            "displayCaption": true
+                        }
+                    },
+                    "metadata": {
+                        "showKicker": true
+                    }
+                }
+            },
+            "page_notice": {
+                "fallbackData": {
+                    "contentdata": {
+                        "fields": {
+                            "uiColor": "bg-primary"
+                        }
+                    }
+                }
+            },
+            "noticeHeader": {
+                "source": {
+                    "node": "page"
+                }
+            },
+            "bodytext": {
+                "source": {
+                    "node": "page"
+                }
+            },
+            "articleMeta": {
+                "source": {
+                    "node": "page"
+                }
+            },
+            "articleFooter": {
+                "source": {
+                    "node": "page"
+                }
+            },
+            "labradorSearch": {
+                "fallbackData": {
+                    "contentdata": {
+                        "fields": {
+                            "submitLabel": "Search",
+                            "navLabel": "Display more",
+                            "nohitsLabel": "No hits. Try modifying your search",
+                            "displayAdvanced": false,
+                            "displaySites": true,
+                            "searchPlaceholder": "Type your search here ...",
+                            "articleCount": 20,
+                            "advancedOpenText": "Open settings",
+                            "advancedCloseText": "Close settings",
+                            "orderBy": "published",
+                            "fromDateLabel": "From date",
+                            "toDateLabel": "To date",
+                            "tagLabel": "Tag",
+                            "authorLabel": "Author",
+                            "allSitesLabel": "All sites"
+                        }
+                    },
+                    "metadata": {
+                        "ui_color": "bg-secondary"
+                    }
+                }
+            },
+            "timeline": {
+                "fallbackData": {
+                    "metadata": {
+                        "ui_color": "bg-primary",
+                        "ui_text_color": "primary"
+                    }
+                }
+            },
+            "livefeed": {
+                "fallbackData": {
+                    "metadata": {
+                        "ui_color": "bg-primary"
+                    },
+                    "contentdata": {
+                        "fields": {
+                            "maxNoticesCount": 20,
+                            "viewports_json": {
+                                "desktop": {
+                                    "fields": {
+                                        "visibleCount": 3
+                                    }
+                                },
+                                "mobile": {
+                                    "fields": {
+                                        "visibleCount": 2
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "image": {
+                "fallbackData": {
+                    "metadata": {
+                        "bodyTextIndex": 0,
+                        "subimagePlacement": {
+                            "desktop": "topright"
+                        }
+                    }
+                }
+            },
+            "graphic": {
+                "fallbackData": {
+                    "metadata": {
+                        "subimagePlacement": {
+                            "desktop": "topright"
+                        }
+                    }
+                }
+            },
+            "articlesByTag": {
+                "fallbackData": {
+                    "contentdata": {
+                        "fields": {
+                            "title": "",
+                            "title_style_json": {
+                                "text_background_color": "bg-black"
+                            }
+                        }
+                    }
+                }
+            },
+            "front_rows": {
+                "fallbackData": {
+                    "contentdata": {
+                        "fields": {
+                            "fragment_json": {
+                                "start": 0,
+                                "count": 1
+                            }
+                        }
+                    }
+                }
+            },
+            "buttonlink": {
+                "fallbackData": {
+                    "metadata": {
+                        "background_color": "bg-primary",
+                        "text_color": "white",
+                        "border_color": "bg-primary"
+                    }
+                }
+            },
+            "topcomments": {
+                "fallbackData": {
+                    "contentdata": {
+                        "fields": {
+                            "titleLatest": "Recent articles",
+                            "titleMostRead": "Most read articles",
+                            "labelLatest": "Latest",
+                            "labelMostRead": "Most read",
+                            "iconLatest": "fi-clock",
+                            "iconMostRead": "fi-book",
+                            "articleCount": "5",
+                            "days": "7"
+                        }
+                    }
+                }
+            },
+            "factbox": {
+                "fallbackData": {
+                    "metadata": {
+                        "expandedState": {
+                            "desktop": true
+                        }
+                    }
+                }
+            },
+            "toplist": {
+                "fallbackData": {
+                    "contentdata": {
+                        "fields": {
+                            "days": "7",
+                            "layout": "vertical"
+                        }
+                    }
+                }
+            },
+            "articleList": {
+                "fallbackData": {
+                    "contentdata": {
+                        "fields": {
+                            "imageLayout": "left",
+                            "layout": "default"
+                        }
+                    }
+                }
+            },
+            "article": {
+                "fallbackData": {
+                    "metadata": {
+                        "sub_hideSubtitle": true
+                    }
+                }
+            }
+        },
+        "presets": {},
+        "presetBlacklist": {
+            "article": ["article/"]
+        }
+    }
+}

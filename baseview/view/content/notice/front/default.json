@@ -1,0 +1,10 @@
+{
+  "boxTitle": "Notice",
+  "viewHelper": "bodytext",
+  "bodytextElements": ["p", "h2", "h3", "h4", "ul", "ol", "li"],
+  "viewportMap": {
+      "fields": {
+          "title": "presets.vp_content_attributes"
+      }
+  }
+}

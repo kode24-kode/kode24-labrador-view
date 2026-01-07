@@ -1,0 +1,32 @@
+<button class="piano-logout hidden[[ #settings.classes ]] [[.]][[ /settings.classes ]]" data-id="pageElements-[[ id ]]">[[ #settings.text ]][[ settings.text ]][[ /settings.text ]][[ ^settings.text ]]{{ #lang }}paywall.piano.logout{{ /lang }}[[ /settings.text ]]</button>
+
+<script>
+    window.addEventListener('load', (event) => {
+        const pianoLogoutButton = document.querySelector('[data-id="pageElements-[[ id ]]"].piano-logout');
+
+        function PianoLogout() {
+            tp.pianoId.logout().then(() => {
+                window.location.reload();
+            }).catch((error) => {
+                console.error("Error during logout: ", error);
+            });
+        }
+
+        tp = window.tp || [];
+        if (!tp.pianoId) {
+            return;
+        }
+
+        const isLoggedIn = tp.pianoId.isUserValid();
+        if (isLoggedIn) {
+            pianoLogoutButton.classList.remove('hidden');
+        } 
+
+        if (pianoLogoutButton) {
+            pianoLogoutButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                PianoLogout();
+            });
+        }
+    });
+</script>

@@ -1,0 +1,49 @@
+<div class="clearfix {{# fields.articlTopTextFullBleed}}full-bleed {{/ fields.articlTopTextFullBleed}}"{{# filtered.editMode}} style="overflow:auto;"{{/filtered.editMode}}>
+    {{#filtered.isContentMarketing}}
+        {{> partial/contentmarketing/top}}
+    {{/filtered.isContentMarketing}}
+	<div>
+        {{# view.metadata.show_image}}
+            {{& placeholder.children }}
+            {{& placeholder.nocontent }}
+        {{/ view.metadata.show_image}}
+    </div>
+    {{#filtered.statsBudsjettet}}{{>partial/submenus/statsBudsjettet}}{{/filtered.statsBudsjettet}}
+    {{#filtered.menuKjendisArticle}}{{>partial/submenus/kjendisArticle}}{{/filtered.menuKjendisArticle}}
+	{{#filtered.menuMatArticle}}{{>partial/submenus/matArticle}}{{/filtered.menuMatArticle}}
+    {{#filtered.dinsideStories}}{{>partial/submenus/dinsideTag}}{{/filtered.dinsideStories}}
+    {{#filtered.menuMagasinetArticle}}{{>partial/submenus/spesial/magasinet}}{{/filtered.menuMagasinetArticle}}
+	{{#filtered.menuElection}}{{>partial/submenus/electionisArticle}}{{/filtered.menuElection}}
+	{{#filtered.menuOlympic}}{{>partial/submenus/olympicisArticle}}{{/filtered.menuOlympic}}
+	{{#filtered.menuVm}}{{>partial/submenus/vm2018isArticle}}{{/filtered.menuVm}}
+	{{#filtered.tidenesSkrekk}}{{>partial/submenus/spesial/tidenesSkrekkisArticle}}{{/filtered.tidenesSkrekk}}
+	{{#filtered.menuKlima}}{{>partial/submenus/spesial/klimaisArticle}}{{/filtered.menuKlima}}
+    <div class="columns {{filtered.articlTopTextAlign}}">
+        {{#filtered.showPlussLabel}}
+            {{#filtered.isPlussArticle}}{{> partial/pluss/article.label}}{{/filtered.isPlussArticle}}
+        {{/filtered.showPlussLabel}}
+        <div class="row">
+            <div class="columns small-12 medium-10 large-8 medium-centered large-uncentered">
+                {{> partial/dagbladet/opinionsTitle}}
+            </div>
+        </div>
+        {{# view.metadata.show_intro}}
+            <h1 class="intro {{ view.labCss.intro }}" itemprop="alternativeHeadline">{{& fields.intro}}</h1>
+            <h2 class="headline {{ view.labCss.title }}" itemprop="headline">{{& fields.title}}</h2>
+        {{/ view.metadata.show_intro}}
+        {{^ view.metadata.show_intro}}
+            <h1 class="headline {{ view.labCss.title }}" itemprop="headline">{{& fields.title}}</h1>
+        {{/ view.metadata.show_intro}}
+        <div class="row">
+			<div class="columns {{filtered.articlTopWidth}} {{filtered.articlTopAlign}}">
+				<p class="standfirst" itemprop="description">{{& fields.subtitle}}</p>
+				{{> content/article_top/partials/meta }}
+			</div>
+		</div>
+        <div class="row">
+            <div class="columns small-12 medium-10 large-8 medium-centered large-uncentered">
+                {{> partial/dagbladet/opinionsDisclaimer}}
+            </div>
+        </div>
+	</div>
+</div>

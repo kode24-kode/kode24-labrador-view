@@ -1,0 +1,130 @@
+@use './components/vars' as *;
+
+body.embed {
+    overflow: hidden;
+
+    .bodycontent {
+        padding: 0 0 20px;
+        overflow: hidden;
+    }
+
+    .main.article {
+        padding: 0;
+        margin:0;
+
+        .articleHeader {
+            padding-top: 0;
+        }
+
+        .articleHeader a {
+            color: initial;
+        }
+
+        a .subtitle {
+            text-decoration: none;
+            margin-bottom: 0;
+        }
+
+        .meta .social {
+            display: none;
+        }
+
+        // Before resources are loaded they may render with a very large height. Restrict.
+        picture, iframe {
+            max-height: 4000px;
+        }
+    }
+
+    footer.page {
+        margin:0;
+        padding:0;
+    }
+
+    footer.page .row {
+        padding: 0.5em 0;
+        border: 0;
+    }
+
+    footer.page svg,
+    footer.page img {
+        width: 120px;
+        vertical-align: middle;
+        display: inline-block;
+        margin-left: 0.5em;
+    }
+
+    &.dac-no-title {
+        .articleHeader .headline {
+            display: none;
+        }
+    }
+
+    &.dac-no-subtitle {
+        .articleHeader .subtitle {
+            display: none;
+        }
+    }
+
+    &.dac-no-image {
+        .articleHeader figure,
+        .articleHeader .markupbox,
+        .articleHeader .grid_element,
+        .articleHeader .graphic,
+        .articleHeader .caption {
+            display: none !important;
+        }
+    }
+
+    &.dac-padding {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    &.dac-no-sitelink footer.page,
+    &.dac-no-poweredby .powered-by {
+        display: none;
+    }
+
+    &.dac-no-sitelink-logo footer.page {
+        a img {
+            display: none;
+        }
+    }
+
+    &.dac-embed-teaser {
+        footer.page .columns {
+            padding: 0;
+        }
+    }
+
+    .bodytext article.column .content {
+        height: unset;
+    }
+
+    &.hasParallax {
+        overflow: auto;
+    }
+
+    .parallax-container,
+    .parallax-layer {
+        max-height: var(--viewport-height);
+        min-height: var(--viewport-height) !important;
+    }
+
+    .parallax-container {
+        overflow: auto;
+    }
+
+    .parallax-container.column>.content .parallax-layer figure, .parallax-container.column>.content .parallax-layer .img, .parallax-container.column>.content .parallax-layer img {
+        min-width: var(--viewport-height);
+        min-height: var(--viewport-height);
+        height: var(--viewport-height);
+    }
+
+    @include mobile {
+        &.dac-padding {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+}

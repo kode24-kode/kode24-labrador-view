@@ -1,0 +1,9 @@
+<div class="graphic type_{{ get.current.fields.fileType }}">
+    <div class="img fullwidthTarget">
+        <img src="{{ get.current.fields.url }}" {{ #get.current.filtered.lazyloadImages }}loading="lazy" {{ /get.current.filtered.lazyloadImages }}alt="{{ get.current.fields.alt }}" />
+    </div>
+    {{ #get.current.fields.displayCaption }}
+    {{ > content/image/template/partials/caption_links }}
+    {{ /get.current.fields.displayCaption }}
+    {{ > content/image/template/partials/child }}
+</div>

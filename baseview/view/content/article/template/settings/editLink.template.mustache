@@ -1,0 +1,23 @@
+<div class="lab-formgroup lab-grid lab-grid-gap">
+    <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+        <label for="url">Set the link this article teaser will use</label>
+        <input type="text" id="url" name="fields.published_url" value="{{{ get.current.fields.published_url }}}">
+    </div>
+    <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+        <label for="fields.open_in_new_window">Open in new tab/window</label>
+        <input type="checkbox" id="fields.open_in_new_window" name="fields.open_in_new_window" value="1" {{ #get.current.fields.open_in_new_window }}checked{{ /get.current.fields.open_in_new_window }}>
+    </div>
+    <h3 class="lab-grid-large-12">Rel Attribute Options</h3>
+    <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+        <input type="checkbox" id="addRelUgc" name="fields.addRelUgc" value="1" {{ #get.current.fields.addRelUgc }}checked{{ /get.current.fields.addRelUgc }}>
+        <label for="fields.addRelUgc">User-generated content</label>
+    </div>
+    <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+        <input type="checkbox" id="addRelSponsored" name="fields.addRelSponsored" value="1" {{ #get.current.fields.addRelSponsored }}checked{{ /get.current.fields.addRelSponsored }}>
+        <label for="fields.addRelSponsored">Sponsored</label>
+    </div>
+    <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+        <input type="checkbox" id="addRelNoFollow" name="fields.addRelNoFollow" value="1" {{ #get.current.fields.addRelNoFollow }}checked{{ /get.current.fields.addRelNoFollow }}>
+        <label for="fields.addRelNoFollow">No-follow</label>
+    </div>
+</div>

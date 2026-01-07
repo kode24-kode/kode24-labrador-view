@@ -1,0 +1,11 @@
+.lab-configobject-editor .lab-items .lab-item > h3.lab-item-group-title.sub-label {
+    margin-left: 2em;
+}
+.lab-configobject-editor .lab-items .lab-item > h3.lab-item-group-title.sub-label2 {
+    margin-left: 4em;
+}
+
+.lab-configobject-editor .lab-items > .lab-item > .lab-item > .lab-item {
+    border: 1px solid rgb(222, 222, 222);
+    padding: 1em;
+}

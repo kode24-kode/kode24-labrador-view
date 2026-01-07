@@ -1,0 +1,116 @@
+{
+    "int_fi-FI": {
+        "dates": {
+            "sunday": "sunnuntai",
+            "monday": "maanantai",
+            "tuesday": "tiistai",
+            "wednesday": "keskiviikko",
+            "thursday": "torstai",
+            "friday": "perjantai",
+            "saturday": "lauantai",
+            "january": "Tammikuu",
+            "february": "Helmikuu",
+            "mars": "Maaliskuu",
+            "april": "Huhtikuu",
+            "may": "Toukokuu",
+            "june": "Kesäkuu",
+            "july": "Heinäkuu",
+            "august": "Elokuu",
+            "september": "Syyskuu",
+            "october": "Lokakuu",
+            "november": "Marraskuu",
+            "december": "Joulukuu",
+            "ago": "sitten",
+            "now": "nyt",
+            "minute": "minuutti",
+            "min": "min",
+            "minutes": "minuuttia",
+            "hour": "tunti",
+            "hours": "tuntia",
+            "day": "päivä",
+            "days": "päivää",
+            "durationSince": "{{count}} {{period}} {{ago}}",
+            "monthdayyear": "{{D}}.{{M}}.{{YYYY}}}",
+            "hourminute": "{{HH}}:{{mm}}",
+            "dateTime": "{{D}}.{{M}}.{{YYYY}} - {{HH}}:{{mm}}",
+            "articleScrollerPublishedDatePrefix": "",
+            "articleScrollerPublishedFormat": "{{DD}}.{{MM}} - {{HH}}:{{mm}}"
+        },
+        "newsletter": {
+            "generic": {
+                "signup": "Ilmoittaudu uutiskirjeeseen",
+                "hiddenValue": "Ilmoittautuminen verkkosivustolta",
+                "yourEmail": "Kirjoita sähköpostiosoitteesi",
+                "subscribeButton": "Tilaa"
+            },
+            "mailmojo": {
+                "title": "Uutiskirje",
+                "notice": "Saat tämän sähköpostin, koska olet tilannut sähköpostilistamme.",
+                "preferences": "Asetuksesi",
+                "unsubscribe": "Peruuta tilaus",
+                "view": "Avaa selaimessa",
+                "date": "p. MMMM Y"
+            }
+        },
+        "embed": {
+            "embed_label": "Upota tämä",
+            "heading": "Upota artikkeli",
+            "description": "Kopioi ja liitä alla oleva HTML-koodi sivulle, johon haluat upottaa tämän artikkelin.",
+            "label_teaser": "Esikatselu",
+            "label_full": "Koko artikkeli",
+            "close": "Sulje"
+        },
+        "ai": {
+            "factbox_disclaimer": "Tämä tietolaatikko on luotu Labrador AI:n toimesta ja oikoluettu toimittajan toimesta."
+        },
+        "tags": {
+            "title_text": "{{tagPath}}: {{ tag }}"
+        },
+        "search": {
+            "placeholder": "Haku...",
+            "label": "Haku"
+        },
+        "header": {
+            "logo_link_text": "Siirry etusivulle"
+        },
+        "slack_notifier": {
+            "publish": {
+                "article": "*Artikkeli julkaistu*\n*Otsikko*: {{{title}}}\n*Sivun ID*: {{id}}\n{{#modified}}*Päivämäärä*: {{modified}}\n{{/modified}}{{#published_ahead}}*Huom: Julkaistu etukäteen*\n{{/published_ahead}}{{#hidden}}*Julkaistu piilossa*\n{{/hidden}}*Käyttäjä*: {{user}}\n*<{{{url_front}}}|Näytä sivu>* - *<{{{url_editor}}}|Muokkaa sivua>*",
+                "front": "*Etusivu julkaistu*\n*Otsikko*: {{{title}}}\n*Sivun ID*: {{id}}\n*Päivämäärä*: {{modified}}\n{{#published_ahead}}*Huom: Julkaistu etukäteen*\n{{/published_ahead}}{{#hidden}}*Julkaistu piilossa*\n{{/hidden}}*Käyttäjä*: {{user}}\n*<{{{url_front}}}|Näytä sivu>* - *<{{{url_editor}}}|Muokkaa sivua>*",
+                "notice": "*Ilmoitus julkaistu*\n*Otsikko*: {{{title}}}\n*Sivun ID*: {{id}}\n*Päivämäärä*: {{modified}}{{#hidden}}*Julkaistu piilossa*\n{{/hidden}}*Käyttäjä*: {{user}}\n*<{{{url_front}}}|Näytä sivu>* - *<{{{url_editor}}}|Muokkaa sivua>*"
+            },
+            "error": {
+                "all": "*{{ #isCmsError }}CMS virhe{{ /isCmsError }}{{ ^isCmsError }}Näytä virhe{{ /isCmsError }}*: {{{message}}}\n*Virheenkäsittely*: ```{{{stackTrace}}}```\n*Käyttäjä*: {{user}}\n*<{{{url_editor}}}|Muokkaa sivua>* - *<{{{url_monitor}}}|Kehittäjän valvonta>*"
+            }
+        },
+        "contentboxes": {
+            "articleScrollerLeftButton": "Siirry vasemmalle",
+            "articleScrollerRightButton": "Siirry oikealle"
+        },
+        "metadata": {
+            "publishedLabel": "Julkaistu",
+            "modifiedLabel": "Muokattu",
+            "unpublishedLabel": "Julkaisematon",
+            "readTimeLabel": "Lukuaika"
+        },
+        "notice": {
+            "relatedContent": {
+                "header": "Liittyvä sisältö"
+            },
+            "pinnedLabel": "Kiinnitetty"
+        },
+        "changelog": {
+            "changelogLabel": "Muutospäiväkirja"
+        },
+        "emptyState": {
+            "noContentText": "Ei sisältöä"
+        },
+        "image": {
+            "caption": {
+                "showCaptionLabel": "Näytä kuvateksti",
+                "hideCaptionLabel": "Piilota kuvateksti",
+                "showMoreLabel": "Näytä lisää"
+            }
+        }
+    }
+}

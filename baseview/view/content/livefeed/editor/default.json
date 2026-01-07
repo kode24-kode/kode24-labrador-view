@@ -1,0 +1,134 @@
+{
+    "droppable": {
+        "drop": {
+            "sourceType": {
+                "article": "prependChild",
+                "image": "prependChild",
+                "notice": "prependChild",
+                "graphic": "prependChild",
+                "youtube": "prependChild",
+                "markup": "prependChild",
+                "tablebox": "prependChild"
+            },
+            "default": "default"
+        }
+    },
+    "editors": {
+        "title": {
+            "selector": "h2",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.title",
+            "placeholder": "Click to add title ...",
+            "modal": false,
+            "allowReverting": true
+        }
+    },
+    "toolMenus": {
+        "rich_text": {
+            "inheritPath": "menu/tool/rich_text.json"
+        }
+    },
+    "contentMenus": {
+        "default": {
+            "items": {
+                "color_bg": {
+                    "params": {
+                        "colorPicker": {
+                            "preview": {
+                                "selector": ".content.timeline"
+                            }
+                        }
+                    }
+                },
+                "uiColor": {
+                    "inheritPath": "menu/buttons/backgroundColor.json",
+                    "icon": "labicon-color_palette",
+                    "group": "g4",
+                    "bindings": [
+                        {
+                            "path": "metadata.ui_color",
+                            "attribute": "value"
+                        }
+                    ],
+                    "params": {
+                        "colorPicker": {
+                            "preview": {
+                                "active": true,
+                                "styleDefinition": "background_color",
+                                "stylePath": null,
+                                "groupSelectors": {
+                                    "metadata.item_color": ".notices>li",
+                                    "metadata.ui_color": ".timeline-marker"
+                                }
+                            },
+                            "groups": [
+                                {
+                                    "values": "background_colors",
+                                    "title": "Notice background color",
+                                    "label": "",
+                                    "useValueAsLabel": false,
+                                    "cssPrefix": "",
+                                    "key": "metadata.item_color",
+                                    "removeBtn": true,
+                                    "bordered": false,
+                                    "autoborder": {
+                                        "attribute": "backgroundColor"
+                                    }
+                                },
+                                {
+                                    "values": "background_colors",
+                                    "title": "Marker color",
+                                    "label": "",
+                                    "useValueAsLabel": false,
+                                    "cssPrefix": "",
+                                    "key": "metadata.ui_color",
+                                    "removeBtn": true,
+                                    "bordered": false,
+                                    "autoborder": {
+                                        "attribute": "backgroundColor"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "editSettings": {
+                    "group": "g5",
+                    "icon": "labicon-edit",
+                    "callback": "displaySettingsPanel",
+                    "title": "Settings (,)",
+                    "hotkeys": [{
+                        "key": ","
+                    }],
+                    "params": {
+                        "settingsPanelOptions": "settingsPanels.admin"
+                    }
+                },
+                "newNotice": {
+                    "group": "g5",
+                    "icon": "labicon-pluss_slim",
+                    "title": "Add new Notice (Shift+N)",
+                    "callback": "dispatch",
+                    "params": {
+                        "function": "lab_api.v1.notice.ui.create"
+                    }
+                },
+                "settings": {
+                    "items": {
+                        "btn2": {
+                            "callback": "reloadExternal",
+                            "text": "Fetch new notices"
+                        }
+                    }
+                }
+            }
+        }
+    },
+
+    "settingsPanels": {
+        "admin": {
+            "template": "content/livefeed/template/settings"
+        }
+    }
+}

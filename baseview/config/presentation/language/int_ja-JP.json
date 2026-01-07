@@ -1,0 +1,145 @@
+{
+    "int_ja-JP": {
+        "dates": {
+            "sunday": "日曜日",
+            "monday": "月曜日",
+            "tuesday": "火曜日",
+            "wednesday": "水曜日",
+            "thursday": "木曜日",
+            "friday": "金曜日",
+            "saturday": "土曜日",
+            "january": "1月",
+            "february": "2月",
+            "mars": "3月",
+            "april": "4月",
+            "may": "5月",
+            "june": "6月",
+            "july": "7月",
+            "august": "8月",
+            "september": "9月",
+            "october": "10月",
+            "november": "11月",
+            "december": "12月",
+            "ago": "前",
+            "now": "今",
+            "minute": "分",
+            "min": "分",
+            "minutes": "分",
+            "hour": "時間",
+            "hours": "時間",
+            "day": "日",
+            "days": "日",
+            "durationSince": "{{count}}{{period}}{{ago}}",
+            "monthdayyear": "{{YYYY}}年{{MMMM}}{{D}}日",
+            "hourminute": "{{HH}}:{{mm}}",
+            "dateTime": "{{YYYY}}年{{MMMM}}{{D}}日 - {{HH}}:{{mm}}",
+            "articleScrollerPublishedDatePrefix": "",
+            "articleScrollerPublishedFormat": "{{DD}}.{{MM}} - {{HH}}:{{mm}}"
+        },
+        "newsletter": {
+            "generic": {
+                "signup": "ニュースレターに登録",
+                "hiddenValue": "ウェブサイトから登録",
+                "yourEmail": "メールアドレスを入力してください",
+                "subscribeButton": "登録する"
+            },
+            "mailmojo": {
+                "title": "ニュースレター",
+                "notice": "このメールは、当社のメールリストに登録されているため送信されています。",
+                "preferences": "設定",
+                "unsubscribe": "配信停止",
+                "view": "ブラウザで開く",
+                "date": "Y年MMMMd日"
+            }
+        },
+        "embed": {
+            "embed_label": "埋め込みコード",
+            "heading": "記事を埋め込む",
+            "description": "以下のHTMLコードをコピーして、この記事を埋め込みたいページに貼り付けてください。",
+            "label_teaser": "プレビュー",
+            "label_full": "全文記事",
+            "label_copy": "コードをコピー",
+            "title_customize": "埋め込みコンテンツをカスタマイズ",
+            "label_content_title": "タイトルを表示",
+            "label_content_subtitle": "サブタイトルを表示",
+            "label_content_image": "メイン画像を表示",
+            "label_content_padding": "余白",
+            "label_content_sitelink": "サイトへのリンクを表示",
+            "label_content_sitelinkLogo": "ロゴ付きリンクを表示",
+            "label_content_poweredby": "「提供元」リンクを表示",
+            "text_code_copied": "コピーしました！",
+            "close": "閉じる",
+            "page_sitelink_prefix": "続きを読む",
+            "page_sitelink_postfix": ""
+        },
+        "ai": {
+            "factbox_disclaimer": "このファクトボックスはLabrador AIによって生成され、記者によって校正されました。"
+        },
+        "tags": {
+            "title_text": "{{tagPath}}：{{tag}}"
+        },
+        "search": {
+            "placeholder": "検索...",
+            "label": "検索"
+        },
+        "header": {
+            "logo_link_text": "トップページへ"
+        },
+        "slack_notifier": {
+            "publish": {
+                "article": "*記事が公開されました*\n*タイトル*: {{{title}}}\n*ページID*: {{id}}\n{{#modified}}*日付*: {{modified}}\n{{/modified}}{{#published_ahead}}*注：先行公開*\n{{/published_ahead}}{{#hidden}}*非公開で公開されました*\n{{/hidden}}*ユーザー*: {{user}}\n*<{{{url_front}}}|ページを見る>* - *<{{{url_editor}}}|ページを編集>*",
+                "front": "*トップページが公開されました*\n*タイトル*: {{{title}}}\n*ページID*: {{id}}\n*日付*: {{modified}}\n{{#published_ahead}}*注：先行公開*\n{{/published_ahead}}{{#hidden}}*非公開で公開されました*\n{{/hidden}}*ユーザー*: {{user}}\n*<{{{url_front}}}|ページを見る>* - *<{{{url_editor}}}|ページを編集>*",
+                "notice": "*お知らせが公開されました*\n*タイトル*: {{{title}}}\n*ページID*: {{id}}\n*日付*: {{modified}}{{#hidden}}*非公開で公開されました*\n{{/hidden}}*ユーザー*: {{user}}\n*<{{{url_front}}}|ページを見る>* - *<{{{url_editor}}}|ページを編集>*"
+            },
+            "error": {
+                "all": "*{{ #isCmsError }}CMSエラー{{ /isCmsError }}{{ ^isCmsError }}ビューエラー{{ /isCmsError }}*: {{{message}}}\n*スタックトレース*: ```{{{stackTrace}}}```\n*ユーザー*: {{user}}\n*<{{{url_editor}}}|ページを編集>* - *<{{{url_monitor}}}|開発者モニター>*"
+            }
+        },
+        "contentboxes": {
+            "articleScrollerLeftButton": "左へ移動",
+            "articleScrollerRightButton": "右へ移動"
+        },
+        "metadata": {
+            "publishedLabel": "公開日",
+            "modifiedLabel": "更新日",
+            "unpublishedLabel": "未公開",
+            "readTimeLabel": "読了時間"
+        },
+        "notice": {
+            "relatedContent": {
+                "header": "関連コンテンツ"
+            },
+            "pinnedLabel": "ピン留め"
+        },
+        "changelog": {
+            "changelogLabel": "変更履歴"
+        },
+        "paywall": {
+            "shareableArticle": {
+                "shareArticleButton": "記事を共有",
+                "trySubscriptionButton": "購読を試す",
+                "trySubscriptionLink": "-",
+                "messageTitle": "この記事を共有してくれてありがとうございます",
+                "messageBeforeSharing": "友人は記事全文を読むことができます",
+                "messageAfterSharing": "友人はこの記事を全文読むことができます",
+                "bannerGuestReader": "この記事は友人が共有してくれたため閲覧可能です",
+                "shareByMail": "メール",
+                "shareByMailSubject": "この記事をあなたと共有したい",
+                "shareByMailBody": "以下のリンクをクリックすると、この記事を読むことができます",
+                "shareByFacebook": "Facebook",
+                "shareByCopy": "リンクをコピー",
+                "sharedByCopy": "リンクがコピーされました"
+            }
+        },
+        "emptyState": {
+            "noContentText": "コンテンツがありません"
+        },
+        "image": {
+            "caption": {
+                "showCaptionLabel": "キャプションを表示",
+                "hideCaptionLabel": "キャプションを非表示",
+                "showMoreLabel": "もっと表示"
+            }
+        }
+    }
+}
