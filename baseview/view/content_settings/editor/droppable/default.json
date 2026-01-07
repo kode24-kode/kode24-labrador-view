@@ -1,8 +1,0 @@
-{
-    "droppable": {
-        "active":             true,
-        "accept":             "*",
-        "reject":             ["row", "byline"],
-        "drop":               "default"
-    }
-}
