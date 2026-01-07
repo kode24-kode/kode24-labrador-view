@@ -1,0 +1,94 @@
+{
+    "settingsPanels": {
+        "admin": {
+            "template": "content/grid/template/settings"
+        }
+    },
+    "contentMenus": {
+        "default": {
+            "inheritPath": "menu/content/basemenu.json",
+            "items": {
+                "color_bg": null,
+                "style": {
+                    "inheritPath": "menu/buttons/styles.json",
+                    "group": "g4"
+                },
+                "imageStylingGrid": {
+                    "inheritPath": "menu/buttons/imageStylingGrid.json"
+                },
+                "textOptions": {
+                    "icon": "labicon-text_options",
+                    "group": "g4",
+                    "title": "Text options",
+                    "items": {
+                        "caption": {
+                            "icon": "labicon-image_caption",
+                            "text": "Display caption",
+                            "title": "Show or hide caption",
+                            "autocloseSubmenuAfterAction": false,
+                            "key": "metadata.showCaption",
+                            "onValue": true,
+                            "offValue": false,
+                            "callback": "toggleKeyAndValue",
+                            "bindings": [
+                                {
+                                    "path": "metadata.showCaption",
+                                    "attribute": "value",
+                                    "valueTransformer": "toBoolean"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "editSettings": {
+                    "group": "g5",
+                    "icon": "labicon-edit",
+                    "callback": "displaySettingsPanel",
+                    "title": "Settings (,)",
+                    "hotkeys": [{
+                        "key": ","
+                    }],
+                    "params": {
+                        "settingsPanelOptions": "settingsPanels.admin"
+                    }
+                },
+                "fullwidth": {
+                    "inheritPath": "menu/buttons/fullWidth.json",
+                    "text": "",
+                    "displayHotkeys": false,
+                    "group": "g5"
+                }
+            }
+        }
+    },
+    "draggable": {
+        "icon": "labicon-grid_tight"
+    },
+    "droppable": {
+        "active": true,
+        "drop": "replace",
+        "filedrop": "replaceChild"
+    },
+    "redrawPaths": {
+        "current": [
+            "metadata.image_gradient",
+            "metadata.image_gradient_direction"
+        ]
+    },
+    "editors": {
+        "caption": {
+            "selector": "p.caption",
+            "fn": "EditRich",
+            "key": "fields.caption",
+            "menu": "rich_text",
+            "placeholder": "Click to add caption",
+            "modal": false,
+            "allowReverting": true
+        }
+    },
+    "toolMenus": {
+        "rich_text": {
+            "inheritPath": "menu/tool/rich_text.json"
+        }
+    }
+}

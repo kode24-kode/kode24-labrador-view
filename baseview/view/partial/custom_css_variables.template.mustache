@@ -1,0 +1,25 @@
+<style data-key="custom_css_variables">
+:root {
+    {{ #get.current.filtered.css_variables.no_viewport }}
+    --{{ key }}: {{ value }};
+    {{ /get.current.filtered.css_variables.no_viewport }}
+    --space-top: {{getConfig.contentbox_settings.googleAd.spacingTop}};
+    --space-top-adnuntiusAd: {{getConfig.contentbox_settings.adnuntiusAd.spacingTop}};
+}
+
+@media(max-width: 767px) {
+    :root {
+        {{ #get.current.filtered.css_variables.mobile }}
+        --{{ key }}: {{ value }};
+        {{ /get.current.filtered.css_variables.mobile }}
+    }
+}
+
+@media(min-width: 767px) {
+    :root {
+        {{ #get.current.filtered.css_variables.desktop }}
+        --{{ key }}: {{ value }};
+        {{ /get.current.filtered.css_variables.desktop }}
+    }
+}
+</style>

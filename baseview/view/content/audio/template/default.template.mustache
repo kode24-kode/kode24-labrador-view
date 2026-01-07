@@ -1,0 +1,30 @@
+<div data-element-guid="{{ get.current.guid }}" id="audio-{{ get.current.id }}" class="{{ #helper.trim }}
+    column audio 
+    {{ #style.collection }}box_decoration{{ /style.collection }}
+    {{ size.grid.css }}
+    {{ size.grid.absCss }}
+    {{ /helper.trim }}">
+    <div class="{{ #helper.trim }}
+        content
+        {{ #style.collection }}content_decoration{{ /style.collection }}
+        {{ /helper.trim }}"
+        style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
+        {{ #get.current.metadata.showTitle }}
+            <h3 class="headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</h3>
+        {{ /get.current.metadata.showTitle }}
+        {{ ^app.isEditor }}
+            {{ #get.current.fields.url }}
+                <audio controls controlslist="{{ ^get.current.fields.allowDownload }}nodownload{{ /get.current.fields.allowDownload }}" src="{{ get.current.fields.url }}" type="audio/mpeg" ></audio>
+            {{ /get.current.fields.url }}
+        {{ /app.isEditor }}
+        {{ #app.isEditor }}
+            <audio controls controlslist="{{ ^get.current.fields.allowDownload }}nodownload{{ /get.current.fields.allowDownload }}" src="{{ get.current.fields.url }}" type="audio/mpeg" ></audio>
+            {{ ^get.current.fields.url }}
+                <p class="audio-missing-file">No audio file added</p>
+            {{ /get.current.fields.url }}
+        {{ /app.isEditor }}
+        {{ #get.current.metadata.showDescription }}
+            <p class="description {{ #style.collection }}text_decoration fields.description{{ /style.collection }}">{{ get.current.fields.description }}</p>
+        {{ /get.current.metadata.showDescription }}
+    </div>
+</div>

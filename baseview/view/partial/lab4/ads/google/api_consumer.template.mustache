@@ -1,0 +1,29 @@
+<script type="module">
+
+window.labClientAPI.on('pageChanged', ({ event, data, pageData }) => {
+
+    if (data.type === 'galleryImage') {
+        const adData = labClientAPI.get('adData') || [];
+        if (!Array.isArray(adData) || adData.length === 0) {
+            window.labClientAPI.log('[GPT:pageChanged] No ad data found in Client API. Event ignored.');
+            return;
+        }
+        for (const item of adData) {
+            window.labClientAPI.log(`[GPT:pageChanged] Checking if ad should be refreshed for ad id "${ item.code }" at preloadIndex: "${ item.preloadIndex }"`);
+            if (data.noIndexDistance === item.preloadIndex) {
+                window.labClientAPI.log(`[GPT:pageChanged] Found ad id "${ item.code }". Will attempt to refresh ad now ...`);
+                const adElement = document.getElementById(item.code);
+                if (adElement) {
+                    window.labClientAPI.log(`[GPT:pageChanged] Found dom element for ad id "${ item.code }". Refreshing now ...`);
+                    googletag.cmd.push(function() {
+                        googletag.pubads().refresh([googletag.pubads().getSlots().find(slot => slot.getSlotElementId() === item.code)]);
+                    });
+                } else {
+                    window.labClientAPI.log(`[GPT:pageChanged] Ad element not found for ad id: ${ item.code }`);
+                }
+            }
+        }
+    }
+});
+
+</script>

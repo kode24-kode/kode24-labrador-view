@@ -1,0 +1,117 @@
+{
+    "releasenotes": {
+        "version": {
+            "int": 147,
+            "str": "1.4.7"
+        },
+        "items": [
+            {
+                "isImprovement": true,
+                "date": "20241101",
+                "title": "Override layout in the grid element for mobile",
+                "description": "The settings panel now allows for overriding the number of columns in the grid element for mobile. This is useful for displaying two, three of four images next to each other on mobile. To use: Open the settings panel (hotkey Comma (`,`)) and set the number of columns you will display on mobile. The default is still 1."
+            },
+            {
+                "isFeature": true,
+                "date": "20241031",
+                "title": "Added possibility for setting social sharing links in admin",
+                "description": "Users can now set what sharing icons links to show on articles in Admin -> Article settings -> Embeddable options.",
+                "links": [
+                    "/settings/cp?page=articleSettings"
+                ]
+            },
+            {
+                "isFeature": true,
+                "date": "20241029",
+                "title": "Added possibility for setting default embed layout in admin",
+                "description": "Users can now set a default layout for embedded articles in Admin -> Article settings -> Embeddable options. This will be the default layout when the embed popup opens, but can then be overridden.",
+                "links": [
+                    "/settings/cp?page=articleSettings"
+                ]
+            },
+            {
+                "isFeature": true,
+                "date": "20241016",
+                "title": "Added option to hide header and footer via the url",
+                "description": "The argument `lab_opts` can be used to hide the header and footer of the page. This is useful for embedding the page in a native app or similar. Example: `?lab_opts=hideHeader,hideFooter`"
+            },
+            {
+                "isFeature": true,
+                "date": "20241008",
+                "title": "Added new element text singleline",
+                "description": "Removed old Text title and Text subtitle and replaced with the new element Text singleline"
+            },
+            {
+                "isImprovement": true,
+                "date": "20241004",
+                "title": "Allow customization of date formats in admin",
+                "description": "Users can change formatting of dates used in article meta (published/modified) in Admin -> Language options -> Date and time, with an added table explaining the different format options.",
+                "links": [
+                    "/settings/cp?page=localisation"
+                ]
+            }, {
+                "isImprovement": true,
+                "date": "20241014",
+                "title": "Admin self service: Allow 'style' in Custom Tags",
+                "description": "Users can now add 'style' in <head> of the page in Admin -> Custom Tags. This allows for custom CSS to be added to the page.",
+                "links": [
+                    "/settings/cp?page=customtags"
+                ]
+            },
+            {
+                "isFeature": true,
+                "date": "20241010",
+                "title": "Labrador AI - Custom prompt",
+                "description": "Customize the settings for AI features for improved content generation. This will help the feature generating a writing style closer to your site's tone and content. The custom prompt is in addition to the base prompt defined by Labrador AI. The custom prompt is in addition to the base prompt and is used to describe the audience so that the custom prompt helps generating content with the writing style, tone and content as of the news site. You can make a site-specific custom prompt in the admin page for AI 'Labrador AI' and make an even more specialised custom prompt in the AI settings on the element.",
+                "links": [
+                    "/settings/cp?page=labradorAi"
+                ]
+            },
+            {
+                "isFeature": true,
+                "date": "20241010",
+                "title": "Labrador AI: Extract quote",
+                "description": "Extract a quote from the article by using AI in the quotebox-element. The feature prompt is editable in the admin page for AI 'Labrador AI', as well as in AI settings on the quotebox-element.",
+                "links": [
+                    "/settings/cp?page=labradorAi"
+                ]
+            },
+            {
+                "isImprovement": true,
+                "date": "20241010",
+                "title": "Labrador AI: Article summary",
+                "description": "Customize the Article Summary. The updated version of Labrador AI's Article Summary lets you define a custom prompt and edit the prompt in the admin page for AI 'Labrador AI', as well as in AI settings on the element."
+            },
+            {
+                "isFeature": true,
+                "date": "20241029",
+                "title": "Added new feature Subrite push notifications",
+                "description": "Users can now enable push notifications in Admin -> Plugins. This allows users to send push notifications through Subrite, after they've added a baseURL and M2M token. A button is visible in the editor (header) where users can write their own body and title for their push notification.",
+                "links": [
+                    "/settings/cp?page=plugins"
+                ]
+            },
+            {
+                "isFeature": true,
+                "date": "20241104",
+                "title": "Added option to move article meta above image",
+                "description": "In Article Settings -> Styling, users can choose to show article meta above the main image of the article."
+            },
+            {
+                "isFeature": true,
+                "date": "20241104",
+                "title": "Ignore empty rows on front",
+                "description": "Baseview now checks if a row holds any data before rendering it. This will fix an issue with tag pages displaying empty rows when no articles are present for selected tag(s)."
+            },
+            {
+                "isFeature": true,
+                "date": "20241114",
+                "title": "Added new feature BuyAndRead push notifications",
+                "description": "Users can now enable push notifications in Admin -> Plugins. This allows users to send push notifications through BuyAndRead, after they've configured it in Admin. A button is visible in the editor (header) where users can write their own message and title for their push notification.",
+                "links": [
+                    "/settings/cp?page=plugins"
+                ]
+            }
+        ]
+    }
+}

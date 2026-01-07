@@ -1,0 +1,122 @@
+<div data-element-guid="{{ get.current.guid }}" id="labradorSearch_{{ get.current.id }}" class="{{ #helper.trim }}
+    labradorSearch 
+    {{ #style.collection }}box_decoration{{ /style.collection }}
+    {{ size.grid.css }}
+    {{ size.grid.absCss }}
+    {{ #style.collection }}box_fullWidth{{ /style.collection }}
+    {{ /helper.trim }}">
+    {{{ get.current.filtered.styleSheets }}}
+    <div class="content {{ #style.collection }}content_decoration{{ /style.collection }}">
+        <form action="" class="row grid-justify-center{{ ^get.current.filtered.allowSites }} nosites{{ /get.current.filtered.allowSites }}" role="search"><!-- grid-align-stretch -->
+            {{ #get.current.fields.title }}<div class="column large-12 small-12">
+                <h1 class="{{ #style.collection }}text_decoration fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</h1>
+            </div>{{ /get.current.fields.title }}
+            {{ #app.isEditor }}{{ ^get.current.fields.title }}<div class="column large-12 small-12">
+                <h1 class="{{ #style.collection }}text_decoration fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</h1>
+            </div>{{ /get.current.fields.title }}{{ /app.isEditor }}
+            <div class="column large-12 small-12 grid">
+                <input type="text" name="query" placeholder="{{ get.current.filtered.searchPlaceholder }}">
+                <button type="submit" class="ellipsis main-btn {{ get.current.metadata.ui_color }} {{ get.current.metadata.ui_text_color }}" value="">{{{ get.current.filtered.submitLabel }}}</button>
+            </div>
+            {{ #get.current.fields.displayAdvanced }}
+            <input type="hidden" name="sites" class="sites">
+            {{ /get.current.fields.displayAdvanced }}
+        
+            {{ #get.current.fields.displayAdvanced }}
+            <aside class="advanced-options column">
+                <span class="advanced-expander fi-list" role="button" aria-label="{{ get.current.filtered.advancedOpenText }}">{{ get.current.filtered.advancedOpenText }}</span>
+                <div class="advanced-content">
+                    <label class="toggleAll"{{ ^get.current.fields.displaySites }} style="display:none;"{{ /get.current.fields.displaySites }}>
+                        <input type="checkbox" name="site_whitelist_all" value="all">
+                        {{{ get.current.fields.allSitesLabel }}}
+                    </label>
+                    <ul class="sites"{{ ^get.current.fields.displaySites }} style="display:none;"{{ /get.current.fields.displaySites }}>
+                        {{ #get.current.filtered.allowedSites }}
+                        <li class="site column" title="{{ displayName }}">
+                            <label>
+                                <input type="checkbox" class="site_whitelist" value="{{ id }}">
+                                <span>{{ displayName }}</span>
+                            </label>
+                        </li>
+                        {{ /get.current.filtered.allowedSites }}
+                    </ul>
+                    <div class="column large-3 small-12">
+                        <label for="search-tag">{{{ get.current.filtered.tagLabel }}}</label>
+                        <input type="text" id="search-tag" value="" name="tag">
+                    </div>
+                    <div class="column large-3 small-12">
+                        <label for="search-author">{{{ get.current.filtered.authorLabel }}}</label>
+                        <input type="text" id="search-author" value="" name="author">
+                    </div>
+                    <div class="column large-3 small-12">
+                        <label for="search-from-date">{{{ get.current.filtered.fromDateLabel }}}</label>
+                        <input type="date" id="search-from-date" value="" name="fromDate">
+                    </div>
+                    <div class="column large-3 small-12">
+                        <label for="search-to-date">{{{ get.current.filtered.toDateLabel }}}</label>
+                        <input type="date" id="search-to-date" value="" name="toDate">
+                    </div>
+                </div>
+            </aside>
+            {{ /get.current.fields.displayAdvanced }}
+        </form>
+
+        <div class="labclient-content row"></div>
+        <span class="dac-hidden" id="loading-spinner"><i class="lab-spinner"></i></span>
+
+        <nav {{ ^app.isEditor }}class="dac-hidden"{{ /app.isEditor }}>
+            <a class="nextBtn {{ #style.collection }}text_decoration fields.navLabel{{ /style.collection }} {{ get.current.metadata.ui_color }} {{ get.current.metadata.ui_text_color }}" href="" data-nav="next" title="Display more hits">{{{ get.current.filtered.navLabel }}}</a>
+        </nav>
+    </div>
+
+    <script>
+        (function() {
+            const getParams = new URLSearchParams(window.location.search);
+            (document.querySelector('#labradorSearch_{{ get.current.id }} input[name="query"]') || {}).value = getParams.get('query') || getParams.get('q') || '';
+            (document.querySelector('#labradorSearch_{{ get.current.id }} input[name="tag"]') || {}).value = getParams.get('tag') || '';
+            (document.querySelector('#labradorSearch_{{ get.current.id }} input[name="author"]') || {}).value = getParams.get('author') || '';
+            (document.querySelector('#labradorSearch_{{ get.current.id }} input[name="fromDate"]') || {}).value = getParams.get('fromDate') || '';
+            (document.querySelector('#labradorSearch_{{ get.current.id }} input[name="toDate"]') || {}).value = getParams.get('toDate') || '';
+
+            const id = '{{ get.current.id }}' || null;
+            if (id && window.dachserData) {
+                window.dachserData.push('labradorsearch', {
+                    fallbackImage: '{{{ getConfig.image.fallbackUrl }}}',
+                    id,
+                    isEditor: ({{ #app.isEditor }}true{{ /app.isEditor }}{{ ^app.isEditor }}false{{ /app.isEditor }}),
+                    viewport: '{{{ app.viewport.name }}}',
+                    articleCount: '{{{ get.current.fields.articleCount }}}',
+                    imageServer: '{{{ getCmsConfig.image_server }}}',
+                    selector: '#labradorSearch_{{ get.current.id }} .labclient-content',
+                    apiUrl: '{{{ getCmsConfig.front_api_url }}}/article',
+                    bodytextLength: 190,
+                    nohitsLabel: '{{{ get.current.filtered.nohitsLabel }}}',
+                    container: document.querySelector('#labradorSearch_{{ get.current.id }}'),
+                    spinner: document.querySelector('#loading-spinner'),
+                    nav: document.querySelector('#labradorSearch_{{ get.current.id }} nav'),
+                    orderBy: '{{ get.current.fields.orderBy }}',
+                    advanced: {
+                        display: {{ #get.current.fields.displayAdvanced }}true{{ /get.current.fields.displayAdvanced }}{{ ^get.current.fields.displayAdvanced }}false{{ /get.current.fields.displayAdvanced }},
+                        button: {
+                            element: document.querySelector('#labradorSearch_{{ get.current.id }} .advanced-expander'),
+                            openText: '{{ get.current.filtered.advancedOpenText }}',
+                            closeText: '{{ get.current.filtered.advancedCloseText }}'
+                        },
+                        container: document.querySelector('#labradorSearch_{{ get.current.id }} .advanced-options'),
+                        sites: {
+                            input: document.querySelector('#labradorSearch_{{ get.current.id }} input[name="sites"]'),
+                            checkboxes: document.querySelectorAll('#labradorSearch_{{ get.current.id }} input.site_whitelist'),
+                            toggleAll: document.querySelector('#labradorSearch_{{ get.current.id }} input[name="site_whitelist_all"]'),
+                            allowed: '{{{ get.current.filtered.allowedSitesString }}}'
+                        }
+                    },
+                    ConfigObject: {{{ get.root.filtered.clientSideConfig }}},
+                    desktopWidth: '{{{ get.current.fields.desktopWidth }}}',
+                    hideSiteName: '{{{ get.current.fields.hideSiteName }}}',
+                    hidePublishedDate: '{{{ get.current.fields.hidePublishedDate }}}',
+                    hideSection: '{{{ get.current.fields.hideSection }}}',
+                });
+            }
+        }());
+    </script>
+</div>

@@ -1,0 +1,50 @@
+@use "../../css_scss/components/vars" as *;
+
+.globalChangelog {
+    li article {
+        border-bottom: 1px solid currentColor;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        padding: 1rem 0;
+        ul {
+            display: grid;
+            gap: 1rem;
+        }
+        a {
+            color: currentColor;
+            width: fit-content;
+            height: fit-content;
+        }
+        h2 {
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            display: grid;
+            grid-template-columns: 10ch 1fr;
+            gap: 2em;
+            p:not(:last-child) {
+                margin-bottom: 0.5em;
+            }
+        }
+    }
+    li:first-of-type article {
+        padding-top: 0rem;
+    }
+    li:last-of-type article {
+        padding-bottom: 0rem;
+        border-bottom: none;
+
+    }
+}
+
+@include mobile {
+    .globalChangelog {
+        li article {
+            grid-template-columns: 1fr;
+            padding: 1em 0;
+            gap: 1em;
+        }
+    }
+}

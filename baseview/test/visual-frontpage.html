@@ -1,0 +1,59 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baseview visual testing - Front page</title>
+    <!-- <script src="../public/common/labrador/Renderer.js"></script> -->
+
+    <script src="/public/common/Mustache/mustache.min.js"></script>
+    <script src="visual.js" type="module"></script>
+    <link rel="stylesheet" href="/view/css/grid.css">
+    <link rel="stylesheet" href="/view/css/main.css">
+    <link rel="stylesheet" href="/view/css/colors.css">
+    <link rel="stylesheet" href="/view/css/foundation-icons/foundation-icons.css">
+    <style data-key="custom_properties">
+        :root{--primary: rgba(219,17,142,1);--secondary: rgba(83,156,223,1);--bg-primary: rgba(219,17,142,1);--bg-secondary: rgba(83,156,223,1);}
+    </style>
+    <style data-key="background_colors">
+        .bg-primary {background-color: rgba(219,17,142,1);color: #fff;}.bg-secondary {background-color: rgba(83,156,223,1);}@media (max-width: 1023px) { .color_mobile_bg-primary {background-color: rgba(219,17,142,1);color: #fff;}}@media (max-width: 1023px) { .color_mobile_bg-secondary {background-color: rgba(83,156,223,1);}}
+    </style>
+    <style data-key="background_colors_opacity">
+        .bg-primary.op-bg_20 {background-color: rgba(219, 17, 142, 0.2);color: #fff;}.bg-primary.op-bg_40 {background-color: rgba(219, 17, 142, 0.4);color: #fff;}.bg-primary.op-bg_60 {background-color: rgba(219, 17, 142, 0.6);color: #fff;}.bg-primary.op-bg_80 {background-color: rgba(219, 17, 142, 0.8);color: #fff;}.bg-secondary.op-bg_20 {background-color: rgba(83, 156, 223, 0.2);}.bg-secondary.op-bg_40 {background-color: rgba(83, 156, 223, 0.4);}.bg-secondary.op-bg_60 {background-color: rgba(83, 156, 223, 0.6);}.bg-secondary.op-bg_80 {background-color: rgba(83, 156, 223, 0.8);}@media (max-width: 1023px) { .color_mobile_bg-primary.op-bg_20 {background-color: rgba(219, 17, 142, 0.2);color: #fff;}}@media (max-width: 1023px) { .color_mobile_bg-primary.op-bg_40 {background-color: rgba(219, 17, 142, 0.4);color: #fff;}}@media (max-width: 1023px) { .color_mobile_bg-primary.op-bg_60 {background-color: rgba(219, 17, 142, 0.6);color: #fff;}}@media (max-width: 1023px) { .color_mobile_bg-primary.op-bg_80 {background-color: rgba(219, 17, 142, 0.8);color: #fff;}}@media (max-width: 1023px) { .color_mobile_bg-secondary.op-bg_20 {background-color: rgba(83, 156, 223, 0.2);}}@media (max-width: 1023px) { .color_mobile_bg-secondary.op-bg_40 {background-color: rgba(83, 156, 223, 0.4);}}@media (max-width: 1023px) { .color_mobile_bg-secondary.op-bg_60 {background-color: rgba(83, 156, 223, 0.6);}}@media (max-width: 1023px) { .color_mobile_bg-secondary.op-bg_80 {background-color: rgba(83, 156, 223, 0.8);}}
+    </style>
+    <style data-key="border_colors">
+        .border-bg-primary{--border-color: var(--bg-primary);}.mobile_border-bg-primary{--mobile-border-color: var(--bg-primary);}.border-bg-secondary{--border-color: var(--bg-secondary);}.mobile_border-bg-secondary{--mobile-border-color: var(--bg-secondary);}
+    </style>
+    <style data-key="font_colors">
+        .primary {color: rgba(219,17,142,1) !important;}.secondary {color: rgba(83,156,223,1) !important;}@media (max-width: 1023px) { .color_mobile_primary {color: rgba(219,17,142,1) !important;}}@media (max-width: 1023px) { .color_mobile_secondary {color: rgba(83,156,223,1) !important;}}
+    </style>
+    <style data-key="image_gradient">
+        .image-gradient-bg-primary{--background-color: var(--bg-primary);}.color_mobile_image-gradient-bg-primary{--mobile-background-color: var(--bg-primary);}.image-gradient-bg-secondary{--background-color: var(--bg-secondary);}.color_mobile_image-gradient-bg-secondary{--mobile-background-color: var(--bg-secondary);}
+    </style>
+</head>
+
+<body>
+    <header class="pageElement pageHeader" style="background-color: #a51a7c; color:#fff;">
+        <div class="row">
+            <div class="section mainline grid grid-align-center">
+                <figure class="logo">
+                    <img src="https://www.labradorcms.com/view-resources/dachser2/public/publishlab/logo.svg" width="246">
+                </figure>
+            </div>
+            <nav class="navigation mainMenu grid-align-content-end">
+                <ul class="menu-list">
+                    <li class="first-list-item" style="padding-top: 20px;">
+                        Visual testing
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="main front" id="main">
+        <div class="page-content">
+
+        </div>
+    </section>
+</body>
+
+</html>

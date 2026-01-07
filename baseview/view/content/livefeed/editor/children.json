@@ -1,0 +1,13 @@
+{
+    "contentMenus": {
+        "default": {
+            "position": "right"
+        }
+    },
+    "draggable": {
+        "active": false
+    },
+    "droppable": {
+        "active": false
+    }
+}

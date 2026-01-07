@@ -1,0 +1,47 @@
+{
+    "contentMenus": {
+        "default": {
+            "items": {
+                "ai": {
+                    "icon": "labicon-magic_wand",
+                    "title": "Labrador AI - Text completion",
+                    "group": "g5",
+                    "items": {
+                        "articleSummary": {
+                            "icon": "labicon-magic_wand",
+                            "text": "Generate article summary",
+                            "callback": "dispatch",
+                            "group": "g5A",
+                            "params": {
+                                "function": "textAssistant.generateContent",
+                                "featureName": "articleSummary",
+                                "localizedStringPath": "ai.factbox_disclaimer"
+                            }
+                        },
+                        "articleSummary_settings": {
+                            "icon": "labicon-edit",
+                            "text": "Article summary settings",
+                            "callback": "dispatch",
+                            "group": "g5A",
+                            "params": {
+                                "function": "textAssistant.openFeatureSettings",
+                                "featureName": "articleSummary",
+                                "localizedStringPath": "ai.factbox_disclaimer"
+                            }
+                        },
+                        "topicSummary": {
+                            "icon": "labicon-magic_wand",
+                            "text": "Generate topic summary",
+                            "callback": "dispatch",
+                            "group": "g5B",
+
+                            "params": {
+                                "function": "contextualmenu.callbacks.generateTopicSummary"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

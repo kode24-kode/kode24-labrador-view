@@ -1,0 +1,140 @@
+<script type="module">
+
+    const galleryHandler = class {
+
+        constructor({ index, viewport, debug = false } = {}) {
+            this.index = index;
+            this.domIndex = null;
+            this.viewport = viewport;
+            this.debug = debug;
+            this.dom = {
+                toggle: null
+            };
+            this.init(index);
+        }
+
+        init(index) {
+            this.swipehelper = window.dachserData.getInstance('swipehelper', '#slideshow-{{ get.child.slideshow.id }}');
+            this.setupNavigation();
+            if (index || index === 0) {
+                this.displayIndex(index);
+            } else {
+                this.displayPreviews();
+            }
+            // Allow listeners to act a new gallery view, do custom stats logging etc.
+            window.labClientAPI.emit('galleryLoaded', {
+                type: 'galleryLoaded',
+                url: window.location.href,
+                photo: index,
+                gallery: `{{ get.child.slideshow.id }}`,
+                title: `{{ get.current.filtered.seotitle }}`,
+                description: `{{ get.child.slideshow.fields.description }}`,
+                imageCount: {{ get.current.filtered.imageCount }},
+                direction: 'none'
+            });
+        }
+
+        setupNavigation() {
+            const navItems = [...document.querySelectorAll('.slideshowcontainer nav .slideshow-preview figure')];
+            for (const item of navItems) {
+                this.setupNavItem(item, navItems.indexOf(item));
+            }
+
+            // Button to toggle display of previews or last displayed image
+            this.dom.toggle = document.querySelector('.gallery-header .gallery-toggle-all');
+            if (this.dom.toggle) {
+                this.dom.toggle.addEventListener('click', () => {
+                    if (document.body.classList.contains('gallery-all')) {
+                        this.displayIndex(this.index);
+                    } else {
+                        this.displayPreviews();
+                    }
+                });
+            }
+
+            // Close button:
+            // Url example: /gallery/100397/100406?photo=multi
+            // Get the number after '/gallery/' and navigate to /a/<number>
+            const closeBtn = document.querySelector('.gallery-header .gallery-close a');
+            const articleId = window.location.pathname.split('/')[2];
+            const slideshowId = window.location.pathname.split('/')[3];
+            if (closeBtn) {
+                closeBtn.setAttribute('href', `/a/${ articleId }#slideshow-${ slideshowId }`);
+            }
+            this.swipehelper.addNavUpdate((index, { isNoIndex, direction, domIndex, noIndexDistance }) => {
+                if (this.domIndex === null || (this.domIndex === domIndex && !isNoIndex)) {
+                    this.domIndex = domIndex;
+                    return;
+                }
+                this.index = index;
+                if (!isNoIndex) {
+                    this.updateHistoryState({ index }, { photo: index });
+                }
+
+                if (!isNoIndex) {
+                    // Allow listeners to do custom stats logging, ad manipulation etc:
+                    window.labClientAPI.emit('pageChanged', {
+                        type: 'galleryImage',
+                        url: window.location.href,
+                        photo: index,
+                        domIndex,
+                        isNoIndex,
+                        noIndexDistance,
+                        direction,
+                        gallery: `{{ get.child.slideshow.id }}`,
+                        title: `{{ get.current.filtered.seotitle }}`,
+                        description: `{{ get.child.slideshow.fields.description }}`,
+                        imageCount: {{ get.current.filtered.imageCount }}
+                    });
+                }
+                this.domIndex = domIndex;
+            });
+        }
+
+        setupNavItem(item, index) {
+            item.addEventListener('click', () => {
+                this.displayIndex(index, false);
+            });
+        }
+
+        updateHistoryState(state, urlParams) {
+            const args = [];
+            for (const key of Object.keys(urlParams)) {
+                args.push(`${ key }=${ urlParams[key] }`);
+            }
+            if (this.debug) {
+                args.push('debug=1');
+            }
+            const url = `?${ args.join('&') }`;
+            history.replaceState(state, '', url);
+        }
+
+        displayPreviews() {
+            document.body.classList.add('gallery-all');
+            this.dom.toggle.classList.add('fi-layout');
+            this.dom.toggle.classList.remove('fi-thumbnails');
+            this.domIndex = undefined;
+            this.updateHistoryState({ index: null }, { photo: 'multi' });
+        }
+
+        displayIndex(index, updateDomIndex = true) {
+            this.dom.toggle.classList.add('fi-thumbnails');
+            this.dom.toggle.classList.remove('fi-layout');
+            document.body.classList.remove('gallery-all');
+            if (updateDomIndex) {
+                this.domIndex = index;
+            }
+            this.swipehelper.navigateToIndex(this.swipehelper.publicToInternalIndex(index), 'instant');
+        }
+    };
+
+    // Get value of url argument 'photo' (integer):
+    const urlParams = new URLSearchParams(window.location.search);
+    const photoId = parseInt(urlParams.get('photo'), 10);
+    new galleryHandler({
+        index: Number.isInteger(photoId) ? photoId : null,
+        viewport: '{{ app.viewport.name }}',
+        debug: urlParams.get('debug') === '1'
+    });
+
+</script>

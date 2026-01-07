@@ -1,0 +1,12 @@
+{
+    "image": {
+        "defaultAspectRatio": 0.68
+    },
+    "contentMenus": {
+        "default": {
+            "items": {
+                "captionOptions": null
+            }
+        }
+    }
+}

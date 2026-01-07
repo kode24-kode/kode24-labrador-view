@@ -1,0 +1,17 @@
+{{ #app.isFront }}
+    <script>
+        window.lab_article_data = window.lab_article_data || {};
+        if (lab_article_data[{{ get.current.id }}]) {
+            lab_article_data[{{ get.current.id }}].tagsString = '{{{ get.current.filtered.tagsString }}}';
+            lab_article_data[{{ get.current.id }}].section = '{{{ get.current.filtered.section }}}';
+            lab_article_data[{{ get.current.id }}].pageType = '{{{ get.current.filtered.pageType }}}';
+        } else {
+            lab_article_data[{{ get.current.id }}] = {
+                tagsString: '{{{ get.current.filtered.tagsString }}}'
+                , section: '{{{ get.current.filtered.section }}}'
+                , pageType: '{{{ get.current.filtered.pageType }}}'
+            };
+            
+        }
+    </script>
+{{ /app.isFront }}
