@@ -1,9 +1,0 @@
-{
-    "droppable": {
-        "addSourceToNewSibling": false
-    },
-    "expand": {
-        "active": true,
-        "preventSingleChild": true
-    }
-}

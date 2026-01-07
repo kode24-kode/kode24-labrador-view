@@ -1,9 +1,0 @@
-{
-    "draggable": {
-        "active":               true,
-        "params": {
-            "autoscroll":       true,
-            "minimap":          true
-        }
-    }
-}

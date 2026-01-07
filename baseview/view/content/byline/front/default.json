@@ -1,9 +1,0 @@
-{
-    "viewportMap": {
-        "fields": {
-            "first_name": "presets.vp_content_attributes",
-            "last_name": "presets.vp_content_attributes",
-            "description": "presets.vp_content_attributes"
-        }
-    }
-}
