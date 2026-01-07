@@ -79,7 +79,8 @@
         {{ /get.current.fields.paywall }}
         {{ /getConfig.paywall.article.blurAllContent }}
         {{ /app.isFront }}
-
+        <div class="top-bar-ad" id="top-bar-ad">
+        </div>
         <section class="frontpage wide">
 
             {{{ selector.placement_top }}}
@@ -156,11 +157,7 @@
                 {{{ child.dropZone }}}
                 </section>
 
-                <div id="desktop-rows">
-                  <div id="articles-above-first-banner"></div>
-                  <div id="articles-below-first-banner"></div>
-                  <div id="articles-below-second-banner"></div>
-                </div>
+
 
             </main>
             {{> partial/site/kode24/leftmenu}}

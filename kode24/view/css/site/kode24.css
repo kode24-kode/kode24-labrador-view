@@ -1,7 +1,7 @@
 :root {
   --v2-main-color: 230;
 
-  --v2-header-background: hsla(var(--v2-main-color), 14%, 17%, 0.8);
+  --v2-header-background: hsla(var(--v2-main-color), 14%, 17%, 0.6);
 
   --v2-background: hsl(var(--v2-main-color), 8%, 8%);
   --v2-background-highlight: hsl(var(--v2-main-color), 12%, 16%);
@@ -29,11 +29,11 @@
   --v2-label-color-mint-darker: hsl(115, 100%, 30%);
   --v2-label-color-yellow: hsl(68, 100%, 50%);
   --v2-label-color-yellow-darker: hsl(68, 100%, 10%);
-  --v2-label-color-orange: hsl(14, 100%, 50%);
-  --v2-label-color-orange-darker: hsl(14, 100%, 40%);
+  --v2-label-color-orange: hsl(0, 100%, 50%);
+  --v2-label-color-orange-darker: hsl(0, 100%, 40%);
 
-  --v2-button-background-color: hsl(327, 81%, 54%);
-  --v2-notification-background-color: hsl(327, 81%, 54%);
+  --v2-button-background-color: hsl(327, 81%, 48%);
+  --v2-notification-background-color: hsl(327, 81%, 48%);
 
   --v2-flame-red: hsl(12deg 100% 50% / 40%);
   --v2-flame-red-light: hsl(12deg 100% 50% / 0);
@@ -47,7 +47,7 @@
 html.dark {
   --v2-main-color: 230;
 
-  --v2-header-background: hsla(var(--v2-main-color), 14%, 17%, 0.8);
+  --v2-header-background: hsla(var(--v2-main-color), 14%, 17%, 0.6);
 
   --v2-background: hsl(var(--v2-main-color), 8%, 8%);
   --v2-background-highlight: hsl(var(--v2-main-color), 12%, 16%);
@@ -70,16 +70,16 @@ html.dark {
   --v2-label-color-pink: hsl(327, 100%, 50%);
   --v2-label-color-pink-darker: hsl(327, 100%, 40%);
   --v2-label-color-purple: hsl(280, 100%, 50%);
-  --v2-label-color-purple-darker: hsl(260, 100%, 40%);
+  --v2-label-color-purple-darker: hsl(270, 100%, 40%);
   --v2-label-color-mint: hsl(115, 100%, 50%);
   --v2-label-color-mint-darker: hsl(115, 100%, 30%);
   --v2-label-color-yellow: hsl(68, 100%, 50%);
   --v2-label-color-yellow-darker: hsl(68, 100%, 10%);
-  --v2-label-color-orange: hsl(14, 100%, 50%);
-  --v2-label-color-orange-darker: hsl(14, 100%, 40%);
+  --v2-label-color-orange: hsl(0, 100%, 50%);
+  --v2-label-color-orange-darker: hsl(0, 100%, 40%);
 
-  --v2-button-background-color: hsl(327, 81%, 54%);
-  --v2-notification-background-color: hsl(327, 81%, 54%);
+--v2-button-background-color: hsl(327, 81%, 48%);
+  --v2-notification-background-color: hsl(327, 81%, 48%);
 
   --v2-flame-red: hsl(12deg 100% 50% / 40%);
   --v2-flame-red-light: hsl(12deg 100% 50% / 0);
@@ -106,7 +106,7 @@ html.dark {
     --v2-card-paragraph-color: hsl(230, 10%, 42%);
     --v2-card-always-white: hsl(0, 0%, 100%);
     --v2-card-always-black: hsl(230, 8%, 8%);
-    --v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.8);
+    --v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.6);
 
 
     --v2-card-label-background: hsl(245, 14%, 14%);
@@ -116,8 +116,8 @@ html.dark {
     --v2-label-color-pink-lighter: hsl(327, 100%, 20%);
     --v2-label-color-pink: hsl(327, 100%, 50%);
     --v2-label-color-pink-darker: hsl(327, 100%, 80%);
-    --v2-label-color-purple: hsl(260, 100%, 50%);
-    --v2-label-color-purple-darker: hsl(260, 100%, 80%);
+    --v2-label-color-purple: hsl(270, 100%, 50%);
+    --v2-label-color-purple-darker: hsl(270, 100%, 80%);
     --v2-label-color-mint: hsl(115, 100%, 50%);
     --v2-label-color-mint-darker: hsl(115, 100%, 80%);
     --v2-label-color-mint-adjusted: hsl(116, 100%, 40%);
@@ -125,7 +125,7 @@ html.dark {
     --v2-label-color-yellow-darker: hsl(68, 100%, 80%);
     --v2-label-color-yellow-adjusted: hsl(44, 100%, 50%);
     --v2-label-color-orange: hsl(14, 100%, 50%);
-    --v2-label-color-orange-darker: hsl(14, 100%, 60%);
+    --v2-label-color-orange-darker: hsl(0, 100%, 64%);
     --v2-button-background-color: hsl(327, 81%, 54%);
     --v2-notification-background-color: hsl(327, 81%, 54%);
 
@@ -143,7 +143,7 @@ html.light {
 
   --v2-main-color: 302;
 
-  --v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.8);
+  --v2-header-background: hsla(var(--v2-main-color), 14%, 100%, 0.6);
 
   --v2-background: hsl(302, 20%, 95%);
   --v2-background-highlight: hsl(216, 20%, 95%);
@@ -168,21 +168,20 @@ html.light {
   --v2-label-color-pink-lighter: hsl(327, 100%, 20%);
   --v2-label-color-pink: hsl(327, 100%, 50%);
   --v2-label-color-pink-darker: hsl(327, 100%, 80%);
-  --v2-label-color-purple: hsl(260, 100%, 50%);
-  --v2-label-color-purple-darker: hsl(260, 100%, 80%);
+  --v2-label-color-purple: hsl(270, 100%, 50%);
+  --v2-label-color-purple-darker: hsl(270, 100%, 80%);
   --v2-label-color-mint: hsl(115, 100%, 50%);
   --v2-label-color-mint-darker: hsl(115, 100%, 80%);
   --v2-label-color-mint-adjusted: hsl(116, 100%, 40%);
   --v2-label-color-yellow: hsl(68, 100%, 50%);
   --v2-label-color-yellow-darker: hsl(68, 100%, 80%);
   --v2-label-color-yellow-adjusted: hsl(44, 100%, 50%);
-  --v2-label-color-orange: hsl(14, 100%, 50%);
-  --v2-label-color-orange-darker: hsl(14, 100%, 60%);
-  --v2-button-background-color: hsl(327, 81%, 54%);
-  --v2-notification-background-color: hsl(327, 81%, 54%);
 
-  --v2-button-background-color: hsl(327, 81%, 54%);
-  --v2-notification-background-color: hsl(327, 81%, 54%);
+   --v2-label-color-orange: hsl(14, 100%, 50%);
+  --v2-label-color-orange-darker: hsl(0, 100%, 64%);
+
+  --v2-button-background-color: hsl(327, 81%, 48%);
+  --v2-notification-background-color: hsl(327, 81%, 48%);
 
   --v2-flame-red: hsl(12deg 100% 50% / 40%);
   --v2-flame-red-light: hsl(12deg 100% 50% / 0);
@@ -378,4 +377,15 @@ html.light {
 
 .text-orange {
   color: var(--v2-label-color-orange);
+}
+
+.bodytext>p>span,
+.bodytext>ul>li>span {
+  color: var(--v2-card-paragraph-color) !important;
+}
+
+@media (max-width: 767px) and (pointer: coarse) {
+    html.resp_fonts {
+        font-size: calc(0.262vw * 17) !important;
+    }
 }

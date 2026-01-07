@@ -1,4 +1,5 @@
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
 <!-- Labrador stuff -->
 <link rel="stylesheet" href="/view-resources/view/css/grid.css{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
 <link rel="stylesheet" href="/view-resources/view/css/main.css{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
@@ -8,15 +9,14 @@
 {{ #get.current.filtered.siteStylesheetList }}
 <link rel="stylesheet" href="{{{ . }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
 {{ /get.current.filtered.siteStylesheetList }}
+<link rel="stylesheet" href="/view-resources/kode24/view/kode24-legacy/assets/index.css{{ #helper.cachebuster }}{{ /helper.cachebuster }}">
+<script src="/view-resources/kode24/view/kode24-legacy/assets/front.js{{ #helper.cachebuster }}{{ /helper.cachebuster }}"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300..700;1,300..700&family=Roboto+Slab:wght@300..900&display=swap" rel="stylesheet">
 
 <!-- required to highlight code in articles -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js" defer></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
 
-<link rel="stylesheet" href="/view-resources/kode24/view/kode24-legacy/assets/index.css?v=46.24">
-<script src="/view-resources/kode24/view/kode24-legacy/assets/front.js?v=46.24" defer></script>
 <!-- legacy Aller Media scripts that should be refactored -->
 <script src="//www.kode24.no/assets/blink/blink-bundle.js" onload="window.Blink?.setupDefaultTracking?.();" defer></script>
 
@@ -36,4 +36,4 @@
 
 
 <!-- Plausible click tracking -->
-<script defer data-domain="kode24.no" src="https://plausible.io/js/script.outbound-links.js" defer></script>
+<script defer data-domain="kode24.no" src="https://plausible.io/js/script.outbound-links.js"></script>
