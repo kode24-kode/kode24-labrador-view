@@ -1,0 +1,223 @@
+{
+    "releasenotes": {
+        "version": {
+            "int": 1410,
+            "str": "1.4.10"
+        },
+        "items": [
+            {
+                "date": "20250602",
+                "title": "Added teasertitle and teaserkicker to the k5ameta object",
+                "description": "Added the teaserTitle and teaserKicker to the k5ameta object. In the Object it will be called \"teaserTitle\" and \"kicker\"",
+                "links": [],
+                "isImprovement": true
+            },
+            {
+                "date": "20250617",
+                "title": "Added new admin for adding a custom sesamy pop up instead of the default",
+                "description": "Added a new admin for adding a custom sesamy pop up. This will replace the default pop up",
+                "links": [],
+                "isFeature": true
+            },
+            {
+                "date": "20250619",
+                "title": "Roxen export: Strip characters",
+                "description": "When exporting articles to the Roxen print system the character for soft hyphen (`u00ad`) is now removed.",
+                "links": [],
+                "isImprovement": true
+            },
+            {
+                "date": "20250623",
+                "title": "Combined date and time inputs and added validation",
+                "description": "Date and time in article settings are now handled as one datetime input with validation to avoid saving improperly formatted dates.",
+                "links": [],
+                "isBug": true
+            },
+            {
+                "date": "20250626",
+                "title": "Fix duplicate ads rendering",
+                "description": "Ensures ads do not appear multiple times on the same page, improving ad display consistency for Labrador CMS users.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1299",
+                "isBug": true
+            },
+            {
+                "date": "20250701",
+                "title": "Add custom event for skyscraper ad reload",
+                "description": "Introduces a custom event when skyscraper ads reload, allowing better tracking and integration with ad services.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1314",
+                "isImprovement": true
+            },
+            {
+                "date": "20250703",
+                "title": "Center kicker alignment with padding",
+                "description": "Improves visual alignment of kickers by adding padding, enhancing aesthetics for article layouts.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1313",
+                "isImprovement": true
+            },
+            {
+                "date": "20250729",
+                "title": "Disable AI disclaimer for prompt generation",
+                "description": "Adds a button to allow users to skip the AI disclaimer when generating prompts, streamlining workflow.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1315",
+                "isFeature": true
+            },
+            {
+                "date": "20250804",
+                "title": "Fix canonical link on error pages",
+                "description": "Corrects canonical link output for 404 and 410 error pages, helping search engines index correctly.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1310",
+                "isBug": true
+            },
+            {
+                "date": "20250804",
+                "title": "Fix typo for March in all languages",
+                "description": "Ensures the month of March is displayed correctly in all language files and date code.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1308",
+                "isBug": true
+            },
+            {
+                "date": "20250805",
+                "title": "Added Reddit and Whatsapp share buttons. Added default styling to all SoMe icons",
+                "description": "Introduces a button for sharing articles directly to Reddit and Whatsapp, expanding social sharing options. Changed Glimta, Talandwebb and Copy buttons to match the styling of the rest of the SoMe icons",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1319",
+                "isFeature": true
+            },
+            {
+                "date": "20250805",
+                "title": "Integrate Adnuntius ads",
+                "description": "Better support for Adnuntius advertising network in the Mailmojo template, giving publishers more ad options.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1320",
+                "isFeature": true
+            },
+            {
+                "date": "20250807",
+                "title": "Hide empty Google ads",
+                "description": "Empty Google ad slots are now hidden on pages to avoid unsightly gaps in layouts.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1316",
+                "isBug": true
+            },
+            {
+                "date": "20250807",
+                "title": "Correct article date settings",
+                "description": "Fixes issues with article date settings so published dates display accurately.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1326",
+                "isBug": true
+            },
+            {
+                "date": "20250811",
+                "title": "Improve mobile kicker spacing",
+                "description": "Mobile kickers now have proper padding and margin when backgrounds are removed, enhancing mobile appearance.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1311",
+                "isImprovement": true
+            },
+            {
+                "date": "20250811",
+                "title": "Fix expandable caption rendering",
+                "description": "Expandable captions are now displayed correctly in articles, improving user experience.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1322",
+                "isBug": true
+            },
+            {
+                "date": "20250811",
+                "title": "Fix article layout spacing",
+                "description": "Resolves spacing issues in articles for a cleaner and more professional appearance.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1323",
+                "isBug": true
+            },
+            {
+                "date": "20250813",
+                "title": "Add oEmbed support",
+                "description": "Allows rich media embedding in articles using oEmbed standard, broadening content possibilities. You can add the argument `?lab_viewport=oembed` to articles to return the page as oEmbed. Options for the embed are available through the URL.",
+                "links": [
+                    "/view-resources/docs/readme/readme-oembed.md"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1312",
+                "isFeature": true
+            },
+            {
+                "date": "20250813",
+                "title": "Fix infinite scroll updates",
+                "description": "Addresses issues with infinite scroll for smoother article loading.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1335",
+                "isBug": true
+            },
+            {
+                "date": "20250819",
+                "title": "Add Ritzau article search",
+                "description": "Adds the ability to search for Ritzau articles, expanding news sourcing capabilities.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1339",
+                "isFeature": true
+            },
+            {
+                "date": "20250820",
+                "title": "Prevent rapid skyscraper ad reloads",
+                "description": "Implements a flag to stop skyscraper ads from reloading too quickly, improving ad stability.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1340",
+                "isImprovement": true
+            },
+            {
+                "date": "20250821",
+                "title": "Added language support for US",
+                "description": "Added language support for US, only date time format was changed compared to GB",
+                "links": [],
+                "isImprovement": true
+            },
+            {
+                "date": "20250822",
+                "title": "Add unified date display admin option",
+                "description": "Adds a checkbox in admin settings to enable unified date display in articles.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1342",
+                "isFeature": true
+            },
+            {
+                "date": "20250825",
+                "title": "Fix article share text",
+                "description": "Corrects the share text for articles to ensure proper display on social media.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1321",
+                "isBug": true
+            },
+            {
+                "date": "20250826",
+                "title": "Remove z-index from horseshoe ads",
+                "description": "Removes z-index settings from horseshoe ads to prevent layout issues.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1325",
+                "isImprovement": true
+            },
+            {
+                "date": "20250826",
+                "title": "Show section on articles",
+                "description": "Adds an option to display the section on articles, improving clarity for readers.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1247",
+                "isFeature": true
+            },
+            {
+                "date": "20250827",
+                "title": "Improve menu item targeting",
+                "description": "Enhances menu item targeting for more precise navigation and customization.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1345",
+                "isImprovement": true
+            }
+        ]
+    }
+}

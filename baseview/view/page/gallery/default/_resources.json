@@ -1,0 +1,17 @@
+{
+    "presentation": {
+        "stage": {
+            "lab-default": {
+                "template": {
+                    "default": "page/gallery/default/template/default"
+                },
+                "properties": {
+                    "default": [
+                        "content_settings/front/grid/default.json",
+                        "content_settings/front/vp_data.json"
+                    ]
+                }
+            }
+        }
+    }
+}

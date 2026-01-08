@@ -1,0 +1,15 @@
+<form method="post">
+    <h2 class="lab-title lab-space-below-medium">Audio</h2>
+    <div>
+        <div class="lab-formgroup lab-grid lab-grid-gap ">
+            <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                <label for="fields.url" class="lab-formgroup-label">Audio URL</label>
+                <input name="fields.url" type="url" placeholder="URL to audio file" value="{{ get.current.fields.url }}">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                <label for="fields.allowDownload" class="lab-formgroup-label">Allow download</label>
+                <input name="fields.allowDownload" type="checkbox" {{ #get.current.fields.allowDownload }}checked{{ /get.current.fields.allowDownload }} value="nodownload">
+            </div>
+        </div>
+    </div>
+</form>

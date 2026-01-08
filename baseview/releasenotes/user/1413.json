@@ -1,0 +1,198 @@
+{
+    "releasenotes": {
+        "version": {
+            "int": 1413,
+            "str": "1.4.13"
+        },
+        "items": [
+            {
+                "date": "20251031",
+                "title": "Add manifest link",
+                "description": "Adds a web app manifest link to allow Progressive Web App support and better integration with mobile home screens.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1408",
+                "isFeature": true
+            },
+            {
+                "date": "20251104",
+                "title": "Fix date widget in header",
+                "description": "Improves the date widget in header to be more reliable and user-friendly when scheduling content.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1412",
+                "isImprovement": true
+            },
+            {
+                "date": "20251104",
+                "title": "Update author canonical URLs",
+                "description": "Author page canonical URLs now use slugs for better SEO and user experience. Article bylines and links are also updated.",
+                "links": [
+                    "/settings/cp?page=authorPages"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1402",
+                "isImprovement": true
+            },
+            {
+                "date": "20251104",
+                "title": "Fix background color logic",
+                "description": "Updates background color handling in various components for more consistent and correct visuals site-wide.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1390",
+                "isBug": true
+            },
+            {
+                "date": "20251111",
+                "title": "Hotfix for internal paywall template",
+                "description": "Fixes internal paywall templates to ensure they only apply to the intended articles and sections.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1418",
+                "isBug": true
+            },
+            {
+                "date": "20251113",
+                "title": "Integrate WoodWing export",
+                "description": "Adds the ability to export articles to WoodWing if you have the correct permission, supporting newsrooms using WoodWing tools.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1420",
+                "isFeature": true
+            },
+            {
+                "date": "20251113",
+                "title": "Enable new options for quotebox styling",
+                "description": "Expands quotebox options with controls for quotation marks, sidebar lines, and color customization.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1416",
+                "isImprovement": true
+            },
+            {
+                "date": "20251117",
+                "title": "Set aria-label language for hamburger menu",
+                "description": "Improves accessibility by allowing aria-labels on hamburger menus to be configured based on language.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1415",
+                "isImprovement": true
+            },
+            {
+                "date": "20251117",
+                "title": "Support text buttons for search",
+                "description": "Head search can now use configurable text buttons, not just icons, for easier customization.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1414",
+                "isFeature": true
+            },
+            {
+                "date": "20251119",
+                "title": "Make section label a link",
+                "description": "Section labels can now be linked directly to associated tag pages from the article header for improved navigation.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1401",
+                "isFeature": true
+            },
+            {
+                "date": "20251120",
+                "title": "Add scroll buttons to menus",
+                "description": "Menus can now display scroll buttons when they have more items than fit on the screen, improving usability for large menus.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1426",
+                "isFeature": true
+            },
+            {
+                "date": "20251121",
+                "title": "Highlight menu items for tags",
+                "description": "Menus now visually highlight the active tag, making it easier for users to see their current context.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1434",
+                "isImprovement": true
+            },
+            {
+                "date": "20251121",
+                "title": "Add more metadata for Kilkaya front",
+                "description": "Adds 'hide on front' scheduling metadata to the Kilkaya template using proper ISO 8601 formatting.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1421",
+                "isImprovement": true
+            },
+            {
+                "date": "20251121",
+                "title": "Show counter for articles by tag",
+                "description": "Articles by tag can now display a counter, making it easy for users to see the number of articles in each tag.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1433",
+                "isFeature": true
+            },
+            {
+                "date": "20251121",
+                "title": "Include tags array in ad data",
+                "description": "Improves advertising support by including an array of tags in ad data sent to IS ads for more granular targeting.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1432",
+                "isBug": true
+            },
+            {
+                "date": "20251121",
+                "title": "Add hamburger menu text and icon options",
+                "description": "Hamburger menu can now use configurable text before and after the icon, for better branding and usability.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1424",
+                "isImprovement": true
+            },
+            {
+                "date": "20251121",
+                "title": "Add option to select audio icon",
+                "description": "Users can now select a custom audio icon from the Insert menu, supporting site-specific icon styles.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1437",
+                "isFeature": true
+            },
+            {
+                "date": "20251124",
+                "title": "Remove terms not tags button",
+                "description": "Removes unnecessary UI for setting term mode in article automatic settings, simplifying front page options.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1430",
+                "isImprovement": true
+            },
+            {
+                "date": "20251125",
+                "title": "Add support for GPT-5 models in Labrador AI",
+                "description": "Added new GPT-5 based models (Gpt-5, Gpt-5.1, Gpt-5 Mini, Gpt-5 Nano) to Labrador AI's admin configuration allowing users to select advanced AI models in the admin panel. Updated user prompts and configuration files to reflect these new options.",
+                "links": [
+                    "/settings/cp?page=labradorAi"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1419",
+                "isFeature": true
+            },
+            {
+                "date": "20251125",
+                "title": "Enable comments in Collabrador module",
+                "description": "Note: This is work in progress. Introduced the Collabrador feature, implementing collections and enabling comments on elements within the module. This update prepares the feature for further client testing and enhances content collaboration.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1439",
+                "isFeature": true
+            },
+            {
+                "date": "20251125",
+                "title": "Support fluid sizes in Google ad settings",
+                "description": "Improved the getGoogleSettings logic so that it includes the 'fluid' option in the sizes string when enabled. This makes it easier to create responsive ad slots in Labrador CMS.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1438",
+                "isImprovement": true
+            },
+            {
+                "date": "20251127",
+                "title": "Fix paywall preview delete button and improve field handling",
+                "description": "Restores the delete button for paywall previews, adds missing session checks for body text, and applies fixes for custom field handling in datalayers. Ensures consistent behavior for SEO and paywall features in Labrador CMS.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1444",
+                "isBug": true
+            },
+            {
+                "date": "20251128",
+                "title": "Prevent template errors and improve paywall text defaults",
+                "description": "Improves template reliability by using safer helpers, resolves issues with datalayer handling of special characters, and ensures paywall previews have correct default content in Labrador CMS.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1446",
+                "isBug": true
+            }
+        ]
+    }
+}

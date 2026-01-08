@@ -1,0 +1,190 @@
+{
+    "int_pl-PL": {
+        "dates": {
+            "sunday": "niedziela",
+            "monday": "poniedziałek",
+            "tuesday": "wtorek",
+            "wednesday": "środa",
+            "thursday": "czwartek",
+            "friday": "piątek",
+            "saturday": "sobota",
+            "january": "Styczeń",
+            "february": "Luty",
+            "march": "Marzec",
+            "april": "Kwiecień",
+            "may": "Maj",
+            "june": "Czerwiec",
+            "july": "Lipiec",
+            "august": "Sierpień",
+            "september": "Wrzesień",
+            "october": "Październik",
+            "november": "Listopad",
+            "december": "Grudzień",
+            "ago": "temu",
+            "now": "teraz",
+            "minute": "minuta",
+            "min": "min",
+            "minutes": "minut",
+            "hour": "godzina",
+            "hours": "godzin",
+            "day": "dzień",
+            "days": "dni",
+            "durationSince": "{{count}} {{period}} {{ago}}",
+            "monthdayyear": "{{DD}}.{{MM}}.{{YYYY}}",
+            "hourminute": "{{HH}}:{{mm}}",
+            "dateTime": "{{DD}}.{{MM}}.{{YYYY}} - {{HH}}:{{mm}}",
+            "articleScrollerPublishedDatePrefix": "",
+            "articleScrollerPublishedFormat": "{{DD}}.{{MM}} - {{HH}}:{{mm}}"
+        },
+        "newsletter": {
+            "generic": {
+                "signup": "Zapisz się do newslettera",
+                "hiddenValue": "Zapisz się z witryny",
+                "yourEmail": "Wpisz swój adres e-mail",
+                "subscribeButton": "Subskrybuj"
+            },
+            "mailmojo": {
+                "title": "Newsletter",
+                "notice": "Otrzymujesz ten e-mail, ponieważ jesteś zapisany na naszą listę e-mailową.",
+                "preferences": "Twoje ustawienia",
+                "unsubscribe": "Wypisz się",
+                "view": "Otwórz w przeglądarce",
+                "date": "d. MMMM Y"
+            }
+        },
+        "embed": {
+            "embed_label": "Osadź to",
+            "heading": "Osadź artykuł",
+            "description": "Skopiuj i wklej poniższy kod HTML na stronę, na której chcesz osadzić ten artykuł.",
+            "label_teaser": "Podgląd",
+            "label_full": "Pełny artykuł",
+            "close": "Zamknij"
+        },
+        "ai": {
+            "factbox_disclaimer": "Ta ramka faktów została wygenerowana przez Labrador AI i sprawdzona przez dziennikarza."
+        },
+        "tags": {
+            "title_text": "{{tagPath}}: {{ tag }}"
+        },
+        "search": {
+            "placeholder": "Szukaj...",
+            "label": "Szukaj",
+            "openText": "Szukaj",
+            "closeText": "Zamknąć",
+            "expandedLabel": "Zamknij wyszukiwanie",
+            "collapsedLabel": "Otwórz wyszukiwanie",
+            "labradorSearch": {
+                "submitLabel": "Szukaj",
+                "navLabel": "Wyświetl więcej",
+                "nohitsLabel": "Brak wyników. Spróbuj zmodyfikować wyszukiwanie.",
+                "searchPlaceholder": "Wpisz tutaj szukany tekst...",
+                "advancedOpenText": "Otwórz filtr",
+                "advancedCloseText": "Zamknij filtr",
+                "fromDateLabel": "Od daty",
+                "toDateLabel": "Do daty",
+                "tagLabel": "Etykietka",
+                "authorLabel": "Autor",
+                "allSitesLabel": "Wszystkie witryny"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "Zamknij menu",
+            "collapsedLabel": "Otwórz menu",
+            "buttonText": "Menu"
+        },
+        "header": {
+            "logo_link_text": "Przejdź do strony głównej",
+			"menuScrollerLeftButton": "Przewiń w lewo",
+			"menuScrollerRightButton": "Przewiń w prawo"
+        },
+        "slack_notifier": {
+            "publish": {
+                "article": "*Artykuł opublikowany*\n*Tytył*: {{{title}}}\n*ID strony*: {{id}}\n{{#modified}}*Data*: {{modified}}\n{{/modified}}{{#published_ahead}}*Uwaga: Opublikowano z wyprzedzeniem*\n{{/published_ahead}}{{#hidden}}*Opublikowano w ukryciu*\n{{/hidden}}*Użytkownik*: {{user}}\n*<{{{url_front}}}|Zobacz stronę>* - *<{{{url_editor}}}|Edytuj stronę>*",
+                "front": "*Strona główna opublikowana*\n*Tytył*: {{{title}}}\n*ID strony*: {{id}}\n*Data*: {{modified}}\n{{#published_ahead}}*Uwaga: Opublikowano z wyprzedzeniem*\n{{/published_ahead}}{{#hidden}}*Opublikowano w ukryciu*\n{{/hidden}}*Użytkownik*: {{user}}\n*<{{{url_front}}}|Zobacz stronę>* - *<{{{url_editor}}}|Edytuj stronę>*",
+                "notice": "*Ogłoszenie opublikowane*\n*Tytył*: {{{title}}}\n*ID strony*: {{id}}\n*Data*: {{modified}}{{#hidden}}*Opublikowano w ukryciu*\n{{/hidden}}*Użytkownik*: {{user}}\n*<{{{url_front}}}|Zobacz stronę>* - *<{{{url_editor}}}|Edytuj stronę>*"
+            },
+            "error": {
+                "all": "*{{ #isCmsError }}Błąd CMS{{ /isCmsError }}{{ ^isCmsError }}Zobacz błąd{{ /isCmsError }}*: {{{message}}}\n*Stos śladowy*: ```{{{stackTrace}}}```\n*Użytkownik*: {{user}}\n*<{{{url_editor}}}|Edytuj stronę>* - *<{{{url_monitor}}}|Monitor dewelopera>*"
+            }
+        },
+        "contentboxes": {
+            "articleScrollerLeftButton": "Przejdź w lewo",
+            "articleScrollerRightButton": "Przejdź w prawo"
+        },
+        "metadata": {
+            "publishedLabel": "Opublikowano",
+            "modifiedLabel": "Zmodyfikowano",
+            "unpublishedLabel": "Nieopublikowano",
+            "readTimeLabel": "Czas czytania"
+        },
+        "notice": {
+            "relatedContent": {
+                "header": "Powiązana treść"
+            },
+            "pinnedLabel": "Przypięte"
+        },
+        "changelog": {
+            "changelogLabel": "Dziennik zmian"
+        },
+        "emptyState": {
+            "noContentText": "Brak treści"
+        },
+        "image": {
+            "caption": {
+                "showCaptionLabel": "Pokaż podpis",
+                "hideCaptionLabel": "Ukryj podpis",
+                "showMoreLabel": "Pokaż więcej",
+                "showLessLabel": "Pokaż mniej"
+            },
+            "videoOverlayLabel": "Artykuł wideo"
+        },
+        "mostRead": {
+            "labelLatest": "Najnowszy",
+            "titleLatest": "Najnowsze artykuły",
+            "labelMostRead": "Najczęściej czytane",
+            "titleMostRead": "Najczęściej czytane artykuły"
+        },
+        "infiniteScroll": {
+            "readMore": "Kontynuuj czytanie"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Udostępnij na Facebooku",
+                "twitter": "Udostępnij na X (Twitter)",
+                "linkedin": "Udostępnij na LinkedIn",
+                "mail": "Udostępnij przez e-mail",
+                "threads": "Udostępnij na Threads",
+                "copyLink": "Kopiuj link",
+                "glimta": "Odblokuj za pomocą Glimta",
+                "talandeWebb": "Otwórz panel opcji Talande Webb",
+                "bluesky": "Udostępnij na Bluesky",
+                "reddit": "Udostępnij na Reddicie",
+                "whatsapp": "Udostępnij na WhatsAppie"
+            }
+        },
+        "gallery": {
+            "label": "Galeria",
+            "seeAllImages": "Zobacz wszystkie obrazy",
+            "navigateToOriginal": "Przejdź do oryginalnej strony"
+        },
+        "weather": {
+            "failedToFetch": "Nie udało się pobrać danych pogodowych",
+            "updated": "Zaktualizowano",
+            "fetchingData": "Ładowanie danych pogodowych",
+            "types": {
+                "clearsky": "Bezchmurnie",
+                "fair": "Małe zachmurzenie",
+                "partlycloudy": "Częściowe zachmurzenie",
+                "cloudy": "Pochmurno",
+                "rainshowers": "Przelotne opady deszczu",
+                "rain": "Deszcz",
+                "snow": "Śnieg",
+                "sleet": "Deszcz ze śniegiem",
+                "thunder": "Burza",
+                "fog": "Mgła",
+                "wind": "Wietrznie",
+                "unknown": "Nieznane"
+            }
+        }
+    }
+}

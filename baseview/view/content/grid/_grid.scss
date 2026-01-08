@@ -1,0 +1,75 @@
+// Styles for the element "grid"
+
+@use "../../css_scss/components/vars" as *;
+
+.grid_element {
+
+    &.no-space {
+        .content > * {
+            padding: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    & > .content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        & > * {
+            align-self: center;
+        }
+
+        > figure {
+            align-self: stretch;
+
+            .content,
+            .img,
+            picture,
+            img {
+                height: 100%;
+            }
+            img {
+                object-fit: cover;
+            }
+        }
+    }
+
+    .lab-empty-placeholder.lab-aspect-ratio-medium {
+        padding: 0 0 68%;
+        height: 100%;
+    }
+
+    .text_singleline .singleline {
+        margin-bottom: 0;
+    }
+}
+
+.articleHeader .grid_element,
+article.column .grid_element {
+    &.no-space {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    &:not(.no-space) {
+        margin-left: calc(#{$columns_gutter} * (-1));
+        width: calc(100% + (#{$columns_gutter} * 2));
+    }
+}
+
+.bodytext .grid_element:not(.no-space) {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.articleHeader .grid_element.no-space {
+    margin-bottom: 1.5rem;
+}
+
+// Override style from _article.scss
+article.column .content .no-space {
+    margin-bottom: 0.4rem;
+    figure {
+        margin-bottom: 0;
+    }
+}

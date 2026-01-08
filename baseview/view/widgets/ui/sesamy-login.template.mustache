@@ -1,0 +1,12 @@
+<sesamy-login class="[[ #settings.classes ]] [[.]][[ /settings.classes ]]" url="[[ #settings.url ]][[ settings.url ]][[ /settings.url ]]">
+    <span slot="button-text">[[ #settings.login ]][[ settings.login ]][[ /settings.login ]][[ ^settings.login ]]Log in[[ /settings.login ]]</span>
+    {{ #getConfig.sesamy }}
+        {{ #useCustomPopup }}
+            <div slot="popup-menu">
+                {{ #sesamyCustomMenuItems }}
+                    <sesamy-login-menu-item type="{{ #type }}{{ type }}{{ /type }}{{ ^type }}EMAIL{{ /type }}"{{ #href }} href="{{ href }}"{{ /href }}{{ #text }} text="{{ text }}"{{ /text }}></sesamy-login-menu-item>
+                {{ /sesamyCustomMenuItems }}
+            </div>
+        {{ /useCustomPopup }}
+    {{ /getConfig.sesamy }}
+</sesamy-login>

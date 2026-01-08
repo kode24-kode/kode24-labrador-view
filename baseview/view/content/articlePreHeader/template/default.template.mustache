@@ -1,0 +1,19 @@
+{{ ^app.isEditor }}
+    <div>{{{ children.all }}}</div>
+{{ #get.root.filtered.paywall.shareable }}
+    <div class="shareableMessage" style="display:none">{{ get.root.filtered.paywall.shareableArticle.bannerGuestReader }}</div>
+{{ /get.root.filtered.paywall.shareable }}
+<script>
+(function() {
+    let windowUrl = window.location.href;
+    windowUrl = windowUrl.substring(windowUrl.indexOf('?') + 1);
+    let messageElement = document.querySelector('.shareableMessage');
+    if (windowUrl && windowUrl.includes('code') && windowUrl.includes('expires')) {
+        messageElement.style.display = 'block';
+    } 
+})();
+</script>
+{{ /app.isEditor }}
+{{ #app.isEditor }}
+    <div>{{{ children.all }}}</div>
+{{ /app.isEditor }}

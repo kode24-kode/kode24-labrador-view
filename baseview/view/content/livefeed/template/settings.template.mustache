@@ -1,0 +1,56 @@
+<div class="livefeed_settings_{{ get.current.id }}">
+    <h2 class="lab-title lab-space-below-medium">Live Feed - Settings</h2>
+    <!-- <p>Set tags to filter the notices displayed in the livefeed and make visual changes.</p> -->
+    <div>
+        <div class="lab-formgroup lab-grid lab-grid-gap">
+            <h4 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Content</h4>
+            <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                <label for="tags">Display notices with matching tags</label>
+                <input id="tags" type="text" name="fields.tags" value="{{ get.current.fields.tags }}" placeholder="tag1, tag2">
+                <p class="lab-info">Notices including at least one of the listed tags will be displayed. <br>Leave empty to display all notices.</p>
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-4 lab-grid-gap">
+                <label for="maxNoticesCount">Max number of notices</label>
+                <input id="maxNoticesCount" type="number" name="fields.maxNoticesCount" value="{{ get.current.fields.maxNoticesCount }}">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-8 lab-grid-gap">
+                <label for="placeholder">Text to display if no items exist</label>
+                <input id="placeholder" type="text" name="fields.placeholder" value="{{ get.current.filtered.placeholder }}">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+                <label for="liveUpdate">Live updates</label>
+                <input id="liveUpdate" type="checkbox" name="fields.liveUpdate" value="1" {{ #get.current.fields.liveUpdate }}checked{{ /get.current.fields.liveUpdate }}>
+            </div>
+            <h4 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Design</h4>
+            <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                <label for="layout">Layout</label>
+                <select id="layout" name="fields.isHorizontal">
+                    <option value="" {{^get.current.fields.isHorizontal}}selected{{/get.current.fields.isHorizontal}}>Vertical</option>
+                    <option value="1" {{#get.current.fields.isHorizontal}}selected{{/get.current.fields.isHorizontal}}>Horizontal</option>
+                </select>
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap">
+                <label for="lineClamp">Number of visible lines of text, <b>{{ app.viewport.name }}</b></label>
+                <input id="lineClamp" type="number" name="fields.lineClamp" value="{{ get.current.fields.lineClamp }}" placeholder="Leave blank to display all">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap">
+                <div class="horizontalOptions {{ ^get.current.fields.isHorizontal }}lab-hidden{{ /get.current.fields.isHorizontal }}">
+                    <label for="visible">Visible items on <b>{{ app.viewport.name }}</b></label>
+                    <input id="visible" type="number" name="fields.visibleCount" value="{{ get.current.fields.visibleCount }}" min="1" max="12">
+                </div>
+            </div>
+            <div class="lab-formgroup-item lab-inline lab-grid-large-3 lab-grid-gap">
+                <label for="cardLayout">Card layout</label>
+                <input id="cardLayout" type="checkbox" name="metadata.cardLayout" value="1" {{ #get.current.metadata.cardLayout }}checked{{ /get.current.metadata.cardLayout }}>
+            </div>
+            <div class="lab-formgroup-item lab-inline lab-grid-large-3 lab-grid-gap">
+                <label for="displayTitle">Display title</label>
+                <input id="displayTitle" type="checkbox" name="metadata.displayTitle" value="1" {{ #get.current.metadata.displayTitle }}checked{{ /get.current.metadata.displayTitle }}>
+            </div>
+            <div class="lab-formgroup-item lab-inline lab-grid-large-6 lab-grid-gap">
+                <label for="hidePinIcon">Hide icon on pinned notices</label>
+                <input id="hidePinIcon" type="checkbox" name="metadata.hidePinIcon" value="1" {{ #get.current.metadata.hidePinIcon }}checked{{ /get.current.metadata.hidePinIcon }}>
+            </div>
+        </div>
+    </div>
+</div>

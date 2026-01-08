@@ -1,0 +1,41 @@
+<script type="module">
+
+window.labClientAPI.on('pageChanged', ({ event, data, pageData }) => {
+    if (data.type === 'galleryImage') {
+        window.labClientAPI.log(`[GTM:pageChanged] Will log event "${ data.direction === 'prev' ? 'gallery_previous' : 'gallery_next' }" to GTM`);
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: data.direction === 'prev' ? 'gallery_previous' : 'gallery_next',
+            gallery: {
+                type: "commonGallery",
+                content: {
+                    id: `${ data.gallery }`,
+                    name: `${ data.title }`,
+                    imageCount: data.imageCount || 0,
+                    page: `${ pageData.pageId }`
+                },
+                position: data.photo
+            }
+        });
+    }
+});
+
+window.labClientAPI.on('galleryLoaded', ({ event, data, pageData }) => {
+    window.labClientAPI.log(`[GTM:galleryLoaded] Will log event "gallery_open" to GTM`);
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        event: 'gallery_open',
+        gallery: {
+            type: "commonGallery",
+            content: {
+                id: `${ data.gallery }`,
+                name: `${ data.title }`,
+                imageCount: data.imageCount || 0,
+                page: `${ pageData.pageId }`
+            },
+            position: data.photo
+        }
+    });
+});
+
+</script>

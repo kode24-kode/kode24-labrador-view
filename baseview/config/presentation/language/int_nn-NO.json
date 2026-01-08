@@ -1,0 +1,201 @@
+{
+    "int_nn-NO": {
+        "dates": {
+            "sunday": "sundag",
+            "monday": "måndag",
+            "tuesday": "tysdag",
+            "wednesday": "onsdag",
+            "thursday": "torsdag",
+            "friday": "fredag",
+            "saturday": "laurdag",
+            "january": "januar",
+            "february": "februar",
+            "march": "mars",
+            "april": "april",
+            "may": "mai",
+            "june": "juni",
+            "july": "juli",
+            "august": "august",
+            "september": "september",
+            "october": "oktober",
+            "november": "november",
+            "december": "desember",
+            "ago": "sidan",
+            "now": "no",
+            "minute": "minutt",
+            "min": "min",
+            "minutes": "minutt",
+            "hour": "time",
+            "hours": "timar",
+            "day": "dag",
+            "days": "dagar",
+            "durationSince": "{{count}} {{period}} {{ago}}",
+            "monthdayyear": "{{DD}}.{{MM}}.{{YYYY}}",
+            "hourminute": "{{HH}}:{{mm}}",
+            "dateTime": "{{DD}}.{{MM}}.{{YYYY}} - {{HH}}:{{mm}}",
+            "articleScrollerPublishedDatePrefix": "",
+            "articleScrollerPublishedFormat": "{{DD}}.{{MM}} - {{HH}}:{{mm}}"
+        },
+        "newsletter": {
+            "generic": {
+                "signup": "Meld deg på nyheitsbrevet",
+                "hiddenValue": "Påmelding frå nettsida",
+                "yourEmail": "E-postadressa di",
+                "subscribeButton": "Abonner på nyheitsbrevet"
+            },
+            "mailmojo": {
+                "title": "Nyheitsbrev",
+                "notice": "Du mottek denne e-posten fordi du er påmeldt e-postlista vår.",
+                "preferences": "Innstillingane dine",
+                "unsubscribe": "Avmelding",
+                "view": "Opne i nettlesar",
+                "date": "d. MMMM Y"
+            }
+        },
+        "embed": {
+            "embed_label": "Bygg inn",
+            "heading": "Bygg inn artikkelen",
+            "description": "Kopier og lim inn HTML-koden nedanfor på sida der du vil byggje inn denne artikkelen.",
+            "label_teaser": "Førehandsvising",
+            "label_full": "Heile artikkelen",
+            "label_copy": "Kopier kode",
+            "title_customize": "Tilpass innebygd innhald",
+            "label_content_title": "Vis tittel",
+            "label_content_subtitle": "Vis undertittel",
+            "label_content_image": "Vis hovudbilete",
+            "label_content_padding": "Polstring",
+            "label_content_sitelink": "Vis link til nettstaden",
+            "label_content_sitelinkLogo": "Vis logo i lenkje til nettstaden",
+            "label_content_poweredby": "Vis 'Powered by'-lenkja",
+            "text_code_copied": "Kopiert!",
+            "close": "Lukk",
+            "page_sitelink_prefix": "Les meir",
+            "page_sitelink_postfix": ""
+        },
+        "ai": {
+            "factbox_disclaimer": "Oppsummeringa er generert av Labrador AI, men gjennomlesen av ein journalist."
+        },
+        "tags": {
+            "title_text": "{{ tagPath }}: {{ tag }}"
+        },
+        "search": {
+            "placeholder": "Søk...",
+            "label": "Søk",
+            "openText": "Søk",
+            "closeText": "Lukk",
+            "expandedLabel": "Lukk søk",
+            "collapsedLabel": "Opne søk",
+            "labradorSearch": {
+                "submitLabel": "Søk",
+                "navLabel": "Vis meir",
+                "nohitsLabel": "Inkje treff. Prøv å endra søket ditt.",
+                "searchPlaceholder": "Skriv søket ditt her ...",
+                "advancedOpenText": "Opne filter",
+                "advancedCloseText": "Lukk filter",
+                "fromDateLabel": "Frå dato",
+                "toDateLabel": "Til dato",
+                "tagLabel": "Tagg",
+                "authorLabel": "Forfattar",
+                "allSitesLabel": "Alle sidar"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "Lukk meny",
+            "collapsedLabel": "Opne meny",
+            "buttonText": "Meny"
+        },
+        "header": {
+            "logo_link_text": "Gå til framside",
+			"menuScrollerLeftButton": "Rull til venstre",
+			"menuScrollerRightButton": "Rull til høgre"
+        },
+        "slack_notifier": {
+            "publish": {
+                "article": "*Artikkel publisert*\n*Tittel*: {{{title}}}\n*Side-ID*: {{id}}\n{{#modified}}*Dato*: {{modified}}\n{{/modified}}{{#published_ahead}}*Merk: Publisert fram i tid*\n{{/published_ahead}}{{#hidden}}*Publisert skjult*\n{{/hidden}}*Brukar*: {{user}}\n*<{{{url_front}}}|Vis side>* - *<{{{url_editor}}}|Rediger side>*",
+                "front": "*Framside publisert*\n*Tittel*: {{{title}}}\n*Side-ID*: {{id}}\n*Dato*: {{modified}}\n{{#published_ahead}}*Merk: Publisert fram i tid*\n{{/published_ahead}}{{#hidden}}*Publisert skjult*\n{{/hidden}}*Brukar*: {{user}}\n*<{{{url_front}}}|Vis side>* - *<{{{url_editor}}}|Rediger side>*",
+                "notice": "*Notis publisert*\n*Tittel*: {{{title}}}\n*Side-ID*: {{id}}\n*Dato*: {{modified}}{{#hidden}}*Publisert skjult*\n{{/hidden}}*Brukar*: {{user}}\n*<{{{url_front}}}|Vis side>* - *<{{{url_editor}}}|Rediger side>*"
+            },
+            "error": {
+                "all": "*{{ #isCmsError }}CMS-feil{{ /isCmsError }}{{ ^isCmsError }}Visningsfeil{{ /isCmsError }}*: {{{message}}}\n*Stabelsporing*: ```{{{stackTrace}}}```\n*Brukar*: {{user}}\n*<{{{url_editor}}}|Rediger side>* - *<{{{url_monitor}}}|Utviklarmonitor>*"
+            }
+        },
+        "contentboxes": {
+            "articleScrollerLeftButton": "Gå til venstre",
+            "articleScrollerRightButton": "Gå til høgre"
+        },
+        "metadata": {
+            "publishedLabel": "Publisert",
+            "modifiedLabel": "Sist oppdatert",
+            "unpublishedLabel": "Upublisert",
+            "readTimeLabel": "Lesetid"
+        },
+        "notice": {
+            "relatedContent": {
+                "header": "Relatert innhald"
+            },
+            "pinnedLabel": "Festa"
+        },
+        "changelog": {
+            "changelogLabel": "Endringslogg"
+        },
+        "emptyState": {
+            "noContentText": "Ikkje noko innhald"
+        },
+        "image": {
+            "caption": {
+                "showCaptionLabel": "Vis bilettekst",
+                "hideCaptionLabel": "Skjul bilettekst",
+                "showMoreLabel": "Vis meir",
+                "showLessLabel": "Vis mindre"
+            }
+        },
+        "mostRead": {
+            "labelLatest": "Siste",
+            "titleLatest": "Nylege artiklar",
+            "labelMostRead": "Mest lesne",
+            "titleMostRead": "Mest lesne artiklar"
+        },
+        "infiniteScroll": {
+            "readMore": "Fortset å lesa"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Del på Facebook",
+                "twitter": "Del på X (Twitter)",
+                "linkedin": "Del på LinkedIn",
+                "mail": "Del via e-mail",
+                "threads": "Del på Threads",
+                "copyLink": "Kopier lenkje",
+                "glimta": "Lås opp med Glimta",
+                "talandeWebb": "Opne Talande Webb-alternativpanelet",
+                "bluesky": "Del på Bluesky",
+                "whatsapp": "Del på WhatsApp",
+                "reddit": "Del på Reddit"
+            }
+        },
+        "gallery": {
+            "label": "Galleri",
+            "seeAllImages": "Sjå alle bilete",
+            "navigateToOriginal": "Gå til originalside"
+        },
+        "weather": {
+            "failedToFetch": "Kunne ikkje hente værdata",
+            "updated": "Oppdatert",
+            "fetchingData": "Lastar værdata",
+            "types": {
+                "clearsky": "Klarvær",
+                "fair": "Lettskya",
+                "partlycloudy": "Delvis skya",
+                "cloudy": "Skya",
+                "rainshowers": "Regnbyger",
+                "rain": "Regn",
+                "snow": "Snø",
+                "sleet": "Sludd",
+                "thunder": "Torden",
+                "fog": "Tåke",
+                "wind": "Vind",
+                "unknown": "Ukjent"
+            }
+        }
+    }
+}

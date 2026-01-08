@@ -1,0 +1,63 @@
+<form>
+    <h2 class="lab-title lab-space-below-medium">Author Box - Settings</h2>
+    <p>This element is a placeholder for author information. When rendered on front content is replaced with content from authors byline.</p>
+
+    <div class="author-box-hide-options">
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Display options</h3>
+        <p class="lab-para">Select fields to include from the author</p>
+        <div class="lab-formgroup lab-grid lab-grid-gap lab-space-below-none">
+            
+            <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.hideDisplayName">Name</label>
+                <input id="id-fields.hideDisplayName" type="checkbox" name="fields.hideDisplayName" value="1" {{ ^get.current.fields.hideDisplayName }}checked{{ /get.current.fields.hideDisplayName }}>
+            </div>
+
+            <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.hideDescription">Description</label>
+                <input id="id-fields.hideDescription" type="checkbox" name="fields.hideDescription" value="1" {{ ^get.current.fields.hideDescription }}checked{{ /get.current.fields.hideDescription }}>
+            </div>
+
+            <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.hideExtendedDescription">Extended description</label>
+                <input id="id-fields.hideExtendedDescription" type="checkbox" name="fields.hideExtendedDescription" value="1" {{ ^get.current.fields.hideExtendedDescription }}checked{{ /get.current.fields.hideExtendedDescription }}>
+            </div>
+
+            <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.hidePublicEmail">Public email</label>
+                <input id="id-fields.hidePublicEmail" type="checkbox" name="fields.hidePublicEmail" value="1" {{ ^get.current.fields.hidePublicEmail }}checked{{ /get.current.fields.hidePublicEmail }}>
+            </div>
+
+            <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.hidePublicPhone">Public phone</label>
+                <input id="id-fields.hidePublicPhone" type="checkbox" name="fields.hidePublicPhone" value="1" {{ ^get.current.fields.hidePublicPhone }}checked{{ /get.current.fields.hidePublicPhone }}>
+            </div>
+
+            <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.hidePublicUrl">Public URL</label>
+                <input id="id-fields.hidePublicUrl" type="checkbox" name="fields.hidePublicUrl" value="1" {{ ^get.current.fields.hidePublicUrl }}checked{{ /get.current.fields.hidePublicUrl }}>
+            </div>
+        </div>
+    </div>
+
+    <div class="author-box-desktop-options lab-grid lab-grid-gap lab-space-above-medium">
+        <div class="lab-formgroup lab-grid lab-grid-gap lab-grid-large-4">
+            <label class="lab-grid-large-12">Desktop layout
+            <select id="fields.desktop_layout" name="fields.desktop_layout">
+                {{ #get.current.filtered.adminDesktopView.layout }}
+                <option value="{{ value }}"{{ #selected }} selected{{ /selected }}>{{ name }}</option>
+                {{ /get.current.filtered.adminDesktopView.layout }}
+            </select>
+            </label>
+        </div>
+        <div class="lab-formgroup lab-grid lab-grid-gap lab-grid-large-4">
+            <label class="lab-grid-large-12">Mobile layout
+                <select id="fields.mobile_layout" name="fields.mobile_layout">
+                    {{ #get.current.filtered.adminMobileView.layout }}
+                    <option value="{{ value }}"{{ #selected }} selected{{ /selected }}>{{ name }}</option>
+                    {{ /get.current.filtered.adminMobileView.layout }}
+                </select>
+            </label>
+        </div>
+    </div>
+
+</form>

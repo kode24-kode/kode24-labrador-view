@@ -1,0 +1,171 @@
+<div class="paywall-shareable">
+    {{ #get.root.filtered.paywall.shareable }}
+
+        <div class="shareArticle" data-attributt-alternative-href="{{get.root.filtered.paywall.shareableArticle.trySubscriptionLink}}" data-attributt-alternative-text="{{ get.root.filtered.paywall.shareableArticle.trySubscriptionButton }}">{{ get.root.filtered.paywall.shareableArticle.shareArticleButton }}</div>
+
+        <script>
+            (function() {
+                const shareArticleElement = document.querySelector('.shareArticle')
+                const bodyElement = document.querySelector('body')
+
+                const paywallShareableArticleTemplate = `
+                        <button class="closeButton">✕</button>
+                        <h2>{{ get.root.filtered.paywall.shareableArticle.messageTitle }}</h2>
+                        <p id="shareablePosterMessage" data-attributt-alternative-text="{{ get.root.filtered.paywall.shareableArticle.messageAfterSharing }}">{{ get.root.filtered.paywall.shareableArticle.messageBeforeSharing }}</p>
+                        <button id="shareBySoMe" class="shareButton">{{ get.root.filtered.paywall.shareableArticle.shareByFacebook }}</button>
+                        <button id="shareByMail" class="shareButton" data-attributt-mail-subject="{{get.root.filtered.paywall.shareableArticle.shareByMailSubject}}" data-attributt-mail-body="{{get.root.filtered.paywall.shareableArticle.shareByMailBody}}">{{ get.root.filtered.paywall.shareableArticle.shareByMail }}</button>
+                        <button id="shareByCopy" class="shareButton" data-attributt-alternative-text="{{ get.root.filtered.paywall.shareableArticle.sharedByCopy }}">{{ get.root.filtered.paywall.shareableArticle.shareByCopy }}</button>`;
+
+                // Add element to body
+                const paywallShareableArticle = document.createElement('div');
+                paywallShareableArticle.classList.add('paywallShareableArticle');
+                paywallShareableArticle.style.display = 'none';
+                paywallShareableArticle.innerHTML = paywallShareableArticleTemplate;
+                bodyElement.appendChild(paywallShareableArticle);
+
+                if (window.location.href.includes('code') && window.location.href.includes('expires')) {
+                    const href = shareArticleElement.getAttribute('data-attributt-alternative-href');
+                    const textContent = shareArticleElement.getAttribute('data-attributt-alternative-text');
+                    shareArticleElement.innerHTML = `<a href="${href}">${textContent}</a>`;
+                } else {
+                    shareArticleElement.addEventListener('click', () => {
+                        let paywallDiv = document.querySelector('.paywallShareableArticle');
+                        paywallDiv.style.display = 'block';
+
+                        const shareablePosterMessage = paywallDiv.querySelector('#shareablePosterMessage');
+
+                        const copyLinkButton = paywallDiv.querySelector('#shareByCopy');
+                        const sharedByCopyButton = paywallDiv.querySelector('#sharedByCopy');
+
+                        // Close button
+                        const closeButton = paywallDiv.querySelector('.closeButton');
+                        closeButton.onclick = () => {
+                            paywallDiv.style.display = 'none';
+
+                            const previousShareByCopyText = copyLinkButton.innerHTML;
+                            copyLinkButton.innerHTML = copyLinkButton.getAttribute('data-attributt-alternative-text');
+                            copyLinkButton.setAttribute('data-attributt-alternative-text', previousShareByCopyText);
+
+                            const previousPosterMessage = shareablePosterMessage.innerHTML;
+                            shareablePosterMessage.innerHTML = shareablePosterMessage.getAttribute('data-attributt-alternative-text');
+                            shareablePosterMessage.setAttribute('data-attributt-alternative-text', previousPosterMessage);
+
+                        };
+
+                        copyLinkButton.onclick = () => {
+                            getAccessUrl()
+                                .then(url => {
+                                    navigator.clipboard.writeText(url);
+
+                                    const previousShareByCopyText = copyLinkButton.innerHTML;
+                                    copyLinkButton.innerHTML = copyLinkButton.getAttribute('data-attributt-alternative-text');
+                                    copyLinkButton.setAttribute('data-attributt-alternative-text', previousShareByCopyText);
+
+                                    const previousPosterMessage = shareablePosterMessage.innerHTML;
+                                    shareablePosterMessage.innerHTML = shareablePosterMessage.getAttribute('data-attributt-alternative-text');
+                                    shareablePosterMessage.setAttribute('data-attributt-alternative-text', previousPosterMessage);
+                                });
+                        };
+
+                        // Email button functionality
+                        const emailButton = paywallDiv.querySelector('#shareByMail');
+                        emailButton.onclick = () => {
+                            getAccessUrl()
+                                .then(url => {
+                                    const subject = encodeURIComponent(emailButton.getAttribute('data-attributt-mail-subject'));
+                                    // encodeuricompoent did not support using <a> tag in mail body, therefore it is plain text
+                                    const body = encodeURIComponent(emailButton.getAttribute('data-attributt-mail-body') + "\n\n" + url);
+                                    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+                                });
+                        };
+
+                        // Facebook share button functionality
+                        const facebookButton = paywallDiv.querySelector('#shareBySoMe');
+                        facebookButton.onclick = () => {
+                            getAccessUrl()
+                                .then(url => {
+                                    const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+                                    window.open(facebookShareUrl, '_blank');
+                                });
+                        };
+
+
+                        function getAccessUrl() {
+                            const resourceUrl = window.location.href;
+                            return new Promise((resolve, reject) => {
+                                fetch('/_labrador/paywall/v1/get-access-url?resourceUrl=' + resourceUrl)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data && data.url) {
+                                            resolve(data.url);
+                                        } else {
+                                            reject('No URL found in the response');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        reject(error);
+                                    });
+                        });
+                    }
+
+                    });
+                }
+            })();
+        </script>
+    {{ /get.root.filtered.paywall.shareable }}
+    {{ ^get.root.filtered.paywall.shareable }}
+        <div class="shareArticle"><a href="{{get.root.filtered.paywall.shareableArticle.trySubscriptionLink}}">{{ get.root.filtered.paywall.shareableArticle.trySubscriptionButton }}</a></div>
+    {{ /get.root.filtered.paywall.shareable }}
+</div>
+
+<style>
+.paywallShareableArticle {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 500px;
+    padding: 30px 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 1000;
+}
+
+.paywallShareableArticle h2 {
+    font-size: 1.5rem;
+    margin-top: 0;
+}
+
+.paywallShareableArticle p {
+    margin: 16px 0;
+    line-height: 1.4;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.shareButton {
+    display: inline-block;
+    margin: 8px 8px;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.shareButton:hover {
+    background-color: #e0e0e0;
+}
+</style>

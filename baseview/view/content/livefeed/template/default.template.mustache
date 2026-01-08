@@ -1,0 +1,42 @@
+<div class="column livefeed scrollbox
+    {{ #get.current.fields.isHorizontal }}horizontal{{ /get.current.fields.isHorizontal }}
+    {{ ^get.current.fields.isHorizontal }}vertical{{ /get.current.fields.isHorizontal }}
+    {{ #style.collection }}box_decoration{{ /style.collection }}
+    {{ size.grid.css }}
+    {{ size.grid.absCss}}
+    {{ #get.current.metadata.cardLayout }}cardLayout{{ /get.current.metadata.cardLayout }}
+" id="livefeed_{{ get.current.id }}">
+    <div class="content timeline {{ #style.collection }}content_decoration{{ /style.collection }}"
+        style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
+        {{ #get.current.metadata.displayTitle }}<h2 class="headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</h2>{{ /get.current.metadata.displayTitle }}
+        <div class="feedContent">
+            {{ ^children.all[].length }}
+                <p class="noContent">{{ get.current.filtered.placeholder }}</p>
+                {{ #app.isEditor }}<p class="lab-defaultTextValue help">Configure in element settings</p>{{ /app.isEditor }}
+            {{ /children.all[].length }}
+            {{ #children.all[].length }}
+            <ul id="livefeed-{{ get.current.id }}"
+                class="notices {{ #get.current.fields.isHorizontal }} swipehelper scroll-container snap-container-x snap-element-start{{ /get.current.fields.isHorizontal }}{{ #get.current.fields.lineClamp }} lineClamp{{ /get.current.fields.lineClamp }}"
+                style="{{ #get.current.fields.isHorizontal }}--visible-count: {{ get.current.fields.visibleCount }};{{ /get.current.fields.isHorizontal }}{{ #get.current.fields.lineClamp }} --lineClamp:{{ get.current.fields.lineClamp }};{{ /get.current.fields.lineClamp }}">{{ #helper.trim }}
+                {{ #children.all[] }}<li class="livefeed-item scroll-item snap-element {{ get.current.metadata.item_color }}"><span class="timeline-marker {{ get.current.metadata.ui_color }}"></span>{{{.}}}</li>{{ /children.all[] }}
+                {{ /helper.trim }}</ul>
+            {{ /children.all[].length }}
+            <nav>
+                <span class="arrow left">
+                    <span></span>
+                </span>
+                <span class="arrow right">
+                    <span></span>
+                </span>
+            </nav>
+        </div>
+    </div>
+</div>
+{{ #app.isFront }}
+{{ #get.current.fields.isHorizontal }}
+{{ > content/livefeed/template/partials/dachserData }}
+{{ /get.current.fields.isHorizontal }}
+{{ #get.current.fields.liveUpdate }}
+{{ > content/livefeed/template/partials/clientScript }}
+{{ /get.current.fields.liveUpdate }}
+{{ /app.isFront }}

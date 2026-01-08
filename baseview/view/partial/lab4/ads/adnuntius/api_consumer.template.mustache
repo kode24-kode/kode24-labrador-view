@@ -1,0 +1,13 @@
+<script type="module">
+
+window.labClientAPI.on('pageChanged', ({ event, data, pageData }) => {
+
+    const supportedEventTypes = ['galleryImage', 'infiniteScroll'];
+    if (supportedEventTypes.includes(data.type)) {
+        console.log('Update ads for Adnuntius: ', event, data, pageData);
+        // Todo: How to determine if ads should be updated?
+        // ...
+    }
+});
+
+</script>

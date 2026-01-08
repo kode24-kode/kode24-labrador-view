@@ -1,0 +1,7 @@
+[
+    "config/version.json",
+    "client/config.json",
+    "config/presentation/style.json",
+    "config/presentation/data.json",
+    "config/presentation/language/int_en-GB.json"
+]

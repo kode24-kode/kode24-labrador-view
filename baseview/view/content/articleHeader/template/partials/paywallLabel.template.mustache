@@ -1,0 +1,10 @@
+<div class="paywallLabel">
+    {{ ^get.parent.filtered.paywallLabel.hideLabelIcon }}
+        {{ #get.parent.filtered.paywallLabel.icon.content }}
+            <span class="{{ get.parent.filtered.paywallLabel.icon.content }}"></span>
+        {{/get.parent.filtered.paywallLabel.icon.content }}
+    {{ /get.parent.filtered.paywallLabel.hideLabelIcon }}
+    {{ ^get.parent.filtered.paywallLabel.hideLabelText }}
+        {{ get.parent.filtered.paywallLabel.text.content }}
+    {{ /get.parent.filtered.paywallLabel.hideLabelText }}
+</div>

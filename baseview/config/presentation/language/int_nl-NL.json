@@ -1,0 +1,202 @@
+{
+    "int_nl-NL": {
+        "dates": {
+            "sunday": "zondag",
+            "monday": "maandag",
+            "tuesday": "dinsdag",
+            "wednesday": "woensdag",
+            "thursday": "donderdag",
+            "friday": "vrijdag",
+            "saturday": "zaterdag",
+            "january": "januari",
+            "february": "februari",
+            "march": "maart",
+            "april": "april",
+            "may": "mei",
+            "june": "juni",
+            "july": "juli",
+            "august": "augustus",
+            "september": "september",
+            "october": "oktober",
+            "november": "november",
+            "december": "december",
+            "ago": "geleden",
+            "now": "nu",
+            "minute": "minuut",
+            "min": "min",
+            "minutes": "minuten",
+            "hour": "uur",
+            "hours": "uren",
+            "day": "dag",
+            "days": "dagen",
+            "durationSince": "{{count}} {{period}} {{ago}}",
+            "monthdayyear": "{{DD}}-{{MM}}-{{YYYY}}",
+            "hourminute": "{{HH}}:{{mm}}",
+            "dateTime": "{{DD}}-{{MM}}-{{YYYY}} - {{HH}}:{{mm}}",
+            "articleScrollerPublishedDatePrefix": "",
+            "articleScrollerPublishedFormat": "{{DD}}.{{MM}} - {{HH}}:{{mm}}"
+        },
+        "newsletter": {
+            "generic": {
+                "signup": "Meld je aan voor de nieuwsbrief",
+                "hiddenValue": "Aanmelden via website",
+                "yourEmail": "Typ uw e-mailadres",
+                "subscribeButton": "Abonneren"
+            },
+            "mailmojo": {
+                "title": "Nieuwsbrief",
+                "notice": "Je ontvangt deze e-mail omdat je bent ingeschreven op onze e-maillijst.",
+                "preferences": "Jouw instellingen",
+                "unsubscribe": "Uitschrijven",
+                "view": "Openen in browser",
+                "date": "d. MMMM Y"
+            }
+        },
+        "embed": {
+            "embed_label": "Insluiten",
+            "heading": "Artikel insluiten",
+            "description": "Kopieer en plak de onderstaande HTML-code op de pagina waar je dit artikel wilt insluiten.",
+            "label_teaser": "Voorvertoning",
+            "label_full": "Volledig artikel",
+            "label_copy": "Kopieer code",
+            "title_customize": "Ingesloten inhoud aanpassen",
+            "label_content_title": "Titel weergeven",
+            "label_content_subtitle": "Ondertitel weergeven",
+            "label_content_image": "Hoofdafbeelding weergeven",
+            "label_content_padding": "Opvulling",
+            "label_content_sitelink": "Link naar site weergeven",
+            "label_content_sitelinkLogo": "Logo weergeven in link naar site",
+            "label_content_poweredby": "Link 'Powered By' weergeven",
+            "text_code_copied": "Gekopieerd!",
+            "close": "Sluiten",
+            "page_sitelink_prefix": "Lees meer",
+            "page_sitelink_postfix": ""
+        },
+        "ai": {
+            "factbox_disclaimer": "Deze factbox is gegenereerd door Labrador AI en proefgelezen door een journalist."
+        },
+        "tags": {
+            "title_text": "{{tagPath}}: {{ tag }}"
+        },
+        "search": {
+            "placeholder": "Zoeken...",
+            "label": "Zoeken",
+            "openText": "Zoeken",
+            "closeText": "Sluiten",
+            "expandedLabel": "Zoeken sluiten",
+            "collapsedLabel": "Open zoeken",
+            "labradorSearch": {
+                "submitLabel": "Zoeken",
+                "navLabel": "Meer weergeven",
+                "nohitsLabel": "Geen resultaten. Probeer uw zoekopdracht aan te passen.",
+                "searchPlaceholder": "Typ hier uw zoekopdracht ...",
+                "advancedOpenText": "Filter openen",
+                "advancedCloseText": "Filter sluiten",
+                "fromDateLabel": "Vanaf datum",
+                "toDateLabel": "Tot datum",
+                "tagLabel": "Label",
+                "authorLabel": "Auteur",
+                "allSitesLabel": "Alle sites"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "Menu sluiten",
+            "collapsedLabel": "Menu openen",
+            "buttonText": "Menu"
+        },
+        "header": {
+            "logo_link_text": "Ga naar voren",
+			"menuScrollerLeftButton": "Scroll naar links",
+			"menuScrollerRightButton": "Scroll naar rechts"
+        },
+        "slack_notifier": {
+            "publish": {
+                "article": "*Artikel gepubliceerd*\n*Titel*: {{{title}}}\n*Pagina ID*: {{id}}\n{{#modified}}*Datum*: {{modified}}\n{{/modified}}{{#published_ahead}}*Opmerking: Vooruit gepubliceerd*\n{{/published_ahead}}{{#hidden}}*Verborgen gepubliceerd*\n{{/hidden}}*Gebruiker*: {{user}}\n*<{{{url_front}}}|Bekijk pagina>* - *<{{{url_editor}}}|Bewerk pagina>*",
+                "front": "*Voorpagina gepubliceerd*\n*Titel*: {{{title}}}\n*Pagina ID*: {{id}}\n*Datum*: {{modified}}\n{{#published_ahead}}*Opmerking: Vooruit gepubliceerd*\n{{/published_ahead}}{{#hidden}}*Verborgen gepubliceerd*\n{{/hidden}}*Gebruiker*: {{user}}\n*<{{{url_front}}}|Bekijk pagina>* - *<{{{url_editor}}}|Bewerk pagina>*",
+                "notice": "*Kennisgeving gepubliceerd*\n*Titel*: {{{title}}}\n*Pagina ID*: {{id}}\n*Datum*: {{modified}}{{#hidden}}*Verborgen gepubliceerd*\n{{/hidden}}*Gebruiker*: {{user}}\n*<{{{url_front}}}|Bekijk pagina>* - *<{{{url_editor}}}|Bewerk pagina>*"
+            },
+            "error": {
+                "all": "*{{ #isCmsError }}CMS-fout{{ /isCmsError }}{{ ^isCmsError }}View fout{{ /isCmsError }}*: {{{message}}}\n*Stack-trace*: ```{{{stackTrace}}}```\n*Gebruiker*: {{user}}\n*<{{{url_editor}}}|Pagina bewerken>* - *<{{{url_monitor}}}|Ontwikkelaarsmonitor>*"
+            }
+        },
+        "contentboxes": {
+            "articleScrollerLeftButton": "Ga naar links",
+            "articleScrollerRightButton": "Ga naar rechts"
+        },
+        "metadata": {
+            "publishedLabel": "Gepubliceerd",
+            "modifiedLabel": "Laatst bijgewerkt",
+            "unpublishedLabel": "Niet gepubliceerd",
+            "readTimeLabel": "Leestijd"
+        },
+        "notice": {
+            "relatedContent": {
+                "header": "Gerelateerde inhoud"
+            },
+            "pinnedLabel": "Vastgepind"
+        },
+        "changelog": {
+            "changelogLabel": "Wijzigingslogboek"
+        },
+        "emptyState": {
+            "noContentText": "Geen inhoud"
+        },
+        "image": {
+            "caption": {
+                "showCaptionLabel": "Onderschrift weergeven",
+                "hideCaptionLabel": "Onderschrift verbergen",
+                "showMoreLabel": "Laat meer zien",
+                "showLessLabel": "Minder weergeven"
+            },
+            "videoOverlayLabel": "Videoartikel"
+        },
+        "mostRead": {
+            "labelLatest": "Laatste",
+            "titleLatest": "Recente artikelen",
+            "labelMostRead": "Meest gelezen",
+            "titleMostRead": "Meest gelezen artikelen"
+        },
+        "infiniteScroll": {
+            "readMore": "Lees verder"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Delen op Facebook",
+                "twitter": "Delen op X (Twitter)",
+                "linkedin": "Delen op LinkedIn",
+                "mail": "Delen via e-mail",
+                "threads": "Delen op Threads",
+                "copyLink": "Link kopiëren",
+                "glimta": "Ontgrendel met Glimta",
+                "talandeWebb": "Open het Talande Webb-optiepaneel",
+                "bluesky": "Delen op Bluesky",
+                "reddit": "Delen op Reddit",
+                "whatsapp": "Delen op WhatsApp"
+            }
+        },
+        "gallery": {
+            "label": "Galerij",
+            "seeAllImages": "Bekijk alle afbeeldingen",
+            "navigateToOriginal": "Ga naar de originele pagina"
+        },
+        "weather": {
+            "failedToFetch": "Kon weergegevens niet ophalen",
+            "updated": "Bijgewerkt",
+            "fetchingData": "Weergegevens worden geladen",
+            "types": {
+                "clearsky": "Heldere lucht",
+                "fair": "Licht bewolkt",
+                "partlycloudy": "Deels bewolkt",
+                "cloudy": "Bewolkt",
+                "rainshowers": "Regenbuien",
+                "rain": "Regen",
+                "snow": "Sneeuw",
+                "sleet": "Natte sneeuw",
+                "thunder": "Onweer",
+                "fog": "Mist",
+                "wind": "Winderig",
+                "unknown": "Onbekend"
+            }
+        }
+    }
+}

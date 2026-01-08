@@ -1,0 +1,203 @@
+{
+    "int_et-EE": {
+        "dates": {
+            "sunday": "pühapäev",
+            "monday": "esmaspäev",
+            "tuesday": "teisipäev",
+            "wednesday": "kolmapäev",
+            "thursday": "neljapäev",
+            "friday": "reede",
+            "saturday": "laupäev",
+            "january": "jaanuar",
+            "february": "veebruar",
+            "march": "märts",
+            "april": "aprill",
+            "may": "mai",
+            "june": "juuni",
+            "july": "juuli",
+            "august": "august",
+            "september": "september",
+            "october": "oktoober",
+            "november": "november",
+            "december": "detsember",
+            "ago": "tagasi",
+            "now": "praegu",
+            "minute": "minut",
+            "min": "min",
+            "minutes": "minutit",
+            "hour": "tund",
+            "hours": "tundi",
+            "day": "päev",
+            "days": "päeva",
+            "durationSince": "{{count}} {{period}} {{ago}}",
+            "monthdayyear": "{{DD}}.{{MM}}.{{YYYY}}",
+            "hourminute": "{{HH}}:{{mm}}",
+            "dateTime": "{{DD}}.{{MM}}.{{YYYY}} - {{HH}}:{{mm}}",
+            "articleScrollerPublishedDatePrefix": "",
+            "articleScrollerPublishedFormat": "{{DD}}.{{MM}} - {{HH}}:{{mm}}"
+        },
+        "newsletter": {
+            "generic": {
+                "signup": "Liitu uudiskirjaga",
+                "hiddenValue": "Registreerimine veebisaidilt",
+                "yourEmail": "Sinu e-posti aadress",
+                "subscribeButton": "Telli uudiskiri"
+            },
+            "mailmojo": {
+                "title": "Uudiskiri",
+                "notice": "Sa said selle meili, kuna oled meie postiloendis.",
+                "preferences": "Sinu eelistused",
+                "unsubscribe": "Tühista tellimus",
+                "view": "Ava brauseris",
+                "date": "d. MMMM Y"
+            }
+        },
+        "embed": {
+            "embed_label": "Manusta",
+            "heading": "Manusta artikkel",
+            "description": "Kopeeri ja kleebi allolev HTML-kood lehele, kuhu soovid selle artikli manustada.",
+            "label_teaser": "Eelvaade",
+            "label_full": "Terve artikkel",
+            "label_copy": "Kopeeri kood",
+            "title_customize": "Kohanda manustatud sisu",
+            "label_content_title": "Näita pealkirja",
+            "label_content_subtitle": "Näita alapealkirja",
+            "label_content_image": "Näita põhifotot",
+            "label_content_padding": "Äärised",
+            "label_content_sitelink": "Näita lingi veebilehele",
+            "label_content_sitelinkLogo": "Näita logo lingil veebilehele",
+            "label_content_poweredby": "Näita 'Powered by' linki",
+            "text_code_copied": "Kopeeritud!",
+            "close": "Sulge",
+            "page_sitelink_prefix": "Loe edasi",
+            "page_sitelink_postfix": ""
+        },
+        "ai": {
+            "factbox_disclaimer": "Kokkuvõtte koostas Labrador AI ja toimetas ajakirjanik."
+        },
+        "tags": {
+            "title_text": "{{ tagPath }}: {{ tag }}"
+        },
+        "search": {
+            "placeholder": "Otsi...",
+            "label": "Otsi",
+            "openText": "Otsi",
+            "closeText": "Sulge",
+            "expandedLabel": "Sulge otsing",
+            "collapsedLabel": "Ava otsing",
+            "labradorSearch": {
+                "submitLabel": "Otsi",
+                "navLabel": "Näita rohkem",
+                "nohitsLabel": "Tulemusi pole. Proovige otsingut muuta.",
+                "searchPlaceholder": "Tippige oma otsing siia ...",
+                "advancedOpenText": "Ava filter",
+                "advancedCloseText": "Sulge filter",
+                "fromDateLabel": "Alates kuupäevast",
+                "toDateLabel": "Kuni kuupäevani",
+                "tagLabel": "Silt",
+                "authorLabel": "Autor",
+                "allSitesLabel": "Kõik saidid"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "Sulge menüü",
+            "collapsedLabel": "Ava menüü",
+            "buttonText": "Menüü"
+        },
+        "header": {
+            "logo_link_text": "Avalehele",
+			"menuScrollerLeftButton": "Keri vasakule",
+			"menuScrollerRightButton": "Keri paremale"
+        },
+        "slack_notifier": {
+            "publish": {
+                "article": "*Artikkel avaldatud*\n*Pealkiri*: {{{title}}}\n*Lehe ID*: {{id}}\n{{#modified}}*Kuupäev*: {{modified}}\n{{/modified}}{{#published_ahead}}*Märkus: Avaldatud tulevikus*\n{{/published_ahead}}{{#hidden}}*Avaldatud peidetult*\n{{/hidden}}*Kasutaja*: {{user}}\n*<{{{url_front}}}|Vaata lehte>* - *<{{{url_editor}}}|Muuda lehte>*",
+                "front": "*Avaleht avaldatud*\n*Pealkiri*: {{{title}}}\n*Lehe ID*: {{id}}\n*Kuupäev*: {{modified}}\n{{#published_ahead}}*Märkus: Avaldatud tulevikus*\n{{/published_ahead}}{{#hidden}}*Avaldatud peidetult*\n{{/hidden}}*Kasutaja*: {{user}}\n*<{{{url_front}}}|Vaata lehte>* - *<{{{url_editor}}}|Muuda lehte>*",
+                "notice": "*Märkus avaldatud*\n*Pealkiri*: {{{title}}}\n*Lehe ID*: {{id}}\n*Kuupäev*: {{modified}}{{#hidden}}*Avaldatud peidetult*\n{{/hidden}}*Kasutaja*: {{user}}\n*<{{{url_front}}}|Vaata lehte>* - *<{{{url_editor}}}|Muuda lehte>*"
+            },
+            "error": {
+                "all": "*{{ #isCmsError }}CMS-i viga{{ /isCmsError }}{{ ^isCmsError }}Vaate viga{{ /isCmsError }}*: {{{message}}}\n*Stack trace*: ```{{{stackTrace}}}```\n*Kasutaja*: {{user}}\n*<{{{url_editor}}}|Muuda lehte>* - *<{{{url_monitor}}}|Arendaja monitor>*"
+            }
+        },
+        "contentboxes": {
+            "articleScrollerLeftButton": "Liigu vasakule",
+            "articleScrollerRightButton": "Liigu paremale"
+        },
+        "metadata": {
+            "publishedLabel": "Avaldatud",
+            "modifiedLabel": "Viimati uuendatud",
+            "unpublishedLabel": "Avaldamata",
+            "readTimeLabel": "Lugemisaeg"
+        },
+        "notice": {
+            "relatedContent": {
+                "header": "Seotud sisu"
+            },
+            "pinnedLabel": "Kinnitatud"
+        },
+        "changelog": {
+            "changelogLabel": "Muutuste logi"
+        },
+        "emptyState": {
+            "noContentText": "Sisu puudub"
+        },
+        "image": {
+            "caption": {
+                "showCaptionLabel": "Näita pildiallkirja",
+                "hideCaptionLabel": "Peida pildiallkiri",
+                "showMoreLabel": "Näita rohkem",
+                "showLessLabel": "Näita vähem"
+            },
+            "videoOverlayLabel": "Videoartikkel"
+        },
+        "mostRead": {
+            "labelLatest": "Viimased",
+            "titleLatest": "Hiljutised artiklid",
+            "labelMostRead": "Enim loetud",
+            "titleMostRead": "Kõige loetumad artiklid"
+        },
+        "infiniteScroll": {
+            "readMore": "Loe edasi"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Jaga Facebookis",
+                "twitter": "Jaga X-is (Twitteris)",
+                "linkedin": "Jaga LinkedInis",
+                "mail": "Jaga e-posti teel",
+                "threads": "Jaga Threadsis",
+                "copyLink": "Kopeeri link",
+                "glimta": "Ava Glimta abil",
+                "talandeWebb": "Avage Talande Webb valikute paneel",
+                "bluesky": "Jaga Bluesky's",
+                "reddit": "Jaga Redditis",
+                "whatsapp": "Jaga WhatsAppis"
+            }
+        },
+        "gallery": {
+            "label": "Galerii",
+            "seeAllImages": "Vaata kõiki pilte",
+            "navigateToOriginal": "Mine originaallehele"
+        },
+        "weather": {
+            "failedToFetch": "Ilmaandmeid ei õnnestunud laadida",
+            "updated": "Uuendatud",
+            "fetchingData": "Laadin ilmaandmeid",
+            "types": {
+                "clearsky": "Selge ilm",
+                "fair": "Väheste pilvedega",
+                "partlycloudy": "Osaliselt pilves",
+                "cloudy": "Pilves",
+                "rainshowers": "Hoovihm",
+                "rain": "Vihm",
+                "snow": "Lumesadu",
+                "sleet": "Lörts",
+                "thunder": "Äike",
+                "fog": "Udu",
+                "wind": "Tuuline",
+                "unknown": "Tundmatu"
+            }
+        }
+    }
+}
+  

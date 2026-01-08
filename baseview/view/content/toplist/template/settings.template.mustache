@@ -1,0 +1,205 @@
+<form>
+    <h2 class="lab-title lab-space-below-medium">Toplist - Settings</h2>
+    <p>Display a list of most read articles. Source: Kilkaya.</p>
+    <p id="infoSiteSelection" style="display:none"><b><em>Note: If none of the sites have been selected, the toplist will fetch data for current site by default</em></b></p>
+    <div>
+        <div class="lab-formgroup lab-grid lab-grid-gap lab-space-below-none">
+            <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap">
+                <label for="id-fields.days">Number of days</label>
+                <input id="id-fields.days" type="number" name="fields.days" value="{{ get.current.fields.days }}" min="0">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap">
+                <label for="id-fields.limit">Number of articles</label>
+                <input id="id-fields.limit" type="number" name="fields.limit" value="{{ get.current.fields.limit }}" min="0">
+            </div>
+        </div>
+
+        <label>Display articles from site(s)</label>
+        <ul class="lab-list">
+            {{ #get.current.filtered.adminView.domains }}
+            <li class="lab-grid-rows">
+                <div>
+                    <label style="display: flex; align-items: center; gap: 0.4em;">
+                    <input type="checkbox"
+                        name="fields.domains_{{ alias }}"
+                        data-sitename="{{ name }}"
+                        data-domain-checkbox="{{ domain }}"
+                        data-site-alias="{{ alias }}"
+                        {{ #selected }}checked{{ /selected }}/>
+                        {{ name }}
+                    </label>
+
+                </div>
+            </li>
+            {{ /get.current.filtered.adminView.domains }}
+        </ul>
+
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Toplist layout</h3>
+        <div class="lab-grid lab-grid-gap lab-space-below-none">
+            <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                <label for="placeholder">Text to display if no items exist</label>
+                <input id="placeholder" type="text" name="fields.placeholder" value="{{ get.current.filtered.placeholder }}">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.hideBorder">Hide border</label>
+                <input id="id-fields.hideBorder" type="checkbox" name="fields.hideBorder" value="1" {{ #get.current.fields.hideBorder }}checked{{ /get.current.fields.hideBorder }}>
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.hideTitle">Hide toplist title</label>
+                <input id="id-fields.hideTitle" type="checkbox" name="fields.hideTitle" value="1" {{ #get.current.fields.hideTitle }}checked{{ /get.current.fields.hideTitle }}>
+            </div>
+        
+            <div class="lab-grid-large-6 lab-grid-small-12 lab-grid-gap">
+                <label for="id-fields.layout">Orientation</label>
+                <select id="id-fields.layout" name="fields.layout">
+                    {{ #get.current.filtered.adminView.layout }}
+                    <option value="{{ value }}"{{ #selected }} selected{{ /selected }}>{{ name }}</option>
+                    {{ /get.current.filtered.adminView.layout }}
+                </select>
+            </div>
+            <div class="lab-grid-large-6 lab-grid-small-12 lab-grid-gap">
+                <label for="id-fields.tabs">Split data into tabs</label>
+                <select id="splitToTabs" name="fields.tabs" data-selected-items="{{ splitDataJson }}">
+                    {{ #get.current.filtered.adminView.tabs }}
+                    <option value="{{ value }}"{{ #selected }} selected{{ /selected }}>{{ name }}</option>
+                    {{ /get.current.filtered.adminView.tabs }}
+                </select>
+                <input type="hidden" id="id-fields.splitData" name="fields.splitData" value="{{ get.current.fields.splitData }}">
+            </div>
+
+            <div class="lab-grid-large-6 lab-grid-small-12 lab-grid-gap">
+                <label for="id-fields.displayKicker">Display kicker</label>
+                <select id="id-fields.displayKicker" name="fields.displayKicker">
+                    {{ #get.current.filtered.adminView.displayKicker }}
+                    <option value="{{ value }}"{{ #selected }} selected{{ /selected }}>{{ name }}</option>
+                    {{ /get.current.filtered.adminView.displayKicker }}
+                </select>
+            </div>
+            <div class="lab-grid-large-6 lab-grid-small-12 lab-grid-gap">
+                <label for="id-fields.displayPaywall">Display paywall label</label>
+                <select id="id-fields.displayPaywall" name="fields.displayPaywall">
+                    {{ #get.current.filtered.adminView.displayPaywall }}
+                    <option value="{{ value }}"{{ #selected }} selected{{ /selected }}>{{ name }}</option>
+                    {{ /get.current.filtered.adminView.displayPaywall }}
+                </select>
+            </div>
+        </div>
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Article options</h3>
+        <div class="lab-formgroup lab-grid lab-grid-gap lab-space-below-none">
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.hideDate">Hide timestamp</label>
+                <input id="id-fields.hideDate" type="checkbox" name="fields.hideDate" value="1" {{ #get.current.fields.hideDate }}checked{{ /get.current.fields.hideDate }}>
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.toplistCounter">Display counter</label>
+                <input id="id-fields.toplistCounter" type="checkbox" name="fields.toplistCounter" value="1" {{ #get.current.fields.toplistCounter }}checked{{ /get.current.fields.toplistCounter }}>
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.displaySite">Display site</label>
+                <input id="id-fields.displaySite" type="checkbox" name="fields.displaySite" value="1" {{ #get.current.fields.displaySite }}checked{{ /get.current.fields.displaySite }}>
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.displaySection">Display section</label>
+                <input id="id-fields.displaySection" type="checkbox" name="fields.displaySection" value="1" {{ #get.current.fields.displaySection }}checked{{ /get.current.fields.displaySection }}>
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                <label for="id-fields.tagsSelected">Filter on tags</label>
+                <input id="id-fields.tagsSelected" type="text" name="fields.tagsSelected" placeholder="*,culture,news ('*' is a wildcard)" value="{{ get.current.fields.tagsSelected }}">
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                <label for="id-fields.tabsNames">Overwrite tab names (separate by comma)</label>
+                <input id="id-fields.tabsNames" type="text" name="fields.tabsNames" placeholder="Most read, Entertainment, World news" value="{{ get.current.fields.tabsNames }}">
+            </div>
+        </div>
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Image options</h3>
+        <div class="lab-formgroup lab-grid lab-grid-gap lab-space-below-none">
+            <div class="lab-formgroup-item lab-grid-large-12 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.displayImages">Display images</label>
+                <input id="id-fields.displayImages" type="checkbox" name="fields.displayImages" value="1" {{ #get.current.fields.displayImages }}checked{{ /get.current.fields.displayImages }}>
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap imageSettingsSize" style="display:none">
+                <label for="id-fields.imageWidth">Image width (px)</label>
+                <input id="id-fields.imageWidth" type="number" name="fields.imageWidth" value="{{ get.current.fields.imageWidth }}" min="0">
+            </div>
+             <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap imageSettingsSize" style="display:none">
+                <label for="id-fields.imageHeight">Image height (px)</label>
+                <input id="id-fields.imageHeight" type="number" name="fields.imageHeight" value="{{ get.current.fields.imageHeight }}" min="0">
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    initDisplayImagesToggle()
+    initTabs()
+
+    function initTabs() {
+        const splitToTabs = document.getElementById('splitToTabs');
+
+        if (!splitToTabs) return;
+
+        function updateSelectedSitesDisplay() {
+            const mode = splitToTabs.value; // 'default', 'hostname', or 'section'
+            const selectedSites = document.querySelectorAll('input[type="checkbox"][name^="fields.domains_"]:checked');
+
+            const data = [];
+
+            selectedSites.forEach(site => {
+                const alias = site.getAttribute('data-site-alias');
+                const name = site.getAttribute('data-sitename') || 'Unnamed';
+
+                if (mode === 'hostname') {
+                    data.push(name);
+                }
+
+            });
+            let uniqueData = [...new Set(data)];
+
+
+            const jsonData = JSON.stringify(uniqueData);
+
+            // Update dataset
+            splitToTabs.dataset.selectedItems = jsonData;
+
+            // Ensure hidden input exists
+            let hiddenSplitData = document.getElementById('id-fields.splitData');
+            if (!hiddenSplitData) {
+                hiddenSplitData = Object.assign(document.createElement('input'), {
+                    type: 'hidden',
+                    name: 'fields.splitData',
+                    id: 'id-fields.splitData'
+                });
+                splitToTabs.parentElement.appendChild(hiddenSplitData);
+            }
+
+            // Set value
+            hiddenSplitData.value = jsonData;
+        }
+
+        // Event listeners
+        splitToTabs.addEventListener('change', updateSelectedSitesDisplay);
+        document.querySelectorAll('input[type="checkbox"][name^="fields.domains_"]').forEach(cb => {
+            cb.addEventListener('change', updateSelectedSitesDisplay);
+        });
+
+        // Initial render
+        updateSelectedSitesDisplay();
+    }
+    
+
+    function initDisplayImagesToggle() {
+        const displayImagesCheckbox = document.getElementById('id-fields.displayImages');
+        const imageSettings = document.querySelectorAll('.imageSettingsSize');
+
+        if (!displayImagesCheckbox) return;
+
+        const setVisibility = () => {
+            const visible = displayImagesCheckbox.checked;
+            imageSettings.forEach(el => el.style.display = visible ? 'block' : 'none');
+        };
+
+        setVisibility();
+        displayImagesCheckbox.addEventListener('change', setVisibility);
+    }
+
+</script>

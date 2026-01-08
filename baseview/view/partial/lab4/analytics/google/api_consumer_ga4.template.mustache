@@ -1,0 +1,31 @@
+<script type="module">
+
+window.labClientAPI.on('pageChanged', ({ event, data, pageData }) => {
+    if (typeof window.gtag === 'function' && data.type === 'galleryImage') {
+        window.labClientAPI.log(`[GA4:pageChanged] Will log event "${ data.direction === 'prev' ? 'gallery_previous' : 'gallery_next' }" to Google Analytics 4`);
+        gtag('event', data.direction === 'prev' ? 'gallery_previous' : 'gallery_next', {
+            type: 'commonGallery',
+            id: `${ data.gallery }`,
+            name: `${ data.title }`,
+            imageCount: data.imageCount || 0,
+            page: `${ pageData.pageId }`,
+            position: data.photo
+        });
+    }
+});
+
+window.labClientAPI.on('galleryLoaded', ({ event, data, pageData }) => {
+    if (typeof window.gtag === 'function') {
+        window.labClientAPI.log(`[GA4:galleryLoaded] Will log event "gallery_open" to Google Analytics 4`);
+        gtag('event', 'gallery_open', {
+            type: 'commonGallery',
+            id: `${ data.gallery }`,
+            name: `${ data.title }`,
+            imageCount: data.imageCount || 0,
+            page: `${ pageData.pageId }`,
+            position: data.photo
+        });
+    }
+});
+
+</script>
