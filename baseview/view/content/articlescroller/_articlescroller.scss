@@ -217,17 +217,20 @@
         }
     }
 
-    .paywallLabel {
-        @include paywall.label;
-        top: 0.7rem;
-        bottom: unset;
-        right: 1rem;
-    }
+    @include paywall.label;
 
-    .noImage .paywallLabel {
-        position: static;
-        width: fit-content;
-        margin-block: 1rem;  
+    .content {
+        .paywallLabel {
+            top: 0.7rem;
+            bottom: unset;
+            right: 1rem;
+        }
+
+        .noImage .paywallLabel {
+            position: static;
+            width: fit-content;
+            margin-block: 1rem;  
+        }
     }
 
     @include desktop_down {

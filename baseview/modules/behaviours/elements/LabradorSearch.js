@@ -7,6 +7,11 @@ export default class LabradorSearch {
     }
 
     onRender(model, view) {
+        const searchTexts = ['submitLabel', 'navLabel', 'nohitsLabel', 'searchPlaceholder', 'advancedOpenText', 'advancedCloseText', 'fromDateLabel', 'toDateLabel', 'tagLabel', 'authorLabel', 'allSitesLabel'];
+        searchTexts.forEach((text) => {
+            const searchText = this.api.v1.locale.get(`search.labradorSearch.${ text }`, { noRender: true, fallbackValue: null });
+            model.setFiltered(text, view.get(`fields.${ text }`) || searchText);
+        });
         const siteList = lab_api.v1.properties.get('sites');
         const sites = [];
         const allowedSites = model.get('fields.allowedSites_json') || {};

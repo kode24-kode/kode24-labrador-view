@@ -1,4 +1,5 @@
         {{ #get.current.filtered.consent.cookieconsent }}{{ #render.partial }}lab4/cookieconsent{{ /render.partial }}{{ /get.current.filtered.consent.cookieconsent }}
+        {{ > partial/lab4/clientAPI }}
 
         {{! Add Piano Adblock Detection Script }}
         {{ #getConfig.piano }}
@@ -9,13 +10,13 @@
         <meta name="title" content="{{ #helper.sanitizeString }}{{{ get.current.filtered.seotitle }}}{{ /helper.sanitizeString }}">
         <meta name="description" content="{{ #helper.sanitizeString }}{{{ get.current.filtered.seodescription }}}{{ /helper.sanitizeString }}">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="canonical" href="{{{get.current.filtered.specificUrl}}}">
+        {{ #get.current.filtered.shouldRenderCanonical }}<link rel="canonical" href="{{{get.current.filtered.specificUrl}}}">{{ /get.current.filtered.shouldRenderCanonical }}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {{ #get.current.filtered.norobots }}<meta name="robots" content="noindex">{{ /get.current.filtered.norobots }}
         {{ #get.current.filtered.facebook.appId}}
         <meta property="fb:app_id" content="{{get.current.filtered.facebook.appId}}">
         {{ /get.current.filtered.facebook.appId}}
-        <meta property="og:type" content="{{ #get.current.filtered.is_article }}article{{ /get.current.filtered.is_article }}{{ #get.current.filtered.is_notice }}notice{{ /get.current.filtered.is_notice }}{{ #get.current.filtered.is_front }}frontpage{{ /get.current.filtered.is_front }}">
+        <meta property="og:type" content="{{ #get.current.filtered.is_article }}article{{ /get.current.filtered.is_article }}{{ #get.current.filtered.is_notice }}notice{{ /get.current.filtered.is_notice }}{{ #get.current.filtered.is_front }}frontpage{{ /get.current.filtered.is_front }}{{ #get.current.filtered.is_gallery }}gallery{{ /get.current.filtered.is_gallery }}">
         <meta property="og:title" content="{{ #get.current.filtered.paywall.enabled }}{{ ^getConfig.paywall.labels.hidePlusInMetaTags }}(+) {{ /getConfig.paywall.labels.hidePlusInMetaTags }}{{ /get.current.filtered.paywall.enabled }}{{ #helper.sanitizeString }}{{{ get.current.filtered.sometitle }}}{{ /helper.sanitizeString }}">
         <meta property="og:description" content="{{ #helper.sanitizeString }}{{{ get.current.filtered.somedescription }}}{{ /helper.sanitizeString }}">
         {{ #get.current.filtered.is_notice }}
@@ -50,6 +51,7 @@
         <meta name="twitter:image" content="{{ #image.getFrontCropUrl }}1200,{{ #calculator.multiply }}1200 {{ getConfig.image.socialAspectRatio }}{{ /calculator.multiply }},jpg{{ /image.getFrontCropUrl }}">
         <link rel="alternate" type="application/json+oembed" href="{{{ get.current.filtered.specificUrl }}}?lab_viewport=oembed">
         {{ /get.current.filtered.is_article }}
+        {{ #app.isFront }}
         {{ #getConfig.sesamy }}
             {{ #enabled }}
                 <meta property="sesamy:client-id" content="{{ id }}">
@@ -57,6 +59,13 @@
                 {{#currency}}<meta property="sesamy:currency" content="{{ currency }}">{{/currency}}
             {{ /enabled}}
         {{ /getConfig.sesamy }}
+        {{ #getConfig.newzware }}
+            {{ #enabled }}
+                {{ #newzwareNoJsUrl }}<noscript><meta http-equiv="refresh" content="1; url={{{ newzwareNoJsUrl }}}" /></noscript>{{ /newzwareNoJsUrl }}
+                {{ #paywallScript }}<script id="newzwareEPassV2script" {{ #dataSiteID }}data-site="{{ dataSiteID }}"{{ /dataSiteID }} src="{{{ paywallScript }}}"></script>{{ /paywallScript }}
+            {{ /enabled}}
+        {{ /getConfig.newzware }}
+        {{ /app.isFront }}
 
         {{ #get.current.filtered.analytics.adnuntiusConnectCMP.enable }}{{ > partial/lab4/analytics/adnuntiusconnect_cmp }}{{ /get.current.filtered.analytics.adnuntiusConnectCMP.enable }}
         {{ #get.current.filtered.customTags.meta.head_top }}{{{ . }}}{{ /get.current.filtered.customTags.meta.head_top }}
@@ -89,6 +98,9 @@
         <link rel="icon" type="{{ #icon_type }}{{{ icon_type }}}{{ /icon_type }}{{ ^icon_type }}image/png{{ /icon_type }}" sizes="{{ size.width }}x{{ size.height }}" href="{{{ path }}}">
         {{ /get.current.filtered.favicons }}
         {{ > partial/lab4/faviconList }}
+        {{ #app.isFront }}
+            {{ #getConfig.manifest }}<link rel="manifest" href={{{ manifestPath }}} />{{ /getConfig.manifest }}
+        {{ /app.isFront }}
         {{ ^get.current.filtered.skipDefaultFont }}
         <link href="https://fonts.googleapis.com/css?family=Merriweather:300,400,700,900" rel="stylesheet" {{#getConfig.deferFontLoading.active}} media="print" onload="this.media='all'" {{/getConfig.deferFontLoading.active}}>
         {{ /get.current.filtered.skipDefaultFont }}
@@ -110,6 +122,11 @@
             {{ #placeholderKey.headerTop }}{{ > partial/lab4/elements/script }}{{ /placeholderKey.headerTop }}
         {{ /get.current.filtered.siteScriptList }}
         {{ > partial/lab4/clientData }}
+
+        {{ #getConfig.iteras }}
+            {{  > partial/lab4/paywall/iteras/cookie }}
+        {{ /getConfig.iteras }}
+
         {{ #get.current.filtered.modules }}
             <script type="module" src="{{{ url }}}{{ #helper.cachebuster }}{{ /helper.cachebuster }}" data-cookieconsent="ignore"></script>
         {{ /get.current.filtered.modules }}
@@ -184,6 +201,7 @@
         {{ #get.current.filtered.customTags.script.head_bottom }}{{{ . }}}{{ /get.current.filtered.customTags.script.head_bottom }}
         {{ #get.current.filtered.customTags.link.head_bottom }}{{{ . }}}{{ /get.current.filtered.customTags.link.head_bottom }}
         {{ #get.current.filtered.customTags.style.head_bottom }}{{{ . }}}{{ /get.current.filtered.customTags.style.head_bottom }}
+        {{ #app.isFront }}
         {{#getConfig.sesamy}}
             {{#enabled}}
                 <meta property="sesamy:publisher-content-id" content="{{{ get.current.filtered.pageId }}}">
@@ -191,11 +209,12 @@
                 <script async src="https://scripts.sesamy.com/s/{{ id }}/bundle" type="module"></script>
             {{/enabled}}
         {{/getConfig.sesamy}}
+        {{ /app.isFront }}
 
         {{! Add Iteras Paywall script and button if Iteras config is set }}
-        {{#getConfig.iteras}}
-            {{> partial/lab4/paywall/iterasHead }}
-        {{/getConfig.iteras}}
+        {{ #getConfig.iteras }}
+            {{ > partial/lab4/paywall/iteras/head }}
+        {{ /getConfig.iteras }}
 
         {{! Add Piano Paywall script if Piano is set }}
         {{ #getConfig.piano }}

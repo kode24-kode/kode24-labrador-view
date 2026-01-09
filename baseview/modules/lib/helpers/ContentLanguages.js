@@ -33,7 +33,7 @@ const contentLanguages = [
     { name: 'English (United Kingdom)', code: 'en-GB' },
     { name: 'English (United States)', code: 'en-US' },
     { name: 'Esperanto - esperanto', code: 'eo' },
-    { name: 'Estonian - eesti', code: 'et' },
+    { name: 'Estonian - eesti', code: 'et-EE' },
     { name: 'Faroese - føroyskt', code: 'fo' },
     { name: 'Filipino', code: 'fil' },
     { name: 'Finnish - suomi', code: 'fi-FI' },

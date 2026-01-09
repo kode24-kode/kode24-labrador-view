@@ -85,10 +85,14 @@ export class DateTimeHelper {
             DD: () => (realDate.getUTCDate() < 10 ? '0' : '') + realDate.getUTCDate(),
             H: () => realDate.getUTCHours(),
             HH: () => (realDate.getUTCHours() < 10 ? '0' : '') + realDate.getUTCHours(),
+            h: () => this.twelveHourClock(realDate),
+            hh: () => this.twelveHourClock(realDate, true),
             m: () => realDate.getUTCMinutes(),
             mm: () => (realDate.getUTCMinutes() < 10 ? '0' : '') + realDate.getUTCMinutes(),
             s: () => realDate.getUTCSeconds(),
             ss: () => (realDate.getUTCSeconds() < 10 ? '0' : '') + realDate.getUTCSeconds(),
+            a: () => (realDate.getUTCHours() < 12 ? 'a.m.' : 'p.m.'),
+            A: () => (realDate.getUTCHours() < 12 ? 'A.M.' : 'P.M.'),
             dddd: () => this.weekday(realDate, true),
             ddd: () => this.weekday(realDate, true, 3),
             MMMM: () => this.monthName(realDate, true),
@@ -179,7 +183,7 @@ export class DateTimeHelper {
         const months = [
             this.str('january'),
             this.str('february'),
-            this.str('mars'),
+            this.str('march'),
             this.str('april'),
             this.str('may'),
             this.str('june'),
@@ -273,6 +277,20 @@ export class DateTimeHelper {
 
     unmanipulateTime(date, hours) {
         return new Date(date.getTime() - (hours * 60 * 60 * 1000));
+    }
+
+    twelveHourClock(date, prependZero = false) {
+        const hours = date.getUTCHours();
+        let formattedHours;
+        if (hours === 0 || hours === 12) {
+            formattedHours = 12;
+        } else {
+            formattedHours = hours < 12 ? hours : hours - 12;
+            if (prependZero && formattedHours < 10) {
+                formattedHours = `0${ formattedHours }`;
+            }
+        }
+        return formattedHours;
     }
 
 }

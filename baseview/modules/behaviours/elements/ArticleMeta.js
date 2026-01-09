@@ -94,7 +94,7 @@ export default class ArticleMeta {
         };
 
         // Unified: Display modified-date if exist. If not: Use publish-date
-        const displayUnifiedDate = this.api.v1.config.get('contentbox_settings.articleMeta.displayUnifiedDate');
+        const displayUnifiedDate = this.api.v1.config.get('contentbox_settings.articleMeta.displayUnifiedDate') || this.api.v1.config.get('articleMetaSettings.displayUnifiedDate');
         const unified = { hide: true };
         if (displayUnifiedDate) {
             unified.hide = false;

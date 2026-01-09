@@ -58,6 +58,9 @@
             max-width: 100%;
         }
     }
+    .imageChildren .img:after {
+        display: none;
+    }
 }
 @media (max-width: 1023px) {
     [class*="mobile_border-bg-"] {

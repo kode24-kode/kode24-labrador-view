@@ -3,6 +3,8 @@
     {{ #get.current.filtered.css_variables.no_viewport }}
     --{{ key }}: {{ value }};
     {{ /get.current.filtered.css_variables.no_viewport }}
+    --space-top: {{getConfig.contentbox_settings.googleAd.spacingTop}};
+    --space-top-adnuntiusAd: {{getConfig.contentbox_settings.adnuntiusAd.spacingTop}};
 }
 
 @media(max-width: 767px) {

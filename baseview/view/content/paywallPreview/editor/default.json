@@ -5,18 +5,18 @@
             "fn": "EditRich",
             "key": "fields.paywallSalesPitchTitle",
             "menu": "rich_text",
-            "placeholder": "Paywall: Click to add text",
+            "placeholder": "Click to add title",
             "inlineOnly": true,
             "modal": false,
             "allowReverting": true,
             "target": "root"
         },
         "paywallSalesPitchContent": {
-            "selector": "div.pitch-content",
+            "selector": "div.sales-pitch-content",
             "fn": "EditFull",
             "key": "fields.paywallSalesPitchContent",
             "menu": "rich_text_bodytext",
-            "placeholder": "Paywall: Click to add text",
+            "placeholder": "Click to add text",
             "target": "root",
             "modal": false,
             "allowReverting": true,
@@ -84,40 +84,19 @@
                     "icon": "labicon-edit",
                     "title": "Paywall poster layout",
                     "items": {
-                        "paywallLayoutStandard": {
-                            "pathHelper": {
-                                "type": "root"
-                            },
-                            "text": "Standard layout",
-                            "title": "Standard layout",
-                            "icon": "labicon-align_vertical_bottom",
-                            "callback": ["toggleKeyAndValue", "redraw"],
-                            "key": "fields.paywallLayoutType",
-                            "value": false,
-                            "onValue": "paywallLayoutStandard",
-                            "offValue": false,
-                            "bindings": [
-                                {
-                                    "pathHelper": {
-                                        "type": "root"
-                                    },
-                                    "path": "fields.paywallLayoutType",
-                                    "attribute": "value"
-                                }
-                            ]
-                        },
                         "paywallLayoutCentered": {
                             "pathHelper": {
                                 "type": "root"
                             },
-                            "text": "Centered layout",
-                            "title": "Centered layout",
+                            "text": "Centered Image layout",
+                            "title": "Centered Image layout",
                             "icon": "labicon-align_vertical_bottom",
                             "callback": ["toggleKeyAndValue", "redraw"],
                             "key": "fields.paywallLayoutType",
                             "value": false,
                             "onValue": "paywallLayoutCentered",
                             "offValue": false,
+                            "disabled": true,
                             "bindings": [
                                 {
                                     "pathHelper": {
@@ -125,6 +104,18 @@
                                     },
                                     "path": "fields.paywallLayoutType",
                                     "attribute": "value"
+                                },
+                                {
+                                    "pathHelper": {
+                                        "type": "root"
+                                    },
+                                    "path": "fields.isInternalPaywall",
+                                    "attribute": "disabled",
+                                    "valueTransformer": "hasValue",
+                                    "valueTransformerOptions": {
+                                        "value": true,
+                                        "negateBoolean": true
+                                    }
                                 }
                             ]
                         },
@@ -140,6 +131,7 @@
                             "value": false,
                             "onValue": "paywallLayoutCenteredFull",
                             "offValue": false,
+                            "disabled": true,
                             "bindings": [
                                 {
                                     "pathHelper": {
@@ -147,6 +139,18 @@
                                     },
                                     "path": "fields.paywallLayoutType",
                                     "attribute": "value"
+                                },
+                                {
+                                    "pathHelper": {
+                                        "type": "root"
+                                    },
+                                    "path": "fields.isInternalPaywall",
+                                    "attribute": "disabled",
+                                    "valueTransformer": "hasValue",
+                                    "valueTransformerOptions": {
+                                        "value": true,
+                                        "negateBoolean": true
+                                    }
                                 }
                             ]
                         },
@@ -206,6 +210,7 @@
                             "value": false,
                             "onValue": "paywallLayoutSidebarFull",
                             "offValue": false,
+                            "disabled": true,
                             "bindings": [
                                 {
                                     "pathHelper": {
@@ -213,6 +218,18 @@
                                     },
                                     "path": "fields.paywallLayoutType",
                                     "attribute": "value"
+                                },
+                                {
+                                    "pathHelper": {
+                                        "type": "root"
+                                    },
+                                    "path": "fields.isInternalPaywall",
+                                    "attribute": "disabled",
+                                    "valueTransformer": "hasValue",
+                                    "valueTransformerOptions": {
+                                        "value": true,
+                                        "negateBoolean": true
+                                    }
                                 }
                             ]
                         }

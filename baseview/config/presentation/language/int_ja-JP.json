@@ -10,7 +10,7 @@
             "saturday": "土曜日",
             "january": "1月",
             "february": "2月",
-            "mars": "3月",
+            "march": "3月",
             "april": "4月",
             "may": "5月",
             "june": "6月",
@@ -80,10 +80,34 @@
         },
         "search": {
             "placeholder": "検索...",
-            "label": "検索"
+            "label": "検索",
+            "openText": "検索",
+            "closeText": "閉じる",
+            "expandedLabel": "検索を閉じる",
+            "collapsedLabel": "検索を開く",
+            "labradorSearch": {
+                "submitLabel": "検索",
+                "navLabel": "もっと表示",
+                "nohitsLabel": "ヒットがありません。検索条件を変更してください。",
+                "searchPlaceholder": "ここに検索を入力してください...",
+                "advancedOpenText": "フィルターを開く",
+                "advancedCloseText": "フィルターを閉じる",
+                "fromDateLabel": "開始日",
+                "toDateLabel": "これまで",
+                "tagLabel": "タグ",
+                "authorLabel": "著者",
+                "allSitesLabel": "すべてのサイト"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "メニューを閉じる",
+            "collapsedLabel": "メニューを開く",
+            "buttonText": "メニュー"
         },
         "header": {
-            "logo_link_text": "トップページへ"
+            "logo_link_text": "トップページへ",
+			"menuScrollerLeftButton": "左にスクロール",
+			"menuScrollerRightButton": "右にスクロール"
         },
         "slack_notifier": {
             "publish": {
@@ -138,7 +162,57 @@
             "caption": {
                 "showCaptionLabel": "キャプションを表示",
                 "hideCaptionLabel": "キャプションを非表示",
-                "showMoreLabel": "もっと表示"
+                "showMoreLabel": "もっと表示",
+                "showLessLabel": "表示を減らす"
+            },
+            "videoOverlayLabel": "動画記事"
+        },
+        "mostRead": {
+            "labelLatest": "最新",
+            "titleLatest": "最近の記事",
+            "labelMostRead": "よく読まれている",
+            "titleMostRead": "よく読まれている記事"
+        },
+        "infiniteScroll": {
+            "readMore": "続きを読む"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Facebookでシェア",
+                "twitter": "X (Twitter)でシェア",
+                "linkedin": "LinkedInでシェア",
+                "mail": "メールで共有",
+                "threads": "Threadsでシェア",
+                "copyLink": "リンクをコピー",
+                "glimta": "Glimtaでロックを解除",
+                "talandeWebb": "Talande Webb オプション パネルを開く",
+                "bluesky": "Blueskyでシェア",
+                "reddit": "Redditでシェア",
+                "whatsapp": "WhatsAppでシェア"
+            }
+        },
+        "gallery": {
+            "label": "ギャラリー",
+            "seeAllImages": "すべての画像を見る",
+            "navigateToOriginal": "元のページに移動"
+        },
+        "weather": {
+            "failedToFetch": "天気データを取得できませんでした",
+            "updated": "更新",
+            "fetchingData": "天気データを読み込み中",
+            "types": {
+                "clearsky": "快晴",
+                "fair": "晴れ",
+                "partlycloudy": "ところにより曇り",
+                "cloudy": "曇り",
+                "rainshowers": "にわか雨",
+                "rain": "雨",
+                "snow": "雪",
+                "sleet": "みぞれ",
+                "thunder": "雷",
+                "fog": "霧",
+                "wind": "風が強い",
+                "unknown": "不明"
             }
         }
     }

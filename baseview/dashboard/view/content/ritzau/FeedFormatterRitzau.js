@@ -4,8 +4,17 @@ const FeedFormatterRitzau = {
     // Nice place to modify the extarnal data.
     filterExternalData: (viewModel) => {
         var externalData = viewModel.get("external");
-        if (!externalData) return;
-        if (!externalData.feed) return;
+        viewModel.setFiltered("noArticles", false);
+        if (!externalData || !externalData.feed) {
+            viewModel.setFiltered("noArticles", true);
+            viewModel.setFiltered("errorMsg", "Error: Labrador could not contact Ritzau");
+            return;
+        }
+        if (externalData && externalData.feed.length == 0) {
+            viewModel.setFiltered("noArticles", true);
+            viewModel.setFiltered("errorMsg", "Error: Labrador fetched articles, but no articles returned from Ritzau");
+            return;
+        }
         var dateHander = new Labrador.Date.DateTime();
         for (const item of externalData.feed) {
             // Create a human readable date from the published-date.
@@ -39,3 +48,4 @@ const FeedFormatterRitzau = {
     }
 
 };
+

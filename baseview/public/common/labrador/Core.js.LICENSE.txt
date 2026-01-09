@@ -1,6 +1,6 @@
 /*!
  * Labrador rendering engine.
- * Build: 0f6a38bed57d5ddd5208
+ * Build: a0a25ced259948a726a2
  * (c) Labrador CMS AS
  * https://www.labradorcms.com
  *

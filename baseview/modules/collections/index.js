@@ -11,3 +11,6 @@ export { default as Graphics } from './Graphics.js';
 export { default as Audio } from './Audio.js';
 export { default as ArticlesNotice } from './ArticlesNotice.js';
 export { default as Vimond } from './Vimond.js';
+export { default as Vp } from './Vp.js';
+export { default as Collabrador } from './Collabrador.js';
+export { default as NewComment } from './NewComment.js';

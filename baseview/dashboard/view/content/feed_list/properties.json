@@ -25,6 +25,7 @@
         "limit": 20,
         "page": 0,
         "source": "",
-        "onlyLatestVersion": 0 
+        "onlyLatestVersion": 1,
+        "service": "news"
     }
 }

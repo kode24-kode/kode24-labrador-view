@@ -3,7 +3,6 @@ import fs from 'fs';
 export const versionFileHelper = {
     getDefaultVersionObject: () => ({
         view_version: '1.0.0',
-        view_version_number: 134,
         view_name: 'Baseview',
         view_build: {
             baseview: {

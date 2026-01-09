@@ -2,19 +2,33 @@
 
 // grid-colors
 @mixin grid_background_color($color: #fff) {
-    .main .row:not([class*="bg-"]), section.related .row:not([class*="bg-"]), main.pageWidth > article:not([class*="bg-"]) {
+    .main .row:not([class*="bg-"]),
+    section.related .row:not([class*="bg-"]),
+    main.pageWidth > article:not([class*="bg-"]) {
         background-color: $color;
     }
-    section.related .row[class*="bg-"] .row, .row[class*="bg-"] .row, .row-section[class*="bg-"] .row {
+
+    .front_rows .content.hasContentPadding .row, 
+    section.related .row[class*="bg-"] .row,
+    section.related .row.hasContentPadding .row, 
+    .row[class*="bg-"] .row,
+    .row.hasContentPadding .row, 
+    .row-section[class*="bg-"] .row,
+    .row-section.hasContentPadding .row {
         background-color: transparent;
     }
-    .main .row-section[class*="bg-"] > .row {
+
+    .main .row-section[class*="bg-"] > .row,
+    .main .row-section.hasContentPadding > .row {
         background-color: initial;
     }
+
     body.custom-background-color {
         section.related,
         section.related .row:not([class*=bg-]),
+        section.related .row:not(.hasContentPadding),
         .main .row:not([class*=bg-]),
+        .main .row:not(.hasContentPadding),
         footer {
             background-color: transparent;
         }
@@ -58,7 +72,8 @@ $border-sides: ("left", "right", "top", "bottom");
             border-#{$side}: 1px solid !important;
 
             // Rows should still have padding, so we only remove padding from other content if there's no background color
-            &:not([class*="bg-"]) {
+            &:not([class*="bg-"]),
+            &:not(.hasContentPadding) {
                 &:not(.row) {
                     padding: 0 !important;
                     padding-#{$side}: $bg_text_padding !important;
@@ -69,8 +84,8 @@ $border-sides: ("left", "right", "top", "bottom");
             // and rows should have padding on the side of the border
             padding-#{$side}: $bg_text_padding !important;
 
-
-            &[class*="bg-"] {
+            &[class*="bg-"],
+            &.hasContentPadding {
                 &:not(.row) {
                     padding-left: 1rem !important;
                 }
@@ -79,16 +94,17 @@ $border-sides: ("left", "right", "top", "bottom");
     }
 }
 
-
 // Background colors. Set white text-color for dark background-colors
 @mixin background_color_list($color-prefix: '') {
     @each $colorname, $color in $background_colors {
         .#{$color-prefix}bg-#{$colorname} {
             background-color: $color;
+
             @if (lightness($color) < 50) {
                 color: #fff;
             }
         }
+
         @each $opacity in $background_colors_opacity {
             .#{$color-prefix}bg-#{$colorname}.op-bg_#{$opacity} {
                 background-color: rgba( $color, ($opacity / 100) );
@@ -135,6 +151,7 @@ $border-sides: ("left", "right", "top", "bottom");
         bottom: 0;
         pointer-events: none;
     }
+
     @each $colorname, $color in $background_colors {
         .#{$color-prefix}image-gradient-bg-#{$colorname} .img:after {
             @extend %gradient_settings2;
@@ -142,5 +159,3 @@ $border-sides: ("left", "right", "top", "bottom");
         }
     }
 }
-
-

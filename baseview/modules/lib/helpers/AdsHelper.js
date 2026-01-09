@@ -3,6 +3,8 @@ import { DateTimeHelper } from './datetime/DateTimeHelper.js';
 export class AdsHelper {
 
     static getAdnuntiusSettings(api, model, view, adEnv, site, disableSkyscraper = false, disableTopBanner = false) {
+        Sys.logger.debug(`[AdsHelper.getAdnuntiusSettings] Called with disableSkyscraper=${ disableSkyscraper }, disableTopBanner=${ disableTopBanner }`);
+
         // Find adUnits placed on current page in admin
         const adnuntiusBiddingEnabled = (api.v1.config.get('contentbox_settings.adnuntiusAd.bidding') || {}).enabled || false;
 
@@ -66,11 +68,19 @@ export class AdsHelper {
     }
 
     static getGoogleSettings(api, model, view, adEnv, site, disableSkyscraper = false, disableTopBanner = false) {
+        Sys.logger.debug(`[AdsHelper.getGoogleSettings] Called with disableSkyscraper=${ disableSkyscraper }, disableTopBanner=${ disableTopBanner }`);
+
         function parseFormat(format, item) {
-            const { sizes = [] } = format;
+            const { sizes = [], fluid = false } = format;
+            const sizeList = sizes.map((size) => `[${size.width},${size.height}]`);
+
+            if (fluid) {
+                sizeList.push('"fluid"');
+            }
+
             return {
                 ...format,
-                sizesString: `[${  sizes.map((size) => `[${ size.width },${ size.height }]`).join(', ') }]`,
+                sizesString: `[${sizeList.join(', ')}]`,
                 metadata: item.metadata || []
             };
         }
@@ -83,18 +93,27 @@ export class AdsHelper {
         const visibleUnits = [];
         for (const item of content) {
             const [format] = units.filter((unit) => item.content_data.fields.format === unit.format);
-            if (format && ((item.placement.key.includes('skyscraper_') === false && item.placement.key !== 'topbanner')
-                || (item.placement.key.includes('skyscraper_') && !disableSkyscraper)
-                || (item.placement.key === 'topbanner' && !disableTopBanner))) {
+            const placementKey = item.placement.key;
+            const shouldInclude = format && ((placementKey.includes('skyscraper_') === false && placementKey !== 'topbanner')
+                || (placementKey.includes('skyscraper_') && !disableSkyscraper)
+                || (placementKey === 'topbanner' && !disableTopBanner));
+
+            Sys.logger.debug(`[AdsHelper.getGoogleSettings] Placement: ${ placementKey }, Format: ${ format ? format.format : 'not found' }, ShouldInclude: ${ shouldInclude }`);
+
+            if (shouldInclude) {
                 visibleUnits.push(parseFormat(format, item));
             }
         }
+        Sys.logger.debug(`[AdsHelper.getGoogleSettings] Found ${ manualContent.length } manual Google Ad(s)`);
         for (const childModel of manualContent) {
             const [format] = units.filter((unit) => childModel.get('fields.format') === unit.format);
             if (format) {
+                Sys.logger.debug(`[AdsHelper.getGoogleSettings] Adding manual ad with format: ${ format.format }`);
                 visibleUnits.push(parseFormat(format, childModel));
             }
         }
+
+        Sys.logger.debug(`[AdsHelper.getGoogleSettings] Final visibleUnits count: ${ visibleUnits.length }, formats: ${ visibleUnits.map((u) => u.format).join(', ') }`);
 
         return {
             enabled: units.length > 0,

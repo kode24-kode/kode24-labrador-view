@@ -826,6 +826,9 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
         return new Promise((resolve, reject) => {
             if (!this.instanceOfId) { resolve(); return; }
             this.ensureCollection().then((collection) => {
+                if (!skipSave) {
+                    this.doSave();
+                }
                 if (!this.test || !this.test.shouldSave()) {
                     resolve();
                     return;
@@ -1272,6 +1275,7 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
         this.ui.resetTestButton.disabled = (this.collection.test_id === null && this.test && this.test.id);
         this.ui.startTestNowButton.disabled = (this.test && this.test.isFinished()) || this.preparedVariants.size === 0;
         this.ui.endTestNowButton.disabled = !this.test || (this.test && !this.test.isRunning());
+        this.ui.suggestBtn.disabled = this.test && this.test.isRunning();
         if (this.ui.navTestResultsContainer) {
             this.ui.navTestResultsContainer.disabled = !(this.test && this.test.results.statistics);
             if (!this.ui.navTestResultsContainer.disabled) {
@@ -1455,18 +1459,22 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
     save() {
         window.clearTimeout(this.timeoutId);
         this.timeoutId = window.setTimeout(() => {
-            // Update variants in collection in case they are modified before handled by this class.
-            // Example: Data is set when replacing an image in the variant.
-            for (const [variant, obj] of this.preparedVariants) {
-                variant.update(this.getModelData(obj.model));
-            }
-            this.api.v1.abtest.collection.save(this.collection)
-                .then(() => {
-                    this.updatePublishStatus();
-                    this.ui.container.classList.remove('lab-busy');
-                    this.toggleBusyState(false);
-                });
+            this.doSave();
         }, 500);
+    }
+
+    doSave() {
+        // Update variants in collection in case they are modified before handled by this class.
+        // Example: Data is set when replacing an image in the variant.
+        for (const [variant, obj] of this.preparedVariants) {
+            variant.update(this.getModelData(obj.model));
+        }
+        this.api.v1.abtest.collection.save(this.collection)
+            .then(() => {
+                this.updatePublishStatus();
+                this.ui.container.classList.remove('lab-busy');
+                this.toggleBusyState(false);
+            });
     }
 
     publish() {

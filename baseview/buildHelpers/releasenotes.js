@@ -27,7 +27,27 @@ const bumpBuildVersion = (path, versionObj, viewName = 'baseview', buildname = '
             return parseInt(parts[0], 10) !== 'NaN';
         });
         const numbers = notes.map((pth) => parseInt(pth.split('.').shift(), 10)).sort();
-        const lastEntry = numbers.pop();
+
+        // Treat these numbers as semver numbers: 1410 = 1.4.10 and sort to find last version:
+        const semver = numbers.map((num) => {
+            const str = num.toString();
+            return {
+                original: num,
+                major: parseInt(str[0], 10),
+                minor: parseInt(str[1] || '0', 10),
+                patch: parseInt(str.slice(2) || '0', 10)
+            };
+        });
+        semver.sort((a, b) => {
+            if (a.major !== b.major) {
+                return a.major - b.major;
+            }
+            if (a.minor !== b.minor) {
+                return a.minor - b.minor;
+            }
+            return a.patch - b.patch;
+        });
+        const lastEntry = semver.pop().original;
         if (lastEntry) {
             fileHelper.readJsonFile(`${ path }/${ lastEntry }.json`).then((releasenote) => {
                 const result = `${ lastEntry }:${ releasenote.releasenotes.items.length }`;

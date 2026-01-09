@@ -34,7 +34,7 @@ export default class GoogleAd {
         if (googleAds.bidding && googleAds.bidding.enabled && googleAds.bidding.provider && googleAds.bidding.provider.name) {
             if (googleAds.bidding.provider.name === 'livewrapped') {
                 const guidGenerator = () => {
-                    const S4 = () => (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+                    const S4 = () => (((1 + Math.random()) * 0x10000) || 0).toString(16).substring(1);
                     return (`${ S4() + S4() }-${ S4() }-${ S4() }-${ S4() }-${ S4() }${ S4() }${ S4() }`);
                 };
                 if (format.code && format.code.endsWith('-1')) {

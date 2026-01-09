@@ -140,7 +140,8 @@
     "redrawPaths": {
         "current": [],
         "parent": [
-            "fields.displayCaption"
+            "fields.displayCaption",
+            "fields.float"
         ]
     },
     "layoutLockDefinition": {
@@ -165,6 +166,9 @@
             "drop": "addChild",
             "selector": ".imageChildren"
         }
+    },
+    "draggable": {
+        "icon": "labicon-image"
     },
     "droppable": {
         "copyPaths": [

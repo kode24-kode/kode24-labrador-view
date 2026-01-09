@@ -102,63 +102,6 @@
         }
     }
 
-    dfn {
-        cursor: pointer;
-        background-color: #a7e8fe;
-        border-bottom: 1px dotted #000000;
-    }
-
-    .definitionPopup {
-        position: absolute;
-        display: none;
-        border: none;
-        top: 1rem;
-        left: 0;
-        background-color: #fff;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        font-size: 0.9rem;
-        padding: 0;
-        z-index: 9999;
-        cursor: default;
-
-        .definitionInfo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 1rem;
-            padding-right: 2rem;
-
-            p {
-                width: 100%;
-                text-align: left;
-                font-weight: 600;
-                font-size: 1rem;
-                text-transform: capitalize;
-                color: #000;
-            }
-
-            span {
-                word-wrap: break-word;
-                overflow: hidden;
-                color: #000;
-            }
-
-            .definitionClose {
-                position: absolute;
-                background-color: inherit;
-                border: none;
-                top: 0.5rem;
-                right: 0.5rem;
-                font-size: 1.3rem;
-                padding: 0;
-
-                &:hover {
-                    background-color: #d0d0d0;
-                }
-            }
-        }
-    }
     figure {
         .content {
             &.rounded-image {

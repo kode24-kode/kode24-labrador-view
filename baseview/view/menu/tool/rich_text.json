@@ -256,6 +256,12 @@
                             "value": "<span class=\"fi-die-six\"> </span>",
                             "text": "Die six-symbol",
                             "icon": "fi-die-six"                
+                        },
+                        {
+                            "callback": "insertRawMarkup",
+                            "value": "<span class=\"fi-volume\"> </span>",
+                            "text": "Audio",
+							"icon": "fi-volume"
                         }
                     ]
                 },
@@ -443,6 +449,18 @@
                             "label": "Title",
                             "placeholder": "Definition title ...",
                             "required": true
+                        },
+                        {
+                            "name": "tabindex",
+                            "type": "text",
+                            "userInput": false,
+                            "value": "0"
+                        },
+                        {
+                            "name": "role",
+                            "type": "text",
+                            "userInput": false,
+                            "value": "button"
                         }
                     ]
                 }

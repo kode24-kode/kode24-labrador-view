@@ -6,5 +6,8 @@
             "key": "fields.caption",
             "placeholder": "Click to add caption"
         }
-    ]
+    ],
+    "draggable": {
+        "icon": "labicon-video_edit"
+    }
 }

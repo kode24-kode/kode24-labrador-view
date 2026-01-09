@@ -138,5 +138,8 @@
                 }
             }
         }
+    },
+    "draggable": {
+        "icon": "labicon-image"
     }
 }

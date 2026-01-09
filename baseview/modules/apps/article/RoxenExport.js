@@ -134,6 +134,11 @@ export class RoxenExport {
         return markup;
     }
 
+    cleanText(text) {
+        // Remove soft hypens (\u00ad) from text:
+        return text.replace(/\u00ad/g, '');
+    }
+
     setupSubmit(markup) {
         const btn = markup.querySelector('input[type=button]');
 
@@ -156,6 +161,9 @@ export class RoxenExport {
                     if (this.multiPublicationEnabled) {
                         data.publicationsArray = publicationsSelect.selectedOptions.length ? Array.from(publicationsSelect.selectedOptions).map((o) => o.value) : [];
                     }
+                    data.data.fields.title = this.cleanText(data.data.fields.title || '');
+                    data.data.fields.subtitle = this.cleanText(data.data.fields.subtitle || '');
+                    data.data.fields.bodytext = this.cleanText(data.data.fields.bodytext || '');
                     const export_url = `/ajax/integration-services/proxy/export/roxen?imageBaseUrl=${ this.api.v1.properties.get('image_server') }&site=${ site.alias }`;
                     this.api.v1.util.httpClient.request(
                         export_url,

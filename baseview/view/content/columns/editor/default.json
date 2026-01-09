@@ -6,7 +6,8 @@
         "active": false
     },
     "expand": {
-        "active": true
+        "active": true,
+        "preventSingleChild": true
     },
     "menus": null,
     "displayModifiedStatus": false,

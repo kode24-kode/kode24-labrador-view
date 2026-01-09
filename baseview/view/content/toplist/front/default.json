@@ -2,9 +2,9 @@
     "boxTitle": "Toplist",
     "boxDescription": "Display most read articles",
     "boxKeywords": "popular read views pageviews hits pages posts content news stories blogs kilkaya statistics",
-    "viewHelper" : "external",
+    "viewHelper": "external",
     "external": {
-        "url": "{{{ getCmsConfig.integration_url }}}/stats/kilkaya/toplist/?limit={{ get.current.filtered.limit }}&hostname={{{ get.current.filtered.domain }}}&endpoint=query&days={{ get.current.fields.days }}&apiUrl={{{ getCmsConfig.front_api_url }}}/",
+        "url": "{{{ getCmsConfig.integration_url }}}/stats/kilkaya/toplist{{{ get.current.filtered.multi }}}/?limit={{{ get.current.filtered.limit }}}&hostname={{{ get.current.filtered.domain }}}&endpoint=query&days={{{ get.current.fields.days }}}{{{ get.current.filtered.splitOn }}}{{{ get.current.filtered.tags }}}",
         "type": "json"
     },
     "viewportMap": {

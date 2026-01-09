@@ -4,6 +4,9 @@
     small-12
     medium-12
     {{ #get.current.filtered.paywall }}
+    {{ #active }}{{ ^access }}
+        {{ #app.isFront }}{{ #getConfig.paywall.article.paywallLocked }}lab-paywall-locked{{ /getConfig.paywall.article.paywallLocked}}{{ /app.isFront }}
+    {{ /access }}{{ /active }}
     {{ #isInternal }}{{ #active }}
         {{ ^access }} teaserContent {{ /access }}
     {{ /active }}{{ /isInternal }}
@@ -28,99 +31,4 @@
         {{ /active }}
     {{ /get.current.filtered.paywall }}
     {{ #render.partial }}insideBodytextBelowPaywallPoster{{ /render.partial }}
-    {{ #app.isFront }}
-    <template>
-        <div class="definitionPopup">
-            <div class="definitionInfo">
-                <p></p>
-                <span></span>
-                <button class="definitionClose">&#10005;</button>
-            </div>
-        </div>
-    </template>
-    {{ /app.isFront }}
 </div>
-
-{{ #app.isFront }}
-<script>
-    // Get the dfn elements, and the template
-    const bodytext = document.querySelector(".bodytext");
-    const dfns = bodytext.querySelectorAll("dfn");
-    const template = document.querySelector("template");
-
-    const openPopup = (event) => {
-        if (event.type === 'click' || (event.type === 'keydown' && event.key === 'Enter')) {
-            // Stop it clicking through - this is needed to make sure the event listener
-            // added to the body doesn't fire right away
-            event.stopPropagation();
-
-            // Close any open dialog
-            closePopup();
-
-            // Fetch the dfn element
-            let dfn;
-            if (event.target.tagName === "DFN") {
-                dfn = event.target;
-            } else if (event.target.tagName === "SPAN" && event.target.parentElement.tagName === "DFN") {
-                dfn = event.target.parentElement;
-            }
-
-            // clone the template, and insert it as a sibling after the dfn
-            const clone = template.content.firstElementChild.cloneNode(true);
-            if (dfn.parentNode.tagName === "SPAN") {
-                dfn.parentNode.parentNode.style.position = "relative"; // target grandparent paragraph instead
-            } else {
-                dfn.parentNode.style.position = "relative";
-            }
-            dfn.after(clone);
-
-            // Set the text in the popup
-            const word = dfn.textContent;
-            clone.querySelector("p").textContent = word;
-
-            const info = dfn.getAttribute("title");
-            clone.querySelector("span").textContent = info;
-
-            // Add a click event for the close button.
-            clone.querySelector("button").addEventListener("click", (e) => {
-                e.stopPropagation();
-                closePopup();
-            })
-
-            // Add an event listener to the body element - if the user clicks outside of 
-            // the popup, close it
-            document.body.addEventListener('click', (event) => {
-                if (!clone.contains(event.target)) {
-                    closePopup();
-                }
-            })
-
-            // Show the popup
-            clone.style.display = "flex";
-
-            // Position the popup underneath the definition clicked
-            clone.style.top = (dfn.offsetTop + dfn.offsetHeight + 10)  + 'px';
-            const popup = document.querySelector('.definitionPopup');
-            if (popup.clientWidth + dfn.offsetLeft < window.innerWidth) {
-                clone.style.left = dfn.offsetLeft + 'px';
-            } else {
-                clone.style.left = '0.7rem';
-                clone.style.right = '0.7rem';
-            }
-        }
-    }
-
-    const closePopup = () => {
-        const popup = document.querySelector(".definitionPopup");
-        if (popup) {
-            popup.remove();
-        }
-    }
-
-    dfns.forEach(dfn => {
-        // Add event listeners for both mouse click and keydown enter
-        dfn.addEventListener('click', openPopup);
-        dfn.addEventListener('keydown', openPopup)
-    })
-</script>
-{{ /app.isFront }}

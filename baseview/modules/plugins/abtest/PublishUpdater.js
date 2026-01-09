@@ -49,6 +49,7 @@ export class PublishUpdater {
         if (!idList.length) {
             return '';
         }
+        const existingPreloadConfig = this.api.v1.config.get('preloadObject') || {}; 
         return JSON.stringify({
             preloadObject: {
                 abtests: {
@@ -57,7 +58,8 @@ export class PublishUpdater {
                     timeout: 1000,
                     url: `{{api}}/api/v1/ab_collection?query=id:(${ encodeURIComponent(idList.join(' OR ')) })&content=full`,
                     path: 'ab_collections'
-                }
+                },
+                ...existingPreloadConfig
             }
         });
     }

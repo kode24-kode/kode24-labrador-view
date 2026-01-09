@@ -4,13 +4,19 @@ export default {
     name: 'Paywall Preview',
     description: 'Display a preview of the paywall configuration',
     version: '1.0.1',
-    predicate: (api) => !api.v1.config.get('paywall.provider'),
+    predicate: (api) => {
+        const provider = api.v1.config.get('paywall.provider');
+        return (!provider || provider === 'sesamy' || provider === 'iteras' || provider === 'internal') && !api.v1.config.get('paywall.article.hidePaywallButton');
+    },
     entry: class {
 
         onReady(api) {
             this.api = api;
             this.rootModel = api.v1.model.query.getRootModel();
             this.api.v1.util.dom.addFile('css', '/view-resources/baseview/modules/plugins/paywall/paywall.css');
+            const provider = api.v1.config.get('paywall.provider');
+            const isInternal = provider === 'internal' || !provider;
+            this.rootModel.set('fields.isInternalPaywall', isInternal, { notify: false });
 
             if (this.rootModel.getType() === 'page_article') {
                 let currentManager = null;

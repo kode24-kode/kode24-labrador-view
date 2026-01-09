@@ -1,0 +1,8 @@
+<style>
+    {{ #get.current.filtered.gallerySettings.pageBackgroundColor }}
+    :root {
+        --gallery-page-background-color: {{ get.current.filtered.gallerySettings.pageBackgroundColor }};
+        --gallery-page-text-color: {{ get.current.filtered.gallerySettings.pageTextColor }};
+    }
+    {{ /get.current.filtered.gallerySettings.pageBackgroundColor }}
+</style>

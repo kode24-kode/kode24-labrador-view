@@ -52,5 +52,28 @@ var FeedFormatter = {
             }
         });
 
+        model.addPostInitHandler('.update_ntb', {
+            trigger: ['click'],
+            param: null,
+            fn: function(params, element) {
+                // Define strings to strip from imported NTB-feed.
+                // If NTB modifies the return format, update these settings to reflect changes.
+                var importSettings = {
+                    strip: [
+                        ' class="lead" lede="true"', // <p class="txt-ind" lede="true">xxx</p> => <p>xxx</p>
+                        ' class="txt-ind"',          // <p class="txt-ind">xxx</p> => <p>xxx</p>
+                        ' class="txt"',              // <p class="txt">xxx</p> => <p>xxx</p>
+                        ' class="hl2"'               // <div class="hl2">xxx</div> => <div>xxx</div>
+                    ],
+                    useNtbByline: useNtbByline ? "1" : "0"
+                };
+
+                var ntb_id = element.getAttribute("data-ntb-id");
+                var ntb_service = element.getAttribute("data-ntb-service");
+
+                lab_api.v1.article.ui.import('ntb', ntb_id, importSettings, ntb_service) // sourceName, sourceId, importSettings, ntbService
+            }
+        });
+
     }
 };

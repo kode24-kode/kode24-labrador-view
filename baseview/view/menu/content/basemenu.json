@@ -12,6 +12,10 @@
             "inheritPath": "menu/buttons/lock.json",
             "group": "g1"
         },
+        "collabrador": {
+            "inheritPath": "menu/buttons/comment.json",
+            "group": "g1"
+        },
         "color_bg": {
             "inheritPath": "menu/buttons/backgroundColor.json",
             "group": "g4"

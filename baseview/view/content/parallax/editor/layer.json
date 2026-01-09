@@ -19,6 +19,14 @@
                     "inheritPath": "menu/buttons/backgroundColor.json",
                     "group": "g2"
                 },
+                "textType": {
+                    "inheritPath": "menu/buttons/textType.json",
+                    "group": "g3",
+                    "text": null,
+                    "require": {
+                        "type": ["text_singleline"]
+                    }
+                },
                 "align": {
                     "inheritPath": "menu/buttons/textAlign.json",
                     "group": "g3",
@@ -60,10 +68,13 @@
                     "group": "g5",
                     "icon": "labicon-parallax",
                     "callback": "runApp",
-                    "title": "Layer settings",
+                    "title": "Layer settings (,)",
                     "params": {
                         "name": "ParallaxSupport"
-                    }
+                    },
+                    "hotkeys": [{
+                        "key": ","
+                    }]
                 }
             }
         }

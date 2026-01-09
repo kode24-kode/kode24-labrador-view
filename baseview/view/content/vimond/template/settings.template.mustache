@@ -11,5 +11,16 @@
             <input type="checkbox" id="vimond-settings-display_caption" name="fields.displayCaption" value="1" {{ #get.current.fields.displayCaption }}checked{{ /get.current.fields.displayCaption }}>
             <label for="vimond-settings-display_caption">Display Caption</label>
         </div>
+        <!-- <div class="lab-formgroup-item lab-inline">
+            <input type="checkbox" id="vimond-settings-vertical_video" name="fields.verticalVideo" value="1" {{ #get.current.fields.verticalVideo }}checked{{ /get.current.fields.verticalVideo }}>
+            <label for="vimond-settings-vertical_video">Vertical Video - manual </label>
+        </div> -->
+        <label for="input-fields.player">Choose Player</label>
+        <select id="input-fields.player" class="input-fields.player" name="fields.player">
+            {{ #get.current.filtered.playersSettings }}
+            <option value="{{ id }}"{{ #selected }} selected{{ /selected }}>{{ name }}</option>
+            {{ /get.current.filtered.playersSettings }}
+            <option value="0">None</option>
+        </select>
     </div>
 </div>

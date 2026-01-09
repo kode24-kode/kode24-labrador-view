@@ -9,6 +9,23 @@
 
     {{{ children.adZone }}}
 
+    {{ ^get.current.filtered.sectionPlacement.underImage }}
+        {{ #get.current.metadata.showSection }}
+            {{ #get.current.metadata.sectionLabelHasLink }}
+                <a href="{{{ get.current.filtered.sectionLink }}}" class="lab-article-section-link">
+            {{ /get.current.metadata.sectionLabelHasLink }}
+            <p style="{{ #style.collection }}text_decoration_inline_style fields.section{{ /style.collection }}" class="{{ #style.collection }}text_decoration fields.section{{ /style.collection }} lab-article-section lab-article-section-top {{ #get.current.metadata.sectionKickerAligned }}lab-article-section-aligned-kicker{{ /get.current.metadata.sectionKickerAligned }}">
+                {{ get.root.primaryTags.section }}
+                {{ #app.isEditor }}
+                    {{ ^get.root.primaryTags.section }}Section{{ /get.root.primaryTags.section }}
+                {{ /app.isEditor }}
+            </p>
+            {{ #get.current.metadata.sectionLabelHasLink }}
+                </a>
+            {{ /get.current.metadata.sectionLabelHasLink }}
+        {{ /get.current.metadata.showSection }}
+    {{ /get.current.filtered.sectionPlacement.underImage }}
+
     {{ #get.current.filtered.layout.top }}
     {{ #render.template }}content/articleHeader/template/partials/{{ . }}{{ /render.template }}
     {{ /get.current.filtered.layout.top }}
@@ -28,6 +45,7 @@
         {{/helper.trim}}</div>
     </div>
 
+
     {{ #get.child.image.filtered.captionOptions.display }}
     <div class="caption {{ #helper.trim }}
         {{ #app.isEditor }}expanded{{ /app.isEditor }}
@@ -40,9 +58,34 @@
         <figcaption itemprop="author" class="{{ #style.collection }}text_decoration child.image.fields.byline{{ /style.collection }}" data-byline-prefix="{{{ getConfig.image.imageBylinePrefix }}}">{{{ get.child.image.fields.byline }}}</figcaption>
     </div>
     {{ /get.child.image.filtered.captionOptions.display }}
+
+    {{ #get.parent.fields.paywall }}
+        {{ #get.current.metadata.showPaywallLabel }}
+            {{> content/articleHeader/template/partials/paywallLabel }}
+        {{ /get.current.metadata.showPaywallLabel }}
+    {{ /get.parent.fields.paywall }}
+
+    {{ #get.current.filtered.sectionPlacement.underImage }}
+        {{ #get.current.metadata.showSection }}
+            {{ #get.current.metadata.sectionLabelHasLink }}
+                <a href="{{{ get.current.filtered.sectionLink }}}" class="lab-article-section-link">
+            {{ /get.current.metadata.sectionLabelHasLink }}
+            <p style="{{ #style.collection }}text_decoration_inline_style fields.section{{ /style.collection }}" class="{{ #style.collection }}text_decoration fields.section{{ /style.collection }} lab-article-section lab-article-section-below {{ #get.current.metadata.sectionKickerAligned }}lab-article-section-aligned-kicker{{ /get.current.metadata.sectionKickerAligned }}">
+                {{ get.root.primaryTags.section }}
+                {{ #app.isEditor }}
+                    {{ ^get.root.primaryTags.section }}Section{{ /get.root.primaryTags.section }}
+                {{ /app.isEditor }}
+            </p>
+            {{ #get.current.metadata.sectionLabelHasLink }}
+                </a>
+            {{ /get.current.metadata.sectionLabelHasLink }}
+        {{ /get.current.metadata.showSection }}
+    {{ /get.current.filtered.sectionPlacement.underImage }}
+
     {{ #get.current.filtered.layout.bottom }}
     {{ #render.template }}content/articleHeader/template/partials/{{ . }}{{ /render.template }}
     {{ /get.current.filtered.layout.bottom }}
+
 
     {{ ^get.root.fields.showMetaAboveImage }}
         {{{ child.articleMeta }}}

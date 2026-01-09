@@ -20,8 +20,36 @@
             }
         }
     },
+    "editors": {
+        "title": {
+            "selector": "h2",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.title",
+            "placeholder": "Click to add title",
+            "modal": false,
+            "allowReverting": true
+        },
+        "description": {
+            "selector": "p",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.description",
+            "placeholder": "Click to add description",
+            "modal": false,
+            "allowReverting": true
+        }
+    },
+    "toolMenus": {
+        "rich_text": {
+            "inheritPath": "menu/tool/rich_text.json"
+        }
+    },
     "redrawPaths": {
         "current": ["fields.aspectRatio"]
+    },
+    "draggable": {
+        "icon": "labicon-images"
     },
     "droppable": {
         "active": true,

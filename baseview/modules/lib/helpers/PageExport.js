@@ -37,9 +37,27 @@ export class PageExport {
     }
 
     oembed(rootModel) {
+        // See readme-oembed.md for more info.
         if (rootModel.getType() !== 'page_article') {
             Sys.logger.warn('[PageExport] Will not export current page type as oEmbed.');
             return {};
+        }
+        const options = (this.api.v1.util.request.getQueryParam('lab_opts') || '').split(',');
+        let type = 'full';
+        if (options.includes('embed_type_teaser')) {
+            options.splice(options.indexOf('embed_type_teaser'), 1);
+            type = 'teaser';
+        }
+        const negativeOptions = options.filter((opt) => opt.startsWith('embed_no_'));
+        const positiveOptions = ['embed_padding'];
+        const styleArgs = [];
+        for (const opt of negativeOptions) {
+            styleArgs.push(`dac-${ opt.replace('embed_', '').replace(/_/g, '-') }`);
+        }
+        for (const opt of positiveOptions) {
+            if (options.includes(opt)) {
+                styleArgs.push(`dac-${ opt.replace('embed_', '').replace(/_/g, '-') }`);
+            }
         }
         Sys.logger.debug('[PageExport] Will export page as oEmbed');
         return {
@@ -53,7 +71,7 @@ export class PageExport {
             author_url: this.frontUrl,
             provider_name: 'Labrador',
             provider_url: 'http://www.labradorcms.com/',
-            html: `<div class="labrador-cms-embed" data-lab-style="dac-no-sitelink dac-no-sitelink-logo dac-no-poweredby dac-embed-full" data-lab-content="full" data-lab-id="${ rootModel.get('id') }" data-lab-site="${ rootModel.get('filtered.site.domain_no_protocol') }"><script async defer src="${ this.frontUrl }/embed.js?v=335"></script></div>`
+            html: `<div class="labrador-cms-embed" data-lab-style="${ styleArgs.join(' ') } dac-embed-${ type }" data-lab-content="${ type }" data-lab-id="${ rootModel.get('id') }" data-lab-site="${ rootModel.get('filtered.site.domain_no_protocol') }"><script async defer src="${ this.frontUrl }/embed.js?v=335"></script></div>`
         };
     }
 

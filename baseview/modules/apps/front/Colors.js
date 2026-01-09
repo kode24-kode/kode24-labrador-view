@@ -18,7 +18,7 @@ export class Colors {
                 ${ this.bgColorsMarkup }
             </div>
 
-            <div class="lab-formgroup lab-grid lab-grid-gap custom-background-color-picker lab-valign-bottom">
+            <div class="lab-formgroup lab-grid lab-grid-gap custom-background-color-picker lab-valign-center">
                 <h4 class="lab-title lab-grid-large-12 lab-grid-gap">Custom Background color</h4>
                 <p class="lab-para lab-grid-large-12 lab-grid-gap">Note: This will override the selected background color above.</p>
                 ${ this.generateCustomColorMarkup() }
@@ -53,7 +53,7 @@ export class Colors {
         const current = this.rootModel.get('fields.pageBackgroundColorStyle') || '';
         const hasHeaderImage = !!lab_api.v1.model.query.getModelByPath('page_article/articleHeader/image');
         let content = `<div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap">
-            <input type="text" value="${ current }" placeholder="CSS style like rgb(10, 255, 0)" name="fields.pageBackgroundColorStyle">
+            <input type="color" value="${ ColorUtils.rgbString2hex(current) }" placeholder="CSS style like rgb(10, 255, 0)" name="fields.pageBackgroundColorStyle">
         </div>`;
         if (hasHeaderImage) {
             content += `<div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap"><input type="button" value="Get from header image" id="get_custom_color_button"></div>`;
@@ -208,7 +208,7 @@ export class Colors {
                 if (fn) {
                     const articleHeader = this.api.v1.model.query.getModelByType('articleHeader');
                     fn(articleHeader, this.api.v1.view.getView(articleHeader), undefined, undefined, (result) => {
-                        this.markup.querySelector('input[name="fields.pageBackgroundColorStyle"]').value = result.color;
+                        this.markup.querySelector('input[name="fields.pageBackgroundColorStyle"]').value = ColorUtils.rgbString2hex(result.color);
                         const colorEl = this.markup.querySelector('input[name="fields.pageBackgroundColor"]:checked');
                         if (colorEl) {
                             colorEl.checked = false;

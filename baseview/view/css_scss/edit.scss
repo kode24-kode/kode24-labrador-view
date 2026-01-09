@@ -964,7 +964,9 @@ section.main {
 
 .lab-colorpicker .lab-colorpicker-groups ul li.lab-colorpicker-bordered {
     &[data-lab-key="metadata.rounded_image_edge"],
-    &[data-lab-key="metadata.border_radius"] {
+    &[data-lab-key="metadata.border_radius"],
+    &[data-lab-key="metadata.hover_text_color"],
+    &[data-lab-key="metadata.text_color"] {
         &.lab-selected:before {
             content: "";
         }
@@ -1523,4 +1525,81 @@ body.notice .notice-header .tags {
 }
 body.notice .notice-header .author[contenteditable] {
     display: inline;
+}
+
+.slideshowcontainer .slideshow-preview a {
+    pointer-events: none;
+}
+
+// Comment collection styling
+
+.hidden {
+    display: none !important;
+}
+
+.comment {
+  position: relative;
+  padding: 1rem 0.8rem;
+  width: 100%;
+  border: 3px solid #ea580c;
+  margin-bottom: 10px;
+  border-radius: 4px;
+
+  &.comment-resolved {
+    border-color: #C7C7C7;
+    background-color: #DDDDDD;
+    color: #222222;
+  }
+  
+}
+
+.comment-author {
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.comment-text {
+    font-weight: 400;
+    margin-left: 4px;
+    font-style: italic;
+    max-height: 70px;
+    overflow: hidden;
+    cursor: pointer;
+    &.expanded {
+        max-height: 100%;
+    }
+}
+
+.comment-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.lab-collection {
+  .lab-collection-header {
+    .collabrador_filter_section {
+        margin-bottom: 15px;
+    }
+
+    .filter_label {
+        font-weight: 400;
+        margin-bottom: 8px;
+        font-size: 12px;
+        color: #525252;
+        width: 100%;
+    }
+
+    .collabrador_info_text {
+        font-size: 12px;
+        color: #999;
+        font-style: italic;
+        margin-top: 5px;
+    }
+
+    .new-comment-textarea {
+        height: unset;
+    }
+  }
 }

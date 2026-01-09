@@ -7,12 +7,12 @@ column topcomments
     {{{ get.current.filtered.styleSheets }}}
     <div class="content {{ #style.collection }}content_decoration{{ /style.collection }}" style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
         <ul>
-            <li class="{{ get.current.fields.iconLatest }}{{ #get.current.filtered.selectedTabs.latest }} selected{{ /get.current.filtered.selectedTabs.latest }}" title="{{ get.current.fields.labelLatest }}"></li>
-            <li class="{{ get.current.fields.iconMostRead }}{{ #get.current.filtered.selectedTabs.mostRead }} selected{{ /get.current.filtered.selectedTabs.mostRead }}" title="{{ get.current.fields.labelMostRead }}"></li>
+            <li class="{{ get.current.fields.iconLatest }}{{ #get.current.filtered.selectedTabs.latest }} selected{{ /get.current.filtered.selectedTabs.latest }}" title="{{ #lang }}mostRead.labelLatest{{ /lang }}"></li>
+            <li class="{{ get.current.fields.iconMostRead }}{{ #get.current.filtered.selectedTabs.mostRead }} selected{{ /get.current.filtered.selectedTabs.mostRead }}" title="{{ #lang }}mostRead.labelMostRead{{ /lang }}"></li>
         </ul>
         <div class="tabs">
             <div class="tab{{ #get.current.filtered.selectedTabs.latest }} selected{{ /get.current.filtered.selectedTabs.latest }}">
-                <h2 class="primary">{{ get.current.fields.titleLatest }}</h2>
+                <h2 class="primary">{{ #lang }}mostRead.titleLatest{{ /lang }}</h2>
                 {{ ^get.current.filtered.latest.length }}
                     <p class="noContent">{{ get.current.filtered.placeholder }}</p>
                     {{ #app.isEditor }}<p class="lab-defaultTextValue help">Configure in element settings</p>{{ /app.isEditor }}
@@ -35,7 +35,7 @@ column topcomments
                 {{ /get.current.filtered.latest }}
             </div>
             <div class="tab{{ #get.current.filtered.selectedTabs.mostRead }} selected{{ /get.current.filtered.selectedTabs.mostRead }}">
-                <h2 class="primary">{{ get.current.fields.titleMostRead }}</h2>
+                <h2 class="primary">{{ #lang }}mostRead.titleMostRead{{ /lang }}</h2>
                 {{ ^get.current.filtered.mostRead.length }}
                     <p class="noContent">{{ get.current.filtered.placeholder }}</p>
                     {{ #app.isEditor }}<p class="lab-defaultTextValue help">Configure in element settings</p>{{ /app.isEditor }}

@@ -15,9 +15,12 @@ export class PageData {
 
     set(model, view) {
         const data = this.export(model, view);
+        const PAGE_TYPE = view.get('type').replace('page_', '');
+        const IS_EDITOR = this.api.v1.app.mode.isEditor();
         for (const key of Object.keys(data)) {
             model.setFiltered(key, data[key]);
         }
+        model.setFiltered('customTags', CustomTags.prepareForTemplate(this.api.v1.config.get('customTags') || [], PAGE_TYPE, IS_EDITOR));
     }
 
     export(model, view) {
@@ -48,6 +51,8 @@ export class PageData {
         exports.is_article = PAGE_TYPE === 'article';
         exports.is_notice = PAGE_TYPE === 'notice';
         exports.is_front = PAGE_TYPE === 'front';
+        exports.is_gallery = PAGE_TYPE === 'gallery';
+        exports.is_infiniteArticle = view.get('fields.page_template_alias') === 'infinitescroll';
         exports.section = view.get('primaryTags.section') || view.get('fields.defaultsection');
         exports.device = this.api.v1.viewport.getName();
         exports.cmsVersion = this.api.v1.properties.get('app.version');
@@ -59,7 +64,6 @@ export class PageData {
         exports.isDebug = this.api.v1.util.request.hasQueryParam('debug');
         exports.staticUrl = this.getStaticUrl(model, PAGE_TYPE, PAGE_ID, CUSTOMER_FRONT_URL);
         exports.customMetatags = this.getCustomMetatags();
-        exports.customTags = CustomTags.prepareForTemplate(this.api.v1.config.get('customTags') || [], PAGE_TYPE, IS_EDITOR);
         exports.footerSettings = this.api.v1.config.get('page_settings.footer');
         exports.rssDescriptionPrefix = this.api.v1.config.get('viewports.rss.descriptionPrefix');
         exports.is_tagpage = IS_TAGPAGE;
@@ -89,7 +93,8 @@ export class PageData {
             canonical: CANONICAL,
             isTagpage: IS_TAGPAGE,
             isTagpageWithFrontpage: IS_TAGPAGE_WITH_FRONTPAGE,
-            tagpagePath: TAGPAGE_PATH
+            tagpagePath: TAGPAGE_PATH,
+            publishedUrl: URL
         });
 
         // Set JSON-LD json string.
@@ -112,6 +117,17 @@ export class PageData {
                 exports.sometitle = this.api.v1.util.string.stripTags(sometitle);
             }
 
+            // Kilkaya k5ameta object data
+            const kilkayaTitle = model.get('fields.teaserTitle') || model.get('fields.title') || '';
+            if (kilkayaTitle) {
+                exports.kilkayaTitle = this.api.v1.util.string.stripTags(kilkayaTitle);
+            }
+
+            const kilkayaKicker = model.get('fields.teaserKicker') || model.get('fields.kicker') || '';
+            if (kilkayaKicker) {
+                exports.kilkayaKicker = this.api.v1.util.string.stripTags(kilkayaKicker);
+            }
+
             // SoMe description
             const somedescription = model.get('fields.somedescription') || model.get('fields.teaserSubtitle') || model.get('fields.subtitle');
             if (somedescription && somedescription.length > 0) {
@@ -130,6 +146,23 @@ export class PageData {
             exports.somedescription = model.get('fields.somedescription') || '';
         }
 
+        // Author page data
+        if (this.isAuthorPage(model.get('fields.hostpath'))) {
+            const authorData = model.get('fields.author_json');
+            if (authorData) {
+                const firstname = authorData.fields.firstname || '';
+                const lastname = authorData.fields.lastname || '';
+                const authorFullName = [firstname, lastname].filter(Boolean).join(' ');
+
+                const siteName = this.api.v1.properties.get('site.display_name') || '';
+
+                if (authorFullName) {
+                    exports.sometitle = `${ authorFullName } - ${ siteName }`;
+                    exports.seotitle = `${ authorFullName } - ${ siteName }`;
+                }
+            }
+        }
+
         // Social
         exports.social = {
             facebook: `https://www.facebook.com/sharer.php?u=${  URL_ENCODED }`,
@@ -141,7 +174,9 @@ export class PageData {
             copyLink: `navigator.clipboard.writeText("${ URL }");`,
             glimta: `https://glimta.com/unlock?link=${ URL_ENCODED }`,
             talandeWebb: `ReachDeck.panel.toggleBar();`,
-            bluesky: `https://bsky.app/intent/compose?text=${ encodeURIComponent(`${ exports.sometitle }\n`) }${ URL_ENCODED }`
+            bluesky: `https://bsky.app/intent/compose?text=${ encodeURIComponent(`${ exports.sometitle }\n`) }${ URL_ENCODED }`,
+            reddit: `https://www.reddit.com/submit?url=${ URL_ENCODED }&title=${ encodeURIComponent(exports.sometitle) }`,
+            whatsapp: `https://api.whatsapp.com/send?text=${ encodeURIComponent(`${ exports.sometitle }\n${ URL }`) }`
         };
 
         // Set article tags and byline as comma separated string
@@ -174,11 +209,14 @@ export class PageData {
             }
         }
 
-        // Set article published time
+        // Set article published time and 'hide from front' time if set
         if (PAGE_TYPE === 'article') {
             if (model.get('fields.published')) {
                 exports.published = new Date(parseInt(model.get('fields.published'), 10) * 1000).toISOString();
                 exports.publishedTimestamp = model.get('fields.published');
+            }
+            if (model.get('fields.hidefromfp_time')) {
+                exports.hidefromfp_time = new Date(parseInt(model.get('fields.hidefromfp_time'), 10) * 1000).toISOString();
             }
         }
 
@@ -230,7 +268,9 @@ export class PageData {
             const adEnv = this.api.v1.config.get('adEnvironment') || {};
             const hideAds = view.get('fields.hideAds') === '1';
             const disableSkyscraper = view.get('fields.hideSkyscraperAds') === '1' || false;
-            const disableTopBanner = view.get('fields.hideTopBannerAd') === '1' || false;
+            const disableTopBanner = view.get('fields.hideTopBannerAd') === '1' || model.get('fields.hideTopBannerAd') === '1' || false;
+
+            Sys.logger.debug(`[PageData] Ad settings: hideAds=${ hideAds }, disableSkyscraper=${ disableSkyscraper }, disableTopBanner=${ disableTopBanner }, adEnv=${ adEnv.name || 'none' }`);
 
             if (!hideAds && adEnv && adEnv.name === 'adnuntius') {
                 try {
@@ -247,6 +287,13 @@ export class PageData {
                 }
             }
 
+            // Let template know which ad environment and provider used.
+            exports.adEnvironment = { ...adEnv };
+            exports.adEnvironment[`is_${ adEnv.name }`] = true;
+            const providerName = adEnv.name === 'google' && adEnv.bidding && adEnv.bidding.provider && adEnv.bidding.provider.name
+                ? adEnv.bidding.provider.name
+                : 'none';
+            exports.adEnvironment[`is_provider_${ providerName }`] = true;
         }
 
         if (this.api.v1.util.request.hasQueryParam('fontpreview')) {
@@ -256,7 +303,7 @@ export class PageData {
 
         exports.page_settings = this.page.settings.get({
             // Treat notice as an article to use the same settings (admin, config from view)
-            pageType: PAGE_TYPE === 'notice' ? 'article' : PAGE_TYPE,
+            pageType: PAGE_TYPE === 'notice' || PAGE_TYPE === 'gallery' ? 'article' : PAGE_TYPE,
             socialLinks: exports.social
         });
 
@@ -423,6 +470,10 @@ export class PageData {
         // Make config object available for client side rendering
         exports.clientSideConfig = JSON.stringify(ClientConfig.buildConfig(this.api));
 
+        // Canonical link should not be rendered for 404 and 410 error pages
+        const hostpath = model.get('fields.hostpath');
+        exports.shouldRenderCanonical = !(hostpath === 'labrador/http-404' || hostpath === 'labrador/http-410');
+
         return exports;
     }
 
@@ -448,16 +499,20 @@ export class PageData {
         model.setFiltered('lang', language);
     }
 
-    getCanonicalUrl(model, pageType, pageId, frontUrl) {
+    getCanonicalUrl(model, pageType, pageId, frontUrl, authorpagePath) {
         const canonical = model.get('fields.lab_canonical');
         if (canonical) {
             return canonical;
         }
         if (pageType === 'front') {
             const hostpath = model.get('fields.hostpath');
-            if (hostpath) {
-                return `${ frontUrl }/${ hostpath === 'index' ? '' : hostpath }`;
+            if (hostpath === 'index') {
+                return `${ frontUrl }/`;
             }
+            if (this.isAuthorPage(hostpath)) {
+                return `${ frontUrl }/${ this.getAuthorPageCanonical(model) }`;
+            }
+            return `${ frontUrl }/${ hostpath }`;
         }
         return `${ frontUrl + model.get('fields.published_url') }`;
     }
@@ -517,6 +572,30 @@ export class PageData {
             }
         }
 
+        const paywallLabel = {
+            ...{
+                display: true
+            },
+            ...this.api.v1.config.get('paywall.label')
+        };
+
+        // Get the paywall label text and icon from the config or default values.
+        // Check if the values exists, i.e. they have been set in the config files for the site, if they have not, set a default value.
+        // This should make all config values where the users have set the value to be an empty string still show nothing
+        const textValue = this.api.v1.config.get('paywall.label.text.content');
+        const iconValue = this.api.v1.config.get('paywall.label.icon.content');
+        const textContent = (textValue ===  undefined || textValue === null) ? 'Plus' : this.api.v1.config.get('paywall.label.text.content');
+        const iconContent = (iconValue === undefined || iconValue === null) ? 'fi-plus' : this.api.v1.config.get('paywall.label.icon.content');
+
+        // Create an object that can be added to the paywallLabel object
+        // This will add empty objects if config values are not set in admin, but that is fine.
+        const labelIcon = { text: { content: textContent }, icon: { content: iconContent } };
+        Object.assign(paywallLabel, labelIcon);
+
+        if (paywallLabel.display) {
+            model.setFiltered('paywallLabel', paywallLabel);
+        }
+
         return {
             enabled,
             settings,
@@ -531,6 +610,73 @@ export class PageData {
             paywallLayoutType: model.get('fields.paywallPreview.paywallLayoutType'),
             requiredProducts: JSON.stringify(this.api.v1.properties.get('app.paywall.requiredProducts') || [])
         };
+    }
+
+    /**
+     * Checks whether the given host path corresponds to an author page.
+     *
+     * @param {string} hostpath - The path to check, e.g. 'author/john-doe'.
+     * @returns {boolean} True if the given path is an author page, otherwise false.
+     */
+    isAuthorPage(hostpath) {
+        const authorPageConfig = this.api.v1.config.get('authorPages') || {};
+        const path = authorPageConfig.path || 'author';
+        if (hostpath && authorPageConfig.enabled && hostpath.startsWith(`${ path }/`)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Retrieves the configured base path for author pages.
+     *
+     * @returns {string} The author page base path (defaults to 'author' if not configured).
+     */
+    getAuthorPagePath() {
+        const authorPageConfig = this.api.v1.config.get('authorPages') || {};
+        return authorPageConfig.path || 'author';
+    }
+
+    /**
+     * Retrieves the slug of the author page from the provided model.
+     *
+     * @param {Object} model - The model containing author data.
+     * @returns {string|undefined} The author's slug if available, otherwise undefined.
+     */
+    getAuthorPageSlug(model) {
+        const authorData = model.get('fields.author_json');
+        if (authorData) {
+            return authorData.fields.slug;
+        }
+        return undefined;
+    }
+
+    /**
+     * Retrieves the author ID from the provided model.
+     *
+     * @param {Object} model - The model containing author data.
+     * @returns {string|number|undefined} The author's ID if available, otherwise undefined.
+     */
+    getAuthorPageId(model) {
+        const authorData = model.get('fields.author_json');
+        if (authorData) {
+            return authorData.fields.id;
+        }
+        return undefined;
+    }
+
+    /**
+     * Builds the canonical URL path for the author's page.
+     *
+     * @param {Object} model - The model containing author data.
+     * @returns {string} The canonical author page path (e.g., 'author/john-doe' or 'author/123').
+     */
+    getAuthorPageCanonical(model) {
+        const path = this.getAuthorPagePath();
+        const slug = this.getAuthorPageSlug(model);
+        const id = this.getAuthorPageId(model);
+        return `${ path }/${ slug || id }`;
+
     }
 
 }

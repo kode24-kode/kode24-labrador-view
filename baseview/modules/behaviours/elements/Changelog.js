@@ -2,12 +2,22 @@ export default class Changelog {
 
     constructor(api) {
         this.api = api;
+        this.rootModel = this.api.v1.model.query.getRootModel();
+        this.boundModels = [];
+    }
+
+    onReady(model, view) {
+        if (this.api.v1.app.mode.isEditor() && view.getViewport() === 'desktop' && !this.boundModels.includes(model)) {
+            this.api.v1.model.bindings.bind(this.rootModel, 'fields.lab_changelog_json', () => {
+                this.api.v1.model.redraw(model);
+            });
+            this.boundModels.push(model);
+        }
     }
 
     onRender(model, view) {
-        const rootModel = this.api.v1.model.query.getRootModel();
-        const contentLanguage = rootModel.get('filtered.contentLanguage');
-        const changelogEntriesRaw = rootModel.get('fields.lab_changelog_json');
+        const contentLanguage = this.rootModel.get('filtered.contentLanguage');
+        const changelogEntriesRaw = this.rootModel.get('fields.lab_changelog_json');
         if (changelogEntriesRaw && changelogEntriesRaw.length > 0) {
             let changelog;
             if (typeof changelogEntriesRaw === 'string') {
@@ -26,6 +36,9 @@ export default class Changelog {
                 newItems.push(newItem);
             });
             model.setFiltered('changelog', newItems);
+        } else {
+            model.setFiltered('changelogHasContent', false);
+            model.setFiltered('changelog', []);
         }
     }
 

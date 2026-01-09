@@ -12,7 +12,7 @@
     "expand": {
         "active": true
     },
-    
+
     "displayModifiedStatus": false,
 
     "editors": [
@@ -103,6 +103,10 @@
                     "inheritPath": "menu/buttons/lock.json",
                     "group": "g1",
                     "hotkeys": null
+                },
+                "collabrador": {
+                    "inheritPath": "menu/buttons/comment.json",
+                    "group": "g1"
                 },
                 "move": {
                     "inheritPath": "menu/buttons/move_row.json",

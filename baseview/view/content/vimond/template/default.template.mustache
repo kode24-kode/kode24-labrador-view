@@ -1,6 +1,8 @@
 <div data-element-guid="{{ get.current.guid }}" class="{{ #helper.trim }}
     column
     Vimond
+    {{ #get.current.fields.verticalVideo }}vertical{{ /get.current.fields.verticalVideo }}
+    {{#get.current.fields.aspectRatio}}aspect-{{get.current.fields.aspectRatio}}{{/get.current.fields.aspectRatio}}
     {{ #style.collection }}box_decoration{{ /style.collection }}
     {{ size.grid.css }}
     {{ size.grid.absCss }}
@@ -8,11 +10,20 @@
     {{{ get.current.filtered.styleSheets }}}
     <div class="content {{ #style.collection }}content_decoration{{ /style.collection }}" style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
         <div class="container">
+
             {{ #get.current.fields.playerUrl }}
-            <iframe src="{{ get.current.fields.playerUrl }}" width="100%" height="100%" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture;" allowfullscreen></iframe>
+                <iframe 
+                    src="{{ get.current.fields.playerUrl }}{{#get.current.fields.player}}&playerId={{get.current.fields.player}}{{/get.current.fields.player}}"
+                    width="100%"
+                    height="100%"
+                    frameborder="0"
+                    style="{{#get.current.fields.aspectRatioStyle}}aspect-ratio:{{get.current.fields.aspectRatioStyle}}{{/get.current.fields.aspectRatioStyle}}"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture;"
+                    allowfullscreen>
+                </iframe>
             {{ /get.current.fields.playerUrl }}
             {{ ^get.current.fields.playerUrl }}
-            <div class="notice">No video embed code provided for Vimond.</div>
+                <div class="notice">No video embed code provided for Vimond.</div>
             {{ /get.current.fields.playerUrl }}
 
             {{ #app.isEditor }}
@@ -24,3 +35,4 @@
         {{ /get.current.fields.displayCaption }}
     </div>
 </div>
+

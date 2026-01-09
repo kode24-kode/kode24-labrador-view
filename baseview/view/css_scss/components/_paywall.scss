@@ -11,6 +11,15 @@
         box-shadow: 0 2px 16px -6px #000;
         padding: 3em;
 
+        .sales-pitch {
+            .sales-pitch-content-wrapper {
+                .sales-pitch-title *,
+                .sales-pitch-content * {
+                    display: block;
+                }
+            }
+        }
+
         .offers {
             display: flex;
             justify-content: space-between;
@@ -53,381 +62,457 @@
         }
     }
 }
-// Layout for the paywalls
-// Standard Layout, for now maybe default.
-.paywallLayoutStandard {
-    // Inner container
-  }
-  
-  // Centered Layout (Rows)
-  .paywallLayoutCentered {
-    .inner {
-      padding: 1em;
-      .offers {
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-        
-        .offer {
-          position: relative;
-          display: grid;
-          grid-template-columns: 1fr auto;
-          width: 100%;
-          text-align: left;
-          
-          h4 {
-            grid-column: 1;
-            grid-row: 1;
-            margin: 0;
-            font-weight: bold;
-          }
-          
-          h3.price {
-            grid-column: 1;
-            grid-row: 2;
-            margin: 0;
-            font-size: 1.5em;
-          }
-          
-          .price_description {
-            grid-column: 1;
-            grid-row: 3;
-            margin: 0;
-            color: #666;
-          }
-          
-          p:last-of-type {
-            grid-column: 2;
-            grid-row: 1 / span 3;
-            margin: 0;
-            align-content: center;
-          }
-        }
-      }
-  
-      .sales-pitch {
-        .pitch-content-wrapper {
-          text-align: left;
-        }
-      }
-    }
-    
-    .sales-pitch-image {
-      height: 15em;
-      overflow: hidden;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center top;
-      }
-    }
-  }
-  
-  // Centered Full Layout (Columns)
-  .paywallLayoutCenteredFull {
-    .inner {
-      .offers {
-        text-align: center;
-        gap: 1em;
-        .offer {
-            margin: 0;
-            padding: 0;
-            p:last-of-type {
-              padding-top: 2em;
-              margin-bottom: 1em;
-            }
-            h4 {
-              padding-top: 1em;
-              padding-bottom: 0;
-              margin-bottom: 0;
-            }
-        }
-      }
 
-      .sales-pitch {
-        .pitch-content-wrapper {
-          text-align: center;
+// Layout for the paywalls
+// Centered Layout (Rows)
+.paywallLayoutCentered {
+    .inner {
+        padding: 1em;
+
+        .offers {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+
+            .offer {
+                position: relative;
+                display: grid;
+                grid-template-columns: 1fr auto;
+                width: 100%;
+                text-align: left;
+
+                h4 {
+                    grid-column: 1;
+                    grid-row: 1;
+                    margin: 0;
+                    font-weight: bold;
+                }
+
+                h3.price {
+                    grid-column: 1;
+                    grid-row: 2;
+                    margin: 0;
+                    font-size: 1.5em;
+                }
+
+                .price_description {
+                    grid-column: 1;
+                    grid-row: 3;
+                    margin: 0;
+                    color: #666;
+                }
+
+                p:last-of-type {
+                    grid-column: 2;
+                    grid-row: 1 / span 3;
+                    margin: 0;
+                    align-content: center;
+                }
+            }
         }
-      }
+
+        .sales-pitch {
+            .sales-pitch-content-wrapper {
+                text-align: left;
+            }
+        }
     }
     
     .sales-pitch-image {
-      height: 15em;
-      overflow: hidden;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center top;
-      }
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
     }
-  }
-  
-  // Sidebar Right Layout, image on right
+}
+
+// Centered Full Layout (Columns)
+.paywallLayoutCenteredFull {
+    .inner {
+        .offers {
+            text-align: center;
+            gap: 1em;
+
+            .offer {
+                margin: 0;
+                padding: 0;
+
+                p:last-of-type {
+                    padding-top: 2em;
+                    margin-bottom: 1em;
+                }
+
+                h4 {
+                    padding-top: 1em;
+                    padding-bottom: 0;
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .sales-pitch {
+            .sales-pitch-content-wrapper {
+                text-align: center;
+            }
+        }
+    }
+
+    .sales-pitch-image {
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+    }
+}
+
+// Sidebar Right Layout, image on right
 .paywallLayoutSidebarRight {
-  display: flex;
-  flex-direction: row;
-  width: 80%;
-  .inner {
-    flex: 1;
-    padding: 1em;
-    
-    .offers {
-      display: flex;
-      flex-direction: column;
-      margin: 0;
-      
-      .offer {
-        position: relative;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        width: 100%;
-        text-align: left;
-        
-        h4 {
-          grid-column: 1;
-          grid-row: 1;
-          margin: 0;
-          font-weight: bold;
+    &[slot="below-headline"] {
+        text-align: center;
+
+        @include mobile_up {
+            .sales-pitch-image {
+                width: 50%;
+            }
+
+            .sales-pitch {
+                width: 50%;
+                margin-right: $columns-gutter;
+            }
         }
-        
-        h3.price {
-          grid-column: 1;
-          grid-row: 2;
-          margin: 0;
-          font-size: 1.5em;
+    }
+
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+
+    .inner {
+        flex: 1;
+        padding: 1em;
+
+        .offers {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+
+            .offer {
+                position: relative;
+                display: grid;
+                grid-template-columns: 1fr auto;
+                width: 100%;
+                text-align: left;
+
+                h4 {
+                    grid-column: 1;
+                    grid-row: 1;
+                    margin: 0;
+                    font-weight: bold;
+                }
+
+                h3.price {
+                    grid-column: 1;
+                    grid-row: 2;
+                    margin: 0;
+                    font-size: 1.5em;
+                }
+
+                .price_description {
+                    grid-column: 1;
+                    grid-row: 3;
+                    margin: 0;
+                    color: #666;
+                }
+
+                p:last-of-type {
+                    grid-column: 2;
+                    grid-row: 1 / span 3;
+                    margin: 0;
+                    align-content: center;
+                }
+            }
         }
-        
-        .price_description {
-          grid-column: 1;
-          grid-row: 3;
-          margin: 0;
-          color: #666;
-        }
-        
-        p:last-of-type {
-          grid-column: 2;
-          grid-row: 1 / span 3;
-          margin: 0;
-          align-content: center;
-        }
-      }
     }
 
     .sales-pitch {
-      .pitch-content-wrapper {
-        text-align: left;
-      }
+        @include desktop {
+            margin-right: $columns-gutter;
+        }
     }
-  }
 
-  .sales-pitch-image {
-    width: 40%;
-    height: auto;
-    order: 1;
+    .sales-pitch-image {
+        width: 50%;
+        height: auto;
+        order: 1;
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
     }
-  }
 }
-  
-  // Sidebar Layout, image on left
-  .paywallLayoutSidebar {
-    display: flex;
-    flex-direction: row;
-    width: 80%;
-    .inner {
-      flex: 1;
-      padding: 1em;
-      
-      .offers {
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-        
-        .offer {
-          position: relative;
-          display: grid;
-          grid-template-columns: 1fr auto;
-          width: 100%;
-          text-align: left;
-          
-          h4 {
-            grid-column: 1;
-            grid-row: 1;
-            margin: 0;
-            font-weight: bold;
-          }
-          
-          h3.price {
-            grid-column: 1;
-            grid-row: 2;
-            margin: 0;
-            font-size: 1.5em;
-          }
-          
-          .price_description {
-            grid-column: 1;
-            grid-row: 3;
-            margin: 0;
-            color: #666;
-          }
-          
-          p:last-of-type {
-            grid-column: 2;
-            grid-row: 1 / span 3;
-            margin: 0;
-            align-content: center;
-          }
-        }
-      }
-  
-      .sales-pitch {
-        .pitch-content-wrapper {
-          text-align: left;
-        }
-      }
-    }
-  
-    .sales-pitch-image {
-      width: 40%;
-      height: auto;
-  
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-      }
-    }
-  }
-  
-  // Sidebar Full Layout, image on left
-  .paywallLayoutSidebarFull {
-    display: flex;
-    flex-direction: row;
-    width: 80%;
-    .inner {
-      flex: 1;
-      padding: 1em;
 
-      .offers {
+// Sidebar Layout, image on left
+.paywallLayoutSidebar {
+    &[slot="below-headline"] {
         text-align: center;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1em;
-        justify-content: center;
-        .offer:first-child {
-          flex-basis: 100%;
-          margin-bottom: 1em;
-        }
-        .offer {
-            padding: 0;
-            a {
-              padding: .4em 1em;
-            }	
-            p:last-of-type {
-              padding-top: 2em;
-              margin-bottom: 1em;
-            }
-            h4 {
-              padding-top: 1em;
-              padding-bottom: 0;
-              margin-bottom: 0;
-            }
-        }
-      }
 
-      .sales-pitch {
-        .pitch-content-wrapper {
-          text-align: center;
+        @include mobile_up {
+            .sales-pitch-image {
+                width: 50%;
+            }
+
+            .sales-pitch {
+                width: 50%;
+                margin-left: $columns-gutter;
+            }
         }
-      }
     }
-  
+
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+
+    .inner {
+        flex: 1;
+        padding: 1em;
+
+        .offers {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+
+            .offer {
+                position: relative;
+                display: grid;
+                grid-template-columns: 1fr auto;
+                width: 100%;
+                text-align: left;
+
+                h4 {
+                    grid-column: 1;
+                    grid-row: 1;
+                    margin: 0;
+                    font-weight: bold;
+                }
+
+                h3.price {
+                    grid-column: 1;
+                    grid-row: 2;
+                    margin: 0;
+                    font-size: 1.5em;
+                }
+
+                .price_description {
+                    grid-column: 1;
+                    grid-row: 3;
+                    margin: 0;
+                    color: #666;
+                }
+
+                p:last-of-type {
+                    grid-column: 2;
+                    grid-row: 1 / span 3;
+                    margin: 0;
+                    align-content: center;
+                }
+            }
+        }
+    }
+
+    .sales-pitch {
+        @include desktop {
+            margin-left: $columns-gutter;
+        }
+    }
+
     .sales-pitch-image {
-      width: 40%;
-      height: auto;
-  
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-      }
-    }
-  }
+        width: 50%;
+        height: auto;
 
-  // Remove padding from all paywall layouts, so images can fit the entire container
-  .paywallLayoutCentered,
-  .paywallLayoutCenteredFull,
-  .paywallLayoutSidebar,
-  .paywallLayoutSidebarRight,
-  .paywallLayoutSidebarFull {
-      padding: 0 !important;
-  }
-  
-  // Mobile
-  @include mobile {
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+}
+
+// Sidebar Full Layout, image on left
+.paywallLayoutSidebarFull {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+
+    .inner {
+        flex: 1;
+        padding: 1em;
+
+        .offers {
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1em;
+            justify-content: center;
+
+            .offer:first-child {
+                flex-basis: 100%;
+                margin-bottom: 1em;
+            }
+
+            .offer {
+                padding: 0;
+
+                a {
+                    padding: .4em 1em;
+                }
+
+                p:last-of-type {
+                    padding-top: 2em;
+                    margin-bottom: 1em;
+                }
+
+                h4 {
+                    padding-top: 1em;
+                    padding-bottom: 0;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .sales-pitch {
+        @include desktop {
+            margin-left: $columns-gutter;
+        }
+    }
+
+    .sales-pitch-image {
+        width: 40%;
+        height: auto;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+}
+
+// Remove padding from all paywall layouts, so images can fit the entire container
+.paywallLayoutCentered,
+.paywallLayoutCenteredFull,
+.paywallLayoutSidebar,
+.paywallLayoutSidebarRight,
+.paywallLayoutSidebarFull {
+    padding: 0 !important;
+}
+
+// Mobile
+@include mobile {
     .paywallLayoutCentered,
     .paywallLayoutCenteredFull,
     .paywallLayoutSidebar,
     .paywallLayoutSidebarRight,
     .paywallLayoutSidebarFull {
-      .sales-pitch-image {
-        float: none;
         width: 100%;
-        max-width: 100%;
-      }
-      .inner .offers .offer {
-        flex-direction: column !important;
-      }
-    }
-    .paywallLayoutCenteredFull {
-      .inner {
-        .offers {
-          .offer {
-            padding: 1em;
-          }
+
+        .inner {
+            .offers {
+                .offer {
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+
+                    h4, h3.price, .price_description {
+                        width: 100%;
+                    }
+
+                    p:last-of-type {
+                        grid-column: unset;
+                        grid-row: unset;
+                        width: 100%;
+                        text-align: center;
+                        margin-top: 10px;
+
+                        a {
+                            display: inline-block;
+                            width: auto;
+                            margin: 0 auto;
+                        }
+                    }
+                }
+            }
         }
-      }
+
+        .sales-pitch-image {
+            float: none;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .inner .offers .offer {
+            flex-direction: column !important;
+        }
     }
+
+    .paywallLayoutCenteredFull {
+        .inner {
+            .offers {
+                .offer {
+                    padding: 1em;
+                }
+            }
+        }
+    }
+
     .paywallLayoutSidebarRight,
     .paywallLayoutSidebar,
     .paywallLayoutSidebarFull {
-      display: inline-block;
-      .inner {
-        padding-top: 1em;
-        .offers {
-          .offer {
-            padding: 1em;
-          }
+        display: inline-block;
+
+        .inner {
+            padding-top: 1em;
+            
+            .offers {
+                .offer {
+                    padding: 1em;
+                }
+            }
         }
-      }
-      .sales-pitch-image {    
-        img {
-          height: 8em;
-          object-position: center top; 
+
+        .sales-pitch-image {
+            img {
+                height: 8em;
+                object-position: center top;
+            }
         }
-      }
     }
+
     .paywallLayoutSidebarFull {
-      .inner {
-        .offers {
-          .offer {
-            flex: auto;
-          }
+        .inner {
+            .offers {
+                .offer {
+                    flex: auto;
+                }
+            }
         }
-      }
     }
-  }
-  // Desktop layouts
-  @include desktop {
+}
+
+// Desktop layouts
+@include desktop {
     .paywallLayoutCentered,
     .paywallLayoutSidebarRight,
     .paywallLayoutSidebar,
@@ -440,11 +525,27 @@
             }
         }
     }
-  }
+}
+
+.sesamy-paywall-container sesamy-paywall {
+    [slot="below-headline"] {
+        text-align: center;
+    
+        @include mobile_up {
+            .sales-pitch {
+                * {
+                    width: 100%;
+                    display: block;
+                }
+            }
+        }
+    }
+}
 
 // Bodytext paragraph:
 .teaserContent {
     position: relative;
+
     &:before {
         content: "";
         position: absolute;
@@ -454,9 +555,17 @@
     }
 }
 
+// Paywall locked class for hiding bodytext
+.bodytext.lab-paywall-locked {
+    > *:not(.lab-paywall-unlocked):not(.paywallTeaser):not(.sesamy-paywall-container):not(.iteras-offers):not(.piano-paywall):not([class*="tp"]):not(#nwprependblock) {
+        display: none;
+    }
+}
+
 @include mobile {
     .paywallTeaser .inner {
         padding: 2em 1em;
+
         .offers {
             flex-wrap: wrap;
         }
@@ -493,6 +602,44 @@ body.iteras-paywall .article .bodytext {
     }
 
     .iteras-offers {
+        @include mobile_up {
+            .sales-pitch {
+                text-align: center;
+
+                * {
+                    width: 100%;
+                    display: block;
+                }
+            }
+        }
+        @include mobile_up {
+            .paywallLayoutSidebar {
+                text-align: center;
+
+                .sales-pitch-image {
+                    width: 50%;
+                }
+
+                .sales-pitch {
+                    width: 50%;
+                    margin-left: $columns-gutter;
+                }
+            }
+
+            .paywallLayoutSidebarRight {
+                text-align: center;
+
+                .sales-pitch-image {
+                    width: 50%;
+                }
+
+                .sales-pitch {
+                    width: 50%;
+                    margin-right: $columns-gutter;
+                }
+            }
+        }
+
         display: none;
         flex-direction: column;
         align-items: center;

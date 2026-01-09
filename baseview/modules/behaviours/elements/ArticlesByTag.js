@@ -21,7 +21,8 @@ export default class ArticlesByTag {
             kicker: false,
             title: true,
             subtitle: true,
-            published: false
+            published: false,
+			counter: false
         };
         const editDisplayOptions = [];
         const selectedDisplayOptions = model.get('fields.displayOptions_json') || {};

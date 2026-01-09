@@ -11,7 +11,9 @@ module.exports = {
             './public/common/Parallax.js',
             './public/common/TabNavigation.js',
             './public/common/ElementAttributeToggler.js',
-            './public/common/Mustache/mustache.min.js'
+            './public/common/Mustache/mustache.min.js',
+            './public/common/InfinityScrollAds.js',
+            './public/common/Definition.js'
         ]
     },
     output: {

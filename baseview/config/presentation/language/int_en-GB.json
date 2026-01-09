@@ -10,7 +10,7 @@
             "saturday": "saturday",
             "january": "January",
             "february": "February",
-            "mars": "March",
+            "march": "March",
             "april": "April",
             "may": "May",
             "june": "June",
@@ -80,10 +80,34 @@
         },
         "search": {
             "placeholder": "Search...",
-            "label": "Search"
+            "label": "Search",
+            "openText": "Search",
+            "closeText": "Close",
+            "expandedLabel": "Close search",
+            "collapsedLabel": "Open search",
+            "labradorSearch": {
+                "submitLabel": "Search",
+                "navLabel": "Display more",
+                "nohitsLabel": "No hits. Try modifying your search.",
+                "searchPlaceholder": "Type your search here ...",
+                "advancedOpenText": "Open filter",
+                "advancedCloseText": "Close filter",
+                "fromDateLabel": "From date",
+                "toDateLabel": "To date",
+                "tagLabel": "Tag",
+                "authorLabel": "Author",
+                "allSitesLabel": "All sites"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "Close menu",
+            "collapsedLabel": "Open menu",
+            "buttonText": "Menu"
         },
         "header": {
-            "logo_link_text": "Go to frontpage"
+            "logo_link_text": "Go to frontpage",
+			"menuScrollerLeftButton": "Scroll left",
+			"menuScrollerRightButton": "Scroll right"
         },
         "slack_notifier": {
             "publish": {
@@ -143,8 +167,58 @@
             "caption": {
                 "showCaptionLabel": "Show caption",
                 "hideCaptionLabel": "Hide caption",
-                "showMoreLabel": "Show more"
+                "showMoreLabel": "Show more",
+                "showLessLabel": "Show less"
+            },
+            "videoOverlayLabel": "Video article"
+        },
+        "mostRead": {
+            "labelLatest": "Latest",
+            "titleLatest": "Recent articles",
+            "labelMostRead": "Most read",
+            "titleMostRead": "Most read articles"
+        },
+        "infiniteScroll": {
+            "readMore": "Continue reading"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Share on Facebook",
+                "twitter": "Share on X (Twitter)",
+                "linkedin": "Share on LinkedIn",
+                "mail": "Share by email",
+                "threads": "Share on Threads",
+                "copyLink": "Copy link",
+                "glimta": "Unlock with Glimta",
+                "talandeWebb": "Open Talande Webb option panel",
+                "bluesky": "Share on Bluesky",
+                "reddit": "Share on Reddit",
+                "whatsapp": "Share on WhatsApp"
             }
+        },
+        "weather": {
+            "failedToFetch": "Could not fetch weather data",
+            "updated": "Updated",
+            "fetchingData": "Loading weather data",
+            "types": {
+                "clearsky": "Clear sky",
+                "fair": "Fair",
+                "partlycloudy": "Partly cloudy",
+                "cloudy": "Cloudy",
+                "rainshowers": "Rain showers",
+                "rain": "Rain",
+                "snow": "Snow",
+                "sleet": "Sleet",
+                "thunder": "Thunder",
+                "fog": "Fog",
+                "wind": "Wind",
+                "unknown": "Unknown"
+            }
+        },
+        "gallery": {
+            "label": "Gallery",
+            "seeAllImages": "See all images",
+            "navigateToOriginal": "Navigate to original page"
         }
     }
 }

@@ -15,6 +15,9 @@
             "inheritPath": "menu/tool/rich_text.json"
         }
     },
+    "draggable": {
+        "icon": "labicon-insertTitle"
+    },
     "contentMenus": {
         "default": {
             "items": {
@@ -27,7 +30,7 @@
                     "title": "Select text type",
                     "items": {
                         "h2": {
-                            "text": "Heading 1",
+                            "text": "Heading 2",
                             "icon": "labicon-text_title",
                             "callback": "toggleKeyAndValue",
                             "key": "fields.elementType",
@@ -41,7 +44,7 @@
                             ]
                         },
                         "h3": {
-                            "text": "Heading 2",
+                            "text": "Heading 3",
                             "icon": "labicon-text_title",
                             "callback": "toggleKeyAndValue",
                             "key": "fields.elementType",
@@ -55,7 +58,7 @@
                             ]
                         },
                         "h4": {
-                            "text": "Heading 3",
+                            "text": "Heading 4",
                             "icon": "labicon-text_title",
                             "callback": "toggleKeyAndValue",
                             "key": "fields.elementType",
@@ -69,7 +72,7 @@
                             ]
                         },
                         "h5": {
-                            "text": "Heading 4",
+                            "text": "Heading 5",
                             "icon": "labicon-text_title",
                             "callback": "toggleKeyAndValue",
                             "key": "fields.elementType",
@@ -83,7 +86,7 @@
                             ]
                         },
                         "h6": {
-                            "text": "Heading 5",
+                            "text": "Heading 6",
                             "icon": "labicon-text_title",
                             "callback": "toggleKeyAndValue",
                             "key": "fields.elementType",

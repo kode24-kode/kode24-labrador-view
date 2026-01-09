@@ -23,6 +23,21 @@ export default class ArticleHeader {
             const kicker = model.get('fields.kicker');
             model.setFiltered('hideKicker', !kicker || kicker.includes('Click to add kicker'));
         }
+
+        // Should the section label be a link to the tag page?
+        // Fetch the tagpage path, site domain, and the actual name of the section, create a link and add it to the filtered data
+        const sectionLabelHasLink = model.get('metadata.sectionLabelHasLink');
+        if (sectionLabelHasLink) {
+            const tagPath = this.api.v1.config.get('tagPagePath') || '/tag/';
+            const siteDomain = this.api.v1.site.getSite().domain;
+            const sectionName = this.api.v1.model.query.getRootModel().get('primaryTags.section');
+            const sectionTagPageLink = `${ siteDomain }${ tagPath }${ sectionName }`;
+            model.setFiltered('sectionLink', sectionTagPageLink);
+        }
+
+        // Section placement
+        const sectionPlacement = model.get('metadata.sectionPlacement') || 'overImage';
+        model.setFiltered('sectionPlacement.underImage', sectionPlacement === 'underImage');
     }
 
     async onChildAdded(model, childModel) {

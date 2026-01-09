@@ -20,7 +20,7 @@
     {{ /isJWTCookie }}
     {{ ^isJWTCookie }}
     {{ #value }}
-        dataLayerData['{{{ key }}}'] = '{{ #helper.sanitizeString }}{{{ value }}}{{ /helper.sanitizeString }}';
+        dataLayerData['{{{ key }}}'] = '{{ #helper.escapeForJavaScript }}{{ #helper.sanitizeString }}{{{ value }}}{{ /helper.sanitizeString }}{{ /helper.escapeForJavaScript }}';
     {{ /value }}
     {{ /isJWTCookie }}
     {{ /get.current.filtered.analytics.dataLayer }}

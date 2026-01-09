@@ -10,7 +10,7 @@
             "saturday": "sabato",
             "january": "gennaio",
             "february": "febbraio",
-            "mars": "marzo",
+            "march": "marzo",
             "april": "aprile",
             "may": "maggio",
             "june": "giugno",
@@ -80,10 +80,34 @@
         },
         "search": {
             "placeholder": "Cerca...",
-            "label": "Cerca"
+            "label": "Cerca",
+            "openText": "Cerca",
+            "closeText": "Chiudi",
+            "expandedLabel": "Chiudi ricerca",
+            "collapsedLabel": "Apri la ricerca",
+            "labradorSearch": {
+                "submitLabel": "Cerca",
+                "navLabel": "Mostra di più",
+                "nohitsLabel": "Nessun risultato. Prova a modificare la ricerca.",
+                "searchPlaceholder": "Digita qui la tua ricerca...",
+                "advancedOpenText": "Apri filtro",
+                "advancedCloseText": "Chiudi filtro",
+                "fromDateLabel": "Dalla data",
+                "toDateLabel": "Fino alla data",
+                "tagLabel": "Etichetta",
+                "authorLabel": "Autore",
+                "allSitesLabel": "Tutti i siti"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "Chiudi il menu",
+            "collapsedLabel": "Apri il menu",
+            "buttonText": "Menu"
         },
         "header": {
-            "logo_link_text": "Vai alla pagina principale"
+            "logo_link_text": "Vai alla pagina principale",
+			"menuScrollerLeftButton": "Scorri a sinistra",
+			"menuScrollerRightButton": "Scorri a destra"
         },
         "contentboxes": {
             "articleScrollerLeftButton": "Vai a sinistra",
@@ -111,7 +135,57 @@
             "caption": {
                 "showCaptionLabel": "Mostra didascalia",
                 "hideCaptionLabel": "Nascondi didascalia",
-                "showMoreLabel": "Mostra di più"
+                "showMoreLabel": "Mostra di più",
+                "showLessLabel": "Mostrar meno"
+            },
+            "videoOverlayLabel": "Articolo video"
+        },
+        "mostRead": {
+            "labelLatest": "Ultimi",
+            "titleLatest": "Articoli recenti",
+            "labelMostRead": "Più letti",
+            "titleMostRead": "Articoli più letti"
+        },
+        "infiniteScroll": {
+            "readMore": "Continua a leggere"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Condividi su Facebook",
+                "twitter": "Condividi su X (Twitter)",
+                "linkedin": "Condividi su LinkedIn",
+                "mail": "Condividi via email",
+                "threads": "Condividi su Threads",
+                "copyLink": "Copia il collegamento",
+                "glimta": "Sblocca con Glimta",
+                "talandeWebb": "Apri il pannello delle opzioni di Talande Webb",
+                "bluesky": "Condividi su Bluesky",
+                "reddit": "Condividi su Reddit",
+                "whatsapp": "Condividi su WhatsApp"
+            }
+        },
+        "gallery": {
+            "label": "Galleria",
+            "seeAllImages": "Guarda tutte le immagini",
+            "navigateToOriginal": "Vai alla pagina originale"
+        },
+        "weather": {
+            "failedToFetch": "Impossibile recuperare i dati meteo",
+            "updated": "Aggiornato",
+            "fetchingData": "Caricamento dei dati meteo",
+            "types": {
+                "clearsky": "Cielo sereno",
+                "fair": "Poco nuvoloso",
+                "partlycloudy": "Parzialmente nuvoloso",
+                "cloudy": "Nuvoloso",
+                "rainshowers": "Rovesci di pioggia",
+                "rain": "Pioggia",
+                "snow": "Neve",
+                "sleet": "Nevischio",
+                "thunder": "Temporale",
+                "fog": "Nebbia",
+                "wind": "Ventoso",
+                "unknown": "Sconosciuto"
             }
         }
     }

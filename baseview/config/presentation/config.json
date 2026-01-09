@@ -140,13 +140,6 @@
             "enableDescriptionLength": false,
             "descriptionLength": 45
         },
-        "parallax": {
-            "require": {
-                "js": [
-                    "/view-resources/public/common/Parallax.js"
-                ]
-            }
-        },
         "frontContent": {
             "sources": [
                 {
@@ -248,28 +241,23 @@
                 "items": {
                     "facebook": {
                         "display": true,
-                        "icon": "fi-social-facebook",
-                        "shareText": "Del på Facebook"
+                        "icon": "fi-social-facebook"
                     },
                     "twitter": {
                         "display": true,
-                        "icon": "fi-social-twitter",
-                        "shareText": "Del på Twitter"
+                        "icon": "fi-social-twitter"
                     },
                     "linkedin": {
                         "display": false,
-                        "icon": "fi-social-linkedin",
-                        "shareText": "Del på LinkedIn"
+                        "icon": "fi-social-linkedin"
                     },
                     "mail": {
                         "display": true,
-                        "icon": "fi-mail",
-                        "shareText": "Del på e-post"
+                        "icon": "fi-mail"
                     },
                     "threads": {
                         "display": false,
-                        "icon": "fi-social-threads",
-                        "shareText": "Share on Threads"
+                        "icon": "fi-social-threads"
                     },
                     "copyLink": {
                         "display": false,
@@ -278,8 +266,7 @@
                     },
                     "glimta": {
                         "display": false,
-                        "icon": "fi-social-glimta",
-                        "shareText": "Unlock with Glimta"
+                        "icon": "fi-social-glimta"
                     },
                     "talandeWebb": {
                         "display": false,
@@ -289,61 +276,26 @@
                     "bluesky": {
                         "display": false,
                         "icon": "fi-social-bluesky"
+                    },
+                    "reddit": {
+                        "display": false,
+                        "icon": "fi-social-reddit"
+                    },
+                    "whatsapp": {
+                        "display": false,
+                        "icon": "fi-social-whatsapp"
                     }
                 }
             },
             "showTags": true
         },
-        "notice": {
-            "social": {
-                "display": {
-                    "bodytext_before": false,
-                    "bodytext_after": true,
-                    "header": false
-                },
-                "items": {
-                    "facebook": {
-                        "display": true,
-                        "icon": "fi-social-facebook",
-                        "shareText": "Del på Facebook"
-                    },
-                    "twitter": {
-                        "display": true,
-                        "icon": "fi-social-twitter",
-                        "shareText": "Del på Twitter"
-                    },
-                    "linkedin": {
-                        "display": false,
-                        "icon": "fi-social-linkedin",
-                        "shareText": "Del på LinkedIn"
-                    },
-                    "mail": {
-                        "display": true,
-                        "icon": "fi-mail",
-                        "shareText": "Del på e-post"
-                    },
-                    "threads": {
-                        "display": false,
-                        "icon": "fi-social-threads",
-                        "shareText": "Share on Threads"
-                    },
-                    "copyLink": {
-                        "display": false,
-                        "icon": "fi-social-copyLink",
-                        "isButton": true
-                    },
-                    "glimta": {
-                        "display": false,
-                        "icon": "fi-social-glimta",
-                        "shareText": "Unlock with Glimta"
-                    },
-                    "talandeWebb": {
-                        "display": false,
-                        "icon": "fi-social-talandeWebb",
-                        "isButton": true
-                    }
-                }
-            }
+        "gallery": {
+            "active": false,
+            "displayHeader": true,
+            "displayFooter": true,
+            "pageBackgroundColor": "#000000",
+            "pageTextColor": "#ffffff",
+            "logImageView": false
         },
         "footer": {
             "poweredBy": {

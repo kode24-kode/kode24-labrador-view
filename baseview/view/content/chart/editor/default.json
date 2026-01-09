@@ -160,5 +160,8 @@
         "admin": {
             "template": "content/chart/template/settings"
         }
+    },
+    "draggable": {
+        "icon": "labicon-stats"
     }
 }

@@ -1,0 +1,164 @@
+{
+    "releasenotes": {
+        "version": {
+            "int": 1412,
+            "str": "1.4.12"
+        },
+        "items": [
+            {
+                "date": "20251008",
+                "title": "Auto Insert: Support for `articles by tag` element type",
+                "description": "Introduced a new element type to automatically insert when rendering pages in Labrador. Configurable title and placement options.",
+                "links": [
+                    "/settings/cp?page=autoInsert"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1383",
+                "isFeature": true
+            },
+            {
+                "date": "20251009",
+                "title": "Add download feature for `buttonlink` elements",
+                "description": "Added the ability for users to download links directly using the button element.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1391",
+                "isFeature": true
+            },
+            {
+                "date": "20251009",
+                "title": "Add paywall label option in article header",
+                "description": "Introduced an option to display a paywall label in article header, making paid content clearer to users.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1392",
+                "isFeature": true
+            },
+            {
+                "date": "20251013",
+                "title": "Improved styling for images in images",
+                "description": "When styling an image with borders, gradients etc., the styles are now skipped for images within that image.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1389",
+                "isBug": true
+            },
+            {
+                "date": "20251014",
+                "title": "Add author page feature",
+                "description": "Implemented dedicated author pages, allowing users to view articles by specific authors.",
+                "links": [
+                    "/settings/cp?page=authorPages"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1369",
+                "isFeature": true
+            },
+            {
+                "date": "20251015",
+                "title": "Article scroller: Add option to open articles in new tab",
+                "description": "Added a setting to allow articles to be opened in a new browser tab.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1396",
+                "isImprovement": true
+            },
+            {
+                "date": "20251015",
+                "title": "Remove style tags in article preheader",
+                "description": "Cleaned up preheader markup by removing unnecessary style tags for better HTML output.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1397",
+                "isImprovement": true
+            },
+            {
+                "date": "20251015",
+                "title": "Prevent default color in font style",
+                "description": "Blocked the addition of color: default in font style to avoid validation errors.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1398",
+                "isBug": true
+            },
+            {
+                "date": "20251015",
+                "title": "Improved news sitemap",
+                "description": "Introduced images in news sitemap generation to improve news article discoverability in search engines.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1394",
+                "isFeature": true
+            },
+            {
+                "date": "20251016",
+                "title": "Improve styling for padded teasers",
+                "description": "Refined the styling for teasers with padding to enhance visual consistency and user experience.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1395",
+                "isImprovement": true
+            },
+            {
+                "date": "20251020",
+                "title": "Unify push notification handling",
+                "description": "Unified push notification logic for more reliable and maintainable notifications to CMS users.",
+                "links": [
+                    "/settings/cp?page=plugins"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1393",
+                "isImprovement": true
+            },
+            {
+                "date": "20251023",
+                "title": "Allow font family config to accept arrays",
+                "description": "Enhanced font configuration to support arrays, allowing for more flexible font selections.",
+                "links": [
+                    "/settings/cp?page=font_style_editor"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1400",
+                "isImprovement": true
+            },
+            {
+                "date": "20251023",
+                "title": "Disable automatic wildcard in editor article search",
+                "description": "Added the configuration option `articleSearchWildcardDisabled` to disable automatic wildcard searching in the editor for more precise results in some languages.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1403",
+                "isImprovement": true
+            },
+            {
+                "date": "20251024",
+                "title": "Add tabs for tags and multiple sites in toplist",
+                "description": "Updated toplist feature to introduce tabs for tags and support for several sites, improving content organization.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1404",
+                "isFeature": true
+            },
+            {
+                "date": "20251025",
+                "title": "New feature: Gallery",
+                "description": "Introduced a full view option for slideshows, enhancing the presentation of media in articles. Each slideshow can now display in a separate URL.",
+                "links": [
+                    "/settings/cp?page=gallerySettings"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1354",
+                "isFeature": true
+            },
+            {
+                "date": "20251027",
+                "title": "Reduce API calls when searching for articles",
+                "description": "The article search in ArticlesLatest now uses a debounce mechanism, so API requests are only sent after users stop typing. This significantly reduces server load and improves user experience during article searches.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1385",
+                "isImprovement": true
+            },
+            {
+                "date": "20251027",
+                "title": "Add paywall class support",
+                "description": "Introduced support for paywall classes. This makes it easier to manage different types of paywalls in Labrador CMS.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1365",
+                "isFeature": true
+            },
+            {
+                "date": "20251028",
+                "title": "Sesamy: Remove body text for locked articles using proxy",
+                "description": "Fixed the logic so that body text is removed for articles protected by proxy lock, using the new isProtected flag. This improves paywall handling for Sesamy users of Labrador CMS.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1406",
+                "isImprovement": true
+            }
+        ]
+    }
+}

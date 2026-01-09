@@ -25,6 +25,16 @@
             <label for="byline-public_url">Public url</label>
             <input type="url" id="byline-public_url" name="public_url" value="{{ fields.public_url }}">
         </div>
+        {{ #authorPages.enabled }}
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+            <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                <label for="byline-author-page-slug">Alternative URL (optional)</label>
+                <p class="lab-info">If you want to create an easy to read URL for this author's page, you can add it here. Just write in what the URL should end with and see the preview here: https://www.mypage.com/author/my-name</p>
+                <input type="text" id="byline-author-page-slug" name="slug" value="{{ fields.slug }}">
+                <div id="slug-preview-container" class="lab-grid-gap lab-info"></div>
+            </div>
+        </div>
+        {{ /authorPages.enabled }}
         <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
             <label for="byline-description">Description</label>
             <textarea name="description" id="byline-description" rows="10">{{ fields.description }}</textarea>
@@ -37,6 +47,18 @@
             <label for="byline-default-byline">Default byline</label>
             <input type="checkbox" id="byline-default-byline" value="1" {{ #isDefault }}checked{{ /isDefault }}>
         </div>
+        {{ #authorPages.enabled }}
+            {{ #id }}
+                {{ ^authorPages.enableForAll }}
+                    {{! <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                        <input type="button" id="byline-add-author-page" name="addAuthorPage" value="Add Author Page">
+                    </div>
+                    <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                        <input type="button" id="byline-remove-author-page" name="removeAuthorPage" value="Remove Author Page">
+                    </div> }}
+                {{ /authorPages.enableForAll }}
+            {{ /id }}
+        {{ /authorPages.enabled }}
     </div>
 
 </div>

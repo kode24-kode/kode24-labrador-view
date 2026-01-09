@@ -19,6 +19,11 @@
                     "default": "content/image/template/article"
                 }
             },
+            "authorBox": {
+                "template": {
+                    "default": "content/image/template/article"
+                }
+            },
             "articleHeader": {
                 "template": {
                     "default": "content/image/template/articleHeader"
@@ -186,6 +191,11 @@
                 }
             },
             "article": {
+                "properties": {
+                    "default": "content/image/editor/child.json"
+                }
+            },
+            "authorBox": {
                 "properties": {
                     "default": "content/image/editor/child.json"
                 }

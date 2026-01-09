@@ -5,12 +5,26 @@
   {{{ get.current.filtered.paywall.bodytext }}}
 </div>
 <div class="iteras-offers">
+  <div class="{{{ get.root.fields.paywallLayoutType }}}">
+      {{ #get.root.fields.paywallSalesImage }}
+          <div class="sales-pitch-image">
+              <img src="{{ #image.getFrontCropUrl }}1200,{{ #calculator.multiply }}1200 {{ getConfig.image.socialAspectRatio }}{{ /calculator.multiply }},jpg{{ /image.getFrontCropUrl }}" alt="">
+          </div>
+      {{ /get.root.fields.paywallSalesImage }}
+      {{ #get.root.fields.paywallSalesPitchContent }}
+        {{> partial/lab4/paywall/salespitch}}
+      {{ /get.root.fields.paywallSalesPitchContent }}
+  </div>
+  {{ ^get.root.fields.paywallSalesPitchTitle }}
+  {{ ^get.root.fields.paywallSalesPitchContent }}
   {{#get.current.filtered.paywall.iteras.offersTitle}}<h2 class="offer-title">{{get.current.filtered.paywall.iteras.offersTitle}}</h2>{{/get.current.filtered.paywall.iteras.offersTitle}}
   {{#get.current.filtered.paywall.iteras.alreadySubscribedText}}
   <a class="already-subscribed" href="{{{get.current.filtered.paywall.iteras.alreadySubscribedLink}}}{{^get.current.filtered.paywall.iteras.alreadySubscribedLink}}/login{{/get.current.filtered.paywall.iteras.alreadySubscribedLink}}">
   {{get.current.filtered.paywall.iteras.alreadySubscribedText}}
   </a>
   {{/get.current.filtered.paywall.iteras.alreadySubscribedText}}
+  {{ /get.root.fields.paywallSalesPitchContent }}
+  {{ /get.root.fields.paywallSalesPitchTitle }}
   <div class="offer-list">
     {{#get.current.filtered.paywall.iteras.offers}}
     <div class="offer">

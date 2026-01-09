@@ -20,7 +20,7 @@ export default class PaywallPreview {
     }
 
     importResources() {
-        fetch('/view-resources/view/content/bodytext/template/paywall_teaser.template.mustache').then((response) => {
+        fetch('/view-resources/view/content/bodytext/template/paywall_teaser_admin.template.mustache').then((response) => {
             return response.text();
         }).then((template) => {
             this.setTemplate(template);

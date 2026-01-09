@@ -1,0 +1,30 @@
+<script type="module">
+    import { ClientAPI } from '/view-resources/baseview/public/common/ClientAPI/index.js{{ #helper.cachebuster }}{{ /helper.cachebuster }}';
+    window.labClientAPI = new ClientAPI({
+        pageData: {
+            url: '{{{ get.current.filtered.url }}}',
+            pageType: '{{{ get.current.filtered.pageType }}}',
+            pageId: '{{{ get.current.filtered.pageId }}}',
+            section: '{{{ get.current.filtered.section }}}',
+            title: '{{ #helper.escapeForJavaScript }}{{{ get.current.fields.title }}}{{ /helper.escapeForJavaScript }}',
+            seotitle: '{{ #helper.escapeForJavaScript }}{{{ get.current.filtered.seotitle }}}{{ /helper.escapeForJavaScript }}',
+            sometitle: '{{ #helper.escapeForJavaScript }}{{{ get.current.filtered.sometitle }}}{{ /helper.escapeForJavaScript }}',
+            description: '{{ #helper.escapeForJavaScript }}{{{ get.current.fields.subtitle }}}{{ /helper.escapeForJavaScript }}',
+            seodescription: '{{ #helper.escapeForJavaScript }}{{{ get.current.filtered.seodescription }}}{{ /helper.escapeForJavaScript }}',
+            somedescription: '{{ #helper.escapeForJavaScript }}{{{ get.current.filtered.somedescription }}}{{ /helper.escapeForJavaScript }}',
+            device: '{{{ get.current.filtered.device }}}',
+            cmsVersion: '{{{ get.current.filtered.cmsVersion }}}',
+            contentLanguage: '{{{ get.current.filtered.contentLanguage }}}',
+            published: '{{{ get.current.filtered.published }}}',
+            tags: [{{{ get.current.filtered.tagsStringCommaSeparated }}}],
+            bylines: [{{{ get.current.filtered.bylinesStringCommaSeparated }}}],
+            site: {
+                domain: '{{{ get.current.filtered.site.domain }}}',
+                id: '{{{ get.current.filtered.site.id }}}',
+                alias: '{{{ get.current.filtered.site.alias }}}'
+            }
+            // Todo: Add paywall info ...
+        },
+        debug: {{ #get.current.filtered.isDebug }}true{{ /get.current.filtered.isDebug }}{{ ^get.current.filtered.isDebug }}false{{ /get.current.filtered.isDebug }}
+    });
+</script>

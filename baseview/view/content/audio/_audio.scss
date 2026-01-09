@@ -6,7 +6,8 @@
 
     .content[class*=" bg-"],
     .content.hasContentPadding, 
-    .content[class*=" border-"] {
+    .content[class*=" border-"],
+    .content.hasBorder {
         padding-bottom: $bg_text_padding;
     }
 

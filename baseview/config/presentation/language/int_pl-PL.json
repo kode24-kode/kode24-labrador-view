@@ -10,7 +10,7 @@
             "saturday": "sobota",
             "january": "Styczeń",
             "february": "Luty",
-            "mars": "Marzec",
+            "march": "Marzec",
             "april": "Kwiecień",
             "may": "Maj",
             "june": "Czerwiec",
@@ -68,10 +68,34 @@
         },
         "search": {
             "placeholder": "Szukaj...",
-            "label": "Szukaj"
+            "label": "Szukaj",
+            "openText": "Szukaj",
+            "closeText": "Zamknąć",
+            "expandedLabel": "Zamknij wyszukiwanie",
+            "collapsedLabel": "Otwórz wyszukiwanie",
+            "labradorSearch": {
+                "submitLabel": "Szukaj",
+                "navLabel": "Wyświetl więcej",
+                "nohitsLabel": "Brak wyników. Spróbuj zmodyfikować wyszukiwanie.",
+                "searchPlaceholder": "Wpisz tutaj szukany tekst...",
+                "advancedOpenText": "Otwórz filtr",
+                "advancedCloseText": "Zamknij filtr",
+                "fromDateLabel": "Od daty",
+                "toDateLabel": "Do daty",
+                "tagLabel": "Etykietka",
+                "authorLabel": "Autor",
+                "allSitesLabel": "Wszystkie witryny"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "Zamknij menu",
+            "collapsedLabel": "Otwórz menu",
+            "buttonText": "Menu"
         },
         "header": {
-            "logo_link_text": "Przejdź do strony głównej"
+            "logo_link_text": "Przejdź do strony głównej",
+			"menuScrollerLeftButton": "Przewiń w lewo",
+			"menuScrollerRightButton": "Przewiń w prawo"
         },
         "slack_notifier": {
             "publish": {
@@ -109,7 +133,57 @@
             "caption": {
                 "showCaptionLabel": "Pokaż podpis",
                 "hideCaptionLabel": "Ukryj podpis",
-                "showMoreLabel": "Pokaż więcej"
+                "showMoreLabel": "Pokaż więcej",
+                "showLessLabel": "Pokaż mniej"
+            },
+            "videoOverlayLabel": "Artykuł wideo"
+        },
+        "mostRead": {
+            "labelLatest": "Najnowszy",
+            "titleLatest": "Najnowsze artykuły",
+            "labelMostRead": "Najczęściej czytane",
+            "titleMostRead": "Najczęściej czytane artykuły"
+        },
+        "infiniteScroll": {
+            "readMore": "Kontynuuj czytanie"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Udostępnij na Facebooku",
+                "twitter": "Udostępnij na X (Twitter)",
+                "linkedin": "Udostępnij na LinkedIn",
+                "mail": "Udostępnij przez e-mail",
+                "threads": "Udostępnij na Threads",
+                "copyLink": "Kopiuj link",
+                "glimta": "Odblokuj za pomocą Glimta",
+                "talandeWebb": "Otwórz panel opcji Talande Webb",
+                "bluesky": "Udostępnij na Bluesky",
+                "reddit": "Udostępnij na Reddicie",
+                "whatsapp": "Udostępnij na WhatsAppie"
+            }
+        },
+        "gallery": {
+            "label": "Galeria",
+            "seeAllImages": "Zobacz wszystkie obrazy",
+            "navigateToOriginal": "Przejdź do oryginalnej strony"
+        },
+        "weather": {
+            "failedToFetch": "Nie udało się pobrać danych pogodowych",
+            "updated": "Zaktualizowano",
+            "fetchingData": "Ładowanie danych pogodowych",
+            "types": {
+                "clearsky": "Bezchmurnie",
+                "fair": "Małe zachmurzenie",
+                "partlycloudy": "Częściowe zachmurzenie",
+                "cloudy": "Pochmurno",
+                "rainshowers": "Przelotne opady deszczu",
+                "rain": "Deszcz",
+                "snow": "Śnieg",
+                "sleet": "Deszcz ze śniegiem",
+                "thunder": "Burza",
+                "fog": "Mgła",
+                "wind": "Wietrznie",
+                "unknown": "Nieznane"
             }
         }
     }

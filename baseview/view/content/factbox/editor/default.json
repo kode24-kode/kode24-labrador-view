@@ -118,6 +118,9 @@
             }
         }
     },
+    "draggable": {
+        "icon": "labicon-info"
+    },
     "droppable": {
         "delegate": "TextDrop",
         "params": {

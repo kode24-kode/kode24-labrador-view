@@ -40,7 +40,12 @@ export class SearchMapper {
                     item.children = [image];
                 }
                 item.contentdata.fields.subtitle.value = this.trimBodytext(item.contentdata.fields.subtitle.value, item);
-                item.contentdata.fields.subtitle.value += `<span class="info"><span class="sitealias label">${ this.siteIdToDisplayName(item.contentdata.fields.site_id.value) }</span> <span class="date fi-clock"> ${ this.dateToAge(item.contentdata.fields.published.value) }</span> <span class="section_tag fi-price-tag"> ${ item.contentdata.primaryTags.section }</span></span>`;
+                const siteName = !this.layout.article.hideSiteName ? `<span class="sitealias label">${ this.siteIdToDisplayName(item.contentdata.fields.site_id.value) }</span>` : '';
+                const publishedDate = !this.layout.article.hidePublishedDate ? `<span class="date fi-clock"> ${ this.dateToAge(item.contentdata.fields.published.value) }</span>` : '';
+                const section = !this.layout.article.hideSection ? `<span class="section_tag fi-price-tag"> ${ item.contentdata.primaryTags.section }</span>` : '';
+                if (siteName || publishedDate || section) {
+                    item.contentdata.fields.subtitle.value += `<span class="info">${ siteName }${ publishedDate }${ section }</span>`;
+                }
                 item.width = { vp: this.layout.article.width };
                 return item;
             })

@@ -10,7 +10,11 @@ figure {
     [class*="bg-"],
     &:has(.hasContentPadding) {
         .caption {
-            padding: calc($bg_text_padding / 2) $bg_text_padding $bg_text_padding $bg_text_padding;
+            padding-block: calc($bg_text_padding / 2) $bg_text_padding;
+        }
+
+        .caption[data-expandable] {
+            min-height: 50px;
         }
     }
 
@@ -41,6 +45,17 @@ figure {
 
         &[class*="image_overlay_opacity-75"] {
             opacity: 0.75;
+        }
+    }
+
+    @include mobile {
+        &.column {
+            &.mobile-floatLeft,
+            &.mobile-floatRight {
+                .content .caption:not(.truncate):before {
+                    margin-left: 0;
+                }
+            }
         }
     }
 }
@@ -97,9 +112,11 @@ figure {
 
         &[itemprop="author"] {
             opacity: 0.7;
+
             &:empty {
                 display: none;
             }
+
             &:before {
                 content: attr(data-byline-prefix) " ";
             }
@@ -111,6 +128,7 @@ figure {
     position: relative;
     cursor: pointer;
     z-index: 1;
+    min-height: 35px;
     
     &:before {
         content: attr(data-showcaption);
@@ -210,6 +228,7 @@ figure {
         max-height: min(95vh, 1600px);
         overflow: auto;
     }
+
     .content[data-isWide="true"] {
         width: 95vw;
         height: auto;

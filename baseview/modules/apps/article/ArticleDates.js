@@ -23,28 +23,21 @@ export class ArticleDates {
             }
         };
         this.template = `<div class="lab-modal-form lab-grid lab-hidden">
-
             <div class="lab-formgroup lab-grid">
-                <h2 class="lab-title lab-grid-large-12 lab-grid-gap">Published date</h2>
-                <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-medium">
-                    <label for="publishedDate">Date</label>
-                    <input type="date" id="publishedDate" name="fields.published" value="{{ datetime.publishDate }}">
+                <h2 class="lab-title lab-grid-large-12 lab-grid-gap">{{{ title }}}</h2>
+                <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-space-below-medium">
+                    <p class="lab-info">Note: The datepicker uses your device's local timezone.</p>
                 </div>
                 <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-medium">
-                    <label for="publishedTime">Time</label>
-                    <input type="time" id="publishedTime" name="fields.published" value="{{ datetime.publishTime }}">
+                    <label for="publishedDateTime">Date and time</label>
+                    <input type="datetime-local" id="publishedDateTime" name="fields.published" value="{{ datetime.publishedDateTime }}">
                 </div>
             </div>
-
             <div class="lab-formgroup lab-grid">
                 <h4 class="lab-title lab-grid-large-12 lab-grid-gap">Hide on front after</h4>
                 <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-small">
-                    <label for="hidefromfp_timeDate">Date</label>
-                    <input type="date" id="hidefromfp_timeDate" name="fields.hidefromfp_time" value="{{ datetime.hideDate }}">
-                </div>
-                <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-small">
-                    <label for="hidefromfp_timeTime">Time</label>
-                    <input type="time" id="hidefromfp_timeTime" name="fields.hidefromfp_time" value="{{ datetime.hideTime }}">
+                    <label for="hidefromfp_timeDateTime">Date and time</label>
+                    <input type="datetime-local" id="hidefromfp_timeDateTime" name="fields.hidefromfp_time" value="{{ datetime.hideDateTime }}">
                 </div>
                 <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-space-below-medium">
                     <p class="lab-info">
@@ -52,24 +45,15 @@ export class ArticleDates {
                     </p>
                 </div>
             </div>
-
             <div class="lab-formgroup lab-grid">
                 <h4 class="lab-title lab-grid-large-12 lab-grid-gap">Calendar dates</h4>
                 <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-medium">
-                    <label for="calendar_start_date-date">From Date</label>
-                    <input type="date" id="calendar_start_date-date" name="fields.calendar_start_date" value="{{ datetime.calendarFromDate }}">
-                </div>
-                <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-medium">
-                    <label for="calendar_start_date-time">From Time</label>
-                    <input type="time" id="calendar_start_date-time" name="fields.calendar_start_date" value="{{ datetime.calendarFromTime }}">
+                    <label for="calendar_start_date-dateTime">From date and time</label>
+                    <input type="datetime-local" id="calendar_start_date-dateTime" name="fields.calendar_start_date" value="{{ datetime.calendarFromDateTime }}">
                 </div>
                 <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-small">
-                    <label for="calendar_end_date-date">To Date</label>
-                    <input type="date" id="calendar_end_date-date" name="fields.calendar_end_date" value="{{ datetime.calendarToDate }}">
-                </div>
-                <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-small">
-                    <label for="calendar_end_date-time">To Time</label>
-                    <input type="time" id="calendar_end_date-time" name="fields.calendar_end_date" value="{{ datetime.calendarToTime }}">
+                    <label for="calendar_end_date-dateTime">To date and time</label>
+                    <input type="datetime-local" id="calendar_end_date-dateTime" name="fields.calendar_end_date" value="{{ datetime.calendarToDateTime }}">
                 </div>
                 <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-space-below-medium">
                     <p class="lab-info">
@@ -77,7 +61,6 @@ export class ArticleDates {
                     </p>
                 </div>
             </div>
-
         </div>`;
     }
 
@@ -97,43 +80,41 @@ export class ArticleDates {
         return {
             'fields.published': {
                 node: 'fields.published',
-                transformer: (value, pathInfo) => this.dateTransformer(pathInfo)
+                transformer: (value, pathInfo) => this.dateTransformer(pathInfo),
+                validator: 'isValidDate'
             },
             'fields.hidefromfp_time': {
                 node: 'fields.hidefromfp_time',
-                transformer: (value, pathInfo) => this.dateTransformer(pathInfo)
+                transformer: (value, pathInfo) => this.dateTransformer(pathInfo),
+                validator: 'isValidDate'
             },
             'fields.calendar_start_date': {
                 node: 'fields.calendar_start_date',
-                transformer: (value, pathInfo) => this.dateTransformer(pathInfo, false)
+                transformer: (value, pathInfo) => this.dateTransformer(pathInfo, false),
+                validator: 'isValidDate'
             },
             'fields.calendar_end_date': {
                 node: 'fields.calendar_end_date',
-                transformer: (value, pathInfo) => this.dateTransformer(pathInfo, false)
+                transformer: (value, pathInfo) => this.dateTransformer(pathInfo, false),
+                validator: 'isValidDate'
             }
         };
     }
 
     dateTransformer(pathInfo, toTimestamp = true) {
-        const date = this.dom[pathInfo.node].date.value;
-        const time = this.dom[pathInfo.node].time.value;
-        if (!date) { return ''; }
+        const dateTime = this.dom[pathInfo.node].dateTime.value;
         if (toTimestamp) {
-            return this.getTimestamp(date, time);
+            return this.getTimestamp(dateTime);
         }
-        return `${ new Date(`${ date }T${ time || '00:00' }`).toISOString().split('.')[0] }Z`;
+        return `${ new Date(dateTime).toISOString().split('.')[0] }Z`;
     }
 
     onMarkup() {
         const datetime = {
-            publishDate: '',
-            publishTime: '',
-            hideDate: '',
-            hideTime: '',
-            calendarFromDate: '',
-            calendarFromTime: '',
-            calendarToDate: '',
-            calendarToTime: ''
+            publishedDateTime: '',
+            hideDateTime: '',
+            calendarFromDateTime: '',
+            calendarToDateTime: ''
         };
 
         const published = this.rootModel.get('fields.published'); // timestamp
@@ -143,50 +124,46 @@ export class ArticleDates {
 
         if (published) {
             const dt = this.getDateTime(published);
-            datetime.publishDate = dt.date;
-            datetime.publishTime = dt.time;
+            datetime.publishedDateTime = dt;
         }
         if (hidefromfp_time) {
             const dt = this.getDateTime(hidefromfp_time);
-            datetime.hideDate = dt.date;
-            datetime.hideTime = dt.time;
+            datetime.hideDateTime = dt;
         }
         if (calendar_start_date) {
             const timestamp = new Date(calendar_start_date).valueOf() / 1000;
             const dt = this.getDateTime(timestamp);
-            datetime.calendarFromDate = dt.date;
-            datetime.calendarFromTime = dt.time;
+            datetime.calendarFromDateTime = dt;
         }
         if (calendar_end_date) {
             const timestamp = new Date(calendar_end_date).valueOf() / 1000;
             const dt = this.getDateTime(timestamp);
-            datetime.calendarToDate = dt.date;
-            datetime.calendarToTime = dt.time;
+            datetime.calendarToDateTime = dt;
         }
 
+        const title = published * 1000 > Date.now() || !published ? 'Scheduled publish date' : 'Published date';
+
         const markup = this.api.v1.util.dom.renderTemplate(this.template, {
-            datetime
+            datetime,
+            title
         }, true);
-        this.dom['fields.published'].date = markup.querySelector('#publishedDate');
-        this.dom['fields.published'].time = markup.querySelector('#publishedTime');
-        this.dom['fields.hidefromfp_time'].date = markup.querySelector('#hidefromfp_timeDate');
-        this.dom['fields.hidefromfp_time'].time = markup.querySelector('#hidefromfp_timeTime');
-        this.dom['fields.calendar_start_date'].date = markup.querySelector('#calendar_start_date-date');
-        this.dom['fields.calendar_start_date'].time = markup.querySelector('#calendar_start_date-time');
-        this.dom['fields.calendar_end_date'].date = markup.querySelector('#calendar_end_date-date');
-        this.dom['fields.calendar_end_date'].time = markup.querySelector('#calendar_end_date-time');
+        this.dom['fields.published'].dateTime = markup.querySelector('#publishedDateTime');
+        this.dom['fields.hidefromfp_time'].dateTime = markup.querySelector('#hidefromfp_timeDateTime');
+        this.dom['fields.calendar_start_date'].dateTime = markup.querySelector('#calendar_start_date-dateTime');
+        this.dom['fields.calendar_end_date'].dateTime = markup.querySelector('#calendar_end_date-dateTime');
 
         return markup;
     }
 
-    getTimestamp(date, time) {
-        const d = new Date(`${ date  }T${  time || '00:00'  }Z`);
+    getTimestamp(dateTime) {
+        const d = new Date(`${ dateTime }Z`);
         const localDate = new Date(d.valueOf() + d.getTimezoneOffset() * 60000);
         return localDate.getTime() / 1000;
     }
 
     getDateTime(timestamp) {
         const date = new Date(timestamp * 1000);
+        const year = date.getFullYear();
         let month = date.getMonth() + 1;
         if (month < 10) month = `0${ month }`;
         let day = date.getDate();
@@ -196,10 +173,7 @@ export class ArticleDates {
         let minute = date.getMinutes();
         if (minute < 10) minute = `0${ minute }`;
 
-        return {
-            date: `${ date.getFullYear()  }-${  month  }-${  day }`, // yyyy-mm-dd
-            time: `${ hour  }:${  minute }` // hh:mm
-        };
+        return `${ year }-${  month  }-${  day }T${ hour  }:${  minute }`;
     }
 
 }

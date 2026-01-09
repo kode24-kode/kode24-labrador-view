@@ -13,6 +13,11 @@ export class DynamicDataHelper {
         this.cache = new Map();
         this.pageElements = {};
         this.hideAds = this.page.get('fields.hideAds') === '1' || this.page.get('fields.hideAds') === true;
+        this.hideTopBannerAd = this.page.get('fields.hideTopBannerAd') === '1' || this.page.get('fields.hideTopBannerAd') === true;
+        this.hideSkyscraperAd = this.page.get('fields.hideSkyscraperAd') === '1' || this.page.get('fields.hideSkyscraperAd') === true;
+        if (this.api.v1.util.request.hasQueryValue('lab_opts', 'infinitescroll')) {
+            this.pageType = `${ this.pageType }_infinitescroll`;
+        }
     }
 
     hasRequiredElement(name) {
@@ -30,7 +35,9 @@ export class DynamicDataHelper {
      * @returns {Array} Array of ads that should be inserted client side, not inserted here.
      */
     insert(viewport, pathFilter = null) {
-        const returnValue = [];
+        const returnValue = {
+            clientSidePlacements: []
+        };
         const clientSidePlacements = {};
         const contentPath = `insertDynamic.${ this.pageType }.${ viewport }`;
         const placementsPath = `placements.${ this.pageType }.${ viewport }`;
@@ -85,7 +92,7 @@ export class DynamicDataHelper {
             const content = (this.isEditor ? mergedValue.filter((item) => (!item.dynamicDataSettings || !item.dynamicDataSettings.hideInEditMode)) : mergedValue).filter((item) => {
                 if (item.placement && item.placement.key && clientSidePlacements[item.placement.key]) {
                     const clientSideItem = { ...item, placementData: clientSidePlacements[item.placement.key] };
-                    returnValue.push(clientSideItem);
+                    returnValue.clientSidePlacements.push(clientSideItem);
                     return false;
                 }
                 return true;
@@ -199,7 +206,42 @@ export class DynamicDataHelper {
                     const insertable = this.create(item, placement, content, viewport);
                     if (insertable !== null) {
                         insertable.data.metadata.viewportBlacklist = this.viewports.filter((current) => current !== viewport);
-                        insertables.unshift(insertable);
+                        insertables.push(insertable);
+
+                        // For placements using the 'interval' property:
+                        // Create 'placeholder' elements at each interval.
+                        // Note: We only support interval placement on placements with a defined path.
+                        // The placeholders can be used client side to insert content at the correct position.
+                        // Or it can be transparent to reveal an ad placed at the same position etc.
+                        if (Number.isInteger(insertable.options.interval) && Number.isInteger(insertable.options.index)) {
+                            const { interval } = item.placement;
+                            const { index } = item.placement;
+                            let currentIndex = index;
+                            const model = this.api.v1.model.query.getModelByPath(insertable.path);
+                            if (model) {
+                                const count = model.getPersistentChildren().length;
+
+                                while (currentIndex < count) {
+                                    const itemCopy = JSON.parse(JSON.stringify(item));
+                                    itemCopy.options.index = currentIndex;
+                                    itemCopy.placement.index = currentIndex;
+                                    itemCopy.type = 'placeholder_ad';
+
+                                    const placementCopy = JSON.parse(JSON.stringify(placement));
+                                    placementCopy.selector = '';
+
+                                    const newInsertable = this.create(itemCopy, placementCopy, content, viewport);
+
+                                    if (newInsertable !== null) {
+                                        newInsertable.data.metadata.viewportBlacklist = this.viewports.filter((current) => current !== viewport);
+                                        insertables.push(newInsertable);
+                                    }
+
+                                    currentIndex += interval;
+                                }
+                            }
+
+                        }
                     }
                 } else {
                     Sys.logger.debug(`[DynamicDataHelper]: Path "${ placement.path }" not allowed. Filter: "${ pathFilter }", key: "${ item.placement.key }"`);
@@ -243,7 +285,7 @@ export class DynamicDataHelper {
 
             const options = {
                 ...item.options,
-                prepend: true,
+                prepend: placement.options.prepend || false,
                 silent: true
             };
             let { path } = placement;
@@ -291,24 +333,12 @@ export class DynamicDataHelper {
 
                     if (placement.options.useIndex) {
                         if (index < parent.children.length) {
-                            // If the previous model is set to not render, we need to set the index to +1 so it will render after the next model.
-                            if (parent.children[index - 1] && parent.children[index - 1].getNoRenderState()) {
-                                // Check if the next ad content has the same index as current index + 1,
-                                // That means they have ads two rows in a row, so we can discard the one that was
-                                // supposed to be rendered after the row that is hidden
-                                if (allItems[index + 1] && allItems[index + 1].placement.index === index + 1) {
-                                    return null;
-                                }
-
-                                options.index = index + 1;
-                            } else {
-                                options.index = index;
-                            }
+                            options.index = index;
                         }
                     }
 
                     if (!placement.options.shouldInsert) {
-                        path = parent.getPositionedPath();
+                        path = parent.getPositionedPath(true);
                     }
                 } else {
                     options.prepend = false;
@@ -359,6 +389,7 @@ export class DynamicDataHelper {
             data.metadata.lastBodyTextHeading = true;
         }
 
+        data.metadata.options = item.options || {};
         data.state.isNonPersistent = true;
 
         return data;
@@ -377,6 +408,15 @@ export class DynamicDataHelper {
     // This way the helper will stay independent, and not care about specific implementations.
     filter(item) {
         if (item.type === 'googleAd' || item.type === 'adnuntiusAd') {
+            Sys.logger.debug(`[DynamicDataHelper]: Ad insertion requested. ad unit=${ item.placement.key } hideAds=${ this.hideAds }, hideTopBannerAd=${ this.hideTopBannerAd }, hideSkyscraperAd=${ this.hideSkyscraperAd }`);
+            if (item.placement.key === 'topbanner' && this.hideTopBannerAd) {
+                Sys.logger.debug('[DynamicDataHelper]: Top banner ad is hidden. Skipping insertion.');
+                return false;
+            }
+            if (item.placement.key.includes('skyscraper_') && this.hideSkyscraperAd) {
+                Sys.logger.debug('[DynamicDataHelper]: Skyscraper ad is hidden. Skipping insertion.');
+                return false;
+            }
             return !this.hideAds;
         }
         return true;
@@ -386,7 +426,7 @@ export class DynamicDataHelper {
     getModelsByPath(path, viewport) {
         const key = `getByPath-${ path }`;
         if (!this.cache.has(key)) {
-            this.cache.set(key, (this.api.v1.model.query.getModelsByPath(path) || []).filter((m) => !m.get('metadata.hideViewport', viewport) && !m.isNonPersistent()));
+            this.cache.set(key, this.api.v1.model.query.getModelsByPath(path, true, true));
         }
         return this.cache.get(key);
     }

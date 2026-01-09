@@ -19,7 +19,7 @@
         <ul class="scroll-container swipehelper snap-container-x snap-element-start articles count_{{ get.current.filtered.visibleArticleCount }} {{ #get.current.filtered.hideImages }}imagesHidden{{ /get.current.filtered.hideImages }}">
             {{ #get.current.filtered.data }}
                 <li data-section="{{ section }}" class="scroll-item snap-element column {{ #image }}hasImage{{ /image }}{{ ^image }}noImage{{ /image }}{{ #get.current.fields.skipLeadText }} skipLeadText{{ /get.current.fields.skipLeadText }}">
-                    <a href="{{{ url }}}">
+                    <a href="{{{ url }}}"{{ #get.current.fields.openInNewTab }} target="_blank"{{ /get.current.fields.openInNewTab }}>
                         {{ #image }}
                             <figure>
                                 {{ #paywall }}

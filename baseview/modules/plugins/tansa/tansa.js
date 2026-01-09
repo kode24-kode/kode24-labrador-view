@@ -1,5 +1,7 @@
 export const tansa = {
 
+    registered: new Map(),
+
     // settings: {
     //     baseUrl: 'https://kommune.tansa.com/tansaclient/',   // Settes i admin
     //     licenseKey: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',  // Settes i admin
@@ -17,10 +19,7 @@ export const tansa = {
         btn.setAttribute('style', `position:fixed; top: ${ rect.top - 20 }px; left: ${ rect.left }px; height:0;`);
         document.body.appendChild(btn);
         for (const item of targets) {
-            const domElement = tansa.getDomElement(item);
-            if (domElement) {
-                domElement.setAttribute('tansa-proofing', 'true');
-            }
+            tansa.prepareItem(item);
         }
         document.defaultView.tansa4ClientExtensionPlugin = {
             replaceText: (tansaReplaceTextFunRef, index, startPos, endPos, replacement, occurrenceNo, textToReplace) => {
@@ -49,6 +48,43 @@ export const tansa = {
             document.defaultView.tansa4ClientExtension.initMenu();
         } else {
             console.warn('[Tansa] Error: tansa4ClientExtension missing/incomplete.');
+        }
+    },
+
+    prepareItem: (item) => {
+        if (!tansa.registered.has(item.model)) {
+            tansa.registered.set(item.model, []);
+        }
+        const items = tansa.registered.get(item.model);
+        const isPrepared = items.find((itm) => itm.selector === item.selector && itm.path === item.path);
+        if (isPrepared) {
+            return;
+        }
+        items.push({
+            selector: item.selector,
+            path: item.path
+        });
+        tansa.registered.set(item.model, items);
+        if (items.length === 1) {
+            lab_api.v1.model.bindings.bindRedraw(item.model, (model, view, { ...params }) => {
+                if (lab_api.v1.viewport.getMain() !== view.getViewport()) {
+                    return;
+                }
+                for (const itm of tansa.registered.get(model)) {
+                    const theItem = { ...params };
+                    theItem.selector = itm.selector;
+                    theItem.path = itm.path;
+                    tansa.decorateItem(theItem);
+                }
+            }, item);
+        }
+        tansa.decorateItem(item);
+    },
+
+    decorateItem: (item) => {
+        const domElement = tansa.getDomElement(item);
+        if (domElement) {
+            domElement.setAttribute('tansa-proofing', 'true');
         }
     },
 

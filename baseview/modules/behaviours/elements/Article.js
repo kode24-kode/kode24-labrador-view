@@ -231,6 +231,16 @@ export default class Article {
         if (this.autoFontSizeConfig.enabled) {
             this.autoFontSizeDone = model.get('metadata.autoFontSizeDone');
         }
+
+        // For sitemap
+        if (this.api.v1.viewport.getName() === 'newssitemap') {
+            const headerImage = this.api.v1.model.query.getChildOfType(model, 'image');
+            const imageId = headerImage.get('instance_of');
+            if (this.imageServer && headerImage && imageId) {
+                const headerImageUrl = `${ this.imageServer }?imageId=${ imageId }&format=webp&width=500`;
+                model.setFiltered('headerImageUrl', headerImageUrl);
+            }
+        }
     }
 
     onRendered(model, view) {
@@ -281,4 +291,5 @@ export default class Article {
         if (url.startsWith('http')) { return url; }
         return this.imageServer + url;
     }
+
 }

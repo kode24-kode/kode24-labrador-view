@@ -17,6 +17,105 @@ export default class Image {
             this.api.v1.ns.set('imageFilter.preview', this.prepareVisualFilters);
         }
         this.isFragmentMode = this.api.v1.app.mode.isFragmentMode();
+        this.isEditorMode = this.api.v1.app.mode.isEditor();
+        this.boundModels = []; // Track bound models to avoid duplicate bindings
+    }
+
+    // Setup bindings for caption/byline sync
+    onInserted(model, view) {
+        if (this.isEditorMode && model.get('instance_of')) {
+            if (!this.boundModels.includes(model)) {
+                this.api.v1.model.bindings.bind(model, 'fields.imageCaption', this.imageUpdater.bind(this));
+                this.api.v1.model.bindings.bind(model, 'fields.byline', this.imageUpdater.bind(this));
+                this.boundModels.push(model);
+            }
+        }
+    }
+
+    // Sync caption/byline changes from frontend to backend image node
+    // Possible future work is to add alt text editing to front
+    imageUpdater(model, path, value) {
+        if (!value) return; // Don't sync empty values
+
+        const imageId = model.get('instance_of');
+        if (!imageId) return;
+
+        const isCaption = path.includes('imageCaption');
+        const isByline = path.includes('byline');
+
+        // Fetch backend image node and check if field needs syncing
+        this.api.v1.util.httpClient.get(`/ajax/node/get-node?id=${ imageId }`, { resetCache: true }).then((response) => {
+            const backendNode = response.data;
+            const backendCaption = (backendNode && backendNode.fields && backendNode.fields.caption) || '';
+            const backendByline = (backendNode && backendNode.fields && backendNode.fields.byline) || '';
+
+            // Check if we need to save
+            const shouldSaveCaption = isCaption && !backendCaption;
+            const shouldSaveByline = isByline && !backendByline;
+
+            // If backend already has data, no need to sync
+            if (!shouldSaveCaption && !shouldSaveByline) {
+                return;
+            }
+
+            const setLanguage = (backendNode && backendNode.fields && backendNode.fields.extra_metadata_json && backendNode.fields.extra_metadata_json.currentLanguage) || this.api.v1.config.get('contentLanguage') || 'en';
+            const extra_metadata_json = JSON.parse(JSON.stringify((backendNode && backendNode.fields && backendNode.fields.extra_metadata_json) || {}));
+            const fields = {};
+
+            // Ensure nested structure exists
+            if (!extra_metadata_json.aiMetadata) {
+                extra_metadata_json.aiMetadata = {};
+            }
+            if (!extra_metadata_json.aiMetadata[setLanguage]) {
+                extra_metadata_json.aiMetadata[setLanguage] = {};
+            }
+
+            // Handle caption sync
+            if (shouldSaveCaption) {
+                const frontendLanguage = model.get('fields.extra_metadata_json.currentLanguage') || '';
+                const languagesMatch = !frontendLanguage || frontendLanguage === setLanguage;
+                const setLanguageHasCaption = extra_metadata_json.aiMetadata && extra_metadata_json.aiMetadata[setLanguage] && extra_metadata_json.aiMetadata[setLanguage].caption;
+
+                if (!setLanguageHasCaption && languagesMatch) {
+                    fields.caption = value;
+                    extra_metadata_json.aiMetadata[setLanguage].caption = value;
+                    fields.extra_metadata_json = extra_metadata_json;
+                }
+            }
+
+            // Handle byline sync (not language-specific)
+            if (shouldSaveByline) {
+                fields.byline = value;
+            }
+
+            // Only save if we have fields to update
+            if (Object.keys(fields).length === 0) {
+                return;
+            }
+
+            const nodeData = {
+                type: 'image',
+                id: imageId,
+                fields
+            };
+
+            const saveFormData = new FormData();
+            saveFormData.append('json[id]', imageId);
+            saveFormData.append('json[type]', 'image');
+            saveFormData.append('json[structure]', null);
+            saveFormData.append('json[node]', JSON.stringify([nodeData]));
+
+            this.api.v1.util.httpClient.request('/ajax/node/save-node-and-data', {
+                body: saveFormData,
+                method: 'POST'
+            }).then(() => {
+                Sys.logger.debug('[Image] Synced caption/byline to backend:', imageId);
+            }).catch((error) => {
+                Sys.logger.error('[Image] Error syncing to backend:', error);
+            });
+        }).catch((error) => {
+            Sys.logger.error('[Image] Error fetching backend node:', error);
+        });
     }
 
     // View-helper is about to run, it may use filtered data.
@@ -51,7 +150,6 @@ export default class Image {
 
     // (void) Element has been rendered
     onRendered(model, view) {
-
         if (!this.api.v1.app.mode.isEditor() || !this.cropIds.length) {
             return;
         }

@@ -2,19 +2,29 @@
     <div class="dashboardbox-menu">
         <h3>{{{ fields.title }}}, site: {{{filtered.site_alias}}}</h3>
     </div>
-    <div class="content">
+    <div class="content"> 
         {{ #filtered.noArticles }}
+            <p class="smalltext lastrefresh" id="lastRefresh"></p>
             <ul class="articles">
                 <li>Could not fetch articles</li>
             </ul>
         {{ /filtered.noArticles }}
 
         {{ ^filtered.noArticles }}
+            <p class="smalltext lastrefresh" id="lastRefresh"></p>
             <ul class="articles">{{ #external.data }}
-                <li class="{{ #labId }}lab-article-exists{{ /labId }}">
+                <li class="{{ #labId }}lab-article-exists{{ /labId }}{{ #updateExists }} lab-article-update-exists{{ /updateExists }}">
+                <div class="image">
+                    {{ #frontCropUrl }}<img src="{{ frontCropUrl }}" />{{ /frontCropUrl }}
+                    {{ ^frontCropUrl }}<span class="noimage lab-icon-upload"></span>{{ /frontCropUrl }}
+                </div>
                     <div class="controls">
+                        {{#bodytext}}
+                            <span class="bodytext_toggle control_el lab-icon-settings" onclick="toggle_bodytext(this);" title="Display bodytext"></span>
+                        {{/bodytext}}
                         {{ ^labId }}<span title="Import article" class="control_el import_ntb lab-icon-import" data-ntb-id="{{ id }}" data-ntb-service="{{ service }}"></span>{{ /labId }}
                         {{ #labId }}<a title="Edit article" data-lab-ignore-exitwarning="1" href="/edit/article/id/{{ labId }}" target="_blank" class="control_el lab-icon-startEdit"></a>{{ /labId }}
+                        {{ #updateExists }}<span title="Update article" class="control_el update_ntb lab-icon-refresh" data-ntb-id="{{ id }}" data-ntb-service="{{ service }}"></span>{{ /updateExists }}
                     </div>
                     <div class="article">
                         <h4 class="{{^title}}no-title{{/title}}">{{{ title }}}{{^title}}Missing{{/title}}</h4>
@@ -35,6 +45,7 @@
                             {{#publishedString}}
                              Published: <span class="date lab-icon-time">{{{ publishedString }}}</span>
                             {{/publishedString}}
+                             Images: <span class="date"> {{{ mediaCount }}}</span>
                         </p>
                     </div>
                 </li>
@@ -43,3 +54,34 @@
     </div>
     <div class="dashboardbox-nav"><span class="pager">Page {{ filtered.pageNumber }}</span></div>
 </div>
+
+<script>
+const lastRenderTime = Date.now();
+const updateLastRefresh = () => {
+    const now = Date.now();
+    const diffMs = now - lastRenderTime;
+    const minutes = Math.floor(diffMs / 60000); // 60000 ms in a minute
+    const lastRefresh = `Last refresh: ${minutes} minutes ago`;
+    if (document.getElementById('lastRefresh')) {
+        document.getElementById('lastRefresh').innerText = lastRefresh;
+    }
+};
+updateLastRefresh();
+setInterval(() => {
+    updateLastRefresh();
+}, 60000); // Update every minute
+
+function toggle_bodytext(element) {
+    if (!element) return;
+    var listEl = element.parentElement.parentElement;
+    if (!listEl) return;
+    var className = listEl.className;
+    isOpen = className.indexOf(' text_expanded') > -1;
+    if (isOpen) {
+        listEl.className = className.replace(' text_expanded', '');
+    } else {
+        listEl.className = className + ' text_expanded';
+        parent.Lab.windowController.updateFrameHeights('fast');
+    }
+}
+</script>

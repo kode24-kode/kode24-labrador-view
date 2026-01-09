@@ -1,0 +1,14 @@
+<div class="comment-containers">
+{{#comments}}
+  <div class="comment{{#resolved}} comment-resolved{{/resolved}}" data-id="{{id}}" data-guid="{{tagGuid}}">
+    <div class="comment-author">{{author}}</div>
+    <div class="comment-text">{{text}}</div>
+    <div class="comment-btn-container">
+      <button class="comment-btn-cancel lab-btn lab-small hidden" data-id="{{id}}">Cancel</button>
+      <button class="comment-btn-edit lab-btn lab-small{{#resolved}} hidden{{/resolved}}" data-id="{{id}}">Edit</button>
+      <button class="comment-btn-resolve lab-btn lab-small lab-selected{{#resolved}} hidden{{/resolved}}" data-id="{{id}}">Resolve</button>
+      <button class="comment-btn-save lab-btn lab-small lab-selected hidden" data-id="{{id}}">Save</button>
+    </div>
+  </div>
+{{/comments}}
+</div>

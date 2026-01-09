@@ -179,7 +179,7 @@ export class LabradorAi {
         return promptConfig;
     }
 
-    getAiSettings(promptConfig) {
+    getAiSettings(promptConfig, params = {}) {
         /**
          * Get the AI settings for the current feature, as defined in admin page Labrador AI for the current site.
          * Passed on to backend AI integration for generation of content
@@ -201,6 +201,7 @@ export class LabradorAi {
 
         const aiProvider = this.promptInstructions.aiProvider[defaultAiProvider];
         aiProvider.searchForKeywords = promptConfig.searchForKeywords || [];
+        aiProvider.featureName = params.featureName || '';
         return aiProvider;
     }
 
@@ -681,7 +682,8 @@ export class LabradorAi {
                 prompt,
                 service: 'chatCompletions',
                 model: aiIntegrationSettings.model,
-                aiSettings: aiIntegrationSettings
+                aiSettings: aiIntegrationSettings,
+                featureName: aiIntegrationSettings.featureName || ''
             };
             this.api.v1.generate.text(options).then((result) => {
                 resolve(result);
@@ -744,7 +746,7 @@ export class LabradorAi {
         // Config setup for prompt, priorities customParams over site/admin config
         const promptConfig = this.getPromptConfig(params, customParams);
         const prompt = this.getPrompt(promptConfig);
-        const aiIntegrationSettings = this.getAiSettings(promptConfig);
+        const aiIntegrationSettings = this.getAiSettings(promptConfig, params);
         Sys.logger.debug(`[Labrador Ai - ${ params.featureName }]: Finished preprocess of generateContent`);
 
         return [prompt, aiIntegrationSettings];
@@ -837,6 +839,14 @@ export class LabradorAi {
         if (!fieldContent || fieldContent.length === 0) {
             return;
         }
+
+        this.siteAlias = this.rootModel.get('filtered.siteAlias') || this.siteInfo.alias;
+        this.configSite = this.api.v1.config.get('labradorAi.globalSettings') || {};
+        const hideDisclaimer = this.configSite.hideDisclaimer || false;
+        if (hideDisclaimer) {
+            return;
+        }
+
         const localizedString = lab_api.v1.locale.get(localizationPath);
         if (!localizedString || localizedString.length === 0) {
             return;

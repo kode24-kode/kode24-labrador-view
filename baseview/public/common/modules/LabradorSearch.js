@@ -71,7 +71,6 @@ export class LabradorSearch {
             ConfigObject: this.settings.ConfigObject,
             url: this.getUrl(),
             app: {
-                // device: 'mobile',
                 device: this.settings.viewport,
                 image_server: this.settings.imageServer
             },
@@ -84,7 +83,10 @@ export class LabradorSearch {
                         width: {
                             desktop: desktopWidth,
                             mobile: 100
-                        }
+                        },
+                        hideSiteName: this.settings.hideSiteName,
+                        hidePublishedDate: this.settings.hidePublishedDate,
+                        hideSection: this.settings.hideSection
                     },
                     image: {
                         width: {
@@ -240,6 +242,9 @@ export class LabradorSearch {
     }
 
     toggleAdvancedSearchUI(isOn) {
+        if (!this.settings.advanced.display) {
+            return;
+        }
         if (isOn) {
             this.dom.advanced.button.innerText = this.settings.advanced.button.closeText || 'Hide Advanced';
             this.dom.advanced.container.classList.add('expanded');

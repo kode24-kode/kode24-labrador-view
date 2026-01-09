@@ -6,35 +6,63 @@ export default class Bodytext {
         this.api = api;
         this.isFront = this.api.v1.app.mode.isFront();
         this.internal = this.api.v1.properties.get('paywall') || {};
-        const config = this.api.v1.config.get('paywall') || {};
-        this.provider = config.provider || 'internal';
+        const paywallConfig = this.api.v1.config.get('paywall') || {};
+        this.provider = paywallConfig.provider || 'internal';
         // View can disable displaying buildt-in paywall in config: { paywall: { displaySalesPosters: false, ... } }
         // Useful for providers rendering the salesposters client-side
-        this.displaySalesPosters = config.displaySalesPosters !== false;
+        this.displaySalesPosters = paywallConfig.displaySalesPosters !== false;
     }
 
     onRender(model, view) {
+        const newzwareConfig = this.api.v1.config.get('newzware') || {};
+        const isNewzwareEnabled = this.isFront && this.provider === 'newzware' && newzwareConfig.enabled === true;
+
         const paywall = {
             displaySalesPosters: this.displaySalesPosters,
             isInternal: this.provider === 'internal' && this.internal.active,
-            active: this.isFront && (this.provider === 'internal' ? this.internal.active : !!model.get('fields.paywall')),
+
+            active: this.isFront && (this.provider === 'internal' ? this.internal.active : !!Number(model.get('fields.paywall'))),
             access: this.provider === 'internal' && this.internal.active ? this.internal.hasAccess : false,
+
             provider: this.provider,
             intro: this.provider !== 'internal' ? Paywall.filterBodytext(model, view) : undefined,
             bodytext: this.provider !== 'internal' ? model.get('filtered.bodytext') : undefined
         };
-        if (paywall.active && !paywall.access) {
+
+        if (paywall.active && !paywall.access && !isNewzwareEnabled) {
             if (this.provider === 'internal') {
                 model.setFiltered('bodytext', Paywall.filterBodytext(model, view));
             } else {
+                // Original bodytext, inside article
                 model.setFiltered('bodytext', '');
             }
         }
+
+        // Sesamy special handling - proxyLock is server-side rendering of paywall with client unlock
+        if (this.isFront && this.provider === 'sesamy' && !!Number(model.get('fields.paywall'))) {
+            const sesamyConfig = this.api.v1.config.get('sesamy') || {};
+
+            // Standard sesamy - empty bodytext inside article if protected
+            if (this.internal.isProtected === true && sesamyConfig.enabled === true) {
+                // Original bodytext, not positioned inside sesamy container
+                model.setFiltered('bodytext', '');
+            } else if (sesamyConfig.enabled === false) {
+                // Restore original bodytext if sesamy is disabled
+                model.setFiltered('bodytext', model.get('fields.bodytext'));
+            }
+
+            // Proxy lock - remove bodytext from paywall container if protected
+            if (this.internal.isProtected === true && this.internal.hasAccess === false && sesamyConfig.enabledProxyLock === true && sesamyConfig.enabled === true) {
+                paywall.bodytext = '';
+            }
+        }
+
         if (this.provider === 'iteras' && paywall.active) {
             const iterasConfig = this.api.v1.config.get('iteras') || {};
             const tags = model.get('tags') || [];
             paywall.iteras = Paywall.iterasPaywall(iterasConfig, tags);
         }
+
         model.setFiltered('paywall', paywall);
     }
 

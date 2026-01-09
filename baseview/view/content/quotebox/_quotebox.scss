@@ -100,20 +100,35 @@
         padding: 0 0 0 12px;
         position: relative;
     
-        &:before {
+        &::before {
             content: "❞";
             display: inline-block;
             margin-right: 0.2em;
+            color: var(--quotation-mark-color, inherit);
         }
 
-        &:after {
+        &::after {
             content: "";
             position: absolute;
             top: 0.3em;
             bottom: 0.1em;
             left: 0;
             width: 3px;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: var(--block-line-color, rgba(0, 0, 0, 0.4));
+        }
+
+        &.noLine {
+            padding-left: 0;
+
+            &::after {
+                display: none;
+            }
+        }
+
+        &.noMark {
+            &::before {
+                display: none;
+            }
         }
     }
 

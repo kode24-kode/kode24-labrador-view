@@ -1,8 +1,8 @@
 {
     "releasenotes": {
         "version": {
-            "int": 148,
-            "str": "1.4.8"
+            "int": 149,
+            "str": "1.4.9"
         },
         "items": [
             {
@@ -46,6 +46,18 @@
                 "date": "20250506",
                 "title": "Auto detect language removal",
                 "description": "AI is not good enough currently to consistently generate auto detected language through prompting, this will be added back in a future where the AI understands the promp and context better, for now please use the 'Use Defualt Site Language' and if needed, select a specific language when generating with extra settings"
+            },
+            {
+                "isFeature": true,
+                "date": "20250602",
+                "title": "Article teaser video overlay",
+                "description": "Adds an option to add a video overlay to article teasers. This shows a play icon and descriptive text indicating that it is a video article. The text can be hidden, or changed in Language Options."
+            },
+            {
+                "isImprovement": true,
+                "date": "20250526",
+                "title": "Notice font styles",
+                "description": "Font styles in admin now include selectors for headline, published time, author, tags and body text."
             }
         ]
     }

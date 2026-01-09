@@ -13,7 +13,8 @@ export class Placement {
             useIndex = false,
             useBodyTextIndex = false,
             useBodyTextHeadingIndex = false,
-            lastBodyTextHeading = false
+            lastBodyTextHeading = false,
+            prepend = false
         } = {}
     } = {}) {
         this.key = key;
@@ -28,7 +29,8 @@ export class Placement {
             useIndex,
             useBodyTextIndex,
             useBodyTextHeadingIndex,
-            lastBodyTextHeading
+            lastBodyTextHeading,
+            prepend
         };
     }
 

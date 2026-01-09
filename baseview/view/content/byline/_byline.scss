@@ -9,7 +9,6 @@
     display: flex;
 
     .byline {
-        // color: #000;
         letter-spacing: 0;
         line-height: 1.4em;
         vertical-align: middle;
@@ -25,26 +24,33 @@
             margin: 0 0.4em 0 0;
             width: 42px;
 
-            &:after {
+            &::after {
                 display: none;
             }
         }
+
+        .content.roundedImage {
+            figure picture img {
+                clip-path: circle();
+            }
+        }
+
         .name {
             display: block;
-            // white-space: nowrap;
-            // margin-left: 50px;
         }
+
+        .lab-hidden-byline-name {
+            display: none;
+        }
+
         .description {
             display: block;
-            // color: gray;
-            // margin-left: 50px;
             text-transform: uppercase;
             font-size: 0.78em;
             letter-spacing: 0.05em;
         }
 
         .name a {
-            // color: #0078a0;
             &:hover {
                 text-decoration: underline;
             }
@@ -70,11 +76,17 @@
             overflow: hidden;
             margin: 0 0 0 -125px;
         }
+
         address {
             font-weight: 600;
             font-style: normal;
             margin: 0 0 0.5em;
         }
+
+        .lab-hidden-byline-name {
+            display: none;
+        }
+
         .description {
             display: block;
         }
@@ -88,14 +100,16 @@ article.column .bylines {
     margin-top: 0.5em;
     font-size: 0.9em;
     flex-wrap: wrap;
+
     .content {
         display: flex;
     }
+
     .byline {
-        // color: gray;
         padding: 0.3em 0 0;
         margin-right: 0.7em;
         flex-basis: auto;
+
         figure {
             width: 30px;
             height: 30px;
@@ -104,6 +118,7 @@ article.column .bylines {
             margin: 0 0.4em 0 0;
             flex: 0 0 30px;
         }
+
         .name {
             margin-top: 0.3em;
             flex: 1 1 100%;
@@ -115,6 +130,7 @@ article.column .bylines {
     .bylines {
         display: block;
         overflow: auto;
+        
         .byline {
             display: block;
             padding-right: 0;
@@ -137,8 +153,10 @@ body.custom-font-color {
     article.column .bylines {
         color: inherit;
         border-color: currentColor;
+
         .byline {
             color: inherit;
+
             .description,
             .name a {
                 color: inherit;

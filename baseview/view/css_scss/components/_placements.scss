@@ -56,6 +56,16 @@ $horizontalOffset: 1rem;
     }
 }
 
+.infiniteSection {
+    .placement-left {
+        right: var(--lab_page_width, 68rem);
+    }
+
+    .placement-right {
+        left: var(--lab_page_width, 68rem);
+    }
+}
+
 @include desktop_down {
     .placement-top {
         width: 100%;

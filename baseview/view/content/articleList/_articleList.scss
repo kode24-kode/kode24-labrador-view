@@ -48,7 +48,7 @@
         margin-bottom: 0;
     }
 
-    .content[class*=" bg-"] figure
+    .content[class*=" bg-"] figure,
     .content.hasContentPadding figure {
         margin: 0;
     }

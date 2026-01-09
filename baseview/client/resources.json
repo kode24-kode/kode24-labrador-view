@@ -53,6 +53,11 @@
                             "partial/elements/paywallLabel"
                         ]
                     }
+                },
+                "article//": {
+                    "template": {
+                        "default": "content/article/template/subarticle"
+                    }
                 }
             }
         }

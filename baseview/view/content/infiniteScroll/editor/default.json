@@ -1,0 +1,25 @@
+{
+    "contentMenus": {
+        "default": {
+            "items": {
+                "infiniteScrollSettings": {
+                    "group": "g5",
+                    "icon": "labicon-edit",
+                    "callback": "displaySettingsPanel",
+                    "title": "Settings (,)",
+                    "hotkeys": [{
+                        "key": ","
+                    }],
+                    "params": {
+                        "settingsPanelOptions": "settingsPanels.settings"
+                    }
+                }
+            }
+        }
+    },
+    "settingsPanels": {
+        "settings": {
+            "template": "content/infiniteScroll/template/settings"
+        }
+    }
+}

@@ -1,0 +1,34 @@
+<script type="module">
+
+window.labClientAPI.on('pageChanged', ({ event, data, pageData }) => {
+    // Standard Kilkaya account is available at window.kilkaya.
+    // Kilkaya account for Labrador CMS is available at window.kkpl.
+    window.labClientAPI.log(`[Kilkaya:pageChanged] Will log event "${ data.type }" to Kilkaya`);
+    const target = window.kilkaya || window.kkpl;
+    if (!target || !target.pageview) {
+        window.labClientAPI.log(`[Kilkaya:pageChanged] Kilkaya is not initialized. Cannot log ...`);
+        return;
+    }
+    const supportedEventTypes = ['galleryImage', 'infiniteScroll'];
+    if (supportedEventTypes.includes(data.type)) {
+        // Todo: Check payload with KLilkaya. Differentiate between galleryImage and infiniteScroll?
+        target.pageview({
+            type: data.type,
+            id: `${ data.gallery }`,
+            name: `${ data.title }`,
+            imageCount: data.imageCount || 0,
+            page: `${ pageData.pageId }`,
+            position: data.photo || 0,
+            paid: {{ #get.current.filtered.paywall.enabled }}1{{ /get.current.filtered.paywall.enabled }}{{ ^get.current.filtered.paywall.enabled }}0{{ /get.current.filtered.paywall.enabled }},
+            author: pageData.bylines,
+            tag: pageData.tags,
+            title: data.title || pageData.title,
+            url: data.url,
+            login: (Dac.clientData.paywall.isAuthenticated ? 1 : 0),
+            subscriber: (Dac.clientData.paywall.isAuthenticated ? 1 : 0)
+        });
+
+    }
+});
+
+</script>

@@ -71,7 +71,7 @@ export default {
         nl: 'februari',
         kl: 'ukiortaami'
     },
-    mars: {
+    march: {
         en: 'March',
         sv: 'mars',
         dk: 'marts',

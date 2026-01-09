@@ -136,6 +136,26 @@
     }
 }
 
+div.placeholder.placement-bgTop_150:has(.row-section .row .google-ad.sticky),
+div.placeholder.placement-bgTop_300:has(.row-section .row .google-ad.sticky),
+div.placeholder.placement-top:has(.row-section .row .google-ad.sticky),
+div.placeholder.placement-top:has(> div.google-ad.sticky),
+div.placeholder.placement-bgTop_150:has(> div.google-ad.sticky),
+div.placeholder.placement-bgTop_300:has(> div.google-ad.sticky) { 
+    position: sticky;
+    display: block;
+    top: calc(var(--space-top, 0) * 1px);
+}
+
+div.placeholder.placement-top:has(.row-section .row .google-ad.sticky),
+div.placeholder.placement-top:has(> div.google-ad.sticky) { 
+    z-index: 20;
+}
+
+.google-ad.sticky {
+    position: sticky;
+}
+
 .adZone-left, .adZone-right,
 .placement-left, .placement-right {
     .column.google-ad {
@@ -161,6 +181,10 @@
             width: 100%;
             display: block;
             clear: both;
+
+            &:has(> .adunit > div:empty) {
+                display: none;
+            }
         }
     }
 }
@@ -204,4 +228,43 @@ body.l4 .placement-top .column.google-ad.display-label .adunit:before {
 .placement-left .google-ad:has(.adunit.holidAds) ,
 .placement-right .google-ad:has(.adunit.holidAds){
     width: 300px;
+}
+
+body.l4 .column.google-ad.adZone-parallax {
+    left: calc(-1*((100vw - var(--lab-scrollbar-width)) - var(--lab_page_width, 68rem)) / 2);
+
+    .adunit {
+        width: calc(100vw - var(--lab-scrollbar-width));
+    
+        & > div {
+            height: 100vh;
+            width: 100vw;
+            clip-path: inset(0);
+        }
+    
+        iframe {
+            position: fixed;
+            top: 0;
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    @include desktop_down {
+        left: -.65rem;
+    }
+}
+
+body.l4 .column.google-ad.adZone-parallax {
+    left: 0;
+    padding: 0;
+
+    .ad-label {
+        padding-left: var(--columns-gutter);
+    }
+}
+body.article.l4 .column.google-ad.adZone-parallax {
+    @include desktop {
+        left: calc(-1*((100vw - var(--lab-scrollbar-width)) - var(--page-width, 68rem)) / 2);
+    }
 }

@@ -308,7 +308,8 @@
                     "path": "bodytext[0]",
                     "options": {
                         "useBodyTextIndex": true,
-                        "skipIfOutOfBounds": true
+                        "skipIfOutOfBounds": true,
+                        "prepend": true
                     },
                     "metadata": {
                         "css": "widthFull",
@@ -321,7 +322,8 @@
                     "path": "bodytext[0]",
                     "options": {
                         "useBodyTextIndex": true,
-                        "skipIfOutOfBounds": true
+                        "skipIfOutOfBounds": true,
+                        "prepend": true
                     },
                     "metadata": {
                         "isBodytext": true
@@ -333,7 +335,8 @@
                     "path": "bodytext[0]",
                     "options": {
                         "useBodyTextIndex": true,
-                        "skipIfOutOfBounds": true
+                        "skipIfOutOfBounds": true,
+                        "prepend": true
                     },
                     "metadata": {
                         "css": "floatRight widthAuto",
@@ -395,7 +398,8 @@
                     "path": "bodytext[0]",
                     "options": {
                         "skipIfOutOfBounds": true,
-                        "useBodyTextIndex": true
+                        "useBodyTextIndex": true,
+                        "prepend": true
                     },
                     "metadata": {
                         "css": "adZone-parallax",
@@ -467,10 +471,38 @@
                     "path": "bodytext[0]",
                     "options": {
                         "skipIfOutOfBounds": true,
-                        "useBodyTextIndex": true
+                        "useBodyTextIndex": true,
+                        "prepend": true
                     },
                     "metadata": {
                         "css": "small-12"
+                    }
+                },
+                {
+                    "key": "section_inline",
+                    "name": "Bodytext section inline",
+                    "path": "bodytext[0]",
+                    "options": {
+                        "useBodyTextIndex": true,
+                        "skipIfOutOfBounds": true,
+                        "prepend": true
+                    },
+                    "metadata": {
+                        "isBodytext": true
+                    }
+                },
+                {
+                    "key": "section_right",
+                    "name": "Bodytext section right",
+                    "path": "bodytext[0]",
+                    "options": {
+                        "useBodyTextIndex": true,
+                        "skipIfOutOfBounds": true,
+                        "prepend": true
+                    },
+                    "metadata": {
+                        "css": "floatRight widthAuto",
+                        "isBodytext": true
                     }
                 },
                 {
@@ -479,7 +511,8 @@
                     "path": "bodytext[0]",
                     "options": {
                         "skipIfOutOfBounds": true,
-                        "useBodyTextIndex": true
+                        "useBodyTextIndex": true,
+                        "prepend": true
                     },
                     "metadata": {
                         "css": "adZone-parallax",
@@ -539,6 +572,180 @@
                     "options": {
                         "itemsSelector": "li.livefeed-item",
                         "renderOnUpdates": true
+                    }
+                }
+            ]
+        },
+        "article_infinitescroll": {
+            "desktop": [
+                {
+                    "key": "topbanner",
+                    "name": "Top banner",
+                    "path": "page_article",
+                    "selector": "placement_top",
+                    "metadata": {
+                        "css": "placement-top"
+                    }
+                },
+                {
+                    "key": "section",
+                    "name": "Bodytext section fullwidth",
+                    "path": "bodytext[0]",
+                    "options": {
+                        "useBodyTextIndex": true,
+                        "skipIfOutOfBounds": true,
+                        "prepend": true
+                    },
+                    "metadata": {
+                        "css": "widthFull",
+                        "isBodytext": true
+                    }
+                },
+                {
+                    "key": "section_inline",
+                    "name": "Bodytext section inline",
+                    "path": "bodytext[0]",
+                    "options": {
+                        "useBodyTextIndex": true,
+                        "skipIfOutOfBounds": true,
+                        "prepend": true
+                    },
+                    "metadata": {
+                        "isBodytext": true
+                    }
+                },
+                {
+                    "key": "section_right",
+                    "name": "Bodytext section right",
+                    "path": "bodytext[0]",
+                    "options": {
+                        "useBodyTextIndex": true,
+                        "skipIfOutOfBounds": true,
+                        "prepend": true
+                    },
+                    "metadata": {
+                        "css": "floatRight widthAuto",
+                        "isBodytext": true
+                    }
+                },
+                {
+                    "key": "section_header",
+                    "name": "Above bodytext heading",
+                    "path": "bodytext[0]",
+                    "options": {
+                        "useBodyTextHeadingIndex": true,
+                        "skipIfOutOfBounds": true
+                    },
+                    "metadata": {
+                        "css": "widthFull",
+                        "isBodytext": true
+                    }
+                },
+                {
+                    "key": "section_above_last_header",
+                    "name": "Above last bodytext heading",
+                    "path": "bodytext[0]",
+                    "options": {
+                        "lastBodyTextHeading": true
+                    },
+                    "metadata": {
+                        "css": "widthFull",
+                        "isBodytext": true
+                    }
+                },
+                {
+                    "key": "parallax",
+                    "name": "Parallax",
+                    "path": "bodytext[0]",
+                    "options": {
+                        "skipIfOutOfBounds": true,
+                        "useBodyTextIndex": true,
+                        "prepend": true
+                    },
+                    "metadata": {
+                        "css": "adZone-parallax",
+                        "isBodytext": true
+                    }
+                },
+                {
+                    "key": "skyscraper_left",
+                    "name": "Skyscraper left",
+                    "path": "page_article",
+                    "selector": "placement_left",
+                    "metadata": {
+                        "css": "placement-left",
+                        "hideOnTablet": true
+                    }
+                },
+                {
+                    "key": "skyscraper_right",
+                    "name": "Skyscraper right",
+                    "path": "page_article",
+                    "selector": "placement_right",
+                    "metadata": {
+                        "css": "placement-right",
+                        "hideOnTablet": true
+                    }
+                }
+            ],
+            "mobile": [
+                {
+                    "key": "topbanner",
+                    "name": "Top banner",
+                    "path": "page_article",
+                    "selector": "placement_top",
+                    "metadata": {
+                        "css": "placement-top"
+                    }
+                },
+                {
+                    "key": "section",
+                    "name": "Bodytext section",
+                    "path": "bodytext[0]",
+                    "options": {
+                        "skipIfOutOfBounds": true,
+                        "useBodyTextIndex": true,
+                        "prepend": true
+                    },
+                    "metadata": {
+                        "css": "small-12"
+                    }
+                },
+                {
+                    "key": "section_header",
+                    "name": "Above bodytext heading",
+                    "path": "bodytext[0]",
+                    "options": {
+                        "useBodyTextHeadingIndex": true,
+                        "skipIfOutOfBounds": true
+                    },
+                    "metadata": {
+                        "css": "small-12"
+                    }
+                },
+                {
+                    "key": "section_above_last_header",
+                    "name": "Above last bodytext heading",
+                    "path": "bodytext[0]",
+                    "options": {
+                        "lastBodyTextHeading": true
+                    },
+                    "metadata": {
+                        "css": "small-12"
+                    }
+                },
+                {
+                    "key": "parallax",
+                    "name": "Parallax",
+                    "path": "bodytext[0]",
+                    "options": {
+                        "skipIfOutOfBounds": true,
+                        "useBodyTextIndex": true,
+                        "prepend": true
+                    },
+                    "metadata": {
+                        "css": "adZone-parallax",
+                        "isBodytext": true
                     }
                 }
             ]
@@ -625,7 +832,8 @@
                     "path": "bodytext[0]",
                     "options": {
                         "useBodyTextIndex": true,
-                        "skipIfOutOfBounds": true
+                        "skipIfOutOfBounds": true,
+                        "prepend": true
                     },
                     "metadata": {
                         "css": "widthFull",
@@ -638,7 +846,8 @@
                     "path": "bodytext[0]",
                     "options": {
                         "useBodyTextIndex": true,
-                        "skipIfOutOfBounds": true
+                        "skipIfOutOfBounds": true,
+                        "prepend": true
                     },
                     "metadata": {
                         "isBodytext": true
@@ -650,7 +859,8 @@
                     "path": "bodytext[0]",
                     "options": {
                         "useBodyTextIndex": true,
-                        "skipIfOutOfBounds": true
+                        "skipIfOutOfBounds": true,
+                        "prepend": true
                     },
                     "metadata": {
                         "css": "floatRight widthAuto",
@@ -712,7 +922,8 @@
                     "path": "bodytext[0]",
                     "options": {
                         "skipIfOutOfBounds": true,
-                        "useBodyTextIndex": true
+                        "useBodyTextIndex": true,
+                        "prepend": true
                     },
                     "metadata": {
                         "css": "adZone-parallax",
@@ -773,7 +984,8 @@
                     "path": "bodytext[0]",
                     "options": {
                         "skipIfOutOfBounds": true,
-                        "useBodyTextIndex": true
+                        "useBodyTextIndex": true,
+                        "prepend": true
                     },
                     "metadata": {
                         "css": "small-12"
@@ -785,7 +997,8 @@
                     "path": "bodytext[0]",
                     "options": {
                         "skipIfOutOfBounds": true,
-                        "useBodyTextIndex": true
+                        "useBodyTextIndex": true,
+                        "prepend": true
                     },
                     "metadata": {
                         "css": "adZone-parallax",
@@ -843,6 +1056,138 @@
                     "options": {
                         "itemsSelector": "li.livefeed-item",
                         "renderOnUpdates": true
+                    }
+                }
+            ]
+        },
+        "gallery": {
+            "desktop": [
+                {
+                    "key": "overlay",
+                    "name": "Overlay",
+                    "path": "page_gallery",
+                    "selector": "placement_non-relative",
+                    "metadata": {
+                        "css": "placement-overlay"
+                    }
+                },
+                {
+                    "key": "above_header",
+                    "name": "Above header",
+                    "path": "page_gallery",
+                    "selector": "placement_body_top",
+                    "metadata": {
+                        "css": "placement-body-top"
+                    }
+                },
+                {
+                    "key": "topbanner",
+                    "name": "Top banner",
+                    "path": "page_gallery",
+                    "selector": "placement_top",
+                    "metadata": {
+                        "css": "placement-top"
+                    }
+                },
+                {
+                    "key": "skyscraper_left",
+                    "name": "Skyscraper left",
+                    "path": "page_gallery",
+                    "selector": "placement_left",
+                    "metadata": {
+                        "css": "placement-left",
+                        "hideOnTablet": true
+                    }
+                },
+                {
+                    "key": "skyscraper_right",
+                    "name": "Skyscraper right",
+                    "path": "page_gallery",
+                    "selector": "placement_right",
+                    "metadata": {
+                        "css": "placement-right",
+                        "hideOnTablet": true
+                    }
+                },
+                {
+                    "key": "slideshow_image",
+                    "name": "Slideshow image",
+                    "path": "slideshow",
+                    "options": {
+                        "useIndex": true,
+                        "index": 0
+                    },
+                    "metadata": {
+                        "css": "large-12 small-12"
+                    }
+                },
+                {
+                    "key": "slideshow_image_refresh",
+                    "name": "Slideshow image refresh",
+                    "path": "slideshow",
+                    "selector": "sticky-gallery-ad",
+                    "stickyAdminPlacement": true,
+                    "options": {
+                        "useIndex": true,
+                        "index": 2,
+                        "preloadIndex": 1,
+                        "interval": 3,
+                        "refresh": true
+                    }
+                }
+            ],
+            "mobile": [
+                {
+                    "key": "overlay",
+                    "name": "Overlay",
+                    "path": "page_gallery",
+                    "selector": "placement_non-relative",
+                    "metadata": {
+                        "css": "placement-overlay"
+                    }
+                },
+                {
+                    "key": "above_header",
+                    "name": "Above header",
+                    "path": "page_gallery",
+                    "selector": "placement_body_top",
+                    "metadata": {
+                        "css": "placement-body-top"
+                    }
+                },
+                {
+                    "key": "topbanner",
+                    "name": "Top banner",
+                    "path": "page_gallery",
+                    "selector": "placement_top",
+                    "metadata": {
+                        "css": "placement-top"
+                    }
+                },
+                {
+                    "key": "slideshow_image",
+                    "name": "Slideshow image",
+                    "path": "slideshow",
+                    "options": {
+                        "useIndex": true,
+                        "index": 0
+                    },
+                    "metadata": {
+                        "css": "large-12 small-12"
+                    }
+                },
+                {
+                    "key": "slideshow_image_refresh",
+                    "name": "Slideshow image refresh",
+                    "path": "slideshow",
+                    "selector": "sticky-gallery-ad",
+                    "stickyAdminPlacement": true,
+                    "options": {
+                        "useIndex": true,
+                        "index": 2,
+                        "preloadIndex": 1,
+                        "interval": 3,
+                        "refresh": true
                     }
                 }
             ]

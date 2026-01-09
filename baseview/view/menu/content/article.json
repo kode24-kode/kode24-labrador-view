@@ -12,6 +12,10 @@
             "inheritPath": "menu/buttons/lock.json",
             "group": "g1"
         },
+        "collabrador": {
+            "inheritPath": "menu/buttons/comment.json",
+            "group": "g1"
+        },
         "color_bg": {
             "inheritPath": "menu/buttons/backgroundColor.json",
             "group": "g1_b",
@@ -128,7 +132,7 @@
                             "offValue": false,
                             "bindings": [
                                 {
-                                    "path": "metadata.showSection",
+                                    "path": "metadata.showTags",
                                     "attribute": "value"
                                 }
                             ]
@@ -291,6 +295,54 @@
                                 }
                             ]
                         },
+                        "horizontalSubArticles": {
+                            "icon": "labicon-viewportGrid",
+                            "group": "g3",
+                            "text": "Horizontal display",
+                            "callback": "toggleKeyAndValue",
+                            "autocloseSubmenuAfterAction": false,
+                            "key": "metadata.horizontalSubArticles",
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.horizontalSubArticles",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "subArticlesNextToFloatingImage": {
+                            "icon": "labicon-align_content_left",
+                            "group": "g3",
+                            "text": "Next to floating image",
+                            "callback": "toggleKeyAndValue",
+                            "autocloseSubmenuAfterAction": false,
+                            "key": "metadata.subArticlesNextToFloatingImage",
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.subArticlesNextToFloatingImage",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "subArticlesShowBulletIcons": {
+                            "icon": "labicon-align_content_left",
+                            "group": "g3",
+                            "text": "Show bullet icons",
+                            "callback": "toggleKeyAndValue",
+                            "autocloseSubmenuAfterAction": false,
+                            "key": "metadata.subArticlesShowBulletIcons",
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.subArticlesShowBulletIcons",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
                         "hideImages": {
                             "icon": "labicon-image_hide",
                             "group": "g3",
@@ -372,6 +424,51 @@
                         {
                             "path": "fields.displayPublishedDate",
                             "attribute": "value"
+                        }
+                    ]
+                },
+                "videoArticle": {
+                    "text": "Video label",
+                    "icon": "labicon-video_edit",
+                    "group": "s1",
+                    "title": "Options for video label",
+                    "onValue": true,
+                    "offValue": false,
+                    "bindings": [
+                        {
+                            "path": "fields.displayVideoArticleOverlay",
+                            "attribute": "value"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "callback": "toggleKeyAndValue",
+                            "key": "fields.displayVideoArticleOverlay",
+                            "value": true,
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "fields.displayVideoArticleOverlay",
+                                    "attribute": "value"
+                                }
+                            ],
+                            "text": "Toggle video label"
+                        },
+                        {
+                            "callback": "toggleKeyAndValue",
+                            "key": "fields.hideVideoArticleLabel",
+                            "group": "g2",
+                            "value": true,
+                            "onValue": "true",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "fields.hideVideoArticleLabel",
+                                    "attribute": "value"
+                                }
+                            ],
+                            "text": "Hide video text"
                         }
                     ]
                 },

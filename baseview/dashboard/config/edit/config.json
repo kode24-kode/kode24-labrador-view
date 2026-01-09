@@ -98,6 +98,20 @@
             "hotKey": {
                 "keyCode": 83
             }
+        },
+        {
+            "callback": "Dashboard.searchExternal",
+            "description": "Search external news agency articles",
+            "tags": "Search find article external",
+            "permission": "dashboard_search",
+            "menu": {
+                "appMenu": {
+                    "title": "Search news agency articles",
+                    "zone": "dashboard",
+                    "prepend": false,
+                    "standAlone": true
+                }
+            }
         }
     ],
 

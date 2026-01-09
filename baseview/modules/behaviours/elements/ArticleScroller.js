@@ -396,8 +396,16 @@ export default class ArticleScroller {
             `width=${  settings.width }`,
             `height=${  settings.height }`
         ];
+
+        // Get the date format set by the customer in Admin -> Language options -> Dates
+        const publishedDateFormat = this.api.v1.locale.get('dates.articleScrollerPublishedFormat', { noRender: true });
+        const publishedDatePrefix = this.api.v1.locale.get('dates.articleScrollerPublishedDatePrefix', { fallbackValue: '' });
+        const dateHandler = new DateTimeHelper(this.api.v1.config.get('lang') || undefined);
+
         data.result.forEach((article) => {
             const autodata = AutodataHelper.parseCustomDataFromFeed(article, 'contentbox_settings.articlescroller');
+            const formattedDate = dateHandler.format(new Date(article.published), publishedDateFormat);
+            const publishedDate = publishedDatePrefix ? `${ publishedDatePrefix } ${ formattedDate }` : formattedDate;
             let url = '';
             if (article.url) {
                 if (article.url.indexOf('http') === 0 || article.url.indexOf('//') === 0) {
@@ -406,6 +414,7 @@ export default class ArticleScroller {
                     url = settings.baseUrl + article.url;
                 }
             }
+
             const thisArticle = {
                 url,
                 title: article.teaserTitle ? article.teaserTitle : article.title,
@@ -416,7 +425,7 @@ export default class ArticleScroller {
                 section: article.section || '',
                 paywall: !!article.paywall,
                 author: article.byline || '',
-                publishedDate: article.published
+                publishedDate
             };
             result.push(thisArticle);
         });

@@ -13,6 +13,7 @@ export class BylineEditor {
         this.endcallback = endcallback || null;
         this.registered = false;
         this.modal = null;
+        this.authorPagesConfig = this.api.v1.config.get('authorPages') || {};
         if (id && typeof id === 'number') {
             fetch(`/ajax/node/get-node?id=${ id }`).then((resp) => resp.json()).then((resp) => {
                 this.data = resp.data;
@@ -107,7 +108,7 @@ export class BylineEditor {
                 this.changeImage(markup);
             }, false);
         }
-        
+
         const removeImgBtn = markup.querySelector('#btn-remove-image');
         if (removeImgBtn) {
             removeImgBtn.addEventListener('click', (event) => {
@@ -124,6 +125,33 @@ export class BylineEditor {
                 this.api.v1.user.setField('defaultByline', defaultBtn.checked ? this.data.id : '');
             }, false);
         }
+
+        const slugInput = markup.querySelector('#byline-author-page-slug');
+        if (slugInput) {
+            const previewContainer = markup.querySelector('#slug-preview-container');
+
+            const previewLabel = document.createElement('span');
+            previewLabel.textContent = `Preview: /${ this.authorPagesConfig.path || 'author' }/`;
+
+            const previewValue = document.createElement('span');
+            previewValue.className = 'slug-preview-value';
+
+            previewContainer.appendChild(previewLabel);
+            previewContainer.appendChild(previewValue);
+
+            slugInput.parentNode.insertBefore(previewContainer, slugInput.nextSibling);
+
+            slugInput.addEventListener('input', (event) => {
+                const sanitizedValue = this.sanitizeSlug(event.target.value);
+                previewValue.textContent = sanitizedValue || this.data.id || '[empty]';
+            });
+
+            slugInput.addEventListener('blur', () => {
+                slugInput.value = this.sanitizeSlug(slugInput.value);
+            });
+
+            previewValue.textContent = this.sanitizeSlug(slugInput.value) || this.data.id || '[empty]';
+        }
     }
 
     changeImage(markup) {
@@ -133,17 +161,17 @@ export class BylineEditor {
             skipCache: true,
             options: {
                 clickHandler: (model, element) => {
-                     // Add busy animation.
-                     const emptyEl = markup.querySelector('.lab-aside-settings .bylineimage-empty');
-                     if (emptyEl) {
-                         emptyEl.classList.add('lab-busy');
-                     }
-                     const imgEl = markup.querySelector('.lab-aside-settings img');
-                     if (imgEl) {
-                         imgEl.parentElement.classList.add('lab-busy');
-                     }
-                     const serialized = this.api.v1.model.serialize.model(model);
-                     this.setImageFromModel(model, serialized);
+                    // Add busy animation.
+                    const emptyEl = markup.querySelector('.lab-aside-settings .bylineimage-empty');
+                    if (emptyEl) {
+                        emptyEl.classList.add('lab-busy');
+                    }
+                    const imgEl = markup.querySelector('.lab-aside-settings img');
+                    if (imgEl) {
+                        imgEl.parentElement.classList.add('lab-busy');
+                    }
+                    const serialized = this.api.v1.model.serialize.model(model);
+                    this.setImageFromModel(model, serialized);
                 }
             }
         });
@@ -224,7 +252,19 @@ export class BylineEditor {
     }
 
     save(formElements) {
+        const buttonFieldNames = ['addAuthorPage', 'removeAuthorPage'];
+
         for (const key of Object.keys(formElements)) {
+            // Skip button fields
+            if (buttonFieldNames.includes(key)) {
+                continue;
+            }
+
+            if (key === 'slug') {
+                this.data.fields[key] = this.sanitizeSlug(formElements[key].trim());
+                continue;
+            }
+
             this.data.fields[key] = formElements[key].trim();
         }
         if (this.data.id) {
@@ -359,13 +399,14 @@ export class BylineEditor {
         return this.api.v1.util.dom.renderView('apps/bylineeditor/editor', {
             id: data.id,
             fields: data.fields || {},
+            authorPages: this.authorPagesConfig || {},
             isDefault: this.isDefault
         }, false);
     }
 
     getAsideMarkup(data, toDom = false) {
         const child = data.children && data.children.length ? data.children[0] : null;
-        return this.api.v1.util.dom.renderView('apps/bylineeditor/aside', child ? { url: this.getImageurl(child) } : {}, toDom);
+        return this.api.v1.util.dom.renderView('apps/bylineeditor/aside', child ? { url: this.getImageurl(child), id: data.id } : { id: data.id }, toDom);
     }
 
     updateImage() {
@@ -392,6 +433,15 @@ export class BylineEditor {
 
         imageUrl += `&width=${ width }&height=${ height }`;
         return imageUrl;
+    }
+
+    // Helper function to sanitize slug
+    sanitizeSlug(value) {
+        return value.toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^a-z0-9-]/g, '')
+            .replace(/-+/g, '-')
+            .replace(/^-+|-+$/g, '');
     }
 
 }

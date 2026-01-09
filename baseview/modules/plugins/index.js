@@ -5,6 +5,5 @@ export { default as tansa } from './tansa/index.js';
 export { default as textassistant } from './textassistant/index.js';
 export { default as abtest } from './abtest/index.js';
 export { default as slack_notifier } from './slack_notifier/index.js';
-export { default as subrite } from './subrite/index.js';
-export { default as buyandread } from './buyandread/index.js';
 export { default as paywall } from './paywall/index.js';
+export { default as pushnotification } from './pushnotification/index.js';

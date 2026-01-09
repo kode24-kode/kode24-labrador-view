@@ -83,9 +83,20 @@
                             "label": "Vimond"
                         },
                         {
+                            "collection": "Vp",
+                            "identifier": "media-vp",
+                            "label": "VP"
+                        },
+                        {
                             "collection": "MediaSlideshow",
                             "identifier": "media-slideshow",
                             "label": "Slideshow"
+                        },
+                        {
+                            "collection": "JWPlayer",
+                            "identifier": "media-jwplayer",
+                            "label": "JWPlayer",
+                            "permissions": ["access_jwplayer"]
                         }
                     ]
                 }

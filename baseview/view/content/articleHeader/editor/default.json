@@ -1,6 +1,17 @@
 {
     "editors": [
         {
+            "selector": "p.lab-article-section",
+            "allowNbsp": true,
+            "fn": "EditRich",
+            "menu": "rich_text_section",
+            "key": "fields.section",
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "disabled": true
+        },
+        {
             "selector": "p.kicker",
             "allowNbsp": true,
             "fn": "EditRich",
@@ -47,7 +58,7 @@
         {
             "selector": "h1.headline.mainTitle",
             "fn": "EditRich",
-            "menu": "rich_text_ai", 
+            "menu": "rich_text_ai",
             "key": "fields.title",
             "defaultValue": 57,
             "allowNbsp": true,
@@ -63,6 +74,13 @@
         }
     ],
     "toolMenus": {
+        "rich_text_section": {
+            "inheritPath": "menu/tool/rich_text.json",
+            "items": {
+                "insert": null,
+                "more": null
+            }
+        },
         "rich_text": {
             "inheritPath": "menu/tool/rich_text.json"
         },
@@ -96,6 +114,10 @@
                     "inheritPath": "menu/buttons/lock.json",
                     "group": "g1"
                 },
+                "collabrador": {
+                    "inheritPath": "menu/buttons/comment.json",
+                    "group": "g1"
+                },
                 "style": {
                     "inheritPath": "menu/buttons/styles.json",
                     "group": "g1_b"
@@ -103,6 +125,105 @@
                 "text-options": {
                     "inheritPath": "menu/buttons/textOptions.json",
                     "group": "g2"
+                },
+                "paywall": {
+                    "group": "g2",
+                    "icon": "labicon-ad_content",
+                    "onValue": true,
+                    "offValue": false,
+                    "title": "Paywall label options",
+                    "bindings": [
+                        {
+                            "path": "metadata.showPaywallLabel",
+                            "attribute": "value"
+                        }
+                    ],
+                    "items": {
+                        "section": {
+                            "text": "Display paywall label",
+                            "icon": "labicon-ad_content",
+                            "callback": "toggleKeyAndValue",
+                            "key": "metadata.showPaywallLabel",
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.showPaywallLabel",
+                                    "attribute": "value"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "section": {
+                    "group": "g2",
+                    "icon": "labicon-tag",
+                    "onValue": true,
+                    "offValue": false,
+                    "bindings": [
+                        {
+                            "path": "metadata.showSection",
+                            "attribute": "value"
+                        }
+                    ],
+                    "items": {
+                        "section": {
+                            "text": "Display section",
+                            "icon": "labicon-tag",
+                            "callback": "toggleKeyAndValue",
+                            "key": "metadata.showSection",
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.showSection",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "alignedKicker": {
+                            "group": "g3",
+                            "text": "Align with kicker",
+                            "callback": "toggleKeyAndValue",
+                            "key": "metadata.sectionKickerAligned",
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.sectionKickerAligned",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "underImage": {
+                            "group": "g3",
+                            "text": "Below image",
+                            "callback": "toggleKeyAndValue",
+                            "key": "metadata.sectionPlacement",
+                            "onValue": "underImage",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.sectionPlacement",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "isLinkToTagPage": {
+                            "group": "g3",
+                            "text": "Set as link to tag page",
+                            "callback": "toggleKeyAndValue",
+                            "key": "metadata.sectionLabelHasLink",
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.sectionLabelHasLink",
+                                    "attribute": "value"
+                                }
+                            ]
+                        }
+                    }
                 },
                 "mediaOptions": {
                     "inheritPath": "menu/buttons/mediaOptions.json",
@@ -311,7 +432,8 @@
                             "jwplayer",
                             "grid",
                             "remoteproduction",
-                            "vimond"
+                            "vimond",
+                            "vp"
                         ]
                     }
                 }
@@ -342,7 +464,8 @@
             "jwplayer",
             "grid",
             "remoteproduction",
-            "vimond"
+            "vimond",
+            "vp"
         ],
         "drop": "replaceChild",
         "filedrop": "replaceChild"

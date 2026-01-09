@@ -102,6 +102,14 @@
                         "content/grid/editor/child.json"
                     ]
                 }
+            },
+            "parallax": {
+                "properties": {
+                    "default": [
+                        "content_settings/editor/droppable/disabled.json",
+                        "content/parallax/editor/layer.json"
+                    ]
+                }
             }
         }
     }

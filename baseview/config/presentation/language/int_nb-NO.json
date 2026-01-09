@@ -10,7 +10,7 @@
             "saturday": "lørdag",
             "january": "januar",
             "february": "februar",
-            "mars": "mars",
+            "march": "mars",
             "april": "april",
             "may": "mai",
             "june": "juni",
@@ -80,10 +80,34 @@
         },
         "search": {
             "placeholder": "Søk...",
-            "label": "Søk"
+            "label": "Søk",
+            "openText": "Søk",
+            "closeText": "Lukk",
+            "expandedLabel": "Lukk søk",
+            "collapsedLabel": "Åpne søk",
+            "labradorSearch": {
+                "submitLabel": "Søk",
+                "navLabel": "Vis mer",
+                "nohitsLabel": "Ingen treff. Prøv å endre søket ditt",
+                "searchPlaceholder": "Skriv søket ditt her ...",
+                "advancedOpenText": "Åpne filter",
+                "advancedCloseText": "Lukk filter",
+                "fromDateLabel": "Fra dato",
+                "toDateLabel": "Til dato",
+                "tagLabel": "Tagg",
+                "authorLabel": "Forfatter",
+                "allSitesLabel": "Alle sider"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "Lukk meny",
+            "collapsedLabel": "Åpne meny",
+            "buttonText": "Meny"
         },
         "header": {
-            "logo_link_text": "Gå til forside"
+            "logo_link_text": "Gå til forside",
+			"menuScrollerLeftButton": "Rull til venstre",
+			"menuScrollerRightButton": "Rull til høyre"
         },
         "slack_notifier": {
             "publish": {
@@ -121,7 +145,57 @@
             "caption": {
                 "showCaptionLabel": "Vis bildetekst",
                 "hideCaptionLabel": "Skjul bildetekst",
-                "showMoreLabel": "Vis mer"
+                "showMoreLabel": "Vis mer",
+                "showLessLabel": "Vis mindre"
+            },
+            "videoOverlayLabel": "Videoartikkel"
+        },
+        "mostRead": {
+            "labelLatest": "Siste",
+            "titleLatest": "Nylige artikler",
+            "labelMostRead": "Mest lest",
+            "titleMostRead": "Mest leste artikler"
+        },
+        "infiniteScroll": {
+            "readMore": "Fortsett å lese"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Del på Facebook",
+                "twitter": "Del på X (Twitter)",
+                "linkedin": "Del på LinkedIn",
+                "mail": "Del via e-mail",
+                "threads": "Del på Threads",
+                "copyLink": "Kopier lenke",
+                "glimta": "Lås opp med Glimta",
+                "talandeWebb": "Åpne Talande Webb-alternativpanelet",
+                "bluesky": "Del på Bluesky",
+                "reddit": "Del på Reddit",
+                "whatsapp": "Del på WhatsApp"
+            }
+        },
+        "gallery": {
+            "label": "Galleri",
+            "seeAllImages": "Se alle bilder",
+            "navigateToOriginal": "Gå til originalside"
+        },
+        "weather": {
+            "failedToFetch": "Kunne ikke hente værdata",
+            "updated": "Oppdatert",
+            "fetchingData": "Laster værdata",
+            "types": {
+                "clearsky": "Klarvær",
+                "fair": "Lettskyet",
+                "partlycloudy": "Delvis skyet",
+                "cloudy": "Skyet",
+                "rainshowers": "Regnbyger",
+                "rain": "Regn",
+                "snow": "Snø",
+                "sleet": "Sludd",
+                "thunder": "Torden",
+                "fog": "Tåke",
+                "wind": "Vind",
+                "unknown": "Ukjent"
             }
         }
     }

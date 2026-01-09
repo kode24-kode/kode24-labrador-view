@@ -135,6 +135,14 @@ article.column {
                             }
                         }
                     }
+
+                    &.video-overlay {
+                        figure {
+                            &::after {
+                                border-radius: #{$i}px;
+                            }
+                        }
+                    }
                 }
 
                 &[class*= " bg-"],
@@ -154,6 +162,14 @@ article.column {
                             img {
                                 clip-path: circle();
                             }
+                        }
+                    }
+                }
+
+                &.video-overlay {
+                    figure {
+                        &::after {
+                            clip-path: circle();
                         }
                     }
                 }
@@ -177,6 +193,10 @@ article.column {
                     }
                 }
             }
+        }
+
+        &[class*="rounded-image-edge-"] .imageChildren figure .img picture img {
+            border-radius: initial;
         }
 
         .teaser-audio {
@@ -220,6 +240,92 @@ article.column {
         }
 
         .media {
+            &.video-overlay {
+                figure {
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        background-color: rgba(0, 0, 0, 0.4);
+                        z-index: 1;
+                        pointer-events: none;
+                        transition: background-color 0.3s ease;
+                    }
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        z-index: 2;
+                        transform: translate(-50%, -50%);
+                        width: clamp(60px, 15%, 120px);
+                        height: clamp(60px, 15%, 120px);
+                        background-color: white;
+                        pointer-events: none; // 🔹 Also pass-through
+                        mask: url('data:image/svg+xml;utf8,<svg fill="black" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>') no-repeat center;
+                        -webkit-mask: url('data:image/svg+xml;utf8,<svg fill="black" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>') no-repeat center;
+                        mask-size: contain;
+                        mask-repeat: no-repeat;
+                        mask-position: center;
+                        -webkit-mask-size: contain;
+                        -webkit-mask-repeat: contain;
+                        -webkit-mask-position: center;
+                        transition: transform 0.3s ease, opacity 0.3s ease;
+                        opacity: 0.9;
+                    }
+
+                    &:hover.video-overlay::before {
+                        transform: translate(-50%, -50%) scale(1.1);
+                        opacity: 1;
+                    }
+
+                    &:hover.video-overlay::after {
+                        background-color: rgba(0, 0, 0, 0.5);
+                    }
+                }
+
+
+                .video-overlay-label {
+                    position: absolute;
+                    top: 0.5rem;
+                    left: 0.5rem;
+                    color: #fff;
+                    background-color: rgba(0, 0, 0, 0.65);
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.03em;
+                    padding: 0.25rem 0.5rem;
+                    border-radius: 0.25rem;
+                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+                    pointer-events: none;
+                    z-index: 3;
+                }
+
+                &[class*="-floatRight"] {
+                    .video-overlay-label {
+                        left: 1.5rem;
+                    }
+                }
+
+                &:not(:has[class*="-floatLeft"]),
+                &:not(:has[class*="-floatRight"]) {
+                    &:has(.img.fullwidthTarget) {
+                        figure {
+                            &::after {
+                                width: calc(100vw - var(--lab-scrollbar-width));
+                                left: calc(50% - (100vw - var(--lab-scrollbar-width)) / 2);
+                            }
+                        }
+                    }
+                }
+
+                .paywallLabel {
+                    z-index: 4;
+                }
+            }
+
             @include tablet_up {
                 &.desktop-floatLeft {
                     .teaser-audio {
@@ -367,7 +473,7 @@ article.column {
                 .headline,
                 .subtitle,
                 .section,
-                .tags{
+                .tags {
                     margin-right: $columns_gutter;
                     margin-left: $columns_gutter;
                     margin-bottom: calc($columns_gutter / 2);
@@ -484,7 +590,7 @@ article.column {
             margin-bottom: $columns_gutter;
         }
 
-        @include desktop-down {
+        @include desktop_down {
             &[class*=" color_mobile_bg-"] .kicker:first-child,
             &.mobile-hasContentPadding .kicker:first-child {
                 margin-bottom: $bg_text_padding;
@@ -492,10 +598,22 @@ article.column {
         }
 
         @include mobile {
-            &[class*=" color_mobile_bg-"] .media .floatingText .kicker:first-child,
-            &.mobile-hasContentPadding .media .floatingText .kicker:first-child {
-                margin-bottom: 0;
-                margin-left: 0;
+            &[class*=" color_mobile_bg-"] .media,
+            &.mobile-hasContentPadding .media {
+                .floatingText .kicker:first-child {
+                    margin-bottom: 0;
+                }
+
+                &:not(.mobile-floatRight) .floatingText {
+                    .kicker:first-child {
+                        margin-left: 0;
+                    }
+
+                    .headline,
+                    .subtitle {
+                        margin-left: 0;
+                    }
+                } 
             }
         }
 
@@ -561,30 +679,28 @@ article.column {
         }
 
         @mixin breaking-animation {
+            &::before {
+                animation: pulse 1s infinite;
+            }
+        }
+
+        .breaking-white,
+        .breaking-red {
             position: relative;
             display: flex;
             align-items: center;
-            padding-left: 25px;
+            padding-left: max(35px, 0.5em) !important;
 
             &::before {
                 content: '';
-                width: 10px;
-                height: 10px;
+                width: 0.3em;
+                height: 0.3em;
                 position: absolute;
-                top: calc(50% - 4px);
-                left: 8px;
+                top: 50%;
+                left: 12px;
                 border-radius: 50%;
-                animation: pulse 1s infinite;
-                border: 2px solid white;
-            }
-
-            &[class*=" bg-"],
-            .hasTextPadding {
-                padding-left: 25px;
-
-                &::before {
-                    top: 50%;
-                }
+                border: 0.05em solid white;
+                transform: translateY(-50%);
             }
         }
 
@@ -600,7 +716,7 @@ article.column {
                     0 0 0 1px var(--pulse-color), 
                     0 0 0 2px var(--pulse-color), 
                     0 0 0 3px var(--pulse-color);
-                border: 2px solid black;
+                border: 0.05em solid black;
                 box-shadow: 0 0 0 3px black;
             }
         }
@@ -619,26 +735,10 @@ article.column {
                     0 0 0 3px var(--pulse-color);
             }
         }
-
-        // This MUST stay belove the breaking-* selector rules as they have the same specificity, but since this is last it will override the others.
-        .headline,
-        .subtitle {
-            &[class*=breaking] {
-                padding-left: 30px;
-
-                &::before {
-                    top: 50%;
-                }
-            }
-        }
-
-        .headline {
-            &[class*=breaking] {
-                &::before {
-                    width: 15px;
-                    height: 15px;
-                }
-            }
+        
+        .kicker.breaking-white,
+        .kicker.breaking-red {
+            padding: 4px 0;
         }
 
         &[class*="bg-"] {
@@ -689,6 +789,24 @@ article.column {
             left: auto;
             right: 0;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            .flash,
+            .animate,
+            .breaking-red,
+            .breaking-white {
+                animation: none !important;
+
+                &::before,
+                &::after {
+                    animation: none !important;
+                }
+            }
+
+            .flash::before {
+                content: none;
+            }
+        }
     }
 
     @include tablet_up {
@@ -732,6 +850,11 @@ article.column {
         }
     }
 
+    // Makes the title go below the image so it stays with the related articles
+    p.subarticlesTitle {
+        clear: both;
+    }
+
     ul.relatedArticles {
         li.column {
             line-height: 1.2em;
@@ -769,6 +892,45 @@ article.column {
         }
     }
 
+    &.subArticlesNextToFloatingImage {
+        p.subarticlesTitle {
+            clear: initial;
+        }
+
+        ul.relatedArticles {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+	&.subArticlesShowBulletIcons {
+		.content {
+			ul.relatedArticles {
+				li {
+					list-style-type: disc;
+					list-style-position: outside;
+					margin-left: 20px;
+					margin-right: 10px;
+					max-width: calc(50% - 30px);
+				}
+			}
+		}
+	}
+
+    &.horizontalSubArticles {
+        ul.relatedArticles {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            
+            li {
+                width: calc(48% - 10px);
+                margin-right: 20px;
+            }
+            
+        }
+    }
+
     &.compactDisplay {
         ul.relatedArticles {
             li {
@@ -786,7 +948,7 @@ article.column {
         }
     }
 
-    &.paywall .paywallLabel {
+    &.paywall {
         @include paywall.label;
     }
 

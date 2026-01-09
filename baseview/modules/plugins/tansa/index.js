@@ -108,14 +108,18 @@ export default {
 
                 if (tansaInstance) {
                     const rect = btn.getBoundingClientRect();
-                    tansaInstance.load(targets, addedConfig, rect);
+                    setTimeout(() => {
+                        tansaInstance.load(targets, addedConfig, rect);
+                    }, 300);
                     return;
                 }
 
                 import('./tansa.js').then((module) => {
                     const rect = btn.getBoundingClientRect();
                     tansaInstance = module.tansa;
-                    module.tansa.load(targets, addedConfig, rect);
+                    setTimeout(() => {
+                        module.tansa.load(targets, addedConfig, rect);
+                    }, 300);
                 }).catch((error) => {
                     Sys.logger.warn(`Error loading Tansa-functionality: ${ error }`);
                 });

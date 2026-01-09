@@ -8,6 +8,10 @@
             "inheritPath": "menu/buttons/lock.json",
             "group": "g1"
         },
+        "collabrador": {
+            "inheritPath": "menu/buttons/comment.json",
+            "group": "g1"
+        },
         "fullscreen": {
             "icon": "labicon-fullscreen",
             "title": "Edit in fullscreen (F)",

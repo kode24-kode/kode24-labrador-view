@@ -86,6 +86,9 @@
             }
         }
     },
+    "draggable": {
+        "icon": "labicon-time"
+    },
     "droppable": {
         "reject": ["image"]
     }

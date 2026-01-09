@@ -8,7 +8,7 @@
         <meta property="article:section" content="{{{ get.current.filtered.section }}}">
         {{ #get.current.filtered.analytics.kilkayaSettings.showKilkayaMetatags }}{{ > partial/lab4/analytics/kilkaya_metadata }}{{ /get.current.filtered.analytics.kilkayaSettings.showKilkayaMetatags }}
         {{ > partial/lab4/analytics/kilkaya }}
-        
+
         <style>
             :root {
                 {{ #get.current.fields.bodytextWidth }}--bodytext-width: var({{ get.current.fields.bodytextWidth }});{{ /get.current.fields.bodytextWidth }}
@@ -46,13 +46,14 @@
         {{ get.current.filtered.pageCommentsDisplay }}
 
         {{ /helper.trim }}"
+        {{ #get.current.fields.createdByImport }}data-lab-imported="true"{{ /get.current.fields.createdByImport }}
         {{ #get.current.fields.pageBackgroundColorStyle }} style="background-color:{{ get.current.fields.pageBackgroundColorStyle }};{{ #get.current.fields.pageBackgroundColorStyleDark }}color:#fff;{{ /get.current.fields.pageBackgroundColorStyleDark }}"{{ /get.current.fields.pageBackgroundColorStyle }}
         {{ #render.partial }}page_body_tag_inside{{ /render.partial }}>
         {{ > partial/lab4/page_body_prefix }}
         <a href="#main" class="skip-link">Jump to main content</a>
 
         {{ #render.pageElement }}page_header lab4/page_header{{ /render.pageElement }}
-        {{ > partial/lab4/after_page_header }}
+        {{ #render.partial }}lab4/after_page_header{{ /render.partial }}
 
         {{{ selector.placement_non-relative }}}
                 
@@ -70,16 +71,18 @@
         {{ /getConfig.paywall.article.blurAllContent }}
         {{ /app.isFront }}
 
-        <section class="main article">
+        <section id="mainArticleSection" class="main article">
             {{{ selector.placement_top }}}
             <main class="pageWidth">
-                <article class="{{ #get.current.fields.pageBackgroundColor }}bg-baseview-custom{{ /get.current.fields.pageBackgroundColor }} {{ get.current.fields.pageFontColor }}{{ #get.current.fields.pageBackgroundColorStyle }} bg-baseview-custom{{ /get.current.fields.pageBackgroundColorStyle }}">
+                <article class="{{ #get.current.fields.pageBackgroundColor }}bg-baseview-custom{{ /get.current.fields.pageBackgroundColor }} {{ get.current.fields.pageFontColor }}{{ #get.current.fields.pageBackgroundColorStyle }} bg-baseview-custom{{ /get.current.fields.pageBackgroundColorStyle }}"
+                    {{ #get.current.fields.pageBackgroundColorStyle }} style="background-color:{{ get.current.fields.pageBackgroundColorStyle }};{{ #get.current.fields.pageBackgroundColorStyleDark }}color:#fff;{{ /get.current.fields.pageBackgroundColorStyleDark }}"{{ /get.current.fields.pageBackgroundColorStyle }}
+                >
 
                     <section class="main article k5a-article" id="main">
 
                         {{{ child.articlePreHeader }}}
 
-                        {{{ child.articleHeader }}}
+                        {{ > page/article/default/template/partials/articleHeader }}
 
                         {{ #render.partial }}articleAfterArticleHeader{{ /render.partial }}
 
@@ -152,6 +155,18 @@
             {{{ selector.placement_right }}}
         </section>
 
+        {{ #app.isFront }}
+            <template class="definitionTemplate">
+                <div class="definitionPopup">
+                    <div class="definitionInfo">
+                        <p></p>
+                        <span></span>
+                        <button class="definitionClose">&#10005;</button>
+                    </div>
+                </div>
+            </template>
+        {{ /app.isFront }}
+
         {{ #get.current.filtered.readProgress.active }}
         <script>
             (function () {
@@ -167,12 +182,22 @@
 
         <script>
             {{ ^app.isEditor }}
-            const audioPlayers = document.querySelectorAll('.dacInlineAudio');
-            for (const audioPlayer of audioPlayers) {
-                window.dachserData.push('audioInline', audioPlayer);
-            }
+                (function(){
+                    const audioPlayers = document.querySelectorAll('.dacInlineAudio');
+                    for (const audioPlayer of audioPlayers) {
+                        window.dachserData.push('audioInline', audioPlayer);
+                    }
+
+                    window.onload = function() {
+                        if (window.Dac && window.Dac.Definition) {
+                            const definition = new Dac.Definition();
+                            definition.setup();   
+                        }
+                    };
+                })();
             {{ /app.isEditor }}
         </script>
+        {{ > partial/pagescripts/labArticleData }}
 
         {{ #render.partial }}lab4/page_footer{{ /render.partial }}
 

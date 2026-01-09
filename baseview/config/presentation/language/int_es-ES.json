@@ -10,7 +10,7 @@
             "saturday": "sábado",
             "january": "enero",
             "february": "febrero",
-            "mars": "marzo",
+            "march": "marzo",
             "april": "abril",
             "may": "mayo",
             "june": "junio",
@@ -80,10 +80,34 @@
         },
         "search": {
             "placeholder": "Buscar...",
-            "label": "La búsqueda"
+            "label": "Buscar",
+            "openText": "Buscar",
+            "closeText": "Cerrar",
+            "expandedLabel": "Cerrar búsqueda",
+            "collapsedLabel": "Abrir búsqueda",
+            "labradorSearch": {
+                "submitLabel": "Buscar",
+                "navLabel": "Mostrar más",
+                "nohitsLabel": "No hay resultados. Intenta modificar tu búsqueda.",
+                "searchPlaceholder": "Escribe tu búsqueda aquí ...",
+                "advancedOpenText": "Abrir filtro",
+                "advancedCloseText": "Cerrar filtro",
+                "fromDateLabel": "Desde la fecha",
+                "toDateLabel": "Hasta la fecha",
+                "tagLabel": "Etiqueta",
+                "authorLabel": "Autor",
+                "allSitesLabel": "Todos los sitios"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "Cerrar menú",
+            "collapsedLabel": "Abrir menú",
+            "buttonText": "Menú"
         },
         "header": {
-            "logo_link_text": "Ir a la portada"
+            "logo_link_text": "Ir a la portada",
+			"menuScrollerLeftButton": "Desplazar a la izquierda",
+			"menuScrollerRightButton": "Desplazar a la derecha"
         },
         "slack_notifier": {
             "publish": {
@@ -121,8 +145,39 @@
             "caption": {
                 "showCaptionLabel": "Mostrar título",
                 "hideCaptionLabel": "Ocultar título",
-                "showMoreLabel": "Mostrar más"
+                "showMoreLabel": "Mostrar más",
+                "showLessLabel": "Mostrar menos"
+            },
+            "videoOverlayLabel": "Artículo en video"
+        },
+        "mostRead": {
+            "labelLatest": "Últimos",
+            "titleLatest": "Artículos recientes",
+            "labelMostRead": "Más leídos",
+            "titleMostRead": "Artículos más leídos"
+        },
+        "infiniteScroll": {
+            "readMore": "Continuar leyendo"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Compartir en Facebook",
+                "twitter": "Compartir en X (Twitter)",
+                "linkedin": "Compartir en LinkedIn",
+                "mail": "Compartir por correo electrónico",
+                "threads": "Compartir en Threads",
+                "copyLink": "Copiar enlace",
+                "glimta": "Desbloquea con Glimta",
+                "talandeWebb": "Abrir el panel de opciones de Talande Webb",
+                "bluesky": "Compartir en Bluesky",
+                "reddit": "Compartir en Reddit",
+                "whatsapp": "Compartir en WhatsApp"
             }
+        },
+        "gallery": {
+            "label": "Galería",
+            "seeAllImages": "Ver todas las imágenes",
+            "navigateToOriginal": "Ir a la página original"
         }
     }
 }

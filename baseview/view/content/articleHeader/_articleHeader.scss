@@ -1,4 +1,3 @@
-
 /* Style for contentbox articleHeader */
 @use "../../css_scss/components/font-size" as *;
 @use "../../css_scss/components/vars" as *;
@@ -29,17 +28,50 @@
 
     .kicker {
         @include font-size(21);
+
         &:empty {
             display: none;
         }
     }
 
-    .kicker, .headline, .subtitle {
+    .paywallLabel {
+        background-color: #fff;
+        color: #000;
+        text-transform: uppercase;
+        line-height: 1.2;
+        padding: 0.3rem 0.5rem;
+        box-shadow: 0 0 4px -1px #000;
+        border-radius: 0.2rem;
+        z-index: 1;
+        width: fit-content;
+        margin-bottom: 1rem;
+    }
+
+    // More spacing on top if the image is hidden
+    &:not(:has(figure)) {
+        .paywallLabel {
+            margin-top: 1rem;
+        }
+    }
+
+    .kicker, 
+    .headline, 
+    .subtitle {
         overflow-wrap: break-word;
 
-        &[class*=" bg-"], 
-        &.hasTextPadding  {
-            padding: 0.6rem $columns_gutter !important;
+        @include desktop {
+            &[class*=" bg-"], 
+            &.hasTextPadding {
+                padding: 0.6rem $columns_gutter !important;
+            }
+        }
+
+        @include desktop_down {
+            &[class*=" bg-"]:not(.color_mobile_no_bg_color), 
+            &.hasTextPadding:not(.color_mobile_no_bg_color),
+            &.mobile-hasTextPadding {
+                padding: 0.6rem $columns_gutter !important;
+            }
         }
     }
 
@@ -105,7 +137,77 @@
             }
         }
     }
-    
+
+    // Section
+    [class*="lab-article-section-"] {
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+
+        &.hasTextPadding,
+        &[class*="bg-"] {
+            padding-inline: 1rem;
+            padding-block: 0.6rem;
+            width: fit-content;
+
+            &.align-center {
+                width: initial;
+            }
+
+            &.align-right {
+                max-inline-size: 100%;
+                margin-inline-start: auto; 
+            }
+        }
+    }
+
+    .lab-article-section-link {
+        color: inherit;
+        width: fit-content;
+        display: block;
+
+        &:hover {
+            > * {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &.align-center {
+        [class*="lab-article-section-"] {
+            &.hasTextPadding,
+            &[class*="bg-"] {
+                display: inline-block;
+            }
+        }
+    }
+
+    &:has(.lab-article-section-aligned-kicker.lab-article-section-below):not(:has(.kicker ~ .media)):not(:has(.media.floatingText .kicker)),
+    &:has(.lab-article-section-aligned-kicker.lab-article-section-top):not(:has(.media ~ .kicker)):not(:has(.media.floatingText .kicker)):not(:has(.headline ~ .kicker)) {
+        .lab-article-section-link {
+            display: inline-block;
+        }
+
+        .lab-article-section-aligned-kicker {
+            padding-right: 1rem;
+            display: inline-block;
+            width: fit-content;
+
+            &.hasTextPadding {
+                margin-right: 1rem;
+            }
+        }
+
+        .kicker {
+            &:not(:empty) {
+                display: inline-block;
+                width: fit-content;
+                padding-inline: 1rem;
+            }
+        }
+    }
+
     .media {
         position: relative;
 
@@ -124,7 +226,9 @@
                 width: 100%;
             }
 
-            .kicker, .headline, .subtitle {
+            .kicker, 
+            .headline, 
+            .subtitle {
                 margin-right: $columns_gutter;
                 margin-left: $columns_gutter;
                 margin-bottom: calc($columns_gutter / 2);
@@ -209,11 +313,13 @@
 }
 
 .custom-bodytext-width, .custom-bodytext-alignment {
-    &.articleHeader-bodytext-width, &.articleHeader-image-bodytext-width, &.articleHeader-meta-bodytext-width {
+    &.articleHeader-bodytext-width, 
+    &.articleHeader-image-bodytext-width, 
+    &.articleHeader-meta-bodytext-width {
         .articleHeader {
             padding-inline: 0;
 
-            .kicker, .headline, .subtitle, .caption, .media, .meta {
+            .kicker, [class^="lab-article-section-"], .headline, .subtitle, .caption, .media, .meta {
                 padding-inline: var(--columns-gutter) !important;
             }
         }
@@ -223,7 +329,10 @@
 .custom-bodytext-width {
     &.articleHeader-bodytext-width {
         .articleHeader {
-            .kicker, .headline, .subtitle, .caption {
+            .kicker, 
+            .headline, 
+            .subtitle, 
+            .caption {
                 max-width: calc(var(--bodytext-width, 100%) + var(--columns-gutter) * 2);
             }
         }
@@ -241,7 +350,10 @@
 .custom-bodytext-alignment {
     &.articleHeader-bodytext-width {
         .articleHeader {
-            .kicker, .headline, .subtitle, .caption {
+            .kicker, 
+            .headline, 
+            .subtitle, 
+            .caption {
                 margin-inline: calc(var(--bodytext-alignment) - var(--columns-gutter));
             }
         }
@@ -261,6 +373,13 @@
 .pagestyle_centered .articleHeader {
     text-align: center;
 
+    .lab-article-section {
+        &.hasTextPadding,
+        &[class*="bg-"] {
+            display: inline-block;
+        }
+    }
+
     figure .caption {
         text-align: left;
     }
@@ -272,7 +391,11 @@
 }
 
 .pagestyle_centered:not(.custom-bodytext-alignment) {
-    .kicker, .headline, .subtitle, .caption, .media {
+    .kicker, 
+    .headline, 
+    .subtitle, 
+    .caption, 
+    .media {
         margin-inline: auto;
     }
 }

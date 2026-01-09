@@ -247,12 +247,9 @@ export default class LabradorAiAdmin {
                                 const customParams = this.params.data[feature];
                                 params.siteAlias = this.site;
                                 this.configSite = lab_api.v1.config.get('labradorAi', { site: this.site });
-                                console.log('CONFIG SITE', this.configSite);
-                                console.log(this.configSite.globalSettings || '', this.configSite?.globalSettings?.siteName || '', this.configSite?.globalSettings?.siteName !== '');
 
                                 params.siteName = this.globalSiteName || this.labradorAi.getSiteInfo(this.site).display_name || this.labradorAi.getSiteInfo(this.site).alias || this.site;
 
-                                console.log('SITE NAME', params.siteName);
                                 params.featureName = feature;
                                 params.emptySitePromptForDemo = false;
                                 if (p === 'previewContentBase') {
@@ -261,8 +258,6 @@ export default class LabradorAiAdmin {
                                 }
 
                                 const promptConfig = this.labradorAi.getPromptConfig(params, customParams);
-                                console.log('CUSTOM PARAMS', customParams);
-                                console.log('SJEKK PROMPT CONFIG', p, promptConfig.promptSite, params.emptySitePromptForDemo);
                                 const prompt = this.labradorAi.getPrompt(promptConfig, articleFields);
                                 const aiSettings = this.labradorAi.getAiSettings(promptConfig);
 
@@ -392,7 +387,6 @@ export default class LabradorAiAdmin {
          * @param {string} feature - The feature name
          * @param {string} selectLang - The selected language to be seen in the dropdown
          */
-        console.log('UPDATE LANGUAGE', feature, selectLang);
         const container = document.querySelector(`.lab-item-container[data-path="${ feature }"]`);
 
         const languageElement = container.querySelector(`.lab-item[data-path="${ feature }.language"] select`);

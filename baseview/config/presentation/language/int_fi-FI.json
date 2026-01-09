@@ -10,7 +10,7 @@
             "saturday": "lauantai",
             "january": "Tammikuu",
             "february": "Helmikuu",
-            "mars": "Maaliskuu",
+            "march": "Maaliskuu",
             "april": "Huhtikuu",
             "may": "Toukokuu",
             "june": "Kesäkuu",
@@ -30,7 +30,7 @@
             "day": "päivä",
             "days": "päivää",
             "durationSince": "{{count}} {{period}} {{ago}}",
-            "monthdayyear": "{{D}}.{{M}}.{{YYYY}}}",
+            "monthdayyear": "{{D}}.{{M}}.{{YYYY}}",
             "hourminute": "{{HH}}:{{mm}}",
             "dateTime": "{{D}}.{{M}}.{{YYYY}} - {{HH}}:{{mm}}",
             "articleScrollerPublishedDatePrefix": "",
@@ -68,10 +68,34 @@
         },
         "search": {
             "placeholder": "Haku...",
-            "label": "Haku"
+            "label": "Haku",
+            "openText": "Haku",
+            "closeText": "Sulje",
+            "expandedLabel": "Sulje haku",
+            "collapsedLabel": "Avaa haku",
+            "labradorSearch": {
+                "submitLabel": "Haku",
+                "navLabel": "Näytä lisää",
+                "nohitsLabel": "Ei osumia. Kokeile muokata hakuasi.",
+                "searchPlaceholder": "Kirjoita hakusi tähän...",
+                "advancedOpenText": "Avaa suodatin",
+                "advancedCloseText": "Sulje suodatin",
+                "fromDateLabel": "Alkamispäivä",
+                "toDateLabel": "Tähän mennessä",
+                "tagLabel": "Tag",
+                "authorLabel": "Kirjoittaja",
+                "allSitesLabel": "Kaikki sivustot"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "Sulje valikko",
+            "collapsedLabel": "Avaa valikko",
+            "buttonText": "Valikko"
         },
         "header": {
-            "logo_link_text": "Siirry etusivulle"
+            "logo_link_text": "Siirry etusivulle",
+			"menuScrollerLeftButton": "Vieritä vasemmalle",
+			"menuScrollerRightButton": "Vieritä oikealle"
         },
         "slack_notifier": {
             "publish": {
@@ -109,7 +133,57 @@
             "caption": {
                 "showCaptionLabel": "Näytä kuvateksti",
                 "hideCaptionLabel": "Piilota kuvateksti",
-                "showMoreLabel": "Näytä lisää"
+                "showMoreLabel": "Näytä lisää",
+                "showLessLabel": "Näytä vähemmän"
+            },
+            "videoOverlayLabel": "Videoartikkeli"
+        },
+        "mostRead": {
+            "labelLatest": "Uusimmat",
+            "titleLatest": "Viimeaikaiset artikkelit",
+            "labelMostRead": "Useimmat luetut",
+            "titleMostRead": "Useimmat luetut artikkelit"
+        },
+        "infiniteScroll": {
+            "readMore": "Jatka lukemista"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Jaa Facebookissa",
+                "twitter": "Jaa X:ssä (Twitterissä)",
+                "linkedin": "Jaa LinkedInissä",
+                "mail": "Jaa sähköpostitse",
+                "threads": "Jaa Threxdsissa",
+                "copyLink": "Kopioi linkki",
+                "glimta": "Avaa Glimtalla",
+                "talandeWebb": "Avaa Talande Webb -valintapaneeli",
+                "bluesky": "Jaa Blueskyssä",
+                "reddit": "Jaa Redditissä",
+                "whatsapp": "Jaa WhatsAppissa"
+            }
+        },
+        "gallery": {
+            "label": "Galleria",
+            "seeAllImages": "Katso kaikki kuvat",
+            "navigateToOriginal": "Siirry alkuperäiselle sivulle"
+        },
+        "weather": {
+            "failedToFetch": "Säätietoja ei voitu hakea",
+            "updated": "Päivitetty",
+            "fetchingData": "Säätietoja ladataan",
+            "types": {
+                "clearsky": "Selkeä",
+                "fair": "Puolipilvinen",
+                "partlycloudy": "Osittain pilvinen",
+                "cloudy": "Pilvinen",
+                "rainshowers": "Sadekuuroja",
+                "rain": "Sade",
+                "snow": "Lumisadetta",
+                "sleet": "Räntää",
+                "thunder": "Ukkonen",
+                "fog": "Sumu",
+                "wind": "Tuulinen",
+                "unknown": "Tuntematon"
             }
         }
     }

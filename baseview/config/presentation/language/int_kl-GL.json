@@ -10,7 +10,7 @@
             "saturday": "arfininngorneq",
             "january": "januari",
             "february": "februari",
-            "mars": "martsi",
+            "march": "martsi",
             "april": "aprili",
             "may": "ilimanaq",
             "june": "juuni",
@@ -68,10 +68,34 @@
         },
         "search": {
             "placeholder": "Ujaasineq...",
-            "label": "Ujaasineq"
+            "label": "Ujaasineq",
+            "openText": "Ujaasineq",
+            "closeText": "Matujuk",
+            "expandedLabel": "Ujaasineq matuuk",
+            "collapsedLabel": "Avammut ujaasineq",
+            "labradorSearch": {
+                "submitLabel": "Ujaasineq",
+                "navLabel": "Annertunerusumik takussutissiigit",
+                "nohitsLabel": "Hits-inik peqanngilaq. Ujaasineq allanngortissallugu misiliigit.",
+                "searchPlaceholder": "Ujaasineq uani allaguk ...",
+                "advancedOpenText": "Avammut filteri",
+                "advancedCloseText": "Filteri matuguk",
+                "fromDateLabel": "Ulloq aallarnerfigalugu",
+                "toDateLabel": "Ulloq tikillugu",
+                "tagLabel": "Qaliaq",
+                "authorLabel": "Suliarinnittoq",
+                "allSitesLabel": "Sumiiffiit tamarmik"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "Menu matuuk",
+            "collapsedLabel": "Menu ammasoq",
+            "buttonText": "Menu"
         },
         "header": {
-            "logo_link_text": "Quppernermut siullermut ingerlagit"
+            "logo_link_text": "Quppernermut siullermut ingerlagit",
+			"menuScrollerLeftButton": "Venstremut ingerlagit",
+			"menuScrollerRightButton": "Talerperlikkut ingerlagit"
         },
         "slack_notifier": {
             "publish": {
@@ -109,7 +133,57 @@
             "caption": {
                 "showCaptionLabel": "Allaaserisaq takuuk",
                 "hideCaptionLabel": "Allaaserisaq toqqoruk",
-                "showMoreLabel": "Annertunerusumik takutikkit"
+                "showMoreLabel": "Annertunerusumik takutikkit",
+                "showLessLabel": "Minnerusumik takutitsigit"
+            },
+            "videoOverlayLabel": "Videop nalunaarusiaq"
+        },
+        "mostRead": {
+            "labelLatest": "Kingullerpaaq",
+            "titleLatest": "Allaaserisat kingulliit",
+            "labelMostRead": "Amerlanerpaat atuartarpaat",
+            "titleMostRead": "Allaaserisat atuarneqartartut amerlanersaat"
+        },
+        "infiniteScroll": {
+            "readMore": "Atuarneq ingerlateqqiguk"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Facebookimi avitseqatigiuk",
+                "twitter": "X-imi (Twitterimi) avitseqatigiuk",
+                "linkedin": "LinkedInimi avitseqatigiissutigiuk",
+                "mail": "Emailikkut avitseqatigiuk",
+                "threads": "Threads-imi avitseqatigiuk",
+                "copyLink": "Linkimik kopierit",
+                "glimta": "Glimta atorlugu ammassaaq",
+                "talandeWebb": "Talande Webb-ip toqqagassaanik paneli ammaruk",
+                "bluesky": "Bluesky-mi avitseqatigiuk",
+                "reddit": "Redditimi avitseqatigiissutigiuk",
+                "whatsapp": "WhatsApp-imi avitseqatigiissutigiuk"
+            }
+        },
+        "gallery": {
+            "label": "Katersugaasivik",
+            "seeAllImages": "Tamanna pissarsigit",
+            "navigateToOriginal": "Aqutsisutut qassiussaq"
+        },
+        "weather": {
+            "failedToFetch": "Sila pillugu paasissutissat pissarsiarineqarsinnaanngillat",
+            "updated": "Nutarterneqarpoq",
+            "fetchingData": "Sila pillugu paasissutissat aallerneqartut",
+            "types": {
+                "clearsky": "Sila qinngorpoq",
+                "fair": "Sila pitsaasoq",
+                "partlycloudy": "Sila soorlu qinngorpoq qaqqarniallu",
+                "cloudy": "Sila qaqqarpoq",
+                "rainshowers": "Sialuit",
+                "rain": "Sialuk",
+                "snow": "Aput",
+                "sleet": "Aputit sialuit ilagalugit",
+                "thunder": "Qilak patippoq (nersorpoq)",
+                "fog": "Qilak perserpaa",
+                "wind": "Anorersuartoq",
+                "unknown": "Nalunaatsumik sila"
             }
         }
     }

@@ -1,10 +1,16 @@
 <div class="hamburger to-be-expanded[[ #settings.classes ]] [[.]][[ /settings.classes ]]" data-id="pageElements-[[ id ]]">
     <div class="positionRelative">
         <span class="hamburger-button hamburger-expander [[ #settings.textAsButton ]]hamburger-button-text[[ /settings.textAsButton]]">
-            <button class="burger-btn" aria-label="[[ #settings.label ]][[ settings.label]][[ /settings.label ]][[ ^settings.label ]]Åpen meny[[ /settings.label ]]" aria-expanded="false" aria-controls="hamburger-container" aria-haspopup="menu">
+            <button class="burger-btn" aria-label="[[ #settings.label ]][[ settings.label]][[ /settings.label ]][[ ^settings.label ]]{{ #lang }}hamburger.collapsedLabel{{ /lang }}[[ /settings.label ]]" aria-expanded="false" aria-controls="hamburger-container" aria-haspopup="menu">
                 [[ ^settings.textAsButton ]]
+                    [[ #settings.textBeforeIcon ]]
+                        <span class="textBeforeIcon">{{ #lang }}hamburger.buttonText{{ /lang }}</span>
+                    [[ /settings.textBeforeIcon ]]
                     <i class="open [[ ^settings.icon_open ]]fi-list[[ /settings.icon_open ]][[ settings.icon_open ]]"></i>
                     <i class="close [[ ^settings.icon_close ]]fi-x[[ /settings.icon_close ]][[ settings.icon_close ]]"></i>
+                    [[ #settings.textAfterIcon ]]
+                        <span class="textAfterIcon">{{ #lang }}hamburger.buttonText{{ /lang }}</span>
+                    [[ /settings.textAfterIcon ]]
                 [[ /settings.textAsButton ]]
                 [[ #settings.textAsButton ]]
                     <span class="open">[[ settings.textOpen ]]</span>
@@ -55,6 +61,7 @@
             // Toggle the expanded class and aria-expanded attribute
             document.querySelector('[data-id="pageElements-[[ id ]]"].hamburger.to-be-expanded').classList.toggle('expanded');
             burgerButton.setAttribute('aria-expanded', burgerButton.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+            burgerButton.setAttribute('aria-label', burgerButton.getAttribute('aria-expanded') === 'true' ? '{{ #lang }}hamburger.expandedLabel{{ /lang }}' : '{{ #lang }}hamburger.collapsedLabel{{ /lang }}');
 
             // This doesn't seem to do anything? But there's styling dependent on it some places
             document.body.classList.toggle('hamburger-expanded');

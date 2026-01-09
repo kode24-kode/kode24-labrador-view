@@ -10,12 +10,15 @@
         "test:disableOnCommit": "sh .gitcommithooks/disable-pre-commit.sh",
         "test:cy:open": "cypress open",
         "test:cy:run": "cypress run --browser chrome --spec \"cypress/e2e/spec.cy.js\"",
+        "test:cy:visual": "start-server-and-test start:server :8000 percy:cypress",
+        "percy:cypress": "percy exec -- cypress run --config-file cypress/percy/cypress.config.js",
+        "start:server": "serve -l 8000 .",
         "clean": "rimraf view/css/*.css",
-        "build": "npm run build:version && npm run build:releasenotes:version && npm run build:sass && npm run build:deps && npm run build:front && npm run build:modules",
+        "build": "pnpm run build:version && pnpm run build:releasenotes:version && pnpm run build:sass && pnpm run build:deps && pnpm run build:client && pnpm run build:front && pnpm run build:modules",
         "compile:sass": "sass -I view/css_scss -I view/content -I view/structure view/css_scss:view/css --style=compressed",
         "prefix:css": "postcss view/css/*.css -u autoprefixer -r -m",
-        "build:sass": "npm run compile:sass && npm run prefix:css",
-        "watch:sass": "chokidar \"view/**/*.scss\" -c \"npm run compile:sass --silent && npm run prefix:css --silent && echo Finished build...\"",
+        "build:sass": "pnpm run compile:sass && pnpm run prefix:css",
+        "watch:sass": "chokidar \"view/**/*.scss\" -c \"pnpm run compile:sass && pnpm run prefix:css && echo Finished build...\"",
         "build:front": "webpack --config webpack.config.front.cjs",
         "watch:front": "webpack --config webpack.config.front.cjs --watch",
         "build:dependencies": "webpack --config webpack.config.dependencies.cjs",
@@ -23,8 +26,9 @@
         "watch:dependencieModules": "webpack --config webpack.config.dependencieModules.cjs --watch",
         "lint:fix": "./node_modules/.bin/eslint modules/ --fix",
         "lint:dryrun": "./node_modules/.bin/eslint modules/ --fix-dry-run",
-        "build:deps": "npm run build:dependencies && npm run build:dependencieModules",
-        "build:modules": "npm run build:client:modules && npm run build:editor:modules",
+        "build:deps": "pnpm run build:dependencies && pnpm run build:dependencieModules",
+        "build:modules": "pnpm run build:client:modules && pnpm run build:editor:modules",
+        "build:client": "pnpm run build:client:modules && pnpm run build:client:resources",
         "build:client:resources": "node client/buildHelpers/builder.js",
         "build:client:modules": "webpack --config webpack.config.client.cjs",
         "watch:client:modules": "webpack --config webpack.config.client.cjs --watch",
@@ -32,7 +36,8 @@
         "watch:editor:modules": "webpack --config webpack.config.editor.cjs --watch",
         "build:releasenotes:version": "node buildHelpers/releasenotes.js",
         "build:version": "node buildHelpers/version.js",
-        "watch:all": "npm run watch:sass & npm run watch:front & npm run watch:editor:modules"
+        "watch:all": "pnpm run watch:sass & pnpm run watch:front & pnpm run watch:editor:modules",
+        "releasenote:add": "node buildHelpers/releasenote_creator.js"
     },
     "repository": {
         "type": "git",
@@ -66,25 +71,36 @@
     },
     "homepage": "https://github.com/publishlab/baseview#readme",
     "devDependencies": {
-        "@babel/plugin-transform-modules-commonjs": "^7.12.13",
-        "autoprefixer": "^10.4.7",
-        "chokidar-cli": "^3.0.0",
-        "compression-webpack-plugin": "^10.0.0",
-        "cypress": "^13.15.0",
-        "cypress-real-events": "^1.13.0",
-        "eslint": "^8.3.0",
-        "eslint-config-airbnb-base": "^15.0.0",
-        "postcss": "^8.4.31",
-        "postcss-cli": "^9.1.0",
-        "rimraf": "^3.0.2",
-        "sass": "^1.51.0",
-        "terser-webpack-plugin": "^5.3.6",
-        "webpack": "^5.76.0",
-        "webpack-cli": "^4.5.0"
+        "@babel/plugin-transform-modules-commonjs": "7.12.13",
+        "@percy/cli": "1.30.11",
+        "@percy/cypress": "3.1.6",
+        "autoprefixer": "10.4.7",
+        "chokidar-cli": "3.0.0",
+        "compression-webpack-plugin": "10.0.0",
+        "cypress": "13.15.0",
+        "cypress-real-events": "1.13.0",
+        "eslint": "8.3.0",
+        "eslint-config-airbnb-base": "15.0.0",
+        "postcss": "8.4.31",
+        "postcss-cli": "9.1.0",
+        "rimraf": "3.0.2",
+        "sass": "1.51.0",
+        "serve": "14.2.5",
+        "start-server-and-test": "2.0.12",
+        "terser-webpack-plugin": "5.3.6",
+        "webpack": "5.99.9",
+        "webpack-cli": "4.5.0"
     },
     "dependencies": {
-        "chai": "^5.1.1",
-        "mocha": "^10.7.3",
-        "mustache": "^4.2.0"
-    }
+        "chai": "5.1.1",
+        "mocha": "10.7.3",
+        "mustache": "4.2.0"
+    },
+  "volta": {
+    "node": "24.11.1"
+	},
+	"engines": {
+		"node": "24.11.1"
+	},
+	"packageManager": "pnpm@10.23.0"
 }

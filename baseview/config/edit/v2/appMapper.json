@@ -442,6 +442,29 @@
                     "shiftKey"
                 ]
             }
+        },
+        "collabrador": {
+            "callback": "lab_api.v1.collection.toggle",
+            "argument": {
+                "name": "Collabrador"
+            },
+            "description": "Collabrador - Labrador collaboration service",
+            "category": "editor",
+            "tags": "collaboration mode comments feedback review teamwork chat discussion live",
+            "menu": {
+                "appMenu": {
+                    "title": "Collabrador",
+                    "zone": "content",
+                    "showKey": true,
+                    "icon": "labicon-collabrador"
+                }
+            },
+            "hotkey": {
+                "key": "c",
+                "controlkeys": [
+                    "shiftKey"
+                ]
+            }
         }
     }
 }

@@ -33,6 +33,19 @@
                 googletag.display('{{{ get.current.filtered.adData.code }}}');
             });
         </script>
+        {{ #get.current.metadata.options.refresh }}
+        <script type="module">
+            const data = labClientAPI.get('adData') || [];
+            data.push({
+                format: '{{ get.current.fields.format }}',
+                code: '{{ get.current.filtered.adData.code }}',
+                interval: {{ get.current.metadata.options.interval }},
+                index: {{ get.current.metadata.options.index }},
+                preloadIndex: {{ get.current.metadata.options.preloadIndex }}
+            });
+            labClientAPI.set('adData', data);
+        </script>
+        {{ /get.current.metadata.options.refresh }}
     {{ /get.current.filtered.googleAds.bidding.enabled }}
     {{ /app.isEditor }}
 </div>

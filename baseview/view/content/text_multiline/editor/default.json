@@ -134,6 +134,9 @@
             }
         }
     },
+    "draggable": {
+        "icon": "labicon-text_options"
+    },
     "droppable": {
         "active": true,
         "delegate": "TextDrop",

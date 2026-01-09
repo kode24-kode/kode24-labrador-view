@@ -59,5 +59,8 @@
         "admin": {
             "template": "content/tablebox/template/settings"
         }
+    },
+    "draggable": {
+        "icon": "labicon-grid_extra_tight"
     }
 }

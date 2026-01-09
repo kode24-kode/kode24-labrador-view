@@ -1,27 +1,56 @@
-<div data-element-guid="{{ get.current.guid }}" class="{{ #helper.trim }}
-column toplist
-{{ #style.collection }}box_decoration{{ /style.collection }}
-layout_{{ get.current.fields.layout }}
-{{ size.grid.css }}
-{{ size.grid.absCss }}
-{{ /helper.trim }}">
+<div data-element-guid="{{ get.current.guid }}" 
+    id="toplist_{{ get.current.id }}" 
+    class="{{ #helper.trim }}
+        column toplist 
+        {{ #style.collection }}box_decoration{{ /style.collection }}
+        layout_{{ get.current.fields.layout }}
+        {{ size.grid.css }}
+        {{ size.grid.absCss }}
+        {{ /helper.trim }}">
+
     {{{ get.current.filtered.styleSheets }}}
-    <div class="content {{ #style.collection }}content_decoration{{ /style.collection }} {{ #get.current.fields.hideBorder }}hide-border{{ /get.current.fields.hideBorder }}" style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
+    
+    <div class="{{ #helper.trim }}
+        content 
+        {{ #style.collection }}content_decoration{{ /style.collection }}
+        {{ #get.current.fields.hideBorder }}hide-border{{ /get.current.fields.hideBorder }}
+        {{ /helper.trim }}" 
+        style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
+
+        {{!-- Title Section --}}
         {{ ^get.current.fields.hideTitle }}
+            {{!-- Editor View --}}
             {{ #app.isEditor }}
-                <h3 class="headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</h3>
+            <h3 class="headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}" 
+                style="{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}">
+                {{{ get.current.fields.title }}}
+            </h3>
             {{ /app.isEditor }}
+
+            {{!-- Frontend View --}}
             {{ #app.isFront }}
                 {{ #get.current.fields.title }}
-                    <h3 class="headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</h3>
+                <h3 class="headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}">
+                    {{{ get.current.fields.title }}}
+                </h3>
                 {{ /get.current.fields.title }}
             {{ /app.isFront }}
         {{ /get.current.fields.hideTitle }}
+
+        {{!-- Tab Navigation --}}
+        <nav class="tab-navigation{{ #get.current.filtered.multi }} visibleTabs{{ /get.current.filtered.multi }}">
+            {{ #get.current.filtered.tabData }}
+                <a href="#" class="tab" data-tab="{{ name }}" data-domain="{{ domain }}">{{{ value }}}</a>
+            {{ /get.current.filtered.tabData }}
+        </nav>
+
+        {{!-- No Results Message --}}
         {{ ^get.current.filtered.result.length }}
             {{ #app.isEditor }}
                 <p class="noContent">{{ get.current.filtered.placeholder }}</p>
                 <p class="lab-defaultTextValue help">Configure in element settings</p>
             {{ /app.isEditor }}
+
             {{ #app.isFront }}
                 {{ ^get.current.fields.hideTitle }}
                     {{ #get.current.fields.title }}
@@ -30,23 +59,142 @@ layout_{{ get.current.fields.layout }}
                 {{ /get.current.fields.hideTitle }}
             {{ /app.isFront }}
         {{ /get.current.filtered.result.length }}
+
+        {{!-- Rendering Results --}}
         {{ #get.current.filtered.result.length }}
-        <ul>{{ #get.current.filtered.result }}
-            <li{{ #cssClass }} class="{{ cssClass }}"{{ /cssClass }} data-section="{{ section }}">
-                {{ #imageUrl }}
-                <figure class="media">
-                    <a href="{{{ url }}}"><img src="{{{ imageUrl }}}" alt=""></a>
-                </figure>
-                {{ /imageUrl }}    
-                <div class="text">
-                    <a href="{{{ url }}}">
-                        {{ #getConfig.contentbox_settings.toplist.show_section }}<p class="section">{{ section }}</p>{{ /getConfig.contentbox_settings.toplist.show_section }}
-                        <h4>{{{ title }}}</h4>
-                        {{ #niceDate }}<time class="fi-clock" datetime="{{{ published }}}">{{{ niceDate }}}</time>{{ /niceDate }}
-                    </a>
-                </div>
-            </li>
-        {{ /get.current.filtered.result }}</ul>
+        <ul class="toplist-results {{ #get.current.fields.toplistCounter }}toplist-counter{{ /get.current.fields.toplistCounter }}">
+            {{ #get.current.filtered.result }}
+                <li{{ #cssClass }} class="tab-content {{ cssClass }}"{{ /cssClass }}
+                data-section="{{ section }}"
+                data-tags="{{ tags }}"
+                data-hostname="{{ domain }}"
+                data-source-display-name="{{ sourceDisplayName }}" 
+                data-tab-content="{{ kilkayaKey }}">
+                    {{ #imageUrl }}
+                    <figure class="media paywall-position-{{ get.current.fields.displayPaywall }}">
+                        <a href="{{{ url }}}">
+                            <img src="{{{ imageUrl }}}" alt="">
+                            {{ #paywall }}
+                            <div class="paywallLabel">
+                                {{ #get.current.filtered.paywallLabel.icon.content }}
+                                    <span class="{{ get.current.filtered.paywallLabel.icon.content }}"></span>
+                                {{ /get.current.filtered.paywallLabel.icon.content }}
+                                {{ get.current.filtered.paywallLabel.text.content }}
+                            </div>
+                            {{ /paywall }}
+                        </a>
+                    </figure>
+                    {{ /imageUrl }}
+                    <div class="text kicker-position-{{get.current.fields.displayKicker}} paywall-position-{{ get.current.fields.displayPaywall }}">
+                        <a href="{{{ url }}}">
+                            <div class="kicker-paywall-container">
+                                {{ #kicker }}
+                                <span class="kicker">{{{ kicker }}}</span>
+                                {{ /kicker }}
+                                {{ #paywall }}
+                                <div class="paywallLabel">
+                                    {{ #get.current.filtered.paywallLabel.icon.content }}
+                                        <span class="{{ get.current.filtered.paywallLabel.icon.content }}"></span>
+                                    {{ /get.current.filtered.paywallLabel.icon.content }}
+                                    {{ get.current.filtered.paywallLabel.text.content }}
+                                </div>
+                                {{ /paywall }}
+                            </div>
+                            <h4>{{{ title }}}</h4>
+                            {{ #niceDate }}<time class="fi-clock" datetime="{{{ published }}}">{{{ niceDate }}}</time>{{ /niceDate }}
+                        </a>
+                        <p>
+                            {{#get.current.fields.displaySite}}
+                                <span class="siteName">{{ name }}</span>
+                            {{ /get.current.fields.displaySite }}
+                            {{ #get.current.fields.displaySection }}
+                                <span class="section">{{ section }}</span>
+                            {{ /get.current.fields.displaySection }}
+                        </p>
+                    </div>
+                </li>
+            {{ /get.current.filtered.result }}
+        </ul>
+        {{ #app.isEditor }}
+        <script>
+            (function() {
+                const container = document.getElementById('toplist_{{ get.current.id }}');
+                if (container && container.querySelector('.tab-navigation .tab') && !container.querySelector('.tab.active')) {
+                    initializeToplistTabs_{{ get.current.id }}();
+                }
+            })();
+        </script>
+        {{ /app.isEditor }}
         {{ /get.current.filtered.result.length }}
     </div>
 </div>
+
+<script type="text/javascript">
+    (function() {
+        function initializeToplistTabs_{{ get.current.id }}() {
+            const container = document.getElementById('toplist_{{ get.current.id }}');
+            if (!container) return;
+
+            const nav = container.querySelector('.tab-navigation');
+            const contentItems = container.querySelectorAll('ul > li:not(.no-results)');
+            const firstTab = nav ? nav.querySelector('.tab') : null;
+
+            const activeTab = nav ? nav.querySelector('.tab.active') : null;
+            if (nav && !activeTab) {
+                handleTabClick(firstTab);
+            }
+
+            if (!firstTab || contentItems.length === 0) {
+                // If there are no tabs, make sure all content is visible.
+                contentItems.forEach(item => item.style.display = '');
+                return;
+            }
+
+            // This function handles the filtering logic.
+            function handleTabClick(clickedTab) {
+                if (!clickedTab) return;
+                const targetDomain = clickedTab.getAttribute('data-domain');
+                const allTabs = nav.querySelectorAll('.tab');
+                allTabs.forEach(tab => tab.classList.remove('active'));
+                clickedTab.classList.add('active');
+
+                // Show or hide content items based on the selected tab
+                contentItems.forEach(item => {
+                    const tabMode = '{{get.current.fields.tabs}}';
+                    const itemTabContent = item.getAttribute('data-tab-content');
+
+                    if (tabMode === 'hostname' || tabMode === 'tags') {
+                        if (itemTabContent && itemTabContent.trim().toLowerCase() === targetDomain.trim().toLowerCase()) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    } else {
+                        item.style.display = '';
+                    }
+                });
+            }
+
+            // Use a single event listener on the navigation container.
+            if (nav) {
+                nav.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const clickedTab = event.target.closest('.tab');
+                    if (clickedTab) {
+                        handleTabClick(clickedTab);
+                    }
+                });
+            }
+        }
+
+        // Make function globally accessible for editor
+        window.initializeToplistTabs_{{ get.current.id }} = initializeToplistTabs_{{ get.current.id }};
+
+        // Initialize on load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeToplistTabs_{{ get.current.id }});
+        } else {
+            initializeToplistTabs_{{ get.current.id }}();
+        }
+    })();
+</script>

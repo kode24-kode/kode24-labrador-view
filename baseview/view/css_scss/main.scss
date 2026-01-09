@@ -107,7 +107,6 @@ p {
 }
 
 @include mobile {
-
     h1 {
         font-size: 2em;
     }
@@ -139,7 +138,6 @@ p {
     .mobile_text_align_align-right {
         text-align: right;
     }
-
 }
 
 article,
@@ -243,6 +241,7 @@ a.skip-link {
     color: #000;
     background-color: #fff;
     border: 1px solid currentColor;
+
     &:focus {
         left: 0px;
     }
@@ -360,6 +359,8 @@ body.blur-content {
 
         @include desktop_down {
             min-width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
         }
     }
 
@@ -375,6 +376,66 @@ body.blur-content {
         background-color: rgba(0, 0, 0, 0.8);
         position: fixed;
         z-index: 20;
+    }
+}
+
+// Infinite scroll
+.infiniteArticle {
+    .infiniteCollapse:not(.infiniteVisibility) > *:not(.bodytext),
+    .infiniteCollapse:not(.infiniteVisibility) .bodytext > * {
+        display: none;
+
+        &.infiniteVisibility {
+            display: block;
+        }
+    }
+
+    .infiniteSection main.pageWidth {
+        > article:not([class*=bg-]) {
+            background-color: inherit !important;
+        }
+
+        article section.article > *:not(.articleHeader):not(.infiniteCollapse),
+        .infiniteCollapse:not(.infiniteVisibility) .bodytext > *:not(p):not(.infiniteButton):not(.placeholder):not(.google-ad:first-of-type) {
+            display: none;
+        }
+    }
+
+    .infiniteVisibility {
+        display: block;
+    }
+
+    .infiniteRelativity {
+        position: relative;
+
+        &.bodytext {
+            margin-bottom: 5rem;
+        }
+    }
+
+    .infiniteFade {
+        content: "";
+        position: absolute;
+        left: 0;
+        display: block;
+        width: 100%;
+    }
+
+    .infiniteButton {
+        display: block;
+        position: absolute;
+        left: 0; 
+        right: 0; 
+        margin-inline: auto; 
+        width: fit-content;
+    }
+
+    .infiniteInvisibility {
+        display: none;
+    }
+
+    .fadeOut {
+        mask-image: linear-gradient(to bottom, black, transparent 100%);
     }
 }
 
@@ -396,7 +457,6 @@ article a:hover {
         }
     }
 }
-
 
 img,
 object,
@@ -521,6 +581,22 @@ section.main.front, section.main.article, main.pageWidth > article {
     position: relative;
 }
 
+article {
+    .shareableMessage {
+        display: none; 
+        position: relative; 
+        width: 100vw; 
+        margin-left: calc(50% - 50vw); 
+        padding: 3px 20px;
+        background-color: #f0f0f0; 
+        color: #333; 
+        text-align: center; 
+        font-size: 1em;
+        border-bottom: 1px solid #ddd; 
+        z-index: 1000; 
+    }
+}
+
 section.related,
 section.comments {
     clear: both;
@@ -612,10 +688,6 @@ body:not(.has-paywall) {
         }
     }
 
-    .fi-social-talandeWebb {
-        background-color: #000;
-    }
-
     button,
     a {
         border: 1px solid #505050;
@@ -625,13 +697,13 @@ body:not(.has-paywall) {
         height: 1.4em;
         font-size: 1.4em;
         text-align: center;
-        // color: #5f5e5e;
         color: inherit;
         border-color: inherit;
         margin: 0 2px 0 0;
         padding-top: 0.16em;
         padding-left: 0.05em;
         transition: border-color 0.2s, color 0.2s;
+
         &:hover {
             border-color: #008CBA;
             color: #008CBA;
@@ -665,7 +737,6 @@ body:not(.has-paywall) {
 
 // Hack to fix rows as grid:
 #navigation-wrapper.row {
-
     &:before,
     &:after {
         content: " ";
@@ -820,6 +891,63 @@ section.main {
     }
 }
 
+dfn {
+    cursor: pointer;
+    background-color: #a7e8fe;
+    border-bottom: 1px dotted #000000;
+}
+
+.definitionPopup {
+    position: absolute;
+    display: none;
+    border: none;
+    top: 1rem;
+    left: 0;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    font-size: 0.9rem;
+    padding: 0;
+    z-index: 9999;
+    cursor: default;
+
+    .definitionInfo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 1rem;
+        padding-right: 2rem;
+
+        p {
+            width: 100%;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: capitalize;
+            color: #000;
+        }
+
+        span {
+            word-wrap: break-word;
+            overflow: hidden;
+            color: #000;
+        }
+
+        .definitionClose {
+            position: absolute;
+            background-color: inherit;
+            border: none;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 1.3rem;
+            padding: 0;
+
+            &:hover {
+                background-color: #d0d0d0;
+            }
+        }
+    }
+}
 
 // Start Labrador 4
 
@@ -1021,8 +1149,15 @@ section.main {
             .border-radius-#{$i} {
                 border-radius: #{$i}px;
 
-                &[class*=" bg-"] {
-                    padding-bottom: 1rem;
+                &[class*=" bg-"],
+                &.hasContentPadding {
+                    padding-bottom: calc((#{$i} / 48) * 1rem); // Using current max border radius as reference
+
+                    // Article teasers with floated images
+                    &:has(.media.desktop-floatLeft),
+                    &:has(.media.desktop-floatRight) {
+                        padding-bottom: 0;
+                    }
                 }
             }
         }
@@ -1123,6 +1258,9 @@ section.main {
 @import '../content/chart/chart';
 @import '../content/remoteproduction/remoteproduction';
 @import '../content/vimond/vimond';
+@import '../content/vp/vp';
+@import '../content/infiniteScroll/infiniteScroll';
+@import '../content/authorBox/authorBox';
 
 // Misc:
 @import 'components/paywall';

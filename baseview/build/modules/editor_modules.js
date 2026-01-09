@@ -1,6 +1,6 @@
 /*!
  * Baseview.
- * Build: f91165f8a6ae08229d32
+ * Build: 0d442cf96f5b9b3fe807
  * (c) Labrador CMS AS
  * https://www.labradorcms.com
  *
@@ -15,10 +15,10 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Entry": () => (/* binding */ O),
-/* harmony export */   "behaviours": () => (/* binding */ q)
+/* harmony export */   Entry: () => (/* binding */ j),
+/* harmony export */   behaviours: () => (/* binding */ t)
 /* harmony export */ });
-var e={d:(t,i)=>{for(var s in i)e.o(i,s)&&!e.o(t,s)&&Object.defineProperty(t,s,{enumerable:!0,get:i[s]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.d(t,{k:()=>A,B:()=>i});var i={};e.r(i),e.d(i,{adnuntiusAd:()=>F,article:()=>v,googleAd:()=>$,image:()=>k,livefeed:()=>T,notice:()=>w,page_article:()=>h,page_front:()=>f});class s{static getSiteStyles(e,t=[]){const i=lab_api.v1.config.get(`site_styles.${e}`)||t;return Sys.logger.debug(`ViewSupport: Found ${Array.isArray(i)?i.length:0} stylesheet(s) for site "${e}".`),i}static getSiteStylesWithFallback(e,t=[]){const i=this.getSiteStyles(e,null);if(null===i){t.push(e);const i=lab_api.v1.config.get("lab_fallback_site",{site:e});if(i&&!t.includes(i))return this.getSiteStylesWithFallback(i,t)}return i||[]}static getSiteScripts(e,t,i){const s=this.filterScriptListByPageType(lab_api.v1.config.get(`site_scripts.${e}`)||[],t,i);return Sys.logger.debug(`ViewSupport: Found ${s.length} script-path(s) for site "${e}".`),s}static getSiteScriptsWithFallback(e,t,i,s=[]){let a=this.getSiteScripts(e,t,i);if(s.length&&(a=this.removeWithInheritFalse(a)),!a.length){s.push(e);const a=lab_api.v1.config.get("lab_fallback_site",{site:e});if(a&&!s.includes(a))return this.getSiteScriptsWithFallback(a,t,i,s).filter((e=>!1!==e.inherit))}return a}static getCommonScripts(e,t,i=!1){const s=this.filterScriptListByPageType(lab_api.v1.config.get("site_scripts_common")||[],e,t,i);return Sys.logger.debug(`ViewSupport: Found ${s.length} common ${i?"script-path(s)":"JS modules"}`),s}static filterScriptListByPageType(e,t,i,s=!1){return e.filter((e=>(!e.isModule&&!s||e.isModule&&s)&&(!e.pageType||e.pageType===t)&&(!i||i&&!e.skipEditor)))}static removeWithInheritFalse(e){return Array.isArray(e)&&e.length>0?e.filter((e=>!1!==e.inherit)):e}static getSiteFilesForContentboxes(e,t,i,s=[]){const a=[],n=lab_api.v1.model.query.getModelTypes();Sys.logger.debug(`ViewSupport sitefiles: Will register ${i}-file(s) for contentbox-types ${n.join(", ")}.`);for(const e of n){const t=lab_api.v1.config.get(`contentbox_settings.${e}.require.${i}`);if(Array.isArray(t))for(const n of t)a.includes(n)||s.includes(n)||(Sys.logger.debug(`ViewSupport sitefiles: Will include ${i}-file "${n}" for contentbox "${e}".`),a.push(n))}return Sys.logger.debug(`ViewSupport sitefiles: Finished registering ${i}-file(s). Found ${a.length} file(s).`),a}}class a{constructor(e){this.api=e,this.pageType=this.api.v1.model.root.getType()}get media(){return{getLogo:(e=this.api.v1.viewport.getName())=>{const t=this.api.v1.config.get("logo")||{},i=t.uploadedFileUrl?{src:t.uploadedFileUrl,href:t.default.href,type:"img",size:{width:t.logoWidth},title:t.default.title,isCustom:!0}:t[e]||t.default||null;i&&("img"===i.type?i.is_img=!0:"svg"===i.type&&(i.is_svg=!0));return{current:i,sm:t.uploadedFileUrl?{src:t.uploadedFileUrl,href:t.default.href,size:{width:t.logoWidth},title:t.default.title,isCustom:!0}:t.standalone||t.mailmojo||null,mm:t.uploadedMailmojoFileUrl?{src:t.uploadedMailmojoFileUrl,href:t.default.href,size:{width:t.mailmojoLogoWidth},title:t.default.title,isCustom:!0}:t.mailmojo||t.standalone||null}}}}get menus(){return{get:({section:e,defaultSection:t}={},i)=>{const s={},a=Object.values(this.api.v1.config.get("menus")||{});if(a.length<1)return null;const n=i=>{i.forEach((i=>{i.selected=i.section===e||i.section===t,"target"in i||(i.target="_self"),"selector"in i||(i.selector=""),"children"in i||(i.children=[]),i.children.length>0&&(i.hasChildren=!0,n(i.children))}))};return a.forEach((e=>{n(e.menuItems);const t=e.type||e.menuName;s[t]={items:e.menuItems,type:e.type,selector:e.selector||""}})),i?s[i]:s}}}get misc(){return{}}get resources(){const e={required:[],getProgressReader:()=>(e.required.push({url:"/view-resources/public/common/ReadProgress.js",requireDom:!1}),{active:!0,minElementCount:lab_api.v1.config.get("displayReadProgress.minElementCount")||25}),getSiteFiles(t,i,a,n,o){const r=s.getSiteScriptsWithFallback(a,n,o),l=s.getCommonScripts(n,o);return e.required.push(...r,...l),{js:s.getSiteFilesForContentboxes(t,i,"js",e.required.map((e=>e.url))),css:s.getSiteFilesForContentboxes(t,i,"css")}},getModules:(e,t,i,a,n)=>s.getCommonScripts(a,n,!0)},t={get:e=>{const i=(lab_api.v1.config.get("analytics.kilkaya")||[]).map((e=>{const t={...e};return t.id&&"string"==typeof t.id&&t.id.trim().endsWith(".js")&&(t.url=t.id),t}));let s=this.api.v1.config.get("analytics.adnuntiusConnect");s&&"object"==typeof s&&!Array.isArray(s)&&Object.keys(s).length&&(s=new Array(s));const a={google:this.api.v1.config.get("analytics.google.tracking_id"),google_gtm:this.api.v1.config.get("analytics.google.gtm"),comscore:this.api.v1.config.get("analytics.comscore.comscore_id"),adnuntiusConnect:s,adnuntiusConnectCMP:this.api.v1.config.get("analytics.adnuntiusConnectCMP"),kilkaya:i,kilkayaSettings:this.api.v1.config.get("analytics.kilkayaSettings"),io:this.api.v1.config.get("analytics.io.tracking_id")},n=t.getDataLayer(e);return n.dataLayer&&(a.dataLayer=n.dataLayer),n.usesJWTCookieData&&(a.usesJWTCookieData=n.usesJWTCookieData),a},getDataLayer:e=>{const t=this.api.v1.config.get("analytics.google.dataLayer");let i=!1;if(t&&Array.isArray(t)&&t.length){t.forEach((t=>{let s=null;switch(t.source){case"fixed":s=(t.value||"").trim();break;case"config":s=this.api.v1.properties.get(t.value);break;case"jwtcookie":t.isJWTCookie=!0,s=t.value,i=!0;break;case"article_authors":s=`${(e.bylinesStringCommaSeparated||"").replace(/"/g,"")}`;break;case this.pageType.replace("page_",""):s=this.api.v1.model.query.getRootModel().get(t.value);break;default:Sys.logger.warn(`Unsupported dataLayer source: "${t.source}"`)}t.value=null===s?"":s.toString()}));const s=t.map((e=>e.value.length>0)).lastIndexOf(!0);t[s]&&(t[s].last=!0)}return{dataLayer:t,usesJWTCookieData:i}}};return{scripts:e,analytics:t}}get settings(){return{get:(e={})=>{const t=this.api.v1.config.get(`page_settings.${e.pageType}.social.display`)||{},i=this.api.v1.model.query.getRootModel().get("fields.show_social_bodytext_before"),s=this.api.v1.model.query.getRootModel().get("fields.show_social_bodytext_after"),a=this.api.v1.model.query.getRootModel().get("fields.show_social_header");null!==i&&(t.bodytext_before=!!i),null!==s&&(t.bodytext_after=!!s),null!==a&&(t.header=!!a);const n=this.api.v1.config.get(`page_settings.${e.pageType}.social.items`)||{},o=this.api.v1.config.get(`page_settings.${e.pageType}.showTags`),r=Object.keys(n).filter((e=>!!n[e].display)).map((t=>({name:t,icon:n[t].icon||"",url:e.socialLinks[t]||"",shareText:n[t].shareText||"",isButton:n[t].isButton||!1})));return{page_type:e.pageType,social:{display:{bodytext_before:r.length>0&&!!t.bodytext_before,bodytext_after:r.length>0&&!!t.bodytext_after,header:r.length>0&&!!t.header},items:r},showTags:!1!==o}}}}}class n{static getStyleDefinitions(e){const t=e.v1.properties.get("site.alias"),i=e.v1.config.get("style_definitions",t),s=[];(i.rules||[]).forEach((e=>s.push(e))),(i.fontface||[]).forEach((e=>{const t=`.font-${e.family.replace(/ /g,"")}`;s.push(n.getFamilyDefinition(t,e.family));const i={light:{keys:["light","200","100","300"],used:!1},normal:{keys:["regular","normal","400","500"],used:!1},bold:{keys:["bold","600","700"],used:!1},black:{keys:["black","800","900"],used:!1}};e.variants.forEach((e=>{for(const a of Object.keys(i)){const o=i[a];o&&!o.used&&o.keys.indexOf(e)>-1&&(s.push(n.getWeightDefinition(t,e,a)),o.used=!0)}}))}));const a={fontface:i.fontface||[],parsedRules:n.CSSRuleParser(s)};return a.hasRules=!!a.parsedRules.length,a}static getFamilyDefinition(e,t){return{selector:e,declarations:[{key:"font-family",value:`"${t}" !important`}]}}static getWeightDefinition(e,t,i){let s=t;return"regular"===t&&(s="normal"),{selector:`${e}.font-weight-${i}`,declarations:[{key:"font-weight",value:`${s} !important`}]}}static CSSRuleParser(e){const t=[];return e.forEach((e=>{let i,s,a=`${e.selector} { `;e.declarations.forEach((e=>{"font-size-desktop"===e.key?"default"!==e.value&&(a+=`font-size: ${e.value.slice(0,-2)/16}rem; `):"font-size-mobile"===e.key?"default"!==e.value&&(i=`calc(0.262vw * ${e.value.slice(0,-2)})`):"line-height-desktop"===e.key?"default"!==e.value&&(a+=`line-height: ${e.value}; `):"line-height-mobile"===e.key?"default"!==e.value&&(s=e.value):"font-family"===e.key?e.value.includes("!important")?a+=`${e.key}: ${e.value}; `:a+=`${e.key}: "${e.value}"; `:a+=`${e.key}: ${e.value}; `})),a+="}",(i||s)&&(a+=`@media (max-width: 767px) { .resp_fonts ${e.selector} {`,i&&(a+=`font-size: ${i}; `),s&&(a+=`line-height: ${s}; `),a+="} }"),t.push(a)})),t}static getInlineCSS(e,t){return[{key:"custom_properties",value:e.v1.config.get("css_build.custom_properties",{site:t})||""},{key:"background_colors",value:e.v1.config.get("css_build.background_colors",{site:t})||""},{key:"background_colors_opacity",value:e.v1.config.get("css_build.background_colors_opacity",{site:t})||""},{key:"border_colors",value:e.v1.config.get("css_build.border_colors",{site:t})||""},{key:"font_colors",value:e.v1.config.get("css_build.font_colors",{site:t})||""},{key:"image_gradient",value:e.v1.config.get("css_build.image_gradient",{site:t})||""}]}static getCssVariables(e){const t=e.v1.config.get("custom_css_variables")||{},i={no_viewport:[],desktop:[],mobile:[]};for(const e of Object.keys(t))for(const s of Object.keys(t[e]))i[s].push({key:e,value:(t[e][s]||{}).value});return i}}const o={sunday:{en:"sunday",sv:"söndag",dk:"søndag",no:"søndag",nl:"zondag",kl:"sapaat"},monday:{en:"monday",sv:"måndag",dk:"mandag",no:"mandag",nl:"maandag",kl:"ataasinngorneq"},tuesday:{en:"tuesday",sv:"tisdag",dk:"tirsdag",no:"tirsdag",nl:"dinsdag",kl:"marlunngorneq"},wednesday:{en:"wednesday",sv:"onsdag",dk:"onsdag",no:"onsdag",nl:"woensdag",kl:"pingasunngorneq"},thursday:{en:"thursday",sv:"torsdag",dk:"torsdag",no:"torsdag",nl:"donderdag",kl:"sisamanngorneq"},friday:{en:"friday",sv:"fredag",dk:"fredag",no:"fredag",nl:"vrijdag",kl:"tallimanngorneq"},saturday:{en:"saturday",sv:"lördag",dk:"lørdag",no:"lørdag",nl:"zaterdag",kl:"arfininngorneq"},january:{en:"January",sv:"januari",dk:"januar",no:"januar",nl:"januari",kl:"ukiortaarsiorneq"},february:{en:"February",sv:"februari",dk:"februar",no:"februar",nl:"februari",kl:"ukiortaami"},mars:{en:"March",sv:"mars",dk:"marts",no:"mars",nl:"maart",kl:"marsi"},april:{en:"April",sv:"april",dk:"april",no:"april",nl:"april",kl:"apriili"},may:{en:"May",sv:"maj",dk:"maj",no:"mai",nl:"mei",kl:"maajii"},june:{en:"June",sv:"juni",dk:"juni",no:"juni",nl:"juni",kl:"juuni"},july:{en:"July",sv:"juli",dk:"juli",no:"juli",nl:"juli",kl:"juuli"},august:{en:"August",sv:"augusti",dk:"august",no:"august",nl:"augustus",kl:"aggusti"},september:{en:"September",sv:"september",dk:"september",no:"september",nl:"september",kl:"septembari"},october:{en:"October",sv:"oktober",dk:"oktober",no:"oktober",nl:"oktober",kl:"oktobari"},november:{en:"November",sv:"november",dk:"november",no:"november",nl:"november",kl:"novembari"},december:{en:"December",sv:"december",dk:"december",no:"desember",nl:"december",kl:"decembari"},ago:{en:"ago",sv:"sedan",dk:"siden",no:"siden",nl:"geleden",kl:"matuma siorna"},now:{en:"now",sv:"nu",dk:"nu",no:"nå",nl:"nu",kl:"maanna"},min:{en:"min"},minutes:{en:"minutes",sv:"minuter",dk:"minutter",no:"minutter",nl:"minuten",kl:"minutsi"},hour:{en:"hour",sv:"timme",dk:"time",no:"time",nl:"uur",kl:"akunnera"},hours:{en:"hours",sv:"timmar",dk:"timer",no:"timer",nl:"uren",kl:"akunnerit"},day:{en:"day",sv:"dag",dk:"dag",no:"dag",nl:"dag",kl:"ulloq"},days:{en:"days",sv:"dagar",dk:"dage",no:"dager",nl:"dagen",kl:"ullut"},monthdayyear:{en:"{{MMMM}} {{DD}}. {{YYYY}}",sv:"{{DD}}/{{MM}} {{YYYY}}",dk:"{{DD}}/{{MM}} {{YYYY}}",no:"{{DD}}/{{MM}} {{YYYY}}",nl:"{{DD}}/{{MM}} {{YYYY}}"},hourminute:{en:"{{HH}}:{{mm}}"}};class r{constructor(e="en",t="en"){this.fallbackLanguage=t,this.language=e||t,this.words=o,this.timezone=this.getTimezone()}getTimezone(){const e=lab_api.v1.config.get("timezone");return void 0===e||Number.isNaN(e)||Number.isNaN(parseFloat(e))?1:parseInt(e,10)}str(e){let{language:t}=this;return e in this.words?(t in this.words[e]||(t=this.fallbackLanguage),t in this.words[e]?this.words[e][t]:null):null}format(e,t){return Mustache.render(t,{YYYY:()=>e.getFullYear(),YY:()=>`${e.getFullYear()}`.slice(-2),MM:()=>(e.getMonth()<9?"0":"")+(e.getMonth()+1),M:()=>e.getMonth()+1,D:()=>e.getDate(),DD:()=>(e.getDate()<10?"0":"")+e.getDate(),H:()=>e.getHours(),HH:()=>(e.getHours()<10?"0":"")+e.getHours(),m:()=>e.getMinutes(),mm:()=>(e.getMinutes()<10?"0":"")+e.getMinutes(),s:()=>e.getSeconds(),ss:()=>(e.getSeconds()<10?"0":"")+e.getSeconds(),dddd:()=>this.weekday(e,!1),ddd:()=>this.weekday(e,!1,3),MMMM:()=>this.monthName(e,!1),MMM:()=>this.monthName(e,!1,3),W:()=>this.weekNumber(e,!0,!0),WW:()=>this.weekNumber(e,!0,!1)})}utcFormat(e,t){const i=this.correctDate(e);return Mustache.render(t,{YYYY:()=>i.getUTCFullYear(),YY:()=>`${i.getUTCFullYear()}`.slice(-2),MM:()=>(i.getUTCMonth()<9?"0":"")+(i.getUTCMonth()+1),M:()=>i.getUTCMonth()+1,D:()=>i.getUTCDate(),DD:()=>(i.getUTCDate()<10?"0":"")+i.getUTCDate(),H:()=>i.getUTCHours(),HH:()=>(i.getUTCHours()<10?"0":"")+i.getUTCHours(),m:()=>i.getUTCMinutes(),mm:()=>(i.getUTCMinutes()<10?"0":"")+i.getUTCMinutes(),s:()=>i.getUTCSeconds(),ss:()=>(i.getUTCSeconds()<10?"0":"")+i.getUTCSeconds(),dddd:()=>this.weekday(i,!0),ddd:()=>this.weekday(i,!0,3),MMMM:()=>this.monthName(i,!0),MMM:()=>this.monthName(i,!0,3),W:()=>this.weekNumber(i,!0,!0),WW:()=>this.weekNumber(i,!0,!1)})}formattedDate(e,t,i=!0,s=!0){let a=t||"";return a=a.replace("Y",e.getFullYear()),a=a.replace("m",(i&&e.getMonth()<9?"0":"")+(e.getMonth()+1)),a=a.replace("d",(i&&e.getDate()<10?"0":"")+e.getDate()),a=a.replace("H",(s&&e.getHours()<10?"0":"")+e.getHours()),a=a.replace("i",(s&&e.getMinutes()<10?"0":"")+e.getMinutes()),a=a.replace("s",e.getSeconds()),a=a.replace("l",this.weekday(e,!1)),a=a.replace("D",this.weekday(e,!1,3)),a=a.replace("F",this.monthName(e,!1)),a=a.replace("M",this.monthName(e,!1,3)),a}formattedUtcDate(e,t,i=!0,s=!0){const a=this.correctDate(e);let n=t||"";return n=n.replace("Y",a.getUTCFullYear()),n=n.replace("m",(i&&a.getUTCMonth()<9?"0":"")+(a.getUTCMonth()+1)),n=n.replace("d",(i&&a.getUTCDate()<10?"0":"")+a.getUTCDate()),n=n.replace("H",(s&&a.getUTCHours()<10?"0":"")+a.getUTCHours()),n=n.replace("i",(s&&a.getUTCMinutes()<10?"0":"")+a.getUTCMinutes()),n=n.replace("s",a.getUTCSeconds()),n=n.replace("l",this.weekday(a,!0)),n=n.replace("D",this.weekday(a,!0,3)),n=n.replace("F",this.monthName(a,!0)),n=n.replace("M",this.monthName(a,!0,3)),n}correctDate(e){return this.manipulateTime(e,this.isSummerTime(e)?this.timezone+1:this.timezone)}utcDate(e){return this.unmanipulateTime(e,this.isSummerTime(e)?this.timezone+1:this.timezone)}timestampToDate(e){return new Date(1e3*e)}toTimestamp(e){return Math.round(e.getTime()/1e3)}parseDate(e){const t=e.substr(0,4),i=e.substr(4,2)-1,s=e.substr(6,2),a=new Date(t,i,s),n=a.getFullYear()==t,o=a.getMonth()==i,r=a.getDate()==s;return n&&o&&r?a:"invalid date"}weekday(e,t=!1,i=9){return([this.str("sunday"),this.str("monday"),this.str("tuesday"),this.str("wednesday"),this.str("thursday"),this.str("friday"),this.str("saturday")][t?e.getUTCDay():e.getDay()]||"").substr(0,i)}monthName(e,t=!1,i=10){return([this.str("january"),this.str("february"),this.str("mars"),this.str("april"),this.str("may"),this.str("june"),this.str("july"),this.str("august"),this.str("september"),this.str("october"),this.str("november"),this.str("december")][t?e.getUTCMonth():e.getMonth()]||"").substr(0,i)}weekNumber(e,t=!1,i=!0){const s=new Date(e.valueOf()),a=((t?e.getUTCDay():e.getDay())+6)%7;s.setDate(s.getDate()-a+3);const n=s.valueOf();s.setMonth(0,1),4!==s.getDay()&&s.setMonth(0,1+(4-s.getDay()+7)%7);const o=1+Math.ceil((n-s)/6048e5);return(!i&&o<10?"0":"")+o}timestampToNiceDate(e,t=!1){const i={ago:t?"":this.str("ago"),now:this.str("now"),minute:t?this.str("min"):this.str("minutes"),minutes:t?this.str("min"):this.str("minutes"),hour:this.str("hour"),hours:this.str("hours"),day:this.str("day"),days:this.str("days")},s=(new Date).getTime(),a=new Date(1e3*e).getTime()-0,n=parseInt((s-a)/1e3/60,10);return n<60?n<1?i.now:1==n?`1 ${i.minute} ${i.ago}`:`${n} ${i.minutes} ${i.ago}`:n<1440?1==parseInt(n/60,10)?`1 ${i.hour} ${i.ago}`:`${parseInt(n/60,10)} ${i.hours} ${i.ago}`:parseInt(n/1440,10)<30?1==parseInt(n/1440,10)?`1 ${i.day} ${i.ago}`:`${parseInt(n/1440,10)} ${i.days} ${i.ago}`:this.format(this.timestampToDate(e),this.str("monthdayyear"))}isSummerTime(e){function t(e,t){const i=new Date,s=new Date(Date.UTC(t||i.getFullYear(),e+1,0)),a=s.getDay();return new Date(Date.UTC(s.getFullYear(),s.getMonth(),s.getDate()-a))}const i=e||new Date,s=t(2,i.getFullYear());s.setHours(1);const a=t(9,i.getFullYear());return s.setHours(1),i.getTime()>=s.getTime()&&i.getTime()<a.getTime()}manipulateTime(e,t){return new Date(e.getTime()+60*t*60*1e3)}unmanipulateTime(e,t){return new Date(e.getTime()-60*t*60*1e3)}}class l{static getAdnuntiusSettings(e,t,i,s,a,n=!1,o=!1){const l=(e.v1.config.get("contentbox_settings.adnuntiusAd.bidding")||{}).enabled||!1;function d(e,t){let i="";return l&&e.prebidConfig&&(i=JSON.parse(e.prebidConfig),Array.isArray(i)&&([i]=i),i=JSON.stringify(i)),{...e,prebidConfig:i,metadata:t.metadata||[]}}const g=e.v1.config.get("contentbox_settings.adnuntiusAd.formats")||[],c=e.v1.config.getView(`insertDynamic.${e.v1.model.root.getType().replace("page_","")}.${i.getViewport()}`,a.alias)||[],p=e.v1.model.query.getChildrenOfType(t,"adnuntiusAd",!0,!0),u=[];for(const e of c){const[t]=g.filter((t=>e.content_data.fields.format===t.format));t&&(!1===e.placement.key.includes("skyscraper_")&&"topbanner"!==e.placement.key||e.placement.key.includes("skyscraper_")&&!n||"topbanner"===e.placement.key&&!o)&&u.push(d(t,e))}for(const e of p){const[t]=g.filter((t=>e.get("fields.format")===t.format));t&&u.push(d(t,e))}const h=(new r).utcFormat(new Date,"&tag=week_{{ W }}_{{ YYYY }}");return{enabled:g.length>0,lazyload:e.v1.config.get("contentbox_settings.adnuntiusAd.lazyload")||!1,adUnits:u,spacingTop:e.v1.config.get("contentbox_settings.adnuntiusAd.spacingTop")||120,fetchMarginPercent:s.fetchMarginPercent||150,renderMarginPercent:s.renderMarginPercent||150,bidding:{enabled:l},hideOnTabletWidth:s.hideOnTabletWidth||1316,refreshdelay:e.v1.config.get("contentbox_settings.adnuntiusAd.refreshdelay")||5,refreshcount:e.v1.config.get("contentbox_settings.adnuntiusAd.refreshcount")||1,connectLoading:e.v1.config.get("contentbox_settings.adnuntiusAd.connectLoading")||!1,contkitEnabled:e.v1.config.get("contentbox_settings.adnuntiusAd.contkitEnabled")||!1,newsletter:{targeting:h}}}static getGoogleSettings(e,t,i,s,a,n=!1,o=!1){function r(e,t){const{sizes:i=[]}=e;return{...e,sizesString:`[${i.map((e=>`[${e.width},${e.height}]`)).join(", ")}]`,metadata:t.metadata||[]}}const l=e.v1.config.get("contentbox_settings.googleAd.formats")||[],d=e.v1.config.get("contentbox_settings.googleAd.anchor")||{enabled:!1,code:"",type:"TOP_ANCHOR"},g=e.v1.config.getView(`insertDynamic.${e.v1.model.root.getType().replace("page_","")}.${i.getViewport()}`,a.alias)||[],c=e.v1.model.query.getChildrenOfType(t,"googleAd",!0,!0),p=[];for(const e of g){const[t]=l.filter((t=>e.content_data.fields.format===t.format));t&&(!1===e.placement.key.includes("skyscraper_")&&"topbanner"!==e.placement.key||e.placement.key.includes("skyscraper_")&&!n||"topbanner"===e.placement.key&&!o)&&p.push(r(t,e))}for(const e of c){const[t]=l.filter((t=>e.get("fields.format")===t.format));t&&p.push(r(t,e))}return{enabled:l.length>0,lazyload:s.lazyload||!1,spacingTop:e.v1.config.get("contentbox_settings.googleAd.spacingTop")||120,fetchMarginPercent:s.fetchMarginPercent||150,renderMarginPercent:s.renderMarginPercent||150,adUnits:p,anchor:d,dfpid:s.dfpid||!1,debugmode:s.debugmode||!1,disableInitialLoad:s.disableInitialLoad||!1,bidding:s.bidding,hideOnTabletWidth:s.hideOnTabletWidth||1316}}}class d{constructor({pageType:e="",canonical:t="",isTagpage:i=!1,isTagpageWithFrontpage:s=!1,tagpagePath:a="/tag/"}={}){this.settings={pageType:e,canonical:t,isTagpage:i,isTagpageWithFrontpage:s,tagpagePath:a},this.cache={seoData:null}}getStructuredData(e){return e.get("fields.jsonld_json")?e.get("fields.custom_jsonld"):"front"===this.settings.pageType?this.generateFrontData(e):"article"===this.settings.pageType||"notice"===this.settings.pageType?this.generateArticleData(e):null}generateSiteData(e){return{"@context":"http://schema.org","@type":"WebSite",name:lab_api.v1.properties.get("site.display_name"),url:lab_api.v1.properties.get("site.domain")||""}}generateFrontData(e){const t=this.getSEOData(e);return{"@context":"https://schema.org","@type":"WebPage",name:t.title,description:t.description}}generateArticleData(e){const t=this.getSEOData(e),i={"@context":"https://schema.org","@type":"NewsArticle",headline:t.title||e.get("fields.title"),description:t.description,availableLanguage:[{"@type":"Language",alternateName:t.language}],images:lab_api.v1.model.query.getChildrenOfType(e,"image",!0).map((e=>(e.get("fields.imageurl")||"").includes("width=")?`${e.get("fields.imageurl")}1200`:`${e.get("fields.imageurl")}&width=1200`)),author:lab_api.v1.model.query.getChildrenOfType(e,"byline",!0).map((e=>{let t=e.get("fields.firstname");"Byline first name"===t&&(t="");let i=e.get("fields.lastname");"Byline last name"===i&&(i="");const s={"@type":"Person",name:`${t} ${i}`},a=e.get("fields.public_url");a&&(s.url=a);const n=(e.children||[]).filter((e=>"image"===e.type))[0];n&&(s.image={"@type":"ImageObject",url:`${n.get("fields.imageurl")}&width=250`});const o=e.get("fields.public_email");return o&&(s.email=o),s})),publisher:{"@type":"Organization",name:lab_api.v1.properties.get("site.display_name"),logo:{"@type":"ImageObject",url:lab_api.v1.config.get("logo.default.src")}}};return e.get("fields.published")&&(i.datePublished=new Date(1e3*parseInt(e.get("fields.published"),10)).toISOString()),e.get("fields.modified")&&(i.dateModified=new Date(1e3*parseInt(e.get("fields.modified"),10)).toISOString()),"1"===e.get("fields.paywall")&&(i.isAccessibleForFree=!0,i.hasPart={"@type":"WebPageElement",isAccessibleForFree:!1,cssSelector:".teaserContent"}),i}getSEOData(e){if(this.cache.seoData)return this.cache.seoData;let t,i,s;if("article"===this.settings.pageType||"notice"===this.settings.pageType)i=lab_api.v1.util.string.sanitizeString(e.get("fields.seotitle")||e.get("fields.title")||""),s=lab_api.v1.util.string.sanitizeString(e.get("fields.seodescription")||e.get("fields.subtitle")||""),t=e.get("fields.seolanguage")||lab_api.v1.config.get("contentLanguage");else{if(this.settings.isTagpage&&!this.settings.isTagpageWithFrontpage){const e=this.settings.tagpagePath.replace(/\//g,""),t=(this.settings.canonical.split(this.settings.tagpagePath)[1]||"").split("/").filter((e=>!!e)),s={tag:t[t.length-1],tags:t,tagPath:e};i=lab_api.v1.locale.get("tags.title_text",{data:s})}else i=lab_api.v1.util.string.sanitizeString(e.get("fields.seotitle")||e.get("fields.name")||"");s=lab_api.v1.util.string.sanitizeString(e.get("fields.seodescription")||"")}return this.cache.seoData={title:i.charAt(0).toUpperCase()+i.slice(1),description:s,language:t},this.cache.seoData}}class g{static prepareForTemplate(e,t,i){const s={meta:{head_top:[],head_bottom:[]},script:{head_top:[],head_bottom:[],body_top:[],body_bottom:[]},style:{head_top:[],head_bottom:[]},link:{head_top:[],head_bottom:[]}},a=e.filter((e=>!(e.pageType&&e.pageType!==t||e.skipEditor&&i)));for(const e of Object.keys(s))for(const t of Object.keys(s[e]))s.meta[t]=a.filter((e=>"meta"===e.tag)).filter((e=>e.placement===t)).map((e=>this.createCustomTag(e))),s.script[t]=a.filter((e=>"script"===e.tag)).filter((e=>e.placement===t)).map((e=>this.createCustomTag(e))),s.style[t]=a.filter((e=>"style"===e.tag)).filter((e=>e.placement===t)).map((e=>this.createCustomTag(e))),s.link[t]=a.filter((e=>"link"===e.tag)).filter((e=>e.placement===t)).map((e=>this.createCustomTag(e)));return console.log(s),s}static createCustomTag(e){switch(e.tag){case"link":return this.createLinkTag(e);case"script":return this.createScriptTag(e);case"style":return this.createStyleTag(e);default:return this.createMetaTag(e)}}static fetchDynamicAttribute(e){return lab_api.v1.view.render({model:lab_api.v1.model.query.getRootModel(),template:e})||null}static parseAttributes(e){return e.filter((e=>!!e.key)).map((e=>e.value?`${e.key}="${e.value.match(/\{\{.*\}\}/g)?this.fetchDynamicAttribute(e.value):e.value}"`:e.key)).join(" ")}static parseVariables(e){return e.replace(/\{\{\{?.*?\}\}\}?/g,this.fetchDynamicAttribute)}static createLinkTag(e){return`<link ${this.parseAttributes(e.attributes)}>`}static createScriptTag(e){return`<script ${this.parseAttributes(e.attributes)}>${e.value?this.parseVariables(e.value):""}<\/script>`}static createMetaTag(e){return`<meta ${this.parseAttributes(e.attributes)}>`}static createStyleTag(e){return`<style ${this.parseAttributes(e.attributes)}>${e.value?this.parseVariables(e.value):""}</style>`}}class c{static buildConfig(e){return{viewConfig:{config:{customer:{paywall:{label:lab_api.v1.config.get("paywall.label")||{}},image:{defaultAspectRatio:lab_api.v1.config.get("image.defaultAspectRatio")||void 0}}}}}}}class p{constructor(e,t){this.api=e,this.page=t}set(e,t){const i=this.export(e,t);for(const t of Object.keys(i))e.setFiltered(t,i[t])}export(e,t){const i={},a=new Date,o=t.get("type").replace("page_",""),r=t.get("id"),p=this.api.v1.site.getSite().domain||this.api.v1.properties.get("customer_front_url"),u=p+t.get("fields.published_url"),h=encodeURIComponent(u),f=this.api.v1.properties.get("image_server"),m=this.api.v1.app.mode.isEditor(),y=this.getCanonicalUrl(e,o,r,p),b=this.api.v1.config.get("tagPagePath")||"/tag/",v="front"===o&&(u.endsWith(b.slice(0,-1))||u.indexOf(b)>-1),_=v&&!u.endsWith(b.slice(0,-1));i.customer_front_url=p,i.isEditMode=m,i.url=u,i.urlEncoded=h,i.specificUrl=y,i.image_server=f,i.pageType=o,i.pageId=r,i.is_article="article"===o,i.is_notice="notice"===o,i.is_front="front"===o,i.section=t.get("primaryTags.section")||t.get("fields.defaultsection"),i.device=this.api.v1.viewport.getName(),i.cmsVersion=this.api.v1.properties.get("app.version"),i.front_api_url=this.api.v1.properties.get("front_api_url"),i.xUaDevice=this.api.v1.properties.get("xUaDevice"),i.favicons=this.api.v1.config.get("favicons"),i.faviconList=this.api.v1.config.get("faviconList"),i.skipDefaultFont=this.api.v1.config.get("skipDefaultFont"),i.isDebug=this.api.v1.util.request.hasQueryParam("debug"),i.staticUrl=this.getStaticUrl(e,o,r,p),i.customMetatags=this.getCustomMetatags(),i.customTags=g.prepareForTemplate(this.api.v1.config.get("customTags")||[],o,m),i.footerSettings=this.api.v1.config.get("page_settings.footer"),i.rssDescriptionPrefix=this.api.v1.config.get("viewports.rss.descriptionPrefix"),i.is_tagpage=v,i.contentLanguage=lab_api.v1.config.get("contentLanguage");const k=this.page.media.getLogo(t.getViewport());i.logo=k.current,i.logo_sm=k.sm,i.logo_mm=k.mm,i.misc=this.api.v1.config.get("misc");const S={active:!1,lang:this.api.v1.config.get("google_translate")};S.lang&&Array.isArray(S.lang)&&S.lang.length&&(S.active=!0),i.google_translate=S;const w=new d({pageType:o,canonical:y,isTagpage:v,isTagpageWithFrontpage:_,tagpagePath:b}),T=w.generateSiteData(e),F=w.getStructuredData(e);i.jsonld=JSON.stringify([T,F]);const $=w.getSEOData(e);if(i.seotitle=$.title,i.seodescription=$.description,i.seolanguage=$.language,"article"===o||"notice"===o){const t=e.get("fields.sometitle")||e.get("fields.teaserTitle")||e.get("fields.title");t&&(i.sometitle=this.api.v1.util.string.stripTags(t));const s=e.get("fields.somedescription")||e.get("fields.teaserSubtitle")||e.get("fields.subtitle");if(s&&s.length>0)i.somedescription=this.api.v1.util.string.stripTags(s);else{let t=e.get("fields.bodytext")||"";t=this.api.v1.util.string.stripTags(t),i.somedescription=`${t.substring(0,100)} ...`}}else if("front"===o){const t=e.get("fields.someimage");null!=t&&""!==t&&(i.someimage=`${f}/${t}.webp?width=1200&height=630`),i.sometitle=e.get("fields.sometitle")||e.get("fields.name"),i.somedescription=e.get("fields.somedescription")||""}if(i.social={facebook:`https://www.facebook.com/sharer.php?u=${h}`,twitter:`https://twitter.com/intent/tweet?url=${h}`,mail:`mailto:?subject=${encodeURIComponent(this.api.v1.util.string.stripTags(t.get("fields.title")))}&body=${encodeURIComponent(this.api.v1.util.string.stripTags(t.get("fields.subtitle")))}%0D${h}`,linkedin:`https://www.linkedin.com/sharing/share-offsite/?url=${h}`,threads:`https://threads.net/intent/post?text=${h}`,copyLink:`navigator.clipboard.writeText("${u}");`,glimta:`https://glimta.com/unlock?link=${h}`,talandeWebb:"ReachDeck.panel.toggleBar();",bluesky:`https://bsky.app/intent/compose?text=${encodeURIComponent(`${i.sometitle}\n`)}${h}`},"article"===o){const t=this.api.v1.config.get("page_settings.article.ignoredTags")||[],s=this.api.v1.config.get("page_settings.article.ignoredTagPrefix")||[],a=(e.get("tags")||[]).filter((e=>!t.includes(e))).filter((e=>{for(const t of s)if(e.startsWith(t))return!1;return!0}));i.tagsString=a.toString();let n="";a.forEach(((e,t)=>{n+=`"${e.replace('"',"'")}"`,t<a.length-1&&(n+=", ")})),i.tagsStringCommaSeparated=n;const o=this.api.v1.model.query.getChildrenOfType(e,"byline",!0);if(o){const e=o.map((e=>`"${e.get("fields.firstname")} ${e.get("fields.lastname")}"`)).join(", ");i.bylinesStringCommaSeparated=e}}"article"===o&&e.get("fields.published")&&(i.published=new Date(1e3*parseInt(e.get("fields.published"),10)).toISOString(),i.publishedTimestamp=e.get("fields.published")),i.site=this.api.v1.site.getSite(),i.siteJSON=JSON.stringify(i.site),i["site.domain_no_protocol"]=i.site.domain.split("://").pop(),i.siteAlias=i.site.alias,i.fullUrl=i.site.domain,i[`site_is_${i.siteAlias}`]=!0;const D=this.page.resources;if(!m&&i.is_article&&this.api.v1.config.get("displayReadProgress.active")&&t.get("fields.displayReadProgress")&&(i.readProgress=D.scripts.getProgressReader()),i.siteStylesheetList=s.getSiteStylesWithFallback(i.siteAlias),Sys.logger.debug(`ViewSupport: Will include ${i.siteStylesheetList.length} configured stylesheet(s): "${i.siteStylesheetList.join(", ")}".`),i.siteFiles=D.scripts.getSiteFiles(e,t,i.siteAlias,o,m),i.modules=D.scripts.getModules(e,t,i.siteAlias,o,m),!m){i.analytics=D.analytics.get(i),i.widgets={strossle:this.api.v1.config.get("widgets.strossle.strossle_id")},i.consent={cookieconsent:this.api.v1.config.get("consent.cookieconsent.show"),cookieconsent_culture:this.api.v1.config.get("consent.cookieconsent.culture")||"NB"},this.api.v1.config.get("cookieConsent.enabled")&&D.scripts.required.push({url:"/view-resources/public/common/cookieConsent.js",requireDom:!1}),"desktop"===this.api.v1.viewport.getName()&&t.get("fields.style_slidein")&&(i.style_slidein=!0,D.scripts.required.push({url:"/view-resources/public/common/SlideIn/SlideIn.js",requireDom:!1}));const s=this.api.v1.config.get("adEnvironment")||{},a="1"===t.get("fields.hideAds"),n="1"===t.get("fields.hideSkyscraperAds")||!1,o="1"===t.get("fields.hideTopBannerAd")||!1;if(!a&&s&&"adnuntius"===s.name)try{i.adnuntius=l.getAdnuntiusSettings(this.api,e,t,s,i.site,n,o)}catch(e){Sys.logger.warn(`[PageData] Failed to prepare Adnuntius ads: ${e.toString()}`)}if(!a&&s&&"google"===s.name)try{i.googleAds=l.getGoogleSettings(this.api,e,t,s,i.site,n,o)}catch(e){Sys.logger.warn(`[PageData] Failed to prepare Google ads: ${e.toString()}`)}}if(this.api.v1.util.request.hasQueryParam("fontpreview")&&(i.fontpreview=this.api.v1.util.request.getQueryParam("fontpreview"),i.analytics=null),i.page_settings=this.page.settings.get({pageType:"notice"===o?"article":o,socialLinks:i.social}),"article"===o){const s=this.api.v1.config.get("comments_provider.hideCommentsIfPaywall")||!1,a=this.api.v1.properties.get("paywall")||{},n=lab_api.v1.app.mode.isFront()&&a.active&&!a.hasAccess&&s,l=!1===m&&!1===n;if(t.get("fields.showcomments")&&!n){if(this.api.v1.config.get("comments_provider.facebook")){const e=this.api.v1.config.get("comments_provider.facebook.app_id");e&&(i.facebook={display:l,displayPlaceholder:m,appId:e,pageId:r,url:i.fullUrl+("article"===o?`/a/${r}`:"")},i.displayComments=!0)}if(this.api.v1.config.get("comments_provider.disqus")){const e=this.api.v1.config.get("comments_provider.disqus.enable"),t=this.api.v1.config.get("comments_provider.disqus.script");e&&(i.disqus={display:l,displayPlaceholder:m,canonical:y,pageId:r,script:t},i.displayComments=!0)}const t=this.api.v1.config.get("comments_provider.commento");t&&t.enable&&(i.commento={display:l,displayPlaceholder:m,canonical:y,usePageId:t.usePageId,pageId:r,script:t.script,cssOverride:t.cssOverride,descriptionText:t.descriptionText},i.displayComments=!0);const s=lab_api.v1.config.get("comments_provider.hyvor");if(s&&s.websiteId){const t=e.get("fields.published")||0;i.hyvor={display:l,displayPlaceholder:m,websiteId:s.websiteId,pageId:t>1646908200&&r},s.hidePageIdBeforeDate&&t<s.hidePageIdBeforeDate&&(i.hyvor.pageId=""),i.displayComments=!0}const a=lab_api.v1.config.get("comments_provider.ifragasatt");a&&(i.ifragasatt={display:l,displayPlaceholder:m,customerId:a.customer_id,articleId:`article${r}`},i.displayComments=!0)}}i.menus=this.page.menus.get({defaultSection:t.get("fields.defaultsection"),section:t.get("primaryTags.section")}),i.style_definitions=n.getStyleDefinitions(this.api),i.css_build=n.getInlineCSS(this.api),i.css_variables=n.getCssVariables(this.api),i.contact=this.api.v1.config.get("contact");const x=!!t.get("fields.norobots"),M=t.get("fields.hidefromfp_time"),C=Math.round(a.getTime()/1e3);if(i.norobots=x||M&&M<=C||!1,"article"===o&&this.api.v1.config.get("embeddable.active")&&(i.embeddable={active:!0,display:!!t.get("fields.displayEmbedButton")&&"embed"!==i.device,aboveBodytext:!!t.get("fields.displayEmbedButtonAboveBodytext")&&"embed"!==i.device,isFullContent:this.api.v1.util.request.getQueryString().indexOf("lab_content=full")>-1,hasParallax:this.api.v1.model.query.hasChildOfType(e,"parallax",!0)}),Sys.logger.debug(`ViewSupport: Will include ${D.scripts.required.length} configured script(s): "${D.scripts.required.map((e=>e.url)).join(", ")}".`),D.scripts.required.forEach((e=>{if(!e.placeholderKey&&e.requireDom&&(e.placeholderKey="requireDom"),e.placeholderKey){const{placeholderKey:t}=e;e.placeholderKey={},e.placeholderKey[t]=!0}})),i.siteScriptList=D.scripts.required,i.paywall=this.getPaywallInfo(e,m),i.simplestreamEnabled=lab_api.v1.config.get("contentbox_settings.simplestream")||!1,"mailmojo"===i.device&&this.setDefaultMailmojoData(e,t),"article"===o){const t=lab_api.v1.config.get("page_settings.article.ageWarnings");if(Array.isArray(t)){const i=e.get("fields.published");if(i){const s=this.getAgeWarningItem(i,t);s&&e.setFiltered("ageWarning",s)}}}return i.featureFlags={responsive_mobile_fonts:!lab_api.v1.util.featureFlags.enabled("Disable responsive mobile fonts",o)},i.clientSideConfig=JSON.stringify(c.buildConfig(this.api)),i}getAgeWarningItem(e,t){const i=Object.values(t).filter((e=>!!e.years&&!!e.label)).sort(((e,t)=>t.years-e.years)),s=new Date(1e3*e),a=Date.now()-s,n=new Date(a),o=Math.abs(n.getUTCFullYear()-1970);for(const e of i)if(o>=e.years)return e;return null}setDefaultMailmojoData(e,t){const i=lab_api.v1.config.get("lang")||"no";e.setFiltered("lang",i)}getCanonicalUrl(e,t,i,s){const a=e.get("fields.lab_canonical");if(a)return a;if("front"===t){const t=e.get("fields.hostpath");if(t)return`${s}/${"index"===t?"":t}`}return`${s+e.get("fields.published_url")}`}getStaticUrl(e,t,i,s){if("front"===t){const t=lab_api.v1.util.request.getHeader("X-Labrador-404-Referer");if(t)return`${s}${t}`;const i=e.get("fields.hostpath");return i?`${s}/${"index"===i?"":i}`:`${s+e.get("fields.published_url")}`}return`${lab_api.v1.properties.get("site").domain}/a/${i}`}getCustomMetatags(){const e=lab_api.v1.config.get("customMetatags")||[],t=lab_api.v1.config.get("customMetatagsKeyVal")||[],i=[];for(const t of e){const e=Object.keys(t).map((e=>({key:e,value:t[e]})));i.push(e)}for(const e of t)e.length&&i.push(e);return i}getPaywallInfo(e,t){const i=lab_api.v1.properties.get("paywall"),s=!t&&"1"===e.get("fields.paywall"),a=lab_api.v1.config.get("paywall.provider",{site:lab_api.v1.site.getSite().alias})||"internal",n=(!t&&e.get("fields.paywallSalesImage"),!t&&s&&i.hasAccess&&"1"===e.get("fields.paywallShareable"));let o;if("1"===e.get("fields.paywallShareable")){o=lab_api.v1.config.getConfig("pages.localisation.data.items.paywall.items.shareableArticle.items")||{};for(const e of Object.keys(o))o[e]=lab_api.v1.locale.get(`paywall.shareableArticle.${e}`)||""}return{enabled:s,settings:i,provider:a,shareable:n,shareableArticle:o,hasAccess:!s||!i.active||i.hasAccess,hidePaywallOffers:this.api.v1.util.request.hasQueryValue("lab_opts","paywall_loginonly"),paywallSalesImage:e.get("fields.paywallSalesImage"),paywallSalesPitchContent:e.get("fields.paywallSalesPitchContent"),paywallSalesPitchTitle:e.get("fields.paywallSalesPitchTitle"),paywallLayoutType:e.get("fields.paywallPreview.paywallLayoutType"),requiredProducts:JSON.stringify(this.api.v1.properties.get("app.paywall.requiredProducts")||[])}}}class u{static parseCss(e,t="filtered.autodata"){const i=e.get(t);if(!i||"object"!=typeof i)return;return[Object.values(i.cssObject||{}).join(" "),i.cssString||"",(i.cssArray||[]).join(" ")].join(" ").trim()}static parseAttributes(e){const t=e.get("filtered.autodata.attributesObject");if(!t||"object"!=typeof t)return;return Object.keys(t).map((e=>({key:e,value:t[e]})))}static parseCustomData(e){const t=e.get("filtered.autodata.custom");if(!t||"object"!=typeof t)return;const i={};for(const e of Object.keys(t))i[e]=Object.keys(t[e]).map((i=>({key:i,value:t[e][i]})));return i}static parseCustomDataFromFeed(e,t){const i=lab_api.v1.config.get(`${t}.autodata.mapping`)||{};if(!i||"object"!=typeof i)return;const s={labels:[]};if(i.labels)for(const t of Object.keys(i.labels))e[i.labels[t]]&&s.labels.push({key:t,value:e[i.labels[t]]});return s}}class h{constructor(e){this.api=e,this.pageData=new p(this.api,new a(this.api))}onReady(e,t){this.pageData.set(e,t),e.setFiltered("autodata_css",u.parseCss(e)),e.setFiltered("autodata_attributes",u.parseAttributes(e)),e.setFiltered("autodata_custom",u.parseCustomData(e))}}class f{constructor(e){this.api=e,this.pageData=new p(this.api,new a(this.api))}onReady(e,t){this.pageData.set(e,t)}}class m{static textElements(e,t){const i={top:[],floating:[],bottom:[],positions:{kicker:"",title:""}};let s="",a="";if(e.get("metadata.showKicker")&&(t||e.get("fields.kicker")||e.get("fields.origin_data_json.teaserKicker")||e.get("fields.origin_data_json.kicker"))&&(e.get("metadata.floatingKicker")?(i.floating.push("kicker"),i.positions.kicker="floating",s="floating"):e.get("metadata.kickerBelowImage")?(i.bottom.push("kicker"),i.positions.kicker="below",s="bottom"):(i.top.push("kicker"),i.positions.kicker="above",s="top")),e.get("metadata.hideTitle")||!t&&!e.get("fields.title")||(e.get("metadata.floatingTitle")?(i.floating.push("title"),i.positions.title="floating",a="floating"):e.get("metadata.titleAboveImage")?(i.top.push("title"),i.positions.title="above",a="top"):(i.bottom.push("title"),i.positions.title="below",a="bottom")),e.get("metadata.kickerBelowTitle")&&e.get("metadata.showKicker")&&a){if(s){const e=i[s].indexOf("kicker");-1!==e&&i[s].splice(e,1)}const e=i[a],t=e.indexOf("title");-1!==t?e.splice(t+1,0,"kicker"):e.push("kicker"),i.positions.kicker="belowTitle",s=a}return!e.get("metadata.hidesubtitle")&&(t||e.get("fields.subtitle")||e.get("fields.origin_data_json.teaserSubtitle"))&&(e.get("metadata.floatingSubtitle")?i.floating.push("subtitle"):e.get("metadata.subtitleAboveImage")?i.top.push("subtitle"):i.bottom.push("subtitle")),i}}class y{static convertToIso639(e){let t="";return e&&(t=3===e.length?e.toLowerCase():e.includes("-")?e.split("-")[0].toLowerCase():e.toLowerCase()),t}}class b{static autoSizeText(e,t){const i={1:100,2:70,3:50,4:45,5:40,6:35,7:30,8:26,9:22,10:20,11:18,12:17,13:16,14:15,15:14,16:13,17:12,18:11,19:10,20:9,21:8,22:7,23:6,24:5,25:4},s=e.innerHTML.replace(/&nbsp;/,"");if(e.querySelector("br")||e.querySelector(".auto-font-size-line-br")){const t=this.handleBreaks(s);e.innerHTML="",t.forEach(((i,s)=>{e.innerHTML+=`<span class="auto-font-size-line${s<t.length?" auto-font-size-line-br":""}">${i} </span>`}))}else{const i=this.removeHTMLTags(s),a=this.splitSentence(i,t,"default");e.innerHTML="";for(const t of a)e.innerHTML+=`<span class="auto-font-size-line">${t} </span>`}const a=e.querySelectorAll(".auto-font-size-line"),n=e.clientWidth;for(const e of a){const t=i[e.innerText.length]||5;e.clientWidth<n?this.enlargeTitle(e,n,t):e.clientWidth>n&&this.shrinkTitle(e,n,t)}return e.innerHTML}static handleBreaks(e){let t=this.removeHTMLTags(e).split(/<br\s*[^>]*>/gi);return t=t.filter((e=>e.trim().length>0)),t}static removeFontSize(e){const t=e.innerHTML;return this.removeHTMLTags(t)}static removeHTMLTags(e){let t=e.replace(/<span class="auto-font-size-hyphen">-<\/span>\s?/g,"");return t=t.replace(/<span class="[^"]*\bauto-font-size-line-br\b[^"]*"[^>]*>(.*?)<\/span>/g,"$1<br>"),t=t.replace(/<span class="[^"]*\bauto-font-size-line\b[^"]*"[^>]*>(.*?)<\/span>/g,"$1"),t=t.replace(/<span[^>]*>([^<]*)<\/span>/g,"$1"),t=t.replace(/(\r\n|\n|\r)/g,""),t}static enlargeTitle(e,t,i,s=100){let a=i;for(;e.clientWidth<t&&a<=s;)a+=1,e.style.setProperty("--lab-auto-font-size",`${a}cqi`);for(;e.clientWidth>=t||a>s;)a-=.1,e.style.setProperty("--lab-auto-font-size",`${a}cqi`)}static shrinkTitle(e,t,i){let s=i;for(;e.clientWidth>t;)s-=.1,e.style.setProperty("--lab-auto-font-size",`${s}cqi`)}static splitSentence(e,t,i){const{length:s}=e,a=this.findRules(t,i),n=this.findNumberOfLines(a.ranges,s)||1,o=a.maxWordLength||null,r=a.minLineLength||null;return this.splitTextEvenly(e,n,o,r,t.regex)||[]}static findRules(e,t){return{...e.formats[t]}}static findNumberOfLines(e,t){const i={maxLineLength:20,numberOfLines:1};for(const s of e)if(t<=s.maxCharacters){i.numberOfLines=s.numberOfLines,i.maxLineLength=s.maxCharacters/s.numberOfLines;break}return i}static checkRegex(e,t,i){let s=t;const a=[];return Array.from(Object.entries(e),(([,e])=>e)).forEach((e=>{const t=new RegExp(e,"g"),i=s.match(t);i&&a.push(...i)})),a.forEach((e=>{const t=e.replace(/ /g,i);s=s.replace(e,t)})),s}static splitStringIntoParts(e,t,i,s,a){const n=this.checkRegex(i,e,"___").split(" "),o=[];let r="";return n.forEach((e=>{const i=e.trim().replace(new RegExp("___","g")," ");if(i.includes("-"))r.length+i.length+1>t?(o.push(r),r=i):r+=(r.length>0?" ":"")+i;else{const e=this.splitWord(i,s);e.forEach(((i,s)=>{r.length+i.length+1>t?(o.push(r),r=i):r+=(r.length>0?" ":"")+i,s<e.length-1&&(r+='<span class="auto-font-size-hyphen">-</span>')}))}})),r.length>0&&o.push(r),o}static splitWord(e,t){const i=[];let s=e;for(;s.length>t;)i.push(s.substring(0,t)),s=s.substring(t);return s.length>0&&i.push(s),i}static splitTextEvenly(e,t,i,s,a){const n=e.trim(),o=Math.ceil(n.length/t.numberOfLines);let r=this.splitStringIntoParts(n,o,a,i,t.numberOfLines);if(s&&(r=this.mergeShortLines(r,s)),r.length>t.numberOfLines){const e=/<span class="auto-font-size-hyphen">-<\/span>$/,t=r.pop();e.test(r[r.length-1])?r[r.length-1]=r[r.length-1].replace(e,"")+t:r[r.length-1]+=` ${t}`}return r}static mergeShortLines(e,t){const i=[];for(let s=0;s<e.length;s++){let a=e[s].trim();a.length<t&&s<e.length-1&&(a+=` ${e[s+1]}`,s++),i.push(a)}if(i.length>1){const e=i[i.length-1];e.length<t&&(i[i.length-2]+=` ${e}`,i.pop())}return i}}class v{constructor(e){this.api=e,this.imageServer=this.api.v1.properties.get("image_server"),this.rootModel=this.api.v1.model.query.getRootModel(),this.domain=this.api.v1.site.getSite().domain||this.api.v1.properties.get("customer_front_url"),this.fallbackLanguage=this.api.v1.config.get("contentLanguage")||"",this.autoFontSizeConfig=this.api.v1.config.get("autoFontSize")||[],this.autoFontSizePageSettings=Boolean(!!this.rootModel&&this.rootModel.get("fields.autoFontSize")),this.hasAutoFontSize=this.autoFontSizePageSettings&&this.autoFontSizeConfig.enabled,this.autoFontSizeDone=!1,this.dateTimeHelper=new r(this.api.v1.config.get("lang")||void 0)}onInserted(e){if(this.api.v1.app.mode.isEditor()&&this.hasAutoFontSize){e.set("state.autoFontSizeReRender",!0,{notify:!1});const t=(e,t,i)=>{e.get("fields.title")===e.get("state.title")?e.set("state.autoFontSizeReRender",!1,{notify:!1}):(e.set("state.autoFontSizeReRender",!0,{notify:!1}),e.set("metadata.autoFontSizeDone",!1,{notify:!1}))};this.api.v1.model.bindings.bind(e,"fields.title",t)}}onReady(e,t){e.setFiltered("layout",m.textElements(t,this.api.v1.app.mode.isEditor()));let i=e.get("fields.published_url")||"";!/^https?/.test(i)&&i&&(i=this.domain+i),e.setFiltered("published_url",i),e.setFiltered("published_url_rss",i.replace(/&/g,"&amp;"))}onRender(e,t){const i=e.get("instance_of")||e.get("fields.origin_data_json.id"),s=e.get("fields.published")||e.get("fields.origin_data_json.published"),a=e.get("fields.origin_data_json.teaserTitle")||t.get("fields.title")||"",n=e.get("fields.origin_data_json.teaserSubtitle")||t.get("fields.subtitle")||"",o=e.get("fields.origin_data_json.published")||e.get("fields.published"),r=e.get("fields.origin_data_json.teaserKicker")||e.get("fields.origin_data_json.kicker")||t.get("fields.kicker"),l=e.get("fields.site_id")||e.get("fields.origin_data_json.site_id"),d=e.get("fields.origin_data_json.seolanguage")||e.get("fields.seolanguage")||this.fallbackLanguage,g=e.get("fields.origin_data_json.teaserAudio")||e.get("fields.audio"),c=e.get("fields.origin_data_json.teaserAudio_style_json")||e.get("fields.audioInfo")||{},p=e.get("fields.origin_data_json.addRelNoFollow")||e.get("fields.addRelNoFollow")||!1,h=e.get("fields.origin_data_json.addRelSponsored")||e.get("fields.addRelSponsored")||!1,f=e.get("fields.origin_data_json.addRelUgc")||e.get("fields.addRelUgc")||!1;e.setFiltered("published",s),e.setFiltered("title",a),e.setFiltered("kicker",r),e.setFiltered("subtitle",n),e.setFiltered("articleId",i),e.setFiltered("section",e.get("fields.origin_data_json.section_tag")||e.get("fields.section")||""),e.setFiltered("base_url",this.domain),e.setFiltered("published_sitemap",o),e.setFiltered("canonical_url",`${this.getSiteDomain(l)}/a/${i}`),e.setFiltered("tags",e.get("tags")||[]),e.setFiltered("languageIso639",y.convertToIso639(d));const m=(new Date).getTime()-1728e5;if(e.setFiltered("articleOutOfDate_sitemap",m>Math.floor(new Date(o).getTime())),e.setFiltered("addRelNoFollow",p),e.setFiltered("addRelSponsored",h),e.setFiltered("addRelUgc",f),!this.api.v1.config.get("showHiddenTagsOnFront")){const t=(this.api.v1.config.get("tagsToHide")||"").split(",").map((e=>e.trim()))||[],i=(e.get("tags")||[]).filter((e=>!t.includes(e)));e.setFiltered("tags",i)}if(l){const t=this.api.v1.site.getSiteById(l);t&&e.setFiltered("site_alias",t.alias)}if(g){const t={url:g};if(c){const e=JSON.parse(c);t.title=e.title||null,t.fileType=e.fileType||null,t.playTime=e.playTime||null}e.setFiltered("audio",t)}const b=e.get("fields.origin_data_json.showbylineonfp")||t.get("fields.displayByline")||!1;if(b){const i=t.get("fields.byline")||e.get("fields.origin_data_json.byline"),s=t.get("fields.bylineImage")||e.get("fields.origin_data_json.bylineImage"),a=(e.get("fields.origin_data_json.full_bylines")||e.get("fields.full_bylines_json")||[]).map((e=>({firstname:e.firstname,lastname:e.lastname,description:e.description,imageUrl:e.imageUrl?this.getImageUrl(`${e.imageUrl}&width=90&height=90`):""})));a.length||!i&&!s||a.push({firstname:i,lastname:"",imageUrl:s?this.getImageUrl(`${s}&width=90&height=90`):""}),e.setFiltered("bylines",a),s&&e.setFiltered("bylineImage",`${s}&width=90&height=90`)}e.setFiltered("displayByline",b);const v=t.get("fields.displayPublishedDate")||!1,_=this.api.v1.locale.get("dates.monthdayyear",{noRender:!0});if(e.setFiltered("displayPublishedDate",v),v)if(this.api.v1.app.mode.isEditor()&&!s)e.setFiltered("publishedDate",_);else if(this.api.v1.app.mode.isEditor()||s){const t=new Date(s),i=this.dateTimeHelper.format(t,_);e.setFiltered("publishedDate",i)}else e.setFiltered("displayPublishedDate",!1);let k=e.get("fields.origin_data_json.paywall")||e.get("fields.paywall")||!1;if(k=1===k||"1"===k||!0===k||null,k){const i={display:!0,displayInNewsletter:!0,...this.api.v1.config.get("paywall.label")},s=this.api.v1.config.get("paywall.label.text.content"),a=this.api.v1.config.get("paywall.label.icon.content"),n={text:{content:null==s?"Plus":this.api.v1.config.get("paywall.label.text.content")},icon:{content:null==a?"fi-plus":this.api.v1.config.get("paywall.label.icon.content")}};if(Object.assign(i,n),i.display){i.layout={noImage:!0,float:null};const s=this.api.v1.model.query.getChildOfType(e,"image")||this.api.v1.model.query.getChildOfType(e,"graphic");if(s&&s.get("instance_of")){const e=this.api.v1.view.getView(s,t.getViewport());i.layout.float=this.api.v1.config.get("paywall.label.labelPosition")||e.get("fields.float"),i.layout.noImage=!!t.get("metadata.hideimage")}e.setFiltered("paywallLabel",i)}}else e.setFiltered("paywallLabel",null);e.setFiltered("paywall",k);const S=e.get("metadata.tagPlacement")||"underImage";e.setFiltered("tagPlacement.underImage","underImage"===S),e.setFiltered("tagPlacement.underText","underText"===S);const w=e.get("metadata.sectionPlacement")||"floating";e.setFiltered("sectionPlacement.floating","floating"===w),e.setFiltered("sectionPlacement.underImage","underImage"===w),e.setFiltered("sectionPlacement.underText","underText"===w),e.setFiltered("articleWidth",t.getPixelWidth()),e.setFiltered("autodata_css",u.parseCss(e)),e.setFiltered("autodata_content_css",u.parseCss(e,"filtered.autodata_content")),e.setFiltered("autodata_attributes",u.parseAttributes(e)),e.setFiltered("autodata_custom",u.parseCustomData(e)),this.autoFontSizeConfig.enabled&&(this.autoFontSizeDone=e.get("metadata.autoFontSizeDone"))}onRendered(e,t){if(this.api.v1.app.mode.isEditor()&&this.autoFontSizeConfig.enabled){const i=()=>{const e=t.getMarkup().querySelector(".headline");b.removeFontSize(e),this.api.v1.tool.off("ended",i)};if("desktop"===t.viewport&&this.hasAutoFontSize&&e.get("metadata.autoFontSizeEnabled")&&(this.api.v1.tool.on("started",(t=>{"fields.title"===t.key&&t.model===e&&i()})),e.get("state.autoFontSizeReRender")&&e.get("fields.title")&&!this.autoFontSizeDone&&e.get("metadata.autoFontSizeEnabled"))){const i=t.getMarkup().querySelector(".headline"),s=b.autoSizeText(i,this.autoFontSizeConfig);e.set("state.autoFontSizeReRender",!1,{notify:!1}),e.set("state.title",s,{notify:!1}),e.set("metadata.autoFontSizeDone",!0,{notify:!1}),e.set("fields.title",s)}}}onCreated(e){this.hasAutoFontSize&&null===e.get("metadata.autoFontSizeEnabled")&&e.set("metadata.autoFontSizeEnabled",!0,{notify:!1})}getSiteDomain(e){if(!e)return"";const t=this.api.v1.site.getSiteById(e);return t?t.domain:""}getImageUrl(e){return e?e.startsWith("http")?e:this.imageServer+e:""}}class _{constructor(e){this.api=e,this.isEditor=this.api.v1.app.mode.isEditor(),this.isFragmentMode=this.api.v1.app.mode.isFragmentMode(),this.lazyloadImages=!this.isEditor&&!!this.api.v1.config.get("imageLoading.lazy")}check(e,t){if(!this.lazyloadImages||t.getProperty("image.noLazy"))return!1;const i=lab_api.v1.model.query.getParentOfType(e,"row");return!(i&&!this.isFragmentMode&&i.getModelIndex()<5)}}class k{constructor(e){this.api=e,this.lazyloadHelper=new _(e),this.api.v1.app.mode.isEditor()&&(this.cropIds=[],this.rootModel=this.api.v1.model.query.getRootModel(),this.frontcropBinding=this.frontCropChanged.bind(this),this.api.v1.model.bindings.bind(this.rootModel,"frontCrop",this.frontcropBinding),this.frontcropBinding(this.rootModel,"frontCrop",this.rootModel.get("frontCrop")),this.api.v1.ns.set("imageFilter.preview",this.prepareVisualFilters)),this.isFragmentMode=this.api.v1.app.mode.isFragmentMode()}onViewHelper(e,t){if(e.parent){this.prepareForSlideshow(e,t);const i=t.getViewport();if(this.api.v1.view.getView(e.parent,i).get("metadata.hasFullWidth")){const t="mobile"===i?600:1800;e.setFiltered(`width.${i}`,t)}else e.setFiltered(`width.${i}`,null);e.setFiltered("allowFullwidth","image"!==e.parent.getType())}}onRender(e,t){this.setVisualFilters(e,t),e.setFiltered("lazyloadImages",this.lazyloadHelper.check(e,t)),this.setCaptionOptions(e.getParent(),e,t);const i=t.get("fields.float");e.setFiltered("hasFloat",!!i&&"floatNone"!==i)}onRendered(e,t){if(!this.api.v1.app.mode.isEditor()||!this.cropIds.length)return;const i=parseInt(e.get("instance_of"),10);this.cropIds.includes(i)&&this.markFrontCrop(t,i)}setVisualFilters(e,t){e.setFiltered("filters",this.prepareVisualFilters(e,t))}prepareVisualFilters(e,t,i=!1){const s=[],a=e.get("metadata.filter_blur_active")?e.get("metadata.filter_blur_value")||0:null,n=e.get("metadata.filter_sepia_active")?e.get("metadata.filter_sepia_value")||0:null,o=e.get("metadata.filter_saturate_active")?e.get("metadata.filter_saturate_value")||1:null,r=e.get("metadata.filter_brightness_active")?e.get("metadata.filter_brightness_value")||1:null,l=e.get("metadata.filter_contrast_active")?e.get("metadata.filter_contrast_value")||1:null;return null!==a&&s.push(`blur(${a}px)`),null!==n&&s.push(`sepia(${n})`),null!==o&&s.push(`saturate(${o})`),null!==r&&s.push(`brightness(${r})`),null!==l&&s.push(`contrast(${l})`),i?{filter:s.join(" ")}:s.length?`filter: ${s.join(" ")};`:null}markFrontCrop(e,t){const i=document.createElement("span");i.classList.add("labicon-imgFrontCrop","is-frontcrop"),i.setAttribute("title","Image used as front crop. Click to edit"),i.addEventListener("click",(e=>{e.stopPropagation(),e.preventDefault(),this.api.v1.apps.start("ArticleSettings")}),!1),e.getMarkup().appendChild(i)}frontCropChanged(e,t,i){let s=this.getImages(this.cropIds);this.cropIds=[],this.updateImages(s),i&&(i.pano&&i.pano.instance_of&&this.cropIds.push(i.pano.instance_of),i.height&&i.height.instance_of&&!this.cropIds.includes(i.height.instance_of)&&this.cropIds.push(i.height.instance_of),s=this.getImages(this.cropIds),this.updateImages(s))}getImages(e){const t=[];for(const i of e)t.push(...this.api.v1.model.query.getModelsByKeyAndValue("instance_of",i));return t}updateImages(e){for(const t of e)this.api.v1.model.addToRedrawQueue(t)}setCaptionOptions(e,t,i){const s=e?this.api.v1.view.getView(e,i.getViewport()):null,a=(e,t,i)=>{if(e){const t=e.get(i);if(!t&&null!==t)return!1;if(t)return!0}return!!t.get(i)};let n=a(s,i,"fields.displayCaption"),o=n||null===i.get("fields.displayCaption")&&!i.get("metadata.hidecaption");!this.api.v1.app.mode.isFront()||t.get("fields.imageCaption")||t.get("fields.byline")||(n=!1,o=!1);const r=a(s,i,"fields.expandableCaption"),l=a(s,i,"fields.truncateCaption");let d=t.get("fields.imageCaption");!t.parent||i.getProperty("image.useCaptionForTitle")&&d||(d=t.parent.get("fields.title")||"");const g={title:d,display:n,displayDefault:o,truncate:l,expandable:r||l};t.setFiltered("captionOptions",g)}prepareForSlideshow(e,t){if(!e.parent||"slideshow"!==e.parent.getType())return;if(t.get("fields.whRatio"))return void e.setFiltered("whRatio",null);const i=e.get("fields.originalWidth"),s=e.get("fields.originalHeight");if(s&&i){const t=s/i;e.setFiltered("whRatio",t)}}}class S extends r{constructor({languageCode:e}={}){super("en"),this.languageCode=e||lab_api.v1.config.get("contentLanguage")}str(e,{data:t,noRender:i}={}){return lab_api.v1.locale.get(`dates.${e}`,{data:t,noRender:i})}timestampToNiceDate(e,t=!1){const i=(new Date).getTime(),s=new Date(1e3*e).getTime()-0,a=parseInt((i-s)/1e3/60,10);if(a<60)return a<1?this.str("now"):this.str("durationSince",{data:{count:a,period:t?this.str("min"):1===a?this.str("minute"):this.str("minutes"),ago:t?"":this.str("ago")}});if(a<1440){const e=parseInt(a/60,10);return this.str("durationSince",{data:{count:e,period:1===e?this.str("hour"):this.str("hours"),ago:t?"":this.str("ago")}})}if(parseInt(a/1440,10)<30){const e=parseInt(a/1440,10);return this.str("durationSince",{data:{count:e,period:1===e?this.str("day"):this.str("days"),ago:t?"":this.str("ago")}})}return this.format(this.timestampToDate(e),this.str("monthdayyear",{noRender:!0}))}}class w{constructor(e){this.api=e,this.dateTimeHelper=new S}onRender(e,t){const i=e.get("fields.modified")||e.get("fields.published");if(null!=i){const t=new Date(1e3*i);e.setFiltered("niceDate",this.dateTimeHelper.timestampToNiceDate(i)),e.setFiltered("publishedDate",this.dateTimeHelper.utcFormat(t,`${this.api.v1.locale.get("dates.monthdayyear",{noRender:!0})} ${this.api.v1.locale.get("dates.hourminute",{noRender:!0})}`)),e.setFiltered("isoDate",t.toISOString())}}}class T{constructor(e){this.api=e,this.baseApiUrl=this.api.v1.properties.get("front_api_url"),this.siteId=this.api.v1.properties.get("site.id"),this.cache=new Map,this.defaultMaxCount=100,this.isEditor=this.api.v1.app.mode.isEditor()}onPrepareViewHelper(e,t){const i=e.get("fields.site")||this.siteId,s=t.get("fields.maxNoticesCount")||this.defaultMaxCount,a=(e.get("fields.tags")||"").toLowerCase().split(",").filter((e=>""!==e)),n=this.prepareTags(a),o=this.prepareQuery(n,!1),r=this.prepareQuery(n,!0),l=`${this.baseApiUrl}/notice?content=full&site_id=${i}&limit=${s}`;e.setFiltered("query",o),e.setFiltered("clientQuery",r),e.setFiltered("url",l)}onReady(e,t){const i=t.get("external"),s=e.get("filtered.noFetch")||!1,a=e.get("metadata.blacklist")||[],n=t.get("fields.maxNoticesCount")||this.defaultMaxCount;if(!s&&i){e.setFiltered("noFetch",!0);const t=e.get("fields.pinnedNotices_json")||[];let s=i.result;if(this.api.v1.app.mode.isEditor()){const t=this.api.v1.model.query.getModelsByType("notice",e.children);for(const e of t)this.api.v1.model.delete(e,!0,!0)}s=s.slice(0,n),s.forEach((i=>{const{attribute:s={},field:n={}}=i.notice;if(a.includes(parseInt(s.id||0,10)))return void Sys.logger.warn(`Notice with id ${s.id} is blacklisted from Livefeed and will not be displayed.`);"object"==typeof n.bodytext&&(n.bodytext="");const{title:o,bodytext:r,published:l,modified:d,published_url:g,userName:c}=n,p=[];if(i.notice.children&&i.notice.children.image){const e=Array.isArray(i.notice.children.image)?i.notice.children.image:[i.notice.children.image];for(const t of e){let e={};if(n.structure_json&&t.attribute.id)try{const i=JSON.parse(n.structure_json);for(const s of i)if("bodytext"===s.type){const i=this.getStructure(s.children||[],t.attribute.id);e=i?i.metadata:{};break}}catch(e){Sys.logger.warn(`Failed to parse structure data: ${e.toString()}`)}e.hasFullWidth={desktop:!1,mobile:!1},p.push(this.getImageData(t,e||{}))}}this.api.v1.model.insert.atPath({path:e.getPositionedPath(),data:{type:"notice",contentdata:{id:s.id,fields:{title:o,bodytext:r,published:l,modified:d,published_url:g,userName:c,pinned:t.includes(s.id)},tags:i.notice.tag?i.notice.tag.tag:""},state:{isNonPersistent:!0,editNonPersistent:!0},children:p},options:{silent:!0,index:t.includes(s.id)?0:void 0}})})),e.children.sort(((e,i)=>t.includes(e.getId())?-1:t.includes(i.getId())?1:i.getId()-e.getId())),this.api.v1.app.mode.isEditor()&&(this.api.v1.model.addToRedrawQueue(e,!0),this.api.v1.app.save())}const o=this.api.v1.config.get("contentbox_settings.livefeed.updateFrequency")||[{range:[0,600],interval:10},{range:[600,1200],interval:30},{range:[1200],interval:60}];e.setFiltered("updateFrequency",JSON.stringify(o))}onRender(e,t){const i=t.get("fields.placeholder");e.setFiltered("placeholder",i||this.api.v1.locale.get("emptyState.noContentText",{noRender:!0})),e.setFiltered("initialRenderTime",(new Date).getTime()),e.setFiltered("dateStrings",JSON.stringify({now:this.api.v1.locale.get("dates.now",{noRender:!0}),monthdayyear:this.api.v1.locale.get("dates.monthdayyear",{noRender:!0}),hourminute:this.api.v1.locale.get("dates.hourminute",{noRender:!0}),durationSince:this.api.v1.locale.get("dates.durationSince",{noRender:!0}),minute:this.api.v1.locale.get("dates.minute",{noRender:!0}),minutes:this.api.v1.locale.get("dates.minutes",{noRender:!0}),hour:this.api.v1.locale.get("dates.hour",{noRender:!0}),hours:this.api.v1.locale.get("dates.hours",{noRender:!0}),day:this.api.v1.locale.get("dates.day",{noRender:!0}),days:this.api.v1.locale.get("dates.days",{noRender:!0}),ago:this.api.v1.locale.get("dates.ago",{noRender:!0})}))}onChildAdded(e,t){if(this.isEditor&&"notice"!==t.getType()){if(e.children.indexOf(t)>0)return;const i=this.api.v1.model.query.getModelsByType("notice",e.children).filter((e=>e.get("fields.pinned")));if(!i.length)return;let s=0;for(const t of i)e.children.indexOf(t)>s&&(s=e.children.indexOf(t));s>0&&this.api.v1.model.addChild(e,t,s,!1)}}prepareQuery(e,t=!1){const i=t?["(visibility_status:P OR visibility_status:H)"]:["visibility_status:P"];return e.length>0&&i.push(`(${e.join(" OR ")})`),`&query=${encodeURIComponent(i.join(" AND "))}`}prepareTags(e){return e.map((e=>{let t=e.trim();return t.indexOf(" ")>-1&&(t=`"${t}"`),`tag:${t}`}))}getImageData(e,t){return this.api.v1.model.serialize.apiToView({type:"image",data:e,meta:t})}onSettingsPanel(e,t,i){const s={layout:null,container:null};return{onDisplay:({model:e,view:t,config:i,markup:a,modal:n})=>{s.layout=a.querySelector("#layout"),s.container=a.querySelector(".horizontalOptions"),s.layout&&s.container&&s.layout.addEventListener("change",(e=>{"1"===s.layout.value?s.container.classList.remove("lab-hidden"):s.container.classList.add("lab-hidden")}))},onHide:({model:e,view:t,config:i,markup:a,modal:n})=>{s.layout=null,s.container=null,e.setFiltered("noFetch",!1)}}}getStructure(e,t){for(const i of e){if("image"===i.type&&i.node_id==t)return i;if(i.children){const e=this.getStructure(i.children,t);if(e)return e.metadata&&!e.metadata.bodyTextIndex&&i.metadata&&i.metadata.bodyTextIndex&&(e.metadata.bodyTextIndex=i.metadata.bodyTextIndex),e}}return null}}class F{constructor(e){this.api=e}onRender(e,t){const i=this.api.v1.config.get("contentbox_settings.adnuntiusAd.formats")||[],s=e.get("fields.format"),a=i.filter((e=>e.format===s))[0]||{};if(e.setFiltered("adData",a),e.setFiltered("isDebug",this.api.v1.util.request.hasQueryParam("debug")||e.get("metadata.isDebug")),!this.api.v1.app.mode.isEditor()){const t=e.parent&&!0===e.parent.get("metadata.hideOnTablet")&&"tablet"===this.api.v1.config.get("xUaDevice");e.setFiltered("hideOnTablet",t)}if(this.api.v1.app.mode.isEditor()){const t=this.api.v1.model.root.getType().replace("page_",""),a=[];i.forEach((e=>{if(e.selectable&&e.selectable.indexOf(t)>-1||e.selectableOn&&!0===e.selectableOn[t])if(e.format===s){const t={...e};t.selected=!0,a.push(t)}else a.push(e)})),e.setFiltered("formatConfigKeys",a)}const n=this.api.v1.config.get("contentbox_settings.adnuntiusAd.label")||"Annonse",o=e.get("fields.label")||n;e.setFiltered("label",o),e.setFiltered("displayLabel",o&&(e.get("metadata.css")||"").includes("display-label"));if((e.get("metadata.css")||"").includes("sticky")){const t=`top: ${this.api.v1.config.get("contentbox_settings.adnuntiusAd.spacingTop")||120}px;`;e.setFiltered("spacingTop",t)}}}class ${constructor(e){this.api=e}onRender(e,t){const i=this.api.v1.model.query.getRootModel(),s=this.api.v1.config.get("contentbox_settings.googleAd.formats")||[],a=e.get("fields.format"),n=this.api.v1.config.get("adEnvironment")||{},o={bidding:n.bidding,hideOnTabletWidth:n.hideOnTabletWidth||1316,fetchMarginPercent:n.fetchMarginPercent||150,renderMarginPercent:n.renderMarginPercent||150};e.setFiltered("googleAds",o);const r=((e,t)=>{for(let i=0;i<t.length;i++)if(t[i].format===e)return{...t[i]};return{}})(a,s);if(r.key=e.get("metadata.key")||"row",o.bidding&&o.bidding.enabled&&o.bidding.provider&&o.bidding.provider.name&&"livewrapped"===o.bidding.provider.name){const e=()=>{const e=()=>(65536*(1+Math.random())|0).toString(16).substring(1);return`${e()+e()}-${e()}-${e()}-${e()}-${e()}${e()}${e()}`};r.code&&r.code.endsWith("-1")&&(r.code+=`_${e()}`)}"mpu_top"===r.code&&(r.isMpuTop=!0),e.setFiltered("adData",r),e.setFiltered("isDebug",this.api.v1.util.request.hasQueryParam("debug")||e.get("metadata.isDebug"));const l=this.api.v1.config.get("contentbox_settings.googleAd.label")||"Annonse",d=e.get("fields.label")||l;if(e.setFiltered("label",d),!this.api.v1.app.mode.isEditor()){const t=e.parent&&!0===e.parent.get("metadata.hideOnTablet")&&"tablet"===this.api.v1.properties.get("xUaDevice");e.setFiltered("hideOnTablet",t)}if(this.api.v1.app.mode.isEditor()){const t=i.get("type").replace("page_",""),a=[];s.forEach((e=>{(e.selectable&&e.selectable.indexOf(t)>-1||e.selectableOn&&!0===e.selectableOn[t])&&a.push(e)})),e.setFiltered("formatConfigKeys",a)}if((e.get("metadata.css")||"").includes("sticky")){const t=`top: ${this.api.v1.config.get("contentbox_settings.googleAd.spacingTop")||120}px;`;e.setFiltered("spacingTop",t)}}}class D{constructor({path:e=null,selector:t=null,data:i={},options:s={}}={}){this.path=e,this.selector=t,this.data=i,this.options={persistentTarget:!0,intermediate:{useExisting:!0},...s}}}class x{constructor({key:e=null,path:t=null,selector:i=null,placeholder:s=null,metadata:a={},options:{shouldInsert:n=!0,wrap:o=null,skipIfOutOfBounds:r=!1,useIndex:l=!1,useBodyTextIndex:d=!1,useBodyTextHeadingIndex:g=!1,lastBodyTextHeading:c=!1}={}}={}){this.key=e,this.path=t,this.selector=i,this.placeholder=s,this.metadata=a,this.options={shouldInsert:n,wrap:o,skipIfOutOfBounds:r,useIndex:l,useBodyTextIndex:d,useBodyTextHeadingIndex:g,lastBodyTextHeading:c}}}class M{constructor({type:e=null,contentdata:t=null,content_data:i=null,cssSettings:s={},children:a=[],metadata:n={}}={}){this.type=e,this.contentdata=t||i,this.children=a,this.metadata={...n},this.state={};const o=[];this.metadata.css&&o.push(this.metadata.css);for(const e of Object.keys(s))s[e]&&o.push(e);this.metadata.css=o.join(" ")}}class C{constructor(e){this.api=e,this.page=this.api.v1.model.query.getRootModel(),this.pageType=this.api.v1.model.root.getType().replace("page_",""),this.viewports=this.api.v1.viewport.getActive(),this.isEditor=this.api.v1.app.mode.isEditor(),this.cache=new Map,this.pageElements={},this.hideAds="1"===this.page.get("fields.hideAds")||!0===this.page.get("fields.hideAds")}hasRequiredElement(e){return void 0===this.pageElements[e]&&(this.pageElements[e]=!!this.api.v1.model.query.getModelByType(e)),this.pageElements[e]}insert(e,t=null){const i=[],s={},a=`insertDynamic.${this.pageType}.${e}`,n=`placements.${this.pageType}.${e}`;let o=!1;const r=(this.api.v1.config.get(n)||[]).filter((e=>!e.client||(e.requireElement&&!this.hasRequiredElement(e.requireElement)||(s[e.key]=e),!1)));if(!this.cache.has(a)){const e=`insertDynamicAdditions.${this.pageType}`,t=this.api.v1.config.get(a)||[],n=this.validateConditions(this.api.v1.config.get(e)||[]).reverse();o=n.length>0;const r=[...t,...n],l=(this.isEditor?r.filter((e=>!e.dynamicDataSettings||!e.dynamicDataSettings.hideInEditMode)):r).filter((e=>{if(e.placement&&e.placement.key&&s[e.placement.key]){const t={...e,placementData:s[e.placement.key]};return i.push(t),!1}return!0}));this.cache.set(a,l)}if(!this.cache.has(n)){if(o){const e=`placementsAdditions.${this.pageType}`,t=this.api.v1.config.get(e)||[];r.push(...t)}this.cache.set(n,r.map((e=>new x(e))))}const l=this.parse(this.cache.get(a),this.cache.get(n),e,t);for(const e of l)e.selector?this.api.v1.model.insert.bySelector({selector:e.selector,data:e.data,options:e.options}):e.path&&this.api.v1.model.insert.atPath({path:e.path,data:e.data,options:e.options});return i}validateConditions(e){return e.filter((e=>{if(e.excludeDuplicates&&this.api.v1.model.query.getModelByType(e.type))return Sys.logger.debug(`[DynamicDataHelper]: Element of type "${e.type}" already exist on page. Skipping.`),!1;if(e&&e.conditions){const{conditions:t}=e;for(const i of t){const{field:t,operator:s,value:a=""}=i,n=this.page.get(t||"",void 0,!0);if(void 0!==n)switch(s){case"equals":if(n!==a)return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;case"notEquals":if(n===a)return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;case"contains":if(!n.includes(a))return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;case"notContains":if(n.includes(a))return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;default:return Sys.logger.warning(`[DynamicDataHelper]: Operator "${s}" is not valid. The condition fails and the item is not inserted onto the page.`),!1}else Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" ignored. Value of field: "${t}" is undefined.`)}return Sys.logger.debug(`[DynamicDataHelper]: All conditions (${t.length}) for inserting element type "${e.type}" accepted. Will insert.`),!0}return Sys.logger.debug(`[DynamicDataHelper]: No validation specified for inserting element type "${e.type}". Will insert.`),!0}))}parse(e=[],t=[],i="desktop",s=null){const a=[];for(const n of e){const[o]=t.filter((({key:e})=>e===n.placement.key));if(o)if(this.acceptPath(o.path,s)){const t=this.create(n,o,e,i);null!==t&&(t.data.metadata.viewportBlacklist=this.viewports.filter((e=>e!==i)),a.unshift(t))}else Sys.logger.debug(`[DynamicDataHelper]: Path "${o.path}" not allowed. Filter: "${s}", key: "${n.placement.key}"`);else Sys.logger.debug(`[DynamicDataHelper]: No placement found with key "${n.placement.key}"`)}return a}create(e,t,i,s="desktop"){if(this.filter(e)){const a=this.assemble(e,t);if(t.path&&t.selector){this.api.v1.model.query.getModelBySelector(t.selector)||this.api.v1.model.insert.atPath({path:t.path,data:{type:"placeholder",selector:t.selector,metadata:{...t.metadata||{},key:t.key},state:{isNonPersistent:!0}},options:{index:0,useExisting:!0,prepend:!0,silent:!0}})}const n={...e.options,prepend:!0,silent:!0};let{path:o}=t,r=e.placement.index||0,l=null;if(t.selector)l=this.api.v1.model.query.getModelBySelector(t.selector);else if(t.path){const e=this.getModelsByPath(t.path,s);e.length&&(l=t.options.useBodyTextIndex||t.options.useBodyTextHeadingIndex||t.options.lastBodyTextHeading?e.find((e=>"bodytext"===e.getType())):t.options.shouldInsert?e[0].children[r]:e[r])}if(l||!t.options.skipIfOutOfBounds){if(l){r=this.api.v1.model.query.getIndex(l);let e=l.getParent();if("mobile"===s){if(r>0&&r<e.children.length){let t=e.children[r];for(;t;){const i=l.get("width",s,!0);if(void 0===i||100===i)break;t=e.children[++r]}}e.get("metadata.hasRowTitle")&&(0===r||r>=e.children.length)&&(l=e,e=l.getParent(),r=this.api.v1.model.query.getIndex(l),o=e.getPositionedPath())}if(t.options.useIndex&&r<e.children.length)if(e.children[r-1]&&e.children[r-1].getNoRenderState()){if(i[r+1]&&i[r+1].placement.index===r+1)return null;n.index=r+1}else n.index=r;t.options.shouldInsert||(o=e.getPositionedPath())}else n.prepend=!1;return new D({data:a,options:n,selector:t.selector,path:o})}}return null}assemble(e,t){let i=new M(e);return t.selector||(i.metadata={...i.metadata,...t.metadata,css:t.metadata.css?`${i.metadata.css} ${t.metadata.css}`:i.metadata.css||""}),t.options.wrap&&(i=new M({type:t.options.wrap.type,metadata:t.options.wrap.metadata,children:[i]})),t.options.skipIfOutOfBounds&&(i.metadata.skipIfOutOfBounds=!0),t.options.useBodyTextIndex?i.metadata.bodyTextIndex=e.placement.index||0:t.options.useBodyTextHeadingIndex&&(i.metadata.bodyTextHeadingIndex=e.placement.index||0),t.options.lastBodyTextHeading&&(i.metadata.lastBodyTextHeading=!0),i.state.isNonPersistent=!0,i}acceptPath(e,t){return!e||!t||e===t}filter(e){return"googleAd"!==e.type&&"adnuntiusAd"!==e.type||!this.hideAds}getModelsByPath(e,t){const i=`getByPath-${e}`;return this.cache.has(i)||this.cache.set(i,(this.api.v1.model.query.getModelsByPath(e)||[]).filter((e=>!e.get("metadata.hideViewport",t)&&!e.isNonPersistent()))),this.cache.get(i)}}class I{constructor(e){this.api=e,this.request=this.api.v1.util.request}listen(){const e={selector:this.request.getQueryParam("lab_selector")||"contentFromPath",path:this.request.getQueryParam("lab_path"),guid:this.request.getQueryParam("lab_guid")};(e.guid||e.path)&&this.api.v1.model.on("insert",(t=>{const i=e.guid?this.getModelByGuid(e.guid,t):this.getModelByPath(e.path,t);if(i)return Sys.logger.debug(`[FragmentHelper] Element found. Path: ${i.getPositionedPath()}, GUID: ${i.getGuid()}.`),i.setSelector(e.selector),"embed"===lab_api.v1.viewport.getName()?this.appendToRoot(t,i):[i]}))}getModelByGuid(e){return Sys.logger.debug(`[FragmentHelper] Will filter elements by guid: "${e}".`),this.api.v1.model.query.getModelByGuid(e)}getModelByPath(e,t){Sys.logger.debug(`[FragmentHelper] Will filter elements by path: "${e}".`);const i=this.api.v1.util.string.parsePath(e);if(!i[0])return null;const s=this.api.v1.model.query.getModelsByType(i[0].base,t);return this.api.v1.model.query.getModelByPath(e,!0,!1,s)}appendToRoot(e,t){const i=e[0];return i.children=[t],[i]}}class P{constructor(e){this.api=e,this.paths={main:["parent","guid","type","tags"],fields:["feedId","byline","bylineImage","paywall","published","published_url","site_alias","site_id","subtitle","subtitleHTML","teaserSubtitle","somedescription","title","teaserTitle","titleHTML","seolanguage","seotitle","sometitle","kicker","teaserKicker","showcomments"],fieldsAuto:["section_tag","tags"],fieldsNative:["section"],fieldMap:{subtitle:"description",subtitleHTML:"descriptionHTML",somedescription:"someDescription",teaserSubtitle:"teaserDescription",seolanguage:"seolanguage",seotitle:"seoTitle",sometitle:"someTitle",published_url:"url",section_tag:"section"},fallback:{url:"url"}},this.frontUrl=this.api.v1.site.getSite().domain||this.api.v1.properties.get("customer_front_url"),this.imageServer=this.api.v1.properties.get("image_server")}jsonData(e){Sys.logger.debug("[PageExport] Will export page as JSON-data");const t=this.api.v1.model.serialize.model(e);delete t.guid;return{page:t,result:"page_article"===e.getType()?this.exportArticle():this.exportFront()}}oembed(e){return"page_article"!==e.getType()?(Sys.logger.warn("[PageExport] Will not export current page type as oEmbed."),{}):(Sys.logger.debug("[PageExport] Will export page as oEmbed"),{version:"1.0",type:"rich",width:"",height:"",title:this.api.v1.util.string.sanitizeString(e.get("fields.title")||""),url:e.get("filtered.url")||"",author_name:this.api.v1.site.getSite().display_name||this.api.v1.site.getSite().alias,author_url:this.frontUrl,provider_name:"Labrador",provider_url:"http://www.labradorcms.com/",html:`<div class="labrador-cms-embed" data-lab-style="dac-no-sitelink dac-no-sitelink-logo dac-no-poweredby dac-embed-full" data-lab-content="full" data-lab-id="${e.get("id")}" data-lab-site="${e.get("filtered.site.domain_no_protocol")}"><script async defer src="${this.frontUrl}/embed.js?v=335"><\/script></div>`})}exportArticle(){}exportFront(){const e=this.api.v1.model.query.getModelByType("dropZone");return this.api.v1.model.query.getModelsByType("article",[e]).map((e=>this.serialize(e))).filter((e=>!!e))}serialize(e){const t=this.api.v1.model.serialize.model(e);if(!t||!t.fields)return null;const i=!!t.fields.origin_data_json,s={images:[],width:e.getWidth("desktop"),metadata:t.metadata,isAutomatic:i,siteDomain:this.frontUrl},a=i?t.fields.origin_data_json:t.fields,n=[...this.paths.fields,...i?this.paths.fieldsAuto:this.paths.fieldsNative];for(const e of this.paths.main)s[e]=t[e]||"";for(const e of n)s[this.paths.fieldMap[e]||e]=a[e]||"";if(s.teaserSubtitle=a.teaserSubtitle||"",i){if(!s.byline){const e=(a.full_bylines||[]).shift();s.byline=e?`${e.firstname} ${e.lastname}`:"",s.bylineImage=s.bylineImage||(e||{}).imageUrl}"string"==typeof s.tags&&(s.tags=s.tags.split(",").map((e=>(e||"").trim()))),s.site_alias=(this.api.v1.site.getSiteById(a.site_id)||{}).alias,s.id=parseInt(a.id,10)}else s.titleHTML=s.title,s.title=this.cleanText(s.title),s.descriptionHTML=s.description,s.description=this.cleanText(s.description),s.kickerHTML=s.kicker,s.kicker=this.cleanText(s.kicker),s.id=t.id;s.section_tag=s.section,s.url&&!s.url.startsWith("http")&&(s.url=this.frontUrl+s.url);for(const e of Object.keys(this.paths.fallback))s[e]||(s[e]=a[this.paths.fallback[e]]||"");s.full_bylines=(i?a.full_bylines:a.full_bylines_json)||[],s.full_bylines=s.full_bylines.map((e=>({firstname:e.firstname,lastname:e.lastname,description:e.description,imageUrl:this.getImageUrl(e.imageUrl)}))),i&&s.byline&&s.full_bylines.unshift({firstname:s.byline,lastname:"",imageUrl:this.getImageUrl(s.bylineImage)}),!s.byline&&s.full_bylines.length&&(s.byline=`${s.full_bylines[0].firstname} ${s.full_bylines[0].lastname}`,s.bylineImage=s.full_bylines[0].imageUrl.replace(this.imageServer,""));const o=lab_api.v1.config.get("customAdapterFields.article")||[];if(o)for(const e of o)if(e){let i=t.fields[e]||"";!i&&t.fields.origin_data_json&&(i=t.fields.origin_data_json[e]||""),i&&(s[e]=i)}s.paywall="0"!==s.paywall&&!!s.paywall;const r=this.api.v1.model.query.getChildOfType(e,"image");if(r){const e=r.get("filtered.image");e&&s.images.push({url:e,jpg:`${e}&format=jpg`,webp:`${e}&format=webp`,url_size:e,default:"1",id:r.get("instance_of")})}return s}cleanText(e){return this.api.v1.util.string.sanitizeString(e).replace(/&amp;/g,"&")}getImageUrl(e){return e?e.startsWith("http")?e:this.imageServer+e:""}}class j{constructor(e){this.api=e}register(e,t){if(this.api.v1.app.mode.isFragmentMode())return void Sys.logger.debug("[EsiHelper] Labrador is is fragment-mode. Will not register ESI. Skipping.");if(!e)return void Sys.logger.debug("[EsiHelper] Missing model, cannot process. Skipping.");const i=this.api.v1.config.get("footer.include");if(i&&i.pageId){const t=this.getEsiUrl(i);t?"client"===i.render?e.setFiltered("renderFooter.url",t):this.insertEsi(e,t,"esi_footer"):Sys.logger.warning("[EsiHelper] Cannot prepare url for footer-fragment. Missing url.")}const s=this.api.v1.config.get("header.include"),a=this.api.v1.config.get("header.includes")||[],n=[];if(s&&s.pageId){const t=this.insertHeader(s,e);t&&n.push(t)}for(const t of a)if(t&&t.pageId){const i=this.insertHeader(t,e);i&&n.push(i)}e.setFiltered("renderHeader.urls",n.map((e=>`'${e}'`)).join(", "))}getEsiUrl(e){if(!e.pageId)return null;const t=["pageId","path","structureType","start","count"],i=[];if(t.forEach((t=>{void 0!==e[t]&&""!==e[t]&&null!==e[t]&&i.push(`${t}=${e[t]}`)})),i.length===t.length){let e=this.api.v1.properties.get("front_api_url");return this.api.v1.app.mode.isEditor()&&"https:"===document.location.protocol&&(e=e.replace("http:","https:")),`${e}/fragment/structure/?${i.join("&")}`}return null}insertEsi(e,t,i){Sys.logger.debug(`[EsiHelper] Will insert fragment for selector: "${i}", url: "${t}".`),this.api.v1.model.insert.atPath({path:e.getPath(),data:{type:"esi",selector:i,contentdata:{fields:{url:t,identifier:i}},state:{isNonPersistent:!0}},options:{frontpage:!0,articlepage:!0}}),this.api.v1.app.mode.isEditor()&&this.fetchEditorEsi(t,`${i}`)}insertHeader(e,t){const i=this.getEsiUrl(e);if(i){if("client"===e.render)return Sys.logger.debug(`[EsiHelper] Found url for header-fragment to render in client: "${i}".`),i;this.insertEsi(t,i,"esi_header")}else Sys.logger.warning("[EsiHelper] Cannot prepare url for header-fragment. Missing url.");return null}fetchEditorEsi(e,t){this.api.v1.view.on("domRendered",((i,s)=>{const a=this.api.v1.model.query.getModelBySelector(t);a&&(Sys.logger.debug(`EsiHelper.fetchEditorEsi: Will fetch esi-substitute for editor. Selector: ${t}, url: ${e}`),this.api.v1.util.httpClient.get(e,{credentials:"omit",type:"text"}).then((e=>{const i=lab_api.v1.view.getView(a,s),n=document.createElement("template");if(n.innerHTML=e,Sys.logger.debug(`EsiHelper.fetchEditorEsi: Esi-substitute fetched. Selector: ${t}, element-count: ${n.content.children.length}`),i.markup){for(const e of[...n.content.children])i.markup.parentElement.insertBefore(e,i.markup);i.markup.remove()}else Sys.logger.warn(`EsiHelper.fetchEditorEsi: Element markup not found. Cannot insert dom-element(s). Selector: ${t}`)})).catch((e=>{Sys.logger.warning(`EsiHelper.fetchEditorEsi: Esi-substitute could not be fetched. Selector: ${t}, error: ${e}`)})))}))}}class E{static mediaQueries={desktop:"(min-width:1024px)",mobile:"(max-width: 1023px)"};static createStyle({model:e,view:t,viewports:i,styleCollection:s="content_inline_spacing",mediaQueries:a=this.mediaQueries,returnArray:n=!1}){const o=[],r=`[data-element-guid="${e.getGuid()}"] .content`;for(const n of i)if(a[n]){const i=lab_api.v1.style.getStyles(e,t,s,n);i&&o.push(`@media ${a[n]} { ${r} { ${i} } }`)}return n?o:`<style>${o.join("\n")}</style>`}}const A=class{constructor(){this.name="Baseview",this.api=null,this.pageAPI=null,this.useSpacing=!1}onReady(e){if(this.api=e,Sys.logger.debug(`[Front] Running Baseview version ${this.api.v1.config.get("view_version")}, build ${this.api.v1.config.get("view_build.baseview.version")}`),"json"===this.api.v1.viewport.getName()&&"PageExport.jsonData"===this.api.v1.config.get("viewports.json.renderer")){const e=new P(this.api);this.api.v1.view.on("rendered",((t,i)=>[JSON.stringify(e.jsonData(this.api.v1.model.query.getRootModel()),null,4)]))}if("oembed"===this.api.v1.viewport.getName()&&"PageExport.oembed"===this.api.v1.config.get("viewports.oembed.renderer")){const e=new P(this.api);this.api.v1.view.on("rendered",((t,i)=>[JSON.stringify(e.oembed(this.api.v1.model.query.getRootModel()),null,4)]))}new I(this.api,this.api.v1.util.request).listen()}onAcceptContent(){const e=this.api.v1.model.query.getRootModel();if(this.useSpacing=!(!e||!e.get("fields.style_spacing")),"editor"===this.api.v1.app.mode.getSimulatedMode())return void Sys.logger.debug("[Front] Labrador is running in simulated editor-mode. Skipping DynamicDataHelper and EsiHelper.");const t=new C(this.api).insert(this.api.v1.viewport.getName());t.length>0&&!e.get("fields.hideAds")&&(e.setFiltered("clientSidePlacements",JSON.stringify(t)),e.setFiltered("clientSideResources",JSON.stringify({configObject:{viewConfig:{config:{customer:{contentbox_settings:{adnuntiusAd:this.api.v1.config.get("contentbox_settings.adnuntiusAd")||{},googleAd:this.api.v1.config.get("contentbox_settings.googleAd")||{}},adEnvironment:this.api.v1.config.get("adEnvironment")||{}}}}},site:this.api.v1.site.getSite(),device:this.api.v1.properties.get("device"),debug:this.api.v1.util.request.hasQueryParam("debug")||!1})));new j(this.api).register(e,this.api.v1.site.getSite().alias),this.api.v1.util.request.hasQueryValue("lab_opts","hideHeader")&&(Sys.logger.debug("[Front] Hiding header and logo based on url param lab_opts=hideHeader ..."),e.setFiltered("pageHeaderDisplay","hideHeaderAndLogo")),this.api.v1.util.request.hasQueryValue("lab_opts","hideFooter")&&(Sys.logger.debug("[Front] Hiding footer based on url param lab_opts=hideFooter ..."),e.setFiltered("pageFooterDisplay","hideFooter")),this.api.v1.util.request.hasQueryValue("lab_opts","hideComments")&&(Sys.logger.debug("[Front] Hiding Hyvor comments based on url param lab_opts=hideComments ..."),e.setFiltered("pageCommentsDisplay","hideComments"))}onRender(e,t){this.useSpacing&&e.setFiltered("styleSheets",E.createStyle({model:e,view:t,viewports:["desktop","mobile"],returnArray:!1}))}onMapData(e){if("text_title"===e.type||"text_subtitle"===e.type){if(!e.contentdata||!e.contentdata.fields)return;const t={...e};return t.type="text_singleline",t.contentdata.fields.text=t.contentdata.fields.title||t.contentdata.fields.subtitle,"text_subtitle"===e.type?(t.contentdata.fields.elementType={value:"h3"},delete t.contentdata.fields.subtitle):(t.contentdata.fields.elementType={value:"h2"},lab_api.v1.util.object.set("attributes.text_size.vp.desktop",lab_api.v1.util.object.get("attributes.text_size.vp.desktop",t.contentdata.fields.text)||44,t.contentdata.fields.text),delete t.contentdata.fields.title),t.lab_internal_format=!0,t}}};var O=t.k,q=t.B;
+var e={d:(t,i)=>{for(var s in i)e.o(i,s)&&!e.o(t,s)&&Object.defineProperty(t,s,{enumerable:!0,get:i[s]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.r(t),e.d(t,{adnuntiusAd:()=>T,article:()=>b,googleAd:()=>$,image:()=>_,livefeed:()=>w,notice:()=>S,page_article:()=>u,page_front:()=>h});class i{static getSiteStyles(e,t=[]){const i=lab_api.v1.config.get(`site_styles.${e}`)||t;return Sys.logger.debug(`ViewSupport: Found ${Array.isArray(i)?i.length:0} stylesheet(s) for site "${e}".`),i}static getSiteStylesWithFallback(e,t=[]){const i=this.getSiteStyles(e,null);if(null===i){t.push(e);const i=lab_api.v1.config.get("lab_fallback_site",{site:e});if(i&&!t.includes(i))return this.getSiteStylesWithFallback(i,t)}return i||[]}static getSiteScripts(e,t,i){const s=this.filterScriptListByPageType(lab_api.v1.config.get(`site_scripts.${e}`)||[],t,i);return Sys.logger.debug(`ViewSupport: Found ${s.length} script-path(s) for site "${e}".`),s}static getSiteScriptsWithFallback(e,t,i,s=[]){let a=this.getSiteScripts(e,t,i);if(s.length&&(a=this.removeWithInheritFalse(a)),!a.length){s.push(e);const a=lab_api.v1.config.get("lab_fallback_site",{site:e});if(a&&!s.includes(a))return this.getSiteScriptsWithFallback(a,t,i,s).filter(e=>!1!==e.inherit)}return a}static getCommonScripts(e,t,i=!1){const s=this.filterScriptListByPageType(lab_api.v1.config.get("site_scripts_common")||[],e,t,i);return Sys.logger.debug(`ViewSupport: Found ${s.length} common ${i?"script-path(s)":"JS modules"}`),s}static filterScriptListByPageType(e,t,i,s=!1){return e.filter(e=>(!e.isModule&&!s||e.isModule&&s)&&(!e.pageType||e.pageType===t)&&(!i||i&&!e.skipEditor))}static removeWithInheritFalse(e){return Array.isArray(e)&&e.length>0?e.filter(e=>!1!==e.inherit):e}static getSiteFilesForContentboxes(e,t,i,s=[]){const a=[],n=lab_api.v1.model.query.getModelTypes();Sys.logger.debug(`ViewSupport sitefiles: Will register ${i}-file(s) for contentbox-types ${n.join(", ")}.`);for(const e of n){const t=lab_api.v1.config.get(`contentbox_settings.${e}.require.${i}`);if(Array.isArray(t))for(const n of t)a.includes(n)||s.includes(n)||(Sys.logger.debug(`ViewSupport sitefiles: Will include ${i}-file "${n}" for contentbox "${e}".`),a.push(n))}return Sys.logger.debug(`ViewSupport sitefiles: Finished registering ${i}-file(s). Found ${a.length} file(s).`),a}}class s{constructor(e){this.api=e,this.pageType=this.api.v1.model.root.getType()}get media(){return{getLogo:(e=this.api.v1.viewport.getName())=>{const t=this.api.v1.config.get("logo")||{},i=t.uploadedFileUrl?{src:t.uploadedFileUrl,href:t.default.href,type:"img",size:{width:t.logoWidth},title:t.default.title,isCustom:!0}:t[e]||t.default||null;i&&("img"===i.type?i.is_img=!0:"svg"===i.type&&(i.is_svg=!0));return{current:i,sm:t.uploadedFileUrl?{src:t.uploadedFileUrl,href:t.default.href,size:{width:t.logoWidth},title:t.default.title,isCustom:!0}:t.standalone||t.mailmojo||null,mm:t.uploadedMailmojoFileUrl?{src:t.uploadedMailmojoFileUrl,href:t.default.href,size:{width:t.mailmojoLogoWidth},title:t.default.title,isCustom:!0}:t.mailmojo||t.standalone||null}}}}get menus(){return{get:({section:e,defaultSection:t}={},i)=>{const s={},a=Object.values(this.api.v1.config.get("menus")||{});if(a.length<1)return null;const n=i=>{i.forEach(i=>{i.selected=i.section===e||i.section===t,"target"in i||(i.target="_self"),"selector"in i||(i.selector=""),"children"in i||(i.children=[]),i.children.length>0&&(i.hasChildren=!0,n(i.children))})};return a.forEach(e=>{n(e.menuItems);const t=e.type||e.menuName;s[t]={items:e.menuItems,type:e.type,selector:e.selector||"",menuName:e.menuName||"",showMenuName:e.showMenuNameOnDesktop||e.showMenuNameOnMobile||!1,showMenuNameOnDesktop:e.showMenuNameOnDesktop||"",showMenuNameOnMobile:e.showMenuNameOnMobile||""}}),i?s[i]:s}}}get misc(){return{}}get resources(){const e={required:[],getProgressReader:()=>(e.required.push({url:"/view-resources/public/common/ReadProgress.js",requireDom:!1}),{active:!0,minElementCount:lab_api.v1.config.get("displayReadProgress.minElementCount")||25}),getSiteFiles(t,s,a,n,o){const r=i.getSiteScriptsWithFallback(a,n,o),l=i.getCommonScripts(n,o);return e.required.push(...r,...l),{js:i.getSiteFilesForContentboxes(t,s,"js",e.required.map(e=>e.url)),css:i.getSiteFilesForContentboxes(t,s,"css")}},getModules:(e,t,s,a,n)=>i.getCommonScripts(a,n,!0)},t={get:e=>{const i=(lab_api.v1.config.get("analytics.kilkaya")||[]).map(e=>{const t={...e};return t.id&&"string"==typeof t.id&&t.id.trim().endsWith(".js")&&(t.url=t.id),t});let s=this.api.v1.config.get("analytics.adnuntiusConnect");s&&"object"==typeof s&&!Array.isArray(s)&&Object.keys(s).length&&(s=new Array(s));const a={google:this.api.v1.config.get("analytics.google.tracking_id"),google_gtm:this.api.v1.config.get("analytics.google.gtm"),comscore:this.api.v1.config.get("analytics.comscore.comscore_id"),adnuntiusConnect:s,adnuntiusConnectCMP:this.api.v1.config.get("analytics.adnuntiusConnectCMP"),kilkaya:i,kilkayaSettings:this.api.v1.config.get("analytics.kilkayaSettings"),io:this.api.v1.config.get("analytics.io.tracking_id")},n=t.getDataLayer(e);return n.dataLayer&&(a.dataLayer=n.dataLayer),n.usesJWTCookieData&&(a.usesJWTCookieData=n.usesJWTCookieData),a},getDataLayer:e=>{const t=this.api.v1.config.get("analytics.google.dataLayer");let i=!1;if(t&&Array.isArray(t)&&t.length){t.forEach(t=>{let s=null;switch(t.source){case"fixed":s=(t.value||"").trim();break;case"config":s=this.api.v1.properties.get(t.value);break;case"jwtcookie":t.isJWTCookie=!0,s=t.value,i=!0;break;case"article_authors":s=`${(e.bylinesStringCommaSeparated||"").replace(/"/g,"")}`;break;case this.pageType.replace("page_",""):s=this.api.v1.model.query.getRootModel().get(t.value);break;default:Sys.logger.warn(`Unsupported dataLayer source: "${t.source}"`)}t.value=null===s?"":s.toString()});const s=t.map(e=>e.value.length>0).lastIndexOf(!0);t[s]&&(t[s].last=!0)}return{dataLayer:t,usesJWTCookieData:i}}};return{scripts:e,analytics:t}}get settings(){return{get:(e={})=>{const t=this.api.v1.config.get(`page_settings.${e.pageType}.social.display`)||{},i=this.api.v1.model.query.getRootModel().get("fields.show_social_bodytext_before"),s=this.api.v1.model.query.getRootModel().get("fields.show_social_bodytext_after"),a=this.api.v1.model.query.getRootModel().get("fields.show_social_header");null!==i&&(t.bodytext_before=!!i),null!==s&&(t.bodytext_after=!!s),null!==a&&(t.header=!!a);const n=this.api.v1.config.get(`page_settings.${e.pageType}.social.items`)||{},o=this.api.v1.config.get(`page_settings.${e.pageType}.showTags`),r=Object.keys(n).filter(e=>!!n[e].display).map(t=>({name:t,icon:n[t].icon||"",url:e.socialLinks[t]||"",shareText:this.api.v1.locale.get(`socialMedia.shareText.${t}`,{noRender:!0,fallbackValue:""}),isButton:n[t].isButton||!1}));return{page_type:e.pageType,social:{display:{bodytext_before:r.length>0&&!!t.bodytext_before,bodytext_after:r.length>0&&!!t.bodytext_after,header:r.length>0&&!!t.header},items:r},showTags:!1!==o}}}}}class a{static getStyleDefinitions(e){const t=e.v1.properties.get("site.alias"),i=e.v1.config.get("style_definitions",t),s=[];(i.rules||[]).forEach(e=>s.push(e)),(i.fontface||[]).forEach(e=>{const t=`.font-${(Array.isArray(e.family)?e.family[0]:e.family).replace(/ /g,"")}`;s.push(a.getFamilyDefinition(t,e.family));const i={light:{keys:["light","200","100","300"],used:!1},normal:{keys:["regular","normal","400","500"],used:!1},bold:{keys:["bold","600","700"],used:!1},black:{keys:["black","800","900"],used:!1}};e.variants.forEach(e=>{for(const n of Object.keys(i)){const o=i[n];o&&!o.used&&o.keys.indexOf(e)>-1&&(s.push(a.getWeightDefinition(t,e,n)),o.used=!0)}})});const n={fontface:i.fontface||[],parsedRules:a.CSSRuleParser(s)};return n.hasRules=!!n.parsedRules.length,n}static getFamilyDefinition(e,t){return{selector:e,declarations:[{key:"font-family",value:`${Array.isArray(t)?`${t.map(e=>`"${e}"`).join(", ")}`:`"${t}"`} !important`}]}}static getWeightDefinition(e,t,i){let s=t;return"regular"===t&&(s="normal"),{selector:`${e}.font-weight-${i}`,declarations:[{key:"font-weight",value:`${s} !important`}]}}static CSSRuleParser(e){const t=[];return e.forEach(e=>{let i,s,a=`${e.selector} { `;e.declarations.forEach(e=>{"font-size-desktop"===e.key?"default"!==e.value&&(a+=`font-size: ${e.value.slice(0,-2)/16}rem; `):"font-size-mobile"===e.key?"default"!==e.value&&(i=`calc(0.262vw * ${e.value.slice(0,-2)})`):"line-height-desktop"===e.key?"default"!==e.value&&(a+=`line-height: ${e.value}; `):"line-height-mobile"===e.key?"default"!==e.value&&(s=e.value):"font-family"===e.key?e.value.includes("!important")?a+=`${e.key}: ${e.value}; `:a+=`${e.key}: "${e.value}"; `:"color"===e.key||"text-decoration"===e.key?"default"!==e.value&&(a+=`${e.key}: ${e.value}; `):a+=`${e.key}: ${e.value}; `}),a+="}",(i||s)&&(a+=`@media (max-width: 767px) { .resp_fonts ${e.selector} {`,i&&(a+=`font-size: ${i}; `),s&&(a+=`line-height: ${s}; `),a+="} }"),t.push(a)}),t}static getInlineCSS(e,t){return[{key:"custom_properties",value:e.v1.config.get("css_build.custom_properties",{site:t})||""},{key:"background_colors",value:e.v1.config.get("css_build.background_colors",{site:t})||""},{key:"background_colors_opacity",value:e.v1.config.get("css_build.background_colors_opacity",{site:t})||""},{key:"border_colors",value:e.v1.config.get("css_build.border_colors",{site:t})||""},{key:"font_colors",value:e.v1.config.get("css_build.font_colors",{site:t})||""},{key:"image_gradient",value:e.v1.config.get("css_build.image_gradient",{site:t})||""}]}static getCssVariables(e){const t=e.v1.config.get("custom_css_variables")||{},i={no_viewport:[],desktop:[],mobile:[]};for(const e of Object.keys(t))for(const s of Object.keys(t[e]))i[s].push({key:e,value:(t[e][s]||{}).value});return i}}const n={sunday:{en:"sunday",sv:"söndag",dk:"søndag",no:"søndag",nl:"zondag",kl:"sapaat"},monday:{en:"monday",sv:"måndag",dk:"mandag",no:"mandag",nl:"maandag",kl:"ataasinngorneq"},tuesday:{en:"tuesday",sv:"tisdag",dk:"tirsdag",no:"tirsdag",nl:"dinsdag",kl:"marlunngorneq"},wednesday:{en:"wednesday",sv:"onsdag",dk:"onsdag",no:"onsdag",nl:"woensdag",kl:"pingasunngorneq"},thursday:{en:"thursday",sv:"torsdag",dk:"torsdag",no:"torsdag",nl:"donderdag",kl:"sisamanngorneq"},friday:{en:"friday",sv:"fredag",dk:"fredag",no:"fredag",nl:"vrijdag",kl:"tallimanngorneq"},saturday:{en:"saturday",sv:"lördag",dk:"lørdag",no:"lørdag",nl:"zaterdag",kl:"arfininngorneq"},january:{en:"January",sv:"januari",dk:"januar",no:"januar",nl:"januari",kl:"ukiortaarsiorneq"},february:{en:"February",sv:"februari",dk:"februar",no:"februar",nl:"februari",kl:"ukiortaami"},march:{en:"March",sv:"mars",dk:"marts",no:"mars",nl:"maart",kl:"marsi"},april:{en:"April",sv:"april",dk:"april",no:"april",nl:"april",kl:"apriili"},may:{en:"May",sv:"maj",dk:"maj",no:"mai",nl:"mei",kl:"maajii"},june:{en:"June",sv:"juni",dk:"juni",no:"juni",nl:"juni",kl:"juuni"},july:{en:"July",sv:"juli",dk:"juli",no:"juli",nl:"juli",kl:"juuli"},august:{en:"August",sv:"augusti",dk:"august",no:"august",nl:"augustus",kl:"aggusti"},september:{en:"September",sv:"september",dk:"september",no:"september",nl:"september",kl:"septembari"},october:{en:"October",sv:"oktober",dk:"oktober",no:"oktober",nl:"oktober",kl:"oktobari"},november:{en:"November",sv:"november",dk:"november",no:"november",nl:"november",kl:"novembari"},december:{en:"December",sv:"december",dk:"december",no:"desember",nl:"december",kl:"decembari"},ago:{en:"ago",sv:"sedan",dk:"siden",no:"siden",nl:"geleden",kl:"matuma siorna"},now:{en:"now",sv:"nu",dk:"nu",no:"nå",nl:"nu",kl:"maanna"},min:{en:"min"},minutes:{en:"minutes",sv:"minuter",dk:"minutter",no:"minutter",nl:"minuten",kl:"minutsi"},hour:{en:"hour",sv:"timme",dk:"time",no:"time",nl:"uur",kl:"akunnera"},hours:{en:"hours",sv:"timmar",dk:"timer",no:"timer",nl:"uren",kl:"akunnerit"},day:{en:"day",sv:"dag",dk:"dag",no:"dag",nl:"dag",kl:"ulloq"},days:{en:"days",sv:"dagar",dk:"dage",no:"dager",nl:"dagen",kl:"ullut"},monthdayyear:{en:"{{MMMM}} {{DD}}. {{YYYY}}",sv:"{{DD}}/{{MM}} {{YYYY}}",dk:"{{DD}}/{{MM}} {{YYYY}}",no:"{{DD}}/{{MM}} {{YYYY}}",nl:"{{DD}}/{{MM}} {{YYYY}}"},hourminute:{en:"{{HH}}:{{mm}}"}};class o{constructor(e="en",t="en"){this.fallbackLanguage=t,this.language=e||t,this.words=n,this.timezone=this.getTimezone()}getTimezone(){const e=lab_api.v1.config.get("timezone");return void 0===e||Number.isNaN(e)||Number.isNaN(parseFloat(e))?1:parseInt(e,10)}str(e){let{language:t}=this;return e in this.words?(t in this.words[e]||(t=this.fallbackLanguage),t in this.words[e]?this.words[e][t]:null):null}format(e,t){return Mustache.render(t,{YYYY:()=>e.getFullYear(),YY:()=>`${e.getFullYear()}`.slice(-2),MM:()=>(e.getMonth()<9?"0":"")+(e.getMonth()+1),M:()=>e.getMonth()+1,D:()=>e.getDate(),DD:()=>(e.getDate()<10?"0":"")+e.getDate(),H:()=>e.getHours(),HH:()=>(e.getHours()<10?"0":"")+e.getHours(),m:()=>e.getMinutes(),mm:()=>(e.getMinutes()<10?"0":"")+e.getMinutes(),s:()=>e.getSeconds(),ss:()=>(e.getSeconds()<10?"0":"")+e.getSeconds(),dddd:()=>this.weekday(e,!1),ddd:()=>this.weekday(e,!1,3),MMMM:()=>this.monthName(e,!1),MMM:()=>this.monthName(e,!1,3),W:()=>this.weekNumber(e,!0,!0),WW:()=>this.weekNumber(e,!0,!1)})}utcFormat(e,t){const i=this.correctDate(e);return Mustache.render(t,{YYYY:()=>i.getUTCFullYear(),YY:()=>`${i.getUTCFullYear()}`.slice(-2),MM:()=>(i.getUTCMonth()<9?"0":"")+(i.getUTCMonth()+1),M:()=>i.getUTCMonth()+1,D:()=>i.getUTCDate(),DD:()=>(i.getUTCDate()<10?"0":"")+i.getUTCDate(),H:()=>i.getUTCHours(),HH:()=>(i.getUTCHours()<10?"0":"")+i.getUTCHours(),h:()=>this.twelveHourClock(i),hh:()=>this.twelveHourClock(i,!0),m:()=>i.getUTCMinutes(),mm:()=>(i.getUTCMinutes()<10?"0":"")+i.getUTCMinutes(),s:()=>i.getUTCSeconds(),ss:()=>(i.getUTCSeconds()<10?"0":"")+i.getUTCSeconds(),a:()=>i.getUTCHours()<12?"a.m.":"p.m.",A:()=>i.getUTCHours()<12?"A.M.":"P.M.",dddd:()=>this.weekday(i,!0),ddd:()=>this.weekday(i,!0,3),MMMM:()=>this.monthName(i,!0),MMM:()=>this.monthName(i,!0,3),W:()=>this.weekNumber(i,!0,!0),WW:()=>this.weekNumber(i,!0,!1)})}formattedDate(e,t,i=!0,s=!0){let a=t||"";return a=a.replace("Y",e.getFullYear()),a=a.replace("m",(i&&e.getMonth()<9?"0":"")+(e.getMonth()+1)),a=a.replace("d",(i&&e.getDate()<10?"0":"")+e.getDate()),a=a.replace("H",(s&&e.getHours()<10?"0":"")+e.getHours()),a=a.replace("i",(s&&e.getMinutes()<10?"0":"")+e.getMinutes()),a=a.replace("s",e.getSeconds()),a=a.replace("l",this.weekday(e,!1)),a=a.replace("D",this.weekday(e,!1,3)),a=a.replace("F",this.monthName(e,!1)),a=a.replace("M",this.monthName(e,!1,3)),a}formattedUtcDate(e,t,i=!0,s=!0){const a=this.correctDate(e);let n=t||"";return n=n.replace("Y",a.getUTCFullYear()),n=n.replace("m",(i&&a.getUTCMonth()<9?"0":"")+(a.getUTCMonth()+1)),n=n.replace("d",(i&&a.getUTCDate()<10?"0":"")+a.getUTCDate()),n=n.replace("H",(s&&a.getUTCHours()<10?"0":"")+a.getUTCHours()),n=n.replace("i",(s&&a.getUTCMinutes()<10?"0":"")+a.getUTCMinutes()),n=n.replace("s",a.getUTCSeconds()),n=n.replace("l",this.weekday(a,!0)),n=n.replace("D",this.weekday(a,!0,3)),n=n.replace("F",this.monthName(a,!0)),n=n.replace("M",this.monthName(a,!0,3)),n}correctDate(e){return this.manipulateTime(e,this.isSummerTime(e)?this.timezone+1:this.timezone)}utcDate(e){return this.unmanipulateTime(e,this.isSummerTime(e)?this.timezone+1:this.timezone)}timestampToDate(e){return new Date(1e3*e)}toTimestamp(e){return Math.round(e.getTime()/1e3)}parseDate(e){const t=e.substr(0,4),i=e.substr(4,2)-1,s=e.substr(6,2),a=new Date(t,i,s),n=a.getFullYear()==t,o=a.getMonth()==i,r=a.getDate()==s;return n&&o&&r?a:"invalid date"}weekday(e,t=!1,i=9){return([this.str("sunday"),this.str("monday"),this.str("tuesday"),this.str("wednesday"),this.str("thursday"),this.str("friday"),this.str("saturday")][t?e.getUTCDay():e.getDay()]||"").substr(0,i)}monthName(e,t=!1,i=10){return([this.str("january"),this.str("february"),this.str("march"),this.str("april"),this.str("may"),this.str("june"),this.str("july"),this.str("august"),this.str("september"),this.str("october"),this.str("november"),this.str("december")][t?e.getUTCMonth():e.getMonth()]||"").substr(0,i)}weekNumber(e,t=!1,i=!0){const s=new Date(e.valueOf()),a=((t?e.getUTCDay():e.getDay())+6)%7;s.setDate(s.getDate()-a+3);const n=s.valueOf();s.setMonth(0,1),4!==s.getDay()&&s.setMonth(0,1+(4-s.getDay()+7)%7);const o=1+Math.ceil((n-s)/6048e5);return(!i&&o<10?"0":"")+o}timestampToNiceDate(e,t=!1){const i={ago:t?"":this.str("ago"),now:this.str("now"),minute:t?this.str("min"):this.str("minutes"),minutes:t?this.str("min"):this.str("minutes"),hour:this.str("hour"),hours:this.str("hours"),day:this.str("day"),days:this.str("days")},s=(new Date).getTime(),a=new Date(1e3*e).getTime()-0,n=parseInt((s-a)/1e3/60,10);return n<60?n<1?i.now:1==n?`1 ${i.minute} ${i.ago}`:`${n} ${i.minutes} ${i.ago}`:n<1440?1==parseInt(n/60,10)?`1 ${i.hour} ${i.ago}`:`${parseInt(n/60,10)} ${i.hours} ${i.ago}`:parseInt(n/1440,10)<30?1==parseInt(n/1440,10)?`1 ${i.day} ${i.ago}`:`${parseInt(n/1440,10)} ${i.days} ${i.ago}`:this.format(this.timestampToDate(e),this.str("monthdayyear"))}isSummerTime(e){function t(e,t){const i=new Date,s=new Date(Date.UTC(t||i.getFullYear(),e+1,0)),a=s.getDay();return new Date(Date.UTC(s.getFullYear(),s.getMonth(),s.getDate()-a))}const i=e||new Date,s=t(2,i.getFullYear());s.setHours(1);const a=t(9,i.getFullYear());return s.setHours(1),i.getTime()>=s.getTime()&&i.getTime()<a.getTime()}manipulateTime(e,t){return new Date(e.getTime()+60*t*60*1e3)}unmanipulateTime(e,t){return new Date(e.getTime()-60*t*60*1e3)}twelveHourClock(e,t=!1){const i=e.getUTCHours();let s;return 0===i||12===i?s=12:(s=i<12?i:i-12,t&&s<10&&(s=`0${s}`)),s}}class r{static getAdnuntiusSettings(e,t,i,s,a,n=!1,r=!1){Sys.logger.debug(`[AdsHelper.getAdnuntiusSettings] Called with disableSkyscraper=${n}, disableTopBanner=${r}`);const l=(e.v1.config.get("contentbox_settings.adnuntiusAd.bidding")||{}).enabled||!1;function d(e,t){let i="";return l&&e.prebidConfig&&(i=JSON.parse(e.prebidConfig),Array.isArray(i)&&([i]=i),i=JSON.stringify(i)),{...e,prebidConfig:i,metadata:t.metadata||[]}}const g=e.v1.config.get("contentbox_settings.adnuntiusAd.formats")||[],p=e.v1.config.getView(`insertDynamic.${e.v1.model.root.getType().replace("page_","")}.${i.getViewport()}`,a.alias)||[],c=e.v1.model.query.getChildrenOfType(t,"adnuntiusAd",!0,!0),u=[];for(const e of p){const[t]=g.filter(t=>e.content_data.fields.format===t.format);t&&(!1===e.placement.key.includes("skyscraper_")&&"topbanner"!==e.placement.key||e.placement.key.includes("skyscraper_")&&!n||"topbanner"===e.placement.key&&!r)&&u.push(d(t,e))}for(const e of c){const[t]=g.filter(t=>e.get("fields.format")===t.format);t&&u.push(d(t,e))}const h=(new o).utcFormat(new Date,"&tag=week_{{ W }}_{{ YYYY }}");return{enabled:g.length>0,lazyload:e.v1.config.get("contentbox_settings.adnuntiusAd.lazyload")||!1,adUnits:u,spacingTop:e.v1.config.get("contentbox_settings.adnuntiusAd.spacingTop")||120,fetchMarginPercent:s.fetchMarginPercent||150,renderMarginPercent:s.renderMarginPercent||150,bidding:{enabled:l},hideOnTabletWidth:s.hideOnTabletWidth||1316,refreshdelay:e.v1.config.get("contentbox_settings.adnuntiusAd.refreshdelay")||5,refreshcount:e.v1.config.get("contentbox_settings.adnuntiusAd.refreshcount")||1,connectLoading:e.v1.config.get("contentbox_settings.adnuntiusAd.connectLoading")||!1,contkitEnabled:e.v1.config.get("contentbox_settings.adnuntiusAd.contkitEnabled")||!1,newsletter:{targeting:h}}}static getGoogleSettings(e,t,i,s,a,n=!1,o=!1){function r(e,t){const{sizes:i=[],fluid:s=!1}=e,a=i.map(e=>`[${e.width},${e.height}]`);return s&&a.push('"fluid"'),{...e,sizesString:`[${a.join(", ")}]`,metadata:t.metadata||[]}}Sys.logger.debug(`[AdsHelper.getGoogleSettings] Called with disableSkyscraper=${n}, disableTopBanner=${o}`);const l=e.v1.config.get("contentbox_settings.googleAd.formats")||[],d=e.v1.config.get("contentbox_settings.googleAd.anchor")||{enabled:!1,code:"",type:"TOP_ANCHOR"},g=e.v1.config.getView(`insertDynamic.${e.v1.model.root.getType().replace("page_","")}.${i.getViewport()}`,a.alias)||[],p=e.v1.model.query.getChildrenOfType(t,"googleAd",!0,!0),c=[];for(const e of g){const[t]=l.filter(t=>e.content_data.fields.format===t.format),i=e.placement.key,s=t&&(!1===i.includes("skyscraper_")&&"topbanner"!==i||i.includes("skyscraper_")&&!n||"topbanner"===i&&!o);Sys.logger.debug(`[AdsHelper.getGoogleSettings] Placement: ${i}, Format: ${t?t.format:"not found"}, ShouldInclude: ${s}`),s&&c.push(r(t,e))}Sys.logger.debug(`[AdsHelper.getGoogleSettings] Found ${p.length} manual Google Ad(s)`);for(const e of p){const[t]=l.filter(t=>e.get("fields.format")===t.format);t&&(Sys.logger.debug(`[AdsHelper.getGoogleSettings] Adding manual ad with format: ${t.format}`),c.push(r(t,e)))}return Sys.logger.debug(`[AdsHelper.getGoogleSettings] Final visibleUnits count: ${c.length}, formats: ${c.map(e=>e.format).join(", ")}`),{enabled:l.length>0,lazyload:s.lazyload||!1,spacingTop:e.v1.config.get("contentbox_settings.googleAd.spacingTop")||120,fetchMarginPercent:s.fetchMarginPercent||150,renderMarginPercent:s.renderMarginPercent||150,adUnits:c,anchor:d,dfpid:s.dfpid||!1,debugmode:s.debugmode||!1,disableInitialLoad:s.disableInitialLoad||!1,bidding:s.bidding,hideOnTabletWidth:s.hideOnTabletWidth||1316}}}class l{constructor({pageType:e="",canonical:t="",isTagpage:i=!1,isTagpageWithFrontpage:s=!1,tagpagePath:a="/tag/",publishedUrl:n=""}={}){this.settings={pageType:e,canonical:t,isTagpage:i,isTagpageWithFrontpage:s,tagpagePath:a,publishedUrl:n},this.cache={seoData:null},this.imageServer=lab_api.v1.properties.get("image_server")}getStructuredData(e){return e.get("fields.jsonld_json")?e.get("fields.custom_jsonld"):"front"===this.settings.pageType?this.generateFrontData(e):"article"===this.settings.pageType||"notice"===this.settings.pageType?this.generateArticleData(e):null}generateSiteData(e){return{"@context":"http://schema.org","@type":"WebSite",name:lab_api.v1.properties.get("site.display_name"),url:lab_api.v1.properties.get("site.domain")||""}}generateFrontData(e){const t=this.getSEOData(e);return{"@context":"https://schema.org","@type":"WebPage",name:t.title,description:t.description}}generateArticleData(e){const t=this.getSEOData(e),i={"@context":"https://schema.org","@type":"NewsArticle",headline:t.title||e.get("fields.title"),description:t.description,mainEntityOfPage:{"@id":this.settings.publishedUrl},availableLanguage:[{"@type":"Language",alternateName:t.language}],image:lab_api.v1.model.query.getChildrenOfType(e,"image",!0).map(e=>{const t=e.get("fields.imageurl")||`${this.imageServer}/?imageId=${e.get("instance_of")}`;return t.endsWith("width=")?`${t}1200`:`${t}&width=1200`}),keywords:(e.get("tags")||[]).join(", "),author:lab_api.v1.model.query.getChildrenOfType(e,"byline",!0).map(e=>{let t=e.get("fields.firstname");"Byline first name"===t&&(t="");let i=e.get("fields.lastname");"Byline last name"===i&&(i="");const s={"@type":"Person",name:`${t} ${i}`},a=e.get("fields.public_url");a&&(s.url=a);const n=(e.children||[]).filter(e=>"image"===e.type)[0];n&&(s.image={"@type":"ImageObject",url:`${n.get("fields.imageurl")}&width=250`});const o=e.get("fields.public_email");return o&&(s.email=o),s}),publisher:{"@type":"Organization",name:lab_api.v1.properties.get("site.display_name"),logo:{"@type":"ImageObject",url:lab_api.v1.config.get("logo.default.src")}}};return e.get("fields.published")&&(i.datePublished=new Date(1e3*parseInt(e.get("fields.published"),10)).toISOString()),e.get("fields.modified")&&(i.dateModified=new Date(1e3*parseInt(e.get("fields.modified"),10)).toISOString()),"1"===e.get("fields.paywall")&&(i.isAccessibleForFree=!0,i.hasPart={"@type":"WebPageElement",isAccessibleForFree:!1,cssSelector:".teaserContent"}),i}getSEOData(e){if(this.cache.seoData)return this.cache.seoData;let t,i,s;if("article"===this.settings.pageType||"notice"===this.settings.pageType)i=lab_api.v1.util.string.sanitizeString(e.get("fields.seotitle")||e.get("fields.title")||""),s=lab_api.v1.util.string.sanitizeString(e.get("fields.seodescription")||e.get("fields.subtitle")||""),t=e.get("fields.seolanguage")||lab_api.v1.config.get("contentLanguage");else{if(this.settings.isTagpage&&!this.settings.isTagpageWithFrontpage){const e=this.settings.tagpagePath.replace(/\//g,""),t=(this.settings.canonical.split(this.settings.tagpagePath)[1]||"").split("/").filter(e=>!!e),s={tag:t[t.length-1],tags:t,tagPath:e};i=lab_api.v1.locale.get("tags.title_text",{data:s})}else i=lab_api.v1.util.string.sanitizeString(e.get("fields.seotitle")||e.get("fields.name")||"");s=lab_api.v1.util.string.sanitizeString(e.get("fields.seodescription")||"")}return this.cache.seoData={title:i.charAt(0).toUpperCase()+i.slice(1),description:s,language:t},this.cache.seoData}}class d{static prepareForTemplate(e,t,i){const s={meta:{head_top:[],head_bottom:[]},script:{head_top:[],head_bottom:[],body_top:[],body_bottom:[]},style:{head_top:[],head_bottom:[]},link:{head_top:[],head_bottom:[]}},a=e.filter(e=>!(e.pageType&&e.pageType!==t||e.skipEditor&&i));for(const e of Object.keys(s))for(const t of Object.keys(s[e]))s.meta[t]=a.filter(e=>"meta"===e.tag).filter(e=>e.placement===t).map(e=>this.createCustomTag(e)),s.script[t]=a.filter(e=>"script"===e.tag).filter(e=>e.placement===t).map(e=>this.createCustomTag(e)),s.style[t]=a.filter(e=>"style"===e.tag).filter(e=>e.placement===t).map(e=>this.createCustomTag(e)),s.link[t]=a.filter(e=>"link"===e.tag).filter(e=>e.placement===t).map(e=>this.createCustomTag(e));return console.log(s),s}static createCustomTag(e){switch(e.tag){case"link":return this.createLinkTag(e);case"script":return this.createScriptTag(e);case"style":return this.createStyleTag(e);default:return this.createMetaTag(e)}}static fetchDynamicAttribute(e){return lab_api.v1.view.render({model:lab_api.v1.model.query.getRootModel(),template:e})||null}static parseAttributes(e){return e.filter(e=>!!e.key).map(e=>e.value?`${e.key}="${e.value.match(/\{\{.*\}\}/g)?this.fetchDynamicAttribute(e.value):e.value}"`:e.key).join(" ")}static parseVariables(e){return e.replace(/\{\{\{?.*?\}\}\}?/g,this.fetchDynamicAttribute)}static createLinkTag(e){return`<link ${this.parseAttributes(e.attributes)}>`}static createScriptTag(e){return`<script ${this.parseAttributes(e.attributes)}>${e.value?this.parseVariables(e.value):""}<\/script>`}static createMetaTag(e){return`<meta ${this.parseAttributes(e.attributes)}>`}static createStyleTag(e){return`<style ${this.parseAttributes(e.attributes)}>${e.value?this.parseVariables(e.value):""}</style>`}}class g{static buildConfig(e){return{viewConfig:{config:{customer:{paywall:{label:lab_api.v1.config.get("paywall.label")||{}},image:{defaultAspectRatio:lab_api.v1.config.get("image.defaultAspectRatio")||void 0}}}}}}}class p{constructor(e,t){this.api=e,this.page=t}set(e,t){const i=this.export(e,t),s=t.get("type").replace("page_",""),a=this.api.v1.app.mode.isEditor();for(const t of Object.keys(i))e.setFiltered(t,i[t]);e.setFiltered("customTags",d.prepareForTemplate(this.api.v1.config.get("customTags")||[],s,a))}export(e,t){const s={},n=new Date,o=t.get("type").replace("page_",""),d=t.get("id"),p=this.api.v1.site.getSite().domain||this.api.v1.properties.get("customer_front_url"),c=p+t.get("fields.published_url"),u=encodeURIComponent(c),h=this.api.v1.properties.get("image_server"),f=this.api.v1.app.mode.isEditor(),m=this.getCanonicalUrl(e,o,d,p),y=this.api.v1.config.get("tagPagePath")||"/tag/",b="front"===o&&(c.endsWith(y.slice(0,-1))||c.indexOf(y)>-1),v=b&&!c.endsWith(y.slice(0,-1));s.customer_front_url=p,s.isEditMode=f,s.url=c,s.urlEncoded=u,s.specificUrl=m,s.image_server=h,s.pageType=o,s.pageId=d,s.is_article="article"===o,s.is_notice="notice"===o,s.is_front="front"===o,s.is_gallery="gallery"===o,s.is_infiniteArticle="infinitescroll"===t.get("fields.page_template_alias"),s.section=t.get("primaryTags.section")||t.get("fields.defaultsection"),s.device=this.api.v1.viewport.getName(),s.cmsVersion=this.api.v1.properties.get("app.version"),s.front_api_url=this.api.v1.properties.get("front_api_url"),s.xUaDevice=this.api.v1.properties.get("xUaDevice"),s.favicons=this.api.v1.config.get("favicons"),s.faviconList=this.api.v1.config.get("faviconList"),s.skipDefaultFont=this.api.v1.config.get("skipDefaultFont"),s.isDebug=this.api.v1.util.request.hasQueryParam("debug"),s.staticUrl=this.getStaticUrl(e,o,d,p),s.customMetatags=this.getCustomMetatags(),s.footerSettings=this.api.v1.config.get("page_settings.footer"),s.rssDescriptionPrefix=this.api.v1.config.get("viewports.rss.descriptionPrefix"),s.is_tagpage=b,s.contentLanguage=lab_api.v1.config.get("contentLanguage");const _=this.page.media.getLogo(t.getViewport());s.logo=_.current,s.logo_sm=_.sm,s.logo_mm=_.mm,s.misc=this.api.v1.config.get("misc");const k={active:!1,lang:this.api.v1.config.get("google_translate")};k.lang&&Array.isArray(k.lang)&&k.lang.length&&(k.active=!0),s.google_translate=k;const S=new l({pageType:o,canonical:m,isTagpage:b,isTagpageWithFrontpage:v,tagpagePath:y,publishedUrl:c}),w=S.generateSiteData(e),T=S.getStructuredData(e);s.jsonld=JSON.stringify([w,T]);const $=S.getSEOData(e);if(s.seotitle=$.title,s.seodescription=$.description,s.seolanguage=$.language,"article"===o||"notice"===o){const t=e.get("fields.sometitle")||e.get("fields.teaserTitle")||e.get("fields.title");t&&(s.sometitle=this.api.v1.util.string.stripTags(t));const i=e.get("fields.teaserTitle")||e.get("fields.title")||"";i&&(s.kilkayaTitle=this.api.v1.util.string.stripTags(i));const a=e.get("fields.teaserKicker")||e.get("fields.kicker")||"";a&&(s.kilkayaKicker=this.api.v1.util.string.stripTags(a));const n=e.get("fields.somedescription")||e.get("fields.teaserSubtitle")||e.get("fields.subtitle");if(n&&n.length>0)s.somedescription=this.api.v1.util.string.stripTags(n);else{let t=e.get("fields.bodytext")||"";t=this.api.v1.util.string.stripTags(t),s.somedescription=`${t.substring(0,100)} ...`}}else if("front"===o){const t=e.get("fields.someimage");null!=t&&""!==t&&(s.someimage=`${h}/${t}.webp?width=1200&height=630`),s.sometitle=e.get("fields.sometitle")||e.get("fields.name"),s.somedescription=e.get("fields.somedescription")||""}if(this.isAuthorPage(e.get("fields.hostpath"))){const t=e.get("fields.author_json");if(t){const e=[t.fields.firstname||"",t.fields.lastname||""].filter(Boolean).join(" "),i=this.api.v1.properties.get("site.display_name")||"";e&&(s.sometitle=`${e} - ${i}`,s.seotitle=`${e} - ${i}`)}}if(s.social={facebook:`https://www.facebook.com/sharer.php?u=${u}`,twitter:`https://twitter.com/intent/tweet?url=${u}`,mail:`mailto:?subject=${encodeURIComponent(this.api.v1.util.string.stripTags(t.get("fields.title")))}&body=${encodeURIComponent(this.api.v1.util.string.stripTags(t.get("fields.subtitle")))}%0D${u}`,linkedin:`https://www.linkedin.com/sharing/share-offsite/?url=${u}`,threads:`https://threads.net/intent/post?text=${u}`,copyLink:`navigator.clipboard.writeText("${c}");`,glimta:`https://glimta.com/unlock?link=${u}`,talandeWebb:"ReachDeck.panel.toggleBar();",bluesky:`https://bsky.app/intent/compose?text=${encodeURIComponent(`${s.sometitle}\n`)}${u}`,reddit:`https://www.reddit.com/submit?url=${u}&title=${encodeURIComponent(s.sometitle)}`,whatsapp:`https://api.whatsapp.com/send?text=${encodeURIComponent(`${s.sometitle}\n${c}`)}`},"article"===o){const t=this.api.v1.config.get("page_settings.article.ignoredTags")||[],i=this.api.v1.config.get("page_settings.article.ignoredTagPrefix")||[],a=(e.get("tags")||[]).filter(e=>!t.includes(e)).filter(e=>{for(const t of i)if(e.startsWith(t))return!1;return!0});s.tagsString=a.toString();let n="";a.forEach((e,t)=>{n+=`"${e.replace('"',"'")}"`,t<a.length-1&&(n+=", ")}),s.tagsStringCommaSeparated=n;const o=this.api.v1.model.query.getChildrenOfType(e,"byline",!0);if(o){const e=o.map(e=>`"${e.get("fields.firstname")} ${e.get("fields.lastname")}"`).join(", ");s.bylinesStringCommaSeparated=e}}"article"===o&&(e.get("fields.published")&&(s.published=new Date(1e3*parseInt(e.get("fields.published"),10)).toISOString(),s.publishedTimestamp=e.get("fields.published")),e.get("fields.hidefromfp_time")&&(s.hidefromfp_time=new Date(1e3*parseInt(e.get("fields.hidefromfp_time"),10)).toISOString())),s.site=this.api.v1.site.getSite(),s.siteJSON=JSON.stringify(s.site),s["site.domain_no_protocol"]=s.site.domain.split("://").pop(),s.siteAlias=s.site.alias,s.fullUrl=s.site.domain,s[`site_is_${s.siteAlias}`]=!0;const F=this.page.resources;if(!f&&s.is_article&&this.api.v1.config.get("displayReadProgress.active")&&t.get("fields.displayReadProgress")&&(s.readProgress=F.scripts.getProgressReader()),s.siteStylesheetList=i.getSiteStylesWithFallback(s.siteAlias),Sys.logger.debug(`ViewSupport: Will include ${s.siteStylesheetList.length} configured stylesheet(s): "${s.siteStylesheetList.join(", ")}".`),s.siteFiles=F.scripts.getSiteFiles(e,t,s.siteAlias,o,f),s.modules=F.scripts.getModules(e,t,s.siteAlias,o,f),!f){s.analytics=F.analytics.get(s),s.widgets={strossle:this.api.v1.config.get("widgets.strossle.strossle_id")},s.consent={cookieconsent:this.api.v1.config.get("consent.cookieconsent.show"),cookieconsent_culture:this.api.v1.config.get("consent.cookieconsent.culture")||"NB"},this.api.v1.config.get("cookieConsent.enabled")&&F.scripts.required.push({url:"/view-resources/public/common/cookieConsent.js",requireDom:!1}),"desktop"===this.api.v1.viewport.getName()&&t.get("fields.style_slidein")&&(s.style_slidein=!0,F.scripts.required.push({url:"/view-resources/public/common/SlideIn/SlideIn.js",requireDom:!1}));const i=this.api.v1.config.get("adEnvironment")||{},a="1"===t.get("fields.hideAds"),n="1"===t.get("fields.hideSkyscraperAds")||!1,o="1"===t.get("fields.hideTopBannerAd")||"1"===e.get("fields.hideTopBannerAd")||!1;if(Sys.logger.debug(`[PageData] Ad settings: hideAds=${a}, disableSkyscraper=${n}, disableTopBanner=${o}, adEnv=${i.name||"none"}`),!a&&i&&"adnuntius"===i.name)try{s.adnuntius=r.getAdnuntiusSettings(this.api,e,t,i,s.site,n,o)}catch(e){Sys.logger.warn(`[PageData] Failed to prepare Adnuntius ads: ${e.toString()}`)}if(!a&&i&&"google"===i.name)try{s.googleAds=r.getGoogleSettings(this.api,e,t,i,s.site,n,o)}catch(e){Sys.logger.warn(`[PageData] Failed to prepare Google ads: ${e.toString()}`)}s.adEnvironment={...i},s.adEnvironment[`is_${i.name}`]=!0;const l="google"===i.name&&i.bidding&&i.bidding.provider&&i.bidding.provider.name?i.bidding.provider.name:"none";s.adEnvironment[`is_provider_${l}`]=!0}if(this.api.v1.util.request.hasQueryParam("fontpreview")&&(s.fontpreview=this.api.v1.util.request.getQueryParam("fontpreview"),s.analytics=null),s.page_settings=this.page.settings.get({pageType:"notice"===o||"gallery"===o?"article":o,socialLinks:s.social}),"article"===o){const i=this.api.v1.config.get("comments_provider.hideCommentsIfPaywall")||!1,a=this.api.v1.properties.get("paywall")||{},n=lab_api.v1.app.mode.isFront()&&a.active&&!a.hasAccess&&i,r=!1===f&&!1===n;if(t.get("fields.showcomments")&&!n){if(this.api.v1.config.get("comments_provider.facebook")){const e=this.api.v1.config.get("comments_provider.facebook.app_id");e&&(s.facebook={display:r,displayPlaceholder:f,appId:e,pageId:d,url:s.fullUrl+("article"===o?`/a/${d}`:"")},s.displayComments=!0)}if(this.api.v1.config.get("comments_provider.disqus")){const e=this.api.v1.config.get("comments_provider.disqus.enable"),t=this.api.v1.config.get("comments_provider.disqus.script");e&&(s.disqus={display:r,displayPlaceholder:f,canonical:m,pageId:d,script:t},s.displayComments=!0)}const t=this.api.v1.config.get("comments_provider.commento");t&&t.enable&&(s.commento={display:r,displayPlaceholder:f,canonical:m,usePageId:t.usePageId,pageId:d,script:t.script,cssOverride:t.cssOverride,descriptionText:t.descriptionText},s.displayComments=!0);const i=lab_api.v1.config.get("comments_provider.hyvor");if(i&&i.websiteId){const t=e.get("fields.published")||0;s.hyvor={display:r,displayPlaceholder:f,websiteId:i.websiteId,pageId:t>1646908200&&d},i.hidePageIdBeforeDate&&t<i.hidePageIdBeforeDate&&(s.hyvor.pageId=""),s.displayComments=!0}const a=lab_api.v1.config.get("comments_provider.ifragasatt");a&&(s.ifragasatt={display:r,displayPlaceholder:f,customerId:a.customer_id,articleId:`article${d}`},s.displayComments=!0)}}s.menus=this.page.menus.get({defaultSection:t.get("fields.defaultsection"),section:t.get("primaryTags.section")}),s.style_definitions=a.getStyleDefinitions(this.api),s.css_build=a.getInlineCSS(this.api),s.css_variables=a.getCssVariables(this.api),s.contact=this.api.v1.config.get("contact");const D=!!t.get("fields.norobots"),x=t.get("fields.hidefromfp_time"),M=Math.round(n.getTime()/1e3);if(s.norobots=D||x&&x<=M||!1,"article"===o&&this.api.v1.config.get("embeddable.active")&&(s.embeddable={active:!0,display:!!t.get("fields.displayEmbedButton")&&"embed"!==s.device,aboveBodytext:!!t.get("fields.displayEmbedButtonAboveBodytext")&&"embed"!==s.device,isFullContent:this.api.v1.util.request.getQueryString().indexOf("lab_content=full")>-1,hasParallax:this.api.v1.model.query.hasChildOfType(e,"parallax",!0)}),Sys.logger.debug(`ViewSupport: Will include ${F.scripts.required.length} configured script(s): "${F.scripts.required.map(e=>e.url).join(", ")}".`),F.scripts.required.forEach(e=>{if(!e.placeholderKey&&e.requireDom&&(e.placeholderKey="requireDom"),e.placeholderKey){const{placeholderKey:t}=e;e.placeholderKey={},e.placeholderKey[t]=!0}}),s.siteScriptList=F.scripts.required,s.paywall=this.getPaywallInfo(e,f),s.simplestreamEnabled=lab_api.v1.config.get("contentbox_settings.simplestream")||!1,"mailmojo"===s.device&&this.setDefaultMailmojoData(e,t),"article"===o){const t=lab_api.v1.config.get("page_settings.article.ageWarnings");if(Array.isArray(t)){const i=e.get("fields.published");if(i){const s=this.getAgeWarningItem(i,t);s&&e.setFiltered("ageWarning",s)}}}s.featureFlags={responsive_mobile_fonts:!lab_api.v1.util.featureFlags.enabled("Disable responsive mobile fonts",o)},s.clientSideConfig=JSON.stringify(g.buildConfig(this.api));const C=e.get("fields.hostpath");return s.shouldRenderCanonical=!("labrador/http-404"===C||"labrador/http-410"===C),s}getAgeWarningItem(e,t){const i=Object.values(t).filter(e=>!!e.years&&!!e.label).sort((e,t)=>t.years-e.years),s=new Date(1e3*e),a=Date.now()-s,n=new Date(a),o=Math.abs(n.getUTCFullYear()-1970);for(const e of i)if(o>=e.years)return e;return null}setDefaultMailmojoData(e,t){const i=lab_api.v1.config.get("lang")||"no";e.setFiltered("lang",i)}getCanonicalUrl(e,t,i,s,a){const n=e.get("fields.lab_canonical");if(n)return n;if("front"===t){const t=e.get("fields.hostpath");return"index"===t?`${s}/`:this.isAuthorPage(t)?`${s}/${this.getAuthorPageCanonical(e)}`:`${s}/${t}`}return`${s+e.get("fields.published_url")}`}getStaticUrl(e,t,i,s){if("front"===t){const t=lab_api.v1.util.request.getHeader("X-Labrador-404-Referer");if(t)return`${s}${t}`;const i=e.get("fields.hostpath");return i?`${s}/${"index"===i?"":i}`:`${s+e.get("fields.published_url")}`}return`${lab_api.v1.properties.get("site").domain}/a/${i}`}getCustomMetatags(){const e=lab_api.v1.config.get("customMetatags")||[],t=lab_api.v1.config.get("customMetatagsKeyVal")||[],i=[];for(const t of e){const e=Object.keys(t).map(e=>({key:e,value:t[e]}));i.push(e)}for(const e of t)e.length&&i.push(e);return i}getPaywallInfo(e,t){const i=lab_api.v1.properties.get("paywall"),s=!t&&"1"===e.get("fields.paywall"),a=lab_api.v1.config.get("paywall.provider",{site:lab_api.v1.site.getSite().alias})||"internal",n=(!t&&e.get("fields.paywallSalesImage"),!t&&s&&i.hasAccess&&"1"===e.get("fields.paywallShareable"));let o;if("1"===e.get("fields.paywallShareable")){o=lab_api.v1.config.getConfig("pages.localisation.data.items.paywall.items.shareableArticle.items")||{};for(const e of Object.keys(o))o[e]=lab_api.v1.locale.get(`paywall.shareableArticle.${e}`)||""}const r={display:!0,...this.api.v1.config.get("paywall.label")},l=this.api.v1.config.get("paywall.label.text.content"),d=this.api.v1.config.get("paywall.label.icon.content"),g={text:{content:null==l?"Plus":this.api.v1.config.get("paywall.label.text.content")},icon:{content:null==d?"fi-plus":this.api.v1.config.get("paywall.label.icon.content")}};return Object.assign(r,g),r.display&&e.setFiltered("paywallLabel",r),{enabled:s,settings:i,provider:a,shareable:n,shareableArticle:o,hasAccess:!s||!i.active||i.hasAccess,hidePaywallOffers:this.api.v1.util.request.hasQueryValue("lab_opts","paywall_loginonly"),paywallSalesImage:e.get("fields.paywallSalesImage"),paywallSalesPitchContent:e.get("fields.paywallSalesPitchContent"),paywallSalesPitchTitle:e.get("fields.paywallSalesPitchTitle"),paywallLayoutType:e.get("fields.paywallPreview.paywallLayoutType"),requiredProducts:JSON.stringify(this.api.v1.properties.get("app.paywall.requiredProducts")||[])}}isAuthorPage(e){const t=this.api.v1.config.get("authorPages")||{},i=t.path||"author";return!!(e&&t.enabled&&e.startsWith(`${i}/`))}getAuthorPagePath(){return(this.api.v1.config.get("authorPages")||{}).path||"author"}getAuthorPageSlug(e){const t=e.get("fields.author_json");if(t)return t.fields.slug}getAuthorPageId(e){const t=e.get("fields.author_json");if(t)return t.fields.id}getAuthorPageCanonical(e){const t=this.getAuthorPagePath(),i=this.getAuthorPageSlug(e),s=this.getAuthorPageId(e);return`${t}/${i||s}`}}class c{static parseCss(e,t="filtered.autodata"){const i=e.get(t);if(!i||"object"!=typeof i)return;return[Object.values(i.cssObject||{}).join(" "),i.cssString||"",(i.cssArray||[]).join(" ")].join(" ").trim()}static parseAttributes(e){const t=e.get("filtered.autodata.attributesObject");if(!t||"object"!=typeof t)return;return Object.keys(t).map(e=>({key:e,value:t[e]}))}static parseCustomData(e){const t=e.get("filtered.autodata.custom");if(!t||"object"!=typeof t)return;const i={};for(const e of Object.keys(t))i[e]=Object.keys(t[e]).map(i=>({key:i,value:t[e][i]}));return i}static parseCustomDataFromFeed(e,t){const i=lab_api.v1.config.get(`${t}.autodata.mapping`)||{};if(!i||"object"!=typeof i)return;const s={labels:[]};if(i.labels)for(const t of Object.keys(i.labels))e[i.labels[t]]&&s.labels.push({key:t,value:e[i.labels[t]]});return s}}class u{constructor(e){this.api=e,this.pageData=new p(this.api,new s(this.api))}onReady(e,t){this.pageData.set(e,t),e.setFiltered("autodata_css",c.parseCss(e)),e.setFiltered("autodata_attributes",c.parseAttributes(e)),e.setFiltered("autodata_custom",c.parseCustomData(e))}}class h{constructor(e){this.api=e,this.pageData=new p(this.api,new s(this.api))}onReady(e,t){this.pageData.set(e,t)}}class f{static textElements(e,t){const i={top:[],floating:[],bottom:[],positions:{kicker:"",title:""}};let s="",a="";if(e.get("metadata.showKicker")&&(t||e.get("fields.kicker")||e.get("fields.origin_data_json.teaserKicker")||e.get("fields.origin_data_json.kicker"))&&(e.get("metadata.floatingKicker")?(i.floating.push("kicker"),i.positions.kicker="floating",s="floating"):e.get("metadata.kickerBelowImage")?(i.bottom.push("kicker"),i.positions.kicker="below",s="bottom"):(i.top.push("kicker"),i.positions.kicker="above",s="top")),e.get("metadata.hideTitle")||!t&&!e.get("fields.title")||(e.get("metadata.floatingTitle")?(i.floating.push("title"),i.positions.title="floating",a="floating"):e.get("metadata.titleAboveImage")?(i.top.push("title"),i.positions.title="above",a="top"):(i.bottom.push("title"),i.positions.title="below",a="bottom")),e.get("metadata.kickerBelowTitle")&&e.get("metadata.showKicker")&&a){if(s){const e=i[s].indexOf("kicker");-1!==e&&i[s].splice(e,1)}const e=i[a],t=e.indexOf("title");-1!==t?e.splice(t+1,0,"kicker"):e.push("kicker"),i.positions.kicker="belowTitle",s=a}return!e.get("metadata.hidesubtitle")&&(t||e.get("fields.subtitle")||e.get("fields.origin_data_json.teaserSubtitle"))&&(e.get("metadata.floatingSubtitle")?i.floating.push("subtitle"):e.get("metadata.subtitleAboveImage")?i.top.push("subtitle"):i.bottom.push("subtitle")),i}}class m{static convertToIso639(e){let t="";return e&&(t=3===e.length?e.toLowerCase():e.includes("-")?e.split("-")[0].toLowerCase():e.toLowerCase()),t}}class y{static autoSizeText(e,t){if(!e)return"";let i={};i=t||{regex:{},formats:{default:{maxWordLength:15,minLineLength:3,ranges:[{maxCharacters:1/0,numberOfLines:1}]}}};const s={1:100,2:70,3:50,4:45,5:40,6:35,7:30,8:26,9:22,10:20,11:18,12:17,13:16,14:15,15:14,16:13,17:12,18:11,19:10,20:9,21:8,22:7,23:6,24:5,25:4},a=e.innerHTML.replace(/&nbsp;/,"");if(e.querySelector("br")||e.querySelector(".auto-font-size-line-br")){const t=this.handleBreaks(a);e.innerHTML="",t.forEach((i,s)=>{e.innerHTML+=`<span class="auto-font-size-line${s<t.length?" auto-font-size-line-br":""}">${i} </span>`})}else{const i=this.removeHTMLTags(a),s=this.splitSentence(i,t,"default");e.innerHTML="";for(const t of s)e.innerHTML+=`<span class="auto-font-size-line">${t} </span>`}const n=e.querySelectorAll(".auto-font-size-line"),o=e.clientWidth;for(const e of n){const t=s[e.innerText.length]||5;e.clientWidth<o?this.enlargeTitle(e,o,t):e.clientWidth>o&&this.shrinkTitle(e,o,t)}return e.innerHTML}static handleBreaks(e){let t=this.removeHTMLTags(e).split(/<br\s*[^>]*>/gi);return t=t.filter(e=>e.trim().length>0),t}static removeFontSize(e){const t=e.innerHTML;return e.innerHTML=this.removeHTMLTags(t),this.removeHTMLTags(t)}static removeHTMLTags(e){let t=e.replace(/<span class="auto-font-size-hyphen">-<\/span>\s?/g,"");return t=t.replace(/<span class="[^"]*\bauto-font-size-line-br\b[^"]*"[^>]*>(.*?)<\/span>/g,"$1<br>"),t=t.replace(/<span class="[^"]*\bauto-font-size-line\b[^"]*"[^>]*>(.*?)<\/span>/g,"$1"),t=t.replace(/<span[^>]*>([^<]*)<\/span>/g,"$1"),t=t.replace(/(\r\n|\n|\r)/g,""),t}static enlargeTitle(e,t,i,s=100){let a=i;for(;e.clientWidth<t&&a<=s;)a+=1,e.style.setProperty("--lab-auto-font-size",`${a}cqi`);for(;e.clientWidth>=t||a>s;)a-=.1,e.style.setProperty("--lab-auto-font-size",`${a}cqi`)}static shrinkTitle(e,t,i){let s=i;for(;e.clientWidth>t;)s-=.1,e.style.setProperty("--lab-auto-font-size",`${s}cqi`)}static splitSentence(e,t,i){const s=e||"",{length:a}=s;if(!t||!t.formats||!t.formats[i])return[s];const n=this.findRules(t,i),o=this.findNumberOfLines(n.ranges,a)||1,r=n.maxWordLength||null,l=n.minLineLength||null,d=t.reges||{};return this.splitTextEvenly(e,o,r,l,d)||[]}static findRules(e,t){return{...e.formats[t]}}static findNumberOfLines(e,t){const i={maxLineLength:20,numberOfLines:1};for(const s of e)if(t<=s.maxCharacters){i.numberOfLines=s.numberOfLines,i.maxLineLength=s.maxCharacters/s.numberOfLines;break}return i}static checkRegex(e,t,i){let s=t;const a=[];return Array.from(Object.entries(e),([,e])=>e).forEach(e=>{const t=new RegExp(e,"g"),i=s.match(t);i&&a.push(...i)}),a.forEach(e=>{const t=e.replace(/ /g,i);s=s.replace(e,t)}),s}static splitStringIntoParts(e,t,i,s,a){const n=this.checkRegex(i,e,"___").split(" "),o=[];let r="";return n.forEach(e=>{const i=e.trim().replace(new RegExp("___","g")," ");if(i.includes("-"))r.length+i.length+1>t?(o.push(r),r=i):r+=(r.length>0?" ":"")+i;else{const e=this.splitWord(i,s);e.forEach((i,s)=>{r.length+i.length+1>t?(o.push(r),r=i):r+=(r.length>0?" ":"")+i,s<e.length-1&&(r+='<span class="auto-font-size-hyphen">-</span>')})}}),r.length>0&&o.push(r),o}static splitWord(e,t){if(!Number.isFinite(t)||t<=0)return[e];const i=[];let s=e;for(;s.length>t;){if(s.length>t&&s.length<=t+2){const e=Math.floor(s.length/2);i.push(s.substring(0,e)),s=s.substring(e);break}i.push(s.substring(0,t)),s=s.substring(t)}if(s.length>0)if(1===s.length&&i.length>0){const e=i.pop();i.push(e+s)}else i.push(s);return i}static splitTextEvenly(e,t,i,s,a){const n=e.trim(),o=Math.ceil(n.length/t.numberOfLines);let r=this.splitStringIntoParts(n,o,a,i,t.numberOfLines);if(s&&(r=this.mergeShortLines(r,s)),r.length>t.numberOfLines){const e=/<span class="auto-font-size-hyphen">-<\/span>$/,t=r.pop();e.test(r[r.length-1])?r[r.length-1]=r[r.length-1].replace(e,"")+t:r[r.length-1]+=` ${t}`}return r}static mergeShortLines(e,t){const i=[];for(let s=0;s<e.length;s++){let a=e[s].trim();a.length<t&&s<e.length-1&&(a+=` ${e[s+1]}`,s++),i.push(a)}if(i.length>1){const e=i[i.length-1];e.length<t&&(i[i.length-2]+=` ${e}`,i.pop())}return i}}class b{constructor(e){this.api=e,this.imageServer=this.api.v1.properties.get("image_server"),this.rootModel=this.api.v1.model.query.getRootModel(),this.domain=this.api.v1.site.getSite().domain||this.api.v1.properties.get("customer_front_url"),this.fallbackLanguage=this.api.v1.config.get("contentLanguage")||"",this.autoFontSizeConfig=this.api.v1.config.get("autoFontSize")||[],this.autoFontSizePageSettings=Boolean(!!this.rootModel&&this.rootModel.get("fields.autoFontSize")),this.hasAutoFontSize=this.autoFontSizePageSettings&&this.autoFontSizeConfig.enabled,this.autoFontSizeDone=!1,this.dateTimeHelper=new o(this.api.v1.config.get("lang")||void 0)}onInserted(e){if(this.api.v1.app.mode.isEditor()&&this.hasAutoFontSize){e.set("state.autoFontSizeReRender",!0,{notify:!1});const t=(e,t,i)=>{e.get("fields.title")===e.get("state.title")?e.set("state.autoFontSizeReRender",!1,{notify:!1}):(e.set("state.autoFontSizeReRender",!0,{notify:!1}),e.set("metadata.autoFontSizeDone",!1,{notify:!1}))};this.api.v1.model.bindings.bind(e,"fields.title",t)}}onReady(e,t){e.setFiltered("layout",f.textElements(t,this.api.v1.app.mode.isEditor()));let i=e.get("fields.published_url")||"";!/^https?/.test(i)&&i&&(i=this.domain+i),e.setFiltered("published_url",i),e.setFiltered("published_url_rss",i.replace(/&/g,"&amp;"))}onRender(e,t){const i=e.get("instance_of")||e.get("fields.origin_data_json.id"),s=e.get("fields.published")||e.get("fields.origin_data_json.published"),a=e.get("fields.origin_data_json.teaserTitle")||t.get("fields.title")||"",n=e.get("fields.origin_data_json.teaserSubtitle")||t.get("fields.subtitle")||"",o=e.get("fields.origin_data_json.published")||e.get("fields.published"),r=e.get("fields.origin_data_json.teaserKicker")||e.get("fields.origin_data_json.kicker")||t.get("fields.kicker"),l=e.get("fields.site_id")||e.get("fields.origin_data_json.site_id"),d=e.get("fields.origin_data_json.seolanguage")||e.get("fields.seolanguage")||this.fallbackLanguage,g=e.get("fields.origin_data_json.teaserAudio")||e.get("fields.audio"),p=e.get("fields.origin_data_json.teaserAudio_style_json")||e.get("fields.audioInfo")||{},u=e.get("fields.origin_data_json.addRelNoFollow")||e.get("fields.addRelNoFollow")||!1,h=e.get("fields.origin_data_json.addRelSponsored")||e.get("fields.addRelSponsored")||!1,f=e.get("fields.origin_data_json.addRelUgc")||e.get("fields.addRelUgc")||!1;e.setFiltered("published",s),e.setFiltered("title",a),e.setFiltered("kicker",r),e.setFiltered("subtitle",n),e.setFiltered("articleId",i),e.setFiltered("section",e.get("fields.origin_data_json.section_tag")||e.get("fields.section")||""),e.setFiltered("base_url",this.domain),e.setFiltered("published_sitemap",o),e.setFiltered("canonical_url",`${this.getSiteDomain(l)}/a/${i}`),e.setFiltered("tags",e.get("tags")||[]),e.setFiltered("languageIso639",m.convertToIso639(d));const y=(new Date).getTime()-1728e5;if(e.setFiltered("articleOutOfDate_sitemap",y>Math.floor(new Date(o).getTime())),e.setFiltered("addRelNoFollow",u),e.setFiltered("addRelSponsored",h),e.setFiltered("addRelUgc",f),!this.api.v1.config.get("showHiddenTagsOnFront")){const t=(this.api.v1.config.get("tagsToHide")||"").split(",").map(e=>e.trim())||[],i=(e.get("tags")||[]).filter(e=>!t.includes(e));e.setFiltered("tags",i)}if(l){const t=this.api.v1.site.getSiteById(l);t&&e.setFiltered("site_alias",t.alias)}if(g){const t={url:g};if(p){const e=JSON.parse(p);t.title=e.title||null,t.fileType=e.fileType||null,t.playTime=e.playTime||null}e.setFiltered("audio",t)}const b=e.get("fields.origin_data_json.showbylineonfp")||t.get("fields.displayByline")||!1;if(b){const i=t.get("fields.byline")||e.get("fields.origin_data_json.byline"),s=t.get("fields.bylineImage")||e.get("fields.origin_data_json.bylineImage"),a=(e.get("fields.origin_data_json.full_bylines")||e.get("fields.full_bylines_json")||[]).map(e=>({firstname:e.firstname,lastname:e.lastname,description:e.description,imageUrl:e.imageUrl?this.getImageUrl(`${e.imageUrl}&width=90&height=90`):""}));a.length||!i&&!s||a.push({firstname:i,lastname:"",imageUrl:s?this.getImageUrl(`${s}&width=90&height=90`):""}),e.setFiltered("bylines",a),s&&e.setFiltered("bylineImage",`${s}&width=90&height=90`)}e.setFiltered("displayByline",b);const v=t.get("fields.displayPublishedDate")||!1,_=this.api.v1.locale.get("dates.monthdayyear",{noRender:!0});if(e.setFiltered("displayPublishedDate",v),v)if(this.api.v1.app.mode.isEditor()&&!s)e.setFiltered("publishedDate",_);else if(this.api.v1.app.mode.isEditor()||s){const t=new Date(s),i=this.dateTimeHelper.format(t,_);e.setFiltered("publishedDate",i)}else e.setFiltered("displayPublishedDate",!1);let k=e.get("fields.origin_data_json.paywall")||e.get("fields.paywall")||!1;if(k=1===k||"1"===k||!0===k||null,k){const i={display:!0,displayInNewsletter:!0,...this.api.v1.config.get("paywall.label")},s=this.api.v1.config.get("paywall.label.text.content"),a=this.api.v1.config.get("paywall.label.icon.content"),n={text:{content:null==s?"Plus":this.api.v1.config.get("paywall.label.text.content")},icon:{content:null==a?"fi-plus":this.api.v1.config.get("paywall.label.icon.content")}};if(Object.assign(i,n),i.display){i.layout={noImage:!0,float:null};const s=this.api.v1.model.query.getChildOfType(e,"image")||this.api.v1.model.query.getChildOfType(e,"graphic");if(s&&s.get("instance_of")){const e=this.api.v1.view.getView(s,t.getViewport());i.layout.float=this.api.v1.config.get("paywall.label.labelPosition")||e.get("fields.float"),i.layout.noImage=!!t.get("metadata.hideimage")}e.setFiltered("paywallLabel",i)}}else e.setFiltered("paywallLabel",null);e.setFiltered("paywall",k);const S=e.get("metadata.tagPlacement")||"underImage";e.setFiltered("tagPlacement.underImage","underImage"===S),e.setFiltered("tagPlacement.underText","underText"===S);const w=e.get("metadata.sectionPlacement")||"floating";if(e.setFiltered("sectionPlacement.floating","floating"===w),e.setFiltered("sectionPlacement.underImage","underImage"===w),e.setFiltered("sectionPlacement.underText","underText"===w),e.setFiltered("articleWidth",t.getPixelWidth()),e.setFiltered("autodata_css",c.parseCss(e)),e.setFiltered("autodata_content_css",c.parseCss(e,"filtered.autodata_content")),e.setFiltered("autodata_attributes",c.parseAttributes(e)),e.setFiltered("autodata_custom",c.parseCustomData(e)),this.autoFontSizeConfig.enabled&&(this.autoFontSizeDone=e.get("metadata.autoFontSizeDone")),"newssitemap"===this.api.v1.viewport.getName()){const t=this.api.v1.model.query.getChildOfType(e,"image"),i=t.get("instance_of");if(this.imageServer&&t&&i){const t=`${this.imageServer}?imageId=${i}&format=webp&width=500`;e.setFiltered("headerImageUrl",t)}}}onRendered(e,t){if(this.api.v1.app.mode.isEditor()&&this.autoFontSizeConfig.enabled){const i=()=>{const e=t.getMarkup().querySelector(".headline");y.removeFontSize(e),this.api.v1.tool.off("ended",i)};if("desktop"===t.viewport&&this.hasAutoFontSize&&e.get("metadata.autoFontSizeEnabled")&&(this.api.v1.tool.on("started",t=>{"fields.title"===t.key&&t.model===e&&i()}),e.get("state.autoFontSizeReRender")&&e.get("fields.title")&&!this.autoFontSizeDone&&e.get("metadata.autoFontSizeEnabled"))){const i=t.getMarkup().querySelector(".headline"),s=y.autoSizeText(i,this.autoFontSizeConfig);e.set("state.autoFontSizeReRender",!1,{notify:!1}),e.set("state.title",s,{notify:!1}),e.set("metadata.autoFontSizeDone",!0,{notify:!1}),e.set("fields.title",s)}}}onCreated(e){this.hasAutoFontSize&&null===e.get("metadata.autoFontSizeEnabled")&&e.set("metadata.autoFontSizeEnabled",!0,{notify:!1})}getSiteDomain(e){if(!e)return"";const t=this.api.v1.site.getSiteById(e);return t?t.domain:""}getImageUrl(e){return e?e.startsWith("http")?e:this.imageServer+e:""}}class v{constructor(e){this.api=e,this.isEditor=this.api.v1.app.mode.isEditor(),this.isFragmentMode=this.api.v1.app.mode.isFragmentMode(),this.lazyloadImages=!this.isEditor&&!!this.api.v1.config.get("imageLoading.lazy")}check(e,t){if(!this.lazyloadImages||t.getProperty("image.noLazy"))return!1;const i=lab_api.v1.model.query.getParentOfType(e,"row");return!(i&&!this.isFragmentMode&&i.getModelIndex()<5)}}class _{constructor(e){this.api=e,this.lazyloadHelper=new v(e),this.api.v1.app.mode.isEditor()&&(this.cropIds=[],this.rootModel=this.api.v1.model.query.getRootModel(),this.frontcropBinding=this.frontCropChanged.bind(this),this.api.v1.model.bindings.bind(this.rootModel,"frontCrop",this.frontcropBinding),this.frontcropBinding(this.rootModel,"frontCrop",this.rootModel.get("frontCrop")),this.api.v1.ns.set("imageFilter.preview",this.prepareVisualFilters)),this.isFragmentMode=this.api.v1.app.mode.isFragmentMode(),this.isEditorMode=this.api.v1.app.mode.isEditor(),this.boundModels=[]}onInserted(e,t){this.isEditorMode&&e.get("instance_of")&&(this.boundModels.includes(e)||(this.api.v1.model.bindings.bind(e,"fields.imageCaption",this.imageUpdater.bind(this)),this.api.v1.model.bindings.bind(e,"fields.byline",this.imageUpdater.bind(this)),this.boundModels.push(e)))}imageUpdater(e,t,i){if(!i)return;const s=e.get("instance_of");if(!s)return;const a=t.includes("imageCaption"),n=t.includes("byline");this.api.v1.util.httpClient.get(`/ajax/node/get-node?id=${s}`,{resetCache:!0}).then(t=>{const o=t.data,r=o&&o.fields&&o.fields.caption||"",l=o&&o.fields&&o.fields.byline||"",d=a&&!r,g=n&&!l;if(!d&&!g)return;const p=o&&o.fields&&o.fields.extra_metadata_json&&o.fields.extra_metadata_json.currentLanguage||this.api.v1.config.get("contentLanguage")||"en",c=JSON.parse(JSON.stringify(o&&o.fields&&o.fields.extra_metadata_json||{})),u={};if(c.aiMetadata||(c.aiMetadata={}),c.aiMetadata[p]||(c.aiMetadata[p]={}),d){const t=e.get("fields.extra_metadata_json.currentLanguage")||"",s=!t||t===p;!(c.aiMetadata&&c.aiMetadata[p]&&c.aiMetadata[p].caption)&&s&&(u.caption=i,c.aiMetadata[p].caption=i,u.extra_metadata_json=c)}if(g&&(u.byline=i),0===Object.keys(u).length)return;const h={type:"image",id:s,fields:u},f=new FormData;f.append("json[id]",s),f.append("json[type]","image"),f.append("json[structure]",null),f.append("json[node]",JSON.stringify([h])),this.api.v1.util.httpClient.request("/ajax/node/save-node-and-data",{body:f,method:"POST"}).then(()=>{Sys.logger.debug("[Image] Synced caption/byline to backend:",s)}).catch(e=>{Sys.logger.error("[Image] Error syncing to backend:",e)})}).catch(e=>{Sys.logger.error("[Image] Error fetching backend node:",e)})}onViewHelper(e,t){if(e.parent){this.prepareForSlideshow(e,t);const i=t.getViewport();if(this.api.v1.view.getView(e.parent,i).get("metadata.hasFullWidth")){const t="mobile"===i?600:1800;e.setFiltered(`width.${i}`,t)}else e.setFiltered(`width.${i}`,null);e.setFiltered("allowFullwidth","image"!==e.parent.getType())}}onRender(e,t){this.setVisualFilters(e,t),e.setFiltered("lazyloadImages",this.lazyloadHelper.check(e,t)),this.setCaptionOptions(e.getParent(),e,t);const i=t.get("fields.float");e.setFiltered("hasFloat",!!i&&"floatNone"!==i)}onRendered(e,t){if(!this.api.v1.app.mode.isEditor()||!this.cropIds.length)return;const i=parseInt(e.get("instance_of"),10);this.cropIds.includes(i)&&this.markFrontCrop(t,i)}setVisualFilters(e,t){e.setFiltered("filters",this.prepareVisualFilters(e,t))}prepareVisualFilters(e,t,i=!1){const s=[],a=e.get("metadata.filter_blur_active")?e.get("metadata.filter_blur_value")||0:null,n=e.get("metadata.filter_sepia_active")?e.get("metadata.filter_sepia_value")||0:null,o=e.get("metadata.filter_saturate_active")?e.get("metadata.filter_saturate_value")||1:null,r=e.get("metadata.filter_brightness_active")?e.get("metadata.filter_brightness_value")||1:null,l=e.get("metadata.filter_contrast_active")?e.get("metadata.filter_contrast_value")||1:null;return null!==a&&s.push(`blur(${a}px)`),null!==n&&s.push(`sepia(${n})`),null!==o&&s.push(`saturate(${o})`),null!==r&&s.push(`brightness(${r})`),null!==l&&s.push(`contrast(${l})`),i?{filter:s.join(" ")}:s.length?`filter: ${s.join(" ")};`:null}markFrontCrop(e,t){const i=document.createElement("span");i.classList.add("labicon-imgFrontCrop","is-frontcrop"),i.setAttribute("title","Image used as front crop. Click to edit"),i.addEventListener("click",e=>{e.stopPropagation(),e.preventDefault(),this.api.v1.apps.start("ArticleSettings")},!1),e.getMarkup().appendChild(i)}frontCropChanged(e,t,i){let s=this.getImages(this.cropIds);this.cropIds=[],this.updateImages(s),i&&(i.pano&&i.pano.instance_of&&this.cropIds.push(i.pano.instance_of),i.height&&i.height.instance_of&&!this.cropIds.includes(i.height.instance_of)&&this.cropIds.push(i.height.instance_of),s=this.getImages(this.cropIds),this.updateImages(s))}getImages(e){const t=[];for(const i of e)t.push(...this.api.v1.model.query.getModelsByKeyAndValue("instance_of",i));return t}updateImages(e){for(const t of e)this.api.v1.model.addToRedrawQueue(t)}setCaptionOptions(e,t,i){const s=e?this.api.v1.view.getView(e,i.getViewport()):null,a=(e,t,i)=>{if(e){const t=e.get(i);if(!t&&null!==t)return!1;if(t)return!0}return!!t.get(i)};let n=a(s,i,"fields.displayCaption"),o=n||null===i.get("fields.displayCaption")&&!i.get("metadata.hidecaption");!this.api.v1.app.mode.isFront()||t.get("fields.imageCaption")||t.get("fields.byline")||(n=!1,o=!1);const r=a(s,i,"fields.expandableCaption"),l=a(s,i,"fields.truncateCaption");let d=t.get("fields.imageCaption");!t.parent||i.getProperty("image.useCaptionForTitle")&&d||(d=t.parent.get("fields.title")||"");const g={title:d,display:n,displayDefault:o,truncate:l,expandable:r||l};t.setFiltered("captionOptions",g)}prepareForSlideshow(e,t){if(!e.parent||"slideshow"!==e.parent.getType())return;if(t.get("fields.whRatio"))return void e.setFiltered("whRatio",null);const i=e.get("fields.originalWidth"),s=e.get("fields.originalHeight");if(s&&i){const t=s/i;e.setFiltered("whRatio",t)}}}class k extends o{constructor({languageCode:e}={}){super("en"),this.languageCode=e||lab_api.v1.config.get("contentLanguage")}str(e,{data:t,noRender:i}={}){return lab_api.v1.locale.get(`dates.${e}`,{data:t,noRender:i})}timestampToNiceDate(e,t=!1){const i=(new Date).getTime(),s=new Date(1e3*e).getTime()-0,a=parseInt((i-s)/1e3/60,10);if(a<60)return a<1?this.str("now"):this.str("durationSince",{data:{count:a,period:t?this.str("min"):1===a?this.str("minute"):this.str("minutes"),ago:t?"":this.str("ago")}});if(a<1440){const e=parseInt(a/60,10);return this.str("durationSince",{data:{count:e,period:1===e?this.str("hour"):this.str("hours"),ago:t?"":this.str("ago")}})}if(parseInt(a/1440,10)<30){const e=parseInt(a/1440,10);return this.str("durationSince",{data:{count:e,period:1===e?this.str("day"):this.str("days"),ago:t?"":this.str("ago")}})}return this.format(this.timestampToDate(e),this.str("monthdayyear",{noRender:!0}))}}class S{constructor(e){this.api=e,this.dateTimeHelper=new k}onRender(e,t){const i=e.get("fields.modified")||e.get("fields.published");if(null!=i){const t=new Date(1e3*i);e.setFiltered("niceDate",this.dateTimeHelper.timestampToNiceDate(i)),e.setFiltered("publishedDate",this.dateTimeHelper.utcFormat(t,`${this.api.v1.locale.get("dates.monthdayyear",{noRender:!0})} ${this.api.v1.locale.get("dates.hourminute",{noRender:!0})}`)),e.setFiltered("isoDate",t.toISOString())}}}class w{constructor(e){this.api=e,this.baseApiUrl=this.api.v1.properties.get("front_api_url"),this.siteId=this.api.v1.properties.get("site.id"),this.cache=new Map,this.defaultMaxCount=100,this.isEditor=this.api.v1.app.mode.isEditor()}onPrepareViewHelper(e,t){const i=e.get("fields.site")||this.siteId,s=t.get("fields.maxNoticesCount")||this.defaultMaxCount,a=(e.get("fields.tags")||"").toLowerCase().split(",").filter(e=>""!==e),n=this.prepareTags(a),o=this.prepareQuery(n,!1),r=this.prepareQuery(n,!0),l=`${this.baseApiUrl}/notice?content=full&site_id=${i}&limit=${s}`;e.setFiltered("query",o),e.setFiltered("clientQuery",r),e.setFiltered("url",l)}onReady(e,t){const i=t.get("external"),s=e.get("filtered.noFetch")||!1,a=e.get("metadata.blacklist")||[],n=t.get("fields.maxNoticesCount")||this.defaultMaxCount;if(!s&&i){e.setFiltered("noFetch",!0);const t=e.get("fields.pinnedNotices_json")||[];let s=i.result;if(this.api.v1.app.mode.isEditor()){const t=this.api.v1.model.query.getModelsByType("notice",e.children);for(const e of t)this.api.v1.model.delete(e,!0,!0)}s=s.slice(0,n),s.forEach(i=>{const{attribute:s={},field:n={}}=i.notice;if(a.includes(parseInt(s.id||0,10)))return void Sys.logger.warn(`Notice with id ${s.id} is blacklisted from Livefeed and will not be displayed.`);"object"==typeof n.bodytext&&(n.bodytext="");const{title:o,bodytext:r,published:l,modified:d,published_url:g,userName:p}=n,c=[];if(i.notice.children&&i.notice.children.image){const e=Array.isArray(i.notice.children.image)?i.notice.children.image:[i.notice.children.image];for(const t of e){let e={};if(n.structure_json&&t.attribute.id)try{const i=JSON.parse(n.structure_json);for(const s of i)if("bodytext"===s.type){const i=this.getStructure(s.children||[],t.attribute.id);e=i?i.metadata:{};break}}catch(e){Sys.logger.warn(`Failed to parse structure data: ${e.toString()}`)}e.hasFullWidth={desktop:!1,mobile:!1},c.push(this.getImageData(t,e||{}))}}this.api.v1.model.insert.atPath({path:e.getPositionedPath(),data:{type:"notice",contentdata:{id:s.id,fields:{title:o,bodytext:r,published:l,modified:d,published_url:g,userName:p,pinned:t.includes(s.id)},tags:i.notice.tag?i.notice.tag.tag:""},state:{isNonPersistent:!0,editNonPersistent:!0},children:c},options:{silent:!0,index:t.includes(s.id)?0:void 0}})}),e.children.sort((e,i)=>t.includes(e.getId())?-1:t.includes(i.getId())?1:i.getId()-e.getId()),this.api.v1.app.mode.isEditor()&&(this.api.v1.model.addToRedrawQueue(e,!0),this.api.v1.app.save())}const o=this.api.v1.config.get("contentbox_settings.livefeed.updateFrequency")||[{range:[0,600],interval:10},{range:[600,1200],interval:30},{range:[1200],interval:60}];e.setFiltered("updateFrequency",JSON.stringify(o))}onRender(e,t){const i=t.get("fields.placeholder");e.setFiltered("placeholder",i||this.api.v1.locale.get("emptyState.noContentText",{noRender:!0})),e.setFiltered("initialRenderTime",(new Date).getTime()),e.setFiltered("dateStrings",JSON.stringify({now:this.api.v1.locale.get("dates.now",{noRender:!0}),monthdayyear:this.api.v1.locale.get("dates.monthdayyear",{noRender:!0}),hourminute:this.api.v1.locale.get("dates.hourminute",{noRender:!0}),durationSince:this.api.v1.locale.get("dates.durationSince",{noRender:!0}),minute:this.api.v1.locale.get("dates.minute",{noRender:!0}),minutes:this.api.v1.locale.get("dates.minutes",{noRender:!0}),hour:this.api.v1.locale.get("dates.hour",{noRender:!0}),hours:this.api.v1.locale.get("dates.hours",{noRender:!0}),day:this.api.v1.locale.get("dates.day",{noRender:!0}),days:this.api.v1.locale.get("dates.days",{noRender:!0}),ago:this.api.v1.locale.get("dates.ago",{noRender:!0})}))}onChildAdded(e,t){if(this.isEditor&&"notice"!==t.getType()){if(e.children.indexOf(t)>0)return;const i=this.api.v1.model.query.getModelsByType("notice",e.children).filter(e=>e.get("fields.pinned"));if(!i.length)return;let s=0;for(const t of i)e.children.indexOf(t)>s&&(s=e.children.indexOf(t));s>0&&this.api.v1.model.addChild(e,t,s,!1)}}prepareQuery(e,t=!1){const i=t?["(visibility_status:P OR visibility_status:H)"]:["visibility_status:P"];return e.length>0&&i.push(`(${e.join(" OR ")})`),`&query=${encodeURIComponent(i.join(" AND "))}`}prepareTags(e){return e.map(e=>{let t=e.trim();return t.indexOf(" ")>-1&&(t=`"${t}"`),`tag:${t}`})}getImageData(e,t){return this.api.v1.model.serialize.apiToView({type:"image",data:e,meta:t})}onSettingsPanel(e,t,i){const s={layout:null,container:null};return{onDisplay:({model:e,view:t,config:i,markup:a,modal:n})=>{s.layout=a.querySelector("#layout"),s.container=a.querySelector(".horizontalOptions"),s.layout&&s.container&&s.layout.addEventListener("change",e=>{"1"===s.layout.value?s.container.classList.remove("lab-hidden"):s.container.classList.add("lab-hidden")})},onHide:({model:e,view:t,config:i,markup:a,modal:n})=>{s.layout=null,s.container=null,e.setFiltered("noFetch",!1)}}}getStructure(e,t){for(const i of e){if("image"===i.type&&i.node_id==t)return i;if(i.children){const e=this.getStructure(i.children,t);if(e)return e.metadata&&!e.metadata.bodyTextIndex&&i.metadata&&i.metadata.bodyTextIndex&&(e.metadata.bodyTextIndex=i.metadata.bodyTextIndex),e}}return null}}class T{constructor(e){this.api=e}onRender(e,t){const i=this.api.v1.config.get("contentbox_settings.adnuntiusAd.formats")||[],s=e.get("fields.format"),a=i.filter(e=>e.format===s)[0]||{};if(e.setFiltered("adData",a),e.setFiltered("isDebug",this.api.v1.util.request.hasQueryParam("debug")||e.get("metadata.isDebug")),!this.api.v1.app.mode.isEditor()){const t=e.parent&&!0===e.parent.get("metadata.hideOnTablet")&&"tablet"===this.api.v1.config.get("xUaDevice");e.setFiltered("hideOnTablet",t)}if(this.api.v1.app.mode.isEditor()){const t=this.api.v1.model.root.getType().replace("page_",""),a=[];i.forEach(e=>{if(e.selectable&&e.selectable.indexOf(t)>-1||e.selectableOn&&!0===e.selectableOn[t])if(e.format===s){const t={...e};t.selected=!0,a.push(t)}else a.push(e)}),e.setFiltered("formatConfigKeys",a)}const n=this.api.v1.config.get("contentbox_settings.adnuntiusAd.label")||"Annonse",o=e.get("fields.label")||n;e.setFiltered("label",o),e.setFiltered("displayLabel",o&&(e.get("metadata.css")||"").includes("display-label"));if((e.get("metadata.css")||"").includes("sticky")){const t=`top: ${this.api.v1.config.get("contentbox_settings.adnuntiusAd.spacingTop")||120}px;`;e.setFiltered("spacingTop",t)}}}class ${constructor(e){this.api=e}onRender(e,t){const i=this.api.v1.model.query.getRootModel(),s=this.api.v1.config.get("contentbox_settings.googleAd.formats")||[],a=e.get("fields.format"),n=this.api.v1.config.get("adEnvironment")||{},o={bidding:n.bidding,hideOnTabletWidth:n.hideOnTabletWidth||1316,fetchMarginPercent:n.fetchMarginPercent||150,renderMarginPercent:n.renderMarginPercent||150};e.setFiltered("googleAds",o);const r=((e,t)=>{for(let i=0;i<t.length;i++)if(t[i].format===e)return{...t[i]};return{}})(a,s);if(r.key=e.get("metadata.key")||"row",o.bidding&&o.bidding.enabled&&o.bidding.provider&&o.bidding.provider.name&&"livewrapped"===o.bidding.provider.name){const e=()=>{const e=()=>(65536*(1+Math.random())||0).toString(16).substring(1);return`${e()+e()}-${e()}-${e()}-${e()}-${e()}${e()}${e()}`};r.code&&r.code.endsWith("-1")&&(r.code+=`_${e()}`)}"mpu_top"===r.code&&(r.isMpuTop=!0),e.setFiltered("adData",r),e.setFiltered("isDebug",this.api.v1.util.request.hasQueryParam("debug")||e.get("metadata.isDebug"));const l=this.api.v1.config.get("contentbox_settings.googleAd.label")||"Annonse",d=e.get("fields.label")||l;if(e.setFiltered("label",d),!this.api.v1.app.mode.isEditor()){const t=e.parent&&!0===e.parent.get("metadata.hideOnTablet")&&"tablet"===this.api.v1.properties.get("xUaDevice");e.setFiltered("hideOnTablet",t)}if(this.api.v1.app.mode.isEditor()){const t=i.get("type").replace("page_",""),a=[];s.forEach(e=>{(e.selectable&&e.selectable.indexOf(t)>-1||e.selectableOn&&!0===e.selectableOn[t])&&a.push(e)}),e.setFiltered("formatConfigKeys",a)}if((e.get("metadata.css")||"").includes("sticky")){const t=`top: ${this.api.v1.config.get("contentbox_settings.googleAd.spacingTop")||120}px;`;e.setFiltered("spacingTop",t)}}}class F{constructor({path:e=null,selector:t=null,data:i={},options:s={}}={}){this.path=e,this.selector=t,this.data=i,this.options={persistentTarget:!0,intermediate:{useExisting:!0},...s}}}class D{constructor({key:e=null,path:t=null,selector:i=null,placeholder:s=null,metadata:a={},options:{shouldInsert:n=!0,wrap:o=null,skipIfOutOfBounds:r=!1,useIndex:l=!1,useBodyTextIndex:d=!1,useBodyTextHeadingIndex:g=!1,lastBodyTextHeading:p=!1,prepend:c=!1}={}}={}){this.key=e,this.path=t,this.selector=i,this.placeholder=s,this.metadata=a,this.options={shouldInsert:n,wrap:o,skipIfOutOfBounds:r,useIndex:l,useBodyTextIndex:d,useBodyTextHeadingIndex:g,lastBodyTextHeading:p,prepend:c}}}class x{constructor({type:e=null,contentdata:t=null,content_data:i=null,cssSettings:s={},children:a=[],metadata:n={}}={}){this.type=e,this.contentdata=t||i,this.children=a,this.metadata={...n},this.state={};const o=[];this.metadata.css&&o.push(this.metadata.css);for(const e of Object.keys(s))s[e]&&o.push(e);this.metadata.css=o.join(" ")}}class M{constructor(e){this.api=e,this.page=this.api.v1.model.query.getRootModel(),this.pageType=this.api.v1.model.root.getType().replace("page_",""),this.viewports=this.api.v1.viewport.getActive(),this.isEditor=this.api.v1.app.mode.isEditor(),this.cache=new Map,this.pageElements={},this.hideAds="1"===this.page.get("fields.hideAds")||!0===this.page.get("fields.hideAds"),this.hideTopBannerAd="1"===this.page.get("fields.hideTopBannerAd")||!0===this.page.get("fields.hideTopBannerAd"),this.hideSkyscraperAd="1"===this.page.get("fields.hideSkyscraperAd")||!0===this.page.get("fields.hideSkyscraperAd"),this.api.v1.util.request.hasQueryValue("lab_opts","infinitescroll")&&(this.pageType=`${this.pageType}_infinitescroll`)}hasRequiredElement(e){return void 0===this.pageElements[e]&&(this.pageElements[e]=!!this.api.v1.model.query.getModelByType(e)),this.pageElements[e]}insert(e,t=null){const i={clientSidePlacements:[]},s={},a=`insertDynamic.${this.pageType}.${e}`,n=`placements.${this.pageType}.${e}`;let o=!1;const r=(this.api.v1.config.get(n)||[]).filter(e=>!e.client||(e.requireElement&&!this.hasRequiredElement(e.requireElement)||(s[e.key]=e),!1));if(!this.cache.has(a)){const e=`insertDynamicAdditions.${this.pageType}`,t=this.api.v1.config.get(a)||[],n=this.validateConditions(this.api.v1.config.get(e)||[]).reverse();o=n.length>0;const r=[...t,...n],l=(this.isEditor?r.filter(e=>!e.dynamicDataSettings||!e.dynamicDataSettings.hideInEditMode):r).filter(e=>{if(e.placement&&e.placement.key&&s[e.placement.key]){const t={...e,placementData:s[e.placement.key]};return i.clientSidePlacements.push(t),!1}return!0});this.cache.set(a,l)}if(!this.cache.has(n)){if(o){const e=`placementsAdditions.${this.pageType}`,t=this.api.v1.config.get(e)||[];r.push(...t)}this.cache.set(n,r.map(e=>new D(e)))}const l=this.parse(this.cache.get(a),this.cache.get(n),e,t);for(const e of l)e.selector?this.api.v1.model.insert.bySelector({selector:e.selector,data:e.data,options:e.options}):e.path&&this.api.v1.model.insert.atPath({path:e.path,data:e.data,options:e.options});return i}validateConditions(e){return e.filter(e=>{if(e.excludeDuplicates&&this.api.v1.model.query.getModelByType(e.type))return Sys.logger.debug(`[DynamicDataHelper]: Element of type "${e.type}" already exist on page. Skipping.`),!1;if(e&&e.conditions){const{conditions:t}=e;for(const i of t){const{field:t,operator:s,value:a=""}=i,n=this.page.get(t||"",void 0,!0);if(void 0!==n)switch(s){case"equals":if(n!==a)return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;case"notEquals":if(n===a)return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;case"contains":if(!n.includes(a))return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;case"notContains":if(n.includes(a))return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;default:return Sys.logger.warning(`[DynamicDataHelper]: Operator "${s}" is not valid. The condition fails and the item is not inserted onto the page.`),!1}else Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" ignored. Value of field: "${t}" is undefined.`)}return Sys.logger.debug(`[DynamicDataHelper]: All conditions (${t.length}) for inserting element type "${e.type}" accepted. Will insert.`),!0}return Sys.logger.debug(`[DynamicDataHelper]: No validation specified for inserting element type "${e.type}". Will insert.`),!0})}parse(e=[],t=[],i="desktop",s=null){const a=[];for(const n of e){const[o]=t.filter(({key:e})=>e===n.placement.key);if(o)if(this.acceptPath(o.path,s)){const t=this.create(n,o,e,i);if(null!==t&&(t.data.metadata.viewportBlacklist=this.viewports.filter(e=>e!==i),a.push(t),Number.isInteger(t.options.interval)&&Number.isInteger(t.options.index))){const{interval:s}=n.placement,{index:r}=n.placement;let l=r;const d=this.api.v1.model.query.getModelByPath(t.path);if(d){const t=d.getPersistentChildren().length;for(;l<t;){const t=JSON.parse(JSON.stringify(n));t.options.index=l,t.placement.index=l,t.type="placeholder_ad";const r=JSON.parse(JSON.stringify(o));r.selector="";const d=this.create(t,r,e,i);null!==d&&(d.data.metadata.viewportBlacklist=this.viewports.filter(e=>e!==i),a.push(d)),l+=s}}}}else Sys.logger.debug(`[DynamicDataHelper]: Path "${o.path}" not allowed. Filter: "${s}", key: "${n.placement.key}"`);else Sys.logger.debug(`[DynamicDataHelper]: No placement found with key "${n.placement.key}"`)}return a}create(e,t,i,s="desktop"){if(this.filter(e)){const i=this.assemble(e,t);if(t.path&&t.selector){this.api.v1.model.query.getModelBySelector(t.selector)||this.api.v1.model.insert.atPath({path:t.path,data:{type:"placeholder",selector:t.selector,metadata:{...t.metadata||{},key:t.key},state:{isNonPersistent:!0}},options:{index:0,useExisting:!0,prepend:!0,silent:!0}})}const a={...e.options,prepend:t.options.prepend||!1,silent:!0};let{path:n}=t,o=e.placement.index||0,r=null;if(t.selector)r=this.api.v1.model.query.getModelBySelector(t.selector);else if(t.path){const e=this.getModelsByPath(t.path,s);e.length&&(r=t.options.useBodyTextIndex||t.options.useBodyTextHeadingIndex||t.options.lastBodyTextHeading?e.find(e=>"bodytext"===e.getType()):t.options.shouldInsert?e[0].children[o]:e[o])}if(r||!t.options.skipIfOutOfBounds){if(r){o=this.api.v1.model.query.getIndex(r);let e=r.getParent();if("mobile"===s){if(o>0&&o<e.children.length){let t=e.children[o];for(;t;){const i=r.get("width",s,!0);if(void 0===i||100===i)break;t=e.children[++o]}}e.get("metadata.hasRowTitle")&&(0===o||o>=e.children.length)&&(r=e,e=r.getParent(),o=this.api.v1.model.query.getIndex(r),n=e.getPositionedPath())}t.options.useIndex&&o<e.children.length&&(a.index=o),t.options.shouldInsert||(n=e.getPositionedPath(!0))}else a.prepend=!1;return new F({data:i,options:a,selector:t.selector,path:n})}}return null}assemble(e,t){let i=new x(e);return t.selector||(i.metadata={...i.metadata,...t.metadata,css:t.metadata.css?`${i.metadata.css} ${t.metadata.css}`:i.metadata.css||""}),t.options.wrap&&(i=new x({type:t.options.wrap.type,metadata:t.options.wrap.metadata,children:[i]})),t.options.skipIfOutOfBounds&&(i.metadata.skipIfOutOfBounds=!0),t.options.useBodyTextIndex?i.metadata.bodyTextIndex=e.placement.index||0:t.options.useBodyTextHeadingIndex&&(i.metadata.bodyTextHeadingIndex=e.placement.index||0),t.options.lastBodyTextHeading&&(i.metadata.lastBodyTextHeading=!0),i.metadata.options=e.options||{},i.state.isNonPersistent=!0,i}acceptPath(e,t){return!e||!t||e===t}filter(e){return"googleAd"!==e.type&&"adnuntiusAd"!==e.type||(Sys.logger.debug(`[DynamicDataHelper]: Ad insertion requested. ad unit=${e.placement.key} hideAds=${this.hideAds}, hideTopBannerAd=${this.hideTopBannerAd}, hideSkyscraperAd=${this.hideSkyscraperAd}`),"topbanner"===e.placement.key&&this.hideTopBannerAd?(Sys.logger.debug("[DynamicDataHelper]: Top banner ad is hidden. Skipping insertion."),!1):e.placement.key.includes("skyscraper_")&&this.hideSkyscraperAd?(Sys.logger.debug("[DynamicDataHelper]: Skyscraper ad is hidden. Skipping insertion."),!1):!this.hideAds)}getModelsByPath(e,t){const i=`getByPath-${e}`;return this.cache.has(i)||this.cache.set(i,this.api.v1.model.query.getModelsByPath(e,!0,!0)),this.cache.get(i)}}class C{constructor(e){this.api=e,this.request=this.api.v1.util.request}listen(){const e={selector:this.request.getQueryParam("lab_selector")||"contentFromPath",path:this.request.getQueryParam("lab_path"),guid:this.request.getQueryParam("lab_guid")};(e.guid||e.path)&&this.api.v1.model.on("insert",t=>{const i=e.guid?this.getModelByGuid(e.guid,t):this.getModelByPath(e.path,t);if(i)return Sys.logger.debug(`[FragmentHelper] Element found. Path: ${i.getPositionedPath()}, GUID: ${i.getGuid()}.`),i.setSelector(e.selector),"embed"===lab_api.v1.viewport.getName()?this.appendToRoot(t,i):[i]})}getModelByGuid(e){return Sys.logger.debug(`[FragmentHelper] Will filter elements by guid: "${e}".`),this.api.v1.model.query.getModelByGuid(e)}getModelByPath(e,t){Sys.logger.debug(`[FragmentHelper] Will filter elements by path: "${e}".`);const i=this.api.v1.util.string.parsePath(e);if(!i[0])return null;const s=this.api.v1.model.query.getModelsByType(i[0].base,t);return this.api.v1.model.query.getModelByPath(e,!0,!1,s)}appendToRoot(e,t){const i=e[0];return i.children=[t],[i]}}class I{constructor(e){this.api=e,this.paths={main:["parent","guid","type","tags"],fields:["feedId","byline","bylineImage","paywall","published","published_url","site_alias","site_id","subtitle","subtitleHTML","teaserSubtitle","somedescription","title","teaserTitle","titleHTML","seolanguage","seotitle","sometitle","kicker","teaserKicker","showcomments"],fieldsAuto:["section_tag","tags"],fieldsNative:["section"],fieldMap:{subtitle:"description",subtitleHTML:"descriptionHTML",somedescription:"someDescription",teaserSubtitle:"teaserDescription",seolanguage:"seolanguage",seotitle:"seoTitle",sometitle:"someTitle",published_url:"url",section_tag:"section"},fallback:{url:"url"}},this.frontUrl=this.api.v1.site.getSite().domain||this.api.v1.properties.get("customer_front_url"),this.imageServer=this.api.v1.properties.get("image_server")}jsonData(e){Sys.logger.debug("[PageExport] Will export page as JSON-data");const t=this.api.v1.model.serialize.model(e);delete t.guid;return{page:t,result:"page_article"===e.getType()?this.exportArticle():this.exportFront()}}oembed(e){if("page_article"!==e.getType())return Sys.logger.warn("[PageExport] Will not export current page type as oEmbed."),{};const t=(this.api.v1.util.request.getQueryParam("lab_opts")||"").split(",");let i="full";t.includes("embed_type_teaser")&&(t.splice(t.indexOf("embed_type_teaser"),1),i="teaser");const s=t.filter(e=>e.startsWith("embed_no_")),a=["embed_padding"],n=[];for(const e of s)n.push(`dac-${e.replace("embed_","").replace(/_/g,"-")}`);for(const e of a)t.includes(e)&&n.push(`dac-${e.replace("embed_","").replace(/_/g,"-")}`);return Sys.logger.debug("[PageExport] Will export page as oEmbed"),{version:"1.0",type:"rich",width:"",height:"",title:this.api.v1.util.string.sanitizeString(e.get("fields.title")||""),url:e.get("filtered.url")||"",author_name:this.api.v1.site.getSite().display_name||this.api.v1.site.getSite().alias,author_url:this.frontUrl,provider_name:"Labrador",provider_url:"http://www.labradorcms.com/",html:`<div class="labrador-cms-embed" data-lab-style="${n.join(" ")} dac-embed-${i}" data-lab-content="${i}" data-lab-id="${e.get("id")}" data-lab-site="${e.get("filtered.site.domain_no_protocol")}"><script async defer src="${this.frontUrl}/embed.js?v=335"><\/script></div>`}}exportArticle(){}exportFront(){const e=this.api.v1.model.query.getModelByType("dropZone");return this.api.v1.model.query.getModelsByType("article",[e]).map(e=>this.serialize(e)).filter(e=>!!e)}serialize(e){const t=this.api.v1.model.serialize.model(e);if(!t||!t.fields)return null;const i=!!t.fields.origin_data_json,s={images:[],width:e.getWidth("desktop"),metadata:t.metadata,isAutomatic:i,siteDomain:this.frontUrl},a=i?t.fields.origin_data_json:t.fields,n=[...this.paths.fields,...i?this.paths.fieldsAuto:this.paths.fieldsNative];for(const e of this.paths.main)s[e]=t[e]||"";for(const e of n)s[this.paths.fieldMap[e]||e]=a[e]||"";if(s.teaserSubtitle=a.teaserSubtitle||"",i){if(!s.byline){const e=(a.full_bylines||[]).shift();s.byline=e?`${e.firstname} ${e.lastname}`:"",s.bylineImage=s.bylineImage||(e||{}).imageUrl}"string"==typeof s.tags&&(s.tags=s.tags.split(",").map(e=>(e||"").trim())),s.site_alias=(this.api.v1.site.getSiteById(a.site_id)||{}).alias,s.id=parseInt(a.id,10)}else s.titleHTML=s.title,s.title=this.cleanText(s.title),s.descriptionHTML=s.description,s.description=this.cleanText(s.description),s.kickerHTML=s.kicker,s.kicker=this.cleanText(s.kicker),s.id=t.id;s.section_tag=s.section,s.url&&!s.url.startsWith("http")&&(s.url=this.frontUrl+s.url);for(const e of Object.keys(this.paths.fallback))s[e]||(s[e]=a[this.paths.fallback[e]]||"");s.full_bylines=(i?a.full_bylines:a.full_bylines_json)||[],s.full_bylines=s.full_bylines.map(e=>({firstname:e.firstname,lastname:e.lastname,description:e.description,imageUrl:this.getImageUrl(e.imageUrl)})),i&&s.byline&&s.full_bylines.unshift({firstname:s.byline,lastname:"",imageUrl:this.getImageUrl(s.bylineImage)}),!s.byline&&s.full_bylines.length&&(s.byline=`${s.full_bylines[0].firstname} ${s.full_bylines[0].lastname}`,s.bylineImage=s.full_bylines[0].imageUrl.replace(this.imageServer,""));const o=lab_api.v1.config.get("customAdapterFields.article")||[];if(o)for(const e of o)if(e){let i=t.fields[e]||"";!i&&t.fields.origin_data_json&&(i=t.fields.origin_data_json[e]||""),i&&(s[e]=i)}s.paywall="0"!==s.paywall&&!!s.paywall;const r=this.api.v1.model.query.getChildOfType(e,"image");if(r){const e=r.get("filtered.image");e&&s.images.push({url:e,jpg:`${e}&format=jpg`,webp:`${e}&format=webp`,url_size:e,default:"1",id:r.get("instance_of")})}return s}cleanText(e){return this.api.v1.util.string.sanitizeString(e).replace(/&amp;/g,"&")}getImageUrl(e){return e?e.startsWith("http")?e:this.imageServer+e:""}}class A{constructor(e){this.api=e}register(e,t){if(this.api.v1.app.mode.isFragmentMode())return void Sys.logger.debug("[EsiHelper] Labrador is is fragment-mode. Will not register ESI. Skipping.");if(!e)return void Sys.logger.debug("[EsiHelper] Missing model, cannot process. Skipping.");const i=this.api.v1.config.get("footer.include");if(i&&i.pageId){const t=this.getEsiUrl(i);t?"client"===i.render?e.setFiltered("renderFooter.url",t):this.insertEsi(e,t,"esi_footer"):Sys.logger.warning("[EsiHelper] Cannot prepare url for footer-fragment. Missing url.")}const s=this.api.v1.config.get("header.include"),a=this.api.v1.config.get("header.includes")||[],n=[];if(s&&s.pageId){const t=this.insertHeader(s,e);t&&n.push(t)}for(const t of a)if(t&&t.pageId){const i=this.insertHeader(t,e);i&&n.push(i)}e.setFiltered("renderHeader.urls",n.map(e=>`'${e}'`).join(", "))}getEsiUrl(e){if(!e.pageId)return null;const t=["pageId","path","structureType","start","count"],i=[];if(t.forEach(t=>{void 0!==e[t]&&""!==e[t]&&null!==e[t]&&i.push(`${t}=${e[t]}`)}),i.length===t.length){let e=this.api.v1.properties.get("front_api_url");return this.api.v1.app.mode.isEditor()&&"https:"===document.location.protocol&&(e=e.replace("http:","https:")),`${e}/fragment/structure/?${i.join("&")}`}return null}insertEsi(e,t,i){Sys.logger.debug(`[EsiHelper] Will insert fragment for selector: "${i}", url: "${t}".`),this.api.v1.model.insert.atPath({path:e.getPath(),data:{type:"esi",selector:i,contentdata:{fields:{url:t,identifier:i}},state:{isNonPersistent:!0}},options:{frontpage:!0,articlepage:!0}}),this.api.v1.app.mode.isEditor()&&this.fetchEditorEsi(t,`${i}`)}insertHeader(e,t){const i=this.getEsiUrl(e);if(i){if("client"===e.render)return Sys.logger.debug(`[EsiHelper] Found url for header-fragment to render in client: "${i}".`),i;this.insertEsi(t,i,"esi_header")}else Sys.logger.warning("[EsiHelper] Cannot prepare url for header-fragment. Missing url.");return null}fetchEditorEsi(e,t){this.api.v1.view.on("domRendered",(i,s)=>{const a=this.api.v1.model.query.getModelBySelector(t);a&&(Sys.logger.debug(`EsiHelper.fetchEditorEsi: Will fetch esi-substitute for editor. Selector: ${t}, url: ${e}`),this.api.v1.util.httpClient.get(e,{credentials:"omit",type:"text"}).then(e=>{const i=lab_api.v1.view.getView(a,s),n=document.createElement("template");if(n.innerHTML=e,Sys.logger.debug(`EsiHelper.fetchEditorEsi: Esi-substitute fetched. Selector: ${t}, element-count: ${n.content.children.length}`),i.markup){for(const e of[...n.content.children])i.markup.parentElement.insertBefore(e,i.markup);i.markup.remove()}else Sys.logger.warn(`EsiHelper.fetchEditorEsi: Element markup not found. Cannot insert dom-element(s). Selector: ${t}`)}).catch(e=>{Sys.logger.warning(`EsiHelper.fetchEditorEsi: Esi-substitute could not be fetched. Selector: ${t}, error: ${e}`)}))})}}class P{static mediaQueries={desktop:"(min-width:1024px)",mobile:"(max-width: 1023px)"};static createStyle({model:e,view:t,viewports:i,styleCollection:s="content_inline_spacing",mediaQueries:a=this.mediaQueries,returnArray:n=!1}){const o=[],r=`[data-element-guid="${e.getGuid()}"] .content`;for(const n of i)if(a[n]){const i=lab_api.v1.style.getStyles(e,t,s,n);i&&o.push(`@media ${a[n]} { ${r} { ${i} } }`)}return n?o:`<style>${o.join("\n")}</style>`}}const j=class{constructor(){this.name="Baseview",this.api=null,this.pageAPI=null,this.useSpacing=!1}onReady(e){if(this.api=e,Sys.logger.debug(`[Front] Running Baseview version ${this.api.v1.config.get("view_version")}, build ${this.api.v1.config.get("view_build.baseview.version")}`),"json"===this.api.v1.viewport.getName()&&"PageExport.jsonData"===this.api.v1.config.get("viewports.json.renderer")){const e=new I(this.api);this.api.v1.view.on("rendered",(t,i)=>[JSON.stringify(e.jsonData(this.api.v1.model.query.getRootModel()),null,4)])}if("oembed"===this.api.v1.viewport.getName()&&"PageExport.oembed"===this.api.v1.config.get("viewports.oembed.renderer")){const e=new I(this.api);this.api.v1.view.on("rendered",(t,i)=>[JSON.stringify(e.oembed(this.api.v1.model.query.getRootModel()),null,4)])}new C(this.api,this.api.v1.util.request).listen()}onAcceptContent(){const e=this.api.v1.model.query.getRootModel();if(this.useSpacing=!(!e||!e.get("fields.style_spacing")),"editor"===this.api.v1.app.mode.getSimulatedMode())return void Sys.logger.debug("[Front] Labrador is running in simulated editor-mode. Skipping DynamicDataHelper and EsiHelper.");const t=new M(this.api),{clientSidePlacements:i=[]}=t.insert(this.api.v1.viewport.getName());i.length>0&&!e.get("fields.hideAds")&&(e.setFiltered("clientSidePlacements",JSON.stringify(i)),e.setFiltered("clientSideResources",JSON.stringify({configObject:{viewConfig:{config:{customer:{contentbox_settings:{adnuntiusAd:this.api.v1.config.get("contentbox_settings.adnuntiusAd")||{},googleAd:this.api.v1.config.get("contentbox_settings.googleAd")||{}},adEnvironment:this.api.v1.config.get("adEnvironment")||{}}}}},site:this.api.v1.site.getSite(),device:this.api.v1.properties.get("device"),debug:this.api.v1.util.request.hasQueryParam("debug")||!1})));new A(this.api).register(e,this.api.v1.site.getSite().alias),this.api.v1.util.request.hasQueryValue("lab_opts","hideHeader")&&(Sys.logger.debug("[Front] Hiding header and logo based on url param lab_opts=hideHeader ..."),e.setFiltered("pageHeaderDisplay","hideHeaderAndLogo")),this.api.v1.util.request.hasQueryValue("lab_opts","hideFooter")&&(Sys.logger.debug("[Front] Hiding footer based on url param lab_opts=hideFooter ..."),e.setFiltered("pageFooterDisplay","hideFooter")),this.api.v1.util.request.hasQueryValue("lab_opts","hideComments")&&(Sys.logger.debug("[Front] Hiding Hyvor comments based on url param lab_opts=hideComments ..."),e.setFiltered("pageCommentsDisplay","hideComments"))}onRender(e,t){this.useSpacing&&e.setFiltered("styleSheets",P.createStyle({model:e,view:t,viewports:["desktop","mobile"],returnArray:!1}))}onMapData(e){if("text_title"===e.type||"text_subtitle"===e.type){if(!e.contentdata||!e.contentdata.fields)return;const t={...e};return t.type="text_singleline",t.contentdata.fields.text=t.contentdata.fields.title||t.contentdata.fields.subtitle,"text_subtitle"===e.type?(t.contentdata.fields.elementType={value:"h3"},delete t.contentdata.fields.subtitle):(t.contentdata.fields.elementType={value:"h2"},lab_api.v1.util.object.set("attributes.text_size.vp.desktop",lab_api.v1.util.object.get("attributes.text_size.vp.desktop",t.contentdata.fields.text)||44,t.contentdata.fields.text),delete t.contentdata.fields.title),t.lab_internal_format=!0,t}}};
 
 /***/ }),
 
@@ -30,15 +30,15 @@ var e={d:(t,i)=>{for(var s in i)e.o(i,s)&&!e.o(t,s)&&Object.defineProperty(t,s,{
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "config": () => (/* binding */ config),
-/* harmony export */   "properties": () => (/* binding */ properties),
-/* harmony export */   "templates": () => (/* binding */ templates)
+/* harmony export */   config: () => (/* binding */ config),
+/* harmony export */   properties: () => (/* binding */ properties),
+/* harmony export */   templates: () => (/* binding */ templates)
 /* harmony export */ });
 // View export from Baseview
-// Version: 1.4.9, build: 366
-const config = {"view_version":"1.4.9","view_version_number":149,"view_name":"Baseview","view_build":{"baseview":{"releasenotes":"145:6","userReleasenotes":"149:4","version":366}},"viewports":{"mobile":{"deviceWidth":480},"desktop":{"deviceWidth":1058}},"imageUrlOptions":{"extension":".webp","nameField":"instance_of"},"viewHelper":{"image":{"viewports":["desktop","mobile"],"pixelDensityFactor":2}},"grid":{"total_grid_spans":12,"grid_prefix":{"mobile":"small-","desktop":"large-"},"abs_grid_prefix":{"mobile":"small-abs-","desktop":"large-abs-"}},"style":{"definitions":{"css_style":{"requirePath":false,"path":"metadata.css_style","items":[{"prefix":"style-","postfix":""}]},"style_preset":{"path":"metadata.style_preset","items":[{"viewport":"no_viewport"}]},"text_size":{"requirePath":true,"path":"text_size","items":[{"viewport":"desktop","fallback":"no_viewport","prefix":"t"},{"viewport":"mobile","prefix":"tm"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"font_weight":{"requirePath":true,"path":"font_weight","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"m-"}]},"bold":{"requirePath":true,"path":"bold","items":[{"viewport":"no_viewport"}]},"text_background_color":{"requirePath":true,"path":"text_background_color","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_","nullValue":"no_bg_color"}]},"text_background_color_op":{"requirePath":true,"path":"text_background_color_op","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_","nullValue":"no_bg_color"}]},"custom_text_background_color":{"requirePath":true,"path":"custom_text_background_color","items":[{"prefix":"background-color:","postfix":" !important;"}]},"custom_text_color":{"requirePath":true,"path":"custom_text_color","items":[{"prefix":"color:","postfix":" !important;"}]},"custom_text_shadow":{"requirePath":true,"path":"custom_text_shadow","items":[{"prefix":"text-shadow:"}]},"text_color":{"requirePath":true,"path":"text_color","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"text_align":{"requirePath":true,"path":"text_align","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"],"prefix":"align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_text_align_align-"}]},"fontface":{"requirePath":true,"path":"fontface","items":[{"prefix":"font-"}]},"italic":{"requirePath":true,"path":"italic","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"],"nullValue":"no_italic"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"m-","nullValue":"no_italic"}]},"underline":{"requirePath":true,"path":"underline","items":[{"viewport":"no_viewport"}]},"texttransform":{"requirePath":true,"path":"texttransform","items":[{"viewport":"no_viewport"}]},"strikethrough":{"requirePath":true,"path":"strikethrough","items":[{"viewport":"no_viewport"}]},"text_shadow":{"requirePath":true,"path":"text_shadow","items":[{"viewport":"no_viewport"}]},"animate":{"requirePath":true,"path":"animate","items":[{"viewport":"no_viewport"}]},"background_color":{"requirePath":false,"path":"metadata.background_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"","postfix":""},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_","postfix":"","nullValue":"no_bg_color"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"background_opacity":{"requirePath":false,"path":"metadata.background_color_op","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"","postfix":""},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_","postfix":""}]},"background_gradient":{"requirePath":false,"path":"metadata.gradient","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"border_color":{"requirePath":false,"path":"metadata.border_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_","nullValue":"no_border_color"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"border_side":{"requirePath":false,"path":"metadata.border_side","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_","nullValue":"no_border_side"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"border_width":{"requirePath":false,"path":"metadata.border_width","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"border_width_","nullValue":"no_border_width"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"border_width_mobile_","nullValue":"no_border_width"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"layout":{"requirePath":false,"path":"metadata.layout","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"layout_mobile_"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"fitContent":{"requirePath":false,"path":"metadata.fitContent","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"fitContent_mobile_"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"shadow":{"requirePath":false,"path":"metadata.shadow","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"shadow_mobile_"}]},"metadata_text_color":{"requirePath":false,"path":"metadata.text_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_text_color-_"}]},"hover_text_color":{"requirePath":false,"path":"metadata.hover_text_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_hover_text_color-_"}]},"hover_bg_color":{"requirePath":false,"path":"metadata.hover_bg_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_hover_bg_color-_"}]},"hover_border_color":{"requirePath":false,"path":"metadata.hover_border_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_hover_border_color-_"}]},"image_overlay":{"requirePath":false,"path":"metadata.image_overlay","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"image_overlay_opacity":{"requirePath":false,"path":"metadata.image_overlay_opacity","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"image_gradient":{"requirePath":false,"path":"metadata.image_gradient","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"image_gradient_opacity":{"requirePath":false,"path":"metadata.image_gradient_opacity","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"float":{"requirePath":false,"path":"metadata.float","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-"}]},"spacing":{"requirePath":false,"path":"fields.spacing","items":[{"prefix":"spacing-","nullValue":"default"}]},"spacing_outer_top":{"requirePath":false,"path":"metadata.spacing_outer_top","items":[{"viewport":"current_viewport","prefix":"margin-top:","postfix":"% !important;"}]},"spacing_outer_right":{"requirePath":false,"path":"metadata.spacing_outer_right","items":[{"viewport":"current_viewport","prefix":"margin-right:","postfix":"% !important;"}]},"spacing_outer_bottom":{"requirePath":false,"path":"metadata.spacing_outer_bottom","items":[{"viewport":"current_viewport","prefix":"margin-bottom:","postfix":"% !important;"}]},"spacing_outer_left":{"requirePath":false,"path":"metadata.spacing_outer_left","items":[{"viewport":"current_viewport","prefix":"margin-left:","postfix":"% !important;"}]},"spacing_inner_top":{"requirePath":false,"path":"metadata.spacing_inner_top","items":[{"viewport":"current_viewport","prefix":"padding-top:","postfix":"% !important;"}]},"spacing_inner_right":{"requirePath":false,"path":"metadata.spacing_inner_right","items":[{"viewport":"current_viewport","prefix":"padding-right:","postfix":"% !important;"}]},"spacing_inner_bottom":{"requirePath":false,"path":"metadata.spacing_inner_bottom","items":[{"viewport":"current_viewport","prefix":"padding-bottom:","postfix":"% !important;"}]},"spacing_inner_left":{"requirePath":false,"path":"metadata.spacing_inner_left","items":[{"viewport":"current_viewport","prefix":"padding-left:","postfix":"% !important;"}]},"pull_up":{"requirePath":false,"path":"metadata.pull_up","items":[{"viewport":"desktop","prefix":"large-pull-"},{"viewport":"mobile","prefix":"small-pull-"}]},"content_text_align":{"requirePath":false,"path":"metadata.text_align","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_text_align_align-"}]},"content_vertical_text_align":{"requirePath":false,"path":"metadata.vertical_text_align","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"vertical-text-align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-vertical-text-align-"}]},"text_align_row":{"requirePath":false,"path":"metadata.text_align_row","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_text_align_align-"}]},"vertical_align":{"requirePath":false,"path":"metadata.vertical_align","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"grid-vas-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-grid-vas-"}]},"vertical_align_content":{"requirePath":false,"path":"metadata.vertical_align_content","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"grid-align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-grid-align-"}]},"custom_background_color":{"requirePath":false,"path":"metadata.custom_background_color","items":[{"prefix":"background-color:","postfix":";"}]},"custom_background_color_L3":{"requirePath":false,"path":"metadata.box_custom_background","items":[{"prefix":"background-color:","postfix":";"}]},"custom_border_color":{"requirePath":false,"path":"metadata.custom_border_color","items":[{"prefix":"border-color:","postfix":" !important;"}]},"movableContainer":{"requirePath":true,"items":[{"viewport":"desktop","value":"desktop-movable-container","nullValue":""},{"viewport":"mobile","value":"mobile-movable-container","nullValue":""}]},"movableElement":{"requirePath":true,"items":[{"viewport":"desktop","value":"desktop-movable-element","nullValue":""},{"viewport":"mobile","value":"mobile-movable-element","nullValue":""}]},"collapsedContent":{"requirePath":true,"items":[{"viewport":"desktop","value":"desktop-collapsed-element","nullValue":""},{"viewport":"mobile","value":"mobile-collapsed-element","nullValue":""}]},"imageAlign":{"requirePath":true,"items":[{"viewport":"desktop","fallback":["no_viewport"],"prefix":"desktop-"},{"viewport":"mobile","fallback":["no_viewport"],"prefix":"mobile-"}]},"imageBorder":{"requirePath":true,"items":[{"value":"bordered"}]},"vertical_space_outside_top":{"requirePath":false,"path":"metadata.spaceOutsideTop","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-space-outsideTop-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-space-outsideTop-"}]},"vertical_space_outside_bottom":{"requirePath":false,"path":"metadata.spaceOutsideBottom","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-space-outsideBottom-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-space-outsideBottom-"}]},"vertical_space_inside_top":{"requirePath":false,"path":"metadata.spaceInsideTop","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-space-insideTop-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-space-insideTop-"}]},"vertical_space_inside_bottom":{"requirePath":false,"path":"metadata.spaceInsideBottom","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-space-insideBottom-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-space-insideBottom-"}]},"fullWidth":{"requirePath":false,"path":"metadata.hasFullWidth","items":[{"viewport":"desktop","fallback":["no_viewport"],"prefix":"desktop-","value":"fullWidth","nullValue":""},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-","value":"fullWidth","nullValue":""}]},"fullWidthLimit":{"path":"metadata.hasFullWidthWithLimit","items":[{"viewport":"desktop","fallback":["no_viewport"],"prefix":"desktop-","value":"fullWithLimit","nullValue":""},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-","value":"fullWithLimit","nullValue":""}]},"expandedState":{"path":"metadata.expandedState","items":[{"viewport":"desktop","postfix":"-desktop","value":"state-expanded","nullValue":""},{"viewport":"mobile","postfix":"-mobile","value":"state-expanded","nullValue":""}]},"dacBtn":{"requirePath":true,"path":"dacBtn","items":[{"viewport":"no_viewport","value":"dacBtn bg-btn-color"}]},"responsive_size":{"requirePath":true,"items":[{"viewport":"mobile","prefix":"small-vw-"}]},"compactDisplay":{"path":"metadata.compactDisplay","items":[{"value":"compactDisplay"}]},"subimagePlacement":{"requirePath":false,"path":"metadata.subimagePlacement","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"placement-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-placement-"}]},"subimageSize":{"requirePath":false,"path":"metadata.subimageSize","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"size-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-size-"}]},"hasTextPadding":{"requirePath":true,"path":"text_background_color","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"],"value":"hasTextPadding"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"value":"mobile-hasTextPadding"}]},"hasTextPaddingCustom":{"requirePath":true,"path":"custom_text_background_color","items":[{"value":"hasTextPadding"},{"value":"mobile-hasTextPadding"}]},"hasContentPadding":{"path":"metadata.background_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"value":"hasContentPadding"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"value":"mobile-hasContentPadding"}]},"hasContentPaddingCustom":{"path":"metadata.custom_background_color","items":[{"value":"hasContentPadding"},{"value":"mobile-hasContentPadding"}]},"hasBorder":{"path":"metadata.custom_border_color","items":[{"value":"hasBorder","nullValue":""}]}},"collections":{"text_decoration":{"name":"text_decoration","definitions":["text_size","font_weight","bold","text_background_color","text_background_color_op","text_color","text_align","fontface","italic","underline","texttransform","strikethrough","text_shadow","animate","dacBtn","hasTextPadding","hasTextPaddingCustom"]},"text_decoration_inline_style":{"name":"text_decoration_inline_style","definitions":["custom_text_background_color","custom_text_color","custom_text_shadow"]},"section_decoration":{"name":"section_decoration","definitions":["style_preset","vertical_space_outside_top","vertical_space_outside_bottom"]},"box_decoration":{"name":"box_decoration","definitions":["float","pull_up","vertical_align","vertical_align_content","css_style","style_preset","vertical_space_outside_top","vertical_space_outside_bottom","vertical_space_inside_top","vertical_space_inside_bottom","expandedState","compactDisplay"]},"box_fullWidth":{"name":"box_fullWidth","definitions":["fullWidth","fullWidthLimit"]},"content_decoration":{"name":"content_decoration","definitions":["background_color","background_opacity","background_gradient","border_color","border_side","border_width","image_gradient","image_gradient_opacity","content_text_align","content_vertical_text_align","hasContentPadding","hasContentPaddingCustom","hasBorder"]},"content_inline_style":{"name":"content_inline_style","definitions":["custom_background_color","custom_background_color_L3","custom_border_color"]},"content_inline_spacing":{"name":"content_inline_spacing","definitions":["spacing_inner_top","spacing_inner_right","spacing_inner_bottom","spacing_inner_left","spacing_outer_top","spacing_outer_right","spacing_outer_bottom","spacing_outer_left"]},"subimage":{"name":"subimage","definitions":["subimagePlacement","subimageSize"]}},"copyDefinitions":[{"definition":"text_size","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"font_weight","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"text_background_color","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"text_background_color_op","data":[{"path":"fields.title"}]},{"definition":"text_color","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"text_align","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"fontface","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"italic","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"underline","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"texttransform","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"strikethrough","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"animate","data":[{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"custom_text_shadow","data":[{"path":"fields.title","values":{"no_viewport":null}},{"path":"fields.subtitle","values":{"no_viewport":null}},{"path":"fields.kicker","values":{"no_viewport":null}},{"path":"fields.description","values":{"no_viewport":null}},{"path":"fields.author","values":{"no_viewport":null}},{"path":"fields.quote","values":{"no_viewport":null}},{"path":"fields.firstname","values":{"no_viewport":null}},{"path":"fields.lastname","values":{"no_viewport":null}},{"path":"fields.imageCaption","values":{"no_viewport":null}},{"path":"fields.byline","values":{"no_viewport":null}}]},{"definition":"text_shadow","data":[{"path":"fields.title","values":{"no_viewport":null}},{"path":"fields.subtitle","values":{"no_viewport":null}},{"path":"fields.kicker","values":{"no_viewport":null}},{"path":"fields.description","values":{"no_viewport":null}},{"path":"fields.author","values":{"no_viewport":null}},{"path":"fields.quote","values":{"no_viewport":null}},{"path":"fields.firstname","values":{"no_viewport":null}},{"path":"fields.lastname","values":{"no_viewport":null}},{"path":"fields.imageCaption","values":{"no_viewport":null}},{"path":"fields.byline","values":{"no_viewport":null}}]},{"definition":"custom_text_color","data":[{"path":"fields.title","values":{"no_viewport":null}},{"path":"fields.subtitle","values":{"no_viewport":null}},{"path":"fields.kicker","values":{"no_viewport":null}},{"path":"fields.description","values":{"no_viewport":null}},{"path":"fields.author","values":{"no_viewport":null}},{"path":"fields.quote","values":{"no_viewport":null}},{"path":"fields.firstname","values":{"no_viewport":null}},{"path":"fields.lastname","values":{"no_viewport":null}},{"path":"fields.imageCaption","values":{"no_viewport":null}},{"path":"fields.byline","values":{"no_viewport":null}}]},{"definition":"custom_text_background_color","data":[{"path":"fields.title","values":{"no_viewport":null}},{"path":"fields.subtitle","values":{"no_viewport":null}},{"path":"fields.kicker","values":{"no_viewport":null}},{"path":"fields.description","values":{"no_viewport":null}},{"path":"fields.author","values":{"no_viewport":null}},{"path":"fields.quote","values":{"no_viewport":null}},{"path":"fields.firstname","values":{"no_viewport":null}},{"path":"fields.lastname","values":{"no_viewport":null}},{"path":"fields.imageCaption","values":{"no_viewport":null}},{"path":"fields.byline","values":{"no_viewport":null}}]},{"definition":"css_style"},{"definition":"style_preset"},{"definition":"background_color"},{"definition":"custom_background_color"},{"definition":"background_opacity"},{"definition":"background_gradient"},{"definition":"image_gradient"},{"definition":"border_color"},{"definition":"border_side"},{"definition":"border_width"},{"definition":"layout"},{"definition":"shadow"},{"definition":"fitContent"},{"definition":"metadata_text_color"},{"definition":"hover_bg_color"},{"definition":"hover_text_color"},{"definition":"hover_border_color"},{"definition":"image_overlay"},{"definition":"image_overlay_opacity"},{"definition":"image_gradient_opacity"},{"definition":"float"},{"definition":"pull_up"},{"definition":"content_text_align"},{"definition":"content_vertical_text_align"},{"definition":"vertical_align"},{"definition":"vertical_space_outside_top"},{"definition":"vertical_space_outside_bottom"},{"definition":"vertical_space_inside_top"},{"definition":"vertical_space_inside_bottom"},{"definition":"spacing_outer_top","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_outer_right","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_outer_bottom","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_outer_left","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_inner_top","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_inner_right","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_inner_bottom","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_inner_left","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"targets":["article","articleHeader"],"data":[{"path":"metadata.image_gradient_direction","values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"targets":["image"],"data":[{"path":"fields.bbRatio","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.whRatio","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.float","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.shapes","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.displayCaption","values":{"no_viewport":null}},{"path":"fields.expandableCaption","values":{"no_viewport":null}},{"path":"fields.truncateCaption","values":{"no_viewport":null}}]},{"targets":["article"],"data":[{"path":"fields.displayByline","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.showSection","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.sectionPlacement","values":{"no_viewport":null}},{"path":"metadata.showTags","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.tagPlacement","values":{"no_viewport":null}}]},{"targets":["article","articleHeader"],"data":[{"path":"metadata.showKicker","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.kickerBelowImage","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.kickerBelowTitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.floatingKicker","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hideTitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.titleAboveImage","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.floatingTitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hidesubtitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.floatingSubtitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hideimage","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hasFullWidth","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hasFullWidthWithLimit","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.compactDisplay","values":{"no_viewport":null}},{"path":"metadata.sub_hideImage","values":{"no_viewport":null}},{"path":"metadata.sub_hideTitle","values":{"no_viewport":null}},{"path":"metadata.sub_hideSubtitle","values":{"no_viewport":null}}]},{"targets":["row"],"data":[{"path":"metadata.hasRowTitle","values":{"no_viewport":null}},{"path":"metadata.vertical_align_content","values":{"no_viewport":null}},{"path":"metadata.isSection","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.text_background_color","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.text_color","values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"targets":["userFeedback","timeline"],"data":[{"path":"metadata.ui_color","values":{"no_viewport":null}},{"path":"metadata.ui_text_color","values":{"no_viewport":null}}]},{"targetPath":"bodytext/","data":[{"path":"width","values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"targets":["grid"],"data":[{"path":"fields.columnCount","values":{"no_viewport":null}},{"path":"fields.rowCount","values":{"no_viewport":null}},{"path":"fields.noSpace","values":{"no_viewport":null}}]},{"definition":"hasTextPadding","data":[{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.text"}]},{"definition":"hasContentPadding"},{"definition":"hasBorder"}],"presets":{}},"data":{"blacklist":["sub_content"],"blacklistOptions":{"sub_content":{"includeChildren":true}},"elements":{"text_singleline":{"fallbackData":{"contentdata":{"fields":{"elementType":"h2"}}}},"articleHeader":{"source":{"node":"page","keys":["fields.title","fields.subtitle","fields.kicker","fields.published","fields.modified","fields.created"]},"fallbackData":{"contentdata":{"fields":{"displayCaption":true}},"metadata":{"showKicker":true}}},"page_notice":{"fallbackData":{"contentdata":{"fields":{"uiColor":"bg-primary"}}}},"noticeHeader":{"source":{"node":"page"}},"bodytext":{"source":{"node":"page"}},"articleMeta":{"source":{"node":"page"}},"articleFooter":{"source":{"node":"page"}},"labradorSearch":{"fallbackData":{"contentdata":{"fields":{"submitLabel":"Search","navLabel":"Display more","nohitsLabel":"No hits. Try modifying your search","displayAdvanced":false,"displaySites":true,"searchPlaceholder":"Type your search here ...","articleCount":20,"advancedOpenText":"Open settings","advancedCloseText":"Close settings","orderBy":"published","fromDateLabel":"From date","toDateLabel":"To date","tagLabel":"Tag","authorLabel":"Author","allSitesLabel":"All sites"}},"metadata":{"ui_color":"bg-secondary"}}},"timeline":{"fallbackData":{"metadata":{"ui_color":"bg-primary","ui_text_color":"primary"}}},"livefeed":{"fallbackData":{"metadata":{"ui_color":"bg-primary"},"contentdata":{"fields":{"maxNoticesCount":20,"viewports_json":{"desktop":{"fields":{"visibleCount":3}},"mobile":{"fields":{"visibleCount":2}}}}}}},"image":{"fallbackData":{"metadata":{"bodyTextIndex":0,"subimagePlacement":{"desktop":"topright"}}}},"graphic":{"fallbackData":{"metadata":{"subimagePlacement":{"desktop":"topright"}}}},"articlesByTag":{"fallbackData":{"contentdata":{"fields":{"title":"","title_style_json":{"text_background_color":"bg-black"}}}}},"front_rows":{"fallbackData":{"contentdata":{"fields":{"fragment_json":{"start":0,"count":1}}}}},"buttonlink":{"fallbackData":{"metadata":{"background_color":"bg-primary","text_color":"white","border_color":"bg-primary"}}},"topcomments":{"fallbackData":{"contentdata":{"fields":{"titleLatest":"Recent articles","titleMostRead":"Most read articles","labelLatest":"Latest","labelMostRead":"Most read","iconLatest":"fi-clock","iconMostRead":"fi-book","articleCount":"5","days":"7"}}}},"factbox":{"fallbackData":{"metadata":{"expandedState":{"desktop":true}}}},"toplist":{"fallbackData":{"contentdata":{"fields":{"days":"7","layout":"vertical"}}}},"articleList":{"fallbackData":{"contentdata":{"fields":{"imageLayout":"left","layout":"default"}}}},"article":{"fallbackData":{"metadata":{"sub_hideSubtitle":true}}}},"presets":{},"presetBlacklist":{"article":["article/"]}}};
-const properties = {"content_settings/front/vp_data.json":{"viewportMap":{"presets":{"vp_data":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"},"attributes":"presets.vp_content_attributes.attributes"},"vp_content_attributes":{"attributes":{"font_weight":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"text_size":{"viewport":{"default":true}},"text_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"text_background_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"text_align":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"italic":{"viewport":{"default":true},"fallback":{"default":"desktop"}}}},"vp_metadata_attributes":{"attributes":{"bodyTextIndex":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"showKicker":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hideTitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"titleAboveImage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"floatingTitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"floatingSubtitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"subtitleAboveImage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hidesubtitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"kickerBelowImage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"kickerBelowTitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"floatingKicker":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hasFullWidth":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hasFullWidthWithLimit":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"background_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"gradient":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_overlay":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_overlay_opacity":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_gradient":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_gradient_opacity":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_gradient_direction":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"background_color_op":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hideimage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"spacing_outer_top":{"viewport":{"default":true}},"spacing_outer_right":{"viewport":{"default":true}},"spacing_outer_bottom":{"viewport":{"default":true}},"spacing_outer_left":{"viewport":{"default":true}},"spacing_inner_top":{"viewport":{"default":true}},"spacing_inner_right":{"viewport":{"default":true}},"spacing_inner_bottom":{"viewport":{"default":true}},"spacing_inner_left":{"viewport":{"default":true}},"pull_up":{"viewport":{"default":true}},"float":{"viewport":{"default":true}},"border_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_side":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_width":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"subarticles":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"showSection":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"showTags":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"text_align":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"vertical_align":{"viewport":{"default":true}},"hideViewport":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"expandedState":{"viewport":{"default":true}},"displayNavigation":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"displayPreview":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}}}}},"width":{"viewport":{"default":true},"fallback":{"mailmojo":"desktop"}},"metadata":"presets.vp_metadata_attributes"}},"content/row/front/default.json":{"viewportMap":{"metadata":{"attributes":{"bodyTextIndex":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"hasFullWidth":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hasFullWidthWithLimit":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"background_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"background_color_op":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_side":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_width":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"vertical_align":{"viewport":{"default":true}},"isSection":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hideViewport":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"spaceOutsideTop":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"spaceOutsideBottom":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"spaceInsideTop":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"spaceInsideBottom":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"float":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"text_size":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"text_color":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"text_background_color":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"movableContent":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"collapsedContent":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"contentPosition":{"viewport":{"default":true},"fallback":{"no_viewport":false}}}}}},"content/columns/front/default.json":{},"content_settings/front/grid/default.json":{"gridRules":{"oddRule":{"condition":"odd","values":{"mobile":{"default":12}}},"evenRule":{"condition":"even","values":{"mobile":{"default":12}}}}},"content/article/front/default.json":{"viewportMap":{"fields":{"title":"presets.vp_content_attributes","subtitle":"presets.vp_content_attributes","kicker":"presets.vp_content_attributes","displayByline":"presets.vp_data","displayCaption":"presets.vp_data"}}},"content/image/front/default.json":{"boxTitle":"Media placeholder","boxDescription":"Add placeholder for media (images, videos, etc.)","viewHelper":"image","viewportMap":{"fields":{"x":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"y":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"cropw":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"croph":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"float":{"viewport":{"default":true}},"shapes":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"bbRatio":{"viewport":{"default":true}},"vpWidth":{"viewport":{"default":true}},"whRatio":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"height":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"width":{"viewport":{"default":true}}},"metadata":{"attributes":{"float":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"bodyTextIndex":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"hideViewport":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"hasFullWidth":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"zoomable":{"viewport":{"default":true},"fallback":{"default":"no_viewport","desktop":"no_viewport"}},"subimage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"subimagePlacement":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"subimageSize":{"viewport":{"default":true},"fallback":{"default":"desktop"}}}}}},"content/image/front/subImage.json":{"overrideImageSize":{"width":320}},"content/image/front/subImageMobile.json":{"overrideImageSize":{"width":103}},"content/notice/front/default.json":{"boxTitle":"Notice","viewHelper":"bodytext","bodytextElements":["p","h2","h3","h4","ul","ol","li"],"viewportMap":{"fields":{"title":"presets.vp_content_attributes"}}},"content/row/_resources.json":{"presentation":{"stage":{"lab-default":{"template":{"default":"content/row/template/default"},"properties":{"default":["content_settings/front/vp_data.json","content/row/front/default.json"]}}}}},"content/columns/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content/columns/front/default.json","content_settings/front/grid/default.json"]},"template":{"default":"content/columns/template/default"}}}}},"content/article/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content/article/front/default.json","content_settings/front/grid/default.json","content_settings/front/vp_data.json"]},"template":{"default":"content/article/template/default","partials":["content/article/template/partials/kicker","content/article/template/partials/subtitle","content/article/template/partials/title","partial/elements/paywallLabel"]}}}}},"content/image/_resources.json":{"presentation":{"stage":{"lab-default":{"template":{"default":"content/image/template/default","partials":["content/image/template/article","content/image/template/partials/caption_links","content/image/template/partials/caption","content/image/template/partials/img","content/image/template/partials/child"]},"properties":{"default":["content/image/front/default.json"]}},"article":{"template":{"default":"content/image/template/article"}},"image":{"properties":{"default":"content/image/front/subImage.json","mobile":"content/image/front/subImageMobile.json"}},"notice":{"template":{"default":"content/image/template/grid"}}}}},"content/notice/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content_settings/front/grid/default.json","content_settings/front/vp_data.json","content/notice/front/default.json"]},"template":{"default":"content/notice/template/default"}}}}},"content/adnuntiusAd/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content_settings/front/grid/default.json"]},"template":{"default":"content/adnuntiusAd/template/default"}}}}},"content/googleAd/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content_settings/front/grid/default.json"]},"template":{"default":"content/googleAd/template/default"}}}}}};
-const templates = {"content/row/template/default":"{{ #get.current.metadata.isSection }}\n<div data-element-guid=\"{{ get.current.guid }}\" class=\"{{ #helper.trim }}\nrow-section \n{{ #style.collection }}section_decoration{{ /style.collection }}\n{{ #style.collection }}content_decoration{{ /style.collection }}\n{{ #style.definition }}movableContainer metadata.movableContent{{ /style.definition }}\n{{ #style.definition }}movableElement metadata.movableContent{{ /style.definition }}\n{{ #style.definition }}collapsedContent metadata.collapsedContent{{ /style.definition }}\n{{ /helper.trim }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\">\n{{ /get.current.metadata.isSection }}\n<div {{ ^get.current.metadata.isSection }}data-element-guid=\"{{ get.current.guid }}\" {{ /get.current.metadata.isSection }}class=\"{{ #helper.trim }}\n    row\n    {{ size.grid.css }}\n    {{ #get.current.metadata.fullWidthContent }}fullWidthContent{{ /get.current.metadata.fullWidthContent }}\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #style.collection }}content_decoration{{ /style.collection }}\n    {{ #style.definition }}movableContainer metadata.movableContent{{ /style.definition }}\n    {{ #style.definition }}movableElement metadata.movableContent{{ /style.definition }}\n    {{ #style.definition }}collapsedContent metadata.collapsedContent{{ /style.definition }}\n    {{ #get.current.metadata.hasRowTitle }}has-row-header{{ /get.current.metadata.hasRowTitle }}\n    {{ #get.children.mediaContainer }}has-media-container{{ /get.children.mediaContainer }}\n    {{ /helper.trim }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\"{{ #get.current.metadata.sectionId }} id=\"{{ get.current.metadata.sectionId }}\"{{ /get.current.metadata.sectionId }}>{{ #get.current.metadata.hasRowTitle }}\n    {{ #get.current.metadata.rowTitleTag }}\n    <{{ get.current.metadata.rowTitleTag }} class=\"row_header_text large-12 small-12 {{ #style.collection }}text_decoration metadata{{ /style.collection }} {{ #style.definition }}text_align_row{{ /style.definition }}\">{{{ get.current.metadata.rowTitle }}}</{{ get.current.metadata.rowTitleTag }}>\n    {{ /get.current.metadata.rowTitleTag }}\n    {{ ^get.current.metadata.rowTitleTag }}\n    <h5 class=\"row_header_text large-12 small-12 {{ #style.collection }}text_decoration metadata{{ /style.collection }} {{ #style.definition }}text_align_row{{ /style.definition }}\">{{{ get.current.metadata.rowTitle }}}</h5>\n    {{ /get.current.metadata.rowTitleTag }}\n    {{ /get.current.metadata.hasRowTitle }}{{ #get.current.metadata.movableContent }}{{{ get.current.filtered.movableStyle }}}{{ /get.current.metadata.movableContent }}{{{ children.all }}}</div>\n{{ #get.current.metadata.isSection }}\n</div>\n{{ /get.current.metadata.isSection }}\n","content/columns/template/default":"<div data-element-guid=\"{{ get.current.guid }}\" class=\"columns {{ size.grid.css }} {{ size.grid.absCss }}\">{{{ children.all }}}</div>","content/article/template/default":"<article {{ #helper.trim }}\n    data-element-guid=\"{{ get.current.guid }}\"\n    class=\"column\n        {{ #style.collection }}box_decoration{{ /style.collection }}\n        {{ #get.current.filtered.paywall }}paywall{{ /get.current.filtered.paywall }}\n        {{ size.grid.css }}\n        {{ size.grid.absCss }}\n        {{ get.current.filtered.autodata_css }}\"\n    {{ #get.current.filtered.autodata_attributes }} {{ key }}=\"{{ value }}\"{{ /get.current.filtered.autodata_attributes }} \n    data-site-alias=\"{{ get.current.filtered.site_alias }}\" \n    data-section=\"{{ get.current.filtered.section }}\" \n    data-instance=\"{{ get.current.instance_of }}{{ ^get.current.instance_of }}{{ get.current.id }}{{ /get.current.instance_of }}\" \n    {{ #get.child.image.fields.float }}data-image-float=\"{{ get.child.image.fields.float }}\"{{ /get.child.image.fields.float }}\n    itemscope itemtype=\"http://schema.org/NewsArticle\"\n    {{ /helper.trim }}>\n    {{{ get.current.filtered.styleSheets }}}\n    <div class=\"{{ #helper.trim }}\n        content\n        {{ #style.collection }}content_decoration{{ /style.collection }}\n        {{ #get.current.metadata.image_gradient_direction }}image-gradient-{{ get.current.metadata.image_gradient_direction }}{{ /get.current.metadata.image_gradient_direction }} \n        {{ #style.collection }}box_fullWidth{{ /style.collection }}\n        {{ /helper.trim }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\">\n        \n        {{#get.current.fields.published_url}}<a itemprop=\"url\"{{ #get.current.fields.open_in_new_window }} target=\"_blank\"{{ /get.current.fields.open_in_new_window }} class=\"\" href=\"{{{ get.current.fields.published_url }}}\" data-k5a-url=\"{{{ get.current.filtered.canonical_url }}}\" rel=\"{{ #get.current.filtered.addRelUgc }}ugc {{ /get.current.filtered.addRelUgc }}{{ #get.current.filtered.addRelSponsored }}sponsored {{ /get.current.filtered.addRelSponsored }}{{ #get.current.filtered.addRelNoFollow }}nofollow{{ /get.current.filtered.addRelNoFollow }}\">{{/get.current.fields.published_url}}\n\n        {{ #get.current.filtered.layout.top }}\n        {{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}\n        {{ /get.current.filtered.layout.top }}\n\n        <div class=\"media{{ #get.current.metadata.floatingTextSubset }} floatingTextSubset{{ /get.current.metadata.floatingTextSubset }} {{ #style.definition }}imageAlign child.image.fields.float{{ /style.definition }}\">\n            {{^get.current.metadata.hideimage}}\n                {{{ placeholder.no_media }}}\n\n                {{{ child.image }}}\n                {{{ child.graphic }}}\n                {{{ child.slideshow }}}\n                {{{ child.youtube }}}\n                {{{ child.simplestream }}}\n                {{{ child.markup }}}\n                {{{ child.parallax }}}\n                {{{ child.grid }}}\n            \n            {{/get.current.metadata.hideimage}}\n            <div class=\"floatingText\">\n                {{ #get.current.filtered.layout.floating }}\n                {{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}\n                {{ /get.current.filtered.layout.floating }}\n\n                <div class=\"labels\">\n                    {{ #get.current.filtered.autodata_custom.labels }}\n                    <div class=\"label\" data-label-key=\"{{ key }}\" data-label-value=\"{{ value }}\"><span class=\"label-value\">{{ value }}</span></div>\n                    {{ /get.current.filtered.autodata_custom.labels }}\n                    {{ #get.current.filtered.sectionPlacement.floating }}\n                        {{ #get.current.metadata.showSection }}\n                            {{ #get.current.filtered.section }}<p itemprop=\"section\" class=\"section\" data-tag=\"{{ get.current.filtered.section }}\">{{ get.current.filtered.section }}</p>{{ /get.current.filtered.section }}\n                        {{ /get.current.metadata.showSection }}\n                    {{ /get.current.filtered.sectionPlacement.floating }}\n                </div>\n            </div>\n            {{ #get.current.metadata.enableAudio }}{{ #render.template }}content/article/template/partials/audio{{ /render.template }}{{ /get.current.metadata.enableAudio }}\n            {{ #get.current.filtered.paywallLabel }}{{> partial/elements/paywallLabel }}{{ /get.current.filtered.paywallLabel }}\n        </div>\n        {{ #get.current.fields.displayCaption }}\n            <div class=\"caption {{ #helper.trim }}\n                {{ #app.isEditor }}expanded{{ /app.isEditor }}\n                {{ #get.current.fields.truncateCaption }}truncate{{ /get.current.fields.truncateCaption }}\n                {{ ^get.current.fields.truncateCaption }}\n                    {{ #get.child.image.fields.truncateCaption }}truncate{{ /get.child.image.fields.truncateCaption }}\n                {{ /get.current.fields.truncateCaption }}\n                {{ /helper.trim }}\" data-showmore=\"{{ #lang }}image.caption.showMoreLabel{{ /lang }}\"{{ #get.child.image.filtered.captionOptions.expandable }} data-expandable=\"true\" data-showcaption=\"{{ #lang }}image.caption.showCaptionLabel{{ /lang }}\" data-hidecaption=\"{{ #lang }}image.caption.hideCaptionLabel{{ /lang }}\"{{ /get.child.image.filtered.captionOptions.expandable }}>\n                <figcaption itemprop=\"caption\" class=\"{{ #style.collection }}text_decoration child.image.fields.imageCaption{{ /style.collection }}\">{{ #helper.stripLinks }}{{ #get.child.image.fields.globalCaption }}{{{ get.child.image.fields.globalCaption }}}{{ /get.child.image.fields.globalCaption }}{{ ^get.child.image.fields.globalCaption }}{{{ get.child.image.fields.imageCaption }}}{{ /get.child.image.fields.globalCaption }}{{ /helper.stripLinks }}</figcaption>\n                <figcaption itemprop=\"author\" class=\"{{ #style.collection }}text_decoration child.image.fields.byline{{ /style.collection }}\" data-byline-prefix=\"{{{ getConfig.image.imageBylinePrefix }}}\">{{ #helper.stripLinks }}{{{ get.child.image.fields.byline }}}{{ /helper.stripLinks }}</figcaption>\n            </div>\n        {{ /get.current.fields.displayCaption }}\n\n        {{ #get.current.metadata.vertical_text_align }}\n            <div class=\"vertically-aligned-text\">\n        {{ /get.current.metadata.vertical_text_align }}\n\n            {{ #get.current.filtered.sectionPlacement.underImage }}\n                {{ #get.current.metadata.showSection }}\n                    {{ #get.current.filtered.section }}<p itemprop=\"section\" class=\"section\" data-tag=\"{{ get.current.filtered.section }}\">{{ get.current.filtered.section }}</p>{{ /get.current.filtered.section }}\n                {{ /get.current.metadata.showSection }}\n            {{ /get.current.filtered.sectionPlacement.underImage }}\n        \n            {{ #get.current.filtered.tagPlacement.underImage }}\n                {{ #get.current.metadata.showTags }}\n                <div itemprop=\"tags\" class=\"tags\">{{#get.current.filtered.tags}}\n                    <span itemprop=\"tag\" class=\"tag\" data-tag=\"{{ . }}\">{{.}}</span>\n                {{/get.current.filtered.tags}}</div>\n                {{ /get.current.metadata.showTags }}\n            {{ /get.current.filtered.tagPlacement.underImage }}\n            {{ #get.current.filtered.layout.bottom }}\n            {{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}\n            {{ /get.current.filtered.layout.bottom }}\n\n            {{ #get.current.filtered.sectionPlacement.underText }}\n                {{ #get.current.metadata.showSection }}\n                    {{ #get.current.filtered.section }}<p itemprop=\"section\" class=\"section\" data-tag=\"{{ get.current.filtered.section }}\">{{ get.current.filtered.section }}</p>{{ /get.current.filtered.section }}\n                {{ /get.current.metadata.showSection }}\n            {{ /get.current.filtered.sectionPlacement.underText }}\n        \n            {{ #get.current.filtered.tagPlacement.underText }}\n                {{ #get.current.metadata.showTags }}\n                <div itemprop=\"tags\" class=\"tags under-text\">{{#get.current.filtered.tags}}\n                    <span itemprop=\"tag\" class=\"tag\" data-tag=\"{{ . }}\">{{.}}</span>\n                {{/get.current.filtered.tags}}</div>\n                {{ /get.current.metadata.showTags }}\n            {{ /get.current.filtered.tagPlacement.underText }}\n\n        {{ #get.current.metadata.vertical_text_align }}\n            </div>\n        {{ /get.current.metadata.vertical_text_align }}\n\n        {{ #get.current.filtered.displayByline }}\n        <div class=\"bylines\">{{ #get.current.filtered.bylines }}\n            <div class=\"byline column\" itemscope=\"\" itemtype=\"http://schema.org/Person\">\n                <div class=\"content\">\n                    {{ #imageUrl}}\n                    <figure>\n                        <img itemprop=\"image\" src=\"{{{ imageUrl}}}\">\n                    </figure>\n                    {{ /imageUrl}}\n                    <address class=\"name\">{{{ firstname }}} {{{ lastname }}}</address>\n                </div>\n            </div>\n        {{ /get.current.filtered.bylines }}\n        {{ #get.current.filtered.displayPublishedDate }}\n            <div class=\"article-published-wrapper\">\n                <p class=\"article-published-date\">{{{ get.current.filtered.publishedDate }}}</p>\n            </div>\n        {{ /get.current.filtered.displayPublishedDate }}\n        </div>\n        {{ /get.current.filtered.displayByline}}\n\n        {{ ^get.current.filtered.displayByline}}\n            {{ #get.current.filtered.displayPublishedDate }}\n                <div class=\"article-published-wrapper\">\n                    <p class=\"article-published-date\">{{{ get.current.filtered.publishedDate }}}</p>\n                </div>\n            {{ /get.current.filtered.displayPublishedDate }}\n        {{ /get.current.filtered.displayByline}}\n\n        {{#get.current.fields.published_url}}</a>{{/get.current.fields.published_url}}\n\n        {{ #get.current.metadata.subarticles }}\n            <p class=\"subarticlesTitle bold {{ #style.collection }}text_decoration fields.subarticlesTitle{{ /style.collection }}\" style=\"margin: 0.6em 0 0;\">{{{ get.current.fields.subarticlesTitle }}}</p>\n            <ul class=\"relatedArticles\">{{ #children.article[]+ }}\n            {{{ . }}}\n            {{ /children.article[]+ }}</ul>\n        {{ /get.current.metadata.subarticles }}\n        <time itemprop=\"datePublished\" datetime=\"{{ get.current.filtered.published }}\"></time>\n    </div>\n</article>","content/article/template/partials/kicker":"<div {{ #get.current.fields.kicker[animate] }}data-content=\"{{ #helper.sanitizeString }}{{{ get.current.filtered.kicker }}}{{ /helper.sanitizeString }}\"{{ /get.current.fields.kicker[animate] }}\nstyle=\"{{ #style.collection }}text_decoration_inline_style fields.kicker{{ /style.collection }}\"\nclass=\"kicker {{ get.current.filtered.layout.positions.kicker }} {{ #style.collection }}text_decoration fields.kicker{{ /style.collection }}\">\n{{{ get.current.filtered.kicker }}}\n</div>","content/article/template/partials/subtitle":"<p itemprop=\"description\" \n    class=\"subtitle {{ #style.collection }}text_decoration fields.subtitle{{ /style.collection }}{{ #get.current.metadata.subtitleAboveImage }} subtitleAboveImage{{ /get.current.metadata.subtitleAboveImage }}\"\n    style=\"{{ #style.collection }}text_decoration_inline_style fields.subtitle{{ /style.collection }}\"\n    {{ #get.current.fields.kicker[animate] }}data-content=\"{{ #helper.sanitizeString }}{{{ get.current.filtered.kicker }}}{{ /helper.sanitizeString }}\"{{ /get.current.fields.kicker[animate] }}>\n    {{{ get.current.filtered.subtitle }}}\n</p>\n","content/article/template/partials/title":"<h2 itemprop=\"headline\" \n    class=\"headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}\"\n    style=\"{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}\"\n    {{ #get.current.fields.title[animate] }}data-content=\"{{ #helper.sanitizeString }}{{{ get.current.filtered.title }}}{{ /helper.sanitizeString }}\"{{ /get.current.fields.title[animate] }}>{{{ get.current.filtered.title }}}\n</h2>","partial/elements/paywallLabel":"<div class=\"paywallLabel{{ #layout.noImage }} no-image{{ /layout.noImage }} {{ get.current.metadata.paywallLabelPosition }}{{ ^get.current.metadata.paywallLabelPosition }} {{ layout.float }}{{ /get.current.metadata.paywallLabelPosition }}\">{{ ^get.current.filtered.paywallLabel.hideLabelIcon }}{{ #icon.content }}<span class=\"{{ icon.content }}\"></span> {{/icon.content }}{{ /get.current.filtered.paywallLabel.hideLabelIcon }}{{ ^get.current.filtered.paywallLabel.hideLabelText }}{{ text.content }}{{ /get.current.filtered.paywallLabel.hideLabelText }}</div>\n","content/image/template/default":"<figure data-element-guid=\"{{ get.current.guid }}\" class=\"{{#helper.trim}}\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #get.current.filtered.hasFloat }}{{ #style.definition }}responsive_size fields.vpWidth{{ /style.definition }}{{ /get.current.filtered.hasFloat }}\n    {{ #style.definition }}imageBorder fields.border{{ /style.definition }}\n    {{ #style.definition }}imageAlign fields.float{{ /style.definition }}\n    {{ get.current.filtered.imageLoadingClass }}\n    {{/helper.trim}}\" {{ #get.current.filtered.hasFloat }}{{ ^get.current.fields.vpWidth }}style=\"width:{{ get.current.filtered.imageWidth }}px;\"{{ /get.current.fields.vpWidth }}{{ /get.current.filtered.hasFloat }}>\n    <div class=\"img{{ #get.current.filtered.allowFullwidth }} fullwidthTarget{{ /get.current.filtered.allowFullwidth }} {{ #style.collection }}content_decoration{{ /style.collection }}\">\n        {{ > content/image/template/partials/img }}\n        {{ > content/image/template/partials/shapes }}\n    </div>\n    {{ ^get.parent.filtered.layout.floating }} {{ #get.current.filtered.captionOptions.display }}\n    {{ > content/image/template/partials/caption }}\n    {{ /get.current.filtered.captionOptions.display }} {{ /get.parent.filtered.layout.floating }}\n</figure>\n","content/image/template/article":"<figure data-element-guid=\"{{ get.current.guid }}\" class=\"{{#helper.trim}}\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #get.current.filtered.hasFloat }}{{ #style.definition }}responsive_size fields.vpWidth{{ /style.definition }}{{ /get.current.filtered.hasFloat }}\n    {{ #style.definition }}imageBorder fields.border{{ /style.definition }}\n    {{ #style.definition }}imageAlign fields.float{{ /style.definition }}\n    {{ get.current.filtered.imageLoadingClass }}\n    {{/helper.trim}}\" {{ #get.current.filtered.hasFloat }}{{ ^get.current.fields.vpWidth }}style=\"width:{{ get.current.filtered.imageWidth }}px;\"{{ /get.current.fields.vpWidth }}{{ /get.current.filtered.hasFloat }}>\n    <div class=\"img fullwidthTarget\">\n        {{ > content/image/template/partials/img }}\n        {{ > content/image/template/partials/shapes }}\n    </div>\n    {{ #get.parent.metadata.image_overlay }}<div class=\"imageOverlay {{ get.parent.metadata.image_overlay }} {{ get.parent.metadata.image_overlay_opacity }}\"></div>{{ /get.parent.metadata.image_overlay }}\n    {{ > content/image/template/partials/child }}\n</figure>\n","content/image/template/partials/caption_links":"<div class=\"caption {{ #helper.trim }}\n    {{ #app.isEditor }}expanded{{ /app.isEditor }}\n    {{ #get.parent.fields.truncateCaption }}truncate{{ /get.parent.fields.truncateCaption }}\n    {{ ^get.parent.fields.truncateCaption }}\n        {{ #get.current.fields.truncateCaption }}truncate{{ /get.current.fields.truncateCaption }}\n    {{ /get.parent.fields.truncateCaption }}\n    {{ /helper.trim }}\" data-showmore=\"{{ #lang }}image.caption.showMoreLabel{{ /lang }}\"{{ #get.current.filtered.captionOptions.expandable }} data-expandable=\"true\" data-showcaption=\"{{ #lang }}image.caption.showCaptionLabel{{ /lang }}\" data-hidecaption=\"{{ #lang }}image.caption.hideCaptionLabel{{ /lang }}\"{{ /get.current.filtered.captionOptions.expandable }}>\n    <figcaption itemprop=\"caption\" class=\"{{ #style.collection }}text_decoration fields.imageCaption{{ /style.collection }}\">{{{ get.current.fields.imageCaption }}}</figcaption>\n    <figcaption itemprop=\"author\" class=\"{{ #style.collection }}text_decoration fields.byline{{ /style.collection }}\" data-byline-prefix=\"{{{ getConfig.image.imageBylinePrefix }}}\">{{{ get.current.fields.byline }}}</figcaption>\n</div>","content/image/template/partials/caption":"<div class=\"caption {{ #helper.trim }}\n    {{ #app.isEditor }}expanded{{ /app.isEditor }}\n    {{ #get.parent.fields.truncateCaption }}truncate{{ /get.parent.fields.truncateCaption }}\n    {{ ^get.parent.fields.truncateCaption }}\n        {{ #get.current.fields.truncateCaption }}truncate{{ /get.current.fields.truncateCaption }}\n    {{ /get.parent.fields.truncateCaption }}\n    {{ /helper.trim }}\" data-showmore=\"{{ #lang }}image.caption.showMoreLabel{{ /lang }}\"{{ #get.current.filtered.captionOptions.expandable }} data-expandable=\"true\" data-showcaption=\"{{ #lang }}image.caption.showCaptionLabel{{ /lang }}\" data-hidecaption=\"{{ #lang }}image.caption.hideCaptionLabel{{ /lang }}\"{{ /get.current.filtered.captionOptions.expandable }}>\n    <figcaption itemprop=\"caption\" class=\"{{ #style.collection }}text_decoration fields.imageCaption{{ /style.collection }}\">{{ #get.parent.fields.globalCaption }}{{{ get.parent.fields.globalCaption }}}{{ /get.parent.fields.globalCaption }}{{ ^get.parent.fields.globalCaption }}{{{ get.current.fields.imageCaption }}}{{ /get.parent.fields.globalCaption }}</figcaption>\n    <figcaption itemprop=\"author\" class=\"{{ #style.collection }}text_decoration fields.byline{{ /style.collection }}\" data-byline-prefix=\"{{{ getConfig.image.imageBylinePrefix }}}\">{{{ get.current.fields.byline }}}</figcaption>\n</div>","content/image/template/partials/img":"<picture>\n    {{ #get.current.filtered.viewport_list.desktop.formats }}\n    <source srcset=\"{{{ get.current.filtered.viewport_list.desktop.url }}}&format={{ format }}\" \n        width=\"{{{ get.current.filtered.viewport_list.desktop.width }}}\"\n        height=\"{{{ get.current.filtered.viewport_list.desktop.height }}}\"\n        media=\"(min-width: 768px)\"\n        type=\"{{{ type }}}\">    \n    {{ /get.current.filtered.viewport_list.desktop.formats }}\n    {{ #get.current.filtered.viewport_list.mobile.formats }}\n    <source srcset=\"{{{ get.current.filtered.viewport_list.mobile.url }}}&format={{ format }}\" \n        width=\"{{{ get.current.filtered.viewport_list.mobile.width }}}\"\n        height=\"{{{ get.current.filtered.viewport_list.mobile.height }}}\"\n        media=\"(max-width: 767px)\"\n        type=\"{{{ type }}}\">    \n    {{ /get.current.filtered.viewport_list.mobile.formats }}\n    <img src=\"{{{ get.current.filtered.viewport_list.mobile.url }}}&format=jpg\"\n        width=\"{{{ get.current.filtered.viewport_list.mobile.width }}}\"\n        height=\"{{{ get.current.filtered.viewport_list.mobile.height }}}\"\n        title=\"{{ #helper.sanitizeString }}\n        {{ #getConfig.image.showBylineAsTitle }}{{{ get.current.fields.byline }}}{{ /getConfig.image.showBylineAsTitle }}\n        {{ ^getConfig.image.showBylineAsTitle }}{{{ get.current.filtered.captionOptions.title }}}{{ /getConfig.image.showBylineAsTitle }}\n        {{ /helper.sanitizeString }}\"\n        alt=\"{{ #helper.sanitizeString }}{{ #get.current.fields.altText }}{{{ get.current.fields.altText }}}{{ /get.current.fields.altText }}{{ /helper.sanitizeString }}\" \n        {{ #get.current.filtered.lazyloadImages }}loading=\"lazy\"{{ /get.current.filtered.lazyloadImages }}\n        {{ #app.isEditor }}\n        class=\"{{ #helper.getEditorLoadingClass }}{{ /helper.getEditorLoadingClass }}\"\n        style=\"{{ #helper.getEditorLoadingStyle }}{{ /helper.getEditorLoadingStyle }} {{{ get.current.filtered.filters }}}\"    \n        {{ /app.isEditor }}\n        {{ ^app.isEditor }}\n        style=\"{{{ get.current.filtered.filters }}}\"    \n        {{ /app.isEditor }}>\n</picture>","content/image/template/partials/child":"{{ #get.current.metadata.subimage }}\n    {{ #app.isEditor }}\n    <div class=\"imageChildren {{ #style.collection }}subimage{{ /style.collection }}\">{{{ children.all }}}</div>\n    {{ /app.isEditor }}\n    {{ #app.isFront }}{{ #children.all[0] }}\n    <div class=\"imageChildren {{ #style.collection }}subimage{{ /style.collection }}\">{{{ children.all }}}</div>\n    {{ /children.all[0] }}{{ /app.isFront }}\n{{ /get.current.metadata.subimage }}\n","content/image/template/grid":"<figure data-element-guid=\"{{ get.current.guid }}\"{{ #get.current.metadata.zoomable }} data-zoomable=\"1\"{{ /get.current.metadata.zoomable }} class=\"{{#helper.trim}}\n    column\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #style.collection }}box_fullWidth{{ /style.collection }}\n    {{ size.grid.css }}\n    {{ size.grid.absCss }}\n    {{ get.current.filtered.borderClass }}\n    {{ get.current.filtered.imageLoadingClass }}\n    {{/helper.trim}}\">\n    {{{ get.current.filtered.styleSheets }}}\n    <div class=\"content {{ #style.collection }}content_decoration{{ /style.collection }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\">\n        {{^get.current.instance_of}}\n                {{ > content/image/template/placeholder }}\n        {{/get.current.instance_of}}\n        {{#get.current.instance_of}}\n\n        <div class=\"img fullwidthTarget\">\n            {{ > content/image/template/partials/img }}\n            {{ > content/image/template/partials/shapes }}\n        </div>\n        {{ #get.current.filtered.captionOptions.displayDefault }}\n        {{ > content/image/template/partials/caption_links }}\n        {{ /get.current.filtered.captionOptions.displayDefault }}\n        {{/get.current.instance_of}}\n    </div>\n</figure>\n","content/notice/template/default":"<div class=\"notice column\n  {{ #style.collection }}box_decoration{{ /style.collection }}\" id=\"notice-{{ get.current.id }}\" data-tags=\"{{{ get.current.tags }}}\">\n    <div class=\"content {{ #style.collection }}content_decoration{{ /style.collection }}\" title=\"{{{ get.current.fields.title }}}\">\n        <h2><a href=\"/notice/{{ get.current.id }}\">{{{ get.current.fields.title }}}</a></h2>\n        <div class=\"meta\">\n            <time class=\"fi-clock\" datetime=\"{{ get.current.filtered.isoDate }}\" title=\"{{ get.current.filtered.publishedDate }}\">{{ get.current.filtered.niceDate }}</time>\n            {{ #get.current.fields.userName }}<span class=\"author fi-torsos\">{{{ get.current.fields.userName }}}</span>{{ /get.current.fields.userName }}\n            {{ #get.current.fields.pinned }}{{ ^get.parent.metadata.hidePinIcon }} <span class=\"pinned fi-marker\"> {{ #lang }}notice.pinnedLabel{{ /lang }}</span>{{ /get.parent.metadata.hidePinIcon }}{{ /get.current.fields.pinned }}\n        </div>\n        <div class=\"text bodytext\">{{{ get.current.filtered.bodytext }}}</div>\n    </div>\n</div>","content/adnuntiusAd/template/default":"{{ ^get.current.filtered.hideOnTablet }}\n\n<div class=\"{{ #helper.trim }}\n    column\n    adnuntius-ad\n    {{ get.current.fields.css }}\n    {{ ^get.current.metadata.isBodytext }}\n    {{ size.grid.css }}\n    {{ /get.current.metadata.isBodytext }}\n    {{ get.current.metadata.css }}\n    {{ #get.current.filtered.isDebug }}adnuntius-ad-debug{{ /get.current.filtered.isDebug }}\n    {{ /helper.trim }}\" {{ #get.current.filtered.isDebug }}data-ad-format=\"{{{ get.current.fields.format }}}\" data-ad-size=\"{{ get.current.filtered.adData.width }}x{{ get.current.filtered.adData.height }}\"{{ /get.current.filtered.isDebug }}style=\"{{get.current.filtered.spacingTop}}{{ #get.current.metadata.style }} {{{ get.current.metadata.style }}}{{ /get.current.metadata.style }}\" data-element-guid=\"{{ get.current.guid }}\">\n    {{ #app.isEditor }}\n    <div class=\"ad-editor-preview adnuntius-ad-content\" style=\"width:{{ get.current.filtered.adData.width }}px; height:{{ get.current.filtered.adData.height }}px;\" title=\"{{ get.current.fields.format }}\">\n        <h4>Adnuntius-ad</h4>\n        Format: <strong>{{ get.current.fields.format }}</strong><br>\n        size: <strong>{{ get.current.filtered.adData.width }}x{{ get.current.filtered.adData.height }}</strong>\n    </div>\n    {{ /app.isEditor }}\n    {{ ^app.isEditor }}\n    <div id=\"adn-{{{ get.current.filtered.adData.auId }}}\" {{ #get.current.metadata.defaultHeight }}style=\"display:block;height:{{get.current.metadata.defaultHeight}}px;\"{{ /get.current.metadata.defaultHeight }}{{ ^get.current.metadata.defaultHeight }}style=\"display:none;\"{{ /get.current.metadata.defaultHeight }} class=\"adnuntius-ad-content\">\n        <span class=\"ad-label\">{{ get.current.filtered.label }}</span>\n    </div>\n    {{ /app.isEditor }}\n</div>\n\n{{ /get.current.filtered.hideOnTablet }}\n","content/googleAd/template/default":"{{ ^get.current.filtered.hideOnTablet }}\n<div data-element-guid=\"{{ get.current.guid }}\" class=\"{{ #helper.trim }}\n    column\n    google-ad\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ ^get.current.metadata.isBodytext }}\n    {{ size.grid.css }}\n    {{ size.grid.absCss }}\n    {{ /get.current.metadata.isBodytext }}\n    {{ get.current.fields.css }}\n    {{ get.current.metadata.css }}\n    {{ #get.current.filtered.isDebug }}adnuntius-ad-debug{{ /get.current.filtered.isDebug }}\n    {{ /helper.trim }}\" {{ #get.current.filtered.isDebug }}data-ad-format=\"{{{ get.current.fields.format }}}\"{{ /get.current.filtered.isDebug }} style=\"{{get.current.filtered.spacingTop}}{{ #get.current.metadata.style }} {{{ get.current.metadata.style }}}{{ /get.current.metadata.style }}\">\n\n    {{ #app.isEditor }}\n    <div class=\"ad-editor-preview\" title=\"{{ get.current.fields.format }}\">\n        <h4>Google-ad</h4>\n        Format: <strong>{{ get.current.fields.format }}</strong>\n    </div>\n    {{ /app.isEditor }}\n    {{ ^app.isEditor }}\n    {{ #get.current.filtered.googleAds.bidding.enabled }}\n        {{ #get.current.filtered.googleAds.bidding.provider.name }}\n            <span class=\"ad-label\">{{ get.current.filtered.label }}</span>\n            {{ #render.template }}content/googleAd/template/{{ get.current.filtered.googleAds.bidding.provider.name}}{{ /render.template }}\n        {{ /get.current.filtered.googleAds.bidding.provider.name }}\n    {{ /get.current.filtered.googleAds.bidding.enabled }}\n    {{ ^get.current.filtered.googleAds.bidding.enabled }}\n        <span class=\"ad-label\">{{ get.current.filtered.label }}</span>\n        <div class=\"adunit\" id=\"{{{ get.current.filtered.adData.code }}}\" {{ #get.current.metadata.defaultHeight }}style=\"min-height:{{ get.current.metadata.defaultHeight }}px;\"{{ /get.current.metadata.defaultHeight }}></div>\n        <script>\n            googletag.cmd.push(function() {\n                googletag.display('{{{ get.current.filtered.adData.code }}}');\n            });\n        </script>\n    {{ /get.current.filtered.googleAds.bidding.enabled }}\n    {{ /app.isEditor }}\n</div>\n{{ /get.current.filtered.hideOnTablet }}"};
+// Version: 1.4.14, build: 454
+const config = {"view_version":"1.4.14","view_name":"Baseview","view_build":{"baseview":{"releasenotes":"1414:3","userReleasenotes":"1414:22","version":454}},"viewports":{"mobile":{"deviceWidth":480},"desktop":{"deviceWidth":1058}},"imageUrlOptions":{"extension":".webp","nameField":"instance_of"},"viewHelper":{"image":{"viewports":["desktop","mobile"],"pixelDensityFactor":2}},"grid":{"total_grid_spans":12,"grid_prefix":{"mobile":"small-","desktop":"large-"},"abs_grid_prefix":{"mobile":"small-abs-","desktop":"large-abs-"}},"style":{"definitions":{"css_style":{"requirePath":false,"path":"metadata.css_style","items":[{"prefix":"style-","postfix":""}]},"style_preset":{"path":"metadata.style_preset","items":[{"viewport":"no_viewport"}]},"text_size":{"requirePath":true,"path":"text_size","items":[{"viewport":"desktop","fallback":"no_viewport","prefix":"t"},{"viewport":"mobile","prefix":"tm"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"font_weight":{"requirePath":true,"path":"font_weight","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"m-"}]},"bold":{"requirePath":true,"path":"bold","items":[{"viewport":"no_viewport"}]},"text_background_color":{"requirePath":true,"path":"text_background_color","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_","nullValue":"no_bg_color"}]},"text_background_color_op":{"requirePath":true,"path":"text_background_color_op","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_","nullValue":"no_bg_color"}]},"custom_text_background_color":{"requirePath":true,"path":"custom_text_background_color","items":[{"prefix":"background-color:","postfix":" !important;"}]},"custom_text_color":{"requirePath":true,"path":"custom_text_color","items":[{"prefix":"color:","postfix":" !important;"}]},"custom_text_shadow":{"requirePath":true,"path":"custom_text_shadow","items":[{"prefix":"text-shadow:"}]},"text_color":{"requirePath":true,"path":"text_color","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"text_align":{"requirePath":true,"path":"text_align","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"],"prefix":"align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_text_align_align-"}]},"fontface":{"requirePath":true,"path":"fontface","items":[{"prefix":"font-"}]},"italic":{"requirePath":true,"path":"italic","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"],"nullValue":"no_italic"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"m-","nullValue":"no_italic"}]},"underline":{"requirePath":true,"path":"underline","items":[{"viewport":"no_viewport"}]},"texttransform":{"requirePath":true,"path":"texttransform","items":[{"viewport":"no_viewport"}]},"strikethrough":{"requirePath":true,"path":"strikethrough","items":[{"viewport":"no_viewport"}]},"text_shadow":{"requirePath":true,"path":"text_shadow","items":[{"viewport":"no_viewport"}]},"animate":{"requirePath":true,"path":"animate","items":[{"viewport":"no_viewport"}]},"background_color":{"requirePath":false,"path":"metadata.background_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"","postfix":""},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_","postfix":"","nullValue":"no_bg_color"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"background_opacity":{"requirePath":false,"path":"metadata.background_color_op","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"","postfix":""},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_","postfix":""}]},"background_gradient":{"requirePath":false,"path":"metadata.gradient","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"border_color":{"requirePath":false,"path":"metadata.border_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_","nullValue":"no_border_color"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"border_side":{"requirePath":false,"path":"metadata.border_side","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_","nullValue":"no_border_side"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"border_width":{"requirePath":false,"path":"metadata.border_width","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"border_width_","nullValue":"no_border_width"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"border_width_mobile_","nullValue":"no_border_width"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"border_radius":{"requirePath":false,"path":"metadata.border_radius","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"border-radius-","nullValue":"no_border_radius"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"border-radius-mobile_","nullValue":"no_border_radius"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"rounded_image_edge":{"requirePath":false,"path":"metadata.rounded_image_edge","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"rounded-image-edge-","nullValue":"no_rounded-image-edge"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"rounded-image-edge-mobile_","nullValue":"no_rounded-image-edge-mobile"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"rounded_image":{"requirePath":false,"path":"metadata.rounded_image","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"]}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"layout":{"requirePath":false,"path":"metadata.layout","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"layout_mobile_"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"fitContent":{"requirePath":false,"path":"metadata.fitContent","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"fitContent_mobile_"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"shadow":{"requirePath":false,"path":"metadata.shadow","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"shadow_mobile_"}]},"metadata_text_color":{"requirePath":false,"path":"metadata.text_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_text_color-_"}]},"hover_text_color":{"requirePath":false,"path":"metadata.hover_text_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_hover_text_color-_"}]},"hover_bg_color":{"requirePath":false,"path":"metadata.hover_bg_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_hover_bg_color-_"}]},"hover_border_color":{"requirePath":false,"path":"metadata.hover_border_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_hover_border_color-_"}]},"image_overlay":{"requirePath":false,"path":"metadata.image_overlay","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"image_overlay_opacity":{"requirePath":false,"path":"metadata.image_overlay_opacity","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"image_gradient":{"requirePath":false,"path":"metadata.image_gradient","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"image_gradient_opacity":{"requirePath":false,"path":"metadata.image_gradient_opacity","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"float":{"requirePath":false,"path":"metadata.float","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-"}]},"spacing":{"requirePath":false,"path":"fields.spacing","items":[{"prefix":"spacing-","nullValue":"default"}]},"spacing_outer_top":{"requirePath":false,"path":"metadata.spacing_outer_top","items":[{"viewport":"current_viewport","prefix":"margin-top:","postfix":"% !important;"}]},"spacing_outer_right":{"requirePath":false,"path":"metadata.spacing_outer_right","items":[{"viewport":"current_viewport","prefix":"margin-right:","postfix":"% !important;"}]},"spacing_outer_bottom":{"requirePath":false,"path":"metadata.spacing_outer_bottom","items":[{"viewport":"current_viewport","prefix":"margin-bottom:","postfix":"% !important;"}]},"spacing_outer_left":{"requirePath":false,"path":"metadata.spacing_outer_left","items":[{"viewport":"current_viewport","prefix":"margin-left:","postfix":"% !important;"}]},"spacing_inner_top":{"requirePath":false,"path":"metadata.spacing_inner_top","items":[{"viewport":"current_viewport","prefix":"padding-top:","postfix":"% !important;"}]},"spacing_inner_right":{"requirePath":false,"path":"metadata.spacing_inner_right","items":[{"viewport":"current_viewport","prefix":"padding-right:","postfix":"% !important;"}]},"spacing_inner_bottom":{"requirePath":false,"path":"metadata.spacing_inner_bottom","items":[{"viewport":"current_viewport","prefix":"padding-bottom:","postfix":"% !important;"}]},"spacing_inner_left":{"requirePath":false,"path":"metadata.spacing_inner_left","items":[{"viewport":"current_viewport","prefix":"padding-left:","postfix":"% !important;"}]},"pull_up":{"requirePath":false,"path":"metadata.pull_up","items":[{"viewport":"desktop","prefix":"large-pull-"},{"viewport":"mobile","prefix":"small-pull-"}]},"content_text_align":{"requirePath":false,"path":"metadata.text_align","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_text_align_align-"}]},"content_vertical_text_align":{"requirePath":false,"path":"metadata.vertical_text_align","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"vertical-text-align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-vertical-text-align-"}]},"text_align_row":{"requirePath":false,"path":"metadata.text_align_row","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_text_align_align-"}]},"vertical_align":{"requirePath":false,"path":"metadata.vertical_align","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"grid-vas-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-grid-vas-"}]},"vertical_align_content":{"requirePath":false,"path":"metadata.vertical_align_content","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"grid-align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-grid-align-"}]},"custom_background_color":{"requirePath":false,"path":"metadata.custom_background_color","items":[{"prefix":"background-color:","postfix":";"}]},"custom_background_color_L3":{"requirePath":false,"path":"metadata.box_custom_background","items":[{"prefix":"background-color:","postfix":";"}]},"custom_border_color":{"requirePath":false,"path":"metadata.custom_border_color","items":[{"prefix":"border-color:","postfix":" !important;"}]},"movableContainer":{"requirePath":true,"items":[{"viewport":"desktop","value":"desktop-movable-container","nullValue":""},{"viewport":"mobile","value":"mobile-movable-container","nullValue":""}]},"movableElement":{"requirePath":true,"items":[{"viewport":"desktop","value":"desktop-movable-element","nullValue":""},{"viewport":"mobile","value":"mobile-movable-element","nullValue":""}]},"collapsedContent":{"requirePath":true,"items":[{"viewport":"desktop","value":"desktop-collapsed-element","nullValue":""},{"viewport":"mobile","value":"mobile-collapsed-element","nullValue":""}]},"imageAlign":{"requirePath":true,"items":[{"viewport":"desktop","fallback":["no_viewport"],"prefix":"desktop-"},{"viewport":"mobile","fallback":["no_viewport"],"prefix":"mobile-"}]},"imageBorder":{"requirePath":true,"items":[{"value":"bordered"}]},"vertical_space_outside_top":{"requirePath":false,"path":"metadata.spaceOutsideTop","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-space-outsideTop-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-space-outsideTop-"}]},"vertical_space_outside_bottom":{"requirePath":false,"path":"metadata.spaceOutsideBottom","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-space-outsideBottom-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-space-outsideBottom-"}]},"vertical_space_inside_top":{"requirePath":false,"path":"metadata.spaceInsideTop","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-space-insideTop-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-space-insideTop-"}]},"vertical_space_inside_bottom":{"requirePath":false,"path":"metadata.spaceInsideBottom","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-space-insideBottom-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-space-insideBottom-"}]},"fullWidth":{"requirePath":false,"path":"metadata.hasFullWidth","items":[{"viewport":"desktop","fallback":["no_viewport"],"prefix":"desktop-","value":"fullWidth","nullValue":""},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-","value":"fullWidth","nullValue":""}]},"fullWidthLimit":{"path":"metadata.hasFullWidthWithLimit","items":[{"viewport":"desktop","fallback":["no_viewport"],"prefix":"desktop-","value":"fullWithLimit","nullValue":""},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-","value":"fullWithLimit","nullValue":""}]},"expandedState":{"path":"metadata.expandedState","items":[{"viewport":"desktop","postfix":"-desktop","value":"state-expanded","nullValue":""},{"viewport":"mobile","postfix":"-mobile","value":"state-expanded","nullValue":""}]},"dacBtn":{"requirePath":true,"path":"dacBtn","items":[{"viewport":"no_viewport","value":"dacBtn bg-btn-color"}]},"responsive_size":{"requirePath":true,"items":[{"viewport":"mobile","prefix":"small-vw-"}]},"compactDisplay":{"path":"metadata.compactDisplay","items":[{"value":"compactDisplay"}]},"horizontalSubArticles":{"path":"metadata.horizontalSubArticles","items":[{"value":"horizontalSubArticles"}]},"subArticlesNextToFloatingImage":{"path":"metadata.subArticlesNextToFloatingImage","items":[{"value":"subArticlesNextToFloatingImage"}]},"subArticlesShowBulletIcons":{"path":"metadata.subArticlesShowBulletIcons","items":[{"value":"subArticlesShowBulletIcons"}]},"subimagePlacement":{"requirePath":false,"path":"metadata.subimagePlacement","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"placement-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-placement-"}]},"subimageSize":{"requirePath":false,"path":"metadata.subimageSize","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"size-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-size-"}]},"hasTextPadding":{"requirePath":true,"path":"text_background_color","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"],"value":"hasTextPadding"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"value":"mobile-hasTextPadding"}]},"hasTextPaddingCustom":{"requirePath":true,"path":"custom_text_background_color","items":[{"value":"hasTextPadding"},{"value":"mobile-hasTextPadding"}]},"hasContentPadding":{"path":"metadata.background_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"value":"hasContentPadding"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"value":"mobile-hasContentPadding"}]},"hasContentPaddingCustom":{"path":"metadata.custom_background_color","items":[{"value":"hasContentPadding"},{"value":"mobile-hasContentPadding"}]},"hasBorder":{"path":"metadata.border_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"value":"hasBorder"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"value":"mobile-hasBorder"}]},"hasBorderCustom":{"path":"metadata.custom_border_color","items":[{"value":"hasBorder"},{"value":"mobile-hasBorder"}]}},"collections":{"text_decoration":{"name":"text_decoration","definitions":["text_size","font_weight","bold","text_background_color","text_background_color_op","text_color","text_align","fontface","italic","underline","texttransform","strikethrough","text_shadow","animate","dacBtn","hasTextPadding","hasTextPaddingCustom"]},"text_decoration_inline_style":{"name":"text_decoration_inline_style","definitions":["custom_text_background_color","custom_text_color","custom_text_shadow"]},"section_decoration":{"name":"section_decoration","definitions":["style_preset","vertical_space_outside_top","vertical_space_outside_bottom"]},"box_decoration":{"name":"box_decoration","definitions":["float","pull_up","vertical_align","vertical_align_content","css_style","style_preset","vertical_space_outside_top","vertical_space_outside_bottom","vertical_space_inside_top","vertical_space_inside_bottom","expandedState","compactDisplay","horizontalSubArticles","subArticlesNextToFloatingImage","subArticlesShowBulletIcons"]},"box_fullWidth":{"name":"box_fullWidth","definitions":["fullWidth","fullWidthLimit"]},"content_decoration":{"name":"content_decoration","definitions":["background_color","background_opacity","background_gradient","border_color","border_side","border_width","border_radius","rounded_image_edge","rounded_image","image_gradient","image_gradient_opacity","content_text_align","content_vertical_text_align","hasContentPadding","hasContentPaddingCustom","hasBorder","hasBorderCustom"]},"content_inline_style":{"name":"content_inline_style","definitions":["custom_background_color","custom_background_color_L3","custom_border_color"]},"content_inline_spacing":{"name":"content_inline_spacing","definitions":["spacing_inner_top","spacing_inner_right","spacing_inner_bottom","spacing_inner_left","spacing_outer_top","spacing_outer_right","spacing_outer_bottom","spacing_outer_left"]},"subimage":{"name":"subimage","definitions":["subimagePlacement","subimageSize"]}},"copyDefinitions":[{"definition":"text_size","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"font_weight","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"text_background_color","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"text_background_color_op","data":[{"path":"fields.title"}]},{"definition":"text_color","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"text_align","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"fontface","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"italic","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"underline","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"texttransform","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"strikethrough","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"animate","data":[{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"custom_text_shadow","data":[{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"text_shadow","data":[{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"custom_text_color","data":[{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"custom_text_background_color","data":[{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"css_style"},{"definition":"style_preset"},{"definition":"background_color"},{"definition":"custom_background_color"},{"definition":"background_opacity"},{"definition":"background_gradient"},{"definition":"image_gradient"},{"definition":"border_color"},{"definition":"border_side"},{"definition":"border_width"},{"definition":"border_radius"},{"definition":"rounded_image_edge"},{"definition":"rounded_image"},{"definition":"layout"},{"definition":"shadow"},{"definition":"fitContent"},{"definition":"metadata_text_color"},{"definition":"hover_bg_color"},{"definition":"hover_text_color"},{"definition":"hover_border_color"},{"definition":"image_overlay"},{"definition":"image_overlay_opacity"},{"definition":"image_gradient_opacity"},{"definition":"float"},{"definition":"pull_up"},{"definition":"content_text_align"},{"definition":"content_vertical_text_align"},{"definition":"vertical_align"},{"definition":"vertical_space_outside_top"},{"definition":"vertical_space_outside_bottom"},{"definition":"vertical_space_inside_top"},{"definition":"vertical_space_inside_bottom"},{"definition":"spacing_outer_top","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_outer_right","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_outer_bottom","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_outer_left","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_inner_top","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_inner_right","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_inner_bottom","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_inner_left","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"targets":["article","articleHeader"],"data":[{"path":"metadata.image_gradient_direction","values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"targets":["image"],"data":[{"path":"fields.bbRatio","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.whRatio","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.float","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.shapes","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.displayCaption"},{"path":"fields.expandableCaption"},{"path":"fields.truncateCaption"}]},{"targets":["article"],"data":[{"path":"fields.displayByline","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.displayVideoArticleOverlay","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.hideVideoArticleLabel","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.showSection","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.sectionPlacement"},{"path":"metadata.showTags","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.tagPlacement"},{"path":"metadata.subarticles","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.displayPublishedDate"}]},{"targets":["article","articleHeader"],"data":[{"path":"metadata.showKicker","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.kickerBelowImage","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.kickerBelowTitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.floatingKicker","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hideTitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.titleAboveImage","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.floatingTitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hidesubtitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.floatingSubtitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hideimage","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hasFullWidth","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hasFullWidthWithLimit","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.compactDisplay"},{"path":"metadata.horizontalSubArticles","values":{"no_viewport":null}},{"path":"metadata.subArticlesNextToFloatingImage","values":{"no_viewport":null}},{"path":"metadata.subArticlesShowBulletIcons","values":{"no_viewport":null}},{"path":"metadata.sub_hideImage","values":{"no_viewport":null}},{"path":"metadata.sub_hideTitle"},{"path":"metadata.sub_hideSubtitle"}]},{"targets":["row"],"data":[{"path":"metadata.hasRowTitle"},{"path":"metadata.vertical_align_content"},{"path":"metadata.isSection","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.text_background_color","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.text_color","values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"targets":["userFeedback","timeline"],"data":[{"path":"metadata.ui_color"},{"path":"metadata.ui_text_color"}]},{"targetPath":"bodytext/","data":[{"path":"width","values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"targets":["grid"],"data":[{"path":"fields.columnCount"},{"path":"fields.rowCount"},{"path":"fields.noSpace"}]},{"definition":"hasTextPadding","data":[{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.text"}]},{"definition":"hasContentPadding"},{"definition":"hasBorder"}],"presets":{}},"data":{"blacklist":["sub_content"],"blacklistOptions":{"sub_content":{"includeChildren":true}},"elements":{"text_singleline":{"fallbackData":{"contentdata":{"fields":{"elementType":"h2"}}}},"articleHeader":{"source":{"node":"page","keys":["fields.title","fields.subtitle","fields.kicker","fields.published","fields.modified","fields.created"]},"fallbackData":{"contentdata":{"fields":{"displayCaption":true}},"metadata":{"showKicker":true}}},"page_notice":{"fallbackData":{"contentdata":{"fields":{"uiColor":"bg-primary"}}}},"noticeHeader":{"source":{"node":"page"}},"bodytext":{"source":{"node":"page"}},"articleMeta":{"source":{"node":"page"}},"articleFooter":{"source":{"node":"page"}},"labradorSearch":{"fallbackData":{"contentdata":{"fields":{"hideSiteName":false,"hidePublishedDate":false,"hideSection":false,"displayAdvanced":false,"displaySites":true,"articleCount":20,"orderBy":"published"}},"metadata":{"ui_color":"bg-secondary"}}},"timeline":{"fallbackData":{"metadata":{"ui_color":"bg-primary","ui_text_color":"primary"}}},"livefeed":{"fallbackData":{"metadata":{"ui_color":"bg-primary"},"contentdata":{"fields":{"maxNoticesCount":20,"viewports_json":{"desktop":{"fields":{"visibleCount":3}},"mobile":{"fields":{"visibleCount":2}}}}}}},"image":{"fallbackData":{"metadata":{"bodyTextIndex":0,"subimagePlacement":{"desktop":"topright"}}}},"graphic":{"fallbackData":{"metadata":{"subimagePlacement":{"desktop":"topright"}}}},"articlesByTag":{"fallbackData":{"contentdata":{"fields":{"title":"","title_style_json":{"text_background_color":"bg-black"}}}}},"front_rows":{"fallbackData":{"contentdata":{"fields":{"fragment_json":{"start":0,"count":1}}}}},"buttonlink":{"fallbackData":{"metadata":{"background_color":"bg-primary","text_color":"white","border_color":"bg-primary"}}},"topcomments":{"fallbackData":{"contentdata":{"fields":{"iconLatest":"fi-clock","iconMostRead":"fi-book","articleCount":"5","days":"7"}}}},"factbox":{"fallbackData":{"metadata":{"expandedState":{"desktop":true}}}},"toplist":{"fallbackData":{"contentdata":{"fields":{"days":"7","layout":"vertical"}}}},"authorBox":{"fallbackData":{"contentdata":{"fields":{"layoutAuthor":"center"}}}},"articleList":{"fallbackData":{"contentdata":{"fields":{"imageLayout":"left","layout":"default"}}}},"article":{"fallbackData":{"metadata":{"sub_hideSubtitle":true}}}},"presets":{},"presetBlacklist":{"article":["article/"]}},"int_en-GB":{"dates":{"sunday":"sunday","monday":"monday","tuesday":"tuesday","wednesday":"wednesday","thursday":"thursday","friday":"friday","saturday":"saturday","january":"January","february":"February","march":"March","april":"April","may":"May","june":"June","july":"July","august":"August","september":"September","october":"October","november":"November","december":"December","ago":"ago","now":"now","minute":"minute","min":"min","minutes":"minutes","hour":"hour","hours":"hours","day":"day","days":"days","durationSince":"{{count}} {{period}} {{ago}}","monthdayyear":"{{D}} {{MMMM}} {{YYYY}}","hourminute":"{{HH}}:{{mm}}","dateTime":"{{D}} {{MMMM}} {{YYYY}} - {{HH}}:{{mm}}","articleScrollerPublishedDatePrefix":"","articleScrollerPublishedFormat":"{{DD}}.{{MM}} - {{HH}}:{{mm}}"},"newsletter":{"generic":{"signup":"Sign up for the newsletter","hiddenValue":"Signup from website","yourEmail":"Type your e-mail","subscribeButton":"Subscribe"},"mailmojo":{"title":"Newsletter","notice":"You are receiving this e-mail because you are subscribed to our e-mail list.","preferences":"Your settings","unsubscribe":"Unsubscribe","view":"Open in browser","date":"d. MMMM Y"}},"embed":{"embed_label":"Embed this","heading":"Embed article","description":"Copy and paste the HTML code below into the page where you want to embed this article.","label_teaser":"Preview","label_full":"Full article","label_copy":"Copy code","title_customize":"Customize embedded content","label_content_title":"Display title","label_content_subtitle":"Display subtitle","label_content_image":"Display main image","label_content_padding":"Padding","label_content_sitelink":"Display link to site","label_content_sitelinkLogo":"Display logo in link to site","label_content_poweredby":"Display 'Powered By' link","text_code_copied":"Copied!","close":"Close","page_sitelink_prefix":"Read more","page_sitelink_postfix":""},"ai":{"factbox_disclaimer":"This factbox was generated by Labrador AI and proof-read by a journalist."},"tags":{"title_text":"{{tagPath}}: {{ tag }}"},"search":{"placeholder":"Search...","label":"Search","openText":"Search","closeText":"Close","expandedLabel":"Close search","collapsedLabel":"Open search","labradorSearch":{"submitLabel":"Search","navLabel":"Display more","nohitsLabel":"No hits. Try modifying your search.","searchPlaceholder":"Type your search here ...","advancedOpenText":"Open filter","advancedCloseText":"Close filter","fromDateLabel":"From date","toDateLabel":"To date","tagLabel":"Tag","authorLabel":"Author","allSitesLabel":"All sites"}},"hamburger":{"expandedLabel":"Close menu","collapsedLabel":"Open menu","buttonText":"Menu"},"header":{"logo_link_text":"Go to frontpage","menuScrollerLeftButton":"Scroll left","menuScrollerRightButton":"Scroll right"},"slack_notifier":{"publish":{"article":"*Article published*\n*Title*: {{{title}}}\n*Page ID*: {{id}}\n{{#modified}}*Date*: {{modified}}\n{{/modified}}{{#published_ahead}}*Note: Published ahead*\n{{/published_ahead}}{{#hidden}}*Published hidden*\n{{/hidden}}*User*: {{user}}\n*<{{{url_front}}}|View page>* - *<{{{url_editor}}}|Edit page>*","front":"*Front page published*\n*Title*: {{{title}}}\n*Page ID*: {{id}}\n*Date*: {{modified}}\n{{#published_ahead}}*Note: Published ahead*\n{{/published_ahead}}{{#hidden}}*Published hidden*\n{{/hidden}}*User*: {{user}}\n*<{{{url_front}}}|View page>* - *<{{{url_editor}}}|Edit page>*","notice":"*Notice published*\n*Title*: {{{title}}}\n*Page ID*: {{id}}\n*Date*: {{modified}}{{#hidden}}*Published hidden*\n{{/hidden}}*User*: {{user}}\n*<{{{url_front}}}|View page>* - *<{{{url_editor}}}|Edit page>*"},"error":{"all":"*{{ #isCmsError }}CMS error{{ /isCmsError }}{{ ^isCmsError }}View error{{ /isCmsError }}*: {{{message}}}\n*Stack trace*: ```{{{stackTrace}}}```\n*User*: {{user}}\n*<{{{url_editor}}}|Edit page>* - *<{{{url_monitor}}}|Developer Monitor>*"}},"contentboxes":{"articleScrollerLeftButton":"Go left","articleScrollerRightButton":"Go right"},"metadata":{"publishedLabel":"Published","modifiedLabel":"Modified","unpublishedLabel":"Unpublished","readTimeLabel":"Read time"},"notice":{"relatedContent":{"header":"Related content"},"pinnedLabel":"Pinned"},"changelog":{"changelogLabel":"Changelog"},"paywall":{"shareableArticle":{"shareArticleButton":"Share article","trySubscriptionButton":"Try subscription","trySubscriptionLink":"-","messageTitle":"Thank you for sharing this article","messageBeforeSharing":"Your friend will be able to read the whole article","messageAfterSharing":"Your friend will now be able to read the whole article","bannerGuestReader":"You have access to the article because a friend shared it with you","shareByMail":"Mail","shareByMailSubject":"I want to share this article with you","shareByMailBody":"You can read this paywalled article by clicking this link","shareByFacebook":"Facebook","shareByCopy":"Copy link","sharedByCopy":"Link copied"},"piano":{"login":"Log in","logout":"Log out","myAccount":"My account"}},"emptyState":{"noContentText":"No content"},"image":{"caption":{"showCaptionLabel":"Show caption","hideCaptionLabel":"Hide caption","showMoreLabel":"Show more","showLessLabel":"Show less"},"videoOverlayLabel":"Video article"},"mostRead":{"labelLatest":"Latest","titleLatest":"Recent articles","labelMostRead":"Most read","titleMostRead":"Most read articles"},"infiniteScroll":{"readMore":"Continue reading"},"socialMedia":{"shareText":{"facebook":"Share on Facebook","twitter":"Share on X (Twitter)","linkedin":"Share on LinkedIn","mail":"Share by email","threads":"Share on Threads","copyLink":"Copy link","glimta":"Unlock with Glimta","talandeWebb":"Open Talande Webb option panel","bluesky":"Share on Bluesky","reddit":"Share on Reddit","whatsapp":"Share on WhatsApp"}},"weather":{"failedToFetch":"Could not fetch weather data","updated":"Updated","fetchingData":"Loading weather data","types":{"clearsky":"Clear sky","fair":"Fair","partlycloudy":"Partly cloudy","cloudy":"Cloudy","rainshowers":"Rain showers","rain":"Rain","snow":"Snow","sleet":"Sleet","thunder":"Thunder","fog":"Fog","wind":"Wind","unknown":"Unknown"}},"gallery":{"label":"Gallery","seeAllImages":"See all images","navigateToOriginal":"Navigate to original page"}}};
+const properties = {"content_settings/front/vp_data.json":{"viewportMap":{"presets":{"vp_data":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"},"attributes":"presets.vp_content_attributes.attributes"},"vp_content_attributes":{"attributes":{"font_weight":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"text_size":{"viewport":{"default":true}},"text_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"text_background_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"text_align":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"italic":{"viewport":{"default":true},"fallback":{"default":"desktop"}}}},"vp_metadata_attributes":{"attributes":{"bodyTextIndex":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"showKicker":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hideTitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"titleAboveImage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"floatingTitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"floatingSubtitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"subtitleAboveImage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hidesubtitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"kickerBelowImage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"kickerBelowTitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"floatingKicker":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hasFullWidth":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hasFullWidthWithLimit":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"background_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"gradient":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_overlay":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_overlay_opacity":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_gradient":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_gradient_opacity":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_gradient_direction":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"background_color_op":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hideimage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"rounded_image_edge":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"rounded_image":{"viewport":{"default":false},"fallback":{"default":"desktop"}},"spacing_outer_top":{"viewport":{"default":true}},"spacing_outer_right":{"viewport":{"default":true}},"spacing_outer_bottom":{"viewport":{"default":true}},"spacing_outer_left":{"viewport":{"default":true}},"spacing_inner_top":{"viewport":{"default":true}},"spacing_inner_right":{"viewport":{"default":true}},"spacing_inner_bottom":{"viewport":{"default":true}},"spacing_inner_left":{"viewport":{"default":true}},"pull_up":{"viewport":{"default":true}},"float":{"viewport":{"default":true}},"border_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_side":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_width":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_radius":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"subarticles":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"showSection":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"showTags":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"text_align":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"vertical_align":{"viewport":{"default":true}},"hideViewport":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"expandedState":{"viewport":{"default":true}},"displayNavigation":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"displayPreview":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}}}}},"width":{"viewport":{"default":true},"fallback":{"mailmojo":"desktop"}},"metadata":"presets.vp_metadata_attributes"}},"content/row/front/default.json":{"viewportMap":{"metadata":{"attributes":{"bodyTextIndex":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"hasFullWidth":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hasFullWidthWithLimit":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"background_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"background_color_op":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_side":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_width":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"vertical_align":{"viewport":{"default":true}},"isSection":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hideViewport":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"spaceOutsideTop":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"spaceOutsideBottom":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"spaceInsideTop":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"spaceInsideBottom":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"float":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"text_size":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"text_color":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"text_background_color":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"movableContent":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"collapsedContent":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"contentPosition":{"viewport":{"default":true},"fallback":{"no_viewport":false}}}}}},"content/columns/front/default.json":{},"content_settings/front/grid/default.json":{"gridRules":{"oddRule":{"condition":"odd","values":{"mobile":{"default":12}}},"evenRule":{"condition":"even","values":{"mobile":{"default":12}}}}},"content/article/front/default.json":{"viewportMap":{"fields":{"title":"presets.vp_content_attributes","subtitle":"presets.vp_content_attributes","kicker":"presets.vp_content_attributes","displayByline":"presets.vp_data","displayCaption":"presets.vp_data"}}},"content/image/front/default.json":{"boxTitle":"Media placeholder","boxDescription":"Add placeholder for media (images, videos, etc.)","viewHelper":"image","viewportMap":{"fields":{"x":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"y":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"cropw":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"croph":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"float":{"viewport":{"default":true}},"shapes":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"bbRatio":{"viewport":{"default":true}},"vpWidth":{"viewport":{"default":true}},"whRatio":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"height":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"width":{"viewport":{"default":true}}},"metadata":{"attributes":{"float":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"bodyTextIndex":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"hideViewport":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"hasFullWidth":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"zoomable":{"viewport":{"default":true},"fallback":{"default":"no_viewport","desktop":"no_viewport"}},"subimage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"subimagePlacement":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"subimageSize":{"viewport":{"default":true},"fallback":{"default":"desktop"}}}}}},"content/image/front/subImage.json":{"overrideImageSize":{"width":320}},"content/image/front/subImageMobile.json":{"overrideImageSize":{"width":103}},"content/notice/front/default.json":{"boxTitle":"Notice","viewHelper":"bodytext","bodytextElements":["p","h2","h3","h4","ul","ol","li"],"viewportMap":{"fields":{"title":"presets.vp_content_attributes"}}},"content/row/_resources.json":{"presentation":{"stage":{"lab-default":{"template":{"default":"content/row/template/default"},"properties":{"default":["content_settings/front/vp_data.json","content/row/front/default.json"]}}}}},"content/columns/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content/columns/front/default.json","content_settings/front/grid/default.json"]},"template":{"default":"content/columns/template/default"}}}}},"content/article/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content/article/front/default.json","content_settings/front/grid/default.json","content_settings/front/vp_data.json"]},"template":{"default":"content/article/template/default","partials":["content/article/template/partials/kicker","content/article/template/partials/subtitle","content/article/template/partials/title","partial/elements/paywallLabel"]}},"article//":{"template":{"default":"content/article/template/subarticle"}}}}},"content/image/_resources.json":{"presentation":{"stage":{"lab-default":{"template":{"default":"content/image/template/default","partials":["content/image/template/article","content/image/template/partials/caption_links","content/image/template/partials/caption","content/image/template/partials/img","content/image/template/partials/child"]},"properties":{"default":["content/image/front/default.json"]}},"article":{"template":{"default":"content/image/template/article"}},"image":{"properties":{"default":"content/image/front/subImage.json","mobile":"content/image/front/subImageMobile.json"}},"notice":{"template":{"default":"content/image/template/grid"}}}}},"content/notice/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content_settings/front/grid/default.json","content_settings/front/vp_data.json","content/notice/front/default.json"]},"template":{"default":"content/notice/template/default"}}}}},"content/adnuntiusAd/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content_settings/front/grid/default.json"]},"template":{"default":"content/adnuntiusAd/template/default"}}}}},"content/googleAd/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content_settings/front/grid/default.json"]},"template":{"default":"content/googleAd/template/default"}}}}}};
+const templates = {"content/row/template/default":"{{ #get.current.metadata.isSection }}\n<div data-element-guid=\"{{ get.current.guid }}\" class=\"{{ #helper.trim }}\nrow-section \n{{ #style.collection }}section_decoration{{ /style.collection }}\n{{ #style.collection }}content_decoration{{ /style.collection }}\n{{ #style.definition }}movableContainer metadata.movableContent{{ /style.definition }}\n{{ #style.definition }}movableElement metadata.movableContent{{ /style.definition }}\n{{ #style.definition }}collapsedContent metadata.collapsedContent{{ /style.definition }}\n{{ /helper.trim }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\">\n{{ /get.current.metadata.isSection }}\n<div {{ ^get.current.metadata.isSection }}data-element-guid=\"{{ get.current.guid }}\" {{ /get.current.metadata.isSection }}class=\"{{ #helper.trim }}\n    row\n    {{ size.grid.css }}\n    {{ #get.current.metadata.fullWidthContent }}fullWidthContent{{ /get.current.metadata.fullWidthContent }}\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #style.collection }}content_decoration{{ /style.collection }}\n    {{ #style.definition }}movableContainer metadata.movableContent{{ /style.definition }}\n    {{ #style.definition }}movableElement metadata.movableContent{{ /style.definition }}\n    {{ #style.definition }}collapsedContent metadata.collapsedContent{{ /style.definition }}\n    {{ #get.current.metadata.hasRowTitle }}has-row-header{{ /get.current.metadata.hasRowTitle }}\n    {{ #get.children.mediaContainer }}has-media-container{{ /get.children.mediaContainer }}\n    {{ /helper.trim }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\"{{ #get.current.metadata.sectionId }} id=\"{{ get.current.metadata.sectionId }}\"{{ /get.current.metadata.sectionId }}>{{ #get.current.metadata.hasRowTitle }}\n    {{ #get.current.metadata.rowTitleTag }}\n    <{{ get.current.metadata.rowTitleTag }} class=\"row_header_text large-12 small-12 {{ #style.collection }}text_decoration metadata{{ /style.collection }} {{ #style.definition }}text_align_row{{ /style.definition }}\">{{{ get.current.metadata.rowTitle }}}</{{ get.current.metadata.rowTitleTag }}>\n    {{ /get.current.metadata.rowTitleTag }}\n    {{ ^get.current.metadata.rowTitleTag }}\n    <h5 class=\"row_header_text large-12 small-12 {{ #style.collection }}text_decoration metadata{{ /style.collection }} {{ #style.definition }}text_align_row{{ /style.definition }}\">{{{ get.current.metadata.rowTitle }}}</h5>\n    {{ /get.current.metadata.rowTitleTag }}\n    {{ /get.current.metadata.hasRowTitle }}{{ #get.current.metadata.movableContent }}{{{ get.current.filtered.movableStyle }}}{{ /get.current.metadata.movableContent }}{{{ children.all }}}</div>\n{{ #get.current.metadata.isSection }}\n</div>\n{{ /get.current.metadata.isSection }}\n","content/columns/template/default":"<div data-element-guid=\"{{ get.current.guid }}\" class=\"columns {{ size.grid.css }} {{ size.grid.absCss }}\">{{{ children.all }}}</div>","content/article/template/default":"<article {{ #helper.trim }}\n    data-element-guid=\"{{ get.current.guid }}\"\n    class=\"column\n        {{ #style.collection }}box_decoration{{ /style.collection }}\n        {{ #get.current.filtered.paywall }}paywall{{ /get.current.filtered.paywall }}\n        {{ size.grid.css }}\n        {{ size.grid.absCss }}\n        {{ get.current.filtered.autodata_css }}\"\n    {{ #get.current.filtered.autodata_attributes }} {{ key }}=\"{{ value }}\"{{ /get.current.filtered.autodata_attributes }} \n    data-site-alias=\"{{ get.current.filtered.site_alias }}\" \n    data-section=\"{{ get.current.filtered.section }}\" \n    data-instance=\"{{ get.current.instance_of }}{{ ^get.current.instance_of }}{{ get.current.id }}{{ /get.current.instance_of }}\" \n    {{ #get.child.image.fields.float }}data-image-float=\"{{ get.child.image.fields.float }}\"{{ /get.child.image.fields.float }}\n    itemscope\n    {{ /helper.trim }}>\n    {{{ get.current.filtered.styleSheets }}}\n    <div class=\"{{ #helper.trim }}\n        content\n        {{ #style.collection }}content_decoration{{ /style.collection }}\n        {{ #get.current.metadata.image_gradient_direction }}image-gradient-{{ get.current.metadata.image_gradient_direction }}{{ /get.current.metadata.image_gradient_direction }} \n        {{ #style.collection }}box_fullWidth{{ /style.collection }}\n        {{ /helper.trim }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\">\n        \n        {{#get.current.fields.published_url}}<a itemprop=\"url\"{{ #get.current.fields.open_in_new_window }} target=\"_blank\"{{ /get.current.fields.open_in_new_window }} class=\"\" href=\"{{{ get.current.fields.published_url }}}\" data-k5a-url=\"{{{ get.current.filtered.canonical_url }}}\" rel=\"{{ #get.current.filtered.addRelUgc }}ugc {{ /get.current.filtered.addRelUgc }}{{ #get.current.filtered.addRelSponsored }}sponsored {{ /get.current.filtered.addRelSponsored }}{{ #get.current.filtered.addRelNoFollow }}nofollow{{ /get.current.filtered.addRelNoFollow }}\">{{/get.current.fields.published_url}}\n\n        {{ #get.current.filtered.layout.top }}\n        {{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}\n        {{ /get.current.filtered.layout.top }}\n\n        <div class=\"media{{ #get.current.metadata.floatingTextSubset }} floatingTextSubset{{ /get.current.metadata.floatingTextSubset }} {{ #style.definition }}imageAlign child.image.fields.float{{ /style.definition }}{{ #get.current.fields.displayVideoArticleOverlay }} video-overlay{{ /get.current.fields.displayVideoArticleOverlay }}\">\n            {{^get.current.metadata.hideimage}}\n                {{{ placeholder.no_media }}}\n\n                {{{ child.image }}}\n                {{{ child.graphic }}}\n                {{{ child.slideshow }}}\n                {{{ child.youtube }}}\n                {{{ child.simplestream }}}\n                {{{ child.markup }}}\n                {{{ child.parallax }}}\n                {{{ child.grid }}}\n            \n            {{/get.current.metadata.hideimage}}\n            <div class=\"floatingText\">\n                {{ #get.current.filtered.layout.floating }}\n                {{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}\n                {{ /get.current.filtered.layout.floating }}\n\n                <div class=\"labels\">\n                    {{ #get.current.filtered.autodata_custom.labels }}\n                    <div class=\"label\" data-label-key=\"{{ key }}\" data-label-value=\"{{ value }}\"><span class=\"label-value\">{{ value }}</span></div>\n                    {{ /get.current.filtered.autodata_custom.labels }}\n                    {{ #get.current.filtered.sectionPlacement.floating }}\n                        {{ #get.current.metadata.showSection }}\n                            {{ #get.current.filtered.section }}<p itemprop=\"section\" class=\"section\" data-tag=\"{{ get.current.filtered.section }}\">{{ get.current.filtered.section }}</p>{{ /get.current.filtered.section }}\n                        {{ /get.current.metadata.showSection }}\n                    {{ /get.current.filtered.sectionPlacement.floating }}\n                </div>\n            </div>\n            {{ #get.current.metadata.enableAudio }}{{ #render.template }}content/article/template/partials/audio{{ /render.template }}{{ /get.current.metadata.enableAudio }}\n            {{ #get.current.filtered.paywallLabel }}{{> partial/elements/paywallLabel }}{{ /get.current.filtered.paywallLabel }}\n\n            {{ #get.current.fields.displayVideoArticleOverlay }}\n                {{ ^get.current.fields.hideVideoArticleLabel }}<p class=\"video-overlay-label\">{{ #lang }}image.videoOverlayLabel{{ /lang }}</p>{{ /get.current.fields.hideVideoArticleLabel }}\n            {{ /get.current.fields.displayVideoArticleOverlay }}\n        </div>\n        {{ #get.current.fields.displayCaption }}\n            <div class=\"caption {{ #helper.trim }}\n                {{ #app.isEditor }}expanded{{ /app.isEditor }}\n                {{ #get.current.fields.truncateCaption }}truncate{{ /get.current.fields.truncateCaption }}\n                {{ ^get.current.fields.truncateCaption }}\n                    {{ #get.child.image.fields.truncateCaption }}truncate{{ /get.child.image.fields.truncateCaption }}\n                {{ /get.current.fields.truncateCaption }}\n                {{ /helper.trim }}\" data-showmore=\"{{ #lang }}image.caption.showMoreLabel{{ /lang }}\"{{ #get.child.image.filtered.captionOptions.expandable }} data-expandable=\"true\" data-showcaption=\"{{ #lang }}image.caption.showCaptionLabel{{ /lang }}\" data-hidecaption=\"{{ #lang }}image.caption.hideCaptionLabel{{ /lang }}\"{{ /get.child.image.filtered.captionOptions.expandable }}>\n                <figcaption itemprop=\"caption\" class=\"{{ #style.collection }}text_decoration child.image.fields.imageCaption{{ /style.collection }}\">{{ #helper.stripLinks }}{{ #get.child.image.fields.globalCaption }}{{{ get.child.image.fields.globalCaption }}}{{ /get.child.image.fields.globalCaption }}{{ ^get.child.image.fields.globalCaption }}{{{ get.child.image.fields.imageCaption }}}{{ /get.child.image.fields.globalCaption }}{{ /helper.stripLinks }}</figcaption>\n                <figcaption itemprop=\"author\" class=\"{{ #style.collection }}text_decoration child.image.fields.byline{{ /style.collection }}\" data-byline-prefix=\"{{{ getConfig.image.imageBylinePrefix }}}\">{{ #helper.stripLinks }}{{{ get.child.image.fields.byline }}}{{ /helper.stripLinks }}</figcaption>\n            </div>\n        {{ /get.current.fields.displayCaption }}\n\n        {{ #get.current.metadata.vertical_text_align }}\n            <div class=\"vertically-aligned-text\">\n        {{ /get.current.metadata.vertical_text_align }}\n            {{ #get.current.filtered.paywallLabel }}{{> partial/elements/paywallLabel }}{{ /get.current.filtered.paywallLabel }}\n\n            {{ #get.current.filtered.sectionPlacement.underImage }}\n                {{ #get.current.metadata.showSection }}\n                    {{ #get.current.filtered.section }}<p itemprop=\"section\" class=\"section\" data-tag=\"{{ get.current.filtered.section }}\">{{ get.current.filtered.section }}</p>{{ /get.current.filtered.section }}\n                {{ /get.current.metadata.showSection }}\n            {{ /get.current.filtered.sectionPlacement.underImage }}\n        \n            {{ #get.current.filtered.tagPlacement.underImage }}\n                {{ #get.current.metadata.showTags }}\n                <div itemprop=\"tags\" class=\"tags\">{{#get.current.filtered.tags}}\n                    <span itemprop=\"tag\" class=\"tag\" data-tag=\"{{ . }}\">{{.}}</span>\n                {{/get.current.filtered.tags}}</div>\n                {{ /get.current.metadata.showTags }}\n            {{ /get.current.filtered.tagPlacement.underImage }}\n            {{ #get.current.filtered.layout.bottom }}\n            {{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}\n            {{ /get.current.filtered.layout.bottom }}\n\n            {{ #get.current.filtered.sectionPlacement.underText }}\n                {{ #get.current.metadata.showSection }}\n                    {{ #get.current.filtered.section }}<p itemprop=\"section\" class=\"section\" data-tag=\"{{ get.current.filtered.section }}\">{{ get.current.filtered.section }}</p>{{ /get.current.filtered.section }}\n                {{ /get.current.metadata.showSection }}\n            {{ /get.current.filtered.sectionPlacement.underText }}\n        \n            {{ #get.current.filtered.tagPlacement.underText }}\n                {{ #get.current.metadata.showTags }}\n                <div itemprop=\"tags\" class=\"tags under-text\">{{#get.current.filtered.tags}}\n                    <span itemprop=\"tag\" class=\"tag\" data-tag=\"{{ . }}\">{{.}}</span>\n                {{/get.current.filtered.tags}}</div>\n                {{ /get.current.metadata.showTags }}\n            {{ /get.current.filtered.tagPlacement.underText }}\n\n        {{ #get.current.metadata.vertical_text_align }}\n            </div>\n        {{ /get.current.metadata.vertical_text_align }}\n\n        {{ #get.current.filtered.displayByline }}\n        <div class=\"bylines\">{{ #get.current.filtered.bylines }}\n            <div class=\"byline column\" itemscope=\"\" itemtype=\"http://schema.org/Person\">\n                <div class=\"content\">\n                    {{ #imageUrl}}\n                    <figure>\n                        <img itemprop=\"image\" src=\"{{{ imageUrl}}}\">\n                    </figure>\n                    {{ /imageUrl}}\n                    <address class=\"name\">{{{ firstname }}} {{{ lastname }}}{{ #getConfig.contentbox_settings.article.show_byline_description }}{{ #description}}, <span class=\"author-description\">{{{ description }}}</span>{{ /description}}{{ /getConfig.contentbox_settings.article.show_byline_description }}</address>\n                </div>\n            </div>\n        {{ /get.current.filtered.bylines }}\n        {{ #get.current.filtered.displayPublishedDate }}\n            <div class=\"article-published-wrapper\">\n                <p class=\"article-published-date\">{{{ get.current.filtered.publishedDate }}}</p>\n            </div>\n        {{ /get.current.filtered.displayPublishedDate }}\n        </div>\n        {{ /get.current.filtered.displayByline}}\n\n        {{ ^get.current.filtered.displayByline}}\n            {{ #get.current.filtered.displayPublishedDate }}\n                <div class=\"article-published-wrapper\">\n                    <p class=\"article-published-date\">{{{ get.current.filtered.publishedDate }}}</p>\n                </div>\n            {{ /get.current.filtered.displayPublishedDate }}\n        {{ /get.current.filtered.displayByline}}\n\n        {{#get.current.fields.published_url}}</a>{{/get.current.fields.published_url}}\n\n        {{ #get.current.metadata.subarticles }}\n            <p class=\"subarticlesTitle bold {{ #style.collection }}text_decoration fields.subarticlesTitle{{ /style.collection }}\" style=\"margin: 0.6em 0 0;\">{{{ get.current.fields.subarticlesTitle }}}</p>\n            <ul class=\"relatedArticles\">{{ #children.article[]+ }}\n            {{{ . }}}\n            {{ /children.article[]+ }}</ul>\n        {{ /get.current.metadata.subarticles }}\n        <time itemprop=\"datePublished\" datetime=\"{{ get.current.filtered.published }}\"></time>\n    </div>\n</article>\n","content/article/template/partials/kicker":"<div {{ #get.current.fields.kicker[animate] }}data-content=\"{{ #helper.sanitizeString }}{{{ get.current.filtered.kicker }}}{{ /helper.sanitizeString }}\"{{ /get.current.fields.kicker[animate] }}\nstyle=\"{{ #style.collection }}text_decoration_inline_style fields.kicker{{ /style.collection }}\"\nclass=\"kicker {{ get.current.filtered.layout.positions.kicker }} {{ #style.collection }}text_decoration fields.kicker{{ /style.collection }}\">\n{{{ get.current.filtered.kicker }}}\n</div>","content/article/template/partials/subtitle":"<p itemprop=\"description\" \n    class=\"subtitle {{ #style.collection }}text_decoration fields.subtitle{{ /style.collection }}{{ #get.current.metadata.subtitleAboveImage }} subtitleAboveImage{{ /get.current.metadata.subtitleAboveImage }}\"\n    style=\"{{ #style.collection }}text_decoration_inline_style fields.subtitle{{ /style.collection }}\"\n    {{ #get.current.fields.kicker[animate] }}data-content=\"{{ #helper.sanitizeString }}{{{ get.current.filtered.kicker }}}{{ /helper.sanitizeString }}\"{{ /get.current.fields.kicker[animate] }}>\n    {{{ get.current.filtered.subtitle }}}\n</p>\n","content/article/template/partials/title":"<h2 itemprop=\"headline\" \n    class=\"headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}\"\n    style=\"{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}\"\n    {{ #get.current.fields.title[animate] }}data-content=\"{{ #helper.sanitizeString }}{{{ get.current.filtered.title }}}{{ /helper.sanitizeString }}\"{{ /get.current.fields.title[animate] }}>{{{ get.current.filtered.title }}}\n</h2>","partial/elements/paywallLabel":"<div class=\"paywallLabel{{ #layout.noImage }} no-image{{ /layout.noImage }} {{ get.current.metadata.paywallLabelPosition }}{{ ^get.current.metadata.paywallLabelPosition }} {{ layout.float }}{{ /get.current.metadata.paywallLabelPosition }}\">{{ ^get.current.filtered.paywallLabel.hideLabelIcon }}{{ #icon.content }}<span class=\"{{ icon.content }}\"></span> {{/icon.content }}{{ /get.current.filtered.paywallLabel.hideLabelIcon }}{{ ^get.current.filtered.paywallLabel.hideLabelText }}{{ text.content }}{{ /get.current.filtered.paywallLabel.hideLabelText }}</div>\n","content/article/template/subarticle":"<li id=\"article-{{ get.current.id }}\" class=\"column\" itemtype=\"http://schema.org/NewsArticle\" itemscope=\"\">\n    <a itemprop=\"url\" href=\"{{ get.current.fields.published_url }}\" data-k5a-url=\"{{{ get.current.filtered.canonical_url }}}\">\n        {{ ^get.parent.metadata.sub_hideImage }}\n        {{{ children.image[0] }}}\n        {{ /get.parent.metadata.sub_hideImage }}\n        <div class=\"text\">\n            {{ ^get.parent.metadata.sub_hideTitle }}\n            <h5 itemprop=\"name headline\" class=\"subarticle {{ #style.collection }}text_decoration fields.title{{ /style.collection }}\">{{{ get.current.fields.title }}}</h5>\n            {{ /get.parent.metadata.sub_hideTitle }}\n            {{ ^get.parent.metadata.sub_hideSubtitle }}\n            <p class=\"subarticle {{ #style.collection }}text_decoration fields.subtitle{{ /style.collection }}\">{{{ get.current.fields.subtitle }}}</p>\n            {{ /get.parent.metadata.sub_hideSubtitle }}\n        </div>\n    </a>\n</li>\n","content/image/template/default":"<figure data-element-guid=\"{{ get.current.guid }}\" class=\"{{#helper.trim}}\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #get.current.filtered.hasFloat }}{{ #style.definition }}responsive_size fields.vpWidth{{ /style.definition }}{{ /get.current.filtered.hasFloat }}\n    {{ #style.definition }}imageBorder fields.border{{ /style.definition }}\n    {{ #style.definition }}imageAlign fields.float{{ /style.definition }}\n    {{ get.current.filtered.imageLoadingClass }}\n    {{/helper.trim}}\" {{ #get.current.filtered.hasFloat }}{{ ^get.current.fields.vpWidth }}style=\"width:{{ get.current.filtered.imageWidth }}px;\"{{ /get.current.fields.vpWidth }}{{ /get.current.filtered.hasFloat }}>\n    <div class=\"img{{ #get.current.filtered.allowFullwidth }} fullwidthTarget{{ /get.current.filtered.allowFullwidth }} {{ #style.collection }}content_decoration{{ /style.collection }}\">\n        {{ > content/image/template/partials/img }}\n        {{ > content/image/template/partials/shapes }}\n    </div>\n    {{ ^get.parent.filtered.layout.floating }} {{ #get.current.filtered.captionOptions.display }}\n    {{ > content/image/template/partials/caption }}\n    {{ /get.current.filtered.captionOptions.display }} {{ /get.parent.filtered.layout.floating }}\n</figure>\n","content/image/template/article":"<figure data-element-guid=\"{{ get.current.guid }}\" class=\"{{#helper.trim}}\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #get.current.filtered.hasFloat }}{{ #style.definition }}responsive_size fields.vpWidth{{ /style.definition }}{{ /get.current.filtered.hasFloat }}\n    {{ #style.definition }}imageBorder fields.border{{ /style.definition }}\n    {{ #style.definition }}imageAlign fields.float{{ /style.definition }}\n    {{ get.current.filtered.imageLoadingClass }}\n    {{/helper.trim}}\" {{ #get.current.filtered.hasFloat }}{{ ^get.current.fields.vpWidth }}style=\"width:{{ get.current.filtered.imageWidth }}px;\"{{ /get.current.fields.vpWidth }}{{ /get.current.filtered.hasFloat }}>\n    <div class=\"img fullwidthTarget\">\n        {{ > content/image/template/partials/img }}\n        {{ > content/image/template/partials/shapes }}\n    </div>\n    {{ #get.parent.metadata.image_overlay }}<div class=\"imageOverlay {{ get.parent.metadata.image_overlay }} {{ get.parent.metadata.image_overlay_opacity }}\"></div>{{ /get.parent.metadata.image_overlay }}\n    {{ > content/image/template/partials/child }}\n</figure>\n","content/image/template/partials/caption_links":"<div class=\"caption {{ #helper.trim }}\n    {{ #app.isEditor }}expanded{{ /app.isEditor }}\n    {{ #get.parent.fields.truncateCaption }}truncate{{ /get.parent.fields.truncateCaption }}\n    {{ ^get.parent.fields.truncateCaption }}\n        {{ #get.current.fields.truncateCaption }}truncate{{ /get.current.fields.truncateCaption }}\n    {{ /get.parent.fields.truncateCaption }}\n    {{ /helper.trim }}\" data-showmore=\"{{ #lang }}image.caption.showMoreLabel{{ /lang }}\"{{ #get.current.filtered.captionOptions.expandable }} data-expandable=\"true\" data-showcaption=\"{{ #lang }}image.caption.showCaptionLabel{{ /lang }}\" data-hidecaption=\"{{ #lang }}image.caption.hideCaptionLabel{{ /lang }}\"{{ /get.current.filtered.captionOptions.expandable }}>\n    <figcaption itemprop=\"caption\" class=\"{{ #style.collection }}text_decoration fields.imageCaption{{ /style.collection }}\">{{{ get.current.fields.imageCaption }}}</figcaption>\n    <figcaption itemprop=\"author\" class=\"{{ #style.collection }}text_decoration fields.byline{{ /style.collection }}\" data-byline-prefix=\"{{{ getConfig.image.imageBylinePrefix }}}\">{{{ get.current.fields.byline }}}</figcaption>\n</div>","content/image/template/partials/caption":"<div class=\"caption {{ #helper.trim }}\n    {{ #app.isEditor }}expanded{{ /app.isEditor }}\n    {{ #get.parent.fields.truncateCaption }}truncate{{ /get.parent.fields.truncateCaption }}\n    {{ ^get.parent.fields.truncateCaption }}\n        {{ #get.current.fields.truncateCaption }}truncate{{ /get.current.fields.truncateCaption }}\n    {{ /get.parent.fields.truncateCaption }}\n    {{ /helper.trim }}\" data-showmore=\"{{ #lang }}image.caption.showMoreLabel{{ /lang }}\"{{ #get.current.filtered.captionOptions.expandable }} data-expandable=\"true\" data-showcaption=\"{{ #lang }}image.caption.showCaptionLabel{{ /lang }}\" data-hidecaption=\"{{ #lang }}image.caption.hideCaptionLabel{{ /lang }}\"{{ /get.current.filtered.captionOptions.expandable }}>\n    <figcaption itemprop=\"caption\" class=\"{{ #style.collection }}text_decoration fields.imageCaption{{ /style.collection }}\">{{ #get.parent.fields.globalCaption }}{{{ get.parent.fields.globalCaption }}}{{ /get.parent.fields.globalCaption }}{{ ^get.parent.fields.globalCaption }}{{{ get.current.fields.imageCaption }}}{{ /get.parent.fields.globalCaption }}</figcaption>\n    <figcaption itemprop=\"author\" class=\"{{ #style.collection }}text_decoration fields.byline{{ /style.collection }}\" data-byline-prefix=\"{{{ getConfig.image.imageBylinePrefix }}}\">{{{ get.current.fields.byline }}}</figcaption>\n</div>","content/image/template/partials/img":"<picture>\n    {{ #get.current.filtered.viewport_list.desktop.formats }}\n    <source srcset=\"{{{ get.current.filtered.viewport_list.desktop.url }}}&format={{ format }}\" \n        width=\"{{{ get.current.filtered.viewport_list.desktop.width }}}\"\n        height=\"{{{ get.current.filtered.viewport_list.desktop.height }}}\"\n        media=\"(min-width: 768px)\"\n        type=\"{{{ type }}}\">    \n    {{ /get.current.filtered.viewport_list.desktop.formats }}\n    {{ #get.current.filtered.viewport_list.mobile.formats }}\n    <source srcset=\"{{{ get.current.filtered.viewport_list.mobile.url }}}&format={{ format }}\" \n        width=\"{{{ get.current.filtered.viewport_list.mobile.width }}}\"\n        height=\"{{{ get.current.filtered.viewport_list.mobile.height }}}\"\n        media=\"(max-width: 767px)\"\n        type=\"{{{ type }}}\">    \n    {{ /get.current.filtered.viewport_list.mobile.formats }}\n    <img src=\"{{{ get.current.filtered.viewport_list.mobile.url }}}&format=jpg\"\n        width=\"{{{ get.current.filtered.viewport_list.mobile.width }}}\"\n        height=\"{{{ get.current.filtered.viewport_list.mobile.height }}}\"\n        title=\"{{ #helper.sanitizeString }}\n        {{ #getConfig.image.showBylineAsTitle }}{{{ get.current.fields.byline }}}{{ /getConfig.image.showBylineAsTitle }}\n        {{ ^getConfig.image.showBylineAsTitle }}{{{ get.current.filtered.captionOptions.title }}}{{ /getConfig.image.showBylineAsTitle }}\n        {{ /helper.sanitizeString }}\"\n        alt=\"{{ #helper.sanitizeString }}{{ #get.current.fields.altText }}{{{ get.current.fields.altText }}}{{ /get.current.fields.altText }}{{ /helper.sanitizeString }}\" \n        {{ #get.current.filtered.lazyloadImages }}loading=\"lazy\"{{ /get.current.filtered.lazyloadImages }}\n        {{ #app.isEditor }}\n        class=\"{{ #helper.getEditorLoadingClass }}{{ /helper.getEditorLoadingClass }}\"\n        style=\"{{ #helper.getEditorLoadingStyle }}{{ /helper.getEditorLoadingStyle }} {{{ get.current.filtered.filters }}}\"    \n        {{ /app.isEditor }}\n        {{ ^app.isEditor }}\n        style=\"{{{ get.current.filtered.filters }}}\"    \n        {{ /app.isEditor }}>\n</picture>","content/image/template/partials/child":"{{ #get.current.metadata.subimage }}\n    {{ #app.isEditor }}\n    <div class=\"imageChildren {{ #style.collection }}subimage{{ /style.collection }}\">{{{ children.all }}}</div>\n    {{ /app.isEditor }}\n    {{ #app.isFront }}{{ #children.all[0] }}\n    <div class=\"imageChildren {{ #style.collection }}subimage{{ /style.collection }}\">{{{ children.all }}}</div>\n    {{ /children.all[0] }}{{ /app.isFront }}\n{{ /get.current.metadata.subimage }}\n","content/image/template/grid":"<figure data-element-guid=\"{{ get.current.guid }}\"{{ #get.current.metadata.zoomable }} data-zoomable=\"1\"{{ /get.current.metadata.zoomable }} class=\"{{#helper.trim}}\n    column\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #style.collection }}box_fullWidth{{ /style.collection }}\n    {{ size.grid.css }}\n    {{ size.grid.absCss }}\n    {{ get.current.filtered.borderClass }}\n    {{ get.current.filtered.imageLoadingClass }}\n    {{/helper.trim}}\">\n    {{{ get.current.filtered.styleSheets }}}\n    <div class=\"content {{ #style.collection }}content_decoration{{ /style.collection }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\">\n        {{^get.current.instance_of}}\n                {{ > content/image/template/placeholder }}\n        {{/get.current.instance_of}}\n        {{#get.current.instance_of}}\n\n        <div class=\"img fullwidthTarget\">\n            {{ > content/image/template/partials/img }}\n            {{ > content/image/template/partials/shapes }}\n        </div>\n        {{ #get.current.filtered.captionOptions.displayDefault }}\n        {{ > content/image/template/partials/caption_links }}\n        {{ /get.current.filtered.captionOptions.displayDefault }}\n        {{/get.current.instance_of}}\n    </div>\n</figure>\n","content/notice/template/default":"<div class=\"notice column\n  {{ #style.collection }}box_decoration{{ /style.collection }}\" id=\"notice-{{ get.current.id }}\" data-tags=\"{{{ get.current.tags }}}\">\n    <div class=\"content {{ #style.collection }}content_decoration{{ /style.collection }}\" title=\"{{{ get.current.fields.title }}}\">\n        <h2><a href=\"/notice/{{ get.current.id }}\">{{{ get.current.fields.title }}}</a></h2>\n        <div class=\"meta\">\n            <time class=\"fi-clock\" datetime=\"{{ get.current.filtered.isoDate }}\" title=\"{{ get.current.filtered.publishedDate }}\">{{ get.current.filtered.niceDate }}</time>\n            {{ #get.current.fields.userName }}<span class=\"author fi-torsos\">{{{ get.current.fields.userName }}}</span>{{ /get.current.fields.userName }}\n            {{ #get.current.fields.pinned }}{{ ^get.parent.metadata.hidePinIcon }} <span class=\"pinned fi-marker\"> {{ #lang }}notice.pinnedLabel{{ /lang }}</span>{{ /get.parent.metadata.hidePinIcon }}{{ /get.current.fields.pinned }}\n        </div>\n        <div class=\"text bodytext\">{{{ get.current.filtered.bodytext }}}</div>\n    </div>\n</div>","content/adnuntiusAd/template/default":"{{ ^get.current.filtered.hideOnTablet }}\n\n<div class=\"{{ #helper.trim }}\n    column\n    adnuntius-ad\n    {{ get.current.fields.css }}\n    {{ ^get.current.metadata.isBodytext }}\n    {{ size.grid.css }}\n    {{ /get.current.metadata.isBodytext }}\n    {{ get.current.metadata.css }}\n    {{ #get.current.filtered.isDebug }}adnuntius-ad-debug{{ /get.current.filtered.isDebug }}\n    {{ /helper.trim }}\" {{ #get.current.filtered.isDebug }}data-ad-format=\"{{{ get.current.fields.format }}}\" data-ad-size=\"{{ get.current.filtered.adData.width }}x{{ get.current.filtered.adData.height }}\"{{ /get.current.filtered.isDebug }}style=\"{{get.current.filtered.spacingTop}}{{ #get.current.metadata.style }} {{{ get.current.metadata.style }}}{{ /get.current.metadata.style }}\" data-element-guid=\"{{ get.current.guid }}\">\n    {{ #app.isEditor }}\n    <div class=\"ad-editor-preview adnuntius-ad-content\" style=\"width:{{ get.current.filtered.adData.width }}px; height:{{ get.current.filtered.adData.height }}px;\" title=\"{{ get.current.fields.format }}\">\n        <h4>Adnuntius-ad</h4>\n        Format: <strong>{{ get.current.fields.format }}</strong><br>\n        size: <strong>{{ get.current.filtered.adData.width }}x{{ get.current.filtered.adData.height }}</strong>\n    </div>\n    {{ /app.isEditor }}\n    {{ ^app.isEditor }}\n    <div id=\"adn-{{{ get.current.filtered.adData.auId }}}\" {{ #get.current.metadata.defaultHeight }}style=\"display:block;height:{{get.current.metadata.defaultHeight}}px;\"{{ /get.current.metadata.defaultHeight }}{{ ^get.current.metadata.defaultHeight }}style=\"display:none;\"{{ /get.current.metadata.defaultHeight }} class=\"adnuntius-ad-content\">\n        <span class=\"ad-label\">{{ get.current.filtered.label }}</span>\n    </div>\n    {{ /app.isEditor }}\n</div>\n\n{{ /get.current.filtered.hideOnTablet }}\n","content/googleAd/template/default":"{{ ^get.current.filtered.hideOnTablet }}\n<div data-element-guid=\"{{ get.current.guid }}\" class=\"{{ #helper.trim }}\n    column\n    google-ad\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ ^get.current.metadata.isBodytext }}\n    {{ size.grid.css }}\n    {{ size.grid.absCss }}\n    {{ /get.current.metadata.isBodytext }}\n    {{ get.current.fields.css }}\n    {{ get.current.metadata.css }}\n    {{ #get.current.filtered.isDebug }}adnuntius-ad-debug{{ /get.current.filtered.isDebug }}\n    {{ /helper.trim }}\" {{ #get.current.filtered.isDebug }}data-ad-format=\"{{{ get.current.fields.format }}}\"{{ /get.current.filtered.isDebug }} style=\"{{get.current.filtered.spacingTop}}{{ #get.current.metadata.style }} {{{ get.current.metadata.style }}}{{ /get.current.metadata.style }}\">\n\n    {{ #app.isEditor }}\n    <div class=\"ad-editor-preview\" title=\"{{ get.current.fields.format }}\">\n        <h4>Google-ad</h4>\n        Format: <strong>{{ get.current.fields.format }}</strong>\n    </div>\n    {{ /app.isEditor }}\n    {{ ^app.isEditor }}\n    {{ #get.current.filtered.googleAds.bidding.enabled }}\n        {{ #get.current.filtered.googleAds.bidding.provider.name }}\n            <span class=\"ad-label\">{{ get.current.filtered.label }}</span>\n            {{ #render.template }}content/googleAd/template/{{ get.current.filtered.googleAds.bidding.provider.name}}{{ /render.template }}\n        {{ /get.current.filtered.googleAds.bidding.provider.name }}\n    {{ /get.current.filtered.googleAds.bidding.enabled }}\n    {{ ^get.current.filtered.googleAds.bidding.enabled }}\n        <span class=\"ad-label\">{{ get.current.filtered.label }}</span>\n        <div class=\"adunit\" id=\"{{{ get.current.filtered.adData.code }}}\" {{ #get.current.metadata.defaultHeight }}style=\"min-height:{{ get.current.metadata.defaultHeight }}px;\"{{ /get.current.metadata.defaultHeight }}></div>\n        <script>\n            googletag.cmd.push(function() {\n                googletag.display('{{{ get.current.filtered.adData.code }}}');\n            });\n        </script>\n        {{ #get.current.metadata.options.refresh }}\n        <script type=\"module\">\n            const data = labClientAPI.get('adData') || [];\n            data.push({\n                format: '{{ get.current.fields.format }}',\n                code: '{{ get.current.filtered.adData.code }}',\n                interval: {{ get.current.metadata.options.interval }},\n                index: {{ get.current.metadata.options.index }},\n                preloadIndex: {{ get.current.metadata.options.preloadIndex }}\n            });\n            labClientAPI.set('adData', data);\n        </script>\n        {{ /get.current.metadata.options.refresh }}\n    {{ /get.current.filtered.googleAds.bidding.enabled }}\n    {{ /app.isEditor }}\n</div>\n{{ /get.current.filtered.hideOnTablet }}"};
 
 
 /***/ }),
@@ -316,7 +316,7 @@ __webpack_require__.r(__webpack_exports__);
             return;
         }
         const dynamicData = new _lib_helpers_dynamic_DynamicDataHelper_js__WEBPACK_IMPORTED_MODULE_0__.DynamicDataHelper(this.api);
-        const clientSidePlacements = dynamicData.insert(this.api.v1.viewport.getName());
+        const { clientSidePlacements = [] } = dynamicData.insert(this.api.v1.viewport.getName());
         if (clientSidePlacements.length > 0 && !rootModel.get('fields.hideAds')) {
             // The head-template will use this data to render the placements client side using the script ClientAds.js.
             rootModel.setFiltered('clientSidePlacements', JSON.stringify(clientSidePlacements));
@@ -398,6 +398,109 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./modules/apps/AddComment.js":
+/*!************************************!*\
+  !*** ./modules/apps/AddComment.js ***!
+  \************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   AddComment: () => (/* binding */ AddComment)
+/* harmony export */ });
+class AddComment {
+
+    constructor(api, menuItem) {
+        this.api = api;
+        this.menuItem = menuItem;
+        this.model = menuItem.getModel();
+        this.data = {
+            id: null,
+            fields: {},
+            children: []
+        };
+        this.registered = false;
+        this.saveInProgress = false;
+        this.modal = null;
+        this.display();
+    }
+
+    display() {
+        this.modal = this.api.v1.ui.modal.dialog({
+            defaultButtons: false,
+            container: {
+                width: 500
+            },
+            content: {
+                header: 'Add comment',
+                markup: this.getMarkup(this.data)
+            },
+            callbacks: {
+                didDisplay: (modal) => {},
+                submit: (formElements) => {
+                    this.save(formElements);
+                },
+                end: () => {
+                    if (this.endcallback && !this.saveInProgress) {
+                        this.endcallback(this.data.id);
+                    }
+                }
+            },
+            eventHandlers: [{
+                selector: '#cancel-btn',
+                event: 'click',
+                callback: (theModal, event) => {
+                    theModal.close();
+                }
+            }],
+            keyValidation: [{
+                key: 'comment',
+                validator: 'notEmpty'
+            }],
+            footer: {
+                buttons: [
+                    {
+                        value: 'Cancel',
+                        highlight: false,
+                        id: 'cancel-btn'
+                    },
+                    {
+                        value: 'Add comment',
+                        type: 'submit',
+                        highlight: true
+                    }
+                ]
+            }
+        });
+    }
+
+    save(formElements) {
+        this.api.v1.collabrador.addComment(
+            {
+                from: 0,
+                to: 0,
+                text: formElements.comment || '',
+                tagGuid: this.model.get('guid') || '',
+                author: 'Test Testersen', // Not needed when we go to prod, will be handled by the token
+                email: 'test@testersen.no' // Not needed when we go to prod, will be handled by the token
+            }
+        )
+    }
+
+    getMarkup(data) {
+        return this.api.v1.util.dom.renderView('apps/addComment/editor', {}, false);
+    }
+
+    // Temp only
+    generateRandomId(length = 8) {
+        return Math.random().toString(36).substring(2, length + 2);
+    }
+
+}
+
+
+/***/ }),
+
 /***/ "./modules/apps/BylineEditor.js":
 /*!**************************************!*\
   !*** ./modules/apps/BylineEditor.js ***!
@@ -406,7 +509,7 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "BylineEditor": () => (/* binding */ BylineEditor)
+/* harmony export */   BylineEditor: () => (/* binding */ BylineEditor)
 /* harmony export */ });
 // this.api.v1.apps.start('BylineEditor', { id: 100652 })
 
@@ -423,6 +526,7 @@ class BylineEditor {
         this.endcallback = endcallback || null;
         this.registered = false;
         this.modal = null;
+        this.authorPagesConfig = this.api.v1.config.get('authorPages') || {};
         if (id && typeof id === 'number') {
             fetch(`/ajax/node/get-node?id=${ id }`).then((resp) => resp.json()).then((resp) => {
                 this.data = resp.data;
@@ -517,7 +621,7 @@ class BylineEditor {
                 this.changeImage(markup);
             }, false);
         }
-        
+
         const removeImgBtn = markup.querySelector('#btn-remove-image');
         if (removeImgBtn) {
             removeImgBtn.addEventListener('click', (event) => {
@@ -534,6 +638,33 @@ class BylineEditor {
                 this.api.v1.user.setField('defaultByline', defaultBtn.checked ? this.data.id : '');
             }, false);
         }
+
+        const slugInput = markup.querySelector('#byline-author-page-slug');
+        if (slugInput) {
+            const previewContainer = markup.querySelector('#slug-preview-container');
+
+            const previewLabel = document.createElement('span');
+            previewLabel.textContent = `Preview: /${ this.authorPagesConfig.path || 'author' }/`;
+
+            const previewValue = document.createElement('span');
+            previewValue.className = 'slug-preview-value';
+
+            previewContainer.appendChild(previewLabel);
+            previewContainer.appendChild(previewValue);
+
+            slugInput.parentNode.insertBefore(previewContainer, slugInput.nextSibling);
+
+            slugInput.addEventListener('input', (event) => {
+                const sanitizedValue = this.sanitizeSlug(event.target.value);
+                previewValue.textContent = sanitizedValue || this.data.id || '[empty]';
+            });
+
+            slugInput.addEventListener('blur', () => {
+                slugInput.value = this.sanitizeSlug(slugInput.value);
+            });
+
+            previewValue.textContent = this.sanitizeSlug(slugInput.value) || this.data.id || '[empty]';
+        }
     }
 
     changeImage(markup) {
@@ -543,17 +674,17 @@ class BylineEditor {
             skipCache: true,
             options: {
                 clickHandler: (model, element) => {
-                     // Add busy animation.
-                     const emptyEl = markup.querySelector('.lab-aside-settings .bylineimage-empty');
-                     if (emptyEl) {
-                         emptyEl.classList.add('lab-busy');
-                     }
-                     const imgEl = markup.querySelector('.lab-aside-settings img');
-                     if (imgEl) {
-                         imgEl.parentElement.classList.add('lab-busy');
-                     }
-                     const serialized = this.api.v1.model.serialize.model(model);
-                     this.setImageFromModel(model, serialized);
+                    // Add busy animation.
+                    const emptyEl = markup.querySelector('.lab-aside-settings .bylineimage-empty');
+                    if (emptyEl) {
+                        emptyEl.classList.add('lab-busy');
+                    }
+                    const imgEl = markup.querySelector('.lab-aside-settings img');
+                    if (imgEl) {
+                        imgEl.parentElement.classList.add('lab-busy');
+                    }
+                    const serialized = this.api.v1.model.serialize.model(model);
+                    this.setImageFromModel(model, serialized);
                 }
             }
         });
@@ -634,7 +765,19 @@ class BylineEditor {
     }
 
     save(formElements) {
+        const buttonFieldNames = ['addAuthorPage', 'removeAuthorPage'];
+
         for (const key of Object.keys(formElements)) {
+            // Skip button fields
+            if (buttonFieldNames.includes(key)) {
+                continue;
+            }
+
+            if (key === 'slug') {
+                this.data.fields[key] = this.sanitizeSlug(formElements[key].trim());
+                continue;
+            }
+
             this.data.fields[key] = formElements[key].trim();
         }
         if (this.data.id) {
@@ -769,13 +912,14 @@ class BylineEditor {
         return this.api.v1.util.dom.renderView('apps/bylineeditor/editor', {
             id: data.id,
             fields: data.fields || {},
+            authorPages: this.authorPagesConfig || {},
             isDefault: this.isDefault
         }, false);
     }
 
     getAsideMarkup(data, toDom = false) {
         const child = data.children && data.children.length ? data.children[0] : null;
-        return this.api.v1.util.dom.renderView('apps/bylineeditor/aside', child ? { url: this.getImageurl(child) } : {}, toDom);
+        return this.api.v1.util.dom.renderView('apps/bylineeditor/aside', child ? { url: this.getImageurl(child), id: data.id } : { id: data.id }, toDom);
     }
 
     updateImage() {
@@ -804,6 +948,15 @@ class BylineEditor {
         return imageUrl;
     }
 
+    // Helper function to sanitize slug
+    sanitizeSlug(value) {
+        return value.toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^a-z0-9-]/g, '')
+            .replace(/-+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    }
+
 }
 
 
@@ -817,7 +970,7 @@ class BylineEditor {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "CustomElements": () => (/* binding */ CustomElements)
+/* harmony export */   CustomElements: () => (/* binding */ CustomElements)
 /* harmony export */ });
 class CustomElements {
 
@@ -880,7 +1033,7 @@ class CustomElements {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "FrontContentSupport": () => (/* binding */ FrontContentSupport)
+/* harmony export */   FrontContentSupport: () => (/* binding */ FrontContentSupport)
 /* harmony export */ });
 /* harmony import */ var _public_common_labrador_source_FrontContentRenderer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../public/common/labrador/source/FrontContentRenderer.js */ "./public/common/labrador/source/FrontContentRenderer.js");
 
@@ -1294,7 +1447,7 @@ class FrontContentSupport {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ImageColors": () => (/* binding */ ImageColors)
+/* harmony export */   ImageColors: () => (/* binding */ ImageColors)
 /* harmony export */ });
 /* harmony import */ var _lib_editor_color_thief_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/editor/color-thief.mjs */ "./lib/editor/color-thief.mjs");
 /* harmony import */ var _lib_editor_ColorUtils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/editor/ColorUtils.js */ "./modules/lib/editor/ColorUtils.js");
@@ -1475,7 +1628,7 @@ class ImageColors {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ParallaxSupport": () => (/* binding */ ParallaxSupport)
+/* harmony export */   ParallaxSupport: () => (/* binding */ ParallaxSupport)
 /* harmony export */ });
 class ParallaxSupport {
 
@@ -1998,7 +2151,7 @@ class ParallaxSupport {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "TeaserEditor": () => (/* binding */ TeaserEditor)
+/* harmony export */   TeaserEditor: () => (/* binding */ TeaserEditor)
 /* harmony export */ });
 // Edit a teaser:
 // api.v1.apps.start('TeaserEditor', { id: 123456, endcallback: (id) => {...} })
@@ -2353,7 +2506,7 @@ class TeaserEditor {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AptomaExport": () => (/* binding */ AptomaExport)
+/* harmony export */   AptomaExport: () => (/* binding */ AptomaExport)
 /* harmony export */ });
 class AptomaExport {
 
@@ -2362,7 +2515,10 @@ class AptomaExport {
         this.rootModel = params.rootModel;
         this.enabled = this.api.v1.user.hasPermission('export_aptoma') && this.api.v1.config.get('aptoma.enabled');
         this.customTopicSectionString = this.api.v1.config.get('aptoma.customTopicSectionString') || false;
+        this.enableNewsPaperSelection = this.api.v1.config.get('aptoma.enableNewsPaperSelection') || false;
         this.printArticleTypes = this.api.v1.config.get('aptoma.printArticleTypes') || [];
+        this.printAptomaNewsPapers = this.api.v1.config.get('aptoma.printAptomaNewsPapers') || [];
+        this.enableNotes = this.api.v1.config.get('aptoma.enableNotes') || false;
         this.template = `<div class="lab-modal-form lab-grid lab-hidden">
             <div class="lab-formgroup lab-grid lab-space-above-none">
                 <h2 class="lab-title lab-grid-large-12 lab-space-below-medium lab-space-above-none">Export article to Aptoma</h2>
@@ -2395,6 +2551,30 @@ class AptomaExport {
                         <input type="text" id="lab_printArticleSectionString" name="fields.lab_printArticleSectionString" value="{{ fields.lab_printArticleSectionString }}">
                     </div>
                 {{ /customTopicSectionString }}
+                {{ #enableNotes }} 
+                    <div class="lab-formgroup-item lab-grid-large-12 lab-space-below-medium">
+                        <label for="lab_printArticleNotes">Notes</label>
+                        <input type="text" id="lab_printArticleNotes" name="fields.lab_printArticleNotes" value="{{ fields.lab_printArticleNotes }}">
+                    </div>
+                {{ /enableNotes }}
+                {{ #enableNewsPaperSelection }}
+                    <div class="lab-formgroup-item lab-grid-large-12 lab-space-below-medium">
+                        <label for="lab_printAptomaNewsPapers_json">News papers</label>
+                        <select id="lab_printAptomaNewsPapers_json">
+                        {{ #printAptomaNewsPapers }} 
+                                <option value="{{ value }}"{{ #selected }} selected{{ /selected }}>{{ name }}</option>
+                        {{ /printAptomaNewsPapers }}
+                        </select>
+                        
+                        <input type="hidden" id="testStorage" disabled=true value="{{ fields.lab_printAptomaNewsPapers_json }}" />
+                        <div class="selected-newspapers">
+                            <p>Selected newspapers:</p>
+                        </div>
+                        
+                        <input type="button" id="appendNewspaper" value="Add newspaper" class="lab-button lab-button-secondary lab-space-above-small">
+                        <input type="button" id="deleteNewspaper" value="Remove newspaper" class="lab-button lab-button-secondary lab-space-above-small">
+                    </div>
+                {{ /enableNewsPaperSelection }}
             </div>
         </div>`;
     }
@@ -2425,15 +2605,27 @@ class AptomaExport {
                     }
                 }
             },
+            'fields.lab_printAptomaNewsPapers_json': {
+                node: 'fields.lab_printAptomaNewsPapers_json',
+                callback: (element) => {
+                    if (element.value) {
+                        this.rootModel.set('fields.lab_printAptomaNewsPapers_json', element.value);
+                    }
+                }
+            },
             'fields.lab_printPage': { node: 'fields.lab_printPage' },
             'fields.lab_printArticleTopicString': { node: 'fields.lab_printArticleTopicString' },
-            'fields.lab_printArticleSectionString': { node: 'fields.lab_printArticleSectionString' }
+            'fields.lab_printArticleSectionString': { node: 'fields.lab_printArticleSectionString' },
+            'fields.lab_printArticleNotes': { node: 'fields.lab_printArticleNotes' }
         };
     }
 
     onMarkup() {
         const currentPrintArticleType = parseInt(this.rootModel.get('fields.lab_printArticleTypeId'), 10);
         const printArticleTypes = (this.printArticleTypes || []).map((item) => ({ name: item.type, value: item.id, selected: item.id === currentPrintArticleType }));
+        
+        // Get the array
+        const printAptomaNewsPapers = (this.printAptomaNewsPapers || []).map((item) => ({ name: item.type, value: item.id }));
         const markupObject = {
             printArticleTypes,
             fields: {
@@ -2443,15 +2635,175 @@ class AptomaExport {
                 lab_printEditionDateFormatted: this.rootModel.get('fields.lab_printEditionDateFormatted'),
                 lab_printPage: this.rootModel.get('fields.lab_printPage'),
             },
-            customTopicSectionString: this.customTopicSectionString
+            customTopicSectionString: this.customTopicSectionString,
+            enableNewsPaperSelection: this.enableNewsPaperSelection,
+            enableNotes: this.enableNotes,
+            printAptomaNewsPapers
         }
         if (this.customTopicSectionString) {
             markupObject.fields.lab_printArticleTopicString = this.rootModel.get('fields.lab_printArticleTopicString');
             markupObject.fields.lab_printArticleSectionString = this.rootModel.get('fields.lab_printArticleSectionString');
         }
+        if (this.enableNewsPaperSelection) {
+            const lab_printAptomaNewsPapers_json = this.rootModel.get('fields.lab_printAptomaNewsPapers_json');
+            markupObject.fields.lab_printAptomaNewsPapers_json = lab_printAptomaNewsPapers_json;
+        }
+        // lab_printArticleNotes: this.rootModel.get('fields.lab_printArticleNotes')
+        if (this.enableNotes) {
+            const lab_printArticleNotes = this.rootModel.get('fields.lab_printArticleNotes');
+            markupObject.fields.lab_printArticleNotes = lab_printArticleNotes;
+        }
         const markup = this.api.v1.util.dom.renderTemplate(this.template, markupObject, true);
+        this.setupNewsPaperButton(markup);
+        this.loadSelectedNewspapers(markup);
         return markup;
     }
+
+    loadSelectedNewspapers(markup) {
+        if (!this.enableNewsPaperSelection) {
+            return;
+        }
+        const input = this.rootModel.get('fields.lab_printAptomaNewsPapers_json');
+        if (!input) {
+            return;
+        }
+        if (typeof input === 'string') {
+            try {
+                input = JSON.parse(input);
+            } catch (e) {
+                console.error('Failed to parse input:', e);
+                input = [];
+            }
+        }
+
+        if (!Array.isArray(input)) {
+            console.error('Input is not an array:', input);
+            return;
+        }
+
+        const select = markup.querySelector('#lab_printAptomaNewsPapers_json');
+        const selectedNewspapers = markup.querySelector('.selected-newspapers');
+        input.forEach((newspaper) => {
+            // Check if the newspaper exists in the select options
+            const option = Array.from(select.options).find(opt => opt.value === newspaper);
+            if (option) {
+                this.addSelectedNewspaper(markup, option.value);
+            } else {
+                console.warn(`Newspaper with value "${newspaper}" not found in select options.`);
+            }
+        });
+    }
+
+    setupNewsPaperButton(markup) {
+        if (!this.enableNewsPaperSelection) {
+            return;
+        }
+
+        const btn = markup.querySelector('#appendNewspaper');
+        // Append the news paper ID to the input field
+        // Send the value of the select to the input field
+        // If the input field is empty, create a new array
+        // If the input field is not empty, append the value to the array
+        // If the value already exists, do not append it again
+        // If the value does not exist, append it to the array
+        btn.addEventListener('click', (event) => {
+            let input = this.rootModel.get('fields.lab_printAptomaNewsPapers_json');
+            if (!input) {
+                input = [];
+            }
+            // if empty array, create a new array. Some weird bug
+            if (Array.isArray(input) && input.length === 0) {
+                input = [];
+            }
+            const select = markup.querySelector('#lab_printAptomaNewsPapers_json');
+            const value = select.value;
+            if (!value) {
+                return;
+            }
+            // check if input is a string, if so, parse it
+            if (!Array.isArray(input)) {
+                try {
+                    input = JSON.parse(input);
+                } catch (e) {
+                    console.error('Failed to parse input:', e);
+                    input = [];
+                }
+            }
+            if (input.includes(value)) {
+                // If the value already exists, do not append it again
+                return;
+            }
+
+            input.push(value);
+            // Send the value to the rootModel
+            this.rootModel.set('fields.lab_printAptomaNewsPapers_json', input);
+            // Update the input field
+            const inputField = markup.querySelector('#testStorage');
+            inputField.value = input;
+            // Update the selected newspapers
+            this.addSelectedNewspaper(markup, select.options[select.selectedIndex].value);
+        });
+
+        const deleteBtn = markup.querySelector('#deleteNewspaper');
+        deleteBtn.addEventListener('click', (event) => {
+            const select = markup.querySelector('#lab_printAptomaNewsPapers_json');
+            const value = select.value;
+            if (!value) {
+                return;
+            }
+            let input = this.rootModel.get('fields.lab_printAptomaNewsPapers_json');
+            if (!input) {
+                input = [];
+            }
+            // check if input is a string, if so, parse it
+            if (!Array.isArray(input)) {
+                try {
+                    input = JSON.parse(input);
+                } catch (e) {
+                    console.error('Failed to parse input:', e);
+                    input = [];
+                }
+            }
+            // remove the value from the array
+            input = input.filter((item) => item !== value);
+            this.rootModel.set('fields.lab_printAptomaNewsPapers_json', input);
+            // Update the input field
+            const inputField = markup.querySelector('#testStorage');
+            inputField.value = input;
+            // Update the selected newspapers
+            // Remove the span from the selected newspapers
+            this.deleteSelectedNewspaper(markup, select.options[select.selectedIndex].value);
+        });
+
+
+    }
+
+    addSelectedNewspaper(markup, newspaper) {
+        const selectedNewspapers = markup.querySelector('.selected-newspapers');
+        const newSpan = document.createElement('span');
+        newSpan.classList.add('lab-label', 'lab-label-secondary');
+        newSpan.textContent = newspaper;
+        newSpan.addEventListener('click', (event) => {
+            const select = markup.querySelector('#lab_printAptomaNewsPapers_json');
+            // Set the value of the select to the text content of the span
+            select.value = newSpan.textContent;
+            const deleteBtn = markup.querySelector('#deleteNewspaper');
+            // Focus the delete button
+            deleteBtn.focus();
+        });
+        selectedNewspapers.appendChild(newSpan);
+    }
+
+    deleteSelectedNewspaper(markup, newspaper) {
+        const selectedNewspapers = markup.querySelector('.selected-newspapers');
+        const spans = selectedNewspapers.querySelectorAll('span');
+        spans.forEach((span) => {
+            if (span.textContent === newspaper) {
+                selectedNewspapers.removeChild(span);
+            }
+        });
+    }
+
 
 }
 
@@ -2466,7 +2818,7 @@ class AptomaExport {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ArticleAdvancedSettings": () => (/* binding */ ArticleAdvancedSettings)
+/* harmony export */   ArticleAdvancedSettings: () => (/* binding */ ArticleAdvancedSettings)
 /* harmony export */ });
 class ArticleAdvancedSettings {
 
@@ -2567,7 +2919,7 @@ class ArticleAdvancedSettings {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ArticleApproval": () => (/* binding */ ArticleApproval)
+/* harmony export */   ArticleApproval: () => (/* binding */ ArticleApproval)
 /* harmony export */ });
 class ArticleApproval {
 
@@ -2846,7 +3198,7 @@ class ArticleApproval {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ArticleAudio": () => (/* binding */ ArticleAudio)
+/* harmony export */   ArticleAudio: () => (/* binding */ ArticleAudio)
 /* harmony export */ });
 class ArticleAudio {
 
@@ -3021,7 +3373,7 @@ class ArticleAudio {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ArticleChangelog": () => (/* binding */ ArticleChangelog)
+/* harmony export */   ArticleChangelog: () => (/* binding */ ArticleChangelog)
 /* harmony export */ });
 class ArticleChangelog {
 
@@ -3326,7 +3678,7 @@ class ArticleChangelog {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ArticleCitation": () => (/* binding */ ArticleCitation)
+/* harmony export */   ArticleCitation: () => (/* binding */ ArticleCitation)
 /* harmony export */ });
 class ArticleCitation {
 
@@ -3569,7 +3921,7 @@ class ArticleCitation {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ArticleCommercialSettings": () => (/* binding */ ArticleCommercialSettings)
+/* harmony export */   ArticleCommercialSettings: () => (/* binding */ ArticleCommercialSettings)
 /* harmony export */ });
 class ArticleCommercialSettings {
 
@@ -3683,7 +4035,7 @@ class ArticleCommercialSettings {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ArticleDates": () => (/* binding */ ArticleDates)
+/* harmony export */   ArticleDates: () => (/* binding */ ArticleDates)
 /* harmony export */ });
 class ArticleDates {
 
@@ -3710,28 +4062,21 @@ class ArticleDates {
             }
         };
         this.template = `<div class="lab-modal-form lab-grid lab-hidden">
-
             <div class="lab-formgroup lab-grid">
-                <h2 class="lab-title lab-grid-large-12 lab-grid-gap">Published date</h2>
-                <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-medium">
-                    <label for="publishedDate">Date</label>
-                    <input type="date" id="publishedDate" name="fields.published" value="{{ datetime.publishDate }}">
+                <h2 class="lab-title lab-grid-large-12 lab-grid-gap">{{{ title }}}</h2>
+                <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-space-below-medium">
+                    <p class="lab-info">Note: The datepicker uses your device's local timezone.</p>
                 </div>
                 <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-medium">
-                    <label for="publishedTime">Time</label>
-                    <input type="time" id="publishedTime" name="fields.published" value="{{ datetime.publishTime }}">
+                    <label for="publishedDateTime">Date and time</label>
+                    <input type="datetime-local" id="publishedDateTime" name="fields.published" value="{{ datetime.publishedDateTime }}">
                 </div>
             </div>
-
             <div class="lab-formgroup lab-grid">
                 <h4 class="lab-title lab-grid-large-12 lab-grid-gap">Hide on front after</h4>
                 <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-small">
-                    <label for="hidefromfp_timeDate">Date</label>
-                    <input type="date" id="hidefromfp_timeDate" name="fields.hidefromfp_time" value="{{ datetime.hideDate }}">
-                </div>
-                <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-small">
-                    <label for="hidefromfp_timeTime">Time</label>
-                    <input type="time" id="hidefromfp_timeTime" name="fields.hidefromfp_time" value="{{ datetime.hideTime }}">
+                    <label for="hidefromfp_timeDateTime">Date and time</label>
+                    <input type="datetime-local" id="hidefromfp_timeDateTime" name="fields.hidefromfp_time" value="{{ datetime.hideDateTime }}">
                 </div>
                 <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-space-below-medium">
                     <p class="lab-info">
@@ -3739,24 +4084,15 @@ class ArticleDates {
                     </p>
                 </div>
             </div>
-
             <div class="lab-formgroup lab-grid">
                 <h4 class="lab-title lab-grid-large-12 lab-grid-gap">Calendar dates</h4>
                 <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-medium">
-                    <label for="calendar_start_date-date">From Date</label>
-                    <input type="date" id="calendar_start_date-date" name="fields.calendar_start_date" value="{{ datetime.calendarFromDate }}">
-                </div>
-                <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-medium">
-                    <label for="calendar_start_date-time">From Time</label>
-                    <input type="time" id="calendar_start_date-time" name="fields.calendar_start_date" value="{{ datetime.calendarFromTime }}">
+                    <label for="calendar_start_date-dateTime">From date and time</label>
+                    <input type="datetime-local" id="calendar_start_date-dateTime" name="fields.calendar_start_date" value="{{ datetime.calendarFromDateTime }}">
                 </div>
                 <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-small">
-                    <label for="calendar_end_date-date">To Date</label>
-                    <input type="date" id="calendar_end_date-date" name="fields.calendar_end_date" value="{{ datetime.calendarToDate }}">
-                </div>
-                <div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap lab-space-below-small">
-                    <label for="calendar_end_date-time">To Time</label>
-                    <input type="time" id="calendar_end_date-time" name="fields.calendar_end_date" value="{{ datetime.calendarToTime }}">
+                    <label for="calendar_end_date-dateTime">To date and time</label>
+                    <input type="datetime-local" id="calendar_end_date-dateTime" name="fields.calendar_end_date" value="{{ datetime.calendarToDateTime }}">
                 </div>
                 <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-space-below-medium">
                     <p class="lab-info">
@@ -3764,7 +4100,6 @@ class ArticleDates {
                     </p>
                 </div>
             </div>
-
         </div>`;
     }
 
@@ -3784,43 +4119,41 @@ class ArticleDates {
         return {
             'fields.published': {
                 node: 'fields.published',
-                transformer: (value, pathInfo) => this.dateTransformer(pathInfo)
+                transformer: (value, pathInfo) => this.dateTransformer(pathInfo),
+                validator: 'isValidDate'
             },
             'fields.hidefromfp_time': {
                 node: 'fields.hidefromfp_time',
-                transformer: (value, pathInfo) => this.dateTransformer(pathInfo)
+                transformer: (value, pathInfo) => this.dateTransformer(pathInfo),
+                validator: 'isValidDate'
             },
             'fields.calendar_start_date': {
                 node: 'fields.calendar_start_date',
-                transformer: (value, pathInfo) => this.dateTransformer(pathInfo, false)
+                transformer: (value, pathInfo) => this.dateTransformer(pathInfo, false),
+                validator: 'isValidDate'
             },
             'fields.calendar_end_date': {
                 node: 'fields.calendar_end_date',
-                transformer: (value, pathInfo) => this.dateTransformer(pathInfo, false)
+                transformer: (value, pathInfo) => this.dateTransformer(pathInfo, false),
+                validator: 'isValidDate'
             }
         };
     }
 
     dateTransformer(pathInfo, toTimestamp = true) {
-        const date = this.dom[pathInfo.node].date.value;
-        const time = this.dom[pathInfo.node].time.value;
-        if (!date) { return ''; }
+        const dateTime = this.dom[pathInfo.node].dateTime.value;
         if (toTimestamp) {
-            return this.getTimestamp(date, time);
+            return this.getTimestamp(dateTime);
         }
-        return `${ new Date(`${ date }T${ time || '00:00' }`).toISOString().split('.')[0] }Z`;
+        return `${ new Date(dateTime).toISOString().split('.')[0] }Z`;
     }
 
     onMarkup() {
         const datetime = {
-            publishDate: '',
-            publishTime: '',
-            hideDate: '',
-            hideTime: '',
-            calendarFromDate: '',
-            calendarFromTime: '',
-            calendarToDate: '',
-            calendarToTime: ''
+            publishedDateTime: '',
+            hideDateTime: '',
+            calendarFromDateTime: '',
+            calendarToDateTime: ''
         };
 
         const published = this.rootModel.get('fields.published'); // timestamp
@@ -3830,50 +4163,46 @@ class ArticleDates {
 
         if (published) {
             const dt = this.getDateTime(published);
-            datetime.publishDate = dt.date;
-            datetime.publishTime = dt.time;
+            datetime.publishedDateTime = dt;
         }
         if (hidefromfp_time) {
             const dt = this.getDateTime(hidefromfp_time);
-            datetime.hideDate = dt.date;
-            datetime.hideTime = dt.time;
+            datetime.hideDateTime = dt;
         }
         if (calendar_start_date) {
             const timestamp = new Date(calendar_start_date).valueOf() / 1000;
             const dt = this.getDateTime(timestamp);
-            datetime.calendarFromDate = dt.date;
-            datetime.calendarFromTime = dt.time;
+            datetime.calendarFromDateTime = dt;
         }
         if (calendar_end_date) {
             const timestamp = new Date(calendar_end_date).valueOf() / 1000;
             const dt = this.getDateTime(timestamp);
-            datetime.calendarToDate = dt.date;
-            datetime.calendarToTime = dt.time;
+            datetime.calendarToDateTime = dt;
         }
 
+        const title = published * 1000 > Date.now() || !published ? 'Scheduled publish date' : 'Published date';
+
         const markup = this.api.v1.util.dom.renderTemplate(this.template, {
-            datetime
+            datetime,
+            title
         }, true);
-        this.dom['fields.published'].date = markup.querySelector('#publishedDate');
-        this.dom['fields.published'].time = markup.querySelector('#publishedTime');
-        this.dom['fields.hidefromfp_time'].date = markup.querySelector('#hidefromfp_timeDate');
-        this.dom['fields.hidefromfp_time'].time = markup.querySelector('#hidefromfp_timeTime');
-        this.dom['fields.calendar_start_date'].date = markup.querySelector('#calendar_start_date-date');
-        this.dom['fields.calendar_start_date'].time = markup.querySelector('#calendar_start_date-time');
-        this.dom['fields.calendar_end_date'].date = markup.querySelector('#calendar_end_date-date');
-        this.dom['fields.calendar_end_date'].time = markup.querySelector('#calendar_end_date-time');
+        this.dom['fields.published'].dateTime = markup.querySelector('#publishedDateTime');
+        this.dom['fields.hidefromfp_time'].dateTime = markup.querySelector('#hidefromfp_timeDateTime');
+        this.dom['fields.calendar_start_date'].dateTime = markup.querySelector('#calendar_start_date-dateTime');
+        this.dom['fields.calendar_end_date'].dateTime = markup.querySelector('#calendar_end_date-dateTime');
 
         return markup;
     }
 
-    getTimestamp(date, time) {
-        const d = new Date(`${ date  }T${  time || '00:00'  }Z`);
+    getTimestamp(dateTime) {
+        const d = new Date(`${ dateTime }Z`);
         const localDate = new Date(d.valueOf() + d.getTimezoneOffset() * 60000);
         return localDate.getTime() / 1000;
     }
 
     getDateTime(timestamp) {
         const date = new Date(timestamp * 1000);
+        const year = date.getFullYear();
         let month = date.getMonth() + 1;
         if (month < 10) month = `0${ month }`;
         let day = date.getDate();
@@ -3883,10 +4212,7 @@ class ArticleDates {
         let minute = date.getMinutes();
         if (minute < 10) minute = `0${ minute }`;
 
-        return {
-            date: `${ date.getFullYear()  }-${  month  }-${  day }`, // yyyy-mm-dd
-            time: `${ hour  }:${  minute }` // hh:mm
-        };
+        return `${ year }-${  month  }-${  day }T${ hour  }:${  minute }`;
     }
 
 }
@@ -3902,7 +4228,7 @@ class ArticleDates {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ArticleGeneralTeaser": () => (/* binding */ ArticleGeneralTeaser)
+/* harmony export */   ArticleGeneralTeaser: () => (/* binding */ ArticleGeneralTeaser)
 /* harmony export */ });
 class ArticleGeneralTeaser {
 
@@ -4739,7 +5065,7 @@ class ArticleGeneralTeaser {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ArticleNotes": () => (/* binding */ ArticleNotes)
+/* harmony export */   ArticleNotes: () => (/* binding */ ArticleNotes)
 /* harmony export */ });
 class ArticleNotes {
 
@@ -4795,7 +5121,7 @@ class ArticleNotes {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ArticleSite": () => (/* binding */ ArticleSite)
+/* harmony export */   ArticleSite: () => (/* binding */ ArticleSite)
 /* harmony export */ });
 class ArticleSite {
 
@@ -4851,7 +5177,7 @@ class ArticleSite {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ArticleStyling": () => (/* binding */ ArticleStyling)
+/* harmony export */   ArticleStyling: () => (/* binding */ ArticleStyling)
 /* harmony export */ });
 class ArticleStyling {
 
@@ -5230,7 +5556,7 @@ class ArticleStyling {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ArticleTranslate": () => (/* binding */ ArticleTranslate)
+/* harmony export */   ArticleTranslate: () => (/* binding */ ArticleTranslate)
 /* harmony export */ });
 /* harmony import */ var _lib_helpers_ContentLanguages_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helpers/ContentLanguages.js */ "./modules/lib/helpers/ContentLanguages.js");
 
@@ -6402,7 +6728,7 @@ class ArticleTranslate {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RoxenExport": () => (/* binding */ RoxenExport)
+/* harmony export */   RoxenExport: () => (/* binding */ RoxenExport)
 /* harmony export */ });
 /* harmony import */ var _lib_helpers_datetime_DateTimeHelper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helpers/datetime/DateTimeHelper.js */ "./modules/lib/helpers/datetime/DateTimeHelper.js");
 
@@ -6541,6 +6867,11 @@ class RoxenExport {
         return markup;
     }
 
+    cleanText(text) {
+        // Remove soft hypens (\u00ad) from text:
+        return text.replace(/\u00ad/g, '');
+    }
+
     setupSubmit(markup) {
         const btn = markup.querySelector('input[type=button]');
 
@@ -6563,6 +6894,9 @@ class RoxenExport {
                     if (this.multiPublicationEnabled) {
                         data.publicationsArray = publicationsSelect.selectedOptions.length ? Array.from(publicationsSelect.selectedOptions).map((o) => o.value) : [];
                     }
+                    data.data.fields.title = this.cleanText(data.data.fields.title || '');
+                    data.data.fields.subtitle = this.cleanText(data.data.fields.subtitle || '');
+                    data.data.fields.bodytext = this.cleanText(data.data.fields.bodytext || '');
                     const export_url = `/ajax/integration-services/proxy/export/roxen?imageBaseUrl=${ this.api.v1.properties.get('image_server') }&site=${ site.alias }`;
                     this.api.v1.util.httpClient.request(
                         export_url,
@@ -6640,7 +6974,7 @@ class RoxenExport {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "TopicSummary": () => (/* binding */ TopicSummary)
+/* harmony export */   TopicSummary: () => (/* binding */ TopicSummary)
 /* harmony export */ });
 /* harmony import */ var _lib_helpers_ContentLanguages_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helpers/ContentLanguages.js */ "./modules/lib/helpers/ContentLanguages.js");
 
@@ -7534,6 +7868,130 @@ class TopicSummary {
 
 /***/ }),
 
+/***/ "./modules/apps/article/WoodwingExport.js":
+/*!************************************************!*\
+  !*** ./modules/apps/article/WoodwingExport.js ***!
+  \************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   WoodwingExport: () => (/* binding */ WoodwingExport)
+/* harmony export */ });
+/* harmony import */ var _lib_helpers_datetime_DateTimeHelper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helpers/datetime/DateTimeHelper.js */ "./modules/lib/helpers/datetime/DateTimeHelper.js");
+
+
+class WoodwingExport {
+
+    constructor(api, params) {
+        this.api = api;
+        this.rootModel = params.rootModel;
+        this.enabled = this.api.v1.user.hasPermission('export_woodwing');
+        this.exportUrl = this.api.v1.config.get('woodwingUrl');
+        this.dateTimeHelper = new _lib_helpers_datetime_DateTimeHelper_js__WEBPACK_IMPORTED_MODULE_0__.DateTimeHelper(this.api.v1.config.get('lang'));
+        this.dom = {
+            exportDate: null,
+            message: null
+        };
+        this.template = `<div class="lab-modal-form lab-grid lab-hidden">
+            <div class="lab-formgroup lab-grid lab-space-above-none">
+                <h2 class="lab-title lab-grid-large-12 lab-space-below-medium lab-space-above-none">Export article to WoodWing</h2>
+                <p class="lab-para lab-grid-large-12">Last exported: <strong data-name="export-date">--</strong></p>
+            </div>
+            <div class="lab-formgroup lab-grid lab-space-above-none">
+                <div class="lab-formgroup-item lab-grid-large-12 lab-space-below-medium">
+                    <input type="button" value="Export article">
+                </div>
+            </div>
+            <div class="lab-formgroup lab-grid lab-space-above-none">
+                <p class="lab-para lab-grid-large-12" id="messageArea"></p>
+            </div>
+        </div>`;
+    }
+
+    onAside() {
+        return {
+            section: 'Export',
+            label: 'WoodWing'
+        };
+    }
+
+    onPaths() {}
+
+    onMarkup() {
+        const markup = this.api.v1.util.dom.renderTemplate(this.template, {}, true);
+        this.dom.exportDate = markup.querySelector('[data-name=export-date]');
+        this.dom.messageArea = markup.querySelector('#messageArea');
+        this.updateExportDate();
+        const title = this.rootModel.get('fields.title');
+        if (!title) {
+            const submitButton = markup.querySelector('input[type=button]');
+            submitButton.setAttribute('disabled', 'disabled');
+            this.displayMessage('<i>Article title is required</i>');
+        }
+        if (!this.exportUrl) {
+            const submitButton = markup.querySelector('input[type=button]');
+            submitButton.setAttribute('disabled', 'disabled');
+            this.displayMessage('<i>WoodWing URL is required</i>');
+        }
+        this.onSubmit(markup);
+        return markup;
+    }
+
+    onSubmit(markup) {
+        const submitButton = markup.querySelector('input[type=button]');
+        submitButton.addEventListener('click', () => {
+            markup.classList.add('lab-busy');
+            submitButton.setAttribute('disabled', 'disabled');
+
+            const ajaxUrl = `/ajax/article/get-export-json/?articleId=${ this.rootModel.get('id') }`;
+            this.api.v1.util.httpClient.get(ajaxUrl)
+                .then((response) => {
+                    response.siteId = this.api.v1.site.getSite().id;
+                    if (this.exportUrl) {
+                        this.api.v1.util.httpClient.request(
+                            this.exportUrl,
+                            {
+                                method: 'POST',
+                                mode: 'cors',
+                                credentials: 'omit',
+                                body: JSON.stringify(response)
+                            }
+                        ).then(() => {
+                            this.rootModel.set('fields.woodwingExported', Math.floor(Date.now() / 1000));
+                            this.displayMessage(`Sent to Woodwing at ${ new Date() } by ${ this.api.v1.user.getUserName() }`);
+                            this.updateExportDate();
+                            markup.classList.remove('lab-busy');
+                            submitButton.removeAttribute('disabled');
+                        });
+                    }
+                })
+                .catch((error) => {
+                    this.displayMessage(`<span style="color: red">An error occurred: ${ error }</span>`);
+                    markup.classList.remove('lab-busy');
+                    submitButton.removeAttribute('disabled');
+                });
+        });
+    }
+
+    displayMessage(msg) {
+        this.dom.messageArea.innerHTML = msg;
+    }
+
+    updateExportDate() {
+        const lastExport = this.rootModel.get('fields.woodwingExported');
+        let formattedDate = 'Never';
+        if (lastExport) {
+            formattedDate = this.dateTimeHelper.timestampToNiceDate(lastExport);
+        }
+        this.dom.exportDate.innerHTML = formattedDate;
+    }
+
+}
+
+
+/***/ }),
+
 /***/ "./modules/apps/article/index.js":
 /*!***************************************!*\
   !*** ./modules/apps/article/index.js ***!
@@ -7542,7 +8000,7 @@ class TopicSummary {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ArticleSettings": () => (/* binding */ ArticleSettings)
+/* harmony export */   ArticleSettings: () => (/* binding */ ArticleSettings)
 /* harmony export */ });
 class ArticleSettings {
 
@@ -7580,6 +8038,7 @@ class ArticleSettings {
             'ConfigOverride',
             'RoxenExport',
             'AptomaExport',
+            'WoodwingExport',
             'ArticleChangelog'
         ].concat(additions).filter((app) => !removals.includes(app));
         this.apps = {};
@@ -7844,15 +8303,48 @@ class ArticleSettings {
         }
     }
 
+    /**
+     * Registers an event listener on an input element to handle validation, transformation,
+     * saving, and logging when the element's value changes.
+     *
+     * - Uses the 'blur' event for <input type="datetime-local"> to handle incomplete input.
+     * - Uses the 'change' event for all other input types.
+     * - Validates the input using a registered validator if specified in `pathInfo`.
+     * - If validation fails:
+     *    - Adds 'lab-validation-error' CSS class to the input's parent.
+     *    - Stops further processing for most inputs, **except** for datetime-local inputs,
+     *      which still proceed to save and log even if invalid since it only either returns
+     *      the original value or an empty string.
+     * - Applies a custom value transformer and callback if provided.
+     * - Persists the value to a node or meta path if configured.
+     * - Logs the action with metadata (type, app name, path).
+     *
+     * @param {HTMLInputElement} element - The input element to register.
+     * @param {Object} pathInfo - Configuration object containing validator, transformer, save targets, etc.
+     * @param {boolean} [pathInfo.boolean] - Whether the input should be treated as a boolean (e.g., checkbox).
+     * @param {string} [pathInfo.validator] - Name of a validator function in `valueTransformer`.
+     * @param {Object} [pathInfo.validatorParams] - Optional params passed to the validator.
+     * @param {Function} [pathInfo.transformer] - Function to transform the input value before saving.
+     * @param {Function} [pathInfo.callback] - Function called after value is processed.
+     * @param {string} [pathInfo.node] - Path where the value should be saved (if applicable).
+     * @param {string} [pathInfo.meta] - Metadata key where the value should be stored (if applicable).
+     * @param {boolean} [pathInfo.suggestReload] - Whether to suggest reload after saving.
+     * @param {Object} app - Reference to the application instance, used for logging.
+     */
     registerInputItem(element, pathInfo, app) {
-        element.addEventListener('change', (event) => {
+        // Check if element is a date-time input
+        const isDateTimeLocal = element.type === 'datetime-local';
+        const eventType = isDateTimeLocal ? 'blur' : 'change';
+
+        element.addEventListener(eventType, (event) => {
             let value = pathInfo.boolean ? element.checked : element.value;
             if (pathInfo.validator && this.api.v1.util.valueTransformer[pathInfo.validator]) {
                 if (!this.api.v1.util.valueTransformer[pathInfo.validator](value, pathInfo.validatorParams)) {
                     element.parentElement.classList.add('lab-validation-error');
-                    return;
+                    if (!isDateTimeLocal) return;
+                } else {
+                    element.parentElement.classList.remove('lab-validation-error');
                 }
-                element.parentElement.classList.remove('lab-validation-error');
             }
             if (typeof pathInfo.transformer === 'function') {
                 value = pathInfo.transformer(value, pathInfo);
@@ -7948,7 +8440,7 @@ class ArticleSettings {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "FieldVersion": () => (/* binding */ FieldVersion)
+/* harmony export */   FieldVersion: () => (/* binding */ FieldVersion)
 /* harmony export */ });
 /* harmony import */ var _lib_helpers_datetime_DateTimeHelperInt_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helpers/datetime/DateTimeHelperInt.js */ "./modules/lib/helpers/datetime/DateTimeHelperInt.js");
 /* harmony import */ var _template_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./template.js */ "./modules/apps/fieldversion/template.js");
@@ -8261,7 +8753,7 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AdvancedViewports": () => (/* binding */ AdvancedViewports)
+/* harmony export */   AdvancedViewports: () => (/* binding */ AdvancedViewports)
 /* harmony export */ });
 /* harmony import */ var _helpers_RequiredVieworts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/RequiredVieworts.js */ "./modules/apps/helpers/RequiredVieworts.js");
 /* harmony import */ var _helpers_MainViewport_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/MainViewport.js */ "./modules/apps/helpers/MainViewport.js");
@@ -8372,7 +8864,7 @@ class AdvancedViewports {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AutomationSettings": () => (/* binding */ AutomationSettings)
+/* harmony export */   AutomationSettings: () => (/* binding */ AutomationSettings)
 /* harmony export */ });
 class AutomationSettings {
 
@@ -8389,11 +8881,6 @@ class AutomationSettings {
                 <div class="lab-formgroup-item lab-space-below-medium lab-grid-large-3 lab-grid-gap lab-inline">
                     <label for="id-meta.automatic">Enabled</label>
                     <input id="id-meta.automatic" type="checkbox" name="automatic" value="1"{{ #meta.automatic }} checked{{ /meta.automatic }}>
-                </div>
-
-                <div class="lab-formgroup-item lab-space-below-medium lab-grid-large-9 lab-grid-gap lab-inline">
-                    <label for="id-meta.termMode">Use terms, not tags</label>
-                    <input id="id-meta.termMode" type="checkbox" name="termMode" value="1"{{ #meta.termMode }} checked{{ /meta.termMode }}>
                 </div>
 
                 <div class="lab-formgroup-item lab-space-below-medium lab-grid-large-12 lab-grid-gap">
@@ -8438,11 +8925,6 @@ class AutomationSettings {
             automatic: {
                 node: 'fields.automatic',
                 meta: 'automatic',
-                boolean: true
-            },
-            termMode: {
-                node: 'fields.termMode',
-                meta: 'termMode',
                 boolean: true
             },
             layout: {
@@ -8515,7 +8997,7 @@ class AutomationSettings {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Colors": () => (/* binding */ Colors)
+/* harmony export */   Colors: () => (/* binding */ Colors)
 /* harmony export */ });
 /* harmony import */ var _lib_editor_ColorUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/editor/ColorUtils.js */ "./modules/lib/editor/ColorUtils.js");
 
@@ -8538,7 +9020,7 @@ class Colors {
                 ${ this.bgColorsMarkup }
             </div>
 
-            <div class="lab-formgroup lab-grid lab-grid-gap custom-background-color-picker lab-valign-bottom">
+            <div class="lab-formgroup lab-grid lab-grid-gap custom-background-color-picker lab-valign-center">
                 <h4 class="lab-title lab-grid-large-12 lab-grid-gap">Custom Background color</h4>
                 <p class="lab-para lab-grid-large-12 lab-grid-gap">Note: This will override the selected background color above.</p>
                 ${ this.generateCustomColorMarkup() }
@@ -8573,7 +9055,7 @@ class Colors {
         const current = this.rootModel.get('fields.pageBackgroundColorStyle') || '';
         const hasHeaderImage = !!lab_api.v1.model.query.getModelByPath('page_article/articleHeader/image');
         let content = `<div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap">
-            <input type="text" value="${ current }" placeholder="CSS style like rgb(10, 255, 0)" name="fields.pageBackgroundColorStyle">
+            <input type="color" value="${ _lib_editor_ColorUtils_js__WEBPACK_IMPORTED_MODULE_0__.ColorUtils.rgbString2hex(current) }" placeholder="CSS style like rgb(10, 255, 0)" name="fields.pageBackgroundColorStyle">
         </div>`;
         if (hasHeaderImage) {
             content += `<div class="lab-formgroup-item lab-grid-large-6 lab-grid-gap"><input type="button" value="Get from header image" id="get_custom_color_button"></div>`;
@@ -8728,7 +9210,7 @@ class Colors {
                 if (fn) {
                     const articleHeader = this.api.v1.model.query.getModelByType('articleHeader');
                     fn(articleHeader, this.api.v1.view.getView(articleHeader), undefined, undefined, (result) => {
-                        this.markup.querySelector('input[name="fields.pageBackgroundColorStyle"]').value = result.color;
+                        this.markup.querySelector('input[name="fields.pageBackgroundColorStyle"]').value = _lib_editor_ColorUtils_js__WEBPACK_IMPORTED_MODULE_0__.ColorUtils.rgbString2hex(result.color);
                         const colorEl = this.markup.querySelector('input[name="fields.pageBackgroundColor"]:checked');
                         if (colorEl) {
                             colorEl.checked = false;
@@ -8753,7 +9235,7 @@ class Colors {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ConfigOverride": () => (/* binding */ ConfigOverride)
+/* harmony export */   ConfigOverride: () => (/* binding */ ConfigOverride)
 /* harmony export */ });
 class ConfigOverride {
 
@@ -8821,7 +9303,7 @@ class ConfigOverride {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ExportMailmojo": () => (/* binding */ ExportMailmojo)
+/* harmony export */   ExportMailmojo: () => (/* binding */ ExportMailmojo)
 /* harmony export */ });
 class ExportMailmojo {
 
@@ -9109,7 +9591,7 @@ class ExportMailmojo {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "FrontSaveAs": () => (/* binding */ FrontSaveAs)
+/* harmony export */   FrontSaveAs: () => (/* binding */ FrontSaveAs)
 /* harmony export */ });
 class FrontSaveAs {
 
@@ -9216,7 +9698,7 @@ class FrontSaveAs {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "GeneralPage": () => (/* binding */ GeneralPage)
+/* harmony export */   GeneralPage: () => (/* binding */ GeneralPage)
 /* harmony export */ });
 class GeneralPage {
 
@@ -9312,7 +9794,7 @@ class GeneralPage {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "GeneralSettings": () => (/* binding */ GeneralSettings)
+/* harmony export */   GeneralSettings: () => (/* binding */ GeneralSettings)
 /* harmony export */ });
 /* harmony import */ var _lib_helpers_AutoFontSize_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helpers/AutoFontSize.js */ "./modules/lib/helpers/AutoFontSize.js");
 
@@ -9508,7 +9990,7 @@ class GeneralSettings {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SeoSettings": () => (/* binding */ SeoSettings)
+/* harmony export */   SeoSettings: () => (/* binding */ SeoSettings)
 /* harmony export */ });
 /* harmony import */ var _lib_helpers_ContentLanguages_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helpers/ContentLanguages.js */ "./modules/lib/helpers/ContentLanguages.js");
 
@@ -9798,7 +10280,7 @@ class SeoSettings {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SettingsFront": () => (/* binding */ SettingsFront)
+/* harmony export */   SettingsFront: () => (/* binding */ SettingsFront)
 /* harmony export */ });
 /* eslint-disable camelcase */
 
@@ -10118,7 +10600,7 @@ class SettingsFront {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "MainViewport": () => (/* binding */ MainViewport)
+/* harmony export */   MainViewport: () => (/* binding */ MainViewport)
 /* harmony export */ });
 class MainViewport {
 
@@ -10220,7 +10702,7 @@ class MainViewport {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RequiredVieworts": () => (/* binding */ RequiredVieworts)
+/* harmony export */   RequiredVieworts: () => (/* binding */ RequiredVieworts)
 /* harmony export */ });
 class RequiredVieworts {
 
@@ -10336,18 +10818,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _article_ArticleSite_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./article/ArticleSite.js */ "./modules/apps/article/ArticleSite.js");
 /* harmony import */ var _article_RoxenExport_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./article/RoxenExport.js */ "./modules/apps/article/RoxenExport.js");
 /* harmony import */ var _article_AptomaExport_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./article/AptomaExport.js */ "./modules/apps/article/AptomaExport.js");
-/* harmony import */ var _CustomElements_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./CustomElements.js */ "./modules/apps/CustomElements.js");
-/* harmony import */ var _BylineEditor_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./BylineEditor.js */ "./modules/apps/BylineEditor.js");
-/* harmony import */ var _TeaserEditor_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./TeaserEditor.js */ "./modules/apps/TeaserEditor.js");
-/* harmony import */ var _FrontContentSupport_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./FrontContentSupport.js */ "./modules/apps/FrontContentSupport.js");
-/* harmony import */ var _ParallaxSupport_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./ParallaxSupport.js */ "./modules/apps/ParallaxSupport.js");
-/* harmony import */ var _article_TopicSummary_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./article/TopicSummary.js */ "./modules/apps/article/TopicSummary.js");
-/* harmony import */ var _ImageColors_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./ImageColors.js */ "./modules/apps/ImageColors.js");
-/* harmony import */ var _fieldversion_index_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./fieldversion/index.js */ "./modules/apps/fieldversion/index.js");
+/* harmony import */ var _article_WoodwingExport_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./article/WoodwingExport.js */ "./modules/apps/article/WoodwingExport.js");
+/* harmony import */ var _CustomElements_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./CustomElements.js */ "./modules/apps/CustomElements.js");
+/* harmony import */ var _BylineEditor_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./BylineEditor.js */ "./modules/apps/BylineEditor.js");
+/* harmony import */ var _TeaserEditor_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./TeaserEditor.js */ "./modules/apps/TeaserEditor.js");
+/* harmony import */ var _FrontContentSupport_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./FrontContentSupport.js */ "./modules/apps/FrontContentSupport.js");
+/* harmony import */ var _ParallaxSupport_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./ParallaxSupport.js */ "./modules/apps/ParallaxSupport.js");
+/* harmony import */ var _AddComment_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./AddComment.js */ "./modules/apps/AddComment.js");
+/* harmony import */ var _article_TopicSummary_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./article/TopicSummary.js */ "./modules/apps/article/TopicSummary.js");
+/* harmony import */ var _ImageColors_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./ImageColors.js */ "./modules/apps/ImageColors.js");
+/* harmony import */ var _fieldversion_index_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./fieldversion/index.js */ "./modules/apps/fieldversion/index.js");
 /**
  * Export a list of standalone apps as modules
  * Secondary views may override by replacing one or more modules
  */
+
+
 
 
 
@@ -10417,16 +10903,18 @@ __webpack_require__.r(__webpack_exports__);
     ArticleTranslate: _article_ArticleTranslate_js__WEBPACK_IMPORTED_MODULE_11__.ArticleTranslate,
     RoxenExport: _article_RoxenExport_js__WEBPACK_IMPORTED_MODULE_25__.RoxenExport,
     AptomaExport: _article_AptomaExport_js__WEBPACK_IMPORTED_MODULE_26__.AptomaExport,
-    CustomElements: _CustomElements_js__WEBPACK_IMPORTED_MODULE_27__.CustomElements,
-    BylineEditor: _BylineEditor_js__WEBPACK_IMPORTED_MODULE_28__.BylineEditor,
-    TeaserEditor: _TeaserEditor_js__WEBPACK_IMPORTED_MODULE_29__.TeaserEditor,
-    FrontContentSupport: _FrontContentSupport_js__WEBPACK_IMPORTED_MODULE_30__.FrontContentSupport,
-    ParallaxSupport: _ParallaxSupport_js__WEBPACK_IMPORTED_MODULE_31__.ParallaxSupport,
-    TopicSummary: _article_TopicSummary_js__WEBPACK_IMPORTED_MODULE_32__.TopicSummary,
-    ImageColors: _ImageColors_js__WEBPACK_IMPORTED_MODULE_33__.ImageColors,
-    FieldVersion: _fieldversion_index_js__WEBPACK_IMPORTED_MODULE_34__.FieldVersion,
+    WoodwingExport: _article_WoodwingExport_js__WEBPACK_IMPORTED_MODULE_27__.WoodwingExport,
+    CustomElements: _CustomElements_js__WEBPACK_IMPORTED_MODULE_28__.CustomElements,
+    BylineEditor: _BylineEditor_js__WEBPACK_IMPORTED_MODULE_29__.BylineEditor,
+    TeaserEditor: _TeaserEditor_js__WEBPACK_IMPORTED_MODULE_30__.TeaserEditor,
+    FrontContentSupport: _FrontContentSupport_js__WEBPACK_IMPORTED_MODULE_31__.FrontContentSupport,
+    ParallaxSupport: _ParallaxSupport_js__WEBPACK_IMPORTED_MODULE_32__.ParallaxSupport,
+    TopicSummary: _article_TopicSummary_js__WEBPACK_IMPORTED_MODULE_34__.TopicSummary,
+    ImageColors: _ImageColors_js__WEBPACK_IMPORTED_MODULE_35__.ImageColors,
+    FieldVersion: _fieldversion_index_js__WEBPACK_IMPORTED_MODULE_36__.FieldVersion,
     NoticeSettings: _notice_index_js__WEBPACK_IMPORTED_MODULE_20__.NoticeSettings,
-    NoticeGeneralSettings: _notice_NoticeGeneralSettings_js__WEBPACK_IMPORTED_MODULE_21__.NoticeGeneralSettings
+    NoticeGeneralSettings: _notice_NoticeGeneralSettings_js__WEBPACK_IMPORTED_MODULE_21__.NoticeGeneralSettings,
+    AddComment: _AddComment_js__WEBPACK_IMPORTED_MODULE_33__.AddComment
 });
 
 
@@ -10440,7 +10928,7 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "NoticeGeneralSettings": () => (/* binding */ NoticeGeneralSettings)
+/* harmony export */   NoticeGeneralSettings: () => (/* binding */ NoticeGeneralSettings)
 /* harmony export */ });
 class NoticeGeneralSettings {
 
@@ -10655,7 +11143,7 @@ class NoticeGeneralSettings {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "NoticeSettings": () => (/* binding */ NoticeSettings)
+/* harmony export */   NoticeSettings: () => (/* binding */ NoticeSettings)
 /* harmony export */ });
 class NoticeSettings {
 
@@ -11356,6 +11844,16 @@ class Article {
         if (this.autoFontSizeConfig.enabled) {
             this.autoFontSizeDone = model.get('metadata.autoFontSizeDone');
         }
+
+        // For sitemap
+        if (this.api.v1.viewport.getName() === 'newssitemap') {
+            const headerImage = this.api.v1.model.query.getChildOfType(model, 'image');
+            const imageId = headerImage.get('instance_of');
+            if (this.imageServer && headerImage && imageId) {
+                const headerImageUrl = `${ this.imageServer }?imageId=${ imageId }&format=webp&width=500`;
+                model.setFiltered('headerImageUrl', headerImageUrl);
+            }
+        }
     }
 
     onRendered(model, view) {
@@ -11406,6 +11904,7 @@ class Article {
         if (url.startsWith('http')) { return url; }
         return this.imageServer + url;
     }
+
 }
 
 
@@ -11610,6 +12109,21 @@ class ArticleHeader {
             const kicker = model.get('fields.kicker');
             model.setFiltered('hideKicker', !kicker || kicker.includes('Click to add kicker'));
         }
+
+        // Should the section label be a link to the tag page?
+        // Fetch the tagpage path, site domain, and the actual name of the section, create a link and add it to the filtered data
+        const sectionLabelHasLink = model.get('metadata.sectionLabelHasLink');
+        if (sectionLabelHasLink) {
+            const tagPath = this.api.v1.config.get('tagPagePath') || '/tag/';
+            const siteDomain = this.api.v1.site.getSite().domain;
+            const sectionName = this.api.v1.model.query.getRootModel().get('primaryTags.section');
+            const sectionTagPageLink = `${ siteDomain }${ tagPath }${ sectionName }`;
+            model.setFiltered('sectionLink', sectionTagPageLink);
+        }
+
+        // Section placement
+        const sectionPlacement = model.get('metadata.sectionPlacement') || 'overImage';
+        model.setFiltered('sectionPlacement.underImage', sectionPlacement === 'underImage');
     }
 
     async onChildAdded(model, childModel) {
@@ -11841,7 +12355,7 @@ class ArticleMeta {
         };
 
         // Unified: Display modified-date if exist. If not: Use publish-date
-        const displayUnifiedDate = this.api.v1.config.get('contentbox_settings.articleMeta.displayUnifiedDate');
+        const displayUnifiedDate = this.api.v1.config.get('contentbox_settings.articleMeta.displayUnifiedDate') || this.api.v1.config.get('articleMetaSettings.displayUnifiedDate');
         const unified = { hide: true };
         if (displayUnifiedDate) {
             unified.hide = false;
@@ -12309,8 +12823,16 @@ class ArticleScroller {
             `width=${  settings.width }`,
             `height=${  settings.height }`
         ];
+
+        // Get the date format set by the customer in Admin -> Language options -> Dates
+        const publishedDateFormat = this.api.v1.locale.get('dates.articleScrollerPublishedFormat', { noRender: true });
+        const publishedDatePrefix = this.api.v1.locale.get('dates.articleScrollerPublishedDatePrefix', { fallbackValue: '' });
+        const dateHandler = new _lib_helpers_datetime_DateTimeHelper_js__WEBPACK_IMPORTED_MODULE_1__.DateTimeHelper(this.api.v1.config.get('lang') || undefined);
+
         data.result.forEach((article) => {
             const autodata = _lib_helpers_AutodataHelper_js__WEBPACK_IMPORTED_MODULE_0__.AutodataHelper.parseCustomDataFromFeed(article, 'contentbox_settings.articlescroller');
+            const formattedDate = dateHandler.format(new Date(article.published), publishedDateFormat);
+            const publishedDate = publishedDatePrefix ? `${ publishedDatePrefix } ${ formattedDate }` : formattedDate;
             let url = '';
             if (article.url) {
                 if (article.url.indexOf('http') === 0 || article.url.indexOf('//') === 0) {
@@ -12319,6 +12841,7 @@ class ArticleScroller {
                     url = settings.baseUrl + article.url;
                 }
             }
+
             const thisArticle = {
                 url,
                 title: article.teaserTitle ? article.teaserTitle : article.title,
@@ -12329,7 +12852,7 @@ class ArticleScroller {
                 section: article.section || '',
                 paywall: !!article.paywall,
                 author: article.byline || '',
-                publishedDate: article.published
+                publishedDate
             };
             result.push(thisArticle);
         });
@@ -12445,7 +12968,8 @@ class ArticlesByTag {
             kicker: false,
             title: true,
             subtitle: true,
-            published: false
+            published: false,
+			counter: false
         };
         const editDisplayOptions = [];
         const selectedDisplayOptions = model.get('fields.displayOptions_json') || {};
@@ -12653,6 +13177,211 @@ class ArticlesByTag {
 
 /***/ }),
 
+/***/ "./modules/behaviours/elements/AuthorBox.js":
+/*!**************************************************!*\
+  !*** ./modules/behaviours/elements/AuthorBox.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AuthorBox)
+/* harmony export */ });
+class AuthorBox {
+
+    constructor(api) {
+        this.api = api;
+        this.rootModel = this.api.v1.model.query.getRootModel();
+        this.isEditor = this.api.v1.app.mode.isEditor();
+    }
+
+    // Running onReady to set image, as we need to ensure the image is properly set as early as possible during rendering
+    onReady(model, view) {
+
+        if (!this.isEditor) {
+            // Get Author data
+            const authordata = this.rootModel.get('fields.author_json');
+            // Get children of type 'image' from our authorBox model (Placeholder in the Editor)
+            const imageChildren = this.api.v1.model.query.getChildrenOfType(model, 'image');
+
+            // Get imageurl in the authordata.children image
+            if (authordata && authordata.children.image) {
+                const image = authordata.children.image[0];
+
+                // Get instance_of from imageurl
+                let instanceOf = image.instance_of;
+
+                if (!instanceOf && image.imageurl) {
+                    const [, id] = image.imageurl.match(/imageId=(\d+)/) || [];
+
+                    if (id) {
+                        instanceOf = id;
+                    }
+                }
+
+                // If we have an image child, set the instance_of and replace the placeholder
+                if (imageChildren && imageChildren.length > 0) {
+                    const imageChild = imageChildren[0];
+                    imageChild.set('instance_of', instanceOf);
+                    model.setFiltered('author_image', true);
+
+                    // Get the image child's view to set viewport-specific crop data
+                    const imageChildView = this.api.v1.view.getView(imageChild);
+                    if (imageChildView) {
+                        imageChildView.set('fields.croph', 0);
+                        imageChildView.set('fields.cropw', 0);
+                        imageChildView.set('fields.x', 0);
+                        imageChildView.set('fields.y', 0);
+                    }
+                }
+            } else {
+                model.setFiltered('author_image', false);
+            }
+        }
+    }
+
+    onRender(model, view) {
+        // Get authordata from front page node sent from backend
+        const authordata = this.rootModel.get('fields.author_json');
+
+        // Get authorbox fields, priority to authordata
+        const getField = (field) => {
+            // If editor is true, use model fields as fallback
+            if (this.isEditor) {
+                // Special handling for firstname/lastname
+                if (field === 'firstname') {
+                    return model.get('fields.origin_data_json.full_name')
+                        || model.get('fields.full_name')
+                        || '';
+                }
+
+                if (field === 'lastname') {
+                    return '';
+                }
+
+                return model.get(`fields.origin_data_json.${ field }`)
+                    || model.get(`fields.${ field }`)
+                    || '';
+            }
+
+            // If editor is false, only use authordata if it exists and is not empty
+            if (authordata && authordata.fields && authordata.fields[field]) {
+                return authordata.fields[field];
+            }
+
+            // If not editor and authordata field is empty/missing, return empty string
+            return '';
+        };
+
+        // Get all field values
+        const firstname = getField('firstname');
+        const lastname = getField('lastname');
+        const full_name = [firstname, lastname].filter(Boolean).join(' ');
+        const description = getField('description');
+        const description2 = getField('description2');
+        const public_phone = getField('public_phone');
+        const public_url = getField('public_url');
+        const public_email = getField('public_email');
+
+        // Booleans to display or hide fields in the authorBox
+        const hideDisplayName = model.get('fields.origin_data_json.hideDisplayName') || model.get('fields.hideDisplayName') || false;
+        const hideDescription = model.get('fields.origin_data_json.hideDescription') || model.get('fields.hideDescription') || false;
+        const hideExtendedDescription = model.get('fields.origin_data_json.hideExtendedDescription') || model.get('fields.hideExtendedDescription') || false;
+        const hidePublicPhone = model.get('fields.origin_data_json.hidePublicPhone') || model.get('fields.hidePublicPhone') || false;
+        const hidePublicUrl = model.get('fields.origin_data_json.hidePublicUrl') || model.get('fields.hidePublicUrl') || false;
+        const hidePublicEmail = model.get('fields.origin_data_json.hidePublicEmail') || model.get('fields.hidePublicEmail') || false;
+
+        // Show image in editor
+        if (this.isEditor) {
+            model.setFiltered('author_image', true);
+        }
+
+        // Set all the filtered data
+        model.setFiltered('full_name', full_name);
+        model.setFiltered('firstname', firstname);
+        model.setFiltered('lastname', lastname);
+        model.setFiltered('description', description);
+        model.setFiltered('description2', description2);
+        model.setFiltered('public_phone', public_phone);
+        model.setFiltered('public_url', public_url);
+        model.setFiltered('public_email', public_email);
+
+        model.setFiltered('hideDisplayName', hideDisplayName);
+        model.setFiltered('hideDescription', hideDescription);
+        model.setFiltered('hideExtendedDescription', hideExtendedDescription);
+        model.setFiltered('hidePublicPhone', hidePublicPhone);
+        model.setFiltered('hidePublicUrl', hidePublicUrl);
+        model.setFiltered('hidePublicEmail', hidePublicEmail);
+
+        const imageChildren = this.api.v1.model.query.getChildrenOfType(model, 'image');
+
+        if (imageChildren && imageChildren.length > 0) {
+            const imageChild = imageChildren[0];
+            const imageChildView = this.api.v1.view.getView(imageChild);
+            if (imageChildView) {
+                imageChildView.set('fields.croph', 0);
+                imageChildView.set('fields.cropw', 0);
+                imageChildView.set('fields.x', 0);
+                imageChildView.set('fields.y', 0);
+            }
+        }
+
+        // Desktop layout options (vertical, horizontal)
+        const adminDesktopView = {
+            layout: []
+        };
+
+        for (const orientation of ['vertical', 'horizontal']) {
+            adminDesktopView.layout.push({
+                name: orientation.charAt(0).toUpperCase() + orientation.slice(1),
+                value: orientation,
+                selected: orientation === view.get('fields.desktop_layout') || (!view.get('fields.desktop_layout') && orientation === 'vertical') // vertical default
+            });
+        }
+
+        // Mobile layout options (vertical, horizontal)
+        const adminMobileView = {
+            layout: []
+        };
+
+        for (const orientation of ['vertical', 'horizontal']) {
+            adminMobileView.layout.push({
+                name: orientation.charAt(0).toUpperCase() + orientation.slice(1),
+                value: orientation,
+                selected: orientation === view.get('fields.mobile_layout') || (!view.get('fields.mobile_layout') && orientation === 'vertical') // vertical default
+            });
+        }
+
+        // Set layout selections
+        model.setFiltered('adminDesktopView', adminDesktopView);
+        model.setFiltered('adminMobileView', adminMobileView);
+
+        const desktopLayout = view.get('fields.desktop_layout') || 'vertical';
+        const mobileLayout = view.get('fields.mobile_layout') || 'vertical';
+
+        model.setFiltered('desktop_layout', desktopLayout);
+        model.setFiltered('mobile_layout', mobileLayout);
+    }
+
+    onSettingsPanel() {
+        return {
+            onSubmit: ({ view, formValues }) => {
+                for (const key of Object.keys(formValues)) {
+                    let value = formValues[key];
+                    if (key.startsWith('fields.hide')) {
+                        value = !value;
+                    }
+                    view.set(key, value);
+                }
+            }
+        };
+    }
+
+}
+
+
+/***/ }),
+
 /***/ "./modules/behaviours/elements/Bodytext.js":
 /*!*************************************************!*\
   !*** ./modules/behaviours/elements/Bodytext.js ***!
@@ -12672,35 +13401,63 @@ class Bodytext {
         this.api = api;
         this.isFront = this.api.v1.app.mode.isFront();
         this.internal = this.api.v1.properties.get('paywall') || {};
-        const config = this.api.v1.config.get('paywall') || {};
-        this.provider = config.provider || 'internal';
+        const paywallConfig = this.api.v1.config.get('paywall') || {};
+        this.provider = paywallConfig.provider || 'internal';
         // View can disable displaying buildt-in paywall in config: { paywall: { displaySalesPosters: false, ... } }
         // Useful for providers rendering the salesposters client-side
-        this.displaySalesPosters = config.displaySalesPosters !== false;
+        this.displaySalesPosters = paywallConfig.displaySalesPosters !== false;
     }
 
     onRender(model, view) {
+        const newzwareConfig = this.api.v1.config.get('newzware') || {};
+        const isNewzwareEnabled = this.isFront && this.provider === 'newzware' && newzwareConfig.enabled === true;
+
         const paywall = {
             displaySalesPosters: this.displaySalesPosters,
             isInternal: this.provider === 'internal' && this.internal.active,
-            active: this.isFront && (this.provider === 'internal' ? this.internal.active : !!model.get('fields.paywall')),
+
+            active: this.isFront && (this.provider === 'internal' ? this.internal.active : !!Number(model.get('fields.paywall'))),
             access: this.provider === 'internal' && this.internal.active ? this.internal.hasAccess : false,
+
             provider: this.provider,
             intro: this.provider !== 'internal' ? _lib_helpers_Paywall_js__WEBPACK_IMPORTED_MODULE_0__.Paywall.filterBodytext(model, view) : undefined,
             bodytext: this.provider !== 'internal' ? model.get('filtered.bodytext') : undefined
         };
-        if (paywall.active && !paywall.access) {
+
+        if (paywall.active && !paywall.access && !isNewzwareEnabled) {
             if (this.provider === 'internal') {
                 model.setFiltered('bodytext', _lib_helpers_Paywall_js__WEBPACK_IMPORTED_MODULE_0__.Paywall.filterBodytext(model, view));
             } else {
+                // Original bodytext, inside article
                 model.setFiltered('bodytext', '');
             }
         }
+
+        // Sesamy special handling - proxyLock is server-side rendering of paywall with client unlock
+        if (this.isFront && this.provider === 'sesamy' && !!Number(model.get('fields.paywall'))) {
+            const sesamyConfig = this.api.v1.config.get('sesamy') || {};
+
+            // Standard sesamy - empty bodytext inside article if protected
+            if (this.internal.isProtected === true && sesamyConfig.enabled === true) {
+                // Original bodytext, not positioned inside sesamy container
+                model.setFiltered('bodytext', '');
+            } else if (sesamyConfig.enabled === false) {
+                // Restore original bodytext if sesamy is disabled
+                model.setFiltered('bodytext', model.get('fields.bodytext'));
+            }
+
+            // Proxy lock - remove bodytext from paywall container if protected
+            if (this.internal.isProtected === true && this.internal.hasAccess === false && sesamyConfig.enabledProxyLock === true && sesamyConfig.enabled === true) {
+                paywall.bodytext = '';
+            }
+        }
+
         if (this.provider === 'iteras' && paywall.active) {
             const iterasConfig = this.api.v1.config.get('iteras') || {};
             const tags = model.get('tags') || [];
             paywall.iteras = _lib_helpers_Paywall_js__WEBPACK_IMPORTED_MODULE_0__.Paywall.iterasPaywall(iterasConfig, tags);
         }
+
         model.setFiltered('paywall', paywall);
     }
 
@@ -12791,6 +13548,8 @@ class Byline {
 
     constructor(api) {
         this.api = api;
+        this.domain = this.api.v1.site.getSite().domain || this.api.v1.properties.get('customer_front_url');
+        this.authorPagesConfig = this.api.v1.config.get('authorPages') || {};
     }
 
     onId(model) {
@@ -12843,11 +13602,13 @@ class Byline {
         const fields = {
             public_email: view.get('fields.public_email'),
             public_url: view.get('fields.public_url'),
+            email: view.get('fields.email'),
             public_phone: view.get('fields.public_phone'),
             firstname: view.get('fields.firstname'),
             lastname: view.get('fields.lastname'),
             description: view.get('fields.description'),
-            description2: view.get('fields.description2')
+            description2: view.get('fields.description2'),
+            slug: view.get('fields.slug')
         };
 
         /**
@@ -12916,6 +13677,9 @@ class Byline {
                         break;
                     }
                 }
+                if (this.shouldUseAuthorPageUrl(fields, model)) {
+                    element.url = this.authorPageUrl(model);
+                }
             }
 
             if (element.parts.length) {
@@ -12925,6 +13689,60 @@ class Byline {
 
         model.setFiltered('default_color', config.default_color || '');
         model.setFiltered('data', data);
+    }
+
+    /**
+     * Determines whether the author's byline should link to their author page.
+     *
+     * This function checks if the author pages feature is enabled in the site configuration
+     * and whether the current author meets the criteria for having an author page link.
+     * The author page link is used instead of a manually defined email or URL if:
+     *  - The `authorPagesConfig.enabled` flag is true
+     *  - The author has a public or internal email defined
+     *  - Either all authors are allowed (`enableForAll`), or this specific author ID is whitelisted
+     *
+     * @param {Object} fields - The author field values from the view.
+     * @param {Object} model - The model instance representing the byline element.
+     *
+     * @returns {boolean} Returns `true` if the author page URL should be used for the byline link; otherwise `false`.
+     */
+    shouldUseAuthorPageUrl(fields, model) {
+        if (this.authorPagesConfig.enabled && (fields.public_email || fields.email) && model.get('instance_of')) {
+            if (this.authorPagesConfig.enableForAll) {
+                return true;
+            }
+            if (this.authorPagesConfig.enabledAuthorIds) {
+                const enabledIds = this.authorPagesConfig.enabledAuthorIds.split(',').map((id) => parseInt(id.trim(), 10));
+                if (enabledIds.includes(model.get('instance_of'))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Builds and returns the full URL to the author's dedicated author page.
+     *
+     * This method constructs a valid URL to the author’s page using the site’s domain
+     * and the configured author page path. It uses the author’s `slug` (if available)
+     * for cleaner, SEO-friendly URLs; otherwise, it falls back to the author’s instance ID.
+     *
+     * Example output:
+     * ```
+     * https://example.com/author/john-doe
+     * ```
+     *
+     * @param {Object} model - The model instance representing the byline element.
+     *
+     * @returns {string} The complete URL to the author’s page, combining domain, configured path, and slug or ID.
+     */
+    authorPageUrl(model) {
+        const instanceOfId = model.get('instance_of');
+        const instanceOfJson = model.get('instance_of_json') ? JSON.parse(model.get('instance_of_json')) : undefined;
+        const instanceOfSlug = (instanceOfJson && instanceOfJson.fields.slug) ? instanceOfJson.fields.slug : undefined;
+
+        return `${ this.domain }/${ this.authorPagesConfig.path || 'author' }/${ instanceOfSlug || instanceOfId || '' }`;
     }
 
 }
@@ -12946,12 +13764,22 @@ class Changelog {
 
     constructor(api) {
         this.api = api;
+        this.rootModel = this.api.v1.model.query.getRootModel();
+        this.boundModels = [];
+    }
+
+    onReady(model, view) {
+        if (this.api.v1.app.mode.isEditor() && view.getViewport() === 'desktop' && !this.boundModels.includes(model)) {
+            this.api.v1.model.bindings.bind(this.rootModel, 'fields.lab_changelog_json', () => {
+                this.api.v1.model.redraw(model);
+            });
+            this.boundModels.push(model);
+        }
     }
 
     onRender(model, view) {
-        const rootModel = this.api.v1.model.query.getRootModel();
-        const contentLanguage = rootModel.get('filtered.contentLanguage');
-        const changelogEntriesRaw = rootModel.get('fields.lab_changelog_json');
+        const contentLanguage = this.rootModel.get('filtered.contentLanguage');
+        const changelogEntriesRaw = this.rootModel.get('fields.lab_changelog_json');
         if (changelogEntriesRaw && changelogEntriesRaw.length > 0) {
             let changelog;
             if (typeof changelogEntriesRaw === 'string') {
@@ -12970,6 +13798,9 @@ class Changelog {
                 newItems.push(newItem);
             });
             model.setFiltered('changelog', newItems);
+        } else {
+            model.setFiltered('changelogHasContent', false);
+            model.setFiltered('changelog', []);
         }
     }
 
@@ -13007,7 +13838,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class ChartElement {
 
-    constructor(api, aiSettings = { model: 'gpt-4o', provider: 'openAi', integration: 'openAi' }) {
+    constructor(api, aiSettings = {
+        model: 'gpt-4o', provider: 'openAi', integration: 'openAi', featureName: 'chart'
+    }) {
         this.api = api;
         this.aiSettings = aiSettings;   // Settings for the ai-integration (model, provider, integration)
         this.isEditor = this.api.v1.app.mode.isEditor();
@@ -13071,31 +13904,27 @@ class ChartElement {
     }
 
     tsvToObject(tsvString) {
-        const lines = tsvString.trim().split('\n');
-        const headers = lines[0].split('\t');
+        const normalized = (tsvString === undefined || tsvString === null) ? "" : String(tsvString).replace(/\r\n?/g, "\n").trim();
+        if (!normalized) return { labels: [], datasets: [] };
+        
+        const lines = normalized.split("\n").filter(l => l.trim() !== "");
+        const headerCells = lines[0].split('\t');
+        const datasetHeaders = headerCells.slice(1);
 
         const result = {
             labels: [],
-            datasets: []
+            datasets: datasetHeaders.map(h => ({ label: ((h === null || h === undefined) ? "" : h).trim(), data: [] })),
         };
-
-        // Start from index 1 if headers[0] is empty, indicating the first column is labels
-        const headerStartIndex = headers[0] === '' ? 1 : 0;
-
-        for (let i = headerStartIndex; i < headers.length; i++) {
-            result.datasets.push({
-                label: headers[i],
-                data: []
-            });
-        }
-
+        
         for (let i = 1; i < lines.length; i++) {
-            const values = lines[i].split('\t');
-            result.labels.push(values[0]);
-
-            for (let j = 1; j < values.length; j++) {
-                const cleanedValue = values[j].replace(/\s+/g, '');
-                result.datasets[j - 1].data.push(parseFloat(cleanedValue));
+            const cells = lines[i].split("\t");
+            result.labels.push(((cells[0] === null || cells[0] === undefined) ? "" : cells[0]).trim());
+            
+            for (let d = 0; d < result.datasets.length; d++) {
+                const raw = ((cells[d + 1] === null || cells[d + 1] === undefined) ? "" : cells[d + 1]).trim();
+                const num = raw === "" ? null : Number(raw.replace(/\s+/g, ""));
+                
+                result.datasets[d].data.push(Number.isFinite(num) ? num : null);
             }
         }
 
@@ -13733,7 +14562,7 @@ class GoogleAd {
         if (googleAds.bidding && googleAds.bidding.enabled && googleAds.bidding.provider && googleAds.bidding.provider.name) {
             if (googleAds.bidding.provider.name === 'livewrapped') {
                 const guidGenerator = () => {
-                    const S4 = () => (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+                    const S4 = () => (((1 + Math.random()) * 0x10000) || 0).toString(16).substring(1);
                     return (`${ S4() + S4() }-${ S4() }-${ S4() }-${ S4() }-${ S4() }${ S4() }${ S4() }`);
                 };
                 if (format.code && format.code.endsWith('-1')) {
@@ -14015,6 +14844,105 @@ class Image {
             this.api.v1.ns.set('imageFilter.preview', this.prepareVisualFilters);
         }
         this.isFragmentMode = this.api.v1.app.mode.isFragmentMode();
+        this.isEditorMode = this.api.v1.app.mode.isEditor();
+        this.boundModels = []; // Track bound models to avoid duplicate bindings
+    }
+
+    // Setup bindings for caption/byline sync
+    onInserted(model, view) {
+        if (this.isEditorMode && model.get('instance_of')) {
+            if (!this.boundModels.includes(model)) {
+                this.api.v1.model.bindings.bind(model, 'fields.imageCaption', this.imageUpdater.bind(this));
+                this.api.v1.model.bindings.bind(model, 'fields.byline', this.imageUpdater.bind(this));
+                this.boundModels.push(model);
+            }
+        }
+    }
+
+    // Sync caption/byline changes from frontend to backend image node
+    // Possible future work is to add alt text editing to front
+    imageUpdater(model, path, value) {
+        if (!value) return; // Don't sync empty values
+
+        const imageId = model.get('instance_of');
+        if (!imageId) return;
+
+        const isCaption = path.includes('imageCaption');
+        const isByline = path.includes('byline');
+
+        // Fetch backend image node and check if field needs syncing
+        this.api.v1.util.httpClient.get(`/ajax/node/get-node?id=${ imageId }`, { resetCache: true }).then((response) => {
+            const backendNode = response.data;
+            const backendCaption = (backendNode && backendNode.fields && backendNode.fields.caption) || '';
+            const backendByline = (backendNode && backendNode.fields && backendNode.fields.byline) || '';
+
+            // Check if we need to save
+            const shouldSaveCaption = isCaption && !backendCaption;
+            const shouldSaveByline = isByline && !backendByline;
+
+            // If backend already has data, no need to sync
+            if (!shouldSaveCaption && !shouldSaveByline) {
+                return;
+            }
+
+            const setLanguage = (backendNode && backendNode.fields && backendNode.fields.extra_metadata_json && backendNode.fields.extra_metadata_json.currentLanguage) || this.api.v1.config.get('contentLanguage') || 'en';
+            const extra_metadata_json = JSON.parse(JSON.stringify((backendNode && backendNode.fields && backendNode.fields.extra_metadata_json) || {}));
+            const fields = {};
+
+            // Ensure nested structure exists
+            if (!extra_metadata_json.aiMetadata) {
+                extra_metadata_json.aiMetadata = {};
+            }
+            if (!extra_metadata_json.aiMetadata[setLanguage]) {
+                extra_metadata_json.aiMetadata[setLanguage] = {};
+            }
+
+            // Handle caption sync
+            if (shouldSaveCaption) {
+                const frontendLanguage = model.get('fields.extra_metadata_json.currentLanguage') || '';
+                const languagesMatch = !frontendLanguage || frontendLanguage === setLanguage;
+                const setLanguageHasCaption = extra_metadata_json.aiMetadata && extra_metadata_json.aiMetadata[setLanguage] && extra_metadata_json.aiMetadata[setLanguage].caption;
+
+                if (!setLanguageHasCaption && languagesMatch) {
+                    fields.caption = value;
+                    extra_metadata_json.aiMetadata[setLanguage].caption = value;
+                    fields.extra_metadata_json = extra_metadata_json;
+                }
+            }
+
+            // Handle byline sync (not language-specific)
+            if (shouldSaveByline) {
+                fields.byline = value;
+            }
+
+            // Only save if we have fields to update
+            if (Object.keys(fields).length === 0) {
+                return;
+            }
+
+            const nodeData = {
+                type: 'image',
+                id: imageId,
+                fields
+            };
+
+            const saveFormData = new FormData();
+            saveFormData.append('json[id]', imageId);
+            saveFormData.append('json[type]', 'image');
+            saveFormData.append('json[structure]', null);
+            saveFormData.append('json[node]', JSON.stringify([nodeData]));
+
+            this.api.v1.util.httpClient.request('/ajax/node/save-node-and-data', {
+                body: saveFormData,
+                method: 'POST'
+            }).then(() => {
+                Sys.logger.debug('[Image] Synced caption/byline to backend:', imageId);
+            }).catch((error) => {
+                Sys.logger.error('[Image] Error syncing to backend:', error);
+            });
+        }).catch((error) => {
+            Sys.logger.error('[Image] Error fetching backend node:', error);
+        });
     }
 
     // View-helper is about to run, it may use filtered data.
@@ -14049,7 +14977,6 @@ class Image {
 
     // (void) Element has been rendered
     onRendered(model, view) {
-
         if (!this.api.v1.app.mode.isEditor() || !this.cropIds.length) {
             return;
         }
@@ -14187,6 +15114,71 @@ class Image {
 
 /***/ }),
 
+/***/ "./modules/behaviours/elements/InfiniteScroll.js":
+/*!*******************************************************!*\
+  !*** ./modules/behaviours/elements/InfiniteScroll.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ InfiniteScroll)
+/* harmony export */ });
+class InfiniteScroll {
+
+    constructor(api) {
+        this.api = api;
+    }
+
+    onRender(model, view) {
+        const infiniteSource = model.get('fields.infiniteSource') || 'api';
+        const infiniteFeed = model.get('fields.infiniteFeed');
+
+        if (this.api.v1.app.mode.isEditor()) {
+            const sourceOptions = [
+                {
+                    value: 'api',
+                    label: 'All articles from site',
+                    selected: infiniteSource === 'api'
+                },
+                {
+                    value: 'feed',
+                    label: 'Articles from feed',
+                    selected: infiniteSource === 'feed'
+                }
+            ];
+            model.setFiltered('sourceOptions', sourceOptions);
+            model.setFiltered('displayFeeds', infiniteSource === 'feed');
+
+            const feeds = this.api.v1.config.get('feeds');
+            const feedOptions = [];
+            for (const [key, value] of Object.entries(feeds)) {
+                const feed = {
+                    value: key,
+                    label: value.display_name,
+                    selected: infiniteFeed === key
+                };
+                feedOptions.push(feed);
+            }
+            model.setFiltered('feedOptions', feedOptions);
+
+            if (infiniteSource === 'api') {
+                model.setFiltered('sourceInfo', 'Currently fetching all articles from this site');
+            } else if (infiniteSource === 'feed') {
+                model.setFiltered('sourceInfo', `Currently fetching articles from feed "${ infiniteFeed }"`);
+            }
+        }
+
+        model.setFiltered('infiniteSource', infiniteSource);
+        model.setFiltered('infiniteFeed', infiniteFeed);
+
+    }
+
+}
+
+
+/***/ }),
+
 /***/ "./modules/behaviours/elements/JWPlayer.js":
 /*!*************************************************!*\
   !*** ./modules/behaviours/elements/JWPlayer.js ***!
@@ -14261,6 +15253,11 @@ class LabradorSearch {
     }
 
     onRender(model, view) {
+        const searchTexts = ['submitLabel', 'navLabel', 'nohitsLabel', 'searchPlaceholder', 'advancedOpenText', 'advancedCloseText', 'fromDateLabel', 'toDateLabel', 'tagLabel', 'authorLabel', 'allSitesLabel'];
+        searchTexts.forEach((text) => {
+            const searchText = this.api.v1.locale.get(`search.labradorSearch.${ text }`, { noRender: true, fallbackValue: null });
+            model.setFiltered(text, view.get(`fields.${ text }`) || searchText);
+        });
         const siteList = lab_api.v1.properties.get('sites');
         const sites = [];
         const allowedSites = model.get('fields.allowedSites_json') || {};
@@ -15855,6 +16852,7 @@ class Slideshow {
 
     constructor(api) {
         this.api = api;
+        this.isEditor = this.api.v1.app.mode.isEditor();
     }
 
     onRender(model, view) {
@@ -15862,6 +16860,28 @@ class Slideshow {
         // Prio: 1: data, 2: element-property, 3: config, 4: Hard-coded value
         const customAspectRatio = view.get('fields.aspectRatio') || view.getProperty('image.defaultAspectRatio') || this.api.v1.config.get('image.defaultAspectRatio') || 0.5;
         model.setFiltered('aspectRatio', customAspectRatio * 100);
+
+        // Gallery mode: We need to render the index of each preview image for the url (/gallery/<page-id>/<slideshow-id>?photo=<index>):
+        const imageList = [];
+        let counter = 0;
+        for (const child of model.getChildren()) {
+            if (child.getType() === 'image' || child.getType() === 'placeholder_ad') {
+                const childView = this.api.v1.view.getView(child, view.getViewport());
+                const markup = childView.getMarkupString(); // Ensure the view is rendered to get any dynamic changes (e.g. lazy loading)
+                imageList.push({
+                    isImage: child.getType() === 'image',
+                    url: child.get('filtered.imageCleanUrl'),
+                    markup,
+                    index: counter
+                });
+                if (child.getType() === 'image') {
+                    counter++;
+                }
+            }
+        }
+        model.setFiltered('imageList', imageList);
+        model.setFiltered('hasText', this.isEditor || (!!(model.get('fields.title') || model.get('fields.description'))));
+
     }
 
 }
@@ -16303,89 +17323,230 @@ class Toplist {
 
     constructor(api) {
         this.api = api;
+        this.boundModels = [];
     }
 
     onViewHelper(model, view) {
-
-        // Get node-data used to set external url:
-        let domain = model.get('fields.domain') || this.api.v1.properties.get('site.domain');
-        domain = domain.replace(/^https?:\/\//, ''); // Remove protocol
-        const limit = model.get('fields.limit') || 5;
+        /**
+         * Process data before fetching external data for the toplist.
+         * Sets up filtered parameters for the external data URL.
+         * @param {Object} model - The model object - the toplist.
+         * @param {Object} view - The view object - the toplist view (mobile/desktop).
+         */
+        // Get tab data from view
+        const domain = this.getDomain(model);
         model.setFiltered('domain', domain);
+
+        const limit = model.get('fields.limit') || 5;
         model.setFiltered('limit', limit);
+
+        const tabMode = model.get('fields.tabs');
+        if (!tabMode || tabMode === 'default') {
+            model.setFiltered('multi', '');
+            model.setFiltered('splitOn', '');
+        } else {
+            model.setFiltered('multi', '-multi');
+            model.setFiltered('splitOn', `&splitOn=${ tabMode }`);
+        }
+
+        const tags = model.get('fields.tagsSelected') || '';
+        const tagsArray = tags.split(',')
+            .map((tag) => tag.trim().toLowerCase())
+            .map((tag) => tag.replace(/ /g, '%20'))
+            .filter((tag) => tag.length > 0);
+        if (tagsArray.length > 0) {
+            model.setFiltered('tags', `&tags=${ tagsArray.join(',') }`);
+        } else {
+            model.setFiltered('tags', '');
+        }
+
+        // Set up paywall label configuration
+        const paywallLabel = {
+            ...{
+                display: true,
+                displayInNewsletter: true
+            },
+            ...this.api.v1.config.get('paywall.label')
+        };
+
+        // Get the paywall label text and icon from the config or default values
+        const textValue = this.api.v1.config.get('paywall.label.text.content');
+        const iconValue = this.api.v1.config.get('paywall.label.icon.content');
+        const textContent = (textValue === undefined || textValue === null) ? 'Plus' : textValue;
+        const iconContent = (iconValue === undefined || iconValue === null) ? 'fi-plus' : iconValue;
+
+        // Create label icon object
+        const labelIcon = { text: { content: textContent }, icon: { content: iconContent } };
+        Object.assign(paywallLabel, labelIcon);
+
+        model.setFiltered('paywallLabel', paywallLabel);
+    }
+
+    getDomain(model) {
+        /**
+         * Get selected domains from the model.
+         * If no domains are selected, fallback to the current site domain.
+         * @param {Object} model - The model object - the toplist.
+         */
+        // Set all data
+        const domains = [];
+        this.api.v1.site.getSites().forEach((site) => {
+            const siteSelected = model.get(`fields.domains_${ site.alias }`);
+            if (siteSelected) {
+                let currentDomain = site.domain.replace(/^https?:\/\//, '');
+                if (site.domain.includes('labdevs')) {
+                    if (site.domain_aliases && site.domain_aliases.length > 0) {
+                        // If domain_aliases is set, use the first alias as the current domain
+                        const aliases = site.domain_aliases.split('\n');
+                        if (aliases.length > 0) {
+                            currentDomain = this.getCleanDomain(aliases[0]);
+                        } else {
+                            currentDomain = this.getCleanDomain(site.domain_aliases);
+                        }
+                    }
+                }
+                domains.push(currentDomain);
+            }
+        });
+
+        if (domains.length === 0) {
+            // Fallback to default domain if no site is selected.
+            const site = lab_api.v1.site.getSite();
+            if (site) {
+                let fallbackDomain = site.domain;
+                // Special handling for labdevs domain
+                if (site.domain.includes('labdevs')) {
+                    fallbackDomain = this.handleLabdevsDomain(site, fallbackDomain);
+                }
+                fallbackDomain = this.getCleanDomain(fallbackDomain);
+                domains.push(fallbackDomain);
+            }
+        }
+        return domains;
     }
 
     onRender(model, view) {
+        /**
+         * Process data before rendering the toplist.
+         * Sets default values so that existing toplists are not broken when new fields are added.
+         * Uses external data to fetch articles from Kilkaya API.
+         * The external data uses -multi endpoint when request needs to handle multiple values in specific params
+         * @param {Object} model - The model object - the toplist.
+         * @param {Object} view - The view object - the toplist view (mobile/desktop).
+         */
         const placeholder = view.get('fields.placeholder');
         model.setFiltered('placeholder', placeholder || this.api.v1.locale.get('emptyState.noContentText', { noRender: true }));
+
+        const tabMode = model.get('fields.tabs') || 'default';
+        const domains = this.getDomain(model);
+
+        // Set default values
+        if (!model.get('fields.imageWidth')) {
+            model.set('fields.imageWidth', 100);
+        }
+        if (!model.get('fields.imageHeight')) {
+            model.set('fields.imageHeight', 100);
+        }
+        if (!model.get('fields.limit')) {
+            model.set('fields.limit', 5);
+        }
+        const limit = model.get('fields.limit');
+
+        if (!model.get('fields.displayKicker')) {
+            model.set('fields.displayKicker', 'hideKicker');
+        }
+
+        if (!model.get('fields.displayPaywall')) {
+            model.set('fields.displayPaywall', 'hidePaywallLabel');
+        }
+
+        // Fetching external data and processing results
         const externalData = view.get('external');
-        const displayImages = !!model.get('fields.displayImages');
-        const displayDate = !model.get('fields.hideDate');
-        const limit = model.get('fields.limit') || 5;
-        const domain = model.get('filtered.domain');
-
-        const getPlaceholderData = (count) => {
-            const result = [];
-            for (let i = 0; i < count; i++) {
-                result.push({
-                    fields: {
-                        cssClass: 'dac-placeholder-text',
-                        type: 'article'
-                    }
-                });
-            }
-            return { data: result };
-        };
-
-        const getImageUrl = (url) => {
-            if (!url) { return null; }
-            return (`${ url.replace(/^https?:\/\//, '//') }${ url.includes('?') ? '&' : '?' }width=200&height=140`);
-        };
-
-        const result = [];
-        const source = externalData && typeof (externalData) === 'object' ? externalData : getPlaceholderData(limit); // Use placeholder-data in edit-mode.
-        const dateHelper = new _lib_helpers_datetime_DateTimeHelperInt_js__WEBPACK_IMPORTED_MODULE_0__.DateTimeHelperInt();
-
-        source.data.forEach((article) => {
-            if (article.fields.type === 'article') {
-                // Get date. Prio: modified-date.
-                const dateString = article.fields.published || null;
-                result.push({
-                    title: article.fields.title || '[no title]',
-                    url: article.fields.srcUrl,
-                    section: article.fields.section || '',
-                    pageviews: article.fields.pageviews,
-                    published: dateString,
-                    niceDate: displayDate && dateString ? dateHelper.timestampToNiceDate(
-                        dateHelper.toTimestamp(
-                            new Date(dateString)
-                        )
-                    ) : '',
-                    cssClass: article.fields.cssClass || null,
-                    imageUrl: displayImages ? getImageUrl(article.fields.image) : null
-                });
-            }
-        });
+        const source = externalData && typeof (externalData) === 'object' ? externalData : this.getPlaceholderData(limit);
+        const result = this.handleResults(model, source, tabMode);
         model.setFiltered('result', result);
 
         /**
          * Admin-view
          */
-        if (!this.api.v1.app.mode.isEditor()) return;
         const adminView = {
             domains: [],
-            layout: []
+            layout: [],
+            tabs: [],
+            displayKicker: [],
+            displayPaywall: []
         };
+
+        const tags = [];
         this.api.v1.site.getSites().forEach((site) => {
             if (!site.domain) return;
-            const currentDomain = site.domain.replace(/^https?:\/\//, '');
+
+            let currentDomain = site.domain.replace(/^https?:\/\//, '');
+            const selectedSite = !!model.get(`fields.domains_${ site.alias }`);
+            const selectedTags = model.get(`fields.tagsSelected`) || '';
+            for (let tag of selectedTags.split(",")) {
+                tag = tag.trim();
+                if (tag && tag.length > 0 && !tags.includes(tag)) {
+                    tags.push(tag);
+                }
+
+            }
+
+            if (site.domain.includes('labdevs')) {
+                currentDomain = this.handleLabdevsDomain(site, currentDomain);
+            }
+
             const current = {
                 name: site.display_name,
-                value: currentDomain,
-                selected: currentDomain === domain
+                alias: site.alias,
+                domain: currentDomain,
+                selected: selectedSite,
+                tags
             };
+
             adminView.domains.push(current);
         });
+
+        // Defines tab data based on selected tab mode
+        let tabSplitData;
+        if (tabMode === 'tags') {
+            tabSplitData = tags.map((tag) => ({ displayName: tag, domain: tag }));
+        } else if (tabMode === 'hostname') {
+            tabSplitData = domains.map((domain) => {
+                const site = this.api.v1.site.getSites().find((s) => this.getCleanDomain(s.domain) === domain || (s.domain_aliases && s.domain_aliases.includes(domain)));
+                return {
+                    displayName: site ? site.display_name : domain,
+                    domain
+                };
+            }).filter(Boolean);
+        }
+
+        // Set custom tab names if provided in the settings
+        const tabNames = model.get('fields.tabsNames') ? model.get('fields.tabsNames').split(',') : [];
+        if (tabSplitData) {
+            const tabData = tabSplitData.map((item, index) => {
+                const customName = tabNames[index] ? tabNames[index].trim() : null;
+                return {
+                    name: item.displayName,
+                    value: customName || item.displayName,
+                    domain: item.domain
+                };
+            });
+            model.setFiltered('tabData', tabData);
+        }
+
+
+        // Make current site domain default if none has been selected/checked
+        const anySelected = adminView.domains.some((siteData) => siteData.selected === true);
+        if (!anySelected) {
+            adminView.domains.forEach((site) => {
+                if (site.alias === this.api.v1.properties.get('site.alias')) {
+                    site.selected = true;
+                }
+            });
+        }
+
+        // Define layout options for the toplist (default is vertical)
         for (const direction of ['horizontal', 'vertical']) {
             adminView.layout.push({
                 name: direction,
@@ -16393,11 +17554,270 @@ class Toplist {
                 selected: direction === view.get('fields.layout')
             });
         }
+
+        // Define display options for kicker label (default is hidden)
+        for (const [paywallVisibility, paywallDescription] of Object.entries({'hideKicker':'Hide', 'aboveTitle': 'Above title', 'rightOfTitle': 'To the right'})) {
+            adminView.displayKicker.push({
+                name: paywallDescription,
+                value: paywallVisibility,
+                selected: paywallVisibility === view.get('fields.displayKicker')
+            });
+        }
+
+        // Define display options for paywall label (default is hidden)
+        for (const [paywallVisibility, paywallDescription] of Object.entries({'hidePaywallLabel':'Hide', 'rightOfTitle': 'To the right', 'onImage': 'On the image'})) {
+            adminView.displayPaywall.push({
+                name: paywallDescription,
+                value: paywallVisibility,
+                selected: paywallVisibility === view.get('fields.displayPaywall')
+            });
+        }
+
+        // Define tab mode options (default is single list)
+        for (const [splitVariant, splitLabel] of Object.entries({'default':"Single list (default)", 'hostname': "Tab for each site", 'tags': "Tab for each tag"})) {
+            adminView.tabs.push({
+                name: splitLabel,
+                value: splitVariant,
+                selected: splitVariant === view.get('fields.tabs')
+            });
+        }
+
+        // Make data accessible for the admin view
+        let splitData = model.get('fields.splitData') || [];
+        if (typeof splitData === 'string') {
+            try {
+                splitData = JSON.parse(splitData);
+            } catch (e) {
+                splitData = [];
+            }
+        }
+
+        adminView.splitData = splitData;
+        adminView.splitDataJson = JSON.stringify(splitData);
         model.setFiltered('adminView', adminView);
     }
 
-}
+    handleResults(model, source, tabMode) {
+        /**
+         * Process and format the results from the external data source to be used to render the toplist.
+         * @param {Object} model - The model object - the toplist.
+         * @param {Object} source - The external data source - a key from kilkaya.
+         * @param {string} tabMode - The tab mode, either 'default' or 'multi'.
+         */
+        const result = [];
 
+        if (!source || !source.data || Object.keys(source.data).length === 0) {
+            return result;
+        }
+
+        if (!model) {
+            return result;
+        }
+
+        const displayImages = !!model.get('fields.displayImages');
+        model.setFiltered('displayImages', displayImages);
+
+        const displayDate = !model.get('fields.hideDate');
+
+        const dateHelper = new _lib_helpers_datetime_DateTimeHelperInt_js__WEBPACK_IMPORTED_MODULE_0__.DateTimeHelperInt();
+        if (tabMode === 'default') {
+            try {
+                source.data.forEach((article) => {
+                    const outputArticle = this.setOutputData(model, article, dateHelper, displayDate, displayImages);
+                    if (outputArticle) {
+                        result.push(outputArticle);
+                    }
+                });
+            } catch (error) {
+                console.error('Error processing articles:', error);
+                model.resetExternalResource();
+
+            }
+        } else {
+            try {
+                for (const key of Object.keys(source.data)) {
+                    if (source.data[key] && source.data[key].length > 0) {
+                        // Process each site's data
+                        source.data[key].forEach((article) => {
+                            const outputArticle = this.setOutputData(model, article, dateHelper, displayDate, displayImages, key);
+                            if (outputArticle) {
+                                result.push(outputArticle);
+                            }
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Error processing articles:', error);
+                model.resetExternalResource();
+            }
+
+        }
+        return result;
+    }
+
+    setOutputData(model, article, dateHelper, displayDate, displayImages, key = null) {
+        /**
+         * Set output data for each article.
+         * Includes both data coming from Kilkaya and internal Labrador data.
+         * @param {Object} model - The model object.
+         * @param {Object} article - The article data from Kilkaya.
+         * @param {DateTimeHelperInt} dateHelper - Instance of DateTimeHelperInt for date formatting.
+         * @param {boolean} displayDate - Flag indicating whether to format and include the publication date.
+         * @param {boolean} displayImages - Flag indicating whether to include image URLs.
+         * @param {string|null} key - Used to identify the source in multi-tab mode, like domain or tag.
+         */
+        const acceptSite = this.evaluateSiteAndSection(model, article);
+        const dateString = article.fields.published || null;
+
+        const displayName = (acceptSite && acceptSite.display_name && acceptSite.display_name.length > 0) ? acceptSite.display_name : null;
+
+        return {
+            name: displayName || article.fields.hostname || '',
+            title: article.fields.title || '',
+            kicker: article.fields.kicker,
+            paywall: article.fields.paywall === '1' || article.fields.paywall === 1,
+            url: article.fields.published_url || article.fields.srcUrl,
+            section: article.fields.section || '',
+            tags: article.fields.tag || '',
+            domain: article.fields.hostname || '',
+            pageviews: article.fields.pageviews,
+            published: dateString,
+            niceDate: displayDate && dateString ? dateHelper.timestampToNiceDate(
+                dateHelper.toTimestamp(
+                    new Date(dateString)
+                )
+            ) : '',
+            cssClass: article.fields.cssClass || null,
+            imageUrl: displayImages ? this.getImageUrl(model, article.fields.image) : null,
+            sourceDomain: article.fields.sourceDomain || article.fields.hostname,
+            sourceDisplayName: article.fields.sourceDisplayName || displayName || article.fields.hostname,
+            kilkayaKey: key || null
+        };
+    }
+
+    getPlaceholderData(count) {
+        /**
+         * Generate placeholder data, used as a preload while waiting for real data
+         */
+        const result = [];
+        for (let i = 0; i < count; i++) {
+            result.push({
+                fields: {
+                    cssClass: 'dac-placeholder-text',
+                    type: 'article'
+                }
+            });
+        }
+        return { data: result };
+    }
+
+    getImageUrl(model, url) {
+        /**
+         * Generate image URL with specified width and height.
+         * Image will be added to the article if displayImages is enabled.
+         * @param {Object} model - The model object - the toplist.
+         * @param {string} url - The original image URL.
+         */
+        if (!url) return null;
+        const width = model.get(`fields.imageWidth`) || 100;
+        const height = model.get(`fields.imageHeight`) || 100;
+        let updatedUrl = url.replace(/^https?:\/\//, '//');
+
+        if (updatedUrl.includes('width=') && updatedUrl.includes('height=')) {
+            updatedUrl = updatedUrl.replace(/width=\d+/, `width=${ width }`);
+            updatedUrl = updatedUrl.replace(/height=\d+/, `height=${ height }`);
+        } else {
+            updatedUrl += `&width=${ width }&height=${ height }`;
+        }
+
+        return updatedUrl;
+    }
+
+    evaluateSiteAndSection(model, article) {
+        /**
+         * Evaluate if the article's site and section are selected in the element settings.
+         * @param {Object} model - The model object - the toplist.
+         * @param {Object} article - The article data from Kilkaya.
+         */
+
+        // First try to find by hostname
+        let currentSite = this.api.v1.site.getSites().find((site) =>
+            this.getCleanDomain(site.domain) === article.fields.hostname
+        );
+
+
+        // If not found, try domain aliases
+        if (!currentSite) {
+            for (const s of this.api.v1.site.getSites()) {
+                if (s.domain_aliases && s.domain_aliases.length > 0) {
+                    const aliases = s.domain_aliases.split('\n').map((alias) => this.getCleanDomain(alias.trim()));
+                    if (aliases.includes(article.fields.hostname)) {
+                        currentSite = s;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // If still not found, try by sourceDomain
+        if (!currentSite && article.fields.sourceDomain) {
+            currentSite = this.api.v1.site.getSites().find((site) =>
+                this.getCleanDomain(site.domain) === article.fields.sourceDomain
+            );
+        }
+
+        if (currentSite) {
+
+            // Check if this site is selected in the element settings
+            const siteSelected = model.get(`fields.domains_${ currentSite.alias }`);
+
+            if (!siteSelected) {
+                return false;
+            }
+
+            const selectedSectionsRaw = model.get(`fields.domains_${ currentSite.alias }_sections`);
+
+            if (!selectedSectionsRaw || selectedSectionsRaw === '') {
+                return currentSite;
+            }
+
+            const selectedSections = (selectedSectionsRaw || '').split(',').map((section) => section.trim()).filter(Boolean);
+            if (selectedSections && selectedSections.length > 0 && selectedSections.includes(article.fields.section)) {
+                return currentSite;
+            }
+        }
+        return false;
+    }
+
+    getCleanDomain(domain) {
+        /**
+         * Remove protocol from domain string.
+         * @param {string} domain - The domain string.
+         */
+        if (!domain) return '';
+        return domain.replace(/^https?:\/\//, '');
+    }
+
+    handleLabdevsDomain(site, domain) {
+        /**
+         * Special handling for labdevs domain to enable testing with public domains
+         * If domain_aliases is set, use the first alias as the current domain
+         * You can set a domain alias on Labrador CMS under Site settings > Domain aliases
+         */
+        let currentDomain = domain;
+        if (site.domain_aliases && site.domain_aliases.length > 0) {
+            const aliases = site.domain_aliases.split('\n');
+            if (aliases.length > 0) {
+                currentDomain = this.getCleanDomain(aliases[0]);
+            } else {
+                currentDomain = site.domain_aliases;
+                currentDomain = this.getCleanDomain(site.domain);
+            }
+        }
+        return currentDomain;
+    }
+
+}
 
 /***/ }),
 
@@ -16573,9 +17993,91 @@ class Vimond {
     constructor(api) {
         this.api = api;
         this.isEditor = this.api.v1.app.mode.isEditor();
+        this.options = {};
     }
 
     onRender(model, view) {
+        // Fetch data for players from Vimond API if in editor mode.
+        if (this.isEditor) {
+            const playersApiUrl = this.api.v1.config.get('contentbox_settings.vimond.playersApiUrl') || false;
+            const currentPlayerId = model.get('fields.player');
+
+            if (playersApiUrl) {
+                fetch(playersApiUrl)
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error(`Network response was not ok: ${ response.statusText }`);
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        /*
+                        Response looks like this:
+                        {
+                            "id": "CcL0YLFy-ithwMLDrc1G0",
+                            "name": "Playlist – Frontpage – Vertical",
+                            "contentType": "list",
+                            "componentType": "playlists",
+                            "aspectRatio": "9/16",
+                            "player": {
+                                "carouselType": "small",
+                                "fontFamily": "Inter, \"Helvetica Neue\", Helvetica, Arial, \"Lucida Grande\", sans-serif",
+                                "nextVideoText": "Neste",
+                                "player": "videojs",
+                                "primaryColor": "#F50A29",
+                                "highlightColor": "#f50929",
+                                "language": "nb",
+                                "vertical": true,
+                                "shuffle": true,
+                                "preview": "true",
+                                "showDescriptionOverlay": "true"
+                            }
+                        */
+                        const dataArray = Array.isArray(data) ? data : Object.values(data.data);
+
+                        // Filter the data to get only the playlists.
+                        this.options = dataArray
+                            .map((item) => ({
+                                id: item.id,
+                                name: item.name,
+                                aspectRatio: item.aspectRatio,
+                                selected: currentPlayerId && item.id === currentPlayerId
+                            }));
+
+                        // If no player is selected and players are available, select the first one
+                        if ((currentPlayerId === null || currentPlayerId === undefined) && this.options.length > 0) {
+                            const defaultPlayer = this.options[0];
+                            model.set('fields.player', defaultPlayer.id);
+                            defaultPlayer.selected = true;
+                            
+                            // Set aspect ratio for the default player
+                            if (defaultPlayer.aspectRatio) {
+                                model.set('fields.aspectRatio', defaultPlayer.aspectRatio.replace('/', '-'));
+                                model.set('fields.aspectRatioStyle', defaultPlayer.aspectRatio);
+                            }
+                        }
+
+                        model.setFiltered('playersSettingsString', JSON.stringify(this.options));
+                        model.setFiltered('playersSettings', this.options);
+
+                        // Set the aspect ratio for the selected player if it exists.
+                        const selectedPlayer = this.options.find((player) => player.id === currentPlayerId);
+                        if (selectedPlayer && selectedPlayer.aspectRatio) {
+                            model.set('fields.aspectRatio', selectedPlayer.aspectRatio.replace('/', '-'));
+                            model.set('fields.aspectRatioStyle', selectedPlayer.aspectRatio);
+                        }
+                    })
+                    .catch((error) => {
+                        Sys.logger.warn('[Vimond] There was a problem with the fetch operation:', error);
+                    });
+            }
+
+            if (currentPlayerId === '0') {
+                model.set('fields.aspectRatio', null);
+                model.set('fields.aspectRatioStyle', null);
+            }
+        }
+
         // Display caption on article-pages:
         let displayCaption = this.api.v1.model.root.getType() === 'page_article';
         if (this.api.v1.app.mode.isFront() && !view.get('fields.caption')) {
@@ -16592,6 +18094,16 @@ class Vimond {
                 model.setFiltered('insufficientConsentMessage', vimondConsent.insufficientConsentMessage || this.api.v1.config.get('cookieConsent.insufficientConsentMessage') || '');
             }
         }
+
+        if (model.get('fields.verticalVideo')) {
+            model.setFiltered(
+                'playerUrl',
+                `${ model.get('fields.playerUrl') }&aspectRatio=9:16`
+            );
+        } else {
+            model.setFiltered('playerUrl', model.get('fields.playerUrl'));
+        }
+
     }
 
     onRendered(model, view) {
@@ -16609,6 +18121,70 @@ class Vimond {
 
 }
 
+
+/***/ }),
+
+/***/ "./modules/behaviours/elements/Vp.js":
+/*!*******************************************!*\
+  !*** ./modules/behaviours/elements/Vp.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Vp)
+/* harmony export */ });
+class Vp {
+
+    constructor(api) {
+        this.api = api;
+        this.isEditor = this.api.v1.app.mode.isEditor();
+    }
+
+    onRender(model, view) {
+
+        // Display caption on article-pages:
+        let displayCaption = this.api.v1.model.root.getType() === 'page_article';
+        if (this.api.v1.app.mode.isFront() && !view.get('fields.caption')) {
+            displayCaption = false;
+        }
+        model.setFiltered('displayCaption', displayCaption);
+
+        if (!this.api.v1.app.mode.isEditor() && this.api.v1.config.get('cookieConsent.enabled') === true) {
+            const cookieConsentConfig = this.api.v1.config.get('cookieConsent');
+            const vpConsent = cookieConsentConfig.contentboxes.filter((box) => box.name === 'vp')[0];
+
+            if (vpConsent) {
+                model.setFiltered('requiredCookieConsent', vpConsent.requiredConsent || false);
+                model.setFiltered('insufficientConsentMessage', vpConsent.insufficientConsentMessage || this.api.v1.config.get('cookieConsent.insufficientConsentMessage') || '');
+            }
+        }
+
+        if (model.get('fields.verticalVideo')) {
+            model.setFiltered(
+                'playerUrl',
+                `${ model.get('fields.playerUrl') }&aspectRatio=9:16`
+            );
+        } else {
+            model.setFiltered('playerUrl', model.get('fields.playerUrl'));
+        }
+
+    }
+
+    onRendered(model, view) {
+        if (this.isEditor) {
+            // The iframe captures events disabling drag/drop in the editor.
+            // Disable pointer-events when hovering the drag-handle.
+            const iframe = view.getMarkup().querySelector('iframe');
+            const dragHandle = view.getMarkup().querySelector('.video-drag-handle');
+            if (iframe && dragHandle) {
+                dragHandle.addEventListener('mouseenter', (event) => { iframe.style.pointerEvents = 'none'; }, false);
+                dragHandle.addEventListener('mouseleave', (event) => { iframe.style.pointerEvents = ''; }, false);
+            }
+        }
+    }
+
+}
 
 /***/ }),
 
@@ -16683,115 +18259,127 @@ class YouTube {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "adnuntiusAd": () => (/* reexport safe */ _elements_AdnuntiusAd_js__WEBPACK_IMPORTED_MODULE_3__["default"]),
-/* harmony export */   "apsis_submit": () => (/* reexport safe */ _elements_ApsisSubmit_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
-/* harmony export */   "article": () => (/* reexport safe */ _elements_Article_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
-/* harmony export */   "articleCalendar": () => (/* reexport safe */ _elements_ArticleCalendar_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
-/* harmony export */   "articleFooter": () => (/* reexport safe */ _elements_ArticleFooter_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
-/* harmony export */   "articleHeader": () => (/* reexport safe */ _elements_ArticleHeader_js__WEBPACK_IMPORTED_MODULE_8__["default"]),
-/* harmony export */   "articleList": () => (/* reexport safe */ _elements_ArticleList_js__WEBPACK_IMPORTED_MODULE_9__["default"]),
-/* harmony export */   "articleMeta": () => (/* reexport safe */ _elements_ArticleMeta_js__WEBPACK_IMPORTED_MODULE_10__["default"]),
-/* harmony export */   "articlesByTag": () => (/* reexport safe */ _elements_ArticlesByTag_js__WEBPACK_IMPORTED_MODULE_11__["default"]),
-/* harmony export */   "articlescroller": () => (/* reexport safe */ _elements_ArticleScroller_js__WEBPACK_IMPORTED_MODULE_12__["default"]),
-/* harmony export */   "bodytext": () => (/* reexport safe */ _elements_Bodytext_js__WEBPACK_IMPORTED_MODULE_13__["default"]),
-/* harmony export */   "byline": () => (/* reexport safe */ _elements_Byline_js__WEBPACK_IMPORTED_MODULE_14__["default"]),
-/* harmony export */   "changelog": () => (/* reexport safe */ _elements_Changelog_js__WEBPACK_IMPORTED_MODULE_15__["default"]),
-/* harmony export */   "chart": () => (/* reexport safe */ _elements_Chart_js__WEBPACK_IMPORTED_MODULE_51__["default"]),
-/* harmony export */   "comments": () => (/* reexport safe */ _elements_Comments_js__WEBPACK_IMPORTED_MODULE_16__["default"]),
-/* harmony export */   "factbox": () => (/* reexport safe */ _elements_Factbox_js__WEBPACK_IMPORTED_MODULE_17__["default"]),
-/* harmony export */   "frontContent": () => (/* reexport safe */ _elements_FrontContent_js__WEBPACK_IMPORTED_MODULE_19__["default"]),
-/* harmony export */   "front_rows": () => (/* reexport safe */ _elements_Front_rows_js__WEBPACK_IMPORTED_MODULE_18__["default"]),
-/* harmony export */   "globalChangelog": () => (/* reexport safe */ _elements_GlobalChangelog_js__WEBPACK_IMPORTED_MODULE_20__["default"]),
-/* harmony export */   "googleAd": () => (/* reexport safe */ _elements_GoogleAd_js__WEBPACK_IMPORTED_MODULE_21__["default"]),
-/* harmony export */   "googleCSE": () => (/* reexport safe */ _elements_GoogleCSE_js__WEBPACK_IMPORTED_MODULE_22__["default"]),
-/* harmony export */   "graphic": () => (/* reexport safe */ _elements_Graphic_js__WEBPACK_IMPORTED_MODULE_24__["default"]),
-/* harmony export */   "grid": () => (/* reexport safe */ _elements_Grid_js__WEBPACK_IMPORTED_MODULE_52__["default"]),
-/* harmony export */   "image": () => (/* reexport safe */ _elements_Image_js__WEBPACK_IMPORTED_MODULE_23__["default"]),
-/* harmony export */   "jwplayer": () => (/* reexport safe */ _elements_JWPlayer_js__WEBPACK_IMPORTED_MODULE_42__["default"]),
-/* harmony export */   "labradorSearch": () => (/* reexport safe */ _elements_LabradorSearch_js__WEBPACK_IMPORTED_MODULE_25__["default"]),
-/* harmony export */   "livefeed": () => (/* reexport safe */ _elements_LiveFeed_js__WEBPACK_IMPORTED_MODULE_49__["default"]),
-/* harmony export */   "markup": () => (/* reexport safe */ _elements_Markup_js__WEBPACK_IMPORTED_MODULE_26__["default"]),
-/* harmony export */   "mobiltests": () => (/* reexport safe */ _elements_Mobiltests_js__WEBPACK_IMPORTED_MODULE_27__["default"]),
-/* harmony export */   "motortests": () => (/* reexport safe */ _elements_Motortests_js__WEBPACK_IMPORTED_MODULE_28__["default"]),
-/* harmony export */   "newsletter_submit": () => (/* reexport safe */ _elements_Newsletter_submit_js__WEBPACK_IMPORTED_MODULE_29__["default"]),
-/* harmony export */   "notice": () => (/* reexport safe */ _elements_Notice_js__WEBPACK_IMPORTED_MODULE_48__["default"]),
-/* harmony export */   "noticeHeader": () => (/* reexport safe */ _elements_NoticeHeader_js__WEBPACK_IMPORTED_MODULE_50__["default"]),
-/* harmony export */   "page_article": () => (/* reexport safe */ _page_Article_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "page_front": () => (/* reexport safe */ _page_Front_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "page_notice": () => (/* reexport safe */ _page_Notice_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
-/* harmony export */   "parallax": () => (/* reexport safe */ _elements_Parallax_js__WEBPACK_IMPORTED_MODULE_30__["default"]),
-/* harmony export */   "remoteproduction": () => (/* reexport safe */ _elements_RemoteProduction_js__WEBPACK_IMPORTED_MODULE_43__["default"]),
-/* harmony export */   "row": () => (/* reexport safe */ _elements_Row_js__WEBPACK_IMPORTED_MODULE_46__["default"]),
-/* harmony export */   "scrollbox": () => (/* reexport safe */ _elements_Scrollbox_js__WEBPACK_IMPORTED_MODULE_45__["default"]),
-/* harmony export */   "simplestream": () => (/* reexport safe */ _elements_Simplestream_js__WEBPACK_IMPORTED_MODULE_31__["default"]),
-/* harmony export */   "slideshow": () => (/* reexport safe */ _elements_Slideshow_js__WEBPACK_IMPORTED_MODULE_32__["default"]),
-/* harmony export */   "tablebox": () => (/* reexport safe */ _elements_Tablebox_js__WEBPACK_IMPORTED_MODULE_33__["default"]),
-/* harmony export */   "tagboard": () => (/* reexport safe */ _elements_Tagboard_js__WEBPACK_IMPORTED_MODULE_34__["default"]),
-/* harmony export */   "text_multiline": () => (/* reexport safe */ _elements_TextMultiline_js__WEBPACK_IMPORTED_MODULE_35__["default"]),
-/* harmony export */   "timeline": () => (/* reexport safe */ _elements_Timeline_js__WEBPACK_IMPORTED_MODULE_47__["default"]),
-/* harmony export */   "tips_box": () => (/* reexport safe */ _elements_Tips_box_js__WEBPACK_IMPORTED_MODULE_36__["default"]),
-/* harmony export */   "topcomments": () => (/* reexport safe */ _elements_Topcomments_js__WEBPACK_IMPORTED_MODULE_44__["default"]),
-/* harmony export */   "toplist": () => (/* reexport safe */ _elements_Toplist_js__WEBPACK_IMPORTED_MODULE_37__["default"]),
-/* harmony export */   "tvguide": () => (/* reexport safe */ _elements_Tvguide_js__WEBPACK_IMPORTED_MODULE_38__["default"]),
-/* harmony export */   "twitter": () => (/* reexport safe */ _elements_Twitter_js__WEBPACK_IMPORTED_MODULE_39__["default"]),
-/* harmony export */   "userFeedback": () => (/* reexport safe */ _elements_UserFeedback_js__WEBPACK_IMPORTED_MODULE_40__["default"]),
-/* harmony export */   "vimond": () => (/* reexport safe */ _elements_Vimond_js__WEBPACK_IMPORTED_MODULE_53__["default"]),
-/* harmony export */   "youtube": () => (/* reexport safe */ _elements_YouTube_js__WEBPACK_IMPORTED_MODULE_41__["default"])
+/* harmony export */   adnuntiusAd: () => (/* reexport safe */ _elements_AdnuntiusAd_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
+/* harmony export */   apsis_submit: () => (/* reexport safe */ _elements_ApsisSubmit_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   article: () => (/* reexport safe */ _elements_Article_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
+/* harmony export */   articleCalendar: () => (/* reexport safe */ _elements_ArticleCalendar_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
+/* harmony export */   articleFooter: () => (/* reexport safe */ _elements_ArticleFooter_js__WEBPACK_IMPORTED_MODULE_8__["default"]),
+/* harmony export */   articleHeader: () => (/* reexport safe */ _elements_ArticleHeader_js__WEBPACK_IMPORTED_MODULE_9__["default"]),
+/* harmony export */   articleList: () => (/* reexport safe */ _elements_ArticleList_js__WEBPACK_IMPORTED_MODULE_10__["default"]),
+/* harmony export */   articleMeta: () => (/* reexport safe */ _elements_ArticleMeta_js__WEBPACK_IMPORTED_MODULE_11__["default"]),
+/* harmony export */   articlesByTag: () => (/* reexport safe */ _elements_ArticlesByTag_js__WEBPACK_IMPORTED_MODULE_12__["default"]),
+/* harmony export */   articlescroller: () => (/* reexport safe */ _elements_ArticleScroller_js__WEBPACK_IMPORTED_MODULE_13__["default"]),
+/* harmony export */   authorBox: () => (/* reexport safe */ _elements_AuthorBox_js__WEBPACK_IMPORTED_MODULE_16__["default"]),
+/* harmony export */   bodytext: () => (/* reexport safe */ _elements_Bodytext_js__WEBPACK_IMPORTED_MODULE_14__["default"]),
+/* harmony export */   byline: () => (/* reexport safe */ _elements_Byline_js__WEBPACK_IMPORTED_MODULE_15__["default"]),
+/* harmony export */   changelog: () => (/* reexport safe */ _elements_Changelog_js__WEBPACK_IMPORTED_MODULE_17__["default"]),
+/* harmony export */   chart: () => (/* reexport safe */ _elements_Chart_js__WEBPACK_IMPORTED_MODULE_53__["default"]),
+/* harmony export */   comments: () => (/* reexport safe */ _elements_Comments_js__WEBPACK_IMPORTED_MODULE_18__["default"]),
+/* harmony export */   factbox: () => (/* reexport safe */ _elements_Factbox_js__WEBPACK_IMPORTED_MODULE_19__["default"]),
+/* harmony export */   frontContent: () => (/* reexport safe */ _elements_FrontContent_js__WEBPACK_IMPORTED_MODULE_21__["default"]),
+/* harmony export */   front_rows: () => (/* reexport safe */ _elements_Front_rows_js__WEBPACK_IMPORTED_MODULE_20__["default"]),
+/* harmony export */   globalChangelog: () => (/* reexport safe */ _elements_GlobalChangelog_js__WEBPACK_IMPORTED_MODULE_22__["default"]),
+/* harmony export */   googleAd: () => (/* reexport safe */ _elements_GoogleAd_js__WEBPACK_IMPORTED_MODULE_23__["default"]),
+/* harmony export */   googleCSE: () => (/* reexport safe */ _elements_GoogleCSE_js__WEBPACK_IMPORTED_MODULE_24__["default"]),
+/* harmony export */   graphic: () => (/* reexport safe */ _elements_Graphic_js__WEBPACK_IMPORTED_MODULE_26__["default"]),
+/* harmony export */   grid: () => (/* reexport safe */ _elements_Grid_js__WEBPACK_IMPORTED_MODULE_54__["default"]),
+/* harmony export */   image: () => (/* reexport safe */ _elements_Image_js__WEBPACK_IMPORTED_MODULE_25__["default"]),
+/* harmony export */   infiniteScroll: () => (/* reexport safe */ _elements_InfiniteScroll_js__WEBPACK_IMPORTED_MODULE_57__["default"]),
+/* harmony export */   jwplayer: () => (/* reexport safe */ _elements_JWPlayer_js__WEBPACK_IMPORTED_MODULE_44__["default"]),
+/* harmony export */   labradorSearch: () => (/* reexport safe */ _elements_LabradorSearch_js__WEBPACK_IMPORTED_MODULE_27__["default"]),
+/* harmony export */   livefeed: () => (/* reexport safe */ _elements_LiveFeed_js__WEBPACK_IMPORTED_MODULE_51__["default"]),
+/* harmony export */   markup: () => (/* reexport safe */ _elements_Markup_js__WEBPACK_IMPORTED_MODULE_28__["default"]),
+/* harmony export */   mobiltests: () => (/* reexport safe */ _elements_Mobiltests_js__WEBPACK_IMPORTED_MODULE_29__["default"]),
+/* harmony export */   motortests: () => (/* reexport safe */ _elements_Motortests_js__WEBPACK_IMPORTED_MODULE_30__["default"]),
+/* harmony export */   newsletter_submit: () => (/* reexport safe */ _elements_Newsletter_submit_js__WEBPACK_IMPORTED_MODULE_31__["default"]),
+/* harmony export */   notice: () => (/* reexport safe */ _elements_Notice_js__WEBPACK_IMPORTED_MODULE_50__["default"]),
+/* harmony export */   noticeHeader: () => (/* reexport safe */ _elements_NoticeHeader_js__WEBPACK_IMPORTED_MODULE_52__["default"]),
+/* harmony export */   page_article: () => (/* reexport safe */ _page_Article_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   page_front: () => (/* reexport safe */ _page_Front_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   page_gallery: () => (/* reexport safe */ _page_Gallery_js__WEBPACK_IMPORTED_MODULE_3__["default"]),
+/* harmony export */   page_notice: () => (/* reexport safe */ _page_Notice_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   parallax: () => (/* reexport safe */ _elements_Parallax_js__WEBPACK_IMPORTED_MODULE_32__["default"]),
+/* harmony export */   remoteproduction: () => (/* reexport safe */ _elements_RemoteProduction_js__WEBPACK_IMPORTED_MODULE_45__["default"]),
+/* harmony export */   row: () => (/* reexport safe */ _elements_Row_js__WEBPACK_IMPORTED_MODULE_48__["default"]),
+/* harmony export */   scrollbox: () => (/* reexport safe */ _elements_Scrollbox_js__WEBPACK_IMPORTED_MODULE_47__["default"]),
+/* harmony export */   simplestream: () => (/* reexport safe */ _elements_Simplestream_js__WEBPACK_IMPORTED_MODULE_33__["default"]),
+/* harmony export */   slideshow: () => (/* reexport safe */ _elements_Slideshow_js__WEBPACK_IMPORTED_MODULE_34__["default"]),
+/* harmony export */   tablebox: () => (/* reexport safe */ _elements_Tablebox_js__WEBPACK_IMPORTED_MODULE_35__["default"]),
+/* harmony export */   tagboard: () => (/* reexport safe */ _elements_Tagboard_js__WEBPACK_IMPORTED_MODULE_36__["default"]),
+/* harmony export */   text_multiline: () => (/* reexport safe */ _elements_TextMultiline_js__WEBPACK_IMPORTED_MODULE_37__["default"]),
+/* harmony export */   timeline: () => (/* reexport safe */ _elements_Timeline_js__WEBPACK_IMPORTED_MODULE_49__["default"]),
+/* harmony export */   tips_box: () => (/* reexport safe */ _elements_Tips_box_js__WEBPACK_IMPORTED_MODULE_38__["default"]),
+/* harmony export */   topcomments: () => (/* reexport safe */ _elements_Topcomments_js__WEBPACK_IMPORTED_MODULE_46__["default"]),
+/* harmony export */   toplist: () => (/* reexport safe */ _elements_Toplist_js__WEBPACK_IMPORTED_MODULE_39__["default"]),
+/* harmony export */   tvguide: () => (/* reexport safe */ _elements_Tvguide_js__WEBPACK_IMPORTED_MODULE_40__["default"]),
+/* harmony export */   twitter: () => (/* reexport safe */ _elements_Twitter_js__WEBPACK_IMPORTED_MODULE_41__["default"]),
+/* harmony export */   userFeedback: () => (/* reexport safe */ _elements_UserFeedback_js__WEBPACK_IMPORTED_MODULE_42__["default"]),
+/* harmony export */   vimond: () => (/* reexport safe */ _elements_Vimond_js__WEBPACK_IMPORTED_MODULE_55__["default"]),
+/* harmony export */   vp: () => (/* reexport safe */ _elements_Vp_js__WEBPACK_IMPORTED_MODULE_56__["default"]),
+/* harmony export */   youtube: () => (/* reexport safe */ _elements_YouTube_js__WEBPACK_IMPORTED_MODULE_43__["default"])
 /* harmony export */ });
 /* harmony import */ var _page_Article_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./page/Article.js */ "./modules/behaviours/page/Article.js");
 /* harmony import */ var _page_Front_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./page/Front.js */ "./modules/behaviours/page/Front.js");
 /* harmony import */ var _page_Notice_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./page/Notice.js */ "./modules/behaviours/page/Notice.js");
-/* harmony import */ var _elements_AdnuntiusAd_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./elements/AdnuntiusAd.js */ "./modules/behaviours/elements/AdnuntiusAd.js");
-/* harmony import */ var _elements_ApsisSubmit_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./elements/ApsisSubmit.js */ "./modules/behaviours/elements/ApsisSubmit.js");
-/* harmony import */ var _elements_Article_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./elements/Article.js */ "./modules/behaviours/elements/Article.js");
-/* harmony import */ var _elements_ArticleCalendar_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./elements/ArticleCalendar.js */ "./modules/behaviours/elements/ArticleCalendar.js");
-/* harmony import */ var _elements_ArticleFooter_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./elements/ArticleFooter.js */ "./modules/behaviours/elements/ArticleFooter.js");
-/* harmony import */ var _elements_ArticleHeader_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./elements/ArticleHeader.js */ "./modules/behaviours/elements/ArticleHeader.js");
-/* harmony import */ var _elements_ArticleList_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./elements/ArticleList.js */ "./modules/behaviours/elements/ArticleList.js");
-/* harmony import */ var _elements_ArticleMeta_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./elements/ArticleMeta.js */ "./modules/behaviours/elements/ArticleMeta.js");
-/* harmony import */ var _elements_ArticlesByTag_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./elements/ArticlesByTag.js */ "./modules/behaviours/elements/ArticlesByTag.js");
-/* harmony import */ var _elements_ArticleScroller_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./elements/ArticleScroller.js */ "./modules/behaviours/elements/ArticleScroller.js");
-/* harmony import */ var _elements_Bodytext_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./elements/Bodytext.js */ "./modules/behaviours/elements/Bodytext.js");
-/* harmony import */ var _elements_Byline_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./elements/Byline.js */ "./modules/behaviours/elements/Byline.js");
-/* harmony import */ var _elements_Changelog_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./elements/Changelog.js */ "./modules/behaviours/elements/Changelog.js");
-/* harmony import */ var _elements_Comments_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./elements/Comments.js */ "./modules/behaviours/elements/Comments.js");
-/* harmony import */ var _elements_Factbox_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./elements/Factbox.js */ "./modules/behaviours/elements/Factbox.js");
-/* harmony import */ var _elements_Front_rows_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./elements/Front_rows.js */ "./modules/behaviours/elements/Front_rows.js");
-/* harmony import */ var _elements_FrontContent_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./elements/FrontContent.js */ "./modules/behaviours/elements/FrontContent.js");
-/* harmony import */ var _elements_GlobalChangelog_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./elements/GlobalChangelog.js */ "./modules/behaviours/elements/GlobalChangelog.js");
-/* harmony import */ var _elements_GoogleAd_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./elements/GoogleAd.js */ "./modules/behaviours/elements/GoogleAd.js");
-/* harmony import */ var _elements_GoogleCSE_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./elements/GoogleCSE.js */ "./modules/behaviours/elements/GoogleCSE.js");
-/* harmony import */ var _elements_Image_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./elements/Image.js */ "./modules/behaviours/elements/Image.js");
-/* harmony import */ var _elements_Graphic_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./elements/Graphic.js */ "./modules/behaviours/elements/Graphic.js");
-/* harmony import */ var _elements_LabradorSearch_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./elements/LabradorSearch.js */ "./modules/behaviours/elements/LabradorSearch.js");
-/* harmony import */ var _elements_Markup_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./elements/Markup.js */ "./modules/behaviours/elements/Markup.js");
-/* harmony import */ var _elements_Mobiltests_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./elements/Mobiltests.js */ "./modules/behaviours/elements/Mobiltests.js");
-/* harmony import */ var _elements_Motortests_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./elements/Motortests.js */ "./modules/behaviours/elements/Motortests.js");
-/* harmony import */ var _elements_Newsletter_submit_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./elements/Newsletter_submit.js */ "./modules/behaviours/elements/Newsletter_submit.js");
-/* harmony import */ var _elements_Parallax_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./elements/Parallax.js */ "./modules/behaviours/elements/Parallax.js");
-/* harmony import */ var _elements_Simplestream_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./elements/Simplestream.js */ "./modules/behaviours/elements/Simplestream.js");
-/* harmony import */ var _elements_Slideshow_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./elements/Slideshow.js */ "./modules/behaviours/elements/Slideshow.js");
-/* harmony import */ var _elements_Tablebox_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./elements/Tablebox.js */ "./modules/behaviours/elements/Tablebox.js");
-/* harmony import */ var _elements_Tagboard_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./elements/Tagboard.js */ "./modules/behaviours/elements/Tagboard.js");
-/* harmony import */ var _elements_TextMultiline_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./elements/TextMultiline.js */ "./modules/behaviours/elements/TextMultiline.js");
-/* harmony import */ var _elements_Tips_box_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./elements/Tips_box.js */ "./modules/behaviours/elements/Tips_box.js");
-/* harmony import */ var _elements_Toplist_js__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./elements/Toplist.js */ "./modules/behaviours/elements/Toplist.js");
-/* harmony import */ var _elements_Tvguide_js__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./elements/Tvguide.js */ "./modules/behaviours/elements/Tvguide.js");
-/* harmony import */ var _elements_Twitter_js__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./elements/Twitter.js */ "./modules/behaviours/elements/Twitter.js");
-/* harmony import */ var _elements_UserFeedback_js__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./elements/UserFeedback.js */ "./modules/behaviours/elements/UserFeedback.js");
-/* harmony import */ var _elements_YouTube_js__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./elements/YouTube.js */ "./modules/behaviours/elements/YouTube.js");
-/* harmony import */ var _elements_JWPlayer_js__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./elements/JWPlayer.js */ "./modules/behaviours/elements/JWPlayer.js");
-/* harmony import */ var _elements_RemoteProduction_js__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./elements/RemoteProduction.js */ "./modules/behaviours/elements/RemoteProduction.js");
-/* harmony import */ var _elements_Topcomments_js__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./elements/Topcomments.js */ "./modules/behaviours/elements/Topcomments.js");
-/* harmony import */ var _elements_Scrollbox_js__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./elements/Scrollbox.js */ "./modules/behaviours/elements/Scrollbox.js");
-/* harmony import */ var _elements_Row_js__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./elements/Row.js */ "./modules/behaviours/elements/Row.js");
-/* harmony import */ var _elements_Timeline_js__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./elements/Timeline.js */ "./modules/behaviours/elements/Timeline.js");
-/* harmony import */ var _elements_Notice_js__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./elements/Notice.js */ "./modules/behaviours/elements/Notice.js");
-/* harmony import */ var _elements_LiveFeed_js__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./elements/LiveFeed.js */ "./modules/behaviours/elements/LiveFeed.js");
-/* harmony import */ var _elements_NoticeHeader_js__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./elements/NoticeHeader.js */ "./modules/behaviours/elements/NoticeHeader.js");
-/* harmony import */ var _elements_Chart_js__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./elements/Chart.js */ "./modules/behaviours/elements/Chart.js");
-/* harmony import */ var _elements_Grid_js__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./elements/Grid.js */ "./modules/behaviours/elements/Grid.js");
-/* harmony import */ var _elements_Vimond_js__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./elements/Vimond.js */ "./modules/behaviours/elements/Vimond.js");
+/* harmony import */ var _page_Gallery_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./page/Gallery.js */ "./modules/behaviours/page/Gallery.js");
+/* harmony import */ var _elements_AdnuntiusAd_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./elements/AdnuntiusAd.js */ "./modules/behaviours/elements/AdnuntiusAd.js");
+/* harmony import */ var _elements_ApsisSubmit_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./elements/ApsisSubmit.js */ "./modules/behaviours/elements/ApsisSubmit.js");
+/* harmony import */ var _elements_Article_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./elements/Article.js */ "./modules/behaviours/elements/Article.js");
+/* harmony import */ var _elements_ArticleCalendar_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./elements/ArticleCalendar.js */ "./modules/behaviours/elements/ArticleCalendar.js");
+/* harmony import */ var _elements_ArticleFooter_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./elements/ArticleFooter.js */ "./modules/behaviours/elements/ArticleFooter.js");
+/* harmony import */ var _elements_ArticleHeader_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./elements/ArticleHeader.js */ "./modules/behaviours/elements/ArticleHeader.js");
+/* harmony import */ var _elements_ArticleList_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./elements/ArticleList.js */ "./modules/behaviours/elements/ArticleList.js");
+/* harmony import */ var _elements_ArticleMeta_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./elements/ArticleMeta.js */ "./modules/behaviours/elements/ArticleMeta.js");
+/* harmony import */ var _elements_ArticlesByTag_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./elements/ArticlesByTag.js */ "./modules/behaviours/elements/ArticlesByTag.js");
+/* harmony import */ var _elements_ArticleScroller_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./elements/ArticleScroller.js */ "./modules/behaviours/elements/ArticleScroller.js");
+/* harmony import */ var _elements_Bodytext_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./elements/Bodytext.js */ "./modules/behaviours/elements/Bodytext.js");
+/* harmony import */ var _elements_Byline_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./elements/Byline.js */ "./modules/behaviours/elements/Byline.js");
+/* harmony import */ var _elements_AuthorBox_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./elements/AuthorBox.js */ "./modules/behaviours/elements/AuthorBox.js");
+/* harmony import */ var _elements_Changelog_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./elements/Changelog.js */ "./modules/behaviours/elements/Changelog.js");
+/* harmony import */ var _elements_Comments_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./elements/Comments.js */ "./modules/behaviours/elements/Comments.js");
+/* harmony import */ var _elements_Factbox_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./elements/Factbox.js */ "./modules/behaviours/elements/Factbox.js");
+/* harmony import */ var _elements_Front_rows_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./elements/Front_rows.js */ "./modules/behaviours/elements/Front_rows.js");
+/* harmony import */ var _elements_FrontContent_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./elements/FrontContent.js */ "./modules/behaviours/elements/FrontContent.js");
+/* harmony import */ var _elements_GlobalChangelog_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./elements/GlobalChangelog.js */ "./modules/behaviours/elements/GlobalChangelog.js");
+/* harmony import */ var _elements_GoogleAd_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./elements/GoogleAd.js */ "./modules/behaviours/elements/GoogleAd.js");
+/* harmony import */ var _elements_GoogleCSE_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./elements/GoogleCSE.js */ "./modules/behaviours/elements/GoogleCSE.js");
+/* harmony import */ var _elements_Image_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./elements/Image.js */ "./modules/behaviours/elements/Image.js");
+/* harmony import */ var _elements_Graphic_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./elements/Graphic.js */ "./modules/behaviours/elements/Graphic.js");
+/* harmony import */ var _elements_LabradorSearch_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./elements/LabradorSearch.js */ "./modules/behaviours/elements/LabradorSearch.js");
+/* harmony import */ var _elements_Markup_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./elements/Markup.js */ "./modules/behaviours/elements/Markup.js");
+/* harmony import */ var _elements_Mobiltests_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./elements/Mobiltests.js */ "./modules/behaviours/elements/Mobiltests.js");
+/* harmony import */ var _elements_Motortests_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./elements/Motortests.js */ "./modules/behaviours/elements/Motortests.js");
+/* harmony import */ var _elements_Newsletter_submit_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./elements/Newsletter_submit.js */ "./modules/behaviours/elements/Newsletter_submit.js");
+/* harmony import */ var _elements_Parallax_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./elements/Parallax.js */ "./modules/behaviours/elements/Parallax.js");
+/* harmony import */ var _elements_Simplestream_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./elements/Simplestream.js */ "./modules/behaviours/elements/Simplestream.js");
+/* harmony import */ var _elements_Slideshow_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./elements/Slideshow.js */ "./modules/behaviours/elements/Slideshow.js");
+/* harmony import */ var _elements_Tablebox_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./elements/Tablebox.js */ "./modules/behaviours/elements/Tablebox.js");
+/* harmony import */ var _elements_Tagboard_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./elements/Tagboard.js */ "./modules/behaviours/elements/Tagboard.js");
+/* harmony import */ var _elements_TextMultiline_js__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./elements/TextMultiline.js */ "./modules/behaviours/elements/TextMultiline.js");
+/* harmony import */ var _elements_Tips_box_js__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./elements/Tips_box.js */ "./modules/behaviours/elements/Tips_box.js");
+/* harmony import */ var _elements_Toplist_js__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./elements/Toplist.js */ "./modules/behaviours/elements/Toplist.js");
+/* harmony import */ var _elements_Tvguide_js__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./elements/Tvguide.js */ "./modules/behaviours/elements/Tvguide.js");
+/* harmony import */ var _elements_Twitter_js__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./elements/Twitter.js */ "./modules/behaviours/elements/Twitter.js");
+/* harmony import */ var _elements_UserFeedback_js__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./elements/UserFeedback.js */ "./modules/behaviours/elements/UserFeedback.js");
+/* harmony import */ var _elements_YouTube_js__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./elements/YouTube.js */ "./modules/behaviours/elements/YouTube.js");
+/* harmony import */ var _elements_JWPlayer_js__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./elements/JWPlayer.js */ "./modules/behaviours/elements/JWPlayer.js");
+/* harmony import */ var _elements_RemoteProduction_js__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./elements/RemoteProduction.js */ "./modules/behaviours/elements/RemoteProduction.js");
+/* harmony import */ var _elements_Topcomments_js__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./elements/Topcomments.js */ "./modules/behaviours/elements/Topcomments.js");
+/* harmony import */ var _elements_Scrollbox_js__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./elements/Scrollbox.js */ "./modules/behaviours/elements/Scrollbox.js");
+/* harmony import */ var _elements_Row_js__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./elements/Row.js */ "./modules/behaviours/elements/Row.js");
+/* harmony import */ var _elements_Timeline_js__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./elements/Timeline.js */ "./modules/behaviours/elements/Timeline.js");
+/* harmony import */ var _elements_Notice_js__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./elements/Notice.js */ "./modules/behaviours/elements/Notice.js");
+/* harmony import */ var _elements_LiveFeed_js__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./elements/LiveFeed.js */ "./modules/behaviours/elements/LiveFeed.js");
+/* harmony import */ var _elements_NoticeHeader_js__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./elements/NoticeHeader.js */ "./modules/behaviours/elements/NoticeHeader.js");
+/* harmony import */ var _elements_Chart_js__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./elements/Chart.js */ "./modules/behaviours/elements/Chart.js");
+/* harmony import */ var _elements_Grid_js__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./elements/Grid.js */ "./modules/behaviours/elements/Grid.js");
+/* harmony import */ var _elements_Vimond_js__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./elements/Vimond.js */ "./modules/behaviours/elements/Vimond.js");
+/* harmony import */ var _elements_Vp_js__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./elements/Vp.js */ "./modules/behaviours/elements/Vp.js");
+/* harmony import */ var _elements_InfiniteScroll_js__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./elements/InfiniteScroll.js */ "./modules/behaviours/elements/InfiniteScroll.js");
+
+
+
+
 
 
 
@@ -16913,6 +18501,98 @@ class Front {
 
     onReady(model, view) {
         this.pageData.set(model, view);
+    }
+
+}
+
+
+/***/ }),
+
+/***/ "./modules/behaviours/page/Gallery.js":
+/*!********************************************!*\
+  !*** ./modules/behaviours/page/Gallery.js ***!
+  \********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Gallery)
+/* harmony export */ });
+/* harmony import */ var _lib_api_PageAPI_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/api/PageAPI.js */ "./modules/lib/api/PageAPI.js");
+/* harmony import */ var _lib_PageData_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lib/PageData.js */ "./modules/lib/PageData.js");
+
+
+
+class Gallery {
+
+    constructor(api) {
+        this.api = api;
+        this.pageData = new _lib_PageData_js__WEBPACK_IMPORTED_MODULE_1__.PageData(this.api, new _lib_api_PageAPI_js__WEBPACK_IMPORTED_MODULE_0__.PageAPI(this.api));
+        this.isFront = this.api.v1.app.mode.isFront();
+
+        const galleryConfig = this.api.v1.config.get('page_settings.gallery') || {};
+        this.gallerySettings = {
+            displayHeader: this.api.v1.util.defaults.true(galleryConfig.displayHeader),
+            displayFooter: this.api.v1.util.defaults.true(galleryConfig.displayFooter),
+            pageBackgroundColor: galleryConfig.pageBackgroundColor || '#000000',
+            pageTextColor: galleryConfig.pageTextColor || '#ffffff',
+            logImageView: this.api.v1.util.defaults.false(galleryConfig.logImageView)
+        };
+    }
+
+    onReady(model, view) {
+
+        if (!this.isFront) { return; }
+
+        const slideshow = this.api.v1.model.query.getChildOfType(model, 'slideshow');
+        if (!slideshow) {
+            Sys.logger.warn('[Gallery] No slideshow found, skipping gallery setup ...');
+            return;
+        }
+
+        const viewport = view.getViewport();
+
+        // The gallery model is created temporarily and has a random id.
+        // Set id to the page id to allow the model to report correct id to other functionality.
+        // Note: This will never run in the editor.
+        model.set('id', model.get('fields.parent_node_id'));
+
+        // Add fields.published_url to generate url's for social media sharing:
+        model.set('fields.published_url', `/gallery/${ model.getId() }/${ slideshow.getId() }`);
+
+        this.pageData.set(model, view);
+
+        // Disable gallery mode for slideshow
+        slideshow.set('fields.gallery_active', false);
+
+        // Ignore original size:
+        slideshow.set('width', 100, { viewport: 'mobile' });
+        slideshow.set('width', 100, { viewport: 'desktop' });
+
+        // Display preview:
+        const slideshowView = this.api.v1.view.getView(slideshow, view.getViewport());
+        slideshowView.set('metadata.displayPreview', true);
+
+        slideshow.set('metadata.hasFullWidth', false, { viewport: 'mobile' });
+        slideshow.set('metadata.hasFullWidth', false, { viewport: 'desktop' });
+
+        // Set aspect ratio:
+        if (viewport === 'mobile') {
+            slideshowView.set('fields.aspectRatio', 1);
+        } else {
+            slideshowView.set('fields.aspectRatio', 0.75);
+        }
+
+        // Update filtered values for title and description used for meta tags and analytics:
+        const title = `${ this.api.v1.locale.get('gallery.label') } - ${ slideshow.get('fields.title') || slideshow.getId() }`;
+        const description = `${ slideshow.get('fields.description') || '[description]' }`;
+        model.set('filtered.title', slideshow.get('fields.title') || this.api.v1.locale.get('gallery.label'));
+        model.set('filtered.seotitle', title);
+        model.set('filtered.sometitle', title);
+        model.set('filtered.seodescription', description);
+        model.set('filtered.somedescription', description);
+        model.set('filtered.gallerySettings', this.gallerySettings);
+        model.set('filtered.imageCount', slideshow.children.length);
     }
 
 }
@@ -17276,17 +18956,58 @@ __webpack_require__.r(__webpack_exports__);
         this.api = api;
         this.rootModel = this.api.v1.model.query.getRootModel();
         this.pageAutomaticMode = [true, 'true', '1', 1].includes(this.rootModel.get('fields.automatic'));
+        this.authorPagesConfig = this.api.v1.config.get('authorPages') || {};
+    }
+
+    onCreated(uiInterface, options) {
+        uiInterface.setProperty('query', {
+            filter: ''
+        });
+    }
+
+    onHeader(uiInterface, params) {
+        const form = this.api.v1.util.dom.renderView('collections/articlesAuto/header', {}, true);
+        const query = uiInterface.getProperty('query');
+        const formHandler = (event) => {
+            event.preventDefault();
+            const formData = this.api.v1.util.dom.serializeForm(form);
+            query.filter = (formData.filter || '').trim();
+            uiInterface.getData();
+        };
+        form.addEventListener('submit', formHandler, false);
+        for (const formEl of [...form.querySelectorAll('input')]) {
+            formEl.addEventListener('input', formHandler, false);
+        }
+        return form;
     }
 
     onGetData(uiInterface, options) {
         const feeds = this.api.v1.config.get('feeds') || {};
+        const query = uiInterface.getProperty('query') || { filter: '' };
+        const filterText = query.filter.toLowerCase();
         const imageId = 1018;
         const icon = `https://publishlab.com/pbl2.jpg?v=${ imageId }`;
-        const result = Object.keys(feeds).filter((key) => (!(!this.pageAutomaticMode && feeds[key].auto_only === true))).map((key) => ({
+        const authorPath = this.rootModel.get('fields.hostpath') || '';
+        const authorCustomPath = this.authorPagesConfig.path || 'author';
+
+        // Apply filtering based on display_name, feed key, and url if filter is provided
+        let filteredFeeds = Object.keys(feeds).filter((key) => (!(!this.pageAutomaticMode && feeds[key].auto_only === true)));
+        if (filterText) {
+            filteredFeeds = filteredFeeds.filter((key) => {
+                const feed = feeds[key];
+                return (
+                    (feed.display_name && feed.display_name.toLowerCase().includes(filterText))
+                    || (key && key.toLowerCase().includes(filterText))
+                    || (feed.url && feed.url.toLowerCase().includes(filterText))
+                );
+            });
+        }
+
+        const result = filteredFeeds.map((key) => ({
             type: 'article',
             contentdata: {
                 fields: {
-                    title: `Article from feed`,
+                    title: `Feed: ${ feeds[key].display_name }`,
                     subtitle: `<em>${ feeds[key].display_name }</em>`,
                     feedId: key,
                     isAutomatic: true
@@ -17327,6 +19048,36 @@ __webpack_require__.r(__webpack_exports__);
                 }]
             });
         }
+
+        // Only add author box if authorPages is enabled
+        if (this.authorPagesConfig.enabled && (authorPath === 'author' || authorPath === authorCustomPath)) {
+            result.unshift({
+                type: 'authorBox',
+                contentdata: {
+                    fields: {
+                        title: `Author box`,
+                        subtitle: 'Use when building authorpages to display author info.',
+                        full_name: 'FirstName LastName',
+                        description: 'Short author description here...',
+                        description2: 'Extended author description here...',
+                        public_phone: '+47 123 45 678',
+                        public_url: 'https://www.example.com',
+                        public_email: 'author@example.com'
+                    }
+                },
+                children: [{
+                    type: 'image',
+                    contentdata: {
+                        fields: {
+                            external_id: `lab_head_${ imageId }`,
+                            imageurl: icon,
+                            source: '_articlefeed'
+                        }
+                    }
+                }]
+            });
+        }
+
         return result;
     }
 
@@ -17362,6 +19113,7 @@ __webpack_require__.r(__webpack_exports__);
         this.customFields = lab_api.v1.config.get('customAdapterFields.article') || [];
         this.dateTimeHelper = new _lib_helpers_datetime_DateTimeHelper_js__WEBPACK_IMPORTED_MODULE_0__.DateTimeHelper(this.api.v1.config.get('lang') || undefined);
         this.updateInterval = 30000; // Milliseconds, 10000 = 10 seconds
+        this.searchDebounceTimeout = null; // For debouncing search requests
     }
 
     onProperties() {
@@ -17440,6 +19192,16 @@ __webpack_require__.r(__webpack_exports__);
             uiInterface.getData();
         };
 
+        // Debounced version of formHandler for text inputs to reduce API requests
+        const debouncedFormHandler = (event) => {
+            if (this.searchDebounceTimeout) {
+                clearTimeout(this.searchDebounceTimeout);
+            }
+            this.searchDebounceTimeout = setTimeout(() => {
+                formHandler(event);
+            }, 500); // 500ms delay
+        };
+
         const updateSections = (siteId) => {
             // Create a select-element containig available sections.
             // The preferred section for user will be selected and stored when changed.
@@ -17451,11 +19213,7 @@ __webpack_require__.r(__webpack_exports__);
                     value: 'section'
                 }],
                 siteId: siteId ? parseInt(siteId, 10) : null,
-                label: 'All sections',
-                events: [{
-                    name: 'change',
-                    callback: formHandler
-                }]
+                label: 'All sections'
             });
             container.appendChild(selectEl);
             query.api.section = selectEl.value;
@@ -17498,8 +19256,15 @@ __webpack_require__.r(__webpack_exports__);
             label: 'Only paywall'
         }));
 
+        // Add event listeners with debouncing for text inputs, immediate for others
         for (const formEl of [...form.querySelectorAll('input, select')]) {
-            formEl.addEventListener('input', formHandler, false);
+            // Use debounced handler for text inputs that users typically type into
+            if (formEl.type === 'text' && (formEl.name === 'id' || formEl.name === 'tag' || formEl.name === 'text')) {
+                formEl.addEventListener('input', debouncedFormHandler, false);
+            } else {
+                // Use immediate handler for dropdowns, checkboxes, and date inputs
+                formEl.addEventListener('input', formHandler, false);
+            }
         }
         form.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -17712,10 +19477,12 @@ __webpack_require__.r(__webpack_exports__);
                 params.push(`(id:(${ idArray.join(' OR ') }))`);
             }
         }
-        if (query.api.section) params.push(`(section:("${ query.api.section }"))`);
+        if (query.api.section) params.push(`(section:("${ encodeURIComponent(query.api.section) }"))`);
         if (query.api.tag) params.push(`(tag:("${ this.trimInputText(query.api.tag) }"))`);
         if (query.api.text) {
-            params.push(`${ this.trimInputText(query.api.text) }*`);
+            const disableWildcard = this.api.v1.config.get('articleSearchWildcardDisabled');
+            const searchTerm = disableWildcard ? this.trimInputText(query.api.text) : `${ this.trimInputText(query.api.text) }*`;
+            params.push(searchTerm);
         }
         if (query.api.onlyMine) {
             params.push('(has_published:me%20OR%20created_by:me)');
@@ -18699,6 +20466,247 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./modules/collections/Collabrador.js":
+/*!********************************************!*\
+  !*** ./modules/collections/Collabrador.js ***!
+  \********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/** FEATURE STILL IN DEVELOPMENT */
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (class {
+
+    constructor(api) {
+        this.api = api;
+    }
+
+    onCreated(uiInterface, options) {
+        // Initialize on creation
+        lab_api.v1.collabrador.init().catch(error => {
+            console.error('Collabrador initialization failed:', error);
+            return;
+        });
+
+        // Expose handler globally for console debugging
+        window.collabradorHandler = this;
+        this.websocket = lab_api.v1.collabrador.initWebSocket(this.onWebsocketMessage, uiInterface, options);
+    }
+
+    onWebsocketMessage(event, uiInterface, options) {
+        uiInterface.getData();
+    }
+
+    onHeader(uiInterface) {
+        const form = this.api.v1.util.dom.renderView('collections/collabrador/header', {}, true);
+
+        return form;
+    }
+
+    async onGetData(uiInterface, options) {
+        try {
+            // Fetch comments
+            const comments = await lab_api.v1.collabrador.getComments();
+
+            // Store comments for template rendering
+            uiInterface.setProperty('comments', comments);
+
+            // Return a single dummy item to trigger onRendered
+            // We'll replace it with our custom template
+            return comments && comments.length ? [{
+                type: 'collabrador-comments',
+                contentdata: {}
+            }] : [];
+        } catch (error) {
+            console.error('Failed to get comments data:', error);
+            return [];
+        }
+    }
+
+    onRendered(uiInterface) {
+        // Get the stored comments
+        console.log('Collabrador feature still in development!');
+        const comments = uiInterface.getProperty('comments');
+
+        if (!comments || !comments.length) {
+            return;
+        }
+
+        // Get the container element
+        const container = uiInterface.getMarkup().querySelector('.lab-collection-items');
+
+        // Clear container
+        container.innerHTML = '';
+
+        // Render all comments at once using the template
+        const commentsEl = this.api.v1.util.dom.renderView('collections/collabrador/comment', {
+            comments
+        }, true);
+
+        // Extract all child nodes from the rendered element and append them
+        const fragment = document.createDocumentFragment();
+        while (commentsEl.firstChild) {
+            fragment.prepend(commentsEl.firstChild);
+        }
+        container.appendChild(fragment);
+
+        const commentElements = container.querySelectorAll('.comment');
+
+        commentElements.forEach((comment) => {
+            comment.addEventListener('mouseover', () => {
+                const { guid } = comment.dataset;
+                if (!guid) return;
+                const model = this.api.v1.model.query.getModelByGuid(guid);
+                if (!model) return;
+                this.api.v1.model.highlight.default(model, { scroll: true, speed: 500, approximateScroll: true });
+            })
+        })
+
+        // Add event listeners for all buttons
+        const editBtns = container.querySelectorAll('.comment-btn-edit');
+        const resolveBtns = container.querySelectorAll('.comment-btn-resolve');
+        const saveBtns = container.querySelectorAll('.comment-btn-save');
+        const cancelBtns = container.querySelectorAll('.comment-btn-cancel');
+        const textElements = container.querySelectorAll('.comment-text');
+
+        editBtns.forEach((btn) => {
+            btn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const comment = btn.closest('.comment').querySelector('.comment-text').innerText;
+                const commentId = btn.getAttribute('data-id');
+                this.handleEditComment(comment, btn.closest('.comment'), container, commentId);
+            }, false);
+        });
+
+        resolveBtns.forEach((btn) => {
+            btn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const comment = btn.closest('.comment').querySelector('.comment-text').innerText;
+                const commentId = btn.getAttribute('data-id');
+                this.handleResolveComment(comment, btn.closest('.comment'), commentId);
+            }, false);
+        });
+
+        saveBtns.forEach((btn) => {
+            btn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const comment = btn.closest('.comment').querySelector('.comment-text').innerText;
+                const commentId = btn.getAttribute('data-id');
+                this.handleSaveComment(comment, btn.closest('.comment'), commentId);
+            }, false);
+        });
+
+        cancelBtns.forEach((btn) => {
+            btn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                this.handleCancelComment(btn.closest('.comment'));
+            }, false);
+        });
+
+        textElements.forEach((element) => {
+            element.addEventListener('click', () => {
+                this.handleTextClick(element);
+            }, false);
+        });
+
+    }
+
+    handleEditComment(comment, element, container, commentId) {
+        this.closeAllOpenEditMode(container);
+
+        const textElement = element.querySelector('.comment-text');
+        const cancelBtn = element.querySelector('.comment-btn-cancel');
+        const editBtn = element.querySelector('.comment-btn-edit');
+        const resolveBtn = element.querySelector('.comment-btn-resolve');
+        const saveBtn = element.querySelector('.comment-btn-save');
+        const textarea = document.createElement('textarea');
+
+        textarea.classList.add('comment-textarea-edit');
+        textarea.value = comment;
+        element.insertBefore(textarea, textElement);
+        element.classList.add('comment-edit-mode');
+        textElement.classList.add('hidden');
+        cancelBtn.classList.remove('hidden');
+        editBtn.classList.add('hidden');
+        resolveBtn.classList.add('hidden');
+        saveBtn.classList.remove('hidden');
+        textarea.focus();
+    }
+
+    handleResolveComment(comment, element, commentId) {
+        const commentData = {
+            id: commentId,
+            resolved: true
+        }
+        // TODO: handle errors from Collabrador
+        this.api.v1.collabrador.modifyComment(commentData);
+        element.classList.add('comment-resolved');
+        const cancelBtn = element.querySelector('.comment-btn-cancel');
+        const editBtn = element.querySelector('.comment-btn-edit');
+        const resolveBtn = element.querySelector('.comment-btn-resolve');
+        const saveBtn = element.querySelector('.comment-btn-save');
+        cancelBtn.classList.add('hidden');
+        editBtn.classList.add('hidden');
+        resolveBtn.classList.add('hidden');
+        saveBtn.classList.add('hidden');
+    }
+
+    handleSaveComment(comment, element, commentId) {
+        const textElement = element.querySelector('.comment-text');
+        const textArea = element.querySelector('.comment-textarea-edit');
+        const commentData = {
+            id: commentId,
+            text: textArea.value
+        };
+        this.api.v1.collabrador.modifyComment(commentData).then((response) => {
+            textElement.innerText = textArea.value;
+        }).catch((error) => {
+            console.error("Error: ", error);
+        });
+
+        this.endEditMode(element);
+    }
+
+    handleCancelComment(element) {
+        this.endEditMode(element);
+    }
+
+    handleTextClick(element) {
+        element.classList.toggle('expanded');
+    }
+
+    closeAllOpenEditMode(container) {
+        const openEditors = container.querySelectorAll('.comment-edit-mode');
+        openEditors.forEach((element) => {
+            this.endEditMode(element);
+        });
+    }
+
+    endEditMode(element) {
+        const textElement = element.querySelector('.comment-text');
+        const cancelBtn = element.querySelector('.comment-btn-cancel');
+        const editBtn = element.querySelector('.comment-btn-edit');
+        const resolveBtn = element.querySelector('.comment-btn-resolve');
+        const saveBtn = element.querySelector('.comment-btn-save');
+        const textArea = element.querySelector('.comment-textarea-edit');
+
+        element.classList.remove('comment-edit-mode');
+        textElement.classList.remove('hidden');
+        cancelBtn.classList.add('hidden');
+        editBtn.classList.remove('hidden');
+        resolveBtn.classList.remove('hidden');
+        saveBtn.classList.add('hidden');
+        textArea.remove();
+    }
+
+});
+
+
+/***/ }),
+
 /***/ "./modules/collections/Graphics.js":
 /*!*****************************************!*\
   !*** ./modules/collections/Graphics.js ***!
@@ -19011,6 +21019,67 @@ __webpack_require__.r(__webpack_exports__);
         query.currentToken = query[active];
         uiInterface.setProperty('query', query);
         uiInterface.getData();
+    }
+
+});
+
+
+/***/ }),
+
+/***/ "./modules/collections/NewComment.js":
+/*!*******************************************!*\
+  !*** ./modules/collections/NewComment.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (class {
+
+    constructor(api) {
+        this.api = api;
+    }
+
+    onHeader(uiInterface, params) {
+        const form = this.api.v1.util.dom.renderView('collections/newComment/header', {}, true);
+        form.querySelector('#add-comment').addEventListener('click', (event) => {
+            event.preventDefault();
+            this.api.v1.collabrador.addComment(
+                {
+                    from: 0,
+                    to: 0,
+                    text: form.querySelector('#new-comment').value,
+                    tagGuid: this.api.v1.model.query.getRootModel().data.guid || '', // Will be the guid of the element but for collection the Guid of the article itself
+                    author: 'Test Testersen', // Not needed when we go to prod, will be handled by the token
+                    email: 'test@testersen.no' // Not needed when we go to prod, will be handled by the token
+                }
+            );
+            form.querySelector('#new-comment').value = '';
+        });
+        form.querySelector('#cancel-comment').addEventListener('click', (event) => {
+            event.preventDefault();
+            form.querySelector('#new-comment').value = '';
+        });
+        return form;
+    }
+
+    onGetData(uiInterface, options) {
+        return [
+            {
+                type: 'collabrador-comments',
+                contentdata: {}
+            }
+        ];
+    }
+
+    onRendered(uiInterface) {
+        // Get the container element
+        const container = uiInterface.getMarkup().querySelector('.lab-collection-items');
+
+        // Clear container
+        if (container) container.remove();
     }
 
 });
@@ -19725,6 +21794,178 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./modules/collections/Vp.js":
+/*!***********************************!*\
+  !*** ./modules/collections/Vp.js ***!
+  \***********************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (class {
+
+    constructor(api) {
+        this.api = api;
+    }
+
+    onCreated(uiInterface, options) {
+        const channelConfig = lab_api.v1.config.get('media.vp.channel') || {};
+        uiInterface.setProperty('channelConfig', channelConfig);
+        uiInterface.setProperty('query', {
+            search: '',
+            limit: 30,
+            currentToken: null,
+            nextPageToken: null,
+            prevPageToken: null,
+            page: 1
+        });
+    }
+
+    onHeader(uiInterface, params) {
+        const form = this.api.v1.util.dom.renderView('collections/vp/header', {
+            channelConfig: uiInterface.getProperty('channelConfig')
+        }, true);
+        const query = uiInterface.getProperty('query');
+
+        const searchBar = form.querySelector('.search-bar');
+
+        const update = () => {
+            if (searchBar) {
+                query.search = searchBar.value || '';
+            }
+
+            uiInterface.getData(true);
+        };
+
+        searchBar.addEventListener('change', update.bind(this));
+
+        form.addEventListener('submit', (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+        });
+
+        return form;
+    }
+
+    onFooter(uiInterface, params) {
+        const form = this.api.v1.util.dom.renderView('collections/vp/footer', {}, true);
+
+        uiInterface.setDomElement('previewPageElement', form.querySelector('.lab-footer-prev'));
+        uiInterface.getDomElement('previewPageElement').addEventListener('click', (event) => {
+            this.navigate(uiInterface, false);
+        }, false);
+
+        uiInterface.setDomElement('nextPageElement', form.querySelector('.lab-footer-next'));
+        uiInterface.getDomElement('nextPageElement').addEventListener('click', (event) => {
+            this.navigate(uiInterface, true);
+        }, false);
+
+        form.querySelector('.lab-footer-reload').addEventListener('click', (event) => {
+            uiInterface.getData(true);
+        }, false);
+        uiInterface.setDomElement('pageCounterElement', form.querySelector('.lab-footer-counter'));
+        return form;
+    }
+
+    onGetUrl(uiInterface) {
+        const query = uiInterface.getProperty('query');
+        const siteAlias = lab_api.v1.site.getSite().alias;
+        const args = [
+            `num=${ query.limit }`,
+            `site=${ siteAlias }`
+        ];
+        if (query.search) {
+            args.push(`q=${ query.search }`);
+        }
+        if (query.currentToken) {
+            args.push(`token=${ query.currentToken }`);
+        }
+        return `/ajax/integration/get-collection?_service=vp&${ args.join('&') }`;
+    }
+
+    onMapData(uiInterface, data) {
+        const query = uiInterface.getProperty('query');
+        query.nextPageToken = null;
+        query.prevPageToken = null;
+        query.currentToken = null;
+
+        if (!data.results || !data.results.length) { return []; }
+
+        if (typeof (data.pagination) !== 'undefined') {
+            if (data.pagination.nextPage) { query.nextPageToken = data.pagination.nextPage; }
+            if (data.pagination.prevPage) { query.prevPageToken = data.pagination.prevPage; }
+        }
+
+        const results = [];
+
+        data.results.forEach((item) => {
+            results.push({
+                type: 'vp',
+                contentdata: {
+                    fields: {
+                        vid: item.id.videoId ? item.id.videoId : item.id,
+                        embedCode: item.embedCode,
+                        playerUrl: item.playerUrl,
+                        preview: item.preview,
+                        title: item.title,
+                        caption: item.caption,
+                        byline: item.byline,
+                        description: item.description,
+                        verticalVideo: item.verticalVideo || false
+                    }
+                }
+            });
+        });
+        uiInterface.getDomElement('pageCounterElement').innerHTML = query.page;
+        return results;
+    }
+
+    onProperties(uiInterface) {
+        return {
+            autoItemSizing: true,  // Adjust grid-styling for items ('.lab-item') based on menu width.
+            displayAsGrid: true,    // Set to true for images etc.
+            isMedia: true           // Set to true for images etc.
+        };
+    }
+
+    onItemProperties(uiInterface) {
+        return {
+            title: {
+                path: null,
+                content: null
+            },
+            description: {
+                path: 'fields.title',
+                content: null
+            },
+            imageUrl: {
+                path: 'fields.preview'
+            }
+        };
+    }
+
+    navigate(uiInterface, forward) {
+        const query = uiInterface.getProperty('query');
+        const active = forward ? 'nextPageToken' : 'prevPageToken';
+        if (!query[active]) {
+            return;
+        }
+        if (forward) {
+            query.page++;
+        } else {
+            query.page--;
+        }
+        query.currentToken = query[active];
+        uiInterface.setProperty('query', query);
+        uiInterface.getData();
+    }
+
+});
+
+/***/ }),
+
 /***/ "./modules/collections/YouTube.js":
 /*!****************************************!*\
   !*** ./modules/collections/YouTube.js ***!
@@ -19953,19 +22194,22 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ArticleTeasers": () => (/* reexport safe */ _ArticleTeasers_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
-/* harmony export */   "ArticlesAuto": () => (/* reexport safe */ _ArticlesAuto_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "ArticlesLatest": () => (/* reexport safe */ _ArticlesLatest_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "ArticlesNotice": () => (/* reexport safe */ _ArticlesNotice_js__WEBPACK_IMPORTED_MODULE_11__["default"]),
-/* harmony export */   "Audio": () => (/* reexport safe */ _Audio_js__WEBPACK_IMPORTED_MODULE_10__["default"]),
-/* harmony export */   "Bylines": () => (/* reexport safe */ _Bylines_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
-/* harmony export */   "Graphics": () => (/* reexport safe */ _Graphics_js__WEBPACK_IMPORTED_MODULE_9__["default"]),
-/* harmony export */   "JWPlayer": () => (/* reexport safe */ _JWPlayer_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
-/* harmony export */   "RemoteProduction": () => (/* reexport safe */ _RemoteProduction_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
-/* harmony export */   "Search": () => (/* reexport safe */ _Search_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
-/* harmony export */   "Simplestream": () => (/* reexport safe */ _Simplestream_js__WEBPACK_IMPORTED_MODULE_8__["default"]),
-/* harmony export */   "Vimond": () => (/* reexport safe */ _Vimond_js__WEBPACK_IMPORTED_MODULE_12__["default"]),
-/* harmony export */   "YouTube": () => (/* reexport safe */ _YouTube_js__WEBPACK_IMPORTED_MODULE_3__["default"])
+/* harmony export */   ArticleTeasers: () => (/* reexport safe */ _ArticleTeasers_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   ArticlesAuto: () => (/* reexport safe */ _ArticlesAuto_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   ArticlesLatest: () => (/* reexport safe */ _ArticlesLatest_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   ArticlesNotice: () => (/* reexport safe */ _ArticlesNotice_js__WEBPACK_IMPORTED_MODULE_11__["default"]),
+/* harmony export */   Audio: () => (/* reexport safe */ _Audio_js__WEBPACK_IMPORTED_MODULE_10__["default"]),
+/* harmony export */   Bylines: () => (/* reexport safe */ _Bylines_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
+/* harmony export */   Collabrador: () => (/* reexport safe */ _Collabrador_js__WEBPACK_IMPORTED_MODULE_14__["default"]),
+/* harmony export */   Graphics: () => (/* reexport safe */ _Graphics_js__WEBPACK_IMPORTED_MODULE_9__["default"]),
+/* harmony export */   JWPlayer: () => (/* reexport safe */ _JWPlayer_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
+/* harmony export */   NewComment: () => (/* reexport safe */ _NewComment_js__WEBPACK_IMPORTED_MODULE_15__["default"]),
+/* harmony export */   RemoteProduction: () => (/* reexport safe */ _RemoteProduction_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   Search: () => (/* reexport safe */ _Search_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
+/* harmony export */   Simplestream: () => (/* reexport safe */ _Simplestream_js__WEBPACK_IMPORTED_MODULE_8__["default"]),
+/* harmony export */   Vimond: () => (/* reexport safe */ _Vimond_js__WEBPACK_IMPORTED_MODULE_12__["default"]),
+/* harmony export */   Vp: () => (/* reexport safe */ _Vp_js__WEBPACK_IMPORTED_MODULE_13__["default"]),
+/* harmony export */   YouTube: () => (/* reexport safe */ _YouTube_js__WEBPACK_IMPORTED_MODULE_3__["default"])
 /* harmony export */ });
 /* harmony import */ var _ArticlesLatest_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ArticlesLatest.js */ "./modules/collections/ArticlesLatest.js");
 /* harmony import */ var _ArticlesAuto_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArticlesAuto.js */ "./modules/collections/ArticlesAuto.js");
@@ -19980,6 +22224,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Audio_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Audio.js */ "./modules/collections/Audio.js");
 /* harmony import */ var _ArticlesNotice_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ArticlesNotice.js */ "./modules/collections/ArticlesNotice.js");
 /* harmony import */ var _Vimond_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Vimond.js */ "./modules/collections/Vimond.js");
+/* harmony import */ var _Vp_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Vp.js */ "./modules/collections/Vp.js");
+/* harmony import */ var _Collabrador_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Collabrador.js */ "./modules/collections/Collabrador.js");
+/* harmony import */ var _NewComment_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./NewComment.js */ "./modules/collections/NewComment.js");
+
+
+
 
 
 
@@ -20005,7 +22255,7 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PageData": () => (/* binding */ PageData)
+/* harmony export */   PageData: () => (/* binding */ PageData)
 /* harmony export */ });
 /* harmony import */ var _helpers_ResourceHelper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/ResourceHelper.js */ "./modules/lib/helpers/ResourceHelper.js");
 /* harmony import */ var _helpers_StyleHelper_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers/StyleHelper.js */ "./modules/lib/helpers/StyleHelper.js");
@@ -20030,9 +22280,12 @@ class PageData {
 
     set(model, view) {
         const data = this.export(model, view);
+        const PAGE_TYPE = view.get('type').replace('page_', '');
+        const IS_EDITOR = this.api.v1.app.mode.isEditor();
         for (const key of Object.keys(data)) {
             model.setFiltered(key, data[key]);
         }
+        model.setFiltered('customTags', _helpers_CustomTags_js__WEBPACK_IMPORTED_MODULE_4__.CustomTags.prepareForTemplate(this.api.v1.config.get('customTags') || [], PAGE_TYPE, IS_EDITOR));
     }
 
     export(model, view) {
@@ -20063,6 +22316,8 @@ class PageData {
         exports.is_article = PAGE_TYPE === 'article';
         exports.is_notice = PAGE_TYPE === 'notice';
         exports.is_front = PAGE_TYPE === 'front';
+        exports.is_gallery = PAGE_TYPE === 'gallery';
+        exports.is_infiniteArticle = view.get('fields.page_template_alias') === 'infinitescroll';
         exports.section = view.get('primaryTags.section') || view.get('fields.defaultsection');
         exports.device = this.api.v1.viewport.getName();
         exports.cmsVersion = this.api.v1.properties.get('app.version');
@@ -20074,7 +22329,6 @@ class PageData {
         exports.isDebug = this.api.v1.util.request.hasQueryParam('debug');
         exports.staticUrl = this.getStaticUrl(model, PAGE_TYPE, PAGE_ID, CUSTOMER_FRONT_URL);
         exports.customMetatags = this.getCustomMetatags();
-        exports.customTags = _helpers_CustomTags_js__WEBPACK_IMPORTED_MODULE_4__.CustomTags.prepareForTemplate(this.api.v1.config.get('customTags') || [], PAGE_TYPE, IS_EDITOR);
         exports.footerSettings = this.api.v1.config.get('page_settings.footer');
         exports.rssDescriptionPrefix = this.api.v1.config.get('viewports.rss.descriptionPrefix');
         exports.is_tagpage = IS_TAGPAGE;
@@ -20104,7 +22358,8 @@ class PageData {
             canonical: CANONICAL,
             isTagpage: IS_TAGPAGE,
             isTagpageWithFrontpage: IS_TAGPAGE_WITH_FRONTPAGE,
-            tagpagePath: TAGPAGE_PATH
+            tagpagePath: TAGPAGE_PATH,
+            publishedUrl: URL
         });
 
         // Set JSON-LD json string.
@@ -20127,6 +22382,17 @@ class PageData {
                 exports.sometitle = this.api.v1.util.string.stripTags(sometitle);
             }
 
+            // Kilkaya k5ameta object data
+            const kilkayaTitle = model.get('fields.teaserTitle') || model.get('fields.title') || '';
+            if (kilkayaTitle) {
+                exports.kilkayaTitle = this.api.v1.util.string.stripTags(kilkayaTitle);
+            }
+
+            const kilkayaKicker = model.get('fields.teaserKicker') || model.get('fields.kicker') || '';
+            if (kilkayaKicker) {
+                exports.kilkayaKicker = this.api.v1.util.string.stripTags(kilkayaKicker);
+            }
+
             // SoMe description
             const somedescription = model.get('fields.somedescription') || model.get('fields.teaserSubtitle') || model.get('fields.subtitle');
             if (somedescription && somedescription.length > 0) {
@@ -20145,6 +22411,23 @@ class PageData {
             exports.somedescription = model.get('fields.somedescription') || '';
         }
 
+        // Author page data
+        if (this.isAuthorPage(model.get('fields.hostpath'))) {
+            const authorData = model.get('fields.author_json');
+            if (authorData) {
+                const firstname = authorData.fields.firstname || '';
+                const lastname = authorData.fields.lastname || '';
+                const authorFullName = [firstname, lastname].filter(Boolean).join(' ');
+
+                const siteName = this.api.v1.properties.get('site.display_name') || '';
+
+                if (authorFullName) {
+                    exports.sometitle = `${ authorFullName } - ${ siteName }`;
+                    exports.seotitle = `${ authorFullName } - ${ siteName }`;
+                }
+            }
+        }
+
         // Social
         exports.social = {
             facebook: `https://www.facebook.com/sharer.php?u=${  URL_ENCODED }`,
@@ -20156,7 +22439,9 @@ class PageData {
             copyLink: `navigator.clipboard.writeText("${ URL }");`,
             glimta: `https://glimta.com/unlock?link=${ URL_ENCODED }`,
             talandeWebb: `ReachDeck.panel.toggleBar();`,
-            bluesky: `https://bsky.app/intent/compose?text=${ encodeURIComponent(`${ exports.sometitle }\n`) }${ URL_ENCODED }`
+            bluesky: `https://bsky.app/intent/compose?text=${ encodeURIComponent(`${ exports.sometitle }\n`) }${ URL_ENCODED }`,
+            reddit: `https://www.reddit.com/submit?url=${ URL_ENCODED }&title=${ encodeURIComponent(exports.sometitle) }`,
+            whatsapp: `https://api.whatsapp.com/send?text=${ encodeURIComponent(`${ exports.sometitle }\n${ URL }`) }`
         };
 
         // Set article tags and byline as comma separated string
@@ -20189,11 +22474,14 @@ class PageData {
             }
         }
 
-        // Set article published time
+        // Set article published time and 'hide from front' time if set
         if (PAGE_TYPE === 'article') {
             if (model.get('fields.published')) {
                 exports.published = new Date(parseInt(model.get('fields.published'), 10) * 1000).toISOString();
                 exports.publishedTimestamp = model.get('fields.published');
+            }
+            if (model.get('fields.hidefromfp_time')) {
+                exports.hidefromfp_time = new Date(parseInt(model.get('fields.hidefromfp_time'), 10) * 1000).toISOString();
             }
         }
 
@@ -20245,7 +22533,9 @@ class PageData {
             const adEnv = this.api.v1.config.get('adEnvironment') || {};
             const hideAds = view.get('fields.hideAds') === '1';
             const disableSkyscraper = view.get('fields.hideSkyscraperAds') === '1' || false;
-            const disableTopBanner = view.get('fields.hideTopBannerAd') === '1' || false;
+            const disableTopBanner = view.get('fields.hideTopBannerAd') === '1' || model.get('fields.hideTopBannerAd') === '1' || false;
+
+            Sys.logger.debug(`[PageData] Ad settings: hideAds=${ hideAds }, disableSkyscraper=${ disableSkyscraper }, disableTopBanner=${ disableTopBanner }, adEnv=${ adEnv.name || 'none' }`);
 
             if (!hideAds && adEnv && adEnv.name === 'adnuntius') {
                 try {
@@ -20262,6 +22552,13 @@ class PageData {
                 }
             }
 
+            // Let template know which ad environment and provider used.
+            exports.adEnvironment = { ...adEnv };
+            exports.adEnvironment[`is_${ adEnv.name }`] = true;
+            const providerName = adEnv.name === 'google' && adEnv.bidding && adEnv.bidding.provider && adEnv.bidding.provider.name
+                ? adEnv.bidding.provider.name
+                : 'none';
+            exports.adEnvironment[`is_provider_${ providerName }`] = true;
         }
 
         if (this.api.v1.util.request.hasQueryParam('fontpreview')) {
@@ -20271,7 +22568,7 @@ class PageData {
 
         exports.page_settings = this.page.settings.get({
             // Treat notice as an article to use the same settings (admin, config from view)
-            pageType: PAGE_TYPE === 'notice' ? 'article' : PAGE_TYPE,
+            pageType: PAGE_TYPE === 'notice' || PAGE_TYPE === 'gallery' ? 'article' : PAGE_TYPE,
             socialLinks: exports.social
         });
 
@@ -20438,6 +22735,10 @@ class PageData {
         // Make config object available for client side rendering
         exports.clientSideConfig = JSON.stringify(_helpers_ClientConfig_js__WEBPACK_IMPORTED_MODULE_5__.ClientConfig.buildConfig(this.api));
 
+        // Canonical link should not be rendered for 404 and 410 error pages
+        const hostpath = model.get('fields.hostpath');
+        exports.shouldRenderCanonical = !(hostpath === 'labrador/http-404' || hostpath === 'labrador/http-410');
+
         return exports;
     }
 
@@ -20463,16 +22764,20 @@ class PageData {
         model.setFiltered('lang', language);
     }
 
-    getCanonicalUrl(model, pageType, pageId, frontUrl) {
+    getCanonicalUrl(model, pageType, pageId, frontUrl, authorpagePath) {
         const canonical = model.get('fields.lab_canonical');
         if (canonical) {
             return canonical;
         }
         if (pageType === 'front') {
             const hostpath = model.get('fields.hostpath');
-            if (hostpath) {
-                return `${ frontUrl }/${ hostpath === 'index' ? '' : hostpath }`;
+            if (hostpath === 'index') {
+                return `${ frontUrl }/`;
             }
+            if (this.isAuthorPage(hostpath)) {
+                return `${ frontUrl }/${ this.getAuthorPageCanonical(model) }`;
+            }
+            return `${ frontUrl }/${ hostpath }`;
         }
         return `${ frontUrl + model.get('fields.published_url') }`;
     }
@@ -20532,6 +22837,30 @@ class PageData {
             }
         }
 
+        const paywallLabel = {
+            ...{
+                display: true
+            },
+            ...this.api.v1.config.get('paywall.label')
+        };
+
+        // Get the paywall label text and icon from the config or default values.
+        // Check if the values exists, i.e. they have been set in the config files for the site, if they have not, set a default value.
+        // This should make all config values where the users have set the value to be an empty string still show nothing
+        const textValue = this.api.v1.config.get('paywall.label.text.content');
+        const iconValue = this.api.v1.config.get('paywall.label.icon.content');
+        const textContent = (textValue ===  undefined || textValue === null) ? 'Plus' : this.api.v1.config.get('paywall.label.text.content');
+        const iconContent = (iconValue === undefined || iconValue === null) ? 'fi-plus' : this.api.v1.config.get('paywall.label.icon.content');
+
+        // Create an object that can be added to the paywallLabel object
+        // This will add empty objects if config values are not set in admin, but that is fine.
+        const labelIcon = { text: { content: textContent }, icon: { content: iconContent } };
+        Object.assign(paywallLabel, labelIcon);
+
+        if (paywallLabel.display) {
+            model.setFiltered('paywallLabel', paywallLabel);
+        }
+
         return {
             enabled,
             settings,
@@ -20548,6 +22877,73 @@ class PageData {
         };
     }
 
+    /**
+     * Checks whether the given host path corresponds to an author page.
+     *
+     * @param {string} hostpath - The path to check, e.g. 'author/john-doe'.
+     * @returns {boolean} True if the given path is an author page, otherwise false.
+     */
+    isAuthorPage(hostpath) {
+        const authorPageConfig = this.api.v1.config.get('authorPages') || {};
+        const path = authorPageConfig.path || 'author';
+        if (hostpath && authorPageConfig.enabled && hostpath.startsWith(`${ path }/`)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Retrieves the configured base path for author pages.
+     *
+     * @returns {string} The author page base path (defaults to 'author' if not configured).
+     */
+    getAuthorPagePath() {
+        const authorPageConfig = this.api.v1.config.get('authorPages') || {};
+        return authorPageConfig.path || 'author';
+    }
+
+    /**
+     * Retrieves the slug of the author page from the provided model.
+     *
+     * @param {Object} model - The model containing author data.
+     * @returns {string|undefined} The author's slug if available, otherwise undefined.
+     */
+    getAuthorPageSlug(model) {
+        const authorData = model.get('fields.author_json');
+        if (authorData) {
+            return authorData.fields.slug;
+        }
+        return undefined;
+    }
+
+    /**
+     * Retrieves the author ID from the provided model.
+     *
+     * @param {Object} model - The model containing author data.
+     * @returns {string|number|undefined} The author's ID if available, otherwise undefined.
+     */
+    getAuthorPageId(model) {
+        const authorData = model.get('fields.author_json');
+        if (authorData) {
+            return authorData.fields.id;
+        }
+        return undefined;
+    }
+
+    /**
+     * Builds the canonical URL path for the author's page.
+     *
+     * @param {Object} model - The model containing author data.
+     * @returns {string} The canonical author page path (e.g., 'author/john-doe' or 'author/123').
+     */
+    getAuthorPageCanonical(model) {
+        const path = this.getAuthorPagePath();
+        const slug = this.getAuthorPageSlug(model);
+        const id = this.getAuthorPageId(model);
+        return `${ path }/${ slug || id }`;
+
+    }
+
 }
 
 
@@ -20561,7 +22957,7 @@ class PageData {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PageAPI": () => (/* binding */ PageAPI)
+/* harmony export */   PageAPI: () => (/* binding */ PageAPI)
 /* harmony export */ });
 /* harmony import */ var _helpers_ResourceHelper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/ResourceHelper.js */ "./modules/lib/helpers/ResourceHelper.js");
 
@@ -20627,7 +23023,11 @@ class PageAPI {
                     results[name] = {
                         items: menu.menuItems,
                         type: menu.type,
-                        selector: menu.selector || ''
+                        selector: menu.selector || '',
+                        menuName: menu.menuName || '',
+                        showMenuName: menu.showMenuNameOnDesktop || menu.showMenuNameOnMobile || false,
+                        showMenuNameOnDesktop: menu.showMenuNameOnDesktop || '',
+                        showMenuNameOnMobile: menu.showMenuNameOnMobile || ''
                     };
                 });
 
@@ -20786,7 +23186,7 @@ class PageAPI {
                     name: key,
                     icon: socialItemsConfig[key].icon || '',
                     url: params.socialLinks[key] || '',
-                    shareText: socialItemsConfig[key].shareText || '',
+                    shareText: this.api.v1.locale.get(`socialMedia.shareText.${ key }`, { noRender: true, fallbackValue: '' }),
                     isButton: socialItemsConfig[key].isButton || false
                 }));
                 return {
@@ -20818,7 +23218,7 @@ class PageAPI {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ColorUtils": () => (/* binding */ ColorUtils)
+/* harmony export */   ColorUtils: () => (/* binding */ ColorUtils)
 /* harmony export */ });
 class ColorUtils {
 
@@ -20837,6 +23237,18 @@ class ColorUtils {
             parseInt(color.slice(3, 5), 16),
             parseInt(color.slice(5, 7), 16)
         ];
+    }
+
+    static rgbString2hex(rgbString) {
+        if (typeof rgbString !== 'string') {
+            return rgbString;
+        }
+        const rgbArray = rgbString.match(/\d+/g);
+        if (!rgbArray || rgbArray.length !== 3) {
+            return rgbString;
+        }
+        // eslint-disable-next-line no-bitwise
+        return `#${ ((1 << 24) + (parseInt(rgbArray[0], 10) << 16) + (parseInt(rgbArray[1], 10) << 8) + parseInt(rgbArray[2], 10)).toString(16).slice(1).toUpperCase() }`;
     }
 
     /**
@@ -20864,12 +23276,15 @@ class ColorUtils {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ImageUploadProcessor": () => (/* binding */ ImageUploadProcessor)
+/* harmony export */   ImageUploadProcessor: () => (/* binding */ ImageUploadProcessor)
 /* harmony export */ });
+/* harmony import */ var _helpers_ContentLanguages_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/ContentLanguages.js */ "./modules/lib/helpers/ContentLanguages.js");
 // Let user add caption, alt-text etc. on uploaded images.
 // Todo: When supported: Add button to publish image to front-servers
 // Captions can be edited by the app CaptionEditor:
 // this.api.v1.apps.start('CaptionEditor', { id: 123456 });
+
+
 
 class ImageUploadProcessor {
 
@@ -20879,19 +23294,47 @@ class ImageUploadProcessor {
             modified: callbacks.modified || null
         };
         this.lastEditId = null;
+        this.selectedLanguage = this.api.v1.config.get('contentLanguage') || 'en';
         this.template = `<div class="lab-fileuploader" data-lab-content="1">
             <div class="lab-formgroup">
-                <ul class="lab-grid lab-list lab-space-above-large">
+                <div style="display: flex; align-items: center; gap: 12px; padding: 12px; border-bottom: 1px solid black; border-top: 1px solid black;">
+                    <span class="labicon-info" style="display: inline-flex; align-items: center; justify-content: center; min-width: 60px; height: 60px; border: 2px solid #a10eff; border-radius: 50%; color: #a10eff; font-size: 28px; font-weight: bold;"></span>
+                    <p class="lab-para" style="margin: 0;">
+                        Labrador AI can help you to add captions and alt texts to your images. That makes them easier to search for later and gives you better SEO. Just click on the wand to get started.
+                    </p>
+                </div>
+                <div style="padding: 12px;">
+                    <label for="ai-language-selector" style="font-weight: bold; margin-right: 8px;">Metadata language:</label>
+                    <select id="ai-language-selector" style="width: 65%; padding: 4px 8px;">
+                        {{ #languages }}
+                        <option value="{{ code }}"{{ #selected }} selected{{ /selected }}>{{ name }} - {{ code }}</option>
+                        {{ /languages }}
+                    </select>
+                </div>
+                <ul class="lab-list">
                     {{ #items }}
-                    <li class="lab-grid-large-4 item-no-{{ id }}">
-                        <img src="{{ imageServer }}/?imageId={{ id }}&width={{ width }}" class="lab-space-above-small" style="max-height: 180px; max-width: 180px; margin: 0 auto; display: block;">
-                    </li>
-                    <li class="lab-grid-large-8 lab-space-below-medium">
-                        <p class="lab-para"><strong>Filename: </strong>{{ fileName }}</p>
-                        <p class="lab-para"><strong>ID: </strong>{{ id }}</p>
-                        <p class="lab-para"><strong>Caption: </strong><span data-caption-{{ id }}>{{{ caption }}}{{ ^caption }}<span class="lab-label">No caption</span>{{ /caption }}</span></p>
-                        <p class="lab-para"><strong>Byline: </strong><span data-byline-{{ id }}>{{{ byline }}}{{ ^byline }}<span class="lab-label">No byline</span>{{ /byline }}</span></p>
-                        <p class="lab-align-right"><input type="button" value="Edit" data-id="{{ id }}"></p>
+                    <li class="item-no-{{ id }} lab-space-above-large" style="border-bottom: 1px solid #000000;">
+                        <div class="lab-grid">
+                            <div class="lab-grid-large-4">
+                                <img src="{{ imageServer }}/?imageId={{ id }}&width={{ width }}" style="max-height: 180px; max-width: 180px; margin: 0 auto; display: block;">
+                            </div>
+                            <div class="lab-grid-large-7 lab-space-below-small lab-space-left-large">
+                                <p class="lab-para"><strong>Filename: </strong>{{ fileName }}</p>
+                                <p class="lab-para"><strong>ID: </strong>{{ id }}</p>
+                                <p class="lab-para"><strong>Caption: </strong><span data-caption-{{ id }}>{{{ caption }}}{{ ^caption }}<span class="lab-label">No caption</span>{{ /caption }}</span></p>
+                                <p class="lab-para"><strong>Alt text: </strong><span data-altText-{{ id }}>{{{ altText }}}{{ ^altText }}<span class="lab-label">No alt text</span>{{ /altText }}</span></p>
+                                <p class="lab-para"><strong>Tags: </strong><span data-tags-{{ id }} class="lab-tags">{{ #tags }}<span class="lab-label lab-tag" style="cursor: default;">{{ . }}</span>{{ /tags }}{{ ^tags }}<span class="lab-label">No tags</span>{{ /tags }}</span></p>
+                                <p class="lab-para"><strong>Byline: </strong><span data-byline-{{ id }}>{{{ byline }}}{{ ^byline }}<span class="lab-label">No byline</span>{{ /byline }}</span></p>
+                                <p class="lab-align-right">
+                                    <button class="lab-item lab-btn lab-generate lab-is-clickable" data-id="{{ id }}" title="Regenerate AI metadata">
+                                        <span class="lab-item">
+                                            <span class="lab-item-label {{ ^caption }}labicon-magic_wand{{ /caption }}{{ #caption }}labicon-refresh{{ /caption }}"></span>
+                                        </span>
+                                    </button>
+                                    <input type="button" value="Edit" data-id="{{ id }}">
+                                </p>
+                            </div>
+                        </div>
                     </li>
                     {{ /items }}
                 </ul>
@@ -20931,9 +23374,17 @@ class ImageUploadProcessor {
                         this.lastEditId = null;
                     }
                     if (isDisplayed) { return; }
-                    for (const btn of modal.getMarkup().querySelectorAll('ul input')) {
+                    // Add event listeners for Edit buttons
+                    for (const btn of modal.getMarkup().querySelectorAll('ul input:not(.lab-btn-ai-regenerate)')) {
                         btn.addEventListener('click', (event) => {
                             this.editImage(event.target.getAttribute('data-id'));
+                        }, false);
+                    }
+                    // Add event listeners for AI Regenerate buttons
+                    for (const btn of modal.getMarkup().querySelectorAll('ul button.lab-generate')) {
+                        btn.addEventListener('click', (event) => {
+                            const imageId = event.currentTarget.getAttribute('data-id');
+                            this.regenerateAIMetadata(imageId);
                         }, false);
                     }
                     const link = modal.getMarkup().querySelector('#media-library');
@@ -20941,6 +23392,13 @@ class ImageUploadProcessor {
                         modal.close();
                         this.api.v1.collection.display({ name: 'MediaImages', options: { reload: true } });
                     }, false);
+                    // Add event listener for language selector
+                    const languageSelector = modal.getMarkup().querySelector('#ai-language-selector');
+                    if (languageSelector) {
+                        languageSelector.addEventListener('change', (event) => {
+                            this.selectedLanguage = event.target.value || this.api.v1.config.get('contentLanguage') || 'en';
+                        }, false);
+                    }
                     isDisplayed = true;
                 }
             }
@@ -20953,13 +23411,280 @@ class ImageUploadProcessor {
             id,
             callback: (fields) => {
                 this.lastEditId = id;
+
+                // Extract tags from nested structure for UI update
+                const tagsToDisplay = fields.tags || null;
+
                 for (const key of Object.keys(fields)) {
-                    const el = this.modal.markup.querySelector(`span[data-${ key }-${ id }]`);
-                    if (el) { el.innerHTML = fields[key]; }
+                    if (key === 'extra_metadata_json') {
+                        // Handle fields in extra_metadata_json
+                        if (fields[key].altText) {
+                            const altTextEl = this.modal.markup.querySelector(`span[data-altText-${ id }]`);
+                            if (altTextEl) {
+                                altTextEl.innerHTML = fields[key].altText;
+                            }
+                        }
+
+                        // Update tags
+                        if (tagsToDisplay) {
+                            const tagsEl = this.modal.markup.querySelector(`span[data-tags-${ id }]`);
+                            if (tagsEl) {
+                                tagsEl.innerHTML = this.formatTagsAsHTML(tagsToDisplay);
+                            }
+                        }
+
+                        // Handle other direct properties
+                        for (const subKey of Object.keys(fields[key])) {
+                            if (subKey !== 'altText' && subKey !== 'aiMetadata') {
+                                const el = this.modal.markup.querySelector(`span[data-${ subKey }-${ id }]`);
+                                if (el) {
+                                    el.innerHTML = fields[key][subKey];
+                                }
+                            }
+                        }
+                    } else {
+                        const el = this.modal.markup.querySelector(`span[data-${ key }-${ id }]`);
+                        if (el) { el.innerHTML = fields[key]; }
+                    }
                 }
+
                 this.updateCollection('MediaImages', { id, fields });
             }
         });
+    }
+
+    // Get tags from nested structure at aiMetadata.{lang}.tags
+    findTagsInObject(obj) {
+        if (!obj) return null;
+
+        const languageToUse = this.selectedLanguage || this.api.v1.config.get('contentLanguage') || 'en';
+        return obj.aiMetadata?.[languageToUse]?.tags || null;
+    }
+
+    addLoadingWrapper(element) {
+        if (!element) return;
+        const wrapper = document.createElement('span');
+        wrapper.className = 'lab-ai-text-generating';
+        wrapper.style.cssText = 'position: relative; display: inline-block; min-width: 100px; min-height: 20px;';
+        element.parentNode.insertBefore(wrapper, element);
+        wrapper.appendChild(element);
+    }
+
+    removeLoadingWrapper(element) {
+        if (!element) return;
+        const wrapper = element.closest('.lab-ai-text-generating');
+        if (wrapper) {
+            wrapper.parentNode.insertBefore(element, wrapper);
+            wrapper.remove();
+        }
+    }
+
+    // Need formatting for tags when rendering after generation
+    formatTagsAsHTML(tags) {
+        if (!tags || tags.length === 0) {
+            return '<span class="lab-label">No tags</span>';
+        }
+
+        const tagElements = tags.map((tag) => `<span class="lab-label lab-tag" style="cursor: default;">${ tag }</span>`).join('');
+        return `<span class="lab-tags">${ tagElements }</span>`;
+    }
+
+    async regenerateAIMetadata(imageId) {
+        const site = lab_api.v1.site.getSite();
+        const defaultLanguage = lab_api.v1.config.get('contentLanguage') || 'en';
+        const languageToUse = this.selectedLanguage || defaultLanguage;
+
+        // Find the button and disable it during generation
+        const button = this.modal.markup.querySelector(`button.lab-generate[data-id="${ imageId }"]`);
+        if (button) {
+            button.disabled = true;
+        }
+
+        // Add loading effects to caption, altText, tags, and image
+        const captionEl = this.modal.markup.querySelector(`span[data-caption-${ imageId }]`);
+        const altTextEl = this.modal.markup.querySelector(`span[data-altText-${ imageId }]`);
+        const tagsEl = this.modal.markup.querySelector(`span[data-tags-${ imageId }]`);
+        const imageContainer = this.modal.markup.querySelector(`.item-no-${ imageId }`);
+
+        // Add loading class - for text elements, use a wrapper approach
+        this.addLoadingWrapper(captionEl);
+        this.addLoadingWrapper(altTextEl);
+        this.addLoadingWrapper(tagsEl);
+
+        // Add image loading effect with beating animation
+        if (imageContainer) {
+            imageContainer.classList.add('lab-ai-image-generating');
+            const img = imageContainer.querySelector('img');
+            if (img) {
+                // Wrap image in a container for the overlay
+                const imgWrapper = document.createElement('div');
+                imgWrapper.className = 'lab-ai-image-container';
+                img.parentNode.insertBefore(imgWrapper, img);
+                imgWrapper.appendChild(img);
+
+                // Add overlay
+                const overlay = document.createElement('div');
+                overlay.className = 'lab-ai-image-overlay';
+                imgWrapper.appendChild(overlay);
+            }
+        }
+
+        try {
+            // Call the metadata generation endpoint
+            const payload = {
+                imageId,
+                maxTags: 8,
+                language: languageToUse,
+                site: site.alias,
+                includeContext: true,
+                prompt: 'Make sure to generate caption and alt text that are different from the current context'
+            };
+
+            const plainBodyText = this.api.v1.bodytext.getText(this.api.v1.model.query.getModelByType('bodytext'));
+            if (plainBodyText) {
+                // Append the bodytext context to the prompt
+                payload.prompt = `
+                Act as an editorial team in a newspaper. Write a new image caption with a maximum 250 characters. 
+                You will be provided with the original caption, an article and an image. 
+                The new caption should only be a sentence that is closer related to the article than the original caption. 
+                If the provided image is related to the article, the new caption should relate to the context in the image.
+                For the alt text: Ensure it provides context for accessibility, based solely on the image, and not the context.
+                ARTICLE CONTEXT:
+                "${ plainBodyText }"
+
+                Make sure to generate caption and alt text that are different from the current caption and alt text.
+
+                The Caption should be formatted as such with the keyword in all capital letters: <KEYWORD>: <caption text>
+                `.trim();
+            }
+
+            const formData = new FormData();
+            formData.append('payload', JSON.stringify(payload));
+
+            const response = await lab_api.v1.util.httpClient.request(
+                '/ajax/image-metadata-ai/generate-image-data',
+                {
+                    method: 'POST',
+                    body: formData
+                }
+            );
+
+            if (response && response.metadata) {
+                const caption = response.metadata.caption || '';
+                const altText = response.metadata.alt_text || '';
+                const tags = response.tags || [];
+
+                // Save the metadata to backend
+                const fields = {
+                    caption,
+                    extra_metadata_json: {
+                        altText
+                    }
+                };
+
+                const nodeData = {
+                    type: 'image',
+                    id: imageId,
+                    fields
+                };
+
+                const saveFormData = new FormData();
+                saveFormData.append('json[id]', imageId);
+                saveFormData.append('json[type]', 'image');
+                saveFormData.append('json[structure]', null);
+                saveFormData.append('json[node]', JSON.stringify([nodeData]));
+
+                await lab_api.v1.util.httpClient.request('/ajax/node/save-node-and-data', {
+                    body: saveFormData,
+                    method: 'POST'
+                });
+
+                // Remove loading effects
+                this.removeLoadingWrapper(captionEl);
+                this.removeLoadingWrapper(altTextEl);
+                this.removeLoadingWrapper(tagsEl);
+                if (imageContainer) {
+                    imageContainer.classList.remove('lab-ai-image-generating');
+                    const imgWrapper = imageContainer.querySelector('.lab-ai-image-container');
+                    if (imgWrapper) {
+                        const img = imgWrapper.querySelector('img');
+                        const overlay = imgWrapper.querySelector('.lab-ai-image-overlay');
+                        if (img) {
+                            imgWrapper.parentNode.insertBefore(img, imgWrapper);
+                        }
+                        if (overlay) overlay.remove();
+                        imgWrapper.remove();
+                    }
+                }
+
+                // Update the modal UI with new content
+                if (captionEl) {
+                    captionEl.innerHTML = caption || '<span class="lab-label">No caption</span>';
+                }
+                if (altTextEl) {
+                    altTextEl.innerHTML = altText || '<span class="lab-label">No alt text</span>';
+                }
+                if (tagsEl) {
+                    tagsEl.innerHTML = this.formatTagsAsHTML(tags);
+                }
+
+                // Update button icon based on whether we now have content
+                if (button && caption) {
+                    const iconSpan = button.querySelector('.lab-item-label');
+                    if (iconSpan) {
+                        iconSpan.className = 'lab-item-label labicon-refresh';
+                    }
+                    button.setAttribute('title', 'Regenerate AI metadata');
+                }
+
+                // Update collection
+                this.updateCollection('MediaImages', {
+                    id: imageId,
+                    fields: {
+                        caption,
+                        extra_metadata_json: { altText }
+                    }
+                });
+
+                // Show success feedback
+                if (button) {
+                    button.classList.add('lab-success');
+                    setTimeout(() => {
+                        button.classList.remove('lab-success');
+                        button.disabled = false;
+                    }, 2000);
+                }
+            }
+        } catch (error) {
+            Sys.logger.error('[ImageUploadProcessor] Failed to regenerate AI metadata:', error);
+
+            // Remove loading effects on error
+            this.removeLoadingWrapper(captionEl);
+            this.removeLoadingWrapper(altTextEl);
+            this.removeLoadingWrapper(tagsEl);
+            if (imageContainer) {
+                imageContainer.classList.remove('lab-ai-image-generating');
+                const imgWrapper = imageContainer.querySelector('.lab-ai-image-container');
+                if (imgWrapper) {
+                    const img = imgWrapper.querySelector('img');
+                    const overlay = imgWrapper.querySelector('.lab-ai-image-overlay');
+                    if (img) {
+                        imgWrapper.parentNode.insertBefore(img, imgWrapper);
+                    }
+                    if (overlay) overlay.remove();
+                    imgWrapper.remove();
+                }
+            }
+
+            // Show error feedback
+            if (button) {
+                button.classList.add('lab-error');
+                setTimeout(() => {
+                    button.classList.remove('lab-error');
+                    button.disabled = false;
+                }, 2000);
+            }
+        }
     }
 
     // Update caption/byline in collection
@@ -20982,10 +23707,40 @@ class ImageUploadProcessor {
     }
 
     getMarkup(items) {
+        // Process items to extract tags from nested structure
+        const processedItems = items.map((item) => {
+            const processedItem = { ...item };
+
+            // Look for tags
+            if (processedItem.extra_metadata_json) {
+                const foundTags = this.findTagsInObject(processedItem.extra_metadata_json);
+                if (foundTags) {
+                    processedItem.tags = foundTags;
+                }
+            }
+
+            // Also check altText
+            if (!processedItem.altText && processedItem.extra_metadata_json) {
+                if (processedItem.extra_metadata_json.altText) {
+                    processedItem.altText = processedItem.extra_metadata_json.altText;
+                }
+            }
+
+            return processedItem;
+        });
+
+        // Prepare languages for dropdown
+        const languages = _helpers_ContentLanguages_js__WEBPACK_IMPORTED_MODULE_0__["default"].map((language) => ({
+            name: language.name,
+            code: language.code,
+            selected: language.code === this.selectedLanguage
+        }));
+
         return this.api.v1.util.dom.renderTemplate(this.template, {
-            items,
+            items: processedItems,
             imageServer: this.imageServer,
-            width: 180
+            width: 180,
+            languages
         });
     }
 
@@ -21002,7 +23757,7 @@ class ImageUploadProcessor {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "MarkupValidator": () => (/* binding */ MarkupValidator)
+/* harmony export */   MarkupValidator: () => (/* binding */ MarkupValidator)
 /* harmony export */ });
 class MarkupValidator {
 
@@ -21046,7 +23801,7 @@ class MarkupValidator {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Namespace": () => (/* binding */ Namespace)
+/* harmony export */   Namespace: () => (/* binding */ Namespace)
 /* harmony export */ });
 const Namespace = {
 
@@ -21378,7 +24133,7 @@ const Namespace = {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AdsHelper": () => (/* binding */ AdsHelper)
+/* harmony export */   AdsHelper: () => (/* binding */ AdsHelper)
 /* harmony export */ });
 /* harmony import */ var _datetime_DateTimeHelper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./datetime/DateTimeHelper.js */ "./modules/lib/helpers/datetime/DateTimeHelper.js");
 
@@ -21386,6 +24141,8 @@ __webpack_require__.r(__webpack_exports__);
 class AdsHelper {
 
     static getAdnuntiusSettings(api, model, view, adEnv, site, disableSkyscraper = false, disableTopBanner = false) {
+        Sys.logger.debug(`[AdsHelper.getAdnuntiusSettings] Called with disableSkyscraper=${ disableSkyscraper }, disableTopBanner=${ disableTopBanner }`);
+
         // Find adUnits placed on current page in admin
         const adnuntiusBiddingEnabled = (api.v1.config.get('contentbox_settings.adnuntiusAd.bidding') || {}).enabled || false;
 
@@ -21449,11 +24206,19 @@ class AdsHelper {
     }
 
     static getGoogleSettings(api, model, view, adEnv, site, disableSkyscraper = false, disableTopBanner = false) {
+        Sys.logger.debug(`[AdsHelper.getGoogleSettings] Called with disableSkyscraper=${ disableSkyscraper }, disableTopBanner=${ disableTopBanner }`);
+
         function parseFormat(format, item) {
-            const { sizes = [] } = format;
+            const { sizes = [], fluid = false } = format;
+            const sizeList = sizes.map((size) => `[${size.width},${size.height}]`);
+
+            if (fluid) {
+                sizeList.push('"fluid"');
+            }
+
             return {
                 ...format,
-                sizesString: `[${  sizes.map((size) => `[${ size.width },${ size.height }]`).join(', ') }]`,
+                sizesString: `[${sizeList.join(', ')}]`,
                 metadata: item.metadata || []
             };
         }
@@ -21466,18 +24231,27 @@ class AdsHelper {
         const visibleUnits = [];
         for (const item of content) {
             const [format] = units.filter((unit) => item.content_data.fields.format === unit.format);
-            if (format && ((item.placement.key.includes('skyscraper_') === false && item.placement.key !== 'topbanner')
-                || (item.placement.key.includes('skyscraper_') && !disableSkyscraper)
-                || (item.placement.key === 'topbanner' && !disableTopBanner))) {
+            const placementKey = item.placement.key;
+            const shouldInclude = format && ((placementKey.includes('skyscraper_') === false && placementKey !== 'topbanner')
+                || (placementKey.includes('skyscraper_') && !disableSkyscraper)
+                || (placementKey === 'topbanner' && !disableTopBanner));
+
+            Sys.logger.debug(`[AdsHelper.getGoogleSettings] Placement: ${ placementKey }, Format: ${ format ? format.format : 'not found' }, ShouldInclude: ${ shouldInclude }`);
+
+            if (shouldInclude) {
                 visibleUnits.push(parseFormat(format, item));
             }
         }
+        Sys.logger.debug(`[AdsHelper.getGoogleSettings] Found ${ manualContent.length } manual Google Ad(s)`);
         for (const childModel of manualContent) {
             const [format] = units.filter((unit) => childModel.get('fields.format') === unit.format);
             if (format) {
+                Sys.logger.debug(`[AdsHelper.getGoogleSettings] Adding manual ad with format: ${ format.format }`);
                 visibleUnits.push(parseFormat(format, childModel));
             }
         }
+
+        Sys.logger.debug(`[AdsHelper.getGoogleSettings] Final visibleUnits count: ${ visibleUnits.length }, formats: ${ visibleUnits.map((u) => u.format).join(', ') }`);
 
         return {
             enabled: units.length > 0,
@@ -21508,7 +24282,7 @@ class AdsHelper {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AutoFontSize": () => (/* binding */ AutoFontSize)
+/* harmony export */   AutoFontSize: () => (/* binding */ AutoFontSize)
 /* harmony export */ });
 /**
  * AutoFontSize is a utility class designed to dynamically adjust font sizes and split text into parts based on specified criteria.
@@ -21525,6 +24299,28 @@ class AutoFontSize {
      * @returns {string} - The modified HTML content of the element after auto-sizing the text.
      */
     static autoSizeText(element, config) {
+        if (!element) return '';
+        
+        let rules = {};
+        if (config) {
+            rules = config;
+        } else {
+          rules = {
+            regex: {},
+            formats: {
+              default: {
+                maxWordLength: 15,
+                minLineLength: 3,
+                ranges: [
+                  {
+                    maxCharacters: Infinity,
+                    numberOfLines: 1
+                  }
+                ]
+              }
+            }
+          };
+        }
         const startFontSize = {
             1: 100,
             2: 70,
@@ -21603,8 +24399,8 @@ class AutoFontSize {
      */
     static removeFontSize(element) {
         const title = element.innerHTML;
+        element.innerHTML = this.removeHTMLTags(title);
         return this.removeHTMLTags(title);
-        // return element.innerHTML;
     }
 
     /**
@@ -21665,12 +24461,18 @@ class AutoFontSize {
      * @returns {string[]} An array of lines resulting from splitting the sentence.
      */
     static splitSentence(sentence, rules, container) {
-        const { length } = sentence;
+        const text = sentence || '';
+        const { length } = text;
+
+        if (!rules || !rules.formats || !rules.formats[container]) {
+            return [text];
+        }
         const rulesToUse = this.findRules(rules, container);
         const rangeToUse = this.findNumberOfLines(rulesToUse.ranges, length) || 1;
         const maxWordLength = rulesToUse.maxWordLength || null;
         const minLineLength = rulesToUse.minLineLength || null;
-        const lines = this.splitTextEvenly(sentence, rangeToUse, maxWordLength, minLineLength, rules.regex) || [];
+        const regex = rules.reges || {};
+        const lines = this.splitTextEvenly(sentence, rangeToUse, maxWordLength, minLineLength, regex) || [];
         return lines;
     }
 
@@ -21794,16 +24596,37 @@ class AutoFontSize {
      * @returns {string[]} An array of word chunks.
      */
     static splitWord(word, maxWordLength) {
+        if (!Number.isFinite(maxWordLength) || maxWordLength <= 0) {
+            return [word];
+        }
+
         const chunks = [];
         let remainingWord = word;
 
+        // Handle case where we would leave just 1-2 characters at the end
         while (remainingWord.length > maxWordLength) {
+            // If we're going to leave just 1-2 characters at the end, adjust the split point
+            if (remainingWord.length > maxWordLength && remainingWord.length <= maxWordLength + 2) {
+                // Split the word in a more balanced way
+                const splitPoint = Math.floor(remainingWord.length / 2);
+                chunks.push(remainingWord.substring(0, splitPoint));
+                remainingWord = remainingWord.substring(splitPoint);
+                break;
+            }
+
             chunks.push(remainingWord.substring(0, maxWordLength));
             remainingWord = remainingWord.substring(maxWordLength);
         }
 
         if (remainingWord.length > 0) {
-            chunks.push(remainingWord);
+            // If the remaining part is just a single letter and we have previous chunks,
+            // append it to the last chunk instead of creating a new one
+            if (remainingWord.length === 1 && chunks.length > 0) {
+                const lastChunk = chunks.pop();
+                chunks.push(lastChunk + remainingWord);
+            } else {
+                chunks.push(remainingWord);
+            }
         }
 
         return chunks;
@@ -21886,7 +24709,7 @@ class AutoFontSize {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AutodataHelper": () => (/* binding */ AutodataHelper)
+/* harmony export */   AutodataHelper: () => (/* binding */ AutodataHelper)
 /* harmony export */ });
 class AutodataHelper {
 
@@ -22114,7 +24937,7 @@ class AutodataHelper {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ClientConfig": () => (/* binding */ ClientConfig)
+/* harmony export */   ClientConfig: () => (/* binding */ ClientConfig)
 /* harmony export */ });
 /**
  * ClientConfig
@@ -22190,7 +25013,7 @@ const contentLanguages = [
     { name: 'English (United Kingdom)', code: 'en-GB' },
     { name: 'English (United States)', code: 'en-US' },
     { name: 'Esperanto - esperanto', code: 'eo' },
-    { name: 'Estonian - eesti', code: 'et' },
+    { name: 'Estonian - eesti', code: 'et-EE' },
     { name: 'Faroese - føroyskt', code: 'fo' },
     { name: 'Filipino', code: 'fil' },
     { name: 'Finnish - suomi', code: 'fi-FI' },
@@ -22315,7 +25138,7 @@ const contentLanguages = [
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "CustomTags": () => (/* binding */ CustomTags)
+/* harmony export */   CustomTags: () => (/* binding */ CustomTags)
 /* harmony export */ });
 class CustomTags {
 
@@ -22431,7 +25254,7 @@ class CustomTags {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ExpandableOptions": () => (/* binding */ ExpandableOptions)
+/* harmony export */   ExpandableOptions: () => (/* binding */ ExpandableOptions)
 /* harmony export */ });
 class ExpandableOptions {
 
@@ -22511,7 +25334,7 @@ class ExpandableOptions {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "FragmentHelper": () => (/* binding */ FragmentHelper)
+/* harmony export */   FragmentHelper: () => (/* binding */ FragmentHelper)
 /* harmony export */ });
 // Baseview fragment-api
 // Return a subset of page-data to the drawing engine
@@ -22597,7 +25420,7 @@ class FragmentHelper {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "LabradorAi": () => (/* binding */ LabradorAi)
+/* harmony export */   LabradorAi: () => (/* binding */ LabradorAi)
 /* harmony export */ });
 /* harmony import */ var _ContentLanguages_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ContentLanguages.js */ "./modules/lib/helpers/ContentLanguages.js");
 
@@ -22781,7 +25604,7 @@ class LabradorAi {
         return promptConfig;
     }
 
-    getAiSettings(promptConfig) {
+    getAiSettings(promptConfig, params = {}) {
         /**
          * Get the AI settings for the current feature, as defined in admin page Labrador AI for the current site.
          * Passed on to backend AI integration for generation of content
@@ -22803,6 +25626,7 @@ class LabradorAi {
 
         const aiProvider = this.promptInstructions.aiProvider[defaultAiProvider];
         aiProvider.searchForKeywords = promptConfig.searchForKeywords || [];
+        aiProvider.featureName = params.featureName || '';
         return aiProvider;
     }
 
@@ -23283,7 +26107,8 @@ class LabradorAi {
                 prompt,
                 service: 'chatCompletions',
                 model: aiIntegrationSettings.model,
-                aiSettings: aiIntegrationSettings
+                aiSettings: aiIntegrationSettings,
+                featureName: aiIntegrationSettings.featureName || ''
             };
             this.api.v1.generate.text(options).then((result) => {
                 resolve(result);
@@ -23346,7 +26171,7 @@ class LabradorAi {
         // Config setup for prompt, priorities customParams over site/admin config
         const promptConfig = this.getPromptConfig(params, customParams);
         const prompt = this.getPrompt(promptConfig);
-        const aiIntegrationSettings = this.getAiSettings(promptConfig);
+        const aiIntegrationSettings = this.getAiSettings(promptConfig, params);
         Sys.logger.debug(`[Labrador Ai - ${ params.featureName }]: Finished preprocess of generateContent`);
 
         return [prompt, aiIntegrationSettings];
@@ -23439,6 +26264,14 @@ class LabradorAi {
         if (!fieldContent || fieldContent.length === 0) {
             return;
         }
+
+        this.siteAlias = this.rootModel.get('filtered.siteAlias') || this.siteInfo.alias;
+        this.configSite = this.api.v1.config.get('labradorAi.globalSettings') || {};
+        const hideDisclaimer = this.configSite.hideDisclaimer || false;
+        if (hideDisclaimer) {
+            return;
+        }
+
         const localizedString = lab_api.v1.locale.get(localizationPath);
         if (!localizedString || localizedString.length === 0) {
             return;
@@ -23577,7 +26410,7 @@ class LabradorAi {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "LanguageHelper": () => (/* binding */ LanguageHelper)
+/* harmony export */   LanguageHelper: () => (/* binding */ LanguageHelper)
 /* harmony export */ });
 class LanguageHelper {
 
@@ -23612,7 +26445,7 @@ class LanguageHelper {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "LayoutHelper": () => (/* binding */ LayoutHelper)
+/* harmony export */   LayoutHelper: () => (/* binding */ LayoutHelper)
 /* harmony export */ });
 class LayoutHelper {
 
@@ -23716,7 +26549,7 @@ class LayoutHelper {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "LazyloadHelper": () => (/* binding */ LazyloadHelper)
+/* harmony export */   LazyloadHelper: () => (/* binding */ LazyloadHelper)
 /* harmony export */ });
 class LazyloadHelper {
 
@@ -23752,7 +26585,7 @@ class LazyloadHelper {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Movable": () => (/* binding */ Movable)
+/* harmony export */   Movable: () => (/* binding */ Movable)
 /* harmony export */ });
 // Usage:
 // model.setFiltered('movableStyle', Movable.createStyle(model, 'metadata.contentPosition', ['desktop', 'mobile']));
@@ -23788,7 +26621,7 @@ class Movable {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PageExport": () => (/* binding */ PageExport)
+/* harmony export */   PageExport: () => (/* binding */ PageExport)
 /* harmony export */ });
 /**
  * Make a serialized JSON-object of page.
@@ -23829,9 +26662,27 @@ class PageExport {
     }
 
     oembed(rootModel) {
+        // See readme-oembed.md for more info.
         if (rootModel.getType() !== 'page_article') {
             Sys.logger.warn('[PageExport] Will not export current page type as oEmbed.');
             return {};
+        }
+        const options = (this.api.v1.util.request.getQueryParam('lab_opts') || '').split(',');
+        let type = 'full';
+        if (options.includes('embed_type_teaser')) {
+            options.splice(options.indexOf('embed_type_teaser'), 1);
+            type = 'teaser';
+        }
+        const negativeOptions = options.filter((opt) => opt.startsWith('embed_no_'));
+        const positiveOptions = ['embed_padding'];
+        const styleArgs = [];
+        for (const opt of negativeOptions) {
+            styleArgs.push(`dac-${ opt.replace('embed_', '').replace(/_/g, '-') }`);
+        }
+        for (const opt of positiveOptions) {
+            if (options.includes(opt)) {
+                styleArgs.push(`dac-${ opt.replace('embed_', '').replace(/_/g, '-') }`);
+            }
         }
         Sys.logger.debug('[PageExport] Will export page as oEmbed');
         return {
@@ -23845,7 +26696,7 @@ class PageExport {
             author_url: this.frontUrl,
             provider_name: 'Labrador',
             provider_url: 'http://www.labradorcms.com/',
-            html: `<div class="labrador-cms-embed" data-lab-style="dac-no-sitelink dac-no-sitelink-logo dac-no-poweredby dac-embed-full" data-lab-content="full" data-lab-id="${ rootModel.get('id') }" data-lab-site="${ rootModel.get('filtered.site.domain_no_protocol') }"><script async defer src="${ this.frontUrl }/embed.js?v=335"></script></div>`
+            html: `<div class="labrador-cms-embed" data-lab-style="${ styleArgs.join(' ') } dac-embed-${ type }" data-lab-content="${ type }" data-lab-id="${ rootModel.get('id') }" data-lab-site="${ rootModel.get('filtered.site.domain_no_protocol') }"><script async defer src="${ this.frontUrl }/embed.js?v=335"></script></div>`
         };
     }
 
@@ -23985,7 +26836,7 @@ class PageExport {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Paywall": () => (/* binding */ Paywall)
+/* harmony export */   Paywall: () => (/* binding */ Paywall)
 /* harmony export */ });
 class Paywall {
 
@@ -24050,7 +26901,7 @@ class Paywall {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ResourceHelper": () => (/* binding */ ResourceHelper)
+/* harmony export */   ResourceHelper: () => (/* binding */ ResourceHelper)
 /* harmony export */ });
 class ResourceHelper {
 
@@ -24198,7 +27049,7 @@ class ResourceHelper {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SEOHelper": () => (/* binding */ SEOHelper)
+/* harmony export */   SEOHelper: () => (/* binding */ SEOHelper)
 /* harmony export */ });
 class SEOHelper {
 
@@ -24207,18 +27058,21 @@ class SEOHelper {
         canonical = '',
         isTagpage = false,
         isTagpageWithFrontpage = false,
-        tagpagePath = '/tag/'
+        tagpagePath = '/tag/',
+        publishedUrl = ''
     } = {}) {
         this.settings = {
             pageType,
             canonical,
             isTagpage,
             isTagpageWithFrontpage,
-            tagpagePath
+            tagpagePath,
+            publishedUrl
         };
         this.cache = {
             seoData: null
         };
+        this.imageServer = lab_api.v1.properties.get('image_server');
     }
 
     /**
@@ -24278,15 +27132,18 @@ class SEOHelper {
             '@type': 'NewsArticle',
             headline: seoData.title || model.get('fields.title'),
             description: seoData.description,
+            mainEntityOfPage: { '@id': this.settings.publishedUrl },
             availableLanguage: [
                 {
                     '@type': 'Language',
                     alternateName: seoData.language
                 }
             ],
-            images: lab_api.v1.model.query.getChildrenOfType(model, 'image', true).map((image) => {
-                return (image.get('fields.imageurl') || '').includes('width=') ? `${image.get('fields.imageurl')}1200` : `${image.get('fields.imageurl')}&width=1200`;
+            image: lab_api.v1.model.query.getChildrenOfType(model, 'image', true).map((image) => {
+                const imageurl = image.get('fields.imageurl') || `${ this.imageServer }/?imageId=${ image.get('instance_of') }`;
+                return imageurl.endsWith('width=') ? `${ imageurl }1200` : `${ imageurl }&width=1200`;
             }),
+            keywords: (model.get('tags') || []).join(', '),
             author: lab_api.v1.model.query.getChildrenOfType(model, 'byline', true).map((byline) => {
                 let firstname = byline.get('fields.firstname');
                 if (firstname === 'Byline first name') { firstname = ''; }
@@ -24410,7 +27267,7 @@ class SEOHelper {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Spacing": () => (/* binding */ Spacing)
+/* harmony export */   Spacing: () => (/* binding */ Spacing)
 /* harmony export */ });
 class Spacing {
 
@@ -24448,7 +27305,7 @@ class Spacing {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "StyleHelper": () => (/* binding */ StyleHelper)
+/* harmony export */   StyleHelper: () => (/* binding */ StyleHelper)
 /* harmony export */ });
 class StyleHelper {
 
@@ -24459,7 +27316,9 @@ class StyleHelper {
 
         (definitions.rules || []).forEach((rule) => rules.push(rule));
         (definitions.fontface || []).forEach((font) => {
-            const selector = `.font-${ font.family.replace(/ /g, '') }`;
+            // We need to check here if the font.family is an array or not before we set the selector
+            const fixedFamilyKey = Array.isArray(font.family) ? font.family[0] : font.family;
+            const selector = `.font-${ fixedFamilyKey.replace(/ /g, '') }`;
             rules.push(StyleHelper.getFamilyDefinition(selector, font.family));
 
             const weights = {
@@ -24480,6 +27339,7 @@ class StyleHelper {
                     used: false
                 }
             };
+
             font.variants.forEach((definedWeight) => {
                 for (const weight of Object.keys(weights)) {
                     const weightDefinition = weights[weight];
@@ -24495,16 +27355,22 @@ class StyleHelper {
             fontface: definitions.fontface || [],
             parsedRules: StyleHelper.CSSRuleParser(rules)
         };
+
         result.hasRules = !!result.parsedRules.length;
         return result;
     }
 
     static getFamilyDefinition(selector, family) {
+        // Check if the config family value is an array and if so create a string with all the strings and push to the font-family key
+        const fontvalue = Array.isArray(family)
+            ? `${ family.map((s) => `"${ s }"`).join(', ') }`
+            : `"${ family }"`;
+
         return {
             selector,
             declarations: [{
                 key: 'font-family',
-                value: `"${ family }" !important`
+                value: `${ fontvalue } !important`
             }]
         };
     }
@@ -24514,6 +27380,7 @@ class StyleHelper {
         if (weight === 'regular') {
             validatedWeight = 'normal';
         }
+
         return {
             selector: `${ selector  }.font-weight-${  name }`,
             declarations: [{
@@ -24525,6 +27392,7 @@ class StyleHelper {
 
     static CSSRuleParser(rules) {
         const results = [];
+
         rules.forEach((rule) => {
             let ruleString = `${ rule.selector } { `;
             let fontSizeMobile;
@@ -24552,11 +27420,21 @@ class StyleHelper {
                     } else {
                         ruleString += `${ subrule.key }: "${ subrule.value }"; `;
                     }
+                } else if (subrule.key === 'color') {
+                    if (subrule.value !== 'default') {
+                        ruleString += `${ subrule.key }: ${ subrule.value }; `;
+                    }
+                }  else if (subrule.key === 'text-decoration') {
+                    if (subrule.value !== 'default') {
+                        ruleString += `${ subrule.key }: ${ subrule.value }; `;
+                    }
                 } else {
                     ruleString += `${ subrule.key }: ${ subrule.value }; `;
                 }
             });
+
             ruleString += '}';
+
             if (fontSizeMobile || lineHeightMobile) {
                 ruleString += `@media (max-width: 767px) { .resp_fonts ${ rule.selector } {`;
                 if (fontSizeMobile) {
@@ -24567,6 +27445,7 @@ class StyleHelper {
                 }
                 ruleString += `} }`;
             }
+
             results.push(ruleString);
         });
 
@@ -24612,6 +27491,7 @@ class StyleHelper {
                 result[viewport].push({ key, value: (custom_css_variables[key][viewport] || {}).value });
             }
         }
+
         return result;
     }
 
@@ -24628,7 +27508,7 @@ class StyleHelper {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "TableFormatter": () => (/* binding */ TableFormatter)
+/* harmony export */   TableFormatter: () => (/* binding */ TableFormatter)
 /* harmony export */ });
 class TableFormatter {
 
@@ -24712,7 +27592,7 @@ class TableFormatter {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "DateTimeHelper": () => (/* binding */ DateTimeHelper)
+/* harmony export */   DateTimeHelper: () => (/* binding */ DateTimeHelper)
 /* harmony export */ });
 /* harmony import */ var _words_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./words.js */ "./modules/lib/helpers/datetime/words.js");
 
@@ -24802,10 +27682,14 @@ class DateTimeHelper {
             DD: () => (realDate.getUTCDate() < 10 ? '0' : '') + realDate.getUTCDate(),
             H: () => realDate.getUTCHours(),
             HH: () => (realDate.getUTCHours() < 10 ? '0' : '') + realDate.getUTCHours(),
+            h: () => this.twelveHourClock(realDate),
+            hh: () => this.twelveHourClock(realDate, true),
             m: () => realDate.getUTCMinutes(),
             mm: () => (realDate.getUTCMinutes() < 10 ? '0' : '') + realDate.getUTCMinutes(),
             s: () => realDate.getUTCSeconds(),
             ss: () => (realDate.getUTCSeconds() < 10 ? '0' : '') + realDate.getUTCSeconds(),
+            a: () => (realDate.getUTCHours() < 12 ? 'a.m.' : 'p.m.'),
+            A: () => (realDate.getUTCHours() < 12 ? 'A.M.' : 'P.M.'),
             dddd: () => this.weekday(realDate, true),
             ddd: () => this.weekday(realDate, true, 3),
             MMMM: () => this.monthName(realDate, true),
@@ -24896,7 +27780,7 @@ class DateTimeHelper {
         const months = [
             this.str('january'),
             this.str('february'),
-            this.str('mars'),
+            this.str('march'),
             this.str('april'),
             this.str('may'),
             this.str('june'),
@@ -24992,6 +27876,20 @@ class DateTimeHelper {
         return new Date(date.getTime() - (hours * 60 * 60 * 1000));
     }
 
+    twelveHourClock(date, prependZero = false) {
+        const hours = date.getUTCHours();
+        let formattedHours;
+        if (hours === 0 || hours === 12) {
+            formattedHours = 12;
+        } else {
+            formattedHours = hours < 12 ? hours : hours - 12;
+            if (prependZero && formattedHours < 10) {
+                formattedHours = `0${ formattedHours }`;
+            }
+        }
+        return formattedHours;
+    }
+
 }
 
 
@@ -25005,7 +27903,7 @@ class DateTimeHelper {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "DateTimeHelperInt": () => (/* binding */ DateTimeHelperInt)
+/* harmony export */   DateTimeHelperInt: () => (/* binding */ DateTimeHelperInt)
 /* harmony export */ });
 /* harmony import */ var _DateTimeHelper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DateTimeHelper.js */ "./modules/lib/helpers/datetime/DateTimeHelper.js");
 /**
@@ -25168,7 +28066,7 @@ __webpack_require__.r(__webpack_exports__);
         nl: 'februari',
         kl: 'ukiortaami'
     },
-    mars: {
+    march: {
         en: 'March',
         sv: 'mars',
         dk: 'marts',
@@ -25330,7 +28228,7 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "DynamicDataHelper": () => (/* binding */ DynamicDataHelper)
+/* harmony export */   DynamicDataHelper: () => (/* binding */ DynamicDataHelper)
 /* harmony export */ });
 /* harmony import */ var _Insertable_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Insertable.js */ "./modules/lib/helpers/dynamic/Insertable.js");
 /* harmony import */ var _Placement_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Placement.js */ "./modules/lib/helpers/dynamic/Placement.js");
@@ -25350,6 +28248,11 @@ class DynamicDataHelper {
         this.cache = new Map();
         this.pageElements = {};
         this.hideAds = this.page.get('fields.hideAds') === '1' || this.page.get('fields.hideAds') === true;
+        this.hideTopBannerAd = this.page.get('fields.hideTopBannerAd') === '1' || this.page.get('fields.hideTopBannerAd') === true;
+        this.hideSkyscraperAd = this.page.get('fields.hideSkyscraperAd') === '1' || this.page.get('fields.hideSkyscraperAd') === true;
+        if (this.api.v1.util.request.hasQueryValue('lab_opts', 'infinitescroll')) {
+            this.pageType = `${ this.pageType }_infinitescroll`;
+        }
     }
 
     hasRequiredElement(name) {
@@ -25367,7 +28270,9 @@ class DynamicDataHelper {
      * @returns {Array} Array of ads that should be inserted client side, not inserted here.
      */
     insert(viewport, pathFilter = null) {
-        const returnValue = [];
+        const returnValue = {
+            clientSidePlacements: []
+        };
         const clientSidePlacements = {};
         const contentPath = `insertDynamic.${ this.pageType }.${ viewport }`;
         const placementsPath = `placements.${ this.pageType }.${ viewport }`;
@@ -25422,7 +28327,7 @@ class DynamicDataHelper {
             const content = (this.isEditor ? mergedValue.filter((item) => (!item.dynamicDataSettings || !item.dynamicDataSettings.hideInEditMode)) : mergedValue).filter((item) => {
                 if (item.placement && item.placement.key && clientSidePlacements[item.placement.key]) {
                     const clientSideItem = { ...item, placementData: clientSidePlacements[item.placement.key] };
-                    returnValue.push(clientSideItem);
+                    returnValue.clientSidePlacements.push(clientSideItem);
                     return false;
                 }
                 return true;
@@ -25536,7 +28441,42 @@ class DynamicDataHelper {
                     const insertable = this.create(item, placement, content, viewport);
                     if (insertable !== null) {
                         insertable.data.metadata.viewportBlacklist = this.viewports.filter((current) => current !== viewport);
-                        insertables.unshift(insertable);
+                        insertables.push(insertable);
+
+                        // For placements using the 'interval' property:
+                        // Create 'placeholder' elements at each interval.
+                        // Note: We only support interval placement on placements with a defined path.
+                        // The placeholders can be used client side to insert content at the correct position.
+                        // Or it can be transparent to reveal an ad placed at the same position etc.
+                        if (Number.isInteger(insertable.options.interval) && Number.isInteger(insertable.options.index)) {
+                            const { interval } = item.placement;
+                            const { index } = item.placement;
+                            let currentIndex = index;
+                            const model = this.api.v1.model.query.getModelByPath(insertable.path);
+                            if (model) {
+                                const count = model.getPersistentChildren().length;
+
+                                while (currentIndex < count) {
+                                    const itemCopy = JSON.parse(JSON.stringify(item));
+                                    itemCopy.options.index = currentIndex;
+                                    itemCopy.placement.index = currentIndex;
+                                    itemCopy.type = 'placeholder_ad';
+
+                                    const placementCopy = JSON.parse(JSON.stringify(placement));
+                                    placementCopy.selector = '';
+
+                                    const newInsertable = this.create(itemCopy, placementCopy, content, viewport);
+
+                                    if (newInsertable !== null) {
+                                        newInsertable.data.metadata.viewportBlacklist = this.viewports.filter((current) => current !== viewport);
+                                        insertables.push(newInsertable);
+                                    }
+
+                                    currentIndex += interval;
+                                }
+                            }
+
+                        }
                     }
                 } else {
                     Sys.logger.debug(`[DynamicDataHelper]: Path "${ placement.path }" not allowed. Filter: "${ pathFilter }", key: "${ item.placement.key }"`);
@@ -25580,7 +28520,7 @@ class DynamicDataHelper {
 
             const options = {
                 ...item.options,
-                prepend: true,
+                prepend: placement.options.prepend || false,
                 silent: true
             };
             let { path } = placement;
@@ -25628,24 +28568,12 @@ class DynamicDataHelper {
 
                     if (placement.options.useIndex) {
                         if (index < parent.children.length) {
-                            // If the previous model is set to not render, we need to set the index to +1 so it will render after the next model.
-                            if (parent.children[index - 1] && parent.children[index - 1].getNoRenderState()) {
-                                // Check if the next ad content has the same index as current index + 1,
-                                // That means they have ads two rows in a row, so we can discard the one that was
-                                // supposed to be rendered after the row that is hidden
-                                if (allItems[index + 1] && allItems[index + 1].placement.index === index + 1) {
-                                    return null;
-                                }
-
-                                options.index = index + 1;
-                            } else {
-                                options.index = index;
-                            }
+                            options.index = index;
                         }
                     }
 
                     if (!placement.options.shouldInsert) {
-                        path = parent.getPositionedPath();
+                        path = parent.getPositionedPath(true);
                     }
                 } else {
                     options.prepend = false;
@@ -25696,6 +28624,7 @@ class DynamicDataHelper {
             data.metadata.lastBodyTextHeading = true;
         }
 
+        data.metadata.options = item.options || {};
         data.state.isNonPersistent = true;
 
         return data;
@@ -25714,6 +28643,15 @@ class DynamicDataHelper {
     // This way the helper will stay independent, and not care about specific implementations.
     filter(item) {
         if (item.type === 'googleAd' || item.type === 'adnuntiusAd') {
+            Sys.logger.debug(`[DynamicDataHelper]: Ad insertion requested. ad unit=${ item.placement.key } hideAds=${ this.hideAds }, hideTopBannerAd=${ this.hideTopBannerAd }, hideSkyscraperAd=${ this.hideSkyscraperAd }`);
+            if (item.placement.key === 'topbanner' && this.hideTopBannerAd) {
+                Sys.logger.debug('[DynamicDataHelper]: Top banner ad is hidden. Skipping insertion.');
+                return false;
+            }
+            if (item.placement.key.includes('skyscraper_') && this.hideSkyscraperAd) {
+                Sys.logger.debug('[DynamicDataHelper]: Skyscraper ad is hidden. Skipping insertion.');
+                return false;
+            }
             return !this.hideAds;
         }
         return true;
@@ -25723,7 +28661,7 @@ class DynamicDataHelper {
     getModelsByPath(path, viewport) {
         const key = `getByPath-${ path }`;
         if (!this.cache.has(key)) {
-            this.cache.set(key, (this.api.v1.model.query.getModelsByPath(path) || []).filter((m) => !m.get('metadata.hideViewport', viewport) && !m.isNonPersistent()));
+            this.cache.set(key, this.api.v1.model.query.getModelsByPath(path, true, true));
         }
         return this.cache.get(key);
     }
@@ -25741,7 +28679,7 @@ class DynamicDataHelper {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "EsiHelper": () => (/* binding */ EsiHelper)
+/* harmony export */   EsiHelper: () => (/* binding */ EsiHelper)
 /* harmony export */ });
 class EsiHelper {
 
@@ -25935,7 +28873,7 @@ class EsiHelper {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Insertable": () => (/* binding */ Insertable)
+/* harmony export */   Insertable: () => (/* binding */ Insertable)
 /* harmony export */ });
 class Insertable {
 
@@ -25970,7 +28908,7 @@ class Insertable {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Placement": () => (/* binding */ Placement)
+/* harmony export */   Placement: () => (/* binding */ Placement)
 /* harmony export */ });
 class Placement {
 
@@ -25987,7 +28925,8 @@ class Placement {
             useIndex = false,
             useBodyTextIndex = false,
             useBodyTextHeadingIndex = false,
-            lastBodyTextHeading = false
+            lastBodyTextHeading = false,
+            prepend = false
         } = {}
     } = {}) {
         this.key = key;
@@ -26002,7 +28941,8 @@ class Placement {
             useIndex,
             useBodyTextIndex,
             useBodyTextHeadingIndex,
-            lastBodyTextHeading
+            lastBodyTextHeading,
+            prepend
         };
     }
 
@@ -26019,7 +28959,7 @@ class Placement {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ViewData": () => (/* binding */ ViewData)
+/* harmony export */   ViewData: () => (/* binding */ ViewData)
 /* harmony export */ });
 class ViewData {
 
@@ -26059,8 +28999,8 @@ class ViewData {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AbTest": () => (/* binding */ AbTest),
-/* harmony export */   "TEST_METHODS": () => (/* binding */ TEST_METHODS)
+/* harmony export */   AbTest: () => (/* binding */ AbTest),
+/* harmony export */   TEST_METHODS: () => (/* binding */ TEST_METHODS)
 /* harmony export */ });
 /* harmony import */ var _lib_helpers_datetime_DateTimeHelper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helpers/datetime/DateTimeHelper.js */ "./modules/lib/helpers/datetime/DateTimeHelper.js");
 
@@ -26230,7 +29170,7 @@ class AbTest {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PublishUpdater": () => (/* binding */ PublishUpdater)
+/* harmony export */   PublishUpdater: () => (/* binding */ PublishUpdater)
 /* harmony export */ });
 class PublishUpdater {
 
@@ -26283,6 +29223,7 @@ class PublishUpdater {
         if (!idList.length) {
             return '';
         }
+        const existingPreloadConfig = this.api.v1.config.get('preloadObject') || {}; 
         return JSON.stringify({
             preloadObject: {
                 abtests: {
@@ -26291,7 +29232,8 @@ class PublishUpdater {
                     timeout: 1000,
                     url: `{{api}}/api/v1/ab_collection?query=id:(${ encodeURIComponent(idList.join(' OR ')) })&content=full`,
                     path: 'ab_collections'
-                }
+                },
+                ...existingPreloadConfig
             }
         });
     }
@@ -26309,7 +29251,7 @@ class PublishUpdater {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "TestManagerArticle": () => (/* binding */ TestManagerArticle)
+/* harmony export */   TestManagerArticle: () => (/* binding */ TestManagerArticle)
 /* harmony export */ });
 /* harmony import */ var _TestManagerBase_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TestManagerBase.js */ "./modules/plugins/abtest/TestManagerBase.js");
 // import templates from './templates.js';
@@ -26689,7 +29631,7 @@ class TestManagerArticle extends _TestManagerBase_js__WEBPACK_IMPORTED_MODULE_0_
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "TestManagerBase": () => (/* binding */ TestManagerBase)
+/* harmony export */   TestManagerBase: () => (/* binding */ TestManagerBase)
 /* harmony export */ });
 /* harmony import */ var _templates_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./templates.js */ "./modules/plugins/abtest/templates.js");
 /* harmony import */ var _AbTest_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AbTest.js */ "./modules/plugins/abtest/AbTest.js");
@@ -27522,6 +30464,9 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
         return new Promise((resolve, reject) => {
             if (!this.instanceOfId) { resolve(); return; }
             this.ensureCollection().then((collection) => {
+                if (!skipSave) {
+                    this.doSave();
+                }
                 if (!this.test || !this.test.shouldSave()) {
                     resolve();
                     return;
@@ -27968,6 +30913,7 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
         this.ui.resetTestButton.disabled = (this.collection.test_id === null && this.test && this.test.id);
         this.ui.startTestNowButton.disabled = (this.test && this.test.isFinished()) || this.preparedVariants.size === 0;
         this.ui.endTestNowButton.disabled = !this.test || (this.test && !this.test.isRunning());
+        this.ui.suggestBtn.disabled = this.test && this.test.isRunning();
         if (this.ui.navTestResultsContainer) {
             this.ui.navTestResultsContainer.disabled = !(this.test && this.test.results.statistics);
             if (!this.ui.navTestResultsContainer.disabled) {
@@ -28151,18 +31097,22 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
     save() {
         window.clearTimeout(this.timeoutId);
         this.timeoutId = window.setTimeout(() => {
-            // Update variants in collection in case they are modified before handled by this class.
-            // Example: Data is set when replacing an image in the variant.
-            for (const [variant, obj] of this.preparedVariants) {
-                variant.update(this.getModelData(obj.model));
-            }
-            this.api.v1.abtest.collection.save(this.collection)
-                .then(() => {
-                    this.updatePublishStatus();
-                    this.ui.container.classList.remove('lab-busy');
-                    this.toggleBusyState(false);
-                });
+            this.doSave();
         }, 500);
+    }
+
+    doSave() {
+        // Update variants in collection in case they are modified before handled by this class.
+        // Example: Data is set when replacing an image in the variant.
+        for (const [variant, obj] of this.preparedVariants) {
+            variant.update(this.getModelData(obj.model));
+        }
+        this.api.v1.abtest.collection.save(this.collection)
+            .then(() => {
+                this.updatePublishStatus();
+                this.ui.container.classList.remove('lab-busy');
+                this.toggleBusyState(false);
+            });
     }
 
     publish() {
@@ -28400,7 +31350,7 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "TestManagerFront": () => (/* binding */ TestManagerFront)
+/* harmony export */   TestManagerFront: () => (/* binding */ TestManagerFront)
 /* harmony export */ });
 /* harmony import */ var _TestManagerBase_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TestManagerBase.js */ "./modules/plugins/abtest/TestManagerBase.js");
 /* harmony import */ var _AbTest_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AbTest.js */ "./modules/plugins/abtest/AbTest.js");
@@ -29073,304 +32023,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./modules/plugins/buyandread/buyandread.js":
-/*!**************************************************!*\
-  !*** ./modules/plugins/buyandread/buyandread.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (class {
-
-    constructor() {
-        this.api = null;
-        this.config = null;
-        this.keyEvent = null;
-    }
-
-    onReady(api, config) {
-        this.api = api;
-        this.config = config;
-        this.start();
-    }
-
-    start() {
-        if (this.api && this.config.active) {
-            this.keyEvent = this.api.v1.util.keyEventHandler.add({
-                key: 'b',
-                callback: () => this.showPushModal(),
-                controlkeys: ['labCtrlKey', 'shiftKey'],
-                overrideDisable: false
-            });
-        }
-    }
-
-    stop() {
-        if (this.api) {
-            this.api.v1.util.keyEventHandler.remove(this.keyEvent);
-        }
-    }
-
-    stripHtmlTags(html) {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = html;
-        return tempDiv.textContent;
-    }
-
-    // Display a modal for configuring and sending the push notification
-    showPushModal() {
-        const pageData = this.getPageData();
-        const titleText = this.stripHtmlTags(pageData.title || '');
-        const subtitleText = this.stripHtmlTags(pageData.subtitle || '');
-
-        this.api.v1.ui.modal.dialog({
-            content: {
-                title: 'Send BuyAndRead Push Notification',
-                description: `
-                    <div class="lab-formgroup">
-                        <div class="lab-formgroup-item">
-                            <label for="buyandreadTitle">Title:</label>
-                            <input type="text" id="buyandreadTitle" class="lab-input" value="${ this.config.defaultTitle || titleText || '' }">
-                        </div>
-                        <div class="lab-formgroup-item">
-                            <label for="buyandreadBody">Message:</label>
-                            <textarea id="buyandreadBody" class="lab-input">${ this.config.defaultMessage || subtitleText || '' }</textarea>
-                        </div>
-                        <div class="lab-formgroup-item">
-                            <label for="buyandreadUrl">Custom Article URL (Optional):</label>
-                            <input type="text" id="buyandreadUrl" class="lab-input" value="">
-                        </div>
-                        <div class="lab-formgroup-item">
-                            <label for="excludeParams">Send notification without linking to article:</label>
-                            <input type="checkbox" id="excludeParams" ${ this.config.excludeParamsDefault ? 'checked' : '' }>
-                        </div>
-                    </div>
-                `
-            },
-            footer: {
-                buttons: [
-                    {
-                        value: 'Cancel',
-                        id: 'cancel_button',
-                        highlight: false
-                    },
-                    {
-                        value: 'Send Push',
-                        type: 'submit',
-                        highlight: true
-                    }
-                ]
-            },
-            eventHandlers: [{
-                selector: '#cancel_button',
-                event: 'click',
-                callback: (modal, event) => {
-                    modal.close();
-                }
-            }],
-            callbacks: {
-                submit: () => {
-                    const title = document.getElementById('buyandreadTitle').value;
-                    const message = document.getElementById('buyandreadBody').value;
-                    const customUrl = document.getElementById('buyandreadUrl').value;
-                    const excludeParams = document.getElementById('excludeParams').checked;
-                    this.publish(title, message, customUrl, excludeParams);
-                }
-            }
-        });
-    }
-
-    // Retrieve relevant data about the current page
-    getPageData() {
-        const root = this.api.v1.model.query.getRootModel();
-        const site = this.api.v1.site.getSite();
-        return {
-            type: root.get('type'),
-            id: root.get('id'),
-            title: root.get('fields.title'),
-            subtitle: root.get('fields.subtitle'),
-            url: (this.api.v1.site.getSite().domain || this.api.v1.properties.get('customer_front_url')) + root.get('fields.published_url'),
-            status: root.get('status'),
-            visibility_status: root.get('fields.visibility_status'),
-            publishhidden: root.get('fields.publishhidden'),
-            site: {
-                alias: site.alias
-            }
-        };
-    }
-
-    // Publish a push notification with the provided title and body,
-    publish(customTitle, customBody, customUrl, excludeParams) {
-        const pageData = this.getPageData();
-
-        if (pageData.visibility_status === 'P' && pageData.publishhidden !== '1') {
-            const params = new URLSearchParams({
-                title: customTitle,
-                message: customBody
-            });
-
-            if (!excludeParams) {
-                const url = customUrl || pageData.url; // Use custom URL if provided, otherwise use the page URL
-                params.append('url', url);
-            }
-
-            // Construct the request URL
-            const requestUrl = `https://www.buyandread.com/servlet/api/${ this.config.providerId }/provider/v1/app/sendPushMessage?${ params.toString() }`;
-
-            Sys.logger.debug('[BuyAndRead]: Sending push message...');
-
-            // Prepare the payload for the API call
-            const formData = new FormData();
-            const payload = {
-                site: pageData.site.alias,
-                request_url: requestUrl
-            };
-            formData.append('payload', JSON.stringify(payload));
-
-            // Make the API call to send the push notification
-            this.api.v1.util.httpClient.request(
-                '/ajax/buyandread/post',
-                {
-                    method: 'POST',
-                    body: formData
-                }
-            ).then((response) => response).then((data) => {
-                // If success is false, reject the promise with an error
-                if ((data && data.success === false) || data === '') {
-                    const errorMessage = `Contact us or <a href="https://www.buyandread.com/" target="_blank">BuyAndRead</a> if the error persists.<br>
-                    <b>Status from BuyAndRead:</b> ${ data.statusDesc || 'Push notification failed' }`;
-
-                    return Promise.reject(new Error(errorMessage));
-                }
-
-                // Success message, and details about the push notification
-                Sys.logger.debug('[BuyAndRead]: Successfully sent push message.', data);
-                const successMessage = `Push notification successfully sent!`;
-                /* For a more detailed response, uncomment the following lines and add the desired fields:
-                Response:<br>\n\n
-                <b>Success:</b> ${data.success}<br>
-                <b>Scheduled:</b> ${data.scheduled}<br>
-                <b>Description:</b> ${data.statusDesc || 'Push notification sent successfully!'}<br>
-                <b>Status code:</b> ${data.statusCode}<br>
-                <b>Title:</b> ${params.get('title') || 'N/A'}<br>
-                <b>Message:</b> ${params.get('message') || 'N/A'}<br>
-                <b>Article ID:</b> ${params.get('articleId') || 'N/A'}<br>
-                <b>URL:</b> ${params.get('url') || 'N/A'}<br>
-                */
-
-                this.showResultModal('Success', successMessage, false);
-            }).catch((error) => {
-                // Error message if the API call fails, or the response is not as expected
-                Sys.logger.error('[BuyAndRead]: Failed to send push message.', error);
-                const errorMessage = (error.message ? `<br>\n\n${  error.message }` : '');
-
-                this.showResultModal('Error - Push request failed!', errorMessage, true);
-            });
-        } else {
-            // Error message if the page is not published visibly
-            Sys.logger.warn('[BuyAndRead]: Page not published visibly, failed to send push message.');
-            this.showResultModal('Error', 'Page must be published and visible to send push notifications.', true);
-        }
-    }
-
-    // Display a modal with the result of the push notification send
-    showResultModal(title, message, isError) {
-        this.api.v1.ui.modal.dialog({
-            container: {
-                state: isError ? 'error' : 'success'
-            },
-            content: {
-                title,
-                description: message
-            },
-            footer: {
-                buttons: [
-                    {
-                        type: 'submit',
-                        value: 'OK',
-                        highlight: true
-                    }
-                ]
-            }
-        });
-    }
-
-});
-
-
-/***/ }),
-
-/***/ "./modules/plugins/buyandread/index.js":
-/*!*********************************************!*\
-  !*** ./modules/plugins/buyandread/index.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _buyandread_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./buyandread.js */ "./modules/plugins/buyandread/buyandread.js");
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-    name: 'BuyAndRead',
-    description: 'Push message to app using BuyAndRead',
-    version: '1.0.0',
-    predicate: (api) => api.v1.config.get('plugins.buyandread.active'),
-    entry: class {
-
-        onReady(api) {
-            api.v1.util.dom.addFile('css', '/view-resources/baseview/modules/plugins/buyandread/buyandread-main.css');
-
-            let buyAndReadInstance = null;
-
-            const btn = api.v1.util.dom.renderTemplate('<li class="lab-item lab-btn labicon-buyandread" title="BuyAndRead"></li>', {}, true);
-            document.querySelector('#labrador-menu ul li.lab-menulist ul').appendChild(btn);
-            btn.addEventListener('click', (event) => {
-                const config = api.v1.config.get('plugins.buyandread');
-                if (!config.providerId) {
-                    const missingFields = [
-                        !config.providerId && 'Provider ID'
-                    ].filter(Boolean).join(', ');
-
-                    Sys.logger.warn(`[BuyAndRead] Required config missing: ${ missingFields }. BuyAndRead will not run.`);
-                    api.v1.ui.modal.dialog({
-                        container: { state: { warning: true } },
-                        content: {
-                            title: 'BuyAndRead not configured',
-                            description: `Required configuration missing: ${ missingFields }.<br>Set up BuyAndRead in the <a href="/settings/cp?page=plugins" target="_blank">admin-page</a>.`
-                        },
-                        footer: {
-                            buttons: [
-                                {
-                                    type: 'submit',
-                                    value: 'OK',
-                                    highlight: true
-                                }
-                            ]
-                        }
-                    });
-                    return;
-                }
-
-                if (!buyAndReadInstance) {
-                    buyAndReadInstance = new _buyandread_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
-                    buyAndReadInstance.onReady(api, config);
-                }
-                buyAndReadInstance.showPushModal();
-            }, false);
-        }
-
-    }
-});
-
-
-/***/ }),
-
 /***/ "./modules/plugins/index.js":
 /*!**********************************!*\
   !*** ./modules/plugins/index.js ***!
@@ -29379,16 +32031,15 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "abtest": () => (/* reexport safe */ _abtest_index_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
-/* harmony export */   "app_pusher": () => (/* reexport safe */ _app_pusher_index_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
-/* harmony export */   "buyandread": () => (/* reexport safe */ _buyandread_index_js__WEBPACK_IMPORTED_MODULE_8__["default"]),
-/* harmony export */   "paywall": () => (/* reexport safe */ _paywall_index_js__WEBPACK_IMPORTED_MODULE_9__["default"]),
-/* harmony export */   "publishhistory": () => (/* reexport safe */ _publishhistory_index_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "slack_notifier": () => (/* reexport safe */ _slack_notifier_index_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
-/* harmony export */   "subrite": () => (/* reexport safe */ _subrite_index_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
-/* harmony export */   "tansa": () => (/* reexport safe */ _tansa_index_js__WEBPACK_IMPORTED_MODULE_3__["default"]),
-/* harmony export */   "textassistant": () => (/* reexport safe */ _textassistant_index_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
-/* harmony export */   "youtube": () => (/* reexport safe */ _youtube_index_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */   abtest: () => (/* reexport safe */ _abtest_index_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   app_pusher: () => (/* reexport safe */ _app_pusher_index_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   paywall: () => (/* reexport safe */ _paywall_index_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
+/* harmony export */   publishhistory: () => (/* reexport safe */ _publishhistory_index_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   pushnotification: () => (/* reexport safe */ _pushnotification_index_js__WEBPACK_IMPORTED_MODULE_8__["default"]),
+/* harmony export */   slack_notifier: () => (/* reexport safe */ _slack_notifier_index_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
+/* harmony export */   tansa: () => (/* reexport safe */ _tansa_index_js__WEBPACK_IMPORTED_MODULE_3__["default"]),
+/* harmony export */   textassistant: () => (/* reexport safe */ _textassistant_index_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
+/* harmony export */   youtube: () => (/* reexport safe */ _youtube_index_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
 /* harmony import */ var _youtube_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./youtube/index.js */ "./modules/plugins/youtube/index.js");
 /* harmony import */ var _publishhistory_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./publishhistory/index.js */ "./modules/plugins/publishhistory/index.js");
@@ -29397,10 +32048,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _textassistant_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./textassistant/index.js */ "./modules/plugins/textassistant/index.js");
 /* harmony import */ var _abtest_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./abtest/index.js */ "./modules/plugins/abtest/index.js");
 /* harmony import */ var _slack_notifier_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./slack_notifier/index.js */ "./modules/plugins/slack_notifier/index.js");
-/* harmony import */ var _subrite_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./subrite/index.js */ "./modules/plugins/subrite/index.js");
-/* harmony import */ var _buyandread_index_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./buyandread/index.js */ "./modules/plugins/buyandread/index.js");
-/* harmony import */ var _paywall_index_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./paywall/index.js */ "./modules/plugins/paywall/index.js");
-
+/* harmony import */ var _paywall_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./paywall/index.js */ "./modules/plugins/paywall/index.js");
+/* harmony import */ var _pushnotification_index_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pushnotification/index.js */ "./modules/plugins/pushnotification/index.js");
 
 
 
@@ -29538,13 +32187,19 @@ __webpack_require__.r(__webpack_exports__);
     name: 'Paywall Preview',
     description: 'Display a preview of the paywall configuration',
     version: '1.0.1',
-    predicate: (api) => !api.v1.config.get('paywall.provider'),
+    predicate: (api) => {
+        const provider = api.v1.config.get('paywall.provider');
+        return (!provider || provider === 'sesamy' || provider === 'iteras' || provider === 'internal') && !api.v1.config.get('paywall.article.hidePaywallButton');
+    },
     entry: class {
 
         onReady(api) {
             this.api = api;
             this.rootModel = api.v1.model.query.getRootModel();
             this.api.v1.util.dom.addFile('css', '/view-resources/baseview/modules/plugins/paywall/paywall.css');
+            const provider = api.v1.config.get('paywall.provider');
+            const isInternal = provider === 'internal' || !provider;
+            this.rootModel.set('fields.isInternalPaywall', isInternal, { notify: false });
 
             if (this.rootModel.getType() === 'page_article') {
                 let currentManager = null;
@@ -29621,7 +32276,7 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PublishHistory": () => (/* binding */ PublishHistory)
+/* harmony export */   PublishHistory: () => (/* binding */ PublishHistory)
 /* harmony export */ });
 class PublishHistory {
 
@@ -29856,6 +32511,632 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./modules/plugins/pushnotification/index.js":
+/*!***************************************************!*\
+  !*** ./modules/plugins/pushnotification/index.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _pushnotification_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pushnotification.js */ "./modules/plugins/pushnotification/pushnotification.js");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+    name: 'PushNotification',
+    description: 'Unified push notification system',
+    version: '1.0.0',
+    predicate: (api) => api.v1.config.get('plugins.pushnotification.active'),
+    entry: class {
+
+        onReady(api) {
+            api.v1.util.dom.addFile('css', '/view-resources/baseview/modules/plugins/pushnotification/pushnotification-main.css');
+
+            let pushNotificationInstance = null;
+
+            const btn = api.v1.util.dom.renderTemplate('<li class="lab-item lab-btn labicon-pushnotification" title="Push Notification"></li>', {}, true);
+            document.querySelector('#labrador-menu ul li.lab-menulist ul').appendChild(btn);
+            btn.addEventListener('click', (event) => {
+                const config = api.v1.config.get('plugins.pushnotification');
+
+                if (!config.vendor) {
+                    api.v1.ui.modal.dialog({
+                        container: { state: { warning: true } },
+                        content: {
+                            title: 'Push Notification not configured',
+                            description: 'Please select a vendor in the <a href="/settings/cp?page=plugins" target="_blank">admin-page</a>.'
+                        },
+                        footer: {
+                            buttons: [
+                                {
+                                    type: 'submit',
+                                    value: 'OK',
+                                    highlight: true
+                                }
+                            ]
+                        }
+                    });
+                    return;
+                }
+
+                if (config.vendor === 'buyandread' && !config.providerId) {
+                    api.v1.ui.modal.dialog({
+                        container: { state: { warning: true } },
+                        content: {
+                            title: 'BuyAndRead not configured',
+                            description: 'Required configuration missing: Provider ID.<br>Set up BuyAndRead in the <a href="/settings/cp?page=plugins" target="_blank">admin-page</a>.'
+                        },
+                        footer: {
+                            buttons: [
+                                {
+                                    type: 'submit',
+                                    value: 'OK',
+                                    highlight: true
+                                }
+                            ]
+                        }
+                    });
+                    return;
+                }
+
+                if (!pushNotificationInstance) {
+                    pushNotificationInstance = new _pushnotification_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+                    pushNotificationInstance.onReady(api, config);
+                }
+                pushNotificationInstance.showPushModal();
+            }, false);
+        }
+
+    }
+});
+
+
+/***/ }),
+
+/***/ "./modules/plugins/pushnotification/pushnotification.js":
+/*!**************************************************************!*\
+  !*** ./modules/plugins/pushnotification/pushnotification.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * Push Notification Manager
+ *
+ * Handles sending push notifications to different vendors (Subrite, BuyAndRead, Forte).
+ */
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (class {
+
+    constructor() {
+        this.api = null;
+        this.config = null;
+        this.keyEvent = null;
+        this.topicsField = null; // Store reference to topics field for retrieval
+    }
+
+    /**
+     * Initializes the plugin when Lab is ready
+     * @param {Object} api - The Lab API object
+     * @param {Object} config - Configuration object containing:
+     *   - active: boolean - Whether the plugin is enabled
+     *   - vendor: string - The push notification vendor ('subrite', 'buyandread', 'forte')
+     *   - defaultTitle: string - Default notification title to be placed in the modal
+     *   - defaultMessage: string - Default notification message to be placed in the modal
+     *   - providerId: string - BuyAndRead provider ID (required for BuyAndRead)
+     *   - excludeParamsDefault: boolean - Default state for excluding URL params (BuyAndRead)
+     *   - topicString: string - Comma-separated topics for Forte
+     *   - baseUrl: string - Base API URL for Forte
+     */
+    onReady(api, config) {
+        this.api = api;
+        this.config = config;
+        this.start();
+    }
+
+    start() {
+        if (this.api && this.config.active) {
+            this.keyEvent = this.api.v1.util.keyEventHandler.add({
+                key: 'u',
+                callback: () => this.showPushModal(),
+                controlkeys: ['labCtrlKey', 'shiftKey'],
+                overrideDisable: false
+            });
+        }
+    }
+
+    stop() {
+        if (this.api) {
+            this.api.v1.util.keyEventHandler.remove(this.keyEvent);
+        }
+    }
+
+    /**
+     * Removes HTML tags from a string, returning plain text
+     * @param {string} html - HTML string to strip
+     * @returns {string} Plain text content
+     */
+    stripHtmlTags(html) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        return tempDiv.textContent;
+    }
+
+    /**
+     * Returns vendor-specific form fields to display in the pushnotification modal
+     * @param {string} vendor - The vendor name ('buyandread', 'forte', 'subrite')
+     * @returns {Array} Array of field objects with properties:
+     *   - id: string - HTML element ID
+     *   - label: string - Display label for the field
+     *   - type: string - Input type ('text', 'checkbox')
+     *   - checked: boolean - Default checked state (for checkboxes)
+     *   - placeholder: string - Optional placeholder text for input fields
+     */
+    getVendorFields(vendor) {
+        const fields = {
+            buyandread: [
+                {
+                    id: 'customUrl',
+                    label: 'Custom Article URL (Optional)',
+                    type: 'text'
+                },
+                {
+                    id: 'excludeParams',
+                    label: 'Send notification without linking to article',
+                    type: 'checkbox',
+                    checked: this.config.excludeParamsDefault
+                }
+            ],
+            forte: [
+                {
+                    id: 'forteLink',
+                    label: 'Link (Optional)',
+                    type: 'text',
+                    placeholder: 'Enter URL to open specific screen on notification click'
+                }
+            ]
+        };
+        return fields[vendor] || [];
+    }
+
+    /**
+     * Creates and returns the topics selection field for Forte vendor
+     * Uses the UIElement.getArraySelect method for a consistent selection interface.
+     * If topics are configured in settings, shows buttons for selection.
+     * Otherwise, shows a text input for manual entry.
+     * @returns {Object} Object with element and getSelectedItems method
+     */
+    createTopicsField() {
+        const topics = this.config.topicString
+            ? this.config.topicString.split(',').map((t) => t.trim()).filter((t) => t)
+            : [];
+
+        return this.api.v1.ui.element.getArraySelect({
+            items: topics,
+            selectedItems: [],
+            id: 'forteTopicsContainer',
+            buttonClass: 'forte-topic-btn',
+            selectedClass: 'selected',
+            placeholder: 'Enter topics (comma-separated)',
+            label: 'Select Topics',
+            useTextInputFallback: true,
+            returnObject: true
+        });
+    }
+
+    /**
+     * Displays the push notification modal dialog
+     * Pre-fills title and body from current article data
+     * Includes vendor-specific fields based on configuration
+     */
+    showPushModal() {
+        const pageData = this.getPageData();
+        const titleText = this.stripHtmlTags(pageData.title || '');
+        const subtitleText = this.stripHtmlTags(pageData.subtitle || '');
+        const { vendor } = this.config;
+
+        const bodyLabel = vendor === 'buyandread' ? 'Message' : 'Body';
+
+        // Build array of form group items
+        let modalContentItems = `
+            <div class="lab-formgroup-item">
+                <label for="pushTitle">Title</label>
+                <input type="text" id="pushTitle" class="lab-input" value="${ this.config.defaultTitle || titleText || '' }">
+            </div>
+            <div class="lab-formgroup-item">
+                <label for="pushBody">${ bodyLabel }</label>
+                <textarea id="pushBody" class="lab-input">${ this.config.defaultMessage || subtitleText || '' }</textarea>
+            </div>`;
+
+        // Add vendor-specific fields
+        this.getVendorFields(vendor).forEach((field) => {
+            if (field.type === 'checkbox') {
+                modalContentItems += `
+            <div class="lab-formgroup-item">
+                <label for="${ field.id }">${ field.label }</label>
+                <input type="checkbox" id="${ field.id }" ${ field.checked ? 'checked' : '' }>
+            </div>`;
+            } else {
+                const placeholderAttr = field.placeholder ? `placeholder="${ field.placeholder }"` : '';
+                modalContentItems += `
+            <div class="lab-formgroup-item">
+                <label for="${ field.id }">${ field.label }</label>
+                <input type="text" id="${ field.id }" class="lab-input" value="" ${ placeholderAttr }>
+            </div>`;
+            }
+        });
+
+        // Add placeholder for topics field for forte (will be inserted after modal renders)
+        if (vendor === 'forte') {
+            modalContentItems += `<div id="forteTopicsFieldContainer"></div>`;
+            if (pageData && pageData.lab_pushNotificationSent && pageData.lab_pushNotificationSent !== '') {
+                // Add status info if push notification is registered
+                const { lab_pushNotificationSent } = pageData;
+                const lab_pushNotificationSent_date = new Date(lab_pushNotificationSent * 1000);
+                const formattedTimestamp = lab_pushNotificationSent_date.toLocaleString();
+                modalContentItems += `
+            <div class="lab-formgroup-item">
+                <p><em>Push notification sent: ${ formattedTimestamp }</em></p>
+            </div>`;
+            }
+        }
+
+        this.api.v1.ui.modal.dialog({
+            content: {
+                title: `Send ${ vendor.charAt(0).toUpperCase() + vendor.slice(1) } Push Notification`,
+                description: `<div class="lab-formgroup">${ modalContentItems }</div>`
+            },
+            footer: {
+                buttons: [
+                    {
+                        value: 'Cancel',
+                        id: 'cancel_button',
+                        highlight: false
+                    },
+                    {
+                        value: 'Send Push',
+                        type: 'submit',
+                        highlight: true
+                    }
+                ]
+            },
+            eventHandlers: [{
+                selector: '#cancel_button',
+                event: 'click',
+                callback: (modal, event) => {
+                    modal.close();
+                }
+            }],
+            callbacks: {
+                submit: () => {
+                    const title = document.getElementById('pushTitle').value.trim();
+                    const body = document.getElementById('pushBody').value.trim();
+                    const options = this.collectFormOptions(vendor);
+
+                    // Validate data only for Forte, Link is optional
+                    if (vendor === 'forte') {
+                        const errors = [];
+
+                        if (!title) {
+                            errors.push('Title');
+                        }
+
+                        if (!body) {
+                            errors.push('Body');
+                        }
+
+                        if (!options.topics || options.topics.length === 0) {
+                            errors.push('At least one topic');
+                        }
+
+                        // If there are validation errors, show them all
+                        if (errors.length > 0) {
+                            const errorMessage = `The following fields are required:<br><br>${ errors.map((e) => `- ${ e }`).join('<br>') }`;
+                            this.showResultModal('Validation Error', errorMessage, true);
+                            return false;
+                        }
+                    }
+
+                    this.publish(title, body, options);
+                    return true;
+                }
+            }
+        });
+
+        // After modal is rendered, insert the topics field using getArraySelect
+        if (vendor === 'forte') {
+            const container = document.getElementById('forteTopicsFieldContainer');
+            if (container) {
+                this.topicsField = this.createTopicsField();
+                container.appendChild(this.topicsField.element);
+            }
+        }
+    }
+
+    /**
+     * Collects form input values specific to each vendor from the modal
+     * @param {string} vendor - The vendor name ('buyandread', 'forte', 'subrite')
+     * @returns {Object} Object containing vendor-specific options:
+     *   BuyAndRead: { customUrl: string, excludeParams: boolean }
+     *   Forte: { topics: string[], link: string }
+     *   Subrite: {} (no additional options)
+     */
+    collectFormOptions(vendor) {
+        const options = {};
+
+        if (vendor === 'buyandread') {
+            const customUrlEl = document.getElementById('customUrl');
+            const excludeParamsEl = document.getElementById('excludeParams');
+            if (customUrlEl) options.customUrl = customUrlEl.value;
+            if (excludeParamsEl) options.excludeParams = excludeParamsEl.checked;
+        }
+
+        if (vendor === 'forte') {
+            // Use the getArraySelect method's getSelectedItems function
+            if (this.topicsField) {
+                options.topics = this.topicsField.getSelectedItems();
+            }
+
+            const forteLinkEl = document.getElementById('forteLink');
+            if (forteLinkEl && forteLinkEl.value) {
+                options.link = forteLinkEl.value;
+            }
+        }
+
+        return options;
+    }
+
+    /**
+     * Retrieves data from the currently edited article/page
+     * @returns {Object} Page data object containing:
+     *   - type: string - Content type
+     *   - id: string - Content ID
+     *   - tags: Array - Associated tags
+     *   - section: string - Primary section tag
+     *   - title: string - Article title
+     *   - subtitle: string - Article subtitle
+     *   - url: string - Full published URL
+     *   - status: string - Publication status
+     *   - visibility_status: string - Visibility status
+     *   - publishhidden: string - Whether published as hidden ('1' or '0')
+     *   - site: Object - Site information with alias
+     */
+    getPageData() {
+        const root = this.api.v1.model.query.getRootModel();
+        const site = this.api.v1.site.getSite();
+        return {
+            type: root.get('type'),
+            id: root.get('id'),
+            tags: root.get('tags'),
+            section: root.get('primaryTags.section'),
+            title: root.get('fields.title'),
+            subtitle: root.get('fields.subtitle'),
+            url: (this.api.v1.site.getSite().domain || this.api.v1.properties.get('customer_front_url')) + root.get('fields.published_url'),
+            status: root.get('status'),
+            visibility_status: root.get('fields.visibility_status'),
+            lab_pushNotificationSent: root.get('fields.lab_pushNotificationSent'),
+            publishhidden: root.get('fields.publishhidden'),
+            site: {
+                alias: site.alias
+            }
+        };
+    }
+
+    /**
+     * Builds the API payload data structure for each vendor
+     * @param {string} vendor - The vendor name
+     * @param {string} customTitle - Notification title from modal
+     * @param {string} customBody - Notification body from modal
+     * @param {Object} options - Vendor-specific options from collectFormOptions()
+     * @param {Object} pageData - Current page data from getPageData()
+     * @returns {Object|null} Vendor-specific payload object, or null if not applicable
+     */
+    buildPayloadData(vendor, customTitle, customBody, options, pageData) {
+        switch (vendor) {
+            case 'subrite':
+                return {
+                    title: customTitle,
+                    body: customBody,
+                    data: {
+                        url: pageData.url
+                    },
+                    topics: pageData.tags
+                };
+
+            case 'buyandread':
+                return null; // buyandread uses URL params instead
+
+            case 'forte':
+                return {
+                    topics: options.topics || [],
+                    title: customTitle,
+                    body: customBody,
+                    link: options.link || ''
+                };
+
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Builds the complete API request URL for each vendor
+     * @param {string} vendor - The vendor name
+     * @param {string} customTitle - Notification title
+     * @param {string} customBody - Notification body
+     * @param {Object} options - Vendor-specific options
+     * @param {Object} pageData - Current page data
+     * @returns {string} Complete API endpoint URL with query parameters
+     * @throws {Error} If vendor is unknown or required config is missing
+     */
+    buildRequestUrl(vendor, customTitle, customBody, options, pageData) {
+        switch (vendor) {
+            case 'subrite':
+                return 'https://api.subrite.no/api/v1/app-push/pushcontent';
+
+            case 'buyandread': {
+                const params = new URLSearchParams({
+                    title: customTitle,
+                    message: customBody
+                });
+
+                if (!options.excludeParams) {
+                    const url = options.customUrl || pageData.url;
+                    params.append('url', url);
+                }
+
+                return `https://www.buyandread.com/servlet/api/${ this.config.providerId }/provider/v1/app/sendPushMessage?${ params.toString() }`;
+            }
+
+            case 'forte':
+                if (!this.config.baseUrl) {
+                    throw new Error('Forte base URL not configured. Please add it in the admin settings.');
+                }
+                return `${ this.config.baseUrl }/notifications/send`;
+
+            default:
+                throw new Error(`Unknown vendor: ${ vendor }`);
+        }
+    }
+
+    /**
+     * Validates the API response from the vendor to determine success
+     * @param {Object|null} responseData - Response data from the vendor API
+     * @returns {boolean} true if notification was sent successfully, false otherwise
+     *
+     * Success indicators:
+     * - Empty response (200 OK with no body)
+     * - No explicit failure flags in response
+     *
+     * Failure indicators:
+     * - success: false
+     * - data.success: false
+     * - status: 'failed' or 'error'
+     */
+    validateResponse(responseData) {
+        // Empty response means 200 OK, which is success
+        if (!responseData) return true;
+
+        // Check for explicit failure indicators
+        if (responseData.success === false) return false;
+        if (responseData.data && responseData.data.success === false) return false;
+        if (responseData.status === 'failed' || responseData.status === 'error') return false;
+
+        // Otherwise treat as success
+        return true;
+    }
+
+    /**
+     * Main method to send the push notification
+     * Validates page status, builds request, sends to backend proxy, and shows result
+     *
+     * @param {string} customTitle - Notification title
+     * @param {string} customBody - Notification body/message
+     * @param {Object} options - Vendor-specific options (default: {})
+     *
+     * Workflow:
+     * 1. Validates page is published and visible
+     * 2. Builds vendor-specific request URL and payload
+     * 3. Sends request through backend
+     * 4. Validates response and shows success/error modal
+     */
+    publish(customTitle, customBody, options = {}) {
+        const pageData = this.getPageData();
+        const { vendor } = this.config;
+
+        if (pageData.visibility_status !== 'P' || pageData.publishhidden === '1') {
+            this.showResultModal('Error', 'Page must be published and visible to send push notifications.', true);
+            return;
+        }
+
+        let requestUrl;
+        let data;
+
+        try {
+            requestUrl = this.buildRequestUrl(vendor, customTitle, customBody, options, pageData);
+            data = this.buildPayloadData(vendor, customTitle, customBody, options, pageData);
+        } catch (error) {
+            this.showResultModal('Error', error.message, true);
+            return;
+        }
+
+        const formData = new FormData();
+        const payload = {
+            site: pageData.site.alias,
+            vendor,
+            request_url: requestUrl
+        };
+
+        if (data) {
+            payload.data = JSON.stringify(data);
+        }
+
+        formData.append('payload', JSON.stringify(payload));
+
+        this.api.v1.util.httpClient.request(
+            '/ajax/pushnotification/post',
+            {
+                method: 'POST',
+                body: formData
+            }
+        ).then((responseData) => {
+            const success = this.validateResponse(responseData);
+
+            if (!success) {
+                const errorMessage = `Contact us if the error persists.<br>
+                <b>Status response:</b> ${ JSON.stringify(responseData) || 'Push notification failed' }`;
+                return Promise.reject(new Error(errorMessage));
+            }
+
+            // Set timestamp on root model after successful push notification
+            const timestamp = Math.floor(Date.now() / 1000);
+            const root = this.api.v1.model.query.getRootModel();
+            root.set('fields.lab_pushNotificationSent', timestamp);
+
+            this.showResultModal('Success!', 'Push notification sent successfully!', false);
+            return Promise.resolve(true);
+        }).catch((error) => {
+            const errorMessage = error.message ? `<br>\n\n${ error.message }` : '';
+            this.showResultModal('Error - Push request failed!', errorMessage, true);
+        });
+    }
+
+    /**
+     * Displays a result modal with success or error state
+     * @param {string} title - Modal title
+     * @param {string} message - Modal message (can include HTML)
+     * @param {boolean} isError - Whether this is an error (true) or success (false) modal
+     */
+    showResultModal(title, message, isError) {
+        this.api.v1.ui.modal.dialog({
+            container: {
+                state: isError ? 'error' : 'success'
+            },
+            content: {
+                title,
+                description: message
+            },
+            footer: {
+                buttons: [
+                    {
+                        type: 'submit',
+                        value: 'OK',
+                        highlight: true
+                    }
+                ]
+            }
+        });
+    }
+
+});
+
+
+/***/ }),
+
 /***/ "./modules/plugins/slack_notifier/Notifier.js":
 /*!****************************************************!*\
   !*** ./modules/plugins/slack_notifier/Notifier.js ***!
@@ -29864,7 +33145,7 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Notifier": () => (/* binding */ Notifier)
+/* harmony export */   Notifier: () => (/* binding */ Notifier)
 /* harmony export */ });
 /**
  * Notifier.js
@@ -30138,246 +33419,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./modules/plugins/subrite/index.js":
-/*!******************************************!*\
-  !*** ./modules/plugins/subrite/index.js ***!
-  \******************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _subrite_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./subrite.js */ "./modules/plugins/subrite/subrite.js");
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-    name: 'Subrite',
-    description: 'Push message to app using Subrite',
-    version: '1.0.0',
-    predicate: (api) => api.v1.config.get('plugins.subrite.active'),
-    entry: class {
-
-        onReady(api) {
-            api.v1.util.dom.addFile('css', '/view-resources/baseview/modules/plugins/subrite/subrite-main.css');
-
-            let subriteInstance = null;
-
-            const btn = api.v1.util.dom.renderTemplate('<li class="lab-item lab-btn labicon-subrite" title="Subrite"></li>', {}, true);
-            document.querySelector('#labrador-menu ul li.lab-menulist ul').appendChild(btn);
-            btn.addEventListener('click', (event) => {
-                const config = api.v1.config.get('plugins.subrite');
-
-                if (!subriteInstance) {
-                    subriteInstance = new _subrite_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
-                    subriteInstance.onReady(api, config);
-                }
-                subriteInstance.showPushModal();
-            }, false);
-        }
-
-    }
-});
-
-
-/***/ }),
-
-/***/ "./modules/plugins/subrite/subrite.js":
-/*!********************************************!*\
-  !*** ./modules/plugins/subrite/subrite.js ***!
-  \********************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (class {
-
-    constructor() {
-        this.api = null;
-        this.config = null;
-        this.keyEvent = null;
-    }
-
-    onReady(api, config) {
-        this.api = api;
-        this.config = config;
-        this.start();
-    }
-
-    start() {
-        if (this.api && this.config.active) {
-            this.keyEvent = this.api.v1.util.keyEventHandler.add({
-                key: 'u',
-                callback: () => this.showPushModal(),
-                controlkeys: ['labCtrlKey', 'shiftKey'],
-                overrideDisable: false
-            });
-        }
-    }
-
-    stop() {
-        if (this.api) {
-            this.api.v1.util.keyEventHandler.remove(this.keyEvent);
-        }
-    }
-
-    stripHtmlTags(html) {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = html;
-        return tempDiv.textContent;
-    }
-
-    showPushModal() {
-        const pageData = this.getPageData();
-        const titleText = this.stripHtmlTags(pageData.title || '');
-        const subtitleText = this.stripHtmlTags(pageData.subtitle || '');
-
-        this.api.v1.ui.modal.dialog({
-            content: {
-                title: 'Send Subrite Push Notification',
-                description: `
-                    <div class="lab-formgroup">
-                        <div class="lab-formgroup-item">
-                            <label for="subriteTitle">Title</label>
-                            <input type="text" id="subriteTitle" class="lab-input" value="${ this.config.defaultTitle || titleText  || '' }">
-                        </div>
-                        <div class="lab-formgroup-item">
-                            <label for="subriteBody">Body</label>
-                            <textarea id="subriteBody" class="lab-input">${ this.config.defaultMessage || subtitleText || '' }</textarea>
-                        </div>
-                    </div>
-                `
-            },
-            footer: {
-                buttons: [
-                    {
-                        value: 'Cancel',
-                        id: 'cancel_button',
-                        highlight: false
-                    },
-                    {
-                        value: 'Send Push',
-                        type: 'submit',
-                        highlight: true
-                    }
-                ]
-            },
-            eventHandlers: [{
-                selector: '#cancel_button',
-                event: 'click',
-                callback: (modal, event) => {
-                    modal.close();
-                }
-            }],
-            callbacks: {
-                submit: () => {
-                    const title = document.getElementById('subriteTitle').value;
-                    const body = document.getElementById('subriteBody').value;
-                    this.publish(title, body);
-                }
-            }
-        });
-    }
-
-    getPageData() {
-        const root = this.api.v1.model.query.getRootModel();
-        const site = this.api.v1.site.getSite();
-        return {
-            type: root.get('type'),
-            id: root.get('id'),
-            tags: root.get('tags'),
-            section: root.get('primaryTags.section'),
-            title: root.get('fields.title'),
-            subtitle: root.get('fields.subtitle'),
-            url: (this.api.v1.site.getSite().domain || this.api.v1.properties.get('customer_front_url')) + root.get('fields.published_url'),
-            status: root.get('status'),
-            visibility_status: root.get('fields.visibility_status'),
-            publishhidden: root.get('fields.publishhidden'),
-            site: {
-                alias: site.alias
-            }
-        };
-    }
-
-    publish(customTitle, customBody) {
-        const pageData = this.getPageData();
-
-        if (pageData.visibility_status === 'P' && pageData.publishhidden !== '1') {
-            const data = {
-                title: customTitle,
-                body: customBody,
-                data: {
-                    url: pageData.url
-                },
-                topics: pageData.tags
-            };
-
-            Sys.logger.debug('[Subrite]: Sending push message...');
-
-            const formData = new FormData();
-            const payload = {
-                site: pageData.site.alias,
-                request_url: 'https://api.subrite.no/api/v1/app-push/pushcontent',
-                data: JSON.stringify(data)
-            };
-            formData.append('payload', JSON.stringify(payload));
-
-            this.api.v1.util.httpClient.request(
-                '/ajax/subrite/post',
-                {
-                    method: 'POST',
-                    body: formData
-                }
-            ).then((response) => response).then((responseData) => {
-                if ((responseData && responseData.status !== 'created') || responseData === '') {
-                    const errorMessage = `Contact us the error persists.<br>
-                    <b>Status response:</b> ${ JSON.stringify(responseData) || 'Push notification failed' }`;
-
-                    return Promise.reject(new Error(errorMessage));
-                }
-
-                Sys.logger.debug('[Subrite]: Successfully sent push message.');
-                this.showResultModal('Success!', 'Push notification sent successfully!', false);
-            }).catch((error) => {
-                Sys.logger.error('[Subrite]: Failed to send push message.', error);
-                const errorMessage = (error.message ? `<br>\n\n${  error.message }` : '');
-
-                this.showResultModal('Error - Push request failed!', errorMessage, true);
-            });
-        } else {
-            Sys.logger.warn('[Subrite]: Page not published visibly, failed to send push message.');
-            this.showResultModal('Error', 'Page must be published and visible to send push notifications.', true);
-        }
-    }
-
-    showResultModal(title, message, isError) {
-        this.api.v1.ui.modal.dialog({
-            container: {
-                state: isError ? 'error' : 'success'
-            },
-            content: {
-                title,
-                description: message
-            },
-            footer: {
-                buttons: [
-                    {
-                        type: 'submit',
-                        value: 'OK',
-                        highlight: true
-                    }
-                ]
-            }
-        });
-    }
-
-});
-
-
-/***/ }),
-
 /***/ "./modules/plugins/tansa/index.js":
 /*!****************************************!*\
   !*** ./modules/plugins/tansa/index.js ***!
@@ -30498,14 +33539,18 @@ __webpack_require__.r(__webpack_exports__);
 
                 if (tansaInstance) {
                     const rect = btn.getBoundingClientRect();
-                    tansaInstance.load(targets, addedConfig, rect);
+                    setTimeout(() => {
+                        tansaInstance.load(targets, addedConfig, rect);
+                    }, 300);
                     return;
                 }
 
                 Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./tansa.js */ "./modules/plugins/tansa/tansa.js")).then((module) => {
                     const rect = btn.getBoundingClientRect();
                     tansaInstance = module.tansa;
-                    module.tansa.load(targets, addedConfig, rect);
+                    setTimeout(() => {
+                        module.tansa.load(targets, addedConfig, rect);
+                    }, 300);
                 }).catch((error) => {
                     Sys.logger.warn(`Error loading Tansa-functionality: ${ error }`);
                 });
@@ -30526,9 +33571,11 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "tansa": () => (/* binding */ tansa)
+/* harmony export */   tansa: () => (/* binding */ tansa)
 /* harmony export */ });
 const tansa = {
+
+    registered: new Map(),
 
     // settings: {
     //     baseUrl: 'https://kommune.tansa.com/tansaclient/',   // Settes i admin
@@ -30547,10 +33594,7 @@ const tansa = {
         btn.setAttribute('style', `position:fixed; top: ${ rect.top - 20 }px; left: ${ rect.left }px; height:0;`);
         document.body.appendChild(btn);
         for (const item of targets) {
-            const domElement = tansa.getDomElement(item);
-            if (domElement) {
-                domElement.setAttribute('tansa-proofing', 'true');
-            }
+            tansa.prepareItem(item);
         }
         document.defaultView.tansa4ClientExtensionPlugin = {
             replaceText: (tansaReplaceTextFunRef, index, startPos, endPos, replacement, occurrenceNo, textToReplace) => {
@@ -30579,6 +33623,43 @@ const tansa = {
             document.defaultView.tansa4ClientExtension.initMenu();
         } else {
             console.warn('[Tansa] Error: tansa4ClientExtension missing/incomplete.');
+        }
+    },
+
+    prepareItem: (item) => {
+        if (!tansa.registered.has(item.model)) {
+            tansa.registered.set(item.model, []);
+        }
+        const items = tansa.registered.get(item.model);
+        const isPrepared = items.find((itm) => itm.selector === item.selector && itm.path === item.path);
+        if (isPrepared) {
+            return;
+        }
+        items.push({
+            selector: item.selector,
+            path: item.path
+        });
+        tansa.registered.set(item.model, items);
+        if (items.length === 1) {
+            lab_api.v1.model.bindings.bindRedraw(item.model, (model, view, { ...params }) => {
+                if (lab_api.v1.viewport.getMain() !== view.getViewport()) {
+                    return;
+                }
+                for (const itm of tansa.registered.get(model)) {
+                    const theItem = { ...params };
+                    theItem.selector = itm.selector;
+                    theItem.path = itm.path;
+                    tansa.decorateItem(theItem);
+                }
+            }, item);
+        }
+        tansa.decorateItem(item);
+    },
+
+    decorateItem: (item) => {
+        const domElement = tansa.getDomElement(item);
+        if (domElement) {
+            domElement.setAttribute('tansa-proofing', 'true');
         }
     },
 
@@ -30637,7 +33718,7 @@ const tansa = {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Field": () => (/* binding */ Field)
+/* harmony export */   Field: () => (/* binding */ Field)
 /* harmony export */ });
 class Field {
 
@@ -30705,7 +33786,7 @@ class Field {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Group": () => (/* binding */ Group)
+/* harmony export */   Group: () => (/* binding */ Group)
 /* harmony export */ });
 /* harmony import */ var _Field_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Field.js */ "./modules/plugins/textassistant/Field.js");
 /**
@@ -30760,8 +33841,8 @@ class Group {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "FACTBOX_TYPES": () => (/* binding */ FACTBOX_TYPES),
-/* harmony export */   "Manager": () => (/* binding */ Manager)
+/* harmony export */   FACTBOX_TYPES: () => (/* binding */ FACTBOX_TYPES),
+/* harmony export */   Manager: () => (/* binding */ Manager)
 /* harmony export */ });
 /* harmony import */ var _Group_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Group.js */ "./modules/plugins/textassistant/Group.js");
 /* harmony import */ var _lib_helpers_ContentLanguages_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lib/helpers/ContentLanguages.js */ "./modules/lib/helpers/ContentLanguages.js");
@@ -30913,7 +33994,7 @@ class Manager {
             const prompt = `${ this.api.v1.util.dom.renderTemplate(group.prompt, dataOptions) }`;
             console.log('Prompt: ', prompt);
             this.api.v1.generate.text({
-                prompt, service: 'chatCompletions', model: aiSettings.model, paths: group.fields.map((field) => field.path)
+                prompt, service: 'chatCompletions', model: aiSettings.model, paths: group.fields.map((field) => field.path), featureName: name
             }).then((result) => {
                 resolve(result);
             }).catch((error) => {
@@ -31054,6 +34135,33 @@ class Manager {
             }
             if (newCaption) {
                 imageModel.set('fields.imageCaption', newCaption);
+            }
+
+            if (newCaption && !originalCaption) {
+                // Save the caption to the image node only if there was no caption before
+                const imageId = imageModel.get('instance_of');
+                if (imageId) {
+                    const nodeData = {
+                        type: 'image',
+                        id: imageId,
+                        fields: {
+                            caption: newCaption
+                        }
+                    };
+
+                    const saveFormData = new FormData();
+                    saveFormData.append('json[id]', imageId);
+                    saveFormData.append('json[type]', 'image');
+                    saveFormData.append('json[structure]', null);
+                    saveFormData.append('json[node]', JSON.stringify([nodeData]));
+
+                    this.api.v1.util.httpClient.request('/ajax/node/save-node-and-data', {
+                        body: saveFormData,
+                        method: 'POST'
+                    }).catch((error) => {
+                        console.warn('[TextAssistant] Error saving caption to image node: ', error);
+                    });
+                }
             }
 
             // Update byline
@@ -31771,7 +34879,7 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "YouTubeEditor": () => (/* binding */ YouTubeEditor)
+/* harmony export */   YouTubeEditor: () => (/* binding */ YouTubeEditor)
 /* harmony export */ });
 class YouTubeEditor {
 
@@ -32173,7 +35281,7 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ClientData": () => (/* binding */ ClientData)
+/* harmony export */   ClientData: () => (/* binding */ ClientData)
 /* harmony export */ });
 /**
  * Holds data for mappers. Are passed over from mapper to mapper
@@ -32218,10 +35326,10 @@ class ClientData {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Core": () => (/* binding */ U)
+/* harmony export */   Core: () => (/* binding */ N)
 /* harmony export */ });
 /*! For license information please see Core.js.LICENSE.txt */
-var e={d:(t,r)=>{for(var i in r)e.o(r,i)&&!e.o(t,i)&&Object.defineProperty(t,i,{enumerable:!0,get:r[i]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.d(t,{Q:()=>q});var r={};e.r(r),e.d(r,{defaults:()=>n,functionHelper:()=>C,grid:()=>P,interpolation:()=>o,objectHelper:()=>s,stringHelper:()=>y,uuid:()=>$});const i={state:"",version:"4.2.8",build:{styleguide:4,releasenotes:"40208:1",userReleasenotes:"40208:1",browsers:{chrome:94},version:489}},s={get:(e,t,r)=>e.split(".").reduce(((e,t)=>e&&void 0!==e[t]?e[t]:r?void 0:null),t),set:(e,t,r)=>(e.split(".").reduce(((e,r,i,n)=>{if(i!==n.length-1)return s.isObject(e[r])?e[r]:e[r]={};e[r]=t}),r),r),delete:(e,t)=>{e.split(".").reduce(((e,t,r,i)=>{if(r!==i.length-1)return s.isObject(e[t])?e[t]:e[t]={};delete e[t]}),t)},isObject:e=>e&&"object"==typeof e&&!Array.isArray(e),hasContent:e=>!!s.isObject(e)&&!!Object.keys(e).length,merge:(e,t)=>{if(Array.isArray(e)&&Array.isArray(t))return t;const r=Object.assign(Array.isArray(e)?[]:{},e);if(s.isObject(e)&&s.isObject(t))for(const i of Object.keys(t))s.isObject(t[i])?i in e&&s.isObject(e[i])?r[i]=s.merge(e[i],t[i]):Object.assign(r,{[i]:t[i]}):Object.assign(r,{[i]:t[i]});return r},mergeArray:(e,t,r=!0)=>{const i=[...e||[],...t||[]];return r?[...new Set(i)]:i},clone:(e,t)=>{if(!e)return e;let r;if(!t&&e instanceof Array)r=e.slice(0);else{r=e instanceof Array?[]:{};for(const i in e)e.hasOwnProperty(i)&&(t&&"object"==typeof e[i]&&null!==e[i]?r[i]=s.clone(e[i],t):r[i]=e[i])}return r},serialize(e,t="=",r="&"){const i=[];for(const r of Object.keys(e))i.push(r+t+e[r]);return i.length?i.join(r):null}},n={true:e=>void 0===e||!!e,false:e=>!!e,string:(e,t="")=>"string"==typeof e?e:t,stringRestricted:(e,t="",r=[])=>"string"!=typeof e?t:r.includes(e)?e:t,pixelString:(e,t="")=>{if("number"==typeof e)return`${e}px`;if("string"!=typeof e)return t;const r=e.trim().split("px");return 2!==r.length||isNaN(r[0])?t:`${r[0]}px`},stringOrNull:e=>"string"==typeof e?e:null,stringOrUndefined:e=>"string"==typeof e?e:void 0,numberOrDefault:(e,t=0)=>"number"==typeof e?e:t,array:(e,t=[])=>Array.isArray(e)?e:t,arrayOrNull:e=>Array.isArray(e)?e:null,object:(e,t={},r=t)=>!e||"object"!=typeof e||Array.isArray(e)?t:{...r,...e},objectOrArray:(e,t={})=>Array.isArray(e)?e:n.object(e,t),notNullOrUndefined:(e,t)=>null==e?t:e,notUndefined:(e,t)=>void 0===e?t:e},o={resolve:(e,t,r)=>"object"==typeof e?o.resolveObject(e,t,r):"string"==typeof e?o.resolveString(e,t,r):e,resolveObject:(e,t,r)=>{for(const i in e)"object"==typeof e[i]?e[i]=o.resolveObject(e[i],t,r):"string"==typeof e[i]&&(e[i]=o.resolveString(e[i],t,r));return e},resolveString:(e,t,r)=>{if(-1===e.indexOf("${"))return e;return e.replace(/\${([^{}]*)}/g,((e,i)=>{const s=r.getCms(i.trim());return"string"==typeof s||"number"==typeof s?s:("undefined"!=typeof Sys&&Sys.logger.warn(`Cannot interpolate config value "${e}". Description: ${t}.`),e)}))}};class a{constructor(e,t){this.logger=t,this.log("Setup"),this.config=e,this.siteAlias=this.config.site&&this.config.site.alias||null,this.fallbackSites=this.resolveSiteAliases(this.siteAlias),this.log(`Site-alias: ${this.siteAlias}`),this.log(`Will use site(s): ${this.fallbackSites}`),this.resources=[{name:"config",source:"config",path:"customer",sitesPrefix:"customer.site_config_",storeSitesPrefix:null,siteOverride:{},paths:[],content:[],resolved:!1},{name:"cmsConfig",source:"config",path:"",sitesPrefix:null,storeSitesPrefix:null,paths:[],content:[],resolved:!1},{name:"viewConfig",source:"configObject",path:"ConfigObject.viewConfig.config.customer",sitesPrefix:"ConfigObject.viewConfig.config.customer.site_config.",storeSitesPrefix:"config.customer.site_config.",siteOverride:{},paths:[],content:[],resolved:!1},{name:"featureFlags",source:"configObject",path:"ConfigObject.featureFlags",sitesPrefix:"ConfigObject.featureFlags.site.",storeSitesPrefix:"site.",siteOverride:{},paths:[],content:[],resolved:!1},{name:"content",source:"configObject",path:"ConfigObject.content",sitesPrefix:null,storeSitesPrefix:null,paths:[],content:[],resolved:!1},{name:"localisation",source:"configObject",path:"ConfigObject.localisation",sitesPrefix:null,storeSitesPrefix:null,paths:[],content:[],resolved:!1}],this.resourceObject={},this.cache={get:{},debug:{getter:{},reload:{},update:{},resetCache:{}}},this.setupResources()}static resolveFullConfig(e={},t={}){const r={ConfigObject:{},app:{mode:"presentation",version:"[unversioned cms]"},mainViewport:n.string(e.deviceMain,e.device||"desktop"),isTouchDevice:n.false(e.isTouchDevice),sites:n.array(e.sites),...e};return r.app.version=t.version||r.app.version,r.buildInfo=t.build||e.build,r.customer=a.resolveConfig(e.customer),r}static resolveConfig(e={}){const t={grid:{},...e};t.resourceAllocation=n.object(t.resourceAllocation,{resourceMaps:["_resources"],mergeMaps:!0});const r=t.viewHelper||{};return t.viewHelper={image:n.object(r.image,{viewports:["desktop"],pixelDensityFactor:1})},t.appMapper=n.objectOrArray(t.appMapper),t.view_name=n.string(t.view_name,"[unnamed view]"),t.view_version=n.string(t.view_version,"[unversioned view]"),t.grid.total_grid_spans=n.numberOrDefault(t.grid.total_grid_spans,12),t.grid.grid_prefix=n.object(t.grid.grid_prefix),t.grid.abs_grid_prefix=n.object(t.grid.abs_grid_prefix,null),t.preload=n.array(t.preload),t.preloadObject=n.object(t.preloadObject),t.viewports=n.object(t.viewports),t.viewport=n.string(t.viewport),t.touchEditingViewport=n.string(t.touchEditingViewport),t.style=n.object(t.style,{definitions:{},collections:[],presets:[],copyDefinitions:[]}),t.image=n.object(t.image,{defaultAspectRatio:.45,defaultBoundingBoxWidthRatio:1}),t.imageUrlOptions=n.object(t.imageUrlOptions),t.tags=n.object(t.tags,{},{section:[]}),t.elementList=n.object(t.elementList,{all:[],favourites:[]}),t.elementListAdditions=n.object(t.elementListAdditions,{all:[],favourites:[]}),t.elementListRemovals=n.object(t.elementListRemovals,{all:[],favourites:[]}),t.autoscroll=n.object(t.autoscroll,{scrollDistance:100,scrollBuffer:50,accelerator:{max:3,step:.2}}),t.markLockedPaths=n.true(t.markLockedPaths),t.minimap=n.object(t.minimap,{structure:null,pageType:[]}),t.exitWarning=n.stringOrNull(t.exitWarning),t.publish=n.object(t.publish,{retry:{count:4,delay:2e3},options:{article:{hidden:!0,defaultHidden:!1}}}),t.autolock=n.object(t.autolock,{timeout:18e5}),t.networkWarning=n.object(t.networkWarning,null,{offline:{alert:!0,lockPage:!0},online:{alert:!0}}),t.image_preview=n.object(t.image_preview,{width:1600,compression:50}),t.textTools=n.object(t.textTools,{characterBlacklists:{utf:[]},text_size:{min:{default:14},max:{default:150,mobile:80}}}),t.structure_map=n.object(t.structure_map),t.shapes=n.object(t.shapes),t.requiredElements=n.array(t.requiredElements),t.requiredElementsAdditions=n.array(t.requiredElementsAdditions),t.data=n.object(t.data,{elements:{},presets:{},presetBlacklist:{},blacklist:[],blacklistOptions:{}}),t.pageElements=n.object(t.pageElements),t.drawer=n.array(t.drawer),t.drawerAdditions=n.array(t.drawerAdditions),t.drawerRemovals=n.array(t.drawerRemovals),t.maxChildCount=n.numberOrDefault(t.maxChildCount,150),t}log(e,t=null){this.logger&&(t?this.logger.debug(`[ConfigReader] ${e}`,[t]):this.logger.debug(`[ConfigReader] ${e}`))}setupResources(){for(const e of this.resources)this.resourceObject[e.name]=e}setupResource(e,t=null){const r=!!t&&t!==this.siteAlias,i=this.resourceObject[e];this.log(`Settings up resource "${e}". Site: "${t||this.siteAlias}". Site-override: ${i.sitesPrefix?r:"n/a"}`),t&&!i.siteOverride[t]&&(i.siteOverride[t]={content:[],paths:[],resolved:!1});const s=t?i.siteOverride[t]:i,n=r?this.resolveSiteAliases(t):this.fallbackSites;for(const e of this.calculateResourcePaths(i,n)){s.paths.push(e);const t=this.getPath(e,this.config);s.content.push({path:e,value:t||{}})}return s.resolved=!0,s}reloadResourceBySite(e,t,r){if(e&&this.resourceObject[e]&&r){this.cache.debug.reload[`${e}|${t||"no-site"}`]=this.cache.debug.reload[`${e}|${t||"no-site"}`]?this.cache.debug.reload[`${e}|${t||"no-site"}`]+1:1;const i=o.resolve(r,"reload_resouce"),n=t?this.resourceObject[e].sitesPrefix+t:this.resourceObject[e].path;s.set(n,i,this.config),this.resourceObject[e].siteOverride[t]?delete this.resourceObject[e].siteOverride[t]:t||(this.setupResource(e),this.resourceObject[e].siteOverride={})}}updateConfigByPath(e,t){this.cache.debug.update[e]=this.cache.debug.update[e]?this.cache.debug.update[e]+1:1,s.set(e,t,this.config),this.resetCache(e)}getCacheKey(e="",t={}){const r=[e,t.mergeStrategy,t.orderStrategy];for(const e of t.resourceList)r.push(e.name,e.useSites?1:0,e.site||"-");return r.join("|")}getCache(e){return this.cache.debug.getter[e]=this.cache.debug.getter[e]?this.cache.debug.getter[e]+1:1,{isSet:e in this.cache.get,value:this.cache.get[e]}}setCache(e,t){this.cache.get[e]=t}resetCache(e){for(const t of Object.keys(this.cache.get))t.startsWith(`${e}|`)&&(this.cache.debug.resetCache[t]=this.cache.debug.resetCache[t]?this.cache.debug.resetCache[t]+1:1,this.log(`Deleting cache for key "${e}" ("${t}")`),delete this.cache.get[t])}calculateResourcePaths(e,t=this.fallbackSites){const r=e.sitesPrefix?t.map((t=>e.sitesPrefix+t)):[];return r.push(e.path),r}resolveSiteAliases(e,t=[]){if(!e)return t;t.push(e);const r=this.getFallbackSite(e);return r&&this.resolveSiteAliases(r,t),t}getFallbackSite(e){return this.getPath(`customer.site_config_${e}.lab_fallback_site`,this.config)}getResource(e){let t=e.site?this.resourceObject[e.name].siteOverride[e.site]:this.resourceObject[e.name];return t&&t.resolved||(t=this.setupResource(e.name,e.site)),t}getPath(e,t,r=!1){return e?r?o.resolve(s.get(e,t,!0),e,{getCms:e=>s.get(e,this.config,!0)}):s.get(e,t,!0):t}getPaths(e,t,r=!1){const i=[],s=this.getResource(t),n=t.useSites?s.content:[s.content[s.content.length-1]];for(const s of n){const o=this.getPath(e,s.value,r);void 0!==o&&i.push({source:t.name,path:s.path,value:o,sourceIndex:n.indexOf(s)})}return i}getValueType(e){for(const t of e)if(null!==t.value)return Array.isArray(t.value)?"array":s.isObject(t.value)?"object":"other";return"other"}mergeResources(e,t,r){let i=t;const n=this.orderResources(e,r);if(!n.length)return{payload:null,paths:[],resetPaths:[]};const o=this.getValueType(n);if("default"===i&&(i="object"===o?"merge":"replace"),"replace"===i)return{payload:n[0].value,paths:[n[0].path],resetPaths:[]};n.reverse();const a=Array.isArray(n[0].value)?[]:{};let l=a;const d=[],h=[];for(const e of n){null===e.value&&(l=a,h.push(e.path));let r=s.merge;"merge"===t&&"array"===o&&(r=s.mergeArray),l=r(l,e.value),d.push(e.path)}return{payload:l,paths:d,resetPaths:h}}orderResources(e,t){if(1===e.length)return e[0].payload;let r=[];for(const t of e)r=r.concat(...t.payload);return"site"===t&&r.sort(((e,t)=>e.sourceIndex-t.sourceIndex)),r}prepareReturnValue(e){return e&&"object"==typeof e?s.clone(e,!0):e}getter(e,t=[],{mergeStrategy:r=null,orderStrategy:i=null,raw:s=!1,noCache:o=!1,interpolate:a=!0}){const l={mergeStrategy:n.stringRestricted(r,"default",["default","merge","replace"]),orderStrategy:n.stringRestricted(i,"site",["site","type"]),raw:n.false(s),noCache:n.false(o),resourceList:[]};for(const e of t)l.resourceList.push({name:e.name,useSites:!!e.useSites,site:n.stringOrNull(e.site)});const d=this.getCacheKey(e,l),h=this.getCache(d);if(!l.noCache&&h.isSet)return l.raw?{cached:!0,options:l,data:{raw:h.value.raw,merged:h.value.merged}}:this.prepareReturnValue(h.value.merged.payload);const g=l.resourceList.map((t=>({name:t.name,payload:this.getPaths(e,t,a)}))),c=this.mergeResources(g,l.mergeStrategy,l.orderStrategy);return this.setCache(d,{raw:g,merged:c}),l.raw?{cached:!1,options:l,data:{raw:g,merged:c}}:this.prepareReturnValue(c.payload)}get(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null,orderStrategy:o=null}={}){return this.getter(e,[{name:"viewConfig",useSites:t,site:r},{name:"config",useSites:t,site:r}],{mergeStrategy:n,orderStrategy:o,raw:i,noCache:s})}getConfig(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"config",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s})}getCms(e,{raw:t=!1,noCache:r=!1}={}){return this.getter(e,[{name:"cmsConfig"}],{raw:t,noCache:r})}getView(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"viewConfig",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s})}getFeatureFlags(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"featureFlags",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s,interpolate:!1})}getContent(e,{raw:t=!1}={}){return this.getter(e,[{name:"content"}],{raw:t})}getLocal(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"localisation",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s,interpolate:!1})}getPathForSite(e,t,r=""){return e&&t&&this.resourceObject[e]&&this.resourceObject[e].sitesPrefix?this.resourceObject[e].sitesPrefix+t+(r?`.${r}`:""):null}getStorePathForSite(e,t,r=""){return e&&t&&this.resourceObject[e]&&this.resourceObject[e].sitesPrefix?this.resourceObject[e].storeSitesPrefix+t+(r?`.${r}`:""):null}debug(){return this.cache.debug}}class l{constructor(e,t,r=!1,i="",s=""){this.configReader=e,this.viewport=t,this.fragmentMode=r,this.pageType=i,this.simulatedMode=s,this.cache=new Map,this.isEditor="edit"===this.getAppMode(),this.pixelDensityFactor=this.isEditor?1:this.configReader.get("viewHelper.image.pixelDensityFactor"),this.pixelDensityFactors={}}resetCache(){this.cache.clear()}getViewport(){return this.viewport}getViewports(){const e="getViewports";return this.cache.has(e)||this.cache.set(e,Object.keys(this.configReader.get("viewports")||{})),this.cache.get(e)}getMainViewport(){const e="getMainViewport";return this.cache.has(e)||this.cache.set(e,this.configReader.getCms("mainViewport")),this.cache.get(e)}getPageType(){return this.pageType}getSimulatedMode(){return this.simulatedMode}isFragmentMode(){return!!this.fragmentMode}isMainViewport(){return this.viewport===this.getMainViewport()}isTouchDevice(e=this.viewport){return this.configReader.getCms("isTouchDevice")}getSubViewports(){const e="getSubViewports";if(!this.cache.has(e)){const t=this.getMainViewport();this.cache.set(e,this.getViewports().filter((e=>e!==t)))}return this.cache.get(e)}isSubViewport(e=this.viewport){return e!==this.getMainViewport()}getEditableViewports(e=!1){const t=`getEditableViewports_${e}`;if(!this.cache.has(t)){const r=this.configReader.get("viewports"),i=e?{}:[];for(const t of Object.keys(r))r[t].noEdit||(e?i[t]=r[t]:i.push(t));this.cache.set(t,i)}return this.cache.get(t)}getViewportWidth(e=this.viewport){const t=this.configReader.get(`viewports.${e}.deviceWidth`);return t?parseInt(t,10):null}getEditViewportWidth(e=this.viewport){const t=this.configReader.get(`viewports.${e}.editSlotWidth`)||this.configReader.get(`viewports.${e}.deviceWidth`);return t?parseInt(t,10):null}getSite(e=null){const t={},r=`getSite_${e}`;if(!this.cache.has(r)){if(e){for(const t of this.configReader.getCms("sites"))if(t.alias===e)return this.cache.set(r,t),t;return this.cache.set(r,t),t}this.cache.set(r,this.configReader.getCms("site")||t)}return this.cache.get(r)}getSiteById(e){if(!e)return null;const t=`getSiteById_${e}`;if(!this.cache.has(t)){const r=parseInt(e,10);for(const e of this.configReader.getCms("sites"))if(e.id===r)return this.cache.set(t,e),e;return this.cache.set(t,null),null}return this.cache.get(t)}getSites(){const e="getSites";return this.cache.has(e)||this.cache.set(e,this.configReader.getCms("sites")||[]),this.cache.get(e)}getAppMode(){const e="getAppMode";return this.cache.has(e)||this.cache.set(e,this.configReader.getCms("app.mode")||"presentation"),this.cache.get(e)}isPresentationMode(){return!this.isEditor}isEditMode(){return this.isEditor}getPixelDensityFactor(e){return e?(this.pixelDensityFactors[e]||(this.pixelDensityFactors[e]=this.isEditor?1:this.configReader.get(`viewHelper.image.pixelDensity.${e}`)||this.configReader.get("viewHelper.image.pixelDensityFactor")),this.pixelDensityFactors[e]):this.pixelDensityFactor}getPreferredImageFormat(){return(this.configReader.get("imageUrlOptions.extension")||"").replace(".","")||null}}class d{constructor(e){this.debug=e&&"object"==typeof performance,this.logs={}}getLogs(){return this.logs}resetLogs(){this.logs={}}log(e,t){const r=e.pop();let i=this.logs;for(const t of e)i[t]||(i[t]={}),i=i[t];i[r]||(i[r]={count:0,time:0}),i=i[r],i.count++,i.time+=t}start(e){if(this.debug)return{paths:e,time:this.getTimestamp()}}end(e){this.debug&&this.log(e.paths,this.getTimestamp()-e.time)}getTimestamp(){return performance.now()}}class h{constructor({entries:e=[],behaviours:t={},debug:r=!1}={}){this.entries=e,this.behaviours=t,this.debug=r,this.events={},this.logs={},this.performanceLogger=new d(this.debug)}getLogs(){return this.performanceLogger.getLogs()}resetLogs(){this.performanceLogger.resetLogs()}on(e,t){return this.events[e]||(this.events[e]=[]),this.events[e].push(t),!0}off(e,t){return!(!this.events[e]||!this.events[e].includes(t))&&(this.events[e]=this.events[e].filter((e=>e!==t)),!0)}emitEntry(e,...t){const r=this.performanceLogger.start(["entry",e]),i=this.callTargets(e,"entry",this.entries,...t);return this.performanceLogger.end(r),i}emitBehaviour(e,t,...r){const i=this.behaviours[t.getType()];if(!i||!i.length)return[];const s=this.performanceLogger.start(["behaviour",e,t.getType()]),n=this.callTargets(e,"behaviour",i,t,...r);return this.performanceLogger.end(s),n}emitCollectionBehaviour(e,t,...r){const i=this.behaviours[t.getType()];return i&&i.length?this.callTargets(e,"collection",i,t,...r):[]}emitEvent(e,...t){this.events[e]&&this.callEvents(e,this.events[e],...t)}requestEvent(e,...t){return this.events[e]?this.requestEvents(e,this.events[e],...t):[]}callEvents(e,t,...r){for(const i of t)try{i(...r)}catch(t){Sys.logger.error(`[Emitter] Failed to run method on listener for message "${e}"`),Sys.logger.debug(t.toString()),lab_api.v1.app.logError(t)}}requestEvents(e,t,...r){const i=[];for(const s of t)try{const e=s(...r);void 0!==e&&i.push(e)}catch(t){Sys.logger.error(`[Emitter] Failed to run method on listener for message "${e}"`),Sys.logger.debug(t.toString()),lab_api.v1.app.logError(t)}return i}callTargets(e,t,r,...i){const s=[];for(const n of r)try{if(n.isEnabled){const t=n.call(e,...i);null!=t&&s.push(t)}}catch(r){Sys.logger.error(`[Emitter] Call to method ${e} on '${n.name}' failed:`),console.error(r),lab_api.v1.app.logViewError(r,t)}return s}registerEntry(e){return!this.entries.includes(e)&&(this.entries.push(e),!0)}registerBehaviour(e,t){return this.behaviours[e]||(this.behaviours[e]=[]),!this.behaviours[e].includes(t)&&(this.behaviours[e].push(t),!0)}}class g{static build(e,t,r){let i;const s=[],n=r||"&",o=(e,t,r)=>{let i,s=t;const n=[];if(!0===s?s="1":!1===s&&(s="0"),null!=s){if("object"==typeof s){for(i in s)null!=s[i]&&n.push(o(`${e}[${i}]`,s[i],r));return n.join(r)}if("function"!=typeof s)return`${this.urlencode(e)}=${this.urlencode(s)}`;throw new Error("There was an error processing for http_build_query().")}return""};for(const r of Object.keys(e)){i=e[r];let a=r;t&&!Number.isNaN(a)&&(a=String(t)+a);const l=o(a,i,n);""!==l&&s.push(l)}return s.join(n)}static urlencode(e){return encodeURIComponent(`${e}`).replace(/!/g,"%21").replace(/'/g,"%27").replace(/\(/g,"%28").replace(/\)/g,"%29").replace(/\*/g,"%2A").replace(/%20/g,"+")}}class c extends h{constructor(e,t,r,i,s,n,o=!1){super({behaviours:s,debug:o}),this.properties=e,this.templates=t,this.configReader=r,this.propertyValidator=i,this.pathHelper=n,this.resolved={properties:new Map,templates:new Map,resourceMaps:new Map},this.appMode=r.getCms("app.mode"),this.pageTemplateName="default",this.resourceSettings=this.resolveResourceSettings(),this.viewportList=new Map,this.rootId=null,this.feedBaseUrl=`${this.configReader.getCms("front_api_url")}/feed/item`,this.isFragmentMode=!1,this.feedCounter={}}getPathInfo(e,t,r="stage"){const i=e.split("/"),s=i.pop();let n;return n=s.startsWith("page_")?`${s.replace("page_","page/")}/${this.pageTemplateName}`:`content/${s}`,{type:s,resourceType:n,area:r,modeList:this.getPrioritizedModes(),viewportList:this.getPrioritizedViewports(t),contextList:this.getPrioritizedContexts(`${i.join("/")}/`)}}resolveResourceSettings(){const e=n.object(this.configReader.get("resourceAllocation",{useSites:!1}),{resourceMaps:["_resources"]});"string"==typeof e.resourceMaps&&(e.resourceMaps=[e.resourceMaps]);const t=this.configReader.getCms("site.alias"),r=n.object(this.configReader.get("resourceAllocation",{site:t}));let i=[];if(Array.isArray(r.resourceMaps)&&i.push(...r.resourceMaps),!i.length||n.true(r.mergeMaps)){const t=[];for(const r of e.resourceMaps)i.includes(r)||t.includes(r)||t.push(r);t.length&&(i=[...t,...i])}return{names:i}}getResourceMap(e,t){if(this.resolved.resourceMaps.has(e.type))return this.resolved.resourceMaps.get(e.type);let r={labPaths:this.getEmptyPathObject()};for(const t of this.resourceSettings.names){const i=`${e.resourceType}/${t}.json`,s=this.getPropertyFile(i);s?(r.labPaths.maps.push(i),r=this.mergeObject(r,s)):Sys.logger.warn(`[ResourceManager] Cannot find resource-map for element "${e.type}". Tried "${i}".`)}if(t){const i=this.emitBehaviour("onResourceMap",t,{...r},{type:e.type,resourceType:e.resourceType});i.length&&(Sys.logger.warn(`[ResourceManager] Resource-map is overridden by a bahaviour for model "${t.getPositionedPath()}".`),r=i.pop())}return this.resolved.resourceMaps.set(e.type,r),r}getPaths(e,t,r){let i=[];for(const s of r.modeList){const n=this.getContextsForModeAndArea(e,s,r);if(n)for(const e of r.contextList){const o=this.getContexts(n,t,e);if(o.length)for(const e of o){const t=this.getPathForViewports(e.match,r);if(t)for(const r of Array.isArray(t.resources)?t.resources:[t.resources])i=i.filter((e=>e.path!==r)),i.push(this.getPathDescription({path:r,context:e.context,viewport:t.viewport,mode:s}))}}}return i.length||Sys.logger.debug(`ResourceManager: Cannot get ${t} for ${r.type}. Context-list: ${r.contextList.join(", ")}, area: ${r.area}`),i}getPathForViewports(e,t){for(const r of t.viewportList)if(e[r])return{resources:e[r],viewport:r};return null}getPathLength(e=""){return this.trimPath(e).replace(/\/\//g,"/||/").split("/").map((e=>e?"||"===e?.2:"*"===e?.6:1:0)).reduce(((e,t)=>e+t))}sortContexts(e){const t=e.sort(((e,t)=>this.getPathLength(e)-this.getPathLength(t)||e.localeCompare(t))),r=t.indexOf("lab-default");return r>0&&(t.splice(r,1),t.unshift("lab-default")),t}trimPath(e){let t=e;return t.startsWith("/")&&!t.startsWith("//")&&(t=t.substring(1)),t.endsWith("/")&&!t.endsWith("//")&&(t=t.substr(0,t.length-1)),t}getContexts(e,t,r){const i=this.sortContexts(Object.keys(e)),s=[];for(const n of i)if(e[n][t]){const i=this.pathHelper.pathMatch(n,r);i&&s.push({match:e[i][t],context:n})}return s}getContextsForModeAndArea(e,t,r){return s.get(`${t}.${r.area}`,e)||null}getPropertyFile(e){if(this.properties[e]){return{...this.properties[e]}}return null}getEmptyPathObject(){return{maps:[],properties:[],map:[]}}getPathDescription(e={}){return{path:e.path||null,context:e.context||null,viewport:e.viewport||null,mode:e.mode||null,requiredBy:e.requiredBy||null}}resolveInheritance(e,t){if(!e.includeFiles)return e;let r=e;for(const i of e.includeFiles)if(!r.labPaths.properties.includes(i)){const e=this.getPathDescription(t);e.requiredBy=e.path,e.path=i;const s=this.resolvePropertyFileWithDescription(e);s&&(r=this.mergeObject(s,r))}return r}getTemplateFile(e){return this.templates[e]||null}getPrioritizedViewports(e){if(!this.viewportList.get(e)){const t=e?[e]:[];this.configReader.get(`viewports.${e||"default "}.noFallback`)||t.push("default"),this.viewportList.set(e,t)}return this.viewportList.get(e)}getPrioritizedModes(){const e=[this.appMode];return"edit"===this.appMode&&e.unshift("presentation"),e}getPrioritizedContexts(e){return["lab-default",e]}mergeObject(e,t){const r=s.merge(e,t);return e.labPaths&&t.labPaths&&(r.labPaths.properties=e.labPaths.properties.concat(t.labPaths.properties),r.labPaths.map=e.labPaths.map.concat(t.labPaths.map)),r}getCacheKey(e,t,r){return`${e||"no-path"}-${t}-${r}`}rootModelReady(e){this.isFragmentMode=lab_api.v1.app.mode.isFragmentMode(),e&&(this.rootId=e.get("id"),e&&e.getType().startsWith("page_")&&this.setPageTemplateName(e.get("fields.page_template_alias")||"default"))}setPageTemplateName(e="default"){Sys.logger.debug(`[ResourceManager] Will use page-template "${e}".`),"undefined"===e?(Sys.logger.warn("[ResourceManager] Invalid page_template_alias detected. Will override template to 'default'."),this.pageTemplateName="default"):this.pageTemplateName=e}getAreaFromPath(e,t){return e&&e.includes("pasteboard/")?"pasteboard":"stage"}getPropertiesForPath(e,t,r,i=this.getAreaFromPath(e)){e||Sys.logger.warn('ResourceManager.getPropertiesForPath: Missing required param "path". Will return default properties.');const s=this.getCacheKey(e,r,i);if(this.resolved.properties.has(s))return this.resolved.properties.get(s);let n={labPaths:this.getEmptyPathObject()};const o=this.getPathInfo(e,r,i),a=this.getResourceMap(o,t),l=this.getPaths(a,"properties",o);for(const e of l){const t=this.resolvePropertyFileWithDescription(e);t&&(n=this.mergeObject(n,t))}return n.labPaths.maps=a.labPaths.maps,this.resolved.properties.set(s,this.propertyValidator(n)),this.resolved.properties.get(s)}resolvePropertyFile(e){return this.resolvePropertyFileWithDescription(this.getPathDescription({path:e}))}resolvePropertyFileWithDescription(e){const t=this.getPropertyFile(e.path);return t?(t.labPaths=this.getEmptyPathObject(),t.labPaths.properties.push(e.path),t.labPaths.map.push(e),this.resolveInheritance(o.resolve(t,e.path,this.configReader),e)):(Sys.logger.warn(`ResourceManager: Cannot find property-file for path: ${e.path}.`),null)}getTemplateForPath(e,t,r,i=this.getAreaFromPath(e)){const s=this.getCacheKey(e,r,i);if(this.resolved.templates.has(s))return this.resolved.templates.get(s);const n={paths:null,resource:null},o=this.getPathInfo(e,r,i),a=this.getResourceMap(o,t);return n.paths=this.getPaths(a,"template",o),n.paths.length&&(n.resource=this.getTemplateFile([...n.paths].pop().path)),n.resource||(Sys.logger.debug(`ResourceManager: Cannot find template for path: ${e}, viewport: ${r}, area: ${o.area}. Will assign default template.`),n.resource=this.getDefaultTemplate(e)),this.resolved.templates.set(s,n),n}getDefaultTemplate(e){return"edit"===this.appMode?"<div>{{{ children.all }}}</div>":"{{{ children.all }}}"}getPropertiesForModel(e,t,r){return this.getPropertiesForPath(e.getPath(),e,t.viewport,r)}getTemplateForModel(e,t,r){if("presentation"===this.appMode&&!this.isFragmentMode&&"1"===e.get("fields.isAutomatic"))return`<div data-lab-placeholder="include" src="${this.getFeedUrl(e,t)}" ></div>`;const i=this.getTemplateForPath(e.getPath(),e,t.viewport,r);return i.paths.length&&t.setTemplatePath([...i.paths].pop().path),i.resource}getFeedUrl(e,t){const r=e.get("fields.feedId"),i=e.get("fields.feedParams")||{};let s="";Object.keys(i).length&&(s=`?${g.build(i)}`),void 0===this.feedCounter[r]&&(this.feedCounter[r]=0);const n=this.feedCounter[r]++;return`${this.feedBaseUrl}/${r}/${this.rootId}/${n}${s}`}}class p{constructor(e,t,r){this.viewport=e,this.model=t,this.eventPipe=r,this.markup=null,this.markupString=null,this.template=null,this.templatePath=null,this.properties=null,this.data=null,this.size=this.getEmptySizeObject(),this.proxies={current:null,child:null,children:null,childMarkup:null,childrenMarkup:null,store:{get:null,set:null}},this.cache=new Map}static resolveConfig(e={}){return lab_api.v1.app.dbg.logger.add("LabView","resolveConfig"),{labPaths:e.labPaths||{maps:[],properties:[],map:[]},boxTitle:e.boxTitle||"",boxDescription:e.boxDescription||"",boxKeywords:e.boxKeywords||"",childLimit:e.childLimit||null,includeFiles:n.array(e.includeFiles,null),gridRules:e.gridRules||[],viewHelper:e.viewHelper||null,viewportMap:n.object(e.viewportMap),bodytextElements:n.array(e.bodytextElements),bodytextHeadingElements:n.array(e.bodytextHeadingElements),overrideImageSize:n.object(e.overrideImageSize),image:n.object(e.image,null,{defaultAspectRatio:null}),external:n.object(e.external,null,{url:null,type:"html",headers:null})}}getEmptySizeObject(){return{grid:null,pixelWidths:null,gridWidth:null,absGridWidths:null,absGridCss:null}}isPrepared(){return!1}setPreparedState(e){}setMarkupString(e){this.markupString=e}getMarkup(){return null}getMarkupString(){return this.markupString||""}setGrid(e){this.size.grid=e}getGrid(){return this.size.grid}setPixelWidths(e){this.size.pixelWidths=e}getPixelWidth(){return this.size.pixelWidths[this.viewport]}getPixelWidths(){return this.size.pixelWidths}setGridWidth(e){this.size.gridWidth=e}getGridWidth(){return this.size.gridWidth}getAbsoluteGridWidth(){return this.size.absGridWidths?this.size.absGridWidths[this.viewport]:null}setAbsoluteGridWidths(e){this.size.absGridWidths=e}getAbsoluteGridWidths(){return this.size.absGridWidths}getAbsGridCss(){return this.size.absGridCss}setAbsGridCss(e){this.size.absGridCss=e}getWidth(){return this.get("width")}setWidth(e,t=!1){this.set("width",e,t)}setData(e){this.data=e}getData(){return this.data}getProxy(){return this.proxies.current}setProxy(e){this.proxies.current=e}getChildrenProxy(){return this.proxies.children}setChildrenProxy(e){this.proxies.children=e}getChildProxy(){return this.proxies.child}setChildProxy(e){this.proxies.child=e}getChildMarkupProxy(){return this.proxies.childMarkup}setChildMarkupProxy(e){this.proxies.childMarkup=e}getChildrenMarkupProxy(){return this.proxies.childrenMarkup}setChildrenMarkupProxy(e){this.proxies.childrenMarkup=e}getStoreProxy(e){return this.proxies.store.set&&this.proxies.store.get?e?this.proxies.store.set:this.proxies.store.get:null}setStoreProxy({get:e,set:t}){this.proxies.store.get=e,this.proxies.store.set=t}setTemplate(e){this.template=e}getTemplate(){return this.template}setTemplatePath(e){this.templatePath=e}getTemplatePath(){return this.templatePath}setProperties(e,t=!1){this.properties=t?e:this.constructor.resolveConfig(e)}getProperties(){return this.properties}getProperty(e,t){return s.get(e,this.properties,t)}getViewport(){return this.viewport}getviewportOrder(e,t=null,r=this.viewport){return this.eventPipe.getViewportOrder(this,this.model.getPath(),e,t,r)}getCacheKey(e,t,r=!1){return`${e}|${r?1:0}|${t}`}get(e,t=!1,r=this.viewport){lab_api.v1.app.dbg.logger.add(this.constructor.name,"get",this.viewport);const i=this.getCacheKey(e,r,t);if(this.cache.has(i))return this.getCache(i);const s=this.model.buildQuery(e),n=this.getviewportOrder(s.path,s.attribute,r);if(!n.length){const e=this.model.get(s.key,null,t);return this.setCache(i,e)}for(const e of n){const t=this.model.get(s.key,e,!0);if(void 0!==t)return this.setCache(i,t)}return this.setCache(i,t?void 0:null)}set(e,t,r=!1){if(lab_api.v1.app.dbg.logger.add(this.constructor.name,"set",this.viewport),!e)return!1;const i=this.model.buildQuery(e),s=this.getviewportOrder(i.path,i.attribute);return this.model.set(i.key,t,{save:!r,viewport:s[0]})}setAll(e,t=!0){if(e&&"object"==typeof e&&!Array.isArray(e)){for(const t of Object.keys(e))this.set(t,e[t],!0);t&&lab_api.v1.app.save()}else Sys.logger.warn("[LabView] Method setAll expect an object containing key/value pars of data to store. Non-object given.")}setTransparent(e,t){const r=this.model.buildQuery(e),i=this.getviewportOrder(r.path,r.attribute),n=this.model.buildQuery(e,i[0]);let{path:o}=n;return n.attribute&&(o="fields"===n.type?`${n.path}.attributes.${n.attribute}`:`${n.path}.${n.attribute}`),s.get(o,s.set(n.fullPath,t,{}))}setCache(e,t){return this.cache.set(e,t),this.getCache(e)}getCache(e){const t=this.cache.get(e);return t&&"object"==typeof t?Array.isArray(t)?[...t]:{...t}:t}resetCache(e,t=this.getViewport()){const r=this.getCacheKey(e,t);this.cache.delete(r),this.cache.forEach(((r,i,s)=>{i.startsWith(`${e}.`)&&i.endsWith(`|${t}`)&&this.cache.delete(i)}))}}class u{static generateShapes(e,t){if(!e)return"";const r=JSON.parse(e);let i="";for(const e of r)i+=this.createShape(e,t);return i}static createShape(e,t){return`<div class="imageShape" style="${this.getStyle(e,t)}"></div>`}static getStyle(e,t){const r=this.getPosition(e,t),i=this.getSize(e,t);return`position: absolute;\n        width: ${i.w}%;\n        height: ${i.h}%;\n        top: ${r.y}%;\n        left: ${r.x}%;\n        border-width: ${e.borderwidth}px;\n        border-color: ${e.bordercolor};\n        border-style: ${e.borderstyle};\n        border-radius: ${"circle"===e.shape?"50%":"0"};\n        background: ${e.background||"transparent"};`}static getPosition(e,t){return{x:(e.x-t.x)*(100/t.cropw),y:(e.y-t.y)*(100/t.croph)}}static getSize(e,t){return{w:e.width*(100/t.cropw),h:e.height*(100/t.croph)}}}class f{constructor(e,t){this.api=e,this.isEditor=this.api.v1.app.mode.isEditor(),this.viewport=t.viewport,this.viewports=this.api.v1.config.get("viewHelper.image.viewports"),this.viewports.includes(this.viewport)||this.viewports.push(this.viewport),this.logger=t.logger,this.imageServer=this.api.v1.properties.get("image_server"),this.cropParamsFloat=["x","y","cropw","croph","panox","panoy","panow","panoh","heightx","heighty","heightw","heighth"],this.cropParamsString=["float","shapes"],this.privateCropParams=["bbRatio","whRatio","viewports_json","metadata_key"],this.allFields=[...this.cropParamsFloat,...this.cropParamsString,...this.privateCropParams],this.imageUrlOptions=this.api.v1.config.get("imageUrlOptions")||{},this.preferWebp=".webp"===this.api.v1.config.get("imageUrlOptions.extension"),this.maxDimension=3e3,this.pixelDensityFactors=this.readPixelDensity(),this.logger.debug(`Image-helper created. Will prepare image-data for viewports: ${this.viewports.join(", ")}.`)}static getImageProperties(e={}){const t=e.crop||{},r=t.pano||{},i=t.height||{};return{cropw:r.cropw||0,croph:r.croph||0,x:r.x||0,y:r.y||0,heightw:i.cropw||0,heighth:i.croph||0,heightx:i.x||0,heighty:i.y||0,imageCaption:e.imageCaption||""}}run(e,t){if(!e.hasNodeData())return this.logger.debug(`Image has no node-data, skipping. Path: "${e.getPositionedPath()}"`),void this.api.v1.model.noRender(e);const r=t.getProperty("image.defaultAspectRatio")||this.api.v1.config.get("image.defaultAspectRatio")||.5,i=t.getProperty("image.defaultBoundingBoxWidthRatio")||this.api.v1.config.get("image.defaultBoundingBoxWidthRatio")||1,s=t.getPixelWidths(),n=e.getData("instance_of"),o=e.get("fields.imageurl"),a=e.get("fields.forceImageUrl"),l={},d=[],h=this.imageUrlOptions.nameField?e.get(this.imageUrlOptions.nameField):null,g="_articlefeed"===e.get("fields.source"),c="1"===e.get("fields.isLabradorImageUrl"),p=this.preferWebp&&g?"webp":null,f=[];if((this.preferWebp||"webp"===p)&&f.push({format:"webp",type:"image/webp"}),f.push({format:"jpg",type:"image/jpeg"}),!o&&!n)return this.isEditor?e.setFiltered("image","/images/lab-head_1000.png"):e.setFiltered("image",`${this.api.v1.config.get("image.fallbackUrl")||"/404-image.png"}?noImageFound`),void(e.get("state.isUploading")?e.setFiltered("imageLoadingClass","lab-uploading-image labicon-cloud_up"):e.setFiltered("imageLoadingClass","lab-missing-image"));for(const e of this.viewports){const y={width:t.get("fields.width",!1,e)||t.getProperty("overrideImageSize.width"),height:t.get("fields.height",!1,e)||t.getProperty("overrideImageSize.height")},m=s[e],b={};for(const r of this.allFields){const i=t.get(`fields.${r}`,null,e);(i||"0"===i||0===i)&&(b[r]=i)}const w={imageId:g?void 0:n,format:p,bbRatio:t.get("filtered.bbRatio",null,e)||b.bbRatio||i,whRatio:t.get("filtered.whRatio",null,e)||b.whRatio||r},v={float:null,border:null,shapes:null};for(const e of this.cropParamsFloat)if(void 0!==b[e]){const t=parseFloat(b[e]||0);w[e]=t.toFixed(2)}for(const e of this.cropParamsString){const t=b[e]||null;t&&"null"!==t&&(v[e]=t)}w.width=t.get(`filtered.width.${e}`,null,e)||y.width||Math.ceil(m*w.bbRatio),w.height=t.get(`filtered.height.${e}`,null,e)||y.height||Math.ceil(w.width*w.whRatio);const P={width:w.width,height:w.height};w.width=Math.round(w.width*this.pixelDensityFactors[e]),w.height=Math.round(w.height*this.pixelDensityFactors[e]);if(w.width/w.height>1){if(w.width>this.maxDimension){const e=this.maxDimension/w.width;w.width=Math.floor(w.width*e),w.height=Math.floor(w.height*e)}}else if(w.height>this.maxDimension){const e=this.maxDimension/w.height;w.height=Math.floor(w.height*e),w.width=Math.floor(w.width*e)}const x=this.generateUrl(w,{imageurl:o,forceImageUrl:a,instanceOf:n,isLabradorImageUrl:c,imageUrlOptionsNameValue:h}),M=v.shapes?u.generateShapes(v.shapes,b):"";l[e]={viewport:e,url:x,formats:f,width:P.width,height:P.height,shapes:M,borderClass:"on"===v.border?"borderOn":""},d.push(l[e])}const y=l[this.viewport];e.setFiltered("viewport_list",l),e.setFiltered("viewport_array",d),e.setFiltered("image",y.url),e.setFiltered("imageWidth",y.width),e.setFiltered("imageHeight",y.height),e.setFiltered("imageCleanUrl",y.url.replace(/&(width|height)=\d+/g,"")),e.setFiltered("borderClass",y.borderClass),e.setFiltered("shapes",y.shapes),e.setFiltered("imageLoadingClass",n?"":o?"lab-content-busy":"lab-is-dummy-image")}generateUrl(e,t={}){const r=[],i={width:e.width||t.width||150,height:e.height||t.height||100},s={imageId:e.imageId||t.imageId,x:e.x,y:e.y,cropw:e.cropw,croph:e.croph,panox:e.panox,panoy:e.panoy,panow:e.panow,panoh:e.panoh,heightx:e.heightx,heighty:e.heighty,heightw:e.heightw,heighth:e.heighth,width:i.width,height:i.height,format:e.format||void 0};for(const e of Object.keys(s))void 0!==s[e]&&r.push(`${e}=${s[e]}`);let n=this.imageServer,o="?";return!t.imageurl||!t.forceImageUrl&&t.instanceOf?t.instanceOf?this.imageUrlOptions&&t.imageUrlOptionsNameValue&&(n+=`/${t.imageUrlOptionsNameValue}${t.format?`.${t.format}`:this.imageUrlOptions.extension}`):n="":(-1!==t.imageurl.indexOf(this.imageServer)||t.isLabradorImageUrl?n=t.imageurl:n+=`?imageUrl=${t.imageurl}`,o="&"),n&&(n+=o+r.join("&")),n}readPixelDensity(){const e={};for(const t of this.viewports)e[t]=this.api.v1.view.getPixelDensityFactor(t);return e}}const y={unique:(e=8)=>{const t=`0x${Math.pow(10,e-1)}`;return Math.floor((1+Math.random())*t).toString(16)},async digestString(e){const t=(new TextEncoder).encode(e),r=await crypto.subtle.digest("SHA-256",t);return Array.from(new Uint8Array(r)).map((e=>e.toString(16).padStart(2,"0"))).join("")},trim(e,t){let r=(e||"").trim(),i=[];void 0===t?i.push(" "):"string"==typeof t?i.push(t):i=t;for(let e=0;e<i.length;e++)0===r.indexOf(i[e])&&(r=r.slice(i[e].length)),r.lastIndexOf(i[e])>-1&&r.lastIndexOf(i[e])===r.length-i[e].length&&(r=r.slice(0,r.length-i[e].length));return r.trim()},stripTags:(e="",t="")=>(e||"").replace(/<(?:.|\n)*?>/gm,t).trim(),stripLinks:(e="")=>(e||"").replace(/<a[^>]*>(.*?)<\/a>/gm,"$1"),sanitizeString:(e="")=>y.stripTags(y.unescapeEntities(e)).replace(/"/g,"'"),unescapeEntities:(e="")=>(e||"").replace(/&nbsp;/gi," ").replace(/&amp;/gi,"&"),toFileName:(e="")=>e.replace(/\s+/gi,"-").replace(/[^a-zA-Z0-9\-._]/gi,""),ucFirst(e=""){const t=e||"";return t.charAt(0).toUpperCase()+t.slice(1)},parsePath(e=""){const t=this.trim(e,"/").split("/"),r=/\[([0-9]+)\]/;return t.map((e=>{const t={base:e,index:null,path:e},i=r.exec(e);return i&&(t.index=parseInt(i[1],10),t.base=e.replace(`[${t.index}]`,"")),t}))},insertAtPosition:(e,t,r)=>[e.slice(0,t),r,e.slice(t)].join(""),labCtrlKey:()=>navigator.platform.toLowerCase().indexOf("mac")>=0?"⌘":"⊞",shiftKey:()=>"⇧",altKey:()=>navigator.platform.toLowerCase().indexOf("mac")>=0?"⌥":"alt",arrowUp:()=>"↑",arrowDown:()=>"↓",arrowLeft:()=>"←",arrowRight:()=>"→",keyMapper(e){if(!e)return"";switch(e){case" ":return"space";case"labCtrlKey":case"metaKey":return y.labCtrlKey();case"shiftKey":return y.shiftKey();case"altKey":return y.altKey();case"ArrowUp":return y.arrowUp();case"ArrowDown":return y.arrowDown();case"ArrowLeft":return y.arrowLeft();case"ArrowRight":return y.arrowRight();default:return y.ucFirst(e.replace("Key",""))}},hotkeyString(e={}){const t=(e.controlkeys||[]).map((e=>y.keyMapper(e)));return[...t,y.keyMapper(e.key)].map((e=>`<span class="lab-label-hotkey">${e}</span>`)).join("+")},niceNumber(e,t=" "){let r=`${e}`;const i=r.split(".");r=i.shift();let s="";for(;r.length>3;)s=`${t}${r.slice(-3)}${s}`,r=r.slice(0,-3);return(r+s).trim()+(i.length?".":"")+i.join(".")}};class m{static getLineData(e,t,r=!1){const i={};i.bodytext=this.getBodytext(e,t,r),i.tags=t.getProperty("bodytextElements")||["p"],i.headingTags=t.getProperty("bodytextHeadingElements")||["h1","h2","h3"],i.indexRegister=[];let s=0,n=0;m.analyze(i.bodytext).forEach((e=>{if(i.tags.indexOf(e.tag)>-1){const t={charIndex:e.index,bodytextIndex:s++};i.headingTags.indexOf(e.tag)>-1&&(t.bodytextHeadingIndex=n++),i.indexRegister.push(t)}})),i.indexRegister.reverse();for(const e of i.indexRegister)if("number"==typeof e.bodytextHeadingIndex){e.lastHeading=!0;break}return i}static getBodytext(e,t,r=!1){const i=e.get("fields.bodytext")||"";return!r||i?i:t.data.placeholder.bodytext||""}static analyze(e=""){const t=[],r=new RegExp("<([\\/a-zA-Z0-9\\-]*?)(?: .*?)?>","g"),i={tag:null,index:0,level:0};return e.replace(r,((e,r,s)=>{const n=r.indexOf("/"),o=n>-1?r.replace("/",""):r;i.tag?o===i.tag&&(n<0?i.level++:i.level>0?i.level--:(t.push({tag:i.tag,index:i.index,length:s+e.length-i.index}),i.tag=null)):(i.tag=o,i.index=s)})),t}}class b{constructor(e,t){this.api=e,this.viewport=t.viewport,this.allViewports=this.api.v1.viewport.getAll(),this.mainViewport=this.api.v1.viewport.getMain(),this.logger=t.logger,this.viewManager=t.viewManager,this.lineClassSelector="lab-bodytext-line",this.logger.debug(`Bodytext-helper created. Will prepare data for viewports: ${this.allViewports.join(", ")}.`)}run(e,t){this.insertContent(e,t)}insertContent(e,t){const r={bodyText:[],bodyTextHeading:[],lastBodyTextHeading:[]};let i=0;const s=m.getLineData(e,t,this.api.v1.app.mode.isEditor());for(const t of e.children){const e=this.viewManager.getView(t),i=e.get("metadata.bodyTextIndex"),n="number"==typeof i?i:null,o=e.get("metadata.bodyTextHeadingIndex");if(e.get("metadata.lastBodyTextHeading")||!1)r.lastBodyTextHeading.push(t);else if("number"==typeof o)r.bodyTextHeading[o]=r.bodyTextHeading[o]||[],r.bodyTextHeading[o].push(t);else if("number"==typeof n)r.bodyText[n]=r.bodyText[n]||[],r.bodyText[n].push(t);else{const e=s.indexRegister[0]?s.indexRegister[0].bodytextIndex+1:0;r.bodyText[e]=r.bodyText[e]||[],r.bodyText[e].push(t)}}let{bodytext:n}=s;for(const e of s.indexRegister){if(void 0!==r.bodyText[e.bodytextIndex]){const t=this.createMarkup(r.bodyText[e.bodytextIndex],e.charIndex,n);n=t.bodytext,i+=t.count}if(void 0!==e.bodytextHeadingIndex&&void 0!==r.bodyTextHeading[e.bodytextHeadingIndex]){const t=this.createMarkup(r.bodyTextHeading[e.bodytextHeadingIndex],e.charIndex,n);n=t.bodytext,i+=t.count}if(e.lastHeading&&r.lastBodyTextHeading.length){const t=this.createMarkup(r.lastBodyTextHeading,e.charIndex,n);n=t.bodytext,i+=t.count}}for(const e of Object.keys(r.bodyText)){const t=r.bodyText[e];if(t&&t.length)for(const e of t){const t=this.viewManager.getView(e);!0!==t.get("metadata.skipIfOutOfBounds")&&(n+=t.getMarkupString(),i++)}}for(const e of r.lastBodyTextHeading){const t=this.viewManager.getView(e);!0!==t.get("metadata.skipIfOutOfBounds")&&(n+=t.getMarkupString(),i++)}Sys.logger.debug(`Bodytext: Parsed bodytext. Inserted ${i} of ${e.children.length} structures. Tags: [${s.tags.join(", ")}]. Line-count: ${s.indexRegister.length}.`),e.setFiltered("lineData",s),e.setFiltered("bodytext",n)}createMarkup(e,t,r){let i=0,s="";for(;e.length;){const t=e.shift();s+=this.viewManager.getView(t).getMarkupString(),i++}return{count:i,bodytext:y.insertAtPosition(r,t,s)}}getIndexes(e,t){const{indexRegister:r}=m.getLineData(e,t,this.api.v1.app.mode.isEditor());return r.map((e=>e.bodytextIndex))}isBodytextLine(e,t){return e===t||(!!this.api.v1.util.dom.getParentByClass(e,t,this.lineClassSelector)||e.classList.contains(this.lineClassSelector))}getLineClassSelector(){return this.lineClassSelector}}class w{constructor(e,t){this.api=e,this.viewport=t.viewport,this.logger=t.logger,this.viewManager=t.viewManager,this.settings=t.settings,this.isEditor=t.isEditor,this.apiUrl=this.api.v1.properties.get("front_api_url")}prepare(e,t){if(this.isEditor&&e.isPseudo())return;const r=t.getProperty("external");r&&r.fetchInPrepare&&r.url?this.fetchExternalData(e,t,r):r&&r.url||this.logger.warning(`[External] Missing required config "external" or "external.url" for model ${e.getPositionedPath()}. No external content will be fetched.`)}run(e,t){if(this.isEditor&&e.isPseudo())return;const r=t.getProperty("external");r&&!r.fetchInPrepare&&r.url?this.fetchExternalData(e,t,r):r&&r.url||this.logger.warning(`[External] Missing required config "external" or "external.url" for model ${e.getPositionedPath()}. No external content will be fetched.`)}fetchExternalData(e,t,r){if(this.settings.fragmentMode){let t;const i=e.isNonPersistent();if(i){const r=this.api.v1.model.query.getRootModel(),i=e.getPositionedPath();r.get("fields.labExternalPath")===i&&(t=r.get("fields.labExternalData"),t&&(e.set("fields.isFragment","1",{notify:!1,registerModified:!1,save:!1,undoable:!1}),e.set("metadata.isFragment","1",{notify:!1,registerModified:!1,save:!1,undoable:!1})))}else t=e.get("fields.labExternalData");if(t){this.logger.debug(`[External] Data is available for ${i?"non-persistent":"persistent"} element ${e.getPositionedPath()}.`);let s=t;if(t&&this.isExternalData(r))try{s=JSON.parse(t)}catch(t){this.logger.warn(`[External] Cannot parse fetched external data for model ${e.getPositionedPath()}.`),s={}}return void e.set("external",s,{save:!1,undoable:!1})}}const i=this.getUrl(e,t,r,this.isEditor);if(i){if(this.isEditor){const s=e.get("state.requireExternal")||{},n=!0===s[t.getViewport()];return this.viewManager.getExternalContent(e,t,i,r,n),void(n&&(s[t.getViewport()]=!1,e.set("state.requireExternal",s,{save:!1,undoable:!1,notify:!1})))}t.setTemplate(`<div data-lab-placeholder="include" src="${i}" ></div>`)}}isExternalData(e){return"json"===e.type}getUrl(e,t,r,i){const s=this.viewManager.getDataForView(e,t),n=Mustache.render(r.url,s);if(!n)return this.logger.debug(`[External] Resolved empty url for model ${e.getPositionedPath()}`),null;lab_api.v1.app.dbg.extensiveLogging&&this.logger.debug(`[External] Resolved url for model ${e.getPositionedPath()}: "${n}"`);const o=encodeURIComponent(n),a=[`lab_viewport=${this.viewport}`];if(r.headers){const e={};for(const t of Object.keys(r.headers))e[t]=Mustache.render(r.headers[t],s);a.push(`headers=${encodeURIComponent(JSON.stringify(e))}`)}return this.buildUrl(e,o,i,a)}buildUrl(e,t,r,i){const s=i.length?i.join("&"):null;return r?`${this.api.v1.properties.get("proxy")}?query=${t}${s?`&${s}`:""}`:e.isNonPersistent()?`${this.apiUrl}/external/dynamic-data/${this.settings.contentId}/?path=${encodeURIComponent(e.getPositionedPath())}&url=${t}${s?`&${s}`:""}`:`${this.apiUrl}/external/node/${e.getId()}/${this.settings.contentId}/${t}${s?`?${s}`:""}`}}class v{constructor(e){this.description=e,this.startTime=this.getTime(),this.steps=[]}getTime(){return(new Date).getTime()}start(e="[default]"){return{time:this.getTime(),description:e,duration:0}}stop(e){return e.duration=this.getTime()-e.time,this.steps.push(e),e.duration}step(e="[default]"){const t={time:this.getTime(),description:e};return t.duration=this.steps.length>0?t.time-this.steps[this.steps.length-1].time:t.time-this.startTime,this.steps.push(t),t.duration}getMin(){let e=null,t=null;for(const r of this.steps)(null===e||r.duration<e)&&(e=r.duration,t=r);return{time:e,step:t}}getMax(){let e=0,t=null;for(const r of this.steps)(null===t||r.duration>e)&&(e=r.duration,t=r);return{time:e,step:t}}getSteps(){let e=0,t=0,r=null,i=null,s=null;for(const n of this.steps)e+=n.duration,(null===i||n.duration>t)&&(t=n.duration,i=n),(null===r||n.duration<r)&&(r=n.duration,s=n);return{description:this.description,totalTime:e,minTime:r,maxTime:t,meanTime:Math.round(e/this.steps.length),minTimeStep:s,maxTimeStep:i,steps:this.steps}}}const P={percentToGrid:(e,t=12)=>Math.round(e/100*t),gridToPercent:(e,t=12)=>P.floatPrecision(e/t*100),floatPrecision:e=>parseFloat(parseFloat(e).toFixed(2)),distributePercent:(e,t,r=12)=>P.distributeGrid(P.percentToGrid(e,r),t).map((e=>P.gridToPercent(e,r))),distributeGrid:(e,t)=>{let r=t;r>e&&(r=e,Sys.logger.warn(`grid.distributeGrid: Requested count ${t} is larger than gridSize ${e}. Will use count ${r}.`));const i=e/r;if(Number.isInteger(i))return Array(r).fill(i);let s=0,n=!0,o=[];for(let e=0;e<r;e++){const e=n?Math.ceil(i):Math.floor(i);o.push(e),s+=e,n=!n}let a=s-e;if(s!==e){const e=[];for(;a>0&&o.length;){let t=o.shift();t>1&&(t--,a-=1),e.push(t)}o=o.concat(e)}return o.length!==r&&Sys.logger.warn(`Utility-method grid.distributeGrid will return a faulty array. Excpected a count of ${r}, got ${o.length} ...`),o}},x={getData:(e,t,r,i,s,n)=>{const o=P.percentToGrid(e||100,i.span),a={};for(const e of Object.keys(t))t[e]&&(a[e]=P.percentToGrid(t[e],i.span));const l={width:o,css:"",vp:{},cssVp:{}},d=x.getMatchingRule(s,r,i.span);l.vp=x.applyRule(o,a,s.length,d.values,i,n);for(const e of Object.keys(i.prefix))l.cssVp[e]=i.prefix[e]+l.vp[e];return l.css=Object.values(l.cssVp).join(" "),l},applyRule:(e,t,r,i,s,n)=>{const o={};for(const a of Object.keys(s.prefix)){let s=null;t[a]?s=t[a]:i[a]&&(s=x.getMatchingRuleValue(i[a],n,r,e)),o[a]=s?parseInt(s,10):e}return o},getMatchingRuleValue:(e,t,r,i)=>{for(const s of Object.keys(e)){if("first-child"===s&&0===t)return e[s];if("last-child"===s&&t===r-1)return e[s];if("inherit"===s&&e[s])return i;if(x.getNthChild(s)===t+1)return e[s]}return e.default?e.default:null},getNthChild:e=>"nth-child("===e.substring(0,10)?parseInt(e.substring(0,e.length-1).substring(10),10):null,getMatchingRule:(e,t,r)=>{const i=e.length;for(let s=t.length-1;s>=0;s--){if("odd"===t[s].condition&&!x.isEven(i))return t[s];if("even"===t[s].condition&&x.isEven(i))return t[s];if("number"==typeof t[s].condition&&t[s].condition===i)return t[s];if(Array.isArray(t[s].condition)&&t[s].condition.length===i){const n=[];for(let t=0;t<i;t++)n.push(P.percentToGrid(e[t],r));if(x.hasArrayMatch(t[s].condition,n))return t[s]}}return{values:{}}},isEven:e=>!(e%2),hasArrayMatch:(e,t)=>{if(e.length!==t.length)return!1;for(let r=0;r<e.length;r++)if("*"!==e[r]&&e[r]!==t[r])return!1;return!0}};class M{constructor(e={}){this.viewportInfo=e,this.cache=new Map,this.buildtin={width:{viewport:{default:!0},fallback:{default:this.viewportInfo.main}},external:{viewport:{default:!0},fallback:{default:this.viewportInfo.main},attributes:{"*":{viewport:{default:!0},fallback:{default:this.viewportInfo.main}}}}}}resetCache(){this.cache.clear()}get(e,t,r,i=null,s){const n=this.getCacheKey(t,r,i,s);if(!this.cache.has(n)){let t=e.getProperty(`viewportMap.${r}`);!t&&this.buildtin[r]&&(t=this.buildtin[r]),"string"==typeof t&&(t=e.getProperty(`viewportMap.${t}`)),t&&i&&"string"==typeof t.attributes&&(t.attributes=e.getProperty(`viewportMap.${t.attributes}`)),this.cache.set(n,this.defineOrder(s,i,t))}return this.cache.get(n)}defineOrder(e,t,r){if(!r)return[];if(t&&(!r.attributes||!r.attributes[t]&&!r.attributes["*"]))return[];const i={viewport:{},fallback:{},...t?r.attributes[t]||r.attributes["*"]:r},s=this.parseMap(e,i);return s.length&&!1!==i.fallback.no_viewport&&s.push(null),s}parseMap(e,t,r=[]){if(!t)return r;if(!1===t.viewport[e])return r;if((!0===t.viewport[e]||t.viewport.default)&&(r.includes(e)||r.push(e)),t.fallback){if(t.fallback[e]&&t.fallback[e]!==e){const i=t.fallback[e];return t.fallback={...t.fallback},delete t.fallback[e],this.parseMap(i,t,r)}if(t.fallback.default&&t.fallback.default!==e){const e=t.fallback.default;return t.fallback={...t.fallback},delete t.fallback.default,this.parseMap(e,t,r)}}return r}getCacheKey(e,t,r,i){return[e,t,r,i].join("|")}}const C={functionMap:{},isValidFunction:e=>{if(void 0!==C.functionMap[e])return C.hasFunction(e);let t;try{t=eval.call(null,e)}catch(e){t=null}return C.functionMap[e]=t,C.hasFunction(e)},hasFunction:e=>typeof C.functionMap[e]==typeof Function,getFunction:e=>!!e&&(C.isValidFunction(e)?C.functionMap[e]:lab_api.v1.ns.get(e)||!1)};class S{constructor(){this.resolved={pathMatch:new Map}}static getPropertyTypeAndIndex(e){const t=/(.+)\[(.*)\]/.exec(e);if(!t||t.length<3)return[e,null,!1];const r=t[1],i=t[2]?parseInt(t[2].trim(),10):null;return[r,Number.isInteger(i)?i:null,""===t[2].trim()]}pathMatch(e,t){const r=`${e}||${t}`;if(this.resolved.pathMatch.has(r))return this.resolved.pathMatch.get(r);let i=null;return(this.exactMatch(t,e)||this.wildcardMatch(t,e))&&(i=e),this.resolved.pathMatch.set(r,i),i}exactMatch(e,t){return t.endsWith("//")?e.endsWith(t.slice(0,-1)):t.endsWith("/")?e.endsWith(t):e.endsWith(`${t}/`)}wildcardMatch(e,t){const r=y.trim(t,[" ","/"]).split("/").reverse(),i=y.trim(e,[" ","/"]).split("/").reverse();return this.arrayMatch(i,r)}arrayMatch(e,t,r){const i=e.shift(),s=t.shift();return i===s||"*"===s?!t.length||this.arrayMatch(e,t):""===s?(e.unshift(i),this.arrayMatch(e,t,!0)):!(!r||!e.length)&&(t.unshift(s),this.arrayMatch(e,t,!0))}static getViewForMenuItem(e){return S.getTarget(e.getModel(),e.getView(),{pathHelper:e.getConfig("pathHelper")}).view}static getTarget(e,t,r={}){const i={model:e,view:t};if(r.pathHelper&&r.pathHelper.type){const e=Array.isArray(r.pathHelper.type)?r.pathHelper.type:[r.pathHelper.type];for(const r of e){const e=this.getTargetForPath(i.model,r);if(e)return i.model=e,i.view=lab_api.v1.view.getView(i.model,t.getViewport()),i}return Sys.logger.warn(`[PathHelper] Cannot get target for source. Check config. Tried "${r.pathHelper.type}". Will return original result.`),i}if(r.source&&"model"!==r.source){const e=C.getFunction(r.source);if(!e)return Sys.logger.warn(`[PathHelper] Cannot get function for source. Check config. Tried "${r.source}". Will return original result.`),i;if(i.model=e(),!i.model)return Sys.logger.warn(`[PathHelper] Cannot get bound source from supplied function. Check config. Tried "${r.source}". Will return original result.`),i;i.view=i.model}return i}static getTargetForPath(e,t){const r=t.split(".");if(!["parent","child","root"].includes(r[0]))return Sys.logger.warn(`[PathHelper] Supplied path not valid. Check config. Tried "${t}". Will return original result.`),null;let i;if("parent"===r[0])i=e.getParent();else if("root"===r[0])i=lab_api.v1.model.query.getRootModel();else{const t=r[1],[s,n]=S.getPropertyTypeAndIndex(t);if(null===n)i=lab_api.v1.model.query.getChildOfType(e,s);else{i=lab_api.v1.model.query.getModelsByType(s,e.children)[n]||null}}return i}}class T{constructor(e){this.getView=e.getView,this.getMarkupForModels=e.getMarkupForModels,this.getMarkupString=e.getMarkupString,this.configReader=e.configReader,this.localisation=e.localisation,this.proxies={config:null,cmsConfig:null,root:null,selector:null,preload:null,localisation:null},this.parsedProps=new Map,this.isEditor=this.configReader.getCms("app.isEditMode")}parseProp(e){return this.parsedProps.has(e)||this.parsedProps.set(e,this.doParseProp(e)),this.parsedProps.get(e)}doParseProp(e){const t={prop:e,attr:void 0};if(!e.endsWith("]"))return t;const r=/(.+)\[(.*)\]/.exec(e);return!r||r.length<3?t:{prop:r[1],attr:r[2]}}getProxy(e,t=this.getView(e)){return t.getProxy()||t.setProxy(this.createProxy(e,t)),t.getProxy()}createProxy(e,t){const r=(e,r)=>{const i=this.parseProp(r);return i.attr?t.get(`${e}.${i.prop}.${i.attr}`):t.get(`${e}.${i.prop}`)},i=new Proxy({},{get:(e,t)=>r("fields",t),has:(e,t)=>!!r("fields",t)}),s=new Proxy({},{get:(e,r)=>t.get(`metadata.${r}`),has:(e,r)=>!!t.get(`metadata.${r}`)}),n=new Proxy({},{get:(e,r)=>t.get(`filtered.${r}`),has:(e,r)=>!!t.get(`filtered.${r}`)});return new Proxy({},{get:(e,r)=>"fields"===r?i:"metadata"===r?s:"filtered"===r?n:t.get(r),has:(e,r)=>!!t.get(r)})}getRootProxy(){return this.proxies.root||(lab_api.v1.model.query.getRootModel()?this.proxies.root=this.getProxy(lab_api.v1.model.query.getRootModel()):this.proxies.root={}),this.proxies.root}getParentProxy(e,t){return e.parent?this.isEditor?e.parent.isMarkedForDeletion()?null:(t.getParentProxy()||t.setParentProxy(new Proxy(this.getProxy(e.parent),{get:(t,r)=>(e.parent.addToRedrawDependencies(e),t[r]),has:(e,t)=>t in e})),t.getParentProxy()):this.getProxy(e.parent):null}getChildrenProxy(e,t){return t.getChildrenProxy()||t.setChildrenProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));const n="all"===i?e.children:lab_api.v1.model.query.getModelsByType(i,e.children,s);return this.getProxiesForModels(n,!0)},has:(e,t)=>!0})),t.getChildrenProxy()}getChildProxy(e,t){return t.getChildProxy()||t.setChildProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));let[n,o]=[i,null,!1];if(i.endsWith("]")&&([n,o]=S.getPropertyTypeAndIndex(i)),null===o){const t=lab_api.v1.model.query.getChildOfType(e,n,s);return t?this.getProxiesForModels([t],!1):null}const a=lab_api.v1.model.query.getModelsByType(n,e.children,s);return a[o]?this.getProxiesForModels([a[o]],!1):null},has:(e,t)=>!0})),t.getChildProxy()}getStoreProxy(e,t,r=!1){if(!t.getStoreProxy(r)){const e={};t.setStoreProxy({get:new Proxy(e,{has:()=>!0,get:(e,t)=>t in e?e[t]:""}),set:new Proxy(e,{has:()=>!0,get:(e,t)=>()=>(r,i)=>(e[t]=i(r),"")})})}return t.getStoreProxy(r)}getPreloadProxy(e){return this.proxies.preload||(this.proxies.preload=this.createPreloadProxy(e)),this.proxies.preload}createPreloadProxy(e){return new Proxy({},{get:(t,r)=>e.getObject(r),has:(e,t)=>!0})}getChildrenMarkupProxy(e,t){return t.getChildrenMarkupProxy()||t.setChildrenMarkupProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));let[n,o,a]=[i,null,!1];i.endsWith("]")&&([n,o,a]=S.getPropertyTypeAndIndex(i));const l="all"===n?e.children:lab_api.v1.model.query.getModelsByType(n,e.children,s);return null===o?this.getMarkupForModels(l,a):this.getMarkupForModels(l[o]?[l[o]]:[],!1)},has:(e,t)=>!0})),t.getChildrenMarkupProxy()}getChildMarkupProxy(e,t){return t.getChildMarkupProxy()||t.setChildMarkupProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));let[n,o]=[i,null];i.endsWith("]")&&([n,o]=S.getPropertyTypeAndIndex(i));const a=lab_api.v1.model.query.getModelsByType(n,e.children,s);return a.length?null===o||0===o?this.getMarkupForModels([a[0]],!1):this.getMarkupForModels(a[o]?[a[o]]:[],!1):""},has:(e,t)=>!0})),t.getChildMarkupProxy()}getSelectorProxy(){if(!this.proxies.selector){const e={get:(e,t)=>{const r=lab_api.v1.model.query.getModelBySelector(t);return r?this.getMarkupString(r,this.getView(r)):""},has:(e,t)=>!0};this.proxies.selector=new Proxy({},e)}return this.proxies.selector}getConfigProxy(){if(!this.proxies.config){const e={get:(e,t)=>this.configReader.get(t),has:(e,t)=>!0};this.proxies.config=new Proxy({},e)}return this.proxies.config}getCmsConfigProxy(){if(!this.proxies.cmsConfig){const e={get:(e,t)=>this.configReader.getCms(t),has:(e,t)=>!0};this.proxies.cmsConfig=new Proxy({},e)}return this.proxies.cmsConfig}getLocalisationProxy(){return this.proxies.localisation||(this.proxies.localisation=()=>(e,t)=>this.localisation.get(e,{fallbackValue:""})),this.proxies.localisation}getProxiesForModels(e,t=!0){const r=e.map((e=>this.getProxy(e)));return t?r:r[0]}}class k extends h{constructor(e){super({behaviours:e.behaviours,entries:e.entries,debug:e.settings.debug}),this.logger=e.logger,this.state={isEditor:!1},this.settings=e.settings,this.logger.debug(`Creating instance of ViewManager for viewport ${e.viewport}.`),this.resourceManager=e.resourceManager,this.configReader=e.configReader,this.configProcessor=e.configProcessor,this.viewMap=new Map,this.gridSettings=this.getGridSettings(),this.viewport={name:e.viewport,main:this.configProcessor.getMainViewport(),isMain:this.configProcessor.isMainViewport(),width:this.configProcessor.getViewportWidth()},this.styleManager=e.styleManager,this.preloadHandler=e.preloadHandler,this.localisation=e.localisation,this.viewportsSettings=this.configReader.get("viewports")||{},this.ViewHelpers={};const t=new M(this.viewport);this.viewEventPipe={getViewportOrder:t.get.bind(t)},this.rootModel=null,this.proxyManager=new T({configReader:this.configReader,localisation:this.localisation,getView:this.getView.bind(this),getMarkupForModels:this.getMarkupForModels.bind(this),getMarkupString:this.getMarkupString.bind(this)}),this.renderers={renderViewTemplate:this.renderViewTemplate.bind(this),renderViewPartial:this.renderViewPartial.bind(this),renderPartial:this.renderPartial.bind(this),renderPageElement:this.renderPageElement.bind(this)},this.renderHelpers={trim:()=>(e,t)=>t(e).replace(/\t|\r\n|\n|\r/gm," ").replace(/ +/gm," ").trim(),sanitizeString:()=>(e,t)=>y.sanitizeString(t(e)),stripTags:()=>(e,t)=>y.stripTags(t(e)),stripLinks:()=>(e,t)=>y.stripLinks(t(e)),encodeURIComponent:()=>(e,t)=>encodeURIComponent(t(e)),cachebuster:()=>e=>{const t=e.split(","),r="cms"===t[0]?"cms":"view",i=this.configReader.getCms(`deployTimestamps.${r}`);if(!i)return"";return`${(t[1]||"?")+(t[2]||"v")}=${i}-L4`},toFixed:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r).toFixed(i)}}}apiReady(e){this.ViewHelpers={image:new f(e,this.getViewHelperParams()),bodytext:new b(e,this.getViewHelperParams()),external:this.getExternalViewHelper(e)}}getGridSettings(){const e=this.configProcessor.getViewport(),t={prefix:this.configReader.get("grid.grid_prefix"),absPrefix:this.configReader.get("grid.abs_grid_prefix"),span:this.configReader.get("grid.total_grid_spans")};return t.prefix[e]||(t.prefix[e]=""),t}getViewHelperParams(){return{viewport:this.viewport.name,logger:this.logger,viewManager:this,isEditor:this.state.isEditor,settings:this.settings}}getViewHelper(e){return e in this.ViewHelpers?this.ViewHelpers[e]:null}getExternalViewHelper(e){return new w(e,this.getViewHelperParams())}allowViewport(e){const t=e.get("metadata.viewportBlacklist");return!t||!Array.isArray(t)||!t.includes(this.viewport.name)}draw(e=[],t=null){this.emitEvent("render",this.viewport.name),this.logger.debug(`[ViewManager] Start rendering for viewport ${this.viewport.name}.`);const r=new v("ViewManager.draw");for(const t of e)this.drawModel(t);this.logger.debug(`[ViewManager] Rendering finished for viewport ${this.viewport.name}. Element-count: ${lab_api.v1.model.query.getModelsFromCache().length}. Duration ${r.step()} ms.`);let i=[];for(const t of e){const e=this.getView(t);i.push(e.getMarkupString())}const s=this.notifyFrontRendered(i);return s.length&&(this.logger.warn('[ViewManager] Listener for event "app-rendered" has modified markup returned from rendering engine.'),i=s.pop()),"function"==typeof t&&t(i),i}notifyFrontRendered(e){return this.requestEvent("rendered",e,this.viewport.name)}drawModel(e,t=!0){if(lab_api.v1.app.dbg.logger.add(this.constructor.name,"drawModel",this.viewport.name),!this.allowViewport(e))return void this.logger.debug(`[ViewManager] Element ${e.getPositionedPath()} is not allowed on viewport ${this.viewport.name}.`);const r=this.getView(e);if(this.prepareDrawing(e,r),t){const t=r.getProperty("childLimit");for(const r of e.children)this.allowChild(e,r,t)&&this.drawModel(r)}this.drawPrepared(e,r)}allowChild(e,t,r){return t.get("metadata.hideViewport",this.viewport.name)?(this.logger.warn(`[ViewManager] Metadata "hideViewport" has cancelled rendering of element "${t.getPositionedPath()}" for viewport "${this.viewport.name}".`),this.hideViewportDetected(t)):!(r&&e.children.indexOf(t)>=r)||(this.logger.warn(`[ViewManager] Child-limit (${r}) reached for "${e.getType()}". Child: "${t.getPositionedPath()}". Viewport "${this.viewport.name}".`),this.childLimitDetected(e,t,r))}childLimitDetected(e,t,r){const i=this.requestEvent("childLimitReached",e,t,this.viewport.name,r);return!!i.length&&!!i.pop()}hideViewportDetected(e){const t=this.requestEvent("elementHidden",e,this.viewport.name);return!!t.length&&!!t.pop()}prepareDrawing(e,t){const r=this.performanceLogger.start(["prepare",e.getType()]);this.prepareView(e,t),t.getGrid()||(this.getAndSetGridData(e,t),this.gridIsDefined(e,t)),this.proxyManager.getProxy(e,t),this.notifyOnPrepareViewHelper(e,t),this.prepareViewHelper(e,t),this.notifyOnReady(e,t),this.performanceLogger.end(r)}gridIsDefined(e,t){}drawPrepared(e,t){let r=this.performanceLogger.start(["assembleData",e.getType()]);const i=this.getDataForView(e,t);this.performanceLogger.end(r),this.runViewHelper(e,t),this.notifyBeforeElementDraw(e,t),r=this.performanceLogger.start(["template",e.getType()]),this.renderTemplate(e,t,i),this.performanceLogger.end(r),this.markupStringReady(e,t)}markupStringReady(e,t){this.notifyOnRendered(e,t)}notifyOnPrepareViewHelper(e,t){e.isPseudo()||this.emitBehaviour("onPrepareViewHelper",e,t)}notifyOnReady(e,t){e.isPseudo()||this.emitBehaviour("onReady",e,t)}notifyOnViewHelper(e,t){e.isPseudo()||this.emitBehaviour("onViewHelper",e,t)}notifyBeforeElementDraw(e,t){e.isPseudo()||(this.emitBehaviour("onRender",e,t),this.emitEntry("onRender",e,t))}notifyOnRendered(e,t){this.emitBehaviour("onRendered",e,t),this.emitEntry("onRendered",e,t)}getDataForView(e,t){return t.getData()||this.getAndSetViewData(e,t)}createView(e){const t=e.getGuid();return this.viewMap.get(t)||this.viewMap.set(t,this.newViewInstance(e)),this.viewMap.get(t)}newViewInstance(e){return new p(this.viewport.name,e,this.viewEventPipe)}getView(e){return this.viewMap.get(e.getGuid())||this.createView(e)}getViews(){return this.viewMap.values()}prepareView(e,t){t.isPrepared()||(lab_api.v1.app.dbg.logger.add(this.constructor.name,"prepareView",this.viewport.name),this.setTemplate(e,t),this.setProperties(e,t),this.viewIsResolved(e,t))}setTemplate(e,t){t.setTemplate(this.resourceManager.getTemplateForModel(e,t))}setProperties(e,t){t.setProperties(this.resourceManager.getPropertiesForModel(e,t),!0)}viewIsResolved(e,t){t.setPreparedState(!0)}prepareViewHelper(e,t){if(e.isPseudo())return;const r=t.getProperty("viewHelper");if(!r)return;const i=this.getViewHelper(r);if(i){if(i.prepare){const r=this.performanceLogger.start(["viewhelper-prepare",e.getType()]);i.prepare(e,t),this.performanceLogger.end(r)}}else this.logger.warning(`[ViewManager] Cannot find view-helper ${r} for model ${e.getPositionedPath()}.`)}runViewHelper(e,t){if(e.isPseudo())return;const r=t.getProperty("viewHelper");if(!r)return;const i=this.getViewHelper(r);if(i){this.notifyOnViewHelper(e,t);const r=this.performanceLogger.start(["viewhelper-run",e.getType()]);i.run(e,t),this.performanceLogger.end(r)}else this.logger.warning(`[ViewManager] Cannot find view-helper ${r} for model ${e.getPositionedPath()}.`)}renderTemplate(e,t,r){lab_api.v1.app.dbg.extensiveLogging&&this.logger.debug(`[ViewManager] Start renderTemplate for model ${e.getPositionedPath()}`),e.getNoRenderState()?this.logger.debug(`[ViewManager] Model-state disallows rendering model "${e.getPositionedPath()}".`):this.renderTemplateAndData(e,t,r)}getAndSetViewData(e,t){const r=this.getViewData(e,t);return t.setData(r),r}getGridData(e){const t=e.getGrid()||{};return{width:t.width,absWidth:e.getAbsoluteGridWidth(),css:t.css,absCss:e.getAbsGridCss(),vp:t.vp,absVp:e.getAbsoluteGridWidths(),cssVp:t.cssVp,percentage:P.gridToPercent(t.width)}}getViewData(e,t){const r=lab_api.v1.model.query.getRootModel()||e.getRootParent(),i=lab_api.v1.view.getView(r,t.getViewport());return{get:{current:this.proxyManager.getProxy(e,t),parent:this.proxyManager.getParentProxy(e,t),root:this.proxyManager.getRootProxy(),child:this.proxyManager.getChildProxy(e,t),children:this.proxyManager.getChildrenProxy(e,t),store:this.proxyManager.getStoreProxy(e,t)},set:{store:this.proxyManager.getStoreProxy(e,t,!0)},getPreload:this.proxyManager.getPreloadProxy(this.preloadHandler),child:this.proxyManager.getChildMarkupProxy(e,t),childByIndex:()=>(t,r)=>{const[i,s]=r(t).trim().split(" "),n=parseInt(i,10)||0,o=s?lab_api.v1.model.query.getChildrenOfType(e,s):e.getChildren();return o[n]?this.getMarkupString(o[n],this.getView(o[n])):null},children:this.proxyManager.getChildrenMarkupProxy(e,t),selector:this.proxyManager.getSelectorProxy(e,t),size:{grid:this.getGridData(t),pixelWidth:t.getPixelWidth(),pixelWidths:t.getPixelWidths()},style:{definition:()=>(r,i)=>this.styleManager.getStyleFromDefinition(e,t,i(r)),collection:()=>(r,i)=>this.styleManager.getStyle(e,t,i(r))},app:{viewport:{name:this.viewport.name,width:this.viewport.width,main:this.viewport.main,isMain:this.viewport.isMain},isEditor:this.state.isEditor,isFront:!this.state.isEditor},render:{template:this.renderers.renderViewTemplate,partial:this.renderers.renderViewPartial,sitePartial:this.renderers.renderPartial,pageElement:this.renderers.renderPageElement},helper:{trim:this.renderHelpers.trim,sanitizeString:this.renderHelpers.sanitizeString,stripTags:this.renderHelpers.stripTags,stripLinks:this.renderHelpers.stripLinks,encodeURIComponent:this.renderHelpers.encodeURIComponent,cachebuster:this.renderHelpers.cachebuster,toFixed:this.renderHelpers.toFixed},calculator:{add:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)+parseFloat(i)},subtract:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)-parseFloat(i)},divide:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)/parseFloat(i)},multiply:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)*parseFloat(i)}},if:()=>(e,t)=>{const r={"=":(e,t)=>e==t,"!=":(e,t)=>e!=t,"<":(e,t)=>e<t,">":(e,t)=>e>t,"[]":(e,t)=>e.includes(t)};let i=0,s=null,n=[];for(;n.length<2&&i<Object.keys(r).length;)s=Object.keys(r)[i++],n=e.split(s);if(n.length>1){const[e,i]=n.map((e=>t(e).trim()));if(r[s](e,i))return"1"}return""},getConfig:this.proxyManager.getConfigProxy(),getCmsConfig:this.proxyManager.getCmsConfigProxy(),image:{getFrontCropUrl:this.getFrontCropUrlHelper(r,i)},lang:this.proxyManager.getLocalisationProxy()}}getFrontCropUrlHelper(e,t){return()=>(t,r)=>{const i=e.get("frontCrop");if(i&&i.pano){const e=r(t).split(","),s=parseInt(e[0],10),n=parseInt(e[1],10),o=e[2]||void 0,a=this.getViewHelper("image").generateUrl(i.pano.fields,{instanceOf:i.pano.instance_of,imageUrlOptionsNameValue:i.pano.instance_of,imageId:i.pano.instance_of,width:s,height:n,format:o});if(a)return a}const s=(lab_api.v1.config.get("faviconList")||[]).pop();return s&&s.iconPath?s.iconPath.startsWith("http")?s.iconPath:lab_api.v1.properties.get("customer_front_url")+s.iconPath:""}}renderPageElement(){return(e,t)=>{const r=e.trim().split(" "),i=t(r.shift()),s=t(r.shift())||i,n=lab_api.v1.config.get(`pageElements.${i}`);if(!n)return this.renderViewPartial()(s,t);const o=this.getTemplate("widgets/structures/root");return o?t(this.renderPageElementRecursive(o,n)):(this.logger.warn('[ViewManager] Cannot find root-widget at "widgets/structures/root". Widget not rendered.'),"")}}getTemplate(e){return this.resourceManager.templates[e]}renderPageElementRecursive(e,t,r={value:1}){const{viewport:i,pageType:s,flag:n}=t.requirements||{};if((!i||i===this.viewport.name)&&(!s||s===this.configProcessor.getPageType())&&(!n||lab_api.v1.util.featureFlags.enabled(n,this.settings.contentId))){const i=r.value,s=t.settings||{},n=[];if(t.children)for(let e=0;e<t.children.length;e++){const i=t.children[e],s=this.getTemplate(`widgets/${i.type}`);if(s){r.value++;const e=this.renderPageElementRecursive(s,i,r);e&&n.push(e)}else this.logger.warn(`[ViewManager] Cannot find widget at "widgets/${i.type}". Widget not rendered.`)}const{tags:o}=Mustache;Mustache.tags=["[[","]]"];const a=Mustache.render(e,{children:n.join(""),settings:s,id:i});return Mustache.tags=o,a}return null}renderViewTemplate(){return(e,t)=>{const r=t(e.trim());return r&&this.getTemplate(r)?t(this.getTemplate(r)):(this.logger.debug(`Render template: Path is not valid: '${r}'`),"")}}renderViewPartial(){return(e,t)=>this.renderPartialWithFallback(e.trim(),t)}renderPartial(){return(e,t)=>this.renderPartialWithOutFallback(e.trim(),t)}renderPartialWithOutFallback(e,t){return this.renderViewTemplate()(`partial/${e}`,t)}renderPartialWithFallback(e,t,r=null,i=[]){const s=r||lab_api.v1.site.getSite().alias,n=this.renderViewTemplate(),o=n(`partial/site/${s}/${e}`,t);if(!o){i.push(s);const r=lab_api.v1.config.get("lab_fallback_site",s);return r&&!i.includes(r)?this.renderPartialWithFallback(e,t,r,i):n(`partial/${e}`,t)}return o}getPixelWidths(e,t){const r=t.getPixelWidths();if(r)return r;const i=t.getAbsoluteGridWidths(),s=i[this.viewport.main],n={};for(const e in this.viewportsSettings)if(this.viewportsSettings[e]){const t=i[e]?i[e]:s;n[e]=Math.ceil(t/this.gridSettings.span*this.viewportsSettings[e].deviceWidth)}return n}calculateGridData(e,t){const r=this.viewport.main,i=t.getWidth(),s=e.getViewportWidths();let n=[i],o=t.getProperty("gridRules")||[];if(Array.isArray(o)||(o=Object.values(o)),o.length){const t=e.parent?e.parent.getPersistentChildren():null;t&&(n=t.map((e=>e.getWidth(r)||e.getWidth())))}return x.getData(i,s,o,this.gridSettings,n,e.getModelIndex(!0))}calculateAbsoluteGridWidths(e,t){const r=t.getGrid().vp;r||this.logger.error("gridWidths do not exist. It should ...");let i={};if(e.parent){const t=this.getView(e.parent);i=this.getAbsoluteGridWidths(e.parent,t)||i}const s={};for(const e of Object.keys(r))s[e]=P.floatPrecision(r[e]/this.gridSettings.span*(i[e]||this.gridSettings.span));return s}getAbsoluteGridWidths(e,t){return t.getAbsoluteGridWidths()}getAbsoluteGridCss(e,t){if(!this.gridSettings.absPrefix)return"";const r=t.getAbsoluteGridWidths();return Object.keys(r).map((e=>this.gridSettings.absPrefix[e]?this.gridSettings.absPrefix[e]+r[e]:"")).join(" ")}getAndSetGridData(e,t){const r=this.calculateGridData(e,t);t.setGrid(r),t.setGridWidth(r.vp[this.viewport.name]),t.setAbsoluteGridWidths(this.calculateAbsoluteGridWidths(e,t)),t.setAbsGridCss(this.getAbsoluteGridCss(e,t)),t.setPixelWidths(this.getPixelWidths(e,t))}renderTemplateAndData(e,t,r){t.setMarkupString(Mustache.render(t.getTemplate(),r,this.resourceManager.templates))}getMarkupForModels(e,t=!0){const r=e.map((e=>this.getMarkupString(e,this.getView(e))));return t?r:r.join("")}getMarkupString(e,t){return t.getMarkupString()}getPlaceholders(){return{}}getMarkup(e){return this.getView(e).getMarkup()}}const $={create(){if("undefined"!=typeof crypto&&crypto.randomUUID)return crypto.randomUUID();let e=(new Date).getTime();return"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,(t=>{const r=(e+16*Math.random())%16|0;return e=Math.floor(e/16),("x"===t?r:7&r|8).toString(16)}))}};class R{constructor(e,t={}){this.parent=null,this.children=[],this.path=e.path,this.data={type:e.type,metadata:e.metadata,contentdata:e.contentdata,width:R.validateInputWidth(e.width),guid:e.guid||$.create(),selector:e.selector},this.fallbackData=e.fallback,this.source={model:null,targets:[],keys:[]};const r=e.state||{};this.state={isNonPersistent:!!r.isNonPersistent,isPseudo:!!r.isPseudo,noRender:!1},this.cache={serialized:null,filtered:e.filtered||{},external:e.external||null,getter:new Map,path:null,positionedPath:{persistent:null,nonPersistent:null},childCount:{value:0}},this.eventPipe={keyModified:t.keyModified,childAdded:t.childAdded}}static validateInputWidth(e){const t=R.getEmptyDataObject();t.value="number"==typeof e?e:100;const r=n.object(e,t);return r.value||0!==Object.keys(r.vp).length||(r.value=100),r}static getEmptyDataObject(){return{value:null,vp:{}}}getNoRenderState(){return this.state.noRender}setNoRenderState(e){this.state.noRender=!!e}setDataProperty(e,t){this.data[e]=t}getId(){return this.data.contentdata&&this.data.contentdata.id||null}getGuid(){return this.data.guid}isNonPersistent(){return this.state.isNonPersistent||this.state.isPseudo}isPseudo(){return this.state.isPseudo}isDerived(){return!!this.source.model}hasNodeData(e=!1){if(this.data.contentdata)return!0;if(e)for(const t of this.children)if(t.hasNodeData(e))return!0;return!1}getSourceModel(){return this.source.model}setSourceModel(e,t){this.source.model=e,this.source.keys=t}addSourceTarget(e){this.source.targets.includes(e)||this.source.targets.push(e)}getSourceTargets(){return this.source.targets}hasSourceKey(e){if(!this.source.model)return!1;if(!this.source.keys.length)return!0;const t=e.split(".");for(;t.length;){if(this.source.keys.includes(t.join(".")))return!0;t.pop()}return!1}hasKeyInTarget(e){for(const t of this.source.targets)if(t.hasSourceKey(e))return!0;return!1}isSourceKey(e){return this.source.keys.includes(e)}setParent(e){this.parent=e}getParent(){return this.parent}getRootParent(){return this.parent?this.parent.getRootParent():this}getChildren(){return this.children}getPersistentChildren(){return this.children.filter((e=>!e.isNonPersistent()))}getNonpersistentChildren(){return this.children.filter((e=>e.isNonPersistent()))}getPersistentSiblings(){return this.parent?this.parent.getPersistentChildren():null}addChild(e,t,r=!1){this.addChildAtIndex(e,r?0:this.children.length,t)}addChildAtIndex(e,t,r=!0,i=!1){return e.setParent(this),this.children.length<=t?this.children.push(e):this.children.splice(t,0,e),e.resetPath(),!i&&this.eventPipe.childAdded&&this.eventPipe.childAdded(this,e,t),this.children}getPath(e=!1){return null===this.cache.path&&(this.cache.path=this.parent?`${this.parent.getPath()}/`:this.path),this.cache.path+(e?"":this.getType())}getArrayPath(e=!1){return this.getPath(e).split("/").filter((e=>!!e))}getPositionedPath(e=!1){return e?this.getPersistentPositionedPath():this.getNonPersistentPositionedPath()}getPersistentPositionedPath(){if(null===this.cache.positionedPath.persistent){let e=this.getModelIndexByType(!0);-1===e&&(e=0),this.cache.positionedPath.persistent=`${(this.parent?`${this.parent.getPersistentPositionedPath()}/`:this.path)+this.getType()}[${e}]`}return this.cache.positionedPath.persistent}getNonPersistentPositionedPath(){if(null===this.cache.positionedPath.nonPersistent){let e=this.getModelIndexByType(!1);-1===e&&(e=0),this.cache.positionedPath.nonPersistent=`${(this.parent?`${this.parent.getNonPersistentPositionedPath()}/`:this.path)+this.getType()}[${e}]`}return this.cache.positionedPath.nonPersistent}resetPath(){this.cache.path=null,this.cache.positionedPath={persistent:null,nonPersistent:null};for(const e of this.children)e.resetPath()}isStage(){return this.getRootParent().getType().startsWith("page_")}getModelIndex(e=!1){if(!this.parent)return-1;return(e?this.parent.getPersistentChildren():this.parent.children).indexOf(this)}getModelIndexByType(e=!1){if(!this.parent)return-1;const t=this.getType();let r=-1;for(const i of e?this.parent.getPersistentChildren():this.parent.getChildren())if(i.getType()===t&&(r++,i===this))return r;return r}getType(){return this.data.type}getWidth(e){return e?this.data.width.vp[e]||null:this.data.width.value||100}getViewportWidths(){return this.getRaw("width.vp")||{}}setSelector(e){this.data.selector=e}getSelector(){return this.data.selector}getData(e,t){return e?s.get(e,this.data.contentdata,t):this.data.contentdata}getDataObjectForKey(e,t=!1){if(!t&&this.hasSourceKey(e)){const t=this.source.model.getDataObjectForKey(e);return t.sourceModel=this.source.model,t}const r=e.split(".")[0];return"fields"===r?{base:r,data:this.data.contentdata,fallback:this.fallbackData?this.fallbackData.contentdata:void 0}:"filtered"===r||"external"===r||"childCount"===r?{base:r,data:this.cache,fallback:void 0}:"metadata"===r||"width"===r||"type"===r||"guid"===r?{base:r,data:this.data,fallback:this.fallbackData?this.fallbackData:void 0}:"state"===r?{base:r,data:this,fallback:void 0}:{base:"",data:this.data.contentdata,fallback:void 0}}getRaw(e,t){return e?s.get(e,this.data,t):this.data}setRaw(e,t,r){const i=this.buildQuery(e);if(!i.isVpObj)return void Sys.logger.warn(`LabModel: Cannot set raw value for key "${e}". Not supported.`);const n={...r};delete n.viewport;const o=this.getRaw(e);if(!o&&!t)return;const a=Object.keys(t&&t.vp||{}),l=Object.keys(o&&o.vp||{});for(const r of l)a.includes(r)&&t||this.set(e,void 0,{...n,viewport:r});for(const r of a)this.set(e,t.vp[r],{...n,viewport:r});this.set(e,t?t.value||null:void 0,{...n,predefinedQuery:i}),t||s.delete(e,this.data)}validateVpModelData(e){return!!e&&("object"==typeof e&&(void 0!==e.value||void 0!==e.vp))}buildQuery(e,t){const r=e.split("."),i={min:"width"===r[0]||"external"===r[0]||"childCount"===r[0]?1:2,max:"fields"===r[0]||"filtered"===r[0]?2:1},s="metadata"===r[0]||"fields"===r[0]||"width"===r[0]||"external"===r[0]||"childCount"===r[0],n="external"===r[0],o={path:r.slice(0,i.max).join("."),allowSource:!["childCount","filtered","metadata"].includes(r[0]),attribute:r.length>i.max?r[i.max]:null,key:r.slice(0,i.max+1).join("."),fullPath:e,raw:e,type:s?r[0]:null,isVpObj:s,isValidated:!(s&&!n)||r.length<=i.max+1&&r.length>=i.min};return n&&(o.attribute=r.slice(i.min).join("."),o.key=e),o.isVpObj&&(n?o.fullPath=t?`${r.slice(0,i.max).join(".")}.vp.${t}${o.attribute?`.${o.attribute}`:""}`:`${r.slice(0,i.max).join(".")}.value${o.attribute?`.${o.attribute}`:""}`:"fields"===o.type&&o.path.endsWith("_json")?(o.fullPath=`${o.path}.value${o.attribute?".":""}${r.slice(2).join(".")}`,o.isValidated=!0):(o.fullPath=o.attribute?`${o.path}.${"fields"===o.type?"attributes.":""}${o.attribute}`:o.path,o.fullPath+=t?`.vp.${t}`:".value")),o}get(e,t,r,i){lab_api.v1.app.dbg.logger.add(this.constructor.name,"get");const n=this.getCacheKey(e,t,r),o=r?void 0:null;if(this.cache.getter.has(n))return this.getCacheValue(n);const a=i||this.buildQuery(e,t);if(!a.isValidated)return Sys.logger.warn(`LabModel: Cannot get unvalid key: "${e}".`),this.cache.getter.set(n,o),o;const l=this.getDataObjectForKey(e,!a.allowSource);let d=s.get(a.fullPath,l.data,!0);return void 0===d&&l.fallback&&(d=s.get(a.fullPath,l.fallback,!0)),void 0===d?(this.cache.getter.set(n,o),o):(this.cache.getter.set(n,d),this.getCacheValue(n))}getCacheValue(e){const t=this.cache.getter.get(e);return t&&"object"==typeof t?Array.isArray(t)?[...t]:{...t}:t}getCacheKey(e,t="lab_main",r=!1){return`${e}-${r?1:0}-${t||"lab_main"}`}getAttributeObject(e){const t=this.buildQuery(e);if(!t.isVpObj)return null;const r=this.getDataObjectForKey(e,!0),i=s.get(t.path,r.data,!0);if(!i)return null;const n="fields"===t.type?i.attributes:i;return t.attribute&&!n[t.attribute]?null:t.attribute?{[t.attribute]:n[t.attribute]}:n}set(e,t,{viewport:r=null,notify:i=!0,checkDerived:n=!0,registerModified:o=!0,save:a=!0,predefinedQuery:l=null,undoable:d=!0}={}){if(lab_api.v1.app.dbg.logger.add(this.constructor.name,"set"),!e)return!1;let h=t;const g=l||this.buildQuery(e,r);if(!g.isValidated)return Sys.logger.warn(`LabModel: Cannot set value for key. Key not valid: ${e}.`),!1;const c=this.getDataObjectForKey(e,!g.allowSource);if(!c.data)return Sys.logger.warn(`LabModel: Trying to set data on a non-existing object. Skipping. Key: "${e}". Model-path: "${this.getPath()}".`),!1;const p=s.get(g.fullPath,c.data,!0);if(p===h)return!1;if(p&&void 0===h&&"fields"===g.type&&(h=null),g.isVpObj&&void 0===p&&void 0===s.get(g.path,c.data,!0)&&s.set(g.path,R.getEmptyDataObject(),c.data),i){if(!this.dataWillSet(g.key,h))return Sys.logger.debug(`Pre-set listener has cancelled setting data for path ${e} at model ${this.getPath()}.`),!1;d&&lab_api.v1.history&&lab_api.v1.history.getManager().add(lab_api.v1.history.getManager(),"modelSetter",[this.getGuid(),e,p,{viewport:r,notify:i,registerModified:o,save:!1,predefinedQuery:g,undoable:!1}])}return s.set(g.fullPath,h,c.data),this.keyModified(g.key,r),o&&(this.registerModified(e),c.sourceModel&&c.sourceModel.registerModified(e)),i&&this.dataIsSet(g.key,h,e,a,n),!0}keyModified(e,t){this.eventPipe.keyModified&&this.eventPipe.keyModified(this,e,t)}setFiltered(e,t){return this.set(`filtered.${e}`,t,{notify:!1,save:!1,registerModified:!1})}getSerializedCache(){return this.cache.serialized}setSerializedCache(e){this.cache.serialized=e}dataWillSet(e,t,r){return!0}dataIsSet(e,t,r){}registerModified(e){}}const j={internalToBackend(e,t=!0){const r={...e};r.type=e.type||null,r.id=e.id||null,r.tmpId=e.tmpId||null,r.instance_of=e.instance_of||null,r.parent=e.parent||null,e.status&&(r.status=e.status),r.site_id=e.site_id||null;const i={viewports_json:{}};for(const e of Object.keys(r.fields||{})){let t=r.fields[e];"object"==typeof t&&null!==t||(t={value:t}),this.internalFieldToBackend(e,t,i)}return r.fields=i,r},backendToInternal(e,t=[],r=!0){const i=this.backendToInternalStructure(e.structure,t);return e.contentdata&&(i.contentdata=this.backendToInternalNode(e.contentdata)),i},viewToInternal(e,t,r=lab_api.v1.viewport.getEditable()){let i=!0,n=e;Array.isArray(e)||(i=!1,n=[e]);const o=[],a=["contentdata","metadata","children","width"];for(const e of n){const i=t?s.merge(t,e):e,n={width:{value:null,vp:{}}};i.width&&("object"==typeof i.width?n.width.vp=i.width:(n.width.value=i.width,i.metadata&&"object"==typeof i.metadata.width&&(n.width.vp=i.metadata.width)));for(const e in i)a.includes(e)||(n[e]=i[e]);i.children&&(n.children=this.viewToInternal(i.children,t)),i.contentdata&&(n.contentdata=this.backendToInternalNode(i.contentdata)),i.metadata&&(n.metadata=this.backendToInternalStructureMeta(i.metadata,r)),o.push(n)}return i?o:o[0]},backendToView(e,t=!1){const r=e.fields?{fields:e.fields}:null;r&&(r.type=e.type||null,r.tags=e.tags||void 0,r.instance_of=e.instance_of||null,r.apiResult=e.apiResult,t||(r.id=e.id||void 0));const i=e.width&&"object"==typeof e.width?e.width.value:e.width||null;return{type:e.type||null,metadata:e.metadata||{},width:i,contentdata:r,children:(e.children||[]).map((e=>this.backendToView(e)))}},apiToData(e,t,r){const i={},s={...t.field||{}},{viewports_json:n}=s;delete s["@attributes"],delete s.viewports_json;for(const e of Object.keys(s))t.field[e]&&("object"==typeof s[e]&&0===Object.keys(s[e]).length?i[e]="":i[e]=s[e]);if(n)try{i.viewports_json=JSON.parse(n)}catch(e){Sys.logger.error(`[serializer] Failed to parse viewports_json: ${e.toString()}`)}return{type:e,id:r&&r.removeId?void 0:t.attribute.id,instance_of:t.attribute?t.attribute.instanceof_id:null,fields:i}},apiToInternal(e,t,r){const i=this.backendToInternalNode(j.apiToData(e,t));return r&&r.removeId&&delete i.id,i},backendToInternalNode(e){const t={...e},r={};if(t.fields&&t.fields.viewports_json)for(const e of Object.keys(t.fields.viewports_json))for(const r of Object.keys(t.fields.viewports_json[e].fields||{}))void 0===t.fields[r]&&(t.fields[r]=null);if(t.fields)for(const e of Object.keys(t.fields||{}))if(e.endsWith("_style_json")){const r=e.replace("_style_json","");t.fields[r]||(t.fields[r]=null)}for(const e of Object.keys(t.fields||{}))if(!e.endsWith("_style_json")&&"viewports_json"!==e){r[e]={value:t.fields[e],vp:this.getViewportKey(e,t.fields),attributes:{}};for(const i in t.fields[`${e}_style_json`]||{})void 0!==t.fields[`${e}_style_json`][i]&&(r[e].attributes[i]={value:t.fields[`${e}_style_json`][i],vp:{}});for(const i in t.fields.viewports_json||{})if(t.fields.viewports_json[i].fields&&void 0!==t.fields.viewports_json[i].fields[`${e}_style_json`])for(const s in t.fields.viewports_json[i].fields[`${e}_style_json`])void 0!==t.fields.viewports_json[i].fields[`${e}_style_json`]&&(r[e].attributes[s]||(r[e].attributes[s]={value:null,vp:{}}),r[e].attributes[s].vp[i]=t.fields.viewports_json[i].fields[`${e}_style_json`][s])}return t.fields=r,t},backendToInternalStructure(e,t){const r=e.metadata?this.backendToInternalStructureMeta(e.metadata,t):{},i={guid:e.id||$.create(),selector:e.selector||null,metadata:r,type:e.type||null,width:{value:e.width?P.floatPrecision(e.width):100,vp:r.width?r.width.vp:{}},children:[]};return delete i.metadata.width,i},backendToInternalStructureMeta(e,t){const r={};for(const i of Object.keys(e))if(r[i]={value:null,vp:{}},"object"!=typeof e[i]||Array.isArray(e[i]))r[i].value=e[i];else for(const s of Object.keys(e[i]||{}))t.includes(s)?r[i].vp[s]=e[i][s]:(r[i].value||(r[i].value={}),r[i].value[s]=e[i][s]);return r},internalToBackendStructureMeta(e){const t={};for(const r of Object.keys(e)){const i=e[r];let s=!1;for(const e of Object.keys(i.vp||{}))s=!0,t[r]||(t[r]={}),t[r][e]=i.vp[e];s||void 0===i.value||(t[r]=i.value)}return t},getViewportKey(e,t){const r={};if(!t.viewports_json)return r;for(const i in t.viewports_json)t.viewports_json[i].fields&&void 0!==t.viewports_json[i].fields[e]&&(r[i]=t.viewports_json[i].fields[e]);return r},internalFieldToBackend(e,t,r){if(!t)return;const i=r;i[e]=t.value;for(const r of Object.keys(t.vp||{}))i.viewports_json||(i.viewports_json={}),i.viewports_json[r]||(i.viewports_json[r]={fields:{}}),i.viewports_json[r].fields[e]=t.vp[r];if(t.attributes){const r=`${e}_style_json`;for(const e of Object.keys(t.attributes)){void 0!==t.attributes[e].value&&(i[r]||(i[r]={}),i[r][e]=t.attributes[e].value);for(const s of Object.keys(t.attributes[e].vp||{}))i.viewports_json||(i.viewports_json={}),i.viewports_json[s]||(i.viewports_json[s]={fields:{}}),i.viewports_json[s].fields[r]||(i.viewports_json[s].fields[r]={}),i.viewports_json[s].fields[r][e]=t.attributes[e].vp[s]}}},filterModifiedContent(e,t){const r={fields:{}},i=e.getModifiedPaths(),n=e.data.contentdata.fields||{};for(const e of i)if(e.startsWith("fields.")){const t=e.replace("fields.",""),i=n[t];this.internalFieldToBackend(t,i,r.fields)}else e.startsWith("state.")||s.set(e,s.get(e,t),r);return r}};class O extends h{constructor(e,t,r,i,s=!1){super({entries:r,behaviours:i,debug:s}),this.configReader=e,this.resourceManager=t,this.models=[],this.cache={id:new Map,guid:new Map},this.eventPipe={keyModified:this.keyModified.bind(this),childAdded:this.childAdded.bind(this)},this.cacheHandler=null}static validateViewInput(e={},t=[],{useExisting:r=!1,intermediateUseExisting:i=!0}={}){for(const r of t)if(!e[r])return null;if(!e.data)return null;if(!e.data.type)return null;const s={...e};return s.options={...s.options||{}},s.options.front=!1!==s.options.front,s.options.editor=!1!==s.options.editor,s.options.frontpage=!0===s.options.frontpage,s.options.articlepage=!0===s.options.articlepage,s.options.template=s.options.template||null,s.options.useExisting=void 0===s.options.useExisting?r:s.options.useExisting,s.options.intermediate=s.options.intermediate||{},s.options.intermediate.useExisting=void 0===s.options.intermediate.useExisting?i:s.options.intermediate.useExisting,s.options.persistentTarget=!!s.options.persistentTarget,s.options.append&&(s.options.append=n.object(s.options.append,{match:"",index:0})),s.options.prepend&&(s.options.prepend=n.object(s.options.prepend,{match:"",index:0})),s}setCacheHandler(e){this.cacheHandler=e}getModelsFromCache(){return Array.from(this.cache.guid.values())}getChildModels(e){const t=[],r=e=>{for(const t of e.children)r(t);t.push(e)};return r(e),t}getModels(){return this.models}getModelById(e){return this.cache.id.get(e)||null}getModelByGuid(e){return this.cache.guid.get(e)||null}getModelBySelector(e){for(const t of this.getModelsFromCache())if(t.getSelector()===e)return t;return null}getModelTypes(e){return e?[...new Set(this.getChildModels(e).map((e=>e.getType())))]:[...new Set(this.getModelsFromCache().map((e=>e.getType())))]}recursiveGetModelByAttribute(e,t,r){}getRootModel(){return this.models[0]}getParentNodeId(e){if(e.parent)return e.parent.hasNodeData()?e.parent.getId():this.getParentNodeId(e.parent);const t=this.getRootModel();return t===e?null:t.getId()}getModelByType(e,t=this.getModelsAsArray()){for(const r of t)if(r.getType()===e)return r;return null}getChildOfType(e,t,r=!1){const i=Array.isArray(t)?t:[t];for(const t of e.children)if(i.includes(t.getType()))return t;if(!r)return null;for(const r of e.children){const e=this.getChildOfType(r,t,!0);if(e)return e}return null}getChildrenOfType(e,t,r=!1,i=!1){const s=[],n=Array.isArray(t)?t:[t];for(const t of e.children)!n.includes(t.getType())||t.isNonPersistent()&&i||s.push(t);if(!r)return s;for(const r of e.children){const e=this.getChildrenOfType(r,t,!0,i);e&&s.push(...e)}return s}getModelsByKeyAndValue(e,t,r=this.getModelsAsArray()){return r.filter((r=>r.get(e)==t))}getModelsByPath(e,t=!0,r=!1,i=null){let s=[];const n=y.trim(e,"/").split("/");let o=n.shift();const a=y.parsePath(o).shift(),l=null!==a.index;l&&(o=a.base);let d=i;i||(d="*"===o?this.models:this.getModelsByType(o,this.models));const h=[];for(let e=0;e<d.length;e++)"*"!==o&&d[e].getType()!==o||d[e].isNonPersistent()&&!r||h.push(d[e]);if(l?h[a.index]?s.push(h[a.index]):!t&&h.length&&(a.index>=h.length?s.push(h[h.length-1]):s.push(h[0])):s=h,!s.length)return[];if(n.length){let e=[];for(let i=0;i<s.length;i++)s[i].children.length&&(e=e.concat(this.getModelsByPath(n.join("/"),t,r,s[i].children)));return e}return s}getModelByPath(e,t=!0,r=!1,i=null){const s=this.getModelsByPath(e,t,r,i);return s.length?s[0]:null}getModelsByQuery(e="",t=this.getModelsAsArray()){const r=e.trim().toLowerCase();return t.filter((e=>e.getType().toLowerCase().indexOf(r)>-1))}getModelsByType(e,t=this.models,r=!0){const i=[];return t.forEach((t=>{t.getType()===e&&i.push(t),r&&i.push(...this.getModelsByType(e,t.children,r))})),i}getNextContentModel(e){let t=this.getRightSibling(e);if(t){const e=this.getFirstContentModel(t);if(e)return e}return e.getParent()&&(t=this.getNextContentModel(e.getParent()),t)?t:null}getParentOfType(e,t,r=!0){const i=e.getParent();return i?i.getType()===t?i:r?this.getParentOfType(i,t,!0):null:null}getLeftSibling(e){if(!e.getParent())return null;const t=e.getModelIndex(!0);if(0===t)return null;return e.getParent().getPersistentChildren()[t-1]||null}getRightSibling(e){if(!e.getParent())return null;const t=e.getModelIndex(!0),r=e.getParent().getPersistentChildren();return r[t+1]?r[t+1]:null}hasChildOfType(e,t,r=!1){return!!this.getChildOfType(e,t,r)}hasChildOfTypes(e,t,r=!1){for(const i of t)if(this.getChildOfType(e,i,r))return!0;return!1}hasChild(e,t){if(!e.children.length)return!1;for(const r of e.children){if(this.is(r,t))return!0;if(this.hasChild(r,t))return!0}return!1}hasParentOfType(e,t,r=!1){return!!this.getParentOfType(e,t,r)}hasParentOfTypes(e,t,r=!1){if(!e||!Array.isArray(t))return!1;for(const i of t)if(this.getParentOfType(e,i,r))return!0;return!1}hasParent(e,t){return!!e.parent&&(!!this.is(e.parent,t)||this.hasParent(e.parent,t))}getModelsAsArray(e=null){let t=[];for(const r of e||this.models)t=t.concat(this.getChildModels(r));return t}getIndex(e,t=!1){return e?e.getModelIndex(t):null}getPath(e,t=!1){return e?e.getPath(t):null}getArrayPath(e,t=!1){return e?e.getArrayPath(t):[]}resetCache(){this.cache.id.clear(),this.cache.guid.clear()}addToCache(e,t=!0){if(e.isPseudo())return;t&&e.children.forEach((e=>this.addToCache(e))),this.cache.guid.set(e.getGuid(),e);const r=e.getId();r&&this.cache.id.set(r,e)}setData(e=[],t=!0){this.resetCache(),this.models=this.newModels(e,!1)}newModels(e=[],t=!0){const r=[];for(const t of e){const e=this.newModel(t);e&&r.push(e)}return r}newModelInstance(e){return new R(e,this.eventPipe)}modelCreated(e){this.addToCache(e)}modelsAdded(e){}newModel(e,t=!0){const r=this.modelData(e);if(!r)return Sys.logger.warn("ModelController: Data do not validate. Cannot create new instance of LabModel."),null;const i=this.newModelInstance(r);if(e.children)for(const r of e.children){const e=this.newModel(r,t);e&&i.addChild(e,t)}return this.modelCreated(i),i}modelData(e){if(!e.type)return Sys.logger.warn('ModelController: Required attribute "type" is missing. Cannot create data for new LabModel.'),null;const t=e;let r="";t.path&&(r=`${y.trim(t.path,["/"])}/`);const i=this.configReader.get(`data.elements.${t.type}.fallbackData`);return{uncreated:!1,type:t.type,path:r,width:"width"in t?t.width:null,metadata:"metadata"in t?{...t.metadata}:{},state:"state"in t?{...t.state}:{},contentdata:"contentdata"in t&&t.contentdata?{...t.contentdata}:null,filtered:"filtered"in t&&t.filtered?{...t.filtered}:null,selector:"selector"in t?t.selector:null,external:"external"in t?t.external:null,guid:"guid"in t?t.guid:null,fallback:i?j.viewToInternal(i):null}}insertAtPath(e){const t=O.validateViewInput(e,["path"],{useExisting:!1});if(!t)return Sys.logger.warn('ModelController: Cannot insert model at path. Missing required input "path", "data", or "data.type".'),null;Sys.logger.debug(`ModelController: Will insert model of type ${t.data.type} at path ${t.path}.`);const r=this.ensurePath(t.path,t.options.persistentTarget,t.options.intermediate.useExisting);if(!r)return Sys.logger.warn(`ModelController: No model inserted at path ${t.path}. Parent not found and could not be created.`),null;const i=this.insertAtParent(r,t.data,t.options);return Sys.logger.debug(`ModelController: Did insert model at path ${t.path}. Type: ${i.getType()}, path: ${i.getPositionedPath()}.`),i}insertBySelector(e){const t=O.validateViewInput(e,["selector"],{useExisting:!1});if(!t)return Sys.logger.warn('ModelController: Cannot insert model by selector. Missing required input "selector", "data", or "data.type".'),null;Sys.logger.debug(`ModelController: Will insert model of type ${t.data.type} at selector ${t.selector}.`);const r=this.getModelBySelector(t.selector);if(!r)return Sys.logger.warn(`ModelController: No model inserted at selector ${t.selector}. Model not found.`),null;const i=this.insertAtParent(r,t.data,t.options);return Sys.logger.debug(`ModelController: Did insert model at selector ${t.selector}. Type: ${i.getType()}, path: ${i.getPositionedPath()}.`),i}insertAtParent(e,t,r={}){const i={};t.state&&t.state.isNonPersistent&&(i.state={isNonPersistent:!0});const s=this.newModel(j.viewToInternal(t,i));if(e)if("number"==typeof r.index){let{index:t}=r;if(r.persistentTarget){const i=(r.match?this.getModelsByType(r.match,e.children||[],!1):e.children||[]).filter((e=>!e.isNonPersistent())),s=r.index<i.length&&r.index>=0?i[r.index]:i[i.length-1];t=this.getIndex(s)}e.addChildAtIndex(s,t)}else e.addChild(s,!0,r.prepend);else r.prepend?this.models.unshift(s):this.models.push(s);return this.modelsAdded([s],r.silent),s}addElement(e){const t={};e.data.state&&e.data.state.isNonPersistent&&(t.state={isNonPersistent:!0});const r=this.ensurePath(e.path,e.options.persistentTarget,e.options.intermediate.useExisting,t);return r&&e.options.useExisting&&(e.data.selector?this.getModelBySelector(e.data.selector):this.getChildOfType(r,e.data.type))?null:this.insertAtParent(r,e.data,e.options)}allowInsetion(e){const t={frontpage:()=>"page_front"===lab_api.v1.model.query.getRootModel().getType(),articlepage:()=>"page_article"===lab_api.v1.model.query.getRootModel().getType(),noticepage:()=>"page_notice"===lab_api.v1.model.query.getRootModel().getType(),template:e=>lab_api.v1.model.query.getRootModel().get("fields.page_template_alias")===e,front:lab_api.v1.app.mode.isFront,editor:lab_api.v1.app.mode.isEditor},r=r=>{for(const i of r)if(e.options[i]&&t[i](e.options[i]))return!0;return!1};return!!r(["front","editor"])&&(!(e.options.template&&!r(["template"]))&&r(["frontpage","articlepage","noticepage"]))}ensurePath(e,t,r=!0,i=null){const s=r?this.getModelsByPath(e,!0,!t).shift():null;if(s)return s;let n="",o=null;const a=y.parsePath(e);for(;a.length;){const e=a.shift();if(!e.base)return o;const s=e.index||0;let l=0,d=!1;const h=`${n}${e.base}[${s}]`;for(;l<=s;){if(!r&&!a.length&&l===s||!this.getModelsByPath(h,!0,!t).length){const t=i?{...i}:{};t.type=e.base;const r=this.newModel(t,!1);o?null!==e.index?o.addChildAtIndex(r,e.index):o.addChild(r):this.models.push(r),this.modelsAdded([r]),l===s&&(o=r,d=!0),Sys.logger.debug(`ModelController: Inserted intermediate model type ${e.base} at path ${r.getPositionedPath()}.`)}l++}n+=`${e.path}/`,o=d?o:this.getModelsByPath(n,!0,!t).shift()}return o}keyModified(e,t,r,i=!0){if(i){if(e.hasKeyInTarget(t))for(const i of e.getSourceTargets())this.keyModified(i,t,r,!1);e.hasSourceKey(t)&&this.keyModified(e.getSourceModel(),t,r)}this.cacheHandler.resetKey(e,t,r),this.triggerRedrawByKey(e,t,r)}childAdded(){}triggerRedrawByKey(e,t,r){}noRender(e){e&&e.setNoRenderState(!0)}notifyOnAcceptContent(e=this.getRootModel(),t=!0){this.emitBehaviour("onAcceptContent",e),t&&e.children.forEach((e=>{this.notifyOnAcceptContent(e,t)}))}}class V{constructor(e){this.totalGridSpans=e||12,this.backendNodes=new Map,this.nodeChildren={},this.activeNodes=[],this.offstageTypes=["pasteboard"],this.requireContentdata=["article"]}backendToInternal(e={},t={}){if(!e.data||!e.structure)return Sys.logger.debug("[DataTransformer] Unsupported input data. Require { data: {...}, structure: []"),[];const r=e.data,i=e.structure;this.registerBackendNodes(r);const s=lab_api.v1.viewport.getEditable(),n=j.backendToInternal({contentdata:this.backendNodes.get(r.id),structure:{type:`page_${r.type}`}},s,!1),o=[n];for(const e of i)if(t.skipOffstage&&this.offstageTypes.includes(e.type))Sys.logger.debug(`[DataTransformer] Skipping offstage-element "${e.type}".`);else{const r=this.createModelData(e,t.blacklist||[],t.blacklistOptions||{},s);r&&(this.offstageTypes.includes(e.type)?o.push(r):n.children.push(r))}return this.activeNodes.push(r.id),o}modelsToFragmentApi(e,{viewport:t=null,stringify:r=!1,recursive:i=!0}={}){const s=e.map((e=>this.modelToFragmentApi(e,i,t)));return r?s.map((e=>JSON.stringify(e))):s}modelToFragmentApi(e,t,r){const i={nodedata:this.modelToBackend(e,t),isNonPersistent:e.isNonPersistent(),type:e.getType(),width:e.getWidth(r),id:e.getGuid(),node_id:e.getId(),guid:e.getGuid()};if(t){i.children=[];for(const t of e.children)i.children.push(this.modelToFragmentApi(t))}return i}modelToBackend(e,t=!1){let r;const i=e.getSerializedCache();if(i?(lab_api.v1.app.dbg.logger.add(e.constructor.name,"modelToBackend[cache]"),r=i):(lab_api.v1.app.dbg.logger.add(e.constructor.name,"modelToBackend"),r=e.data.contentdata?{...j.internalToBackend(e.data.contentdata)}:{},e.data.contentdata&&(r.parent=lab_api.v1.model.query.getParentNodeId(e)),r.guid=e.data.guid,r.metadata=j.internalToBackendStructureMeta(e.data.metadata),r.metadata.width=e.getViewportWidths(),r.width=e.getWidth(),e.data.selector&&(r.selector=e.data.selector),r.type=e.data.type.replace("page_",""),e.data.tmpId&&(r.tmpId=e.data.tmpId),e.setSerializedCache({...r})),t&&e.children.length){r.children=[];for(const t of e.children)t.isNonPersistent()||r.children.push(this.modelToBackend(t,!0))}return r}apiToInternal({type:e,data:t={},meta:r={},options:i={removeId:!1}}={}){const s=j.apiToInternal(e,t,i),{metadata:n,width:o}=j.viewToInternal({metadata:r,width:r.width});return{type:s.type,contentdata:s,width:o,metadata:n}}apiToView({type:e,data:t={},meta:r={},options:i={removeId:!1}}={}){const s=j.apiToData(e,t,i),n=j.internalToBackend(s);return{type:n.type,contentdata:n,width:r.width,metadata:r}}modelToInternal(e,t=!0,r=!1){const i=JSON.parse(JSON.stringify(e.data));if(r&&(i.contentdata&&delete i.contentdata.id,delete i.guid),i.children=[],!t)return i;for(const t of e.children)i.children.push(this.modelToInternal(t,!0,r));return i}modelToView(e,t=!0,r=!1){const i=this.modelToBackend(e,t);return j.backendToView(i,r)}modelsToView(e,t=!0){return e.map((e=>this.modelToView(e,t)))}modifiedToBackend(e,t,r=!0,i=!1){const s=[];for(const e of t)e.getType().startsWith("page_")?s.push(...e.getPersistentChildren()):s.push(e);const n=this.removeFrontCrops(s);return{node:e.map((e=>this.modelNodeToBackend(e,r,i))),structure:n.map((e=>this.modelStructureToBackend(e)))}}removeFrontCrops(e){return e.filter((e=>!e.get("fields.metadata_key")))}modelNodeToBackend(e,t=!1,r=!1){const i=this.modelToBackend(e,r);if(t&&!e.isDirty()){const t=j.filterModifiedContent(e,i),r=this.modelNodeBaseToBackend(e);return s.merge(r,t)}return delete i.metadata,delete i.width,i}modelNodeBaseToBackend(e){if(Array.isArray(e))return e.map((e=>this.modelNodeBaseToBackend(e)));const t=this.modelToBackend(e),r={type:t.type||null,id:t.id||null,guid:t.guid||null,tmpId:t.tmpId||null,instance_of:t.instance_of||null,parent:t.parent||null,status:t.status||null,site_id:t.site_id||null};return t.primaryTags&&(r.primaryTags=t.primaryTags),t.tags&&(r.tags=t.tags),r}modelStructureToBackend(e,t=!1){const r=this.modelToBackend(e),i={type:r.type,width:r.width,metadata:r.metadata,id:r.guid,selector:r.selector,children:[]};return r.id&&(i.node_id=r.id),e.isNonPersistent()&&(i.isNonPersistent=!0),e.children.forEach((e=>{!t&&e.isNonPersistent()||i.children.push(this.modelStructureToBackend(e,t))})),i}registerBackendNodes(e){if(e.id&&this.backendNodes.set(e.id,this.prepareBackendNode(e)),e.children){this.nodeChildren[e.id]=[];for(const t of e.children)this.registerBackendNodes(t),t.id&&this.nodeChildren[e.id].push(t.id)}}prepareBackendNode(e){const t={};for(const r in e)"children"!==r&&(t[r]=e[r]);return t}createModelData(e,t,r,i,s={}){if(t.includes(e.type)){if(r[e.type]&&r[e.type].includeChildren&&e.children&&s.children){Sys.logger.warn(`[DataTransformer] Found blacklisted element "${e.type}". Skipping. Will include and move children to parent element.`);for(const n of e.children){const e=this.createModelData(n,t,r,i);e&&s.children.push(e)}}else Sys.logger.warn(`[DataTransformer] Found blacklisted element "${e.type}". Skipping.`);return null}const n=j.backendToInternal({contentdata:e.node_id?this.backendNodes.get(e.node_id):null,structure:e},i,!1);if(this.requireContentdata.includes(n.type)&&!n.contentdata)return Sys.logger.debug(`[DataTransformer] Found "${n.type}" without node-data. Skipping.`),null;n.contentdata&&this.activeNodes.push(n.contentdata.id);for(const t in n.width.vp)n.width.vp[t]?n.width.vp[t]&&n.width.vp[t]<=this.totalGridSpans&&Number.isInteger(parseFloat(n.width.vp[t],10))&&(Sys.logger.warn(`[DataTransformer] Will modify Lab3-width for element "${e.type}", viewport "${t}". Was: "${n.width.vp[t]}", New value: "${P.gridToPercent(n.width.vp[t],this.totalGridSpans)}"`),n.width.vp[t]=P.gridToPercent(n.width.vp[t],this.totalGridSpans)):delete n.width.vp[t];if(!e.children){if(!(n.contentdata&&n.contentdata.id&&this.nodeChildren[n.contentdata.id]))return n;e.children=[];for(const t of this.nodeChildren[n.contentdata.id])if(!this.activeNodes.includes(t)){const r=this.backendNodes.get(t);r&&(e.children.push({type:r.type,node_id:t}),Sys.logger.warn(`[DataTransformer] Adding structure-data for deprecated node-child. Type: ${r.type}, id: ${t}`))}}for(const s of e.children){const e=this.createModelData(s,t,r,i,n);e&&n.children.push(e)}return n}}class F{constructor(e,t,r){this.renderer=t,this.log=r,this.styles={definitions:new Map,collections:new Map},this.setupStyles(F.resolveConfig(e||{})),this.styleByKey={},this.defaultItemTemplate="{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"}static resolveConfig(e={}){const t={definitions:{},collections:[]};for(const r of Object.keys(e.definitions||{})){const i=F.resolveDefinition(e.definitions[r]);i&&(t.definitions[r]=i)}const r=Array.isArray(e.collections)?e.collections:Object.values(e.collections||{});for(const e of r){const r=F.resolveCollection(e);r&&t.collections.push(r)}return t}static resolveDefinition(e={}){if(!Array.isArray(e.items)||!e.items.length)return null;const t={requirePath:n.false(e.requirePath),path:n.string(e.path),template:n.stringOrNull(e.template),items:[]};for(const r of e.items){const e=F.resolveItem(r);e&&t.items.push(e)}return t}static resolveItem(e={}){const t=Array.isArray(e.fallback)?e.fallback:[];return"string"==typeof e.fallback&&t.push(e.fallback),{prefix:n.string(e.prefix),postfix:n.string(e.postfix),viewport:n.string(e.viewport),value:n.string(e.value),fallback:t,nullValue:n.stringOrUndefined(e.nullValue)}}static resolveCollection(e){const t=n.string(e.name),r=n.array(e.definitions),i=n.array(e.additions);if(!t||!r.length&&!i.length)return null;const s=[];for(const e of[...r,...i])if("string"==typeof e)s.includes(e)||s.push(e);else{const t=F.resolveDefinition(e);t&&s.push(t)}return{name:t,definitions:s}}setupStyles(e={}){for(const t of Object.keys(e.definitions))this.styles.definitions.set(t,e.definitions[t]);for(const t of e.collections)this.styles.collections.set(t.name,t.definitions);this.log.debug(`StyleManager: Set up and ready. Holds ${this.styles.definitions.size} definitions and ${this.styles.collections.size} collections.`)}getStyleFromDefinition(e,t,r="",i){if(!this.styles.definitions.size)return"";const{name:s,path:n,target:o,targetType:a,index:l}=this.getInputValues(r),d=this.getTargetModel(e,o,a,l);return d?this.getStyleFromDefinitionNamePath(d,s,n,null,i):""}getStyleFromDefinitionNamePath(e,t,r,i,s){const n=this.getDefinition(t);return n?this.parseDefinition(e,t,r,n,i,s):(this.log.warn(`StyleManager: Cannot find style-definition "${t}". Empty string returned.`),"")}getStyle(e,t,r="",i){if(!this.styles.collections.size)return"";const{name:s,path:n,target:o,targetType:a,index:l}=this.getInputValues(r),d=this.getTargetModel(e,o,a,l);if(!d)return this.log.warn(`StyleManager: Cannot find target-model "${o}". Empty string returned. Model: ${e.getPositionedPath()}`),"";const h=this.getCollection(s);if(!h)return this.log.warn(`StyleManager: Cannot find style-collection "${s}". Empty string returned.`),"";const g=[];for(const e of h){const t=this.parseDefinition(d,s,n,e,null,i);t&&g.push(t)}return g.join(" ").trim()}getCollection(e){return this.styles.collections.get(e)}getDefinition(e){return this.styles.definitions.get(e)}getTargetModel(e,t,r,i){if("current"===t)return e;if("parent"===t)return e.getParent();if("root"===t)return lab_api.v1.model.query.getRootModel();if("child"===t){if(null===i)return lab_api.v1.model.query.getChildOfType(e,r);return lab_api.v1.model.query.getModelsByType(r,e.children)[i]||null}return e}getInputValues(e=""){const t=(e||"").split(" ").map((e=>e.trim())).filter((e=>!!e)),r=t.shift();let i=t.shift()||"",s="current",n=null,o=null;if(i.startsWith("parent."))s="parent",i=i.replace("parent.","");else if(i.startsWith("root."))s="root",i=i.replace("root.","");else if(i.startsWith("current."))i=i.replace("current.","");else if(i.startsWith("child.")){const e=i.split(".");s=e.shift();const t=e.shift();i=e.join("."),[o,n]=S.getPropertyTypeAndIndex(t)}return{name:r,path:i||null,target:s,targetType:o,index:n}}getItemsViewports(e){const t={};for(const r of e)if(r.viewport&&(t[r.viewport]=!0),r.fallback)for(const e of r.fallback)t[e]=!0;return Object.keys(t)}parseDefinition(e,t,r,i,s,n){let o=i;if("string"==typeof i&&(o=this.getDefinition(i),!o))return this.log.warn(`StyleManager: Cannot find style-definition "${i}". Empty string returned.`),"";const a=[];if(o.requirePath&&!r)return this.log.warn(`StyleManager: Missing required path for style "${t}".`),"";const l=o.requirePath?r:"";for(const t of o.items){const r=this.getItemValueWithFallback(e,o.path,t,l,o.items,s,n);null!=r&&""!==r&&a.push({...t,value:r})}if(!a.length)return"";return this.renderer(o.template||this.defaultItemTemplate,{items:a}).trim().split(" ").filter(((e,t,r)=>r.indexOf(e)===t)).join(" ")}getItemValueWithFallback(e,t,r,i,s,n,o){const a=i+(i&&t?".":"")+t,l=this.getItemValue(e,r,a,n,o);if(void 0!==l||"current_viewport"===r.viewport)return l;const d={...r};for(d.fallback=[...d.fallback];d.fallback.length;){const t=d.fallback.shift();d.viewport=t;const r=this.getItemValue(e,d,a,n,o);if(r)return r}}getItemValue(e,t,r,i,s){let n,{viewport:o}=t;if("no_viewport"===o?o="":"current_viewport"===o&&(o=s),i)if(o){n=(i.vp||{})[o]}else n=i.value;else n=e.get(r,o,!0);return null!==n&&""!==n&&!1!==n||void 0===t.nullValue?n&&t.value?t.value:n:t.nullValue}}class A{constructor(e){this.headers=e.Headers||{},this.queryString=e.queryString||"",this.params=this.parseQueryString(this.queryString)}parseQueryString(e){const t={},r=e.split("&");for(const e of r){const r=e.split("=");2===r.length&&(t[r[0]]=r[1])}return t}getHeaders(){return this.headers}getHeader(e){return this.headers[e]||null}getQueryString(){return this.queryString}getQueryParam(e){return this.params[e]}hasQueryParam(e){return void 0!==this.getQueryParam(e)}hasQueryValue(e,t){return(this.getQueryParam(e)||"").split(",").includes(t)}}class _{constructor(e,t){this.logger=t,this.siteAlias=e,this.log(`Site-alias: ${this.siteAlias}`),this.featureFlags=[],this.cache={}}prepareFlags(e){const t=[];return Array.isArray(e)&&e.forEach((e=>{if("group"===e.type){const r=e.enabled;e.flags.forEach((e=>{e.enabled=r&&e.enabled,t.push(e)}))}else t.push(e)})),this.cache[this.siteAlias]=t,t}enabled(e,t=""){this.featureFlags=this.cache[this.siteAlias]||this.prepareFlags(lab_api.v1.config.getFeatureFlags().flags||[]);return this.featureFlags.filter((r=>{if(Array.isArray(t)){const i=t.map(String);return r.key===e&&(!r.nodeId||i.indexOf(r.nodeId)>-1)&&!0===r.enabled}return r.key===e&&(!r.nodeId||r.nodeId===t.toString())&&!0===r.enabled})).length>0}get(e,t=""){return this.featureFlags.filter((r=>r.key===e&&r.nodeId===t.toString()))}log(e,t=null){this.logger&&(t?this.logger.debug(`FeatureFlags: ${e}`,[t]):this.logger.debug(`FeatureFlags: ${e}`))}}class I{static getWords(e){return e.replaceAll("."," ").replaceAll("!"," ").split(" ").filter((e=>""!==e))}static getSentences(e){return e.replaceAll("!",".").split(".").filter((e=>""!==e))}static getReadTime(e,t){const r=I.getWords(e).length/(t||250);return r<.5?.5:Math.round(r)}static lix(e){if(!e)return null;const t=I.getWords(e),r=I.getSentences(e),i=t.filter((e=>e.length>6));return t.length/r.length+100*i.length/t.length}}class D{constructor(){this.ns={}}create(e={}){return{app:{dbg:{logger:{add:()=>{}}},logError:(e={})=>{e&&e.toString&&Sys.logger.debug(`CMS-error: ${e.toString()}`)},logViewError:(e={},t)=>{e&&e.toString&&Sys.logger.debug(`View-error: ${e.toString()}`)},mode:{get:e.configProcessor.getAppMode.bind(e.configProcessor),getSimulatedMode:e.configProcessor.getSimulatedMode.bind(e.configProcessor),isEditor:e.configProcessor.isEditMode.bind(e.configProcessor),isFragmentMode:e.configProcessor.isFragmentMode.bind(e.configProcessor),isFront:e.configProcessor.isPresentationMode.bind(e.configProcessor)},off:e.appManager.off.bind(e.appManager),on:e.appManager.on.bind(e.appManager)},config:{debug:e.configReader.debug.bind(e.configReader),get:e.configReader.get.bind(e.configReader),getConfig:e.configReader.getConfig.bind(e.configReader),getContent:e.configReader.getContent.bind(e.configReader),getFeatureFlags:e.configReader.getFeatureFlags.bind(e.configReader),getPathForSite:e.configReader.getPathForSite.bind(e.configReader),getStorePathForSite:e.configReader.getStorePathForSite.bind(e.configReader),getView:e.configReader.getView.bind(e.configReader),reloadResourceBySite:e.configReader.reloadResourceBySite.bind(e.configReader)},grid:{gridToPercent:P.gridToPercent,percentToGrid:P.percentToGrid},image:{getPreferredImageFormat:e.configProcessor.getPreferredImageFormat.bind(e.configProcessor)},locale:{get:e.localisation.get.bind(e.localisation),off:e.localisation.off.bind(e.localisation),on:e.localisation.on.bind(e.localisation)},model:{getArrayPath:e.modelController.getArrayPath,getPageType:e.configProcessor.getPageType.bind(e.configProcessor),getPath:e.modelController.getPath,insert:{atPath:e.modelController.insertAtPath.bind(e.modelController),bySelector:e.modelController.insertBySelector.bind(e.modelController)},noRender:e.modelController.noRender,off:e.modelController.off.bind(e.modelController),on:e.modelController.on.bind(e.modelController),query:{getChildOfType:e.modelController.getChildOfType.bind(e.modelController),getChildrenOfType:e.modelController.getChildrenOfType.bind(e.modelController),getIndex:e.modelController.getIndex.bind(e.modelController),getModelByGuid:e.modelController.getModelByGuid.bind(e.modelController),getModelById:e.modelController.getModelById.bind(e.modelController),getModelByPath:e.modelController.getModelByPath.bind(e.modelController),getModelBySelector:e.modelController.getModelBySelector.bind(e.modelController),getModelByType:e.modelController.getModelByType.bind(e.modelController),getModels:e.modelController.getModels.bind(e.modelController),getModelsAsArray:e.modelController.getModelsAsArray.bind(e.modelController),getModelsByKeyAndValue:e.modelController.getModelsByKeyAndValue.bind(e.modelController),getModelsByPath:e.modelController.getModelsByPath.bind(e.modelController),getModelsByQuery:e.modelController.getModelsByQuery.bind(e.modelController),getModelsByType:e.modelController.getModelsByType.bind(e.modelController),getModelsFromCache:e.modelController.getModelsFromCache.bind(e.modelController),getModelTypes:e.modelController.getModelTypes.bind(e.modelController),getNextContentModel:e.modelController.getNextContentModel.bind(e.modelController),getParentNodeId:e.modelController.getParentNodeId.bind(e.modelController),getParentOfType:e.modelController.getParentOfType.bind(e.modelController),getRootModel:e.modelController.getRootModel.bind(e.modelController),getSiblingLeft:e.modelController.getLeftSibling.bind(e.modelController),getSiblingRight:e.modelController.getRightSibling.bind(e.modelController),hasChild:e.modelController.hasChild.bind(e.modelController),hasChildOfType:e.modelController.hasChildOfType.bind(e.modelController),hasChildOfTypes:e.modelController.hasChildOfTypes.bind(e.modelController),hasParent:e.modelController.hasParent.bind(e.modelController),hasParentOfType:e.modelController.hasParentOfType.bind(e.modelController),hasParentOfTypes:e.modelController.hasParentOfTypes.bind(e.modelController)},root:{getType:()=>e.modelController.getRootModel()?e.modelController.getRootModel().get("type"):""},serialize:{apiToInternal:e.dataTransformer.apiToInternal.bind(e.dataTransformer),apiToView:e.dataTransformer.apiToView.bind(e.dataTransformer),model:e.dataTransformer.modelToBackend.bind(e.dataTransformer),modelToInternal:e.dataTransformer.modelToInternal.bind(e.dataTransformer),modelToView:e.dataTransformer.modelToView.bind(e.dataTransformer)}},ns:{get:(e="")=>s.get(e,this.ns),set:(e,t)=>s.set(e,t,this.ns)},preload:{get:e.preloadHandler.get.bind(e.preloadHandler),getHeader:e.preloadHandler.getHeader.bind(e.preloadHandler)},properties:{get:e.configReader.getCms.bind(e.configReader),update:e.configReader.updateConfigByPath.bind(e.configReader)},templates:{get:e.resourceManager.getTemplateFile.bind(e.resourceManager)},site:{getSite:e.configProcessor.getSite.bind(e.configProcessor),getSiteById:e.configProcessor.getSiteById.bind(e.configProcessor),getSites:e.configProcessor.getSites.bind(e.configProcessor)},style:{getNamedStyle:e.styleManager.getStyleFromDefinitionNamePath.bind(e.styleManager),getStyle:e.styleManager.getStyleFromDefinition.bind(e.styleManager),getStyles:e.styleManager.getStyle.bind(e.styleManager)},util:{defaults:e.utils.defaults,featureFlags:{enabled:e.featureFlags.enabled.bind(e.featureFlags),get:e.featureFlags.get.bind(e.featureFlags)},functionHelper:{getFunction:e.utils.functionHelper.getFunction,isValidFunction:e.utils.functionHelper.isValidFunction},object:s,request:{getHeader:e.requestUtil.getHeader.bind(e.requestUtil),getHeaders:e.requestUtil.getHeaders.bind(e.requestUtil),getQueryParam:e.requestUtil.getQueryParam.bind(e.requestUtil),getQueryString:e.requestUtil.getQueryString.bind(e.requestUtil),hasQueryParam:e.requestUtil.hasQueryParam.bind(e.requestUtil),hasQueryValue:e.requestUtil.hasQueryValue.bind(e.requestUtil),parseQueryString:e.requestUtil.parseQueryString.bind(e.requestUtil)},string:e.utils.stringHelper},view:{getHelper:e.viewManager?e.viewManager.getViewHelper.bind(e.viewManager):()=>{},getPixelDensityFactor:e.configProcessor.getPixelDensityFactor.bind(e.configProcessor),getView:e.viewManager?e.viewManager.getView.bind(e.viewManager):null,off:e.viewManager?e.viewManager.off.bind(e.viewManager):null,on:e.viewManager?e.viewManager.on.bind(e.viewManager):null,render:({template:t,model:r,viewManager:i=e.viewManager}={})=>{const s=i.getView(r),n=i.getDataForView(r,s);return Mustache.render(t,n,e.resourceManager.templates)}},viewHeaders:{get:t=>e.viewHeaders.get?e.viewHeaders.get(t):"",getAll:()=>e.viewHeaders.getAll?e.viewHeaders.getAll():"",set:(t,r)=>{e.viewHeaders.set&&e.viewHeaders.set(t,r)}},viewport:{getActive:()=>[e.configProcessor.getViewport()],getAll:e.configProcessor.getViewports.bind(e.configProcessor),getEditable:e.configProcessor.getEditableViewports.bind(e.configProcessor),getMain:e.configProcessor.getMainViewport.bind(e.configProcessor),getName:e.configProcessor.getViewport.bind(e.configProcessor),getSubViewports:e.configProcessor.getSubViewports.bind(e.configProcessor),getWidth:e.configProcessor.getViewportWidth.bind(e.configProcessor),isMain:e.configProcessor.isMainViewport.bind(e.configProcessor),isSubViewport:e.configProcessor.isSubViewport.bind(e.configProcessor),isTouchDevice:e.configProcessor.isTouchDevice.bind(e.configProcessor)},text:{getWords:I.getWords,getSentences:I.getSentences,getReadTime:I.getReadTime,lix:I.lix}}}}class E{constructor(e=[]){this.viewManagers=e,Sys.logger.debug(`CacheHandler: Ready to support view-manager(s) for viewport(s): ${this.viewManagers.map((e=>e.viewport.name)).join(", ")}`)}setViewManagers(e){this.viewManagers=e}resetKey(e,t,r){this.resetModelCacheForKey(e,t,r),this.resetViewCacheForKey(e,t)}resetModelCacheForKey(e,t,r){e.cache.getter.delete(e.getCacheKey(t,r)),e.cache.getter.delete(e.getCacheKey(t,r,!0)),e.cache.getter.forEach(((i,s)=>{s.startsWith(`${t}.`)&&s.endsWith(`-${r||"lab_main"}`)&&e.cache.getter.delete(s)}))}resetViewCacheForKey(e,t){for(const r of this.viewManagers)r.getView(e).resetCache(t)}}class W{constructor(e,t=null){this.isEnabled=!0,this.Implementation=e,this.instance=null,this.name=t}initialize(){this.instance=new this.Implementation}disable(){this.isEnabled=!1}enable(){this.isEnabled=!0}call(e,...t){if(this.isEnabled){if(!this.instance){if(!this.Implementation)return;this.initialize(),this.instance.name&&(this.name=this.instance.name)}if(e in this.instance)return this.instance[e](...t)||null}}}class B extends W{}class H extends W{initialize(){this.instance=new this.Implementation(lab_api)}}class L{constructor(e){this.data=e}get(e=""){const t=e.split("."),r=this.getObject(t.shift());return r?t.length?s.get(t.join("."),r):r:null}getObject(e){return e?this.data[e]||null:this.data}getHeader(e){if(e){const t=this.getObject(e);return t?t.responseHeaders:null}return null}}class N extends h{constructor({configReader:e,language:t,siteAlias:r,renderFn:i,configPrefix:n}){super(),this.configReader=e,this.language=t||this.configReader.get("contentLanguage")||"en-GB",this.secondaryLanguage=this.configReader.get("contentLanguageFallback")||this.language,this.siteAlias=r||this.configReader.siteAlias,this.fallbackLanguage="en-GB",this.renderFn=i,this.objectHelper=s,this.configPrefix=n||"int_",this.cache=new Map}overrideLanguage(e){e&&(this.secondaryLanguage===this.language&&(this.secondaryLanguage=e),this.language=e)}get(e,{language:t,siteAlias:r,data:i={},fallbackValue:s,noRender:n=!1}={}){const o=(e||"").trim(),a=i||{},l=t||this.language,d=`${o}_${l}_${r}_${JSON.stringify(a||{})}_${n?"1":"0"}`;return this.cache.has(d)||this.cache.set(d,this.getKey(o,l,r,a,n,s)),this.cache.get(d)}getKey(e,t,r,i,s,n){const o=this.readConfigObject(e,r,t);if(o)return this.returnValue(e,o,i,t,r,"config",s);const a=this.readConfig(e,t,r);return a?this.returnValue(e,a,i,t,r,"configObject",s):t!==this.fallbackLanguage&&t!==this.secondaryLanguage&&this.secondaryLanguage!==this.language?this.getKey(e,this.secondaryLanguage,r,i,s,n):t!==this.fallbackLanguage?this.getKey(e,this.fallbackLanguage,r,i,s,n):void 0===n?e:n}returnValue(e,t,r,i,s,n,o){const a={value:t,data:r},l=this.requestEvent("localisation",{key:e,value:t,data:r,language:i,siteAlias:s,type:n});if(l.length){const e=l.pop();"string"==typeof e.value&&(a.value=e.value,a.data=e.data)}return a.value?o?a.value:this.renderFn(a.value,a.data).trim():e}readConfig(e,t,r){const i=this.configReader.getConfig(`${this.configPrefix}${t}.${e}`,{site:r});return"string"==typeof i?i:void 0}readConfigObject(e,t,r){const i=t||this.siteAlias,s=r||this.language,n=this.configReader.getLocal(`lang.${i}.${s}.${e}`);return"string"==typeof n?n:void 0}}class q extends h{constructor({logger:e={},settings:{siteAlias:t="default",pageType:r="front",contentId:s=null,device:n="desktop",runtime:o={Request:!1},transform:d,fragmentMode:h=null,debug:g=!1,simulatedMode:u=""},resources:{config:f={},templates:y={view:{},editor:{}},properties:m={},data:b=null,preload:w={},viewHeaders:v={},views:P=[]},globals:x={},callbacks:M={},entries:C=[],behaviours:T={}}={}){super({entries:C.map((e=>new B(e))),behaviours:Object.keys(T).reduce(((e,t)=>({...e,[t]:T[t].map((e=>new H(e,t)))})),{}),debug:g}),this.settings={debug:g,fragmentMode:h,simulatedMode:u,pageType:r,contentId:s,siteAlias:t,device:n,request:o.Request,transform:void 0===d||!!d},this.resources={properties:m,data:b,templates:y?y.view:{},viewHeaders:v},this.logger=e,this.settings.fragmentMode&&this.logger.debug(`[Core] Running fragmentMode: "${h}"`),this.configReader=new a(a.resolveFullConfig(f,i),this.logger),this.configProcessor=new l(this.configReader,this.settings.device,this.settings.fragmentMode,this.settings.pageType,this.settings.simulatedMode),this.logger.debug("---------------------------------------------------------"),this.logger.debug("[Core] Labrador rendering engine"),this.logger.debug(`Version ${this.configReader.getCms("app.version")} - build ${this.configReader.getCms("buildInfo.version")} - views: ${P.join(", ")}`),this.logger.debug("(c) Labrador CMS AS. Use require a valid licence"),this.logger.debug("---------------------------------------------------------"),this.localisation=new N({configReader:this.configReader,renderFn:Mustache.render}),this.viewManager=null,this.pathHelper=new S,this.resourceManager=new c(this.resources.properties,this.resources.templates,this.configReader,p.resolveConfig,this.behaviours,this.pathHelper,this.settings.debug),this.dataTransformer=new V(this.configReader.get("grid.total_grid_spans")),this.modelController=new O(this.configReader,this.resourceManager,this.entries,this.behaviours),this.styleManager=new F(this.configReader.get("style"),Mustache.render,this.logger),this.preloadHandler=new L(w),this.viewManager=new k({resourceManager:this.resourceManager,configReader:this.configReader,configProcessor:this.configProcessor,logger:this.logger,viewport:this.settings.device,styleManager:this.styleManager,entries:this.entries,behaviours:this.behaviours,settings:this.settings,localisation:this.localisation,preloadHandler:this.preloadHandler}),this.api={v1:this.createApi()},x.lab_api=this.api,M.apiReady&&M.apiReady(this.api.v1),this.apiReady(this.api),this.resources.data&&this.setData(this.resources.data)}getApi(){return this.api}createApi(){this.logger.debug("Core: Creating api using CoreApi.");const e=new D,t={appManager:this,configReader:this.configReader,configProcessor:this.configProcessor,modelController:this.modelController,viewManager:this.viewManager,styleManager:this.styleManager,dataTransformer:this.dataTransformer,utils:r,requestUtil:new A(this.settings.request),featureFlags:new _(this.settings.siteAlias,this.logger),preloadHandler:this.preloadHandler,viewHeaders:this.resources.viewHeaders,localisation:this.localisation,resourceManager:this.resourceManager};return e.create(t)}getAllLogs(){return{front:this.getLogs(),view:this.viewManager.getLogs(),resource:this.resourceManager.getLogs(),model:this.modelController.getLogs()}}setSite(e){this.configReader.updateConfigByPath("site",e),this.configReader.getCms("site",{noCache:!0}),this.configProcessor.resetCache()}apiReady(e){this.logger.debug("Core: Api ready."),this.viewManager.apiReady(e),this.modelController.setCacheHandler(new E([this.viewManager])),this.onReady(e)}onReady(e){this.emitEntry("onReady",e)}setData(e){if(!e||!this.settings.transform&&!Array.isArray(e)||this.settings.transform&&!e.data)throw new Error("[Core] Cannot set data. Invalid input. "+(this.settings.transform?"Expecting property data, none given.":`Expecting an array, ${typeof e} given.`));this.viewManager.viewMap.clear();const t=this.settings.transform?this.dataTransformer.backendToInternal(e,{blacklist:this.configReader.get("data.blacklist")||[],skipOffstage:!0}):e;let r=null;const i=this.emitEntry("onDataReady",t);i.length&&(this.logger.warn("[Core] Entry-hook 'onDataReady' has modifyed input-data."),r=i.pop()),this.modelController.setData(r||t),this.resourceManager.rootModelReady(this.modelController.getRootModel()),this.localisation.overrideLanguage(this.modelController.getRootModel().get("fields.seolanguage")),this.modelController.notifyOnAcceptContent(),this.emitEntry("onAcceptContent"),this.emitEvent("acceptContent")}serializeView(e=this.modelController.models){return this.dataTransformer.modelsToView(e)}serializeForFragmentApi(e=this.modelController.models,{device:t=this.settings.device,stringify:r=!0,recursive:i=!0}={}){return this.dataTransformer.modelsToFragmentApi(e,{device:t,stringify:r,recursive:i})}render(e,{transform:t}={}){return new Promise(((r,i)=>{void 0!==t&&(this.settings.transform=!!t),this.setData(e),r(this.draw())}))}draw(e){return this.viewManager.draw(this.modelController.models,(t=>{e&&e(t)}))}getMarkup(e){if(!e)return this.logger.warn("Core: No model supplied. Will return empty string."),"";const t=this.viewManager.getView(e);return t?t.getMarkupString()||"":(this.logger.warn(`Core: Cannot get view for model ${e.getPositionedPath()}. Will return empty string.`),"")}}var U=t.Q;
+var e={d:(t,r)=>{for(var i in r)e.o(r,i)&&!e.o(t,i)&&Object.defineProperty(t,i,{enumerable:!0,get:r[i]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.r(t),e.d(t,{defaults:()=>s,functionHelper:()=>M,grid:()=>v,interpolation:()=>n,objectHelper:()=>i,stringHelper:()=>f,uuid:()=>k});const r={state:"",version:"4.2.15",build:{styleguide:4,releasenotes:"40214:6",userReleasenotes:"40215:8",browsers:{chrome:94},version:525}},i={get:(e,t,r)=>e.split(".").reduce((e,t)=>e&&void 0!==e[t]?e[t]:r?void 0:null,t),set:(e,t,r)=>(e.split(".").reduce((e,r,s,n)=>{if(s!==n.length-1)return i.isObject(e[r])?e[r]:e[r]={};e[r]=t},r),r),delete:(e,t)=>{e.split(".").reduce((e,t,r,s)=>{if(r!==s.length-1)return i.isObject(e[t])?e[t]:e[t]={};delete e[t]},t)},isObject:e=>e&&"object"==typeof e&&!Array.isArray(e),hasContent:e=>!!i.isObject(e)&&!!Object.keys(e).length,merge:(e,t)=>{if(Array.isArray(e)&&Array.isArray(t))return t;const r=Object.assign(Array.isArray(e)?[]:{},e);if(i.isObject(e)&&i.isObject(t))for(const s of Object.keys(t))i.isObject(t[s])?s in e&&i.isObject(e[s])?r[s]=i.merge(e[s],t[s]):Object.assign(r,{[s]:t[s]}):Object.assign(r,{[s]:t[s]});return r},mergeArray:(e,t,r=!0)=>{const i=[...e||[],...t||[]];return r?[...new Set(i)]:i},clone:(e,t)=>{if(!e)return e;let r;if(!t&&e instanceof Array)r=e.slice(0);else{r=e instanceof Array?[]:{};for(const s in e)e.hasOwnProperty(s)&&(t&&"object"==typeof e[s]&&null!==e[s]?r[s]=i.clone(e[s],t):r[s]=e[s])}return r},serialize(e,t="=",r="&"){const i=[];for(const r of Object.keys(e))i.push(r+t+e[r]);return i.length?i.join(r):null}},s={true:e=>void 0===e||!!e,false:e=>!!e,string:(e,t="")=>"string"==typeof e?e:t,stringRestricted:(e,t="",r=[])=>"string"!=typeof e?t:r.includes(e)?e:t,pixelString:(e,t="")=>{if("number"==typeof e)return`${e}px`;if("string"!=typeof e)return t;const r=e.trim().split("px");return 2!==r.length||isNaN(r[0])?t:`${r[0]}px`},stringOrNull:e=>"string"==typeof e?e:null,stringOrUndefined:e=>"string"==typeof e?e:void 0,numberOrDefault:(e,t=0)=>"number"==typeof e?e:t,array:(e,t=[])=>Array.isArray(e)?e:t,arrayOrNull:e=>Array.isArray(e)?e:null,object:(e,t={},r=t)=>!e||"object"!=typeof e||Array.isArray(e)?t:{...r,...e},objectOrArray:(e,t={})=>Array.isArray(e)?e:s.object(e,t),notNullOrUndefined:(e,t)=>null==e?t:e,notUndefined:(e,t)=>void 0===e?t:e},n={resolve:(e,t,r)=>"object"==typeof e?n.resolveObject(e,t,r):"string"==typeof e?n.resolveString(e,t,r):e,resolveObject:(e,t,r)=>{for(const i in e)"object"==typeof e[i]?e[i]=n.resolveObject(e[i],t,r):"string"==typeof e[i]&&(e[i]=n.resolveString(e[i],t,r));return e},resolveString:(e,t,r)=>{if(-1===e.indexOf("${"))return e;return e.replace(/\${([^{}]*)}/g,(e,i)=>{const s=r.getCms(i.trim());return"string"==typeof s||"number"==typeof s?s:("undefined"!=typeof Sys&&Sys.logger.warn(`Cannot interpolate config value "${e}". Description: ${t}.`),e)})}};class o{constructor(e,t){this.logger=t,this.log("Setup"),this.config=e,this.siteAlias=this.config.site&&this.config.site.alias||null,this.fallbackSites=this.resolveSiteAliases(this.siteAlias),this.log(`Site-alias: ${this.siteAlias}`),this.log(`Will use site(s): ${this.fallbackSites}`),this.resources=[{name:"config",source:"config",path:"customer",sitesPrefix:"customer.site_config_",storeSitesPrefix:null,siteOverride:{},paths:[],content:[],resolved:!1},{name:"cmsConfig",source:"config",path:"",sitesPrefix:null,storeSitesPrefix:null,paths:[],content:[],resolved:!1},{name:"viewConfig",source:"configObject",path:"ConfigObject.viewConfig.config.customer",sitesPrefix:"ConfigObject.viewConfig.config.customer.site_config.",storeSitesPrefix:"config.customer.site_config.",siteOverride:{},paths:[],content:[],resolved:!1},{name:"featureFlags",source:"configObject",path:"ConfigObject.featureFlags",sitesPrefix:"ConfigObject.featureFlags.site.",storeSitesPrefix:"site.",siteOverride:{},paths:[],content:[],resolved:!1},{name:"content",source:"configObject",path:"ConfigObject.content",sitesPrefix:null,storeSitesPrefix:null,paths:[],content:[],resolved:!1},{name:"localisation",source:"configObject",path:"ConfigObject.localisation",sitesPrefix:null,storeSitesPrefix:null,paths:[],content:[],resolved:!1}],this.resourceObject={},this.cache={get:{},debug:{getter:{},reload:{},update:{},resetCache:{}}},this.setupResources()}static resolveFullConfig(e={},t={}){const r={ConfigObject:{},app:{mode:"presentation",version:"[unversioned cms]"},mainViewport:s.string(e.deviceMain,e.device||"desktop"),isTouchDevice:s.false(e.isTouchDevice),sites:s.array(e.sites),...e};return r.app.version=t.version||r.app.version,r.buildInfo=t.build||e.build,r.customer=o.resolveConfig(e.customer),r}static resolveConfig(e={}){const t={grid:{},...e};t.resourceAllocation=s.object(t.resourceAllocation,{resourceMaps:["_resources"],mergeMaps:!0});const r=t.viewHelper||{};return t.viewHelper={image:s.object(r.image,{viewports:["desktop"],pixelDensityFactor:1})},t.appMapper=s.objectOrArray(t.appMapper),t.view_name=s.string(t.view_name,"[unnamed view]"),t.view_version=s.string(t.view_version,"[unversioned view]"),t.grid.total_grid_spans=s.numberOrDefault(t.grid.total_grid_spans,12),t.grid.grid_prefix=s.object(t.grid.grid_prefix),t.grid.abs_grid_prefix=s.object(t.grid.abs_grid_prefix,null),t.preload=s.array(t.preload),t.preloadObject=s.object(t.preloadObject),t.viewports=s.object(t.viewports),t.viewport=s.string(t.viewport),t.touchEditingViewport=s.string(t.touchEditingViewport),t.style=s.object(t.style,{definitions:{},collections:[],presets:[],copyDefinitions:[]}),t.image=s.object(t.image,{defaultAspectRatio:.45,defaultBoundingBoxWidthRatio:1}),t.imageUrlOptions=s.object(t.imageUrlOptions),t.tags=s.object(t.tags,{},{section:[]}),t.elementList=s.object(t.elementList,{all:[],favourites:[]}),t.elementListAdditions=s.object(t.elementListAdditions,{all:[],favourites:[]}),t.elementListRemovals=s.object(t.elementListRemovals,{all:[],favourites:[]}),t.autoscroll=s.object(t.autoscroll,{scrollDistance:100,scrollBuffer:50,accelerator:{max:3,step:.2}}),t.markLockedPaths=s.true(t.markLockedPaths),t.minimap=s.object(t.minimap,{structure:null,pageType:[]}),t.exitWarning=s.stringOrNull(t.exitWarning),t.publish=s.object(t.publish,{retry:{count:4,delay:2e3},options:{article:{hidden:!0,defaultHidden:!1}}}),t.autolock=s.object(t.autolock,{timeout:18e5}),t.networkWarning=s.object(t.networkWarning,null,{offline:{alert:!0,lockPage:!0},online:{alert:!0}}),t.image_preview=s.object(t.image_preview,{width:1600,compression:50}),t.textTools=s.object(t.textTools,{characterBlacklists:{utf:[]},text_size:{min:{default:14},max:{default:150,mobile:80}}}),t.structure_map=s.object(t.structure_map),t.shapes=s.object(t.shapes),t.requiredElements=s.array(t.requiredElements),t.requiredElementsAdditions=s.array(t.requiredElementsAdditions),t.data=s.object(t.data,{elements:{},presets:{},presetBlacklist:{},blacklist:[],blacklistOptions:{}}),t.pageElements=s.object(t.pageElements),t.drawer=s.array(t.drawer),t.drawerAdditions=s.array(t.drawerAdditions),t.drawerRemovals=s.array(t.drawerRemovals),t.maxChildCount=s.numberOrDefault(t.maxChildCount,150),t}log(e,t=null){this.logger&&(t?this.logger.debug(`[ConfigReader] ${e}`,[t]):this.logger.debug(`[ConfigReader] ${e}`))}setupResources(){for(const e of this.resources)this.resourceObject[e.name]=e}setupResource(e,t=null){const r=!!t&&t!==this.siteAlias,i=this.resourceObject[e];this.log(`Settings up resource "${e}". Site: "${t||this.siteAlias}". Site-override: ${i.sitesPrefix?r:"n/a"}`),t&&!i.siteOverride[t]&&(i.siteOverride[t]={content:[],paths:[],resolved:!1});const s=t?i.siteOverride[t]:i,n=r?this.resolveSiteAliases(t):this.fallbackSites;for(const e of this.calculateResourcePaths(i,n)){s.paths.push(e);const t=this.getPath(e,this.config);s.content.push({path:e,value:t||{}})}return s.resolved=!0,s}reloadResourceBySite(e,t,r){if(e&&this.resourceObject[e]&&r){this.cache.debug.reload[`${e}|${t||"no-site"}`]=this.cache.debug.reload[`${e}|${t||"no-site"}`]?this.cache.debug.reload[`${e}|${t||"no-site"}`]+1:1;const s=n.resolve(r,"reload_resouce",{getCms:e=>i.get(e,this.config,!0)}),o=t?this.resourceObject[e].sitesPrefix+t:this.resourceObject[e].path;i.set(o,s,this.config),this.resourceObject[e].siteOverride[t]?delete this.resourceObject[e].siteOverride[t]:t||(this.setupResource(e),this.resourceObject[e].siteOverride={})}}updateConfigByPath(e,t){this.cache.debug.update[e]=this.cache.debug.update[e]?this.cache.debug.update[e]+1:1,i.set(e,t,this.config),this.resetCache(e)}getCacheKey(e="",t={}){const r=[e,t.mergeStrategy,t.orderStrategy];for(const e of t.resourceList)r.push(e.name,e.useSites?1:0,e.site||"-");return r.join("|")}getCache(e){return this.cache.debug.getter[e]=this.cache.debug.getter[e]?this.cache.debug.getter[e]+1:1,{isSet:e in this.cache.get,value:this.cache.get[e]}}setCache(e,t){this.cache.get[e]=t}resetCache(e){for(const t of Object.keys(this.cache.get))t.startsWith(`${e}|`)&&(this.cache.debug.resetCache[t]=this.cache.debug.resetCache[t]?this.cache.debug.resetCache[t]+1:1,this.log(`Deleting cache for key "${e}" ("${t}")`),delete this.cache.get[t])}calculateResourcePaths(e,t=this.fallbackSites){const r=e.sitesPrefix?t.map(t=>e.sitesPrefix+t):[];return r.push(e.path),r}resolveSiteAliases(e,t=[]){if(!e)return t;t.push(e);const r=this.getFallbackSite(e);return r&&this.resolveSiteAliases(r,t),t}getFallbackSite(e){return this.getPath(`customer.site_config_${e}.lab_fallback_site`,this.config)}getResource(e){let t=e.site?this.resourceObject[e.name].siteOverride[e.site]:this.resourceObject[e.name];return t&&t.resolved||(t=this.setupResource(e.name,e.site)),t}getPath(e,t,r=!1){return e?r?n.resolve(i.get(e,t,!0),e,{getCms:e=>i.get(e,this.config,!0)}):i.get(e,t,!0):t}getPaths(e,t,r=!1){const i=[],s=this.getResource(t),n=t.useSites?s.content:[s.content[s.content.length-1]];for(const s of n){const o=this.getPath(e,s.value,r);void 0!==o&&i.push({source:t.name,path:s.path,value:o,sourceIndex:n.indexOf(s)})}return i}getValueType(e){for(const t of e)if(null!==t.value)return Array.isArray(t.value)?"array":i.isObject(t.value)?"object":"other";return"other"}mergeResources(e,t,r){let s=t;const n=this.orderResources(e,r);if(!n.length)return{payload:null,paths:[],resetPaths:[]};const o=this.getValueType(n);if("default"===s&&(s="object"===o?"merge":"replace"),"replace"===s)return{payload:n[0].value,paths:[n[0].path],resetPaths:[]};n.reverse();const a=Array.isArray(n[0].value)?[]:{};let l=a;const d=[],h=[];for(const e of n){null===e.value&&(l=a,h.push(e.path));let r=i.merge;"merge"===t&&"array"===o&&(r=i.mergeArray),l=r(l,e.value),d.push(e.path)}return{payload:l,paths:d,resetPaths:h}}orderResources(e,t){if(1===e.length)return e[0].payload;let r=[];for(const t of e)r=r.concat(...t.payload);return"site"===t&&r.sort((e,t)=>e.sourceIndex-t.sourceIndex),r}prepareReturnValue(e){return e&&"object"==typeof e?i.clone(e,!0):e}getter(e,t=[],{mergeStrategy:r=null,orderStrategy:i=null,raw:n=!1,noCache:o=!1,interpolate:a=!0}){const l={mergeStrategy:s.stringRestricted(r,"default",["default","merge","replace"]),orderStrategy:s.stringRestricted(i,"site",["site","type"]),raw:s.false(n),noCache:s.false(o),resourceList:[]};for(const e of t)l.resourceList.push({name:e.name,useSites:!!e.useSites,site:s.stringOrNull(e.site)});const d=this.getCacheKey(e,l),h=this.getCache(d);if(!l.noCache&&h.isSet)return l.raw?{cached:!0,options:l,data:{raw:h.value.raw,merged:h.value.merged}}:this.prepareReturnValue(h.value.merged.payload);const g=l.resourceList.map(t=>({name:t.name,payload:this.getPaths(e,t,a)})),c=this.mergeResources(g,l.mergeStrategy,l.orderStrategy);return this.setCache(d,{raw:g,merged:c}),l.raw?{cached:!1,options:l,data:{raw:g,merged:c}}:this.prepareReturnValue(c.payload)}get(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null,orderStrategy:o=null}={}){return this.getter(e,[{name:"viewConfig",useSites:t,site:r},{name:"config",useSites:t,site:r}],{mergeStrategy:n,orderStrategy:o,raw:i,noCache:s})}getConfig(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"config",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s})}getCms(e,{raw:t=!1,noCache:r=!1}={}){return this.getter(e,[{name:"cmsConfig"}],{raw:t,noCache:r})}getView(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"viewConfig",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s})}getFeatureFlags(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"featureFlags",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s,interpolate:!1})}getContent(e,{raw:t=!1}={}){return this.getter(e,[{name:"content"}],{raw:t})}getLocal(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"localisation",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s,interpolate:!1})}getPathForSite(e,t,r=""){return e&&t&&this.resourceObject[e]&&this.resourceObject[e].sitesPrefix?this.resourceObject[e].sitesPrefix+t+(r?`.${r}`:""):null}getStorePathForSite(e,t,r=""){return e&&t&&this.resourceObject[e]&&this.resourceObject[e].sitesPrefix?this.resourceObject[e].storeSitesPrefix+t+(r?`.${r}`:""):null}debug(){return this.cache.debug}}class a{constructor(e,t,r=!1,i="",s=""){this.configReader=e,this.viewport=t,this.fragmentMode=r,this.pageType=i,this.simulatedMode=s,this.cache=new Map,this.isEditor="edit"===this.getAppMode(),this.pixelDensityFactor=this.isEditor?1:this.configReader.get("viewHelper.image.pixelDensityFactor"),this.pixelDensityFactors={}}resetCache(){this.cache.clear()}getViewport(){return this.viewport}getViewports(){const e="getViewports";return this.cache.has(e)||this.cache.set(e,Object.keys(this.configReader.get("viewports")||{})),this.cache.get(e)}getMainViewport(){const e="getMainViewport";return this.cache.has(e)||this.cache.set(e,this.configReader.getCms("mainViewport")),this.cache.get(e)}getPageType(){return this.pageType}getSimulatedMode(){return this.simulatedMode}isFragmentMode(){return!!this.fragmentMode}isMainViewport(){return this.viewport===this.getMainViewport()}isTouchDevice(e=this.viewport){return this.configReader.getCms("isTouchDevice")}getSubViewports(){const e="getSubViewports";if(!this.cache.has(e)){const t=this.getMainViewport();this.cache.set(e,this.getViewports().filter(e=>e!==t))}return this.cache.get(e)}isSubViewport(e=this.viewport){return e!==this.getMainViewport()}getEditableViewports(e=!1){const t=`getEditableViewports_${e}`;if(!this.cache.has(t)){const r=this.configReader.get("viewports"),i=e?{}:[];for(const t of Object.keys(r))r[t].noEdit||(e?i[t]=r[t]:i.push(t));this.cache.set(t,i)}return this.cache.get(t)}getViewportWidth(e=this.viewport){const t=this.configReader.get(`viewports.${e}.deviceWidth`);return t?parseInt(t,10):null}getEditViewportWidth(e=this.viewport){const t=this.configReader.get(`viewports.${e}.editSlotWidth`)||this.configReader.get(`viewports.${e}.deviceWidth`);return t?parseInt(t,10):null}getSite(e=null){const t={},r=`getSite_${e}`;if(!this.cache.has(r)){if(e){for(const t of this.configReader.getCms("sites"))if(t.alias===e)return this.cache.set(r,t),t;return this.cache.set(r,t),t}this.cache.set(r,this.configReader.getCms("site")||t)}return this.cache.get(r)}getSiteById(e){if(!e)return null;const t=`getSiteById_${e}`;if(!this.cache.has(t)){const r=parseInt(e,10);for(const e of this.configReader.getCms("sites"))if(e.id===r)return this.cache.set(t,e),e;return this.cache.set(t,null),null}return this.cache.get(t)}getSites(){const e="getSites";return this.cache.has(e)||this.cache.set(e,this.configReader.getCms("sites")||[]),this.cache.get(e)}getAppMode(){const e="getAppMode";return this.cache.has(e)||this.cache.set(e,this.configReader.getCms("app.mode")||"presentation"),this.cache.get(e)}isPresentationMode(){return!this.isEditor}isEditMode(){return this.isEditor}getPixelDensityFactor(e){return e?(this.pixelDensityFactors[e]||(this.pixelDensityFactors[e]=this.isEditor?1:this.configReader.get(`viewHelper.image.pixelDensity.${e}`)||this.configReader.get("viewHelper.image.pixelDensityFactor")),this.pixelDensityFactors[e]):this.pixelDensityFactor}getPreferredImageFormat(){return(this.configReader.get("imageUrlOptions.extension")||"").replace(".","")||null}}class l{constructor(e){this.debug=e&&"object"==typeof performance,this.logs={}}getLogs(){return this.logs}resetLogs(){this.logs={}}log(e,t){const r=e.pop();let i=this.logs;for(const t of e)i[t]||(i[t]={}),i=i[t];i[r]||(i[r]={count:0,time:0}),i=i[r],i.count++,i.time+=t}start(e){if(this.debug)return{paths:e,time:this.getTimestamp()}}end(e){this.debug&&this.log(e.paths,this.getTimestamp()-e.time)}getTimestamp(){return performance.now()}}class d{constructor({entries:e=[],behaviours:t={},debug:r=!1}={}){this.entries=e,this.behaviours=t,this.debug=r,this.events={},this.logs={},this.performanceLogger=new l(this.debug)}getLogs(){return this.performanceLogger.getLogs()}resetLogs(){this.performanceLogger.resetLogs()}on(e,t){return this.events[e]||(this.events[e]=[]),this.events[e].push(t),!0}off(e,t){return!(!this.events[e]||!this.events[e].includes(t))&&(this.events[e]=this.events[e].filter(e=>e!==t),!0)}emitEntry(e,...t){const r=this.performanceLogger.start(["entry",e]),i=this.callTargets(e,"entry",this.entries,...t);return this.performanceLogger.end(r),i}emitBehaviour(e,t,...r){const i=this.behaviours[t.getType()];if(!i||!i.length)return[];const s=this.performanceLogger.start(["behaviour",e,t.getType()]),n=this.callTargets(e,"behaviour",i,t,...r);return this.performanceLogger.end(s),n}emitCollectionBehaviour(e,t,...r){const i=this.behaviours[t.getType()];return i&&i.length?this.callTargets(e,"collection",i,t,...r):[]}emitEvent(e,...t){this.events[e]&&this.callEvents(e,this.events[e],...t)}requestEvent(e,...t){return this.events[e]?this.requestEvents(e,this.events[e],...t):[]}callEvents(e,t,...r){for(const i of t)try{i(...r)}catch(t){Sys.logger.error(`[Emitter] Failed to run method on listener for message "${e}"`),Sys.logger.debug(t.toString()),lab_api.v1.app.logError(t)}}requestEvents(e,t,...r){const i=[];for(const s of t)try{const e=s(...r);void 0!==e&&i.push(e)}catch(t){Sys.logger.error(`[Emitter] Failed to run method on listener for message "${e}"`),Sys.logger.debug(t.toString()),lab_api.v1.app.logError(t)}return i}callTargets(e,t,r,...i){const s=[];for(const n of r)try{if(n.isEnabled){const t=n.call(e,...i);null!=t&&s.push(t)}}catch(r){Sys.logger.error(`[Emitter] Call to method ${e} on '${n.name}' failed:`),console.error(r),lab_api.v1.app.logViewError(r,t)}return s}registerEntry(e){return!this.entries.includes(e)&&(this.entries.push(e),!0)}registerBehaviour(e,t){return this.behaviours[e]||(this.behaviours[e]=[]),!this.behaviours[e].includes(t)&&(this.behaviours[e].push(t),!0)}}class h{static build(e,t,r){let i;const s=[],n=r||"&",o=(e,t,r)=>{let i,s=t;const n=[];if(!0===s?s="1":!1===s&&(s="0"),null!=s){if("object"==typeof s){for(i in s)null!=s[i]&&n.push(o(`${e}[${i}]`,s[i],r));return n.join(r)}if("function"!=typeof s)return`${this.urlencode(e)}=${this.urlencode(s)}`;throw new Error("There was an error processing for http_build_query().")}return""};for(const r of Object.keys(e)){i=e[r];let a=r;t&&!Number.isNaN(a)&&(a=String(t)+a);const l=o(a,i,n);""!==l&&s.push(l)}return s.join(n)}static urlencode(e){return encodeURIComponent(`${e}`).replace(/!/g,"%21").replace(/'/g,"%27").replace(/\(/g,"%28").replace(/\)/g,"%29").replace(/\*/g,"%2A").replace(/%20/g,"+")}}class g extends d{constructor(e,t,r,i,s,n,o=!1){super({behaviours:s,debug:o}),this.properties=e,this.templates=t,this.configReader=r,this.propertyValidator=i,this.pathHelper=n,this.resolved={properties:new Map,templates:new Map,resourceMaps:new Map},this.appMode=r.getCms("app.mode"),this.pageTemplateName="default",this.resourceSettings=this.resolveResourceSettings(),this.viewportList=new Map,this.rootId=null,this.feedBaseUrl=`${this.configReader.getCms("front_api_url")}/feed/item`,this.isFragmentMode=!1,this.feedCounter={}}getPathInfo(e,t,r="stage"){const i=e.split("/"),s=i.pop();let n;return n=s.startsWith("page_")?`${s.replace("page_","page/")}/${this.pageTemplateName}`:`content/${s}`,{type:s,resourceType:n,area:r,modeList:this.getPrioritizedModes(),viewportList:this.getPrioritizedViewports(t),contextList:this.getPrioritizedContexts(`${i.join("/")}/`)}}resolveResourceSettings(){const e=s.object(this.configReader.get("resourceAllocation",{useSites:!1}),{resourceMaps:["_resources"]});"string"==typeof e.resourceMaps&&(e.resourceMaps=[e.resourceMaps]);const t=this.configReader.getCms("site.alias"),r=s.object(this.configReader.get("resourceAllocation",{site:t}));let i=[];if(Array.isArray(r.resourceMaps)&&i.push(...r.resourceMaps),!i.length||s.true(r.mergeMaps)){const t=[];for(const r of e.resourceMaps)i.includes(r)||t.includes(r)||t.push(r);t.length&&(i=[...t,...i])}return{names:i}}getResourceMap(e,t){if(this.resolved.resourceMaps.has(e.type))return this.resolved.resourceMaps.get(e.type);let r={labPaths:this.getEmptyPathObject()};for(const t of this.resourceSettings.names){const i=`${e.resourceType}/${t}.json`,s=this.getPropertyFile(i);s?(r.labPaths.maps.push(i),r=this.mergeObject(r,s)):Sys.logger.warn(`[ResourceManager] Cannot find resource-map for element "${e.type}". Tried "${i}".`)}if(t){const i=this.emitBehaviour("onResourceMap",t,{...r},{type:e.type,resourceType:e.resourceType});i.length&&(Sys.logger.warn(`[ResourceManager] Resource-map is overridden by a bahaviour for model "${t.getPositionedPath()}".`),r=i.pop())}return this.resolved.resourceMaps.set(e.type,r),r}getPaths(e,t,r){let i=[];for(const s of r.modeList){const n=this.getContextsForModeAndArea(e,s,r);if(n)for(const e of r.contextList){const o=this.getContexts(n,t,e);if(o.length)for(const e of o){const t=this.getPathForViewports(e.match,r);if(t)for(const r of Array.isArray(t.resources)?t.resources:[t.resources])i=i.filter(e=>e.path!==r),i.push(this.getPathDescription({path:r,context:e.context,viewport:t.viewport,mode:s}))}}}return i.length||Sys.logger.debug(`ResourceManager: Cannot get ${t} for ${r.type}. Context-list: ${r.contextList.join(", ")}, area: ${r.area}`),i}getPathForViewports(e,t){for(const r of t.viewportList)if(e[r])return{resources:e[r],viewport:r};return null}getPathLength(e=""){return this.trimPath(e).replace(/\/\//g,"/||/").split("/").map(e=>e?"||"===e?.2:"*"===e?.6:1:0).reduce((e,t)=>e+t)}sortContexts(e){const t=e.sort((e,t)=>this.getPathLength(e)-this.getPathLength(t)||e.localeCompare(t)),r=t.indexOf("lab-default");return r>0&&(t.splice(r,1),t.unshift("lab-default")),t}trimPath(e){let t=e;return t.startsWith("/")&&!t.startsWith("//")&&(t=t.substring(1)),t.endsWith("/")&&!t.endsWith("//")&&(t=t.substr(0,t.length-1)),t}getContexts(e,t,r){const i=this.sortContexts(Object.keys(e)),s=[];for(const n of i)if(e[n][t]){const i=this.pathHelper.pathMatch(n,r);i&&s.push({match:e[i][t],context:n})}return s}getContextsForModeAndArea(e,t,r){return i.get(`${t}.${r.area}`,e)||null}getPropertyFile(e){if(this.properties[e]){return{...this.properties[e]}}return null}getEmptyPathObject(){return{maps:[],properties:[],map:[]}}getPathDescription(e={}){return{path:e.path||null,context:e.context||null,viewport:e.viewport||null,mode:e.mode||null,requiredBy:e.requiredBy||null}}resolveInheritance(e,t){if(!e.includeFiles)return e;let r=e;for(const i of e.includeFiles)if(!r.labPaths.properties.includes(i)){const e=this.getPathDescription(t);e.requiredBy=e.path,e.path=i;const s=this.resolvePropertyFileWithDescription(e);s&&(r=this.mergeObject(s,r))}return r}getTemplateFile(e){return this.templates[e]||null}getPrioritizedViewports(e){if(!this.viewportList.get(e)){const t=e?[e]:[];this.configReader.get(`viewports.${e||"default "}.noFallback`)||t.push("default"),this.viewportList.set(e,t)}return this.viewportList.get(e)}getPrioritizedModes(){const e=[this.appMode];return"edit"===this.appMode&&e.unshift("presentation"),e}getPrioritizedContexts(e){return["lab-default",e]}mergeObject(e,t){const r=i.merge(e,t);return e.labPaths&&t.labPaths&&(r.labPaths.properties=e.labPaths.properties.concat(t.labPaths.properties),r.labPaths.map=e.labPaths.map.concat(t.labPaths.map)),r}getCacheKey(e,t,r){return`${e||"no-path"}-${t}-${r}`}rootModelReady(e){this.isFragmentMode=lab_api.v1.app.mode.isFragmentMode(),e&&(this.rootId=e.get("id"),e&&e.getType().startsWith("page_")&&this.setPageTemplateName(e.get("fields.page_template_alias")||"default"))}setPageTemplateName(e="default"){Sys.logger.debug(`[ResourceManager] Will use page-template "${e}".`),"undefined"===e?(Sys.logger.warn("[ResourceManager] Invalid page_template_alias detected. Will override template to 'default'."),this.pageTemplateName="default"):this.pageTemplateName=e}getAreaFromPath(e,t){return e&&e.includes("pasteboard/")?"pasteboard":"stage"}getPropertiesForPath(e,t,r,i=this.getAreaFromPath(e)){e||Sys.logger.warn('ResourceManager.getPropertiesForPath: Missing required param "path". Will return default properties.');const s=this.getCacheKey(e,r,i);if(this.resolved.properties.has(s))return this.resolved.properties.get(s);let n={labPaths:this.getEmptyPathObject()};const o=this.getPathInfo(e,r,i),a=this.getResourceMap(o,t),l=this.getPaths(a,"properties",o);for(const e of l){const t=this.resolvePropertyFileWithDescription(e);t&&(n=this.mergeObject(n,t))}return n.labPaths.maps=a.labPaths.maps,this.resolved.properties.set(s,this.propertyValidator(n)),this.resolved.properties.get(s)}resolvePropertyFile(e){return this.resolvePropertyFileWithDescription(this.getPathDescription({path:e}))}resolvePropertyFileWithDescription(e){const t=this.getPropertyFile(e.path);return t?(t.labPaths=this.getEmptyPathObject(),t.labPaths.properties.push(e.path),t.labPaths.map.push(e),this.resolveInheritance(n.resolve(t,e.path,this.configReader),e)):(Sys.logger.warn(`ResourceManager: Cannot find property-file for path: ${e.path}.`),null)}getTemplateForPath(e,t,r,i=this.getAreaFromPath(e)){const s=this.getCacheKey(e,r,i);if(this.resolved.templates.has(s))return this.resolved.templates.get(s);const n={paths:null,resource:null},o=this.getPathInfo(e,r,i),a=this.getResourceMap(o,t);return n.paths=this.getPaths(a,"template",o),n.paths.length&&(n.resource=this.getTemplateFile([...n.paths].pop().path)),n.resource||(Sys.logger.debug(`ResourceManager: Cannot find template for path: ${e}, viewport: ${r}, area: ${o.area}. Will assign default template.`),n.resource=this.getDefaultTemplate(e)),this.resolved.templates.set(s,n),n}getDefaultTemplate(e){return"edit"===this.appMode?"<div>{{{ children.all }}}</div>":"{{{ children.all }}}"}getPropertiesForModel(e,t,r){return this.getPropertiesForPath(e.getPath(),e,t.viewport,r)}getTemplateForModel(e,t,r){if("presentation"===this.appMode&&!this.isFragmentMode&&"1"===e.get("fields.isAutomatic"))return`<div data-lab-placeholder="include" src="${this.getFeedUrl(e,t)}" ></div>`;const i=this.getTemplateForPath(e.getPath(),e,t.viewport,r);return i.paths.length&&t.setTemplatePath([...i.paths].pop().path),i.resource}getFeedUrl(e,t){const r=e.get("fields.feedId"),i=e.get("fields.feedParams")||{};let s="";Object.keys(i).length&&(s=`?${h.build(i)}`),void 0===this.feedCounter[r]&&(this.feedCounter[r]=0);const n=this.feedCounter[r]++;return`${this.feedBaseUrl}/${r}/${this.rootId}/${n}${s}`}}class c{constructor(e,t,r){this.viewport=e,this.model=t,this.eventPipe=r,this.markup=null,this.markupString=null,this.template=null,this.templatePath=null,this.properties=null,this.data=null,this.size=this.getEmptySizeObject(),this.proxies={current:null,child:null,children:null,childMarkup:null,childrenMarkup:null,store:{get:null,set:null}},this.cache=new Map}static resolveConfig(e={}){return lab_api.v1.app.dbg.logger.add("LabView","resolveConfig"),{labPaths:e.labPaths||{maps:[],properties:[],map:[]},boxTitle:e.boxTitle||"",boxDescription:e.boxDescription||"",boxKeywords:e.boxKeywords||"",childLimit:e.childLimit||null,includeFiles:s.array(e.includeFiles,null),gridRules:e.gridRules||[],viewHelper:e.viewHelper||null,viewportMap:s.object(e.viewportMap),bodytextElements:s.array(e.bodytextElements),bodytextHeadingElements:s.array(e.bodytextHeadingElements),overrideImageSize:s.object(e.overrideImageSize),image:s.object(e.image,null,{defaultAspectRatio:null}),external:s.object(e.external,null,{url:null,type:"html",headers:null})}}getEmptySizeObject(){return{grid:null,pixelWidths:null,gridWidth:null,absGridWidths:null,absGridCss:null}}isPrepared(){return!1}setPreparedState(e){}setMarkupString(e){this.markupString=e}getMarkup(){return null}getMarkupString(){return this.markupString||""}setGrid(e){this.size.grid=e}getGrid(){return this.size.grid}setPixelWidths(e){this.size.pixelWidths=e}getPixelWidth(){return this.size.pixelWidths[this.viewport]}getPixelWidths(){return this.size.pixelWidths}setGridWidth(e){this.size.gridWidth=e}getGridWidth(){return this.size.gridWidth}getAbsoluteGridWidth(){return this.size.absGridWidths?this.size.absGridWidths[this.viewport]:null}setAbsoluteGridWidths(e){this.size.absGridWidths=e}getAbsoluteGridWidths(){return this.size.absGridWidths}getAbsGridCss(){return this.size.absGridCss}setAbsGridCss(e){this.size.absGridCss=e}getWidth(){return this.get("width")}setWidth(e,t=!1){this.set("width",e,t)}setData(e){this.data=e}getData(){return this.data}getProxy(){return this.proxies.current}setProxy(e){this.proxies.current=e}getChildrenProxy(){return this.proxies.children}setChildrenProxy(e){this.proxies.children=e}getChildProxy(){return this.proxies.child}setChildProxy(e){this.proxies.child=e}getChildMarkupProxy(){return this.proxies.childMarkup}setChildMarkupProxy(e){this.proxies.childMarkup=e}getChildrenMarkupProxy(){return this.proxies.childrenMarkup}setChildrenMarkupProxy(e){this.proxies.childrenMarkup=e}getStoreProxy(e){return this.proxies.store.set&&this.proxies.store.get?e?this.proxies.store.set:this.proxies.store.get:null}setStoreProxy({get:e,set:t}){this.proxies.store.get=e,this.proxies.store.set=t}setTemplate(e){this.template=e}getTemplate(){return this.template}setTemplatePath(e){this.templatePath=e}getTemplatePath(){return this.templatePath}setProperties(e,t=!1){this.properties=t?e:this.constructor.resolveConfig(e)}getProperties(){return this.properties}getProperty(e,t){return i.get(e,this.properties,t)}getViewport(){return this.viewport}getviewportOrder(e,t=null,r=this.viewport){return this.eventPipe.getViewportOrder(this,this.model.getPath(),e,t,r)}getCacheKey(e,t,r=!1){return`${e}|${r?1:0}|${t}`}get(e,t=!1,r=this.viewport){lab_api.v1.app.dbg.logger.add(this.constructor.name,"get",this.viewport);const i=this.getCacheKey(e,r,t);if(this.cache.has(i))return this.getCache(i);const s=this.model.buildQuery(e),n=this.getviewportOrder(s.path,s.attribute,r);if(!n.length){const e=this.model.get(s.key,null,t);return this.setCache(i,e)}for(const e of n){const t=this.model.get(s.key,e,!0);if(void 0!==t)return this.setCache(i,t)}return this.setCache(i,t?void 0:null)}set(e,t,r=!1){if(lab_api.v1.app.dbg.logger.add(this.constructor.name,"set",this.viewport),!e)return!1;const i=this.model.buildQuery(e),s=this.getviewportOrder(i.path,i.attribute);return this.model.set(i.key,t,{save:!r,viewport:s[0]})}setAll(e,t=!0){if(e&&"object"==typeof e&&!Array.isArray(e)){for(const t of Object.keys(e))this.set(t,e[t],!0);t&&lab_api.v1.app.save()}else Sys.logger.warn("[LabView] Method setAll expect an object containing key/value pars of data to store. Non-object given.")}setTransparent(e,t){const r=this.model.buildQuery(e),s=this.getviewportOrder(r.path,r.attribute),n=this.model.buildQuery(e,s[0]);let{path:o}=n;return n.attribute&&(o="fields"===n.type?`${n.path}.attributes.${n.attribute}`:`${n.path}.${n.attribute}`),i.get(o,i.set(n.fullPath,t,{}))}setCache(e,t){return this.cache.set(e,t),this.getCache(e)}getCache(e){const t=this.cache.get(e);return t&&"object"==typeof t?Array.isArray(t)?[...t]:{...t}:t}resetCache(e,t=this.getViewport()){const r=this.getCacheKey(e,t);this.cache.delete(r),this.cache.forEach((r,i,s)=>{i.startsWith(`${e}.`)&&i.endsWith(`|${t}`)&&this.cache.delete(i)})}}class p{static generateShapes(e,t){if(!e)return"";const r=JSON.parse(e);let i="";for(const e of r)i+=this.createShape(e,t);return i}static createShape(e,t){return`<div class="imageShape" style="${this.getStyle(e,t)}"></div>`}static getStyle(e,t){const r=this.getPosition(e,t),i=this.getSize(e,t);return`position: absolute;\n        width: ${i.w}%;\n        height: ${i.h}%;\n        top: ${r.y}%;\n        left: ${r.x}%;\n        border-width: ${e.borderwidth}px;\n        border-color: ${e.bordercolor};\n        border-style: ${e.borderstyle};\n        border-radius: ${"circle"===e.shape?"50%":"0"};\n        background: ${e.background||"transparent"};`}static getPosition(e,t){return{x:(e.x-t.x)*(100/t.cropw),y:(e.y-t.y)*(100/t.croph)}}static getSize(e,t){return{w:e.width*(100/t.cropw),h:e.height*(100/t.croph)}}}class u{constructor(e,t){this.api=e,this.isEditor=this.api.v1.app.mode.isEditor(),this.viewport=t.viewport,this.viewports=this.api.v1.config.get("viewHelper.image.viewports"),this.viewports.includes(this.viewport)||this.viewports.push(this.viewport),this.logger=t.logger,this.imageServer=this.api.v1.properties.get("image_server"),this.cropParamsFloat=["x","y","cropw","croph","panox","panoy","panow","panoh","heightx","heighty","heightw","heighth"],this.cropParamsString=["float","shapes"],this.privateCropParams=["bbRatio","whRatio","viewports_json","metadata_key"],this.allFields=[...this.cropParamsFloat,...this.cropParamsString,...this.privateCropParams],this.imageUrlOptions=this.api.v1.config.get("imageUrlOptions")||{},this.preferWebp=".webp"===this.api.v1.config.get("imageUrlOptions.extension"),this.maxDimension=3e3,this.pixelDensityFactors=this.readPixelDensity(),this.logger.debug(`Image-helper created. Will prepare image-data for viewports: ${this.viewports.join(", ")}.`)}static getImageProperties(e={}){const t=e.crop||{},r=t.pano||{},i=t.height||{};return{cropw:r.cropw||0,croph:r.croph||0,x:r.x||0,y:r.y||0,heightw:i.cropw||0,heighth:i.croph||0,heightx:i.x||0,heighty:i.y||0,imageCaption:e.imageCaption||""}}run(e,t){if(!e.hasNodeData())return this.logger.debug(`Image has no node-data, skipping. Path: "${e.getPositionedPath()}"`),void this.api.v1.model.noRender(e);const r=t.getProperty("image.defaultAspectRatio")||this.api.v1.config.get("image.defaultAspectRatio")||.5,i=t.getProperty("image.defaultBoundingBoxWidthRatio")||this.api.v1.config.get("image.defaultBoundingBoxWidthRatio")||1,s=t.getPixelWidths(),n=e.getData("instance_of"),o=e.get("fields.imageurl"),a=e.get("fields.forceImageUrl"),l={},d=[],h=this.imageUrlOptions.nameField?e.get(this.imageUrlOptions.nameField):null,g="_articlefeed"===e.get("fields.source"),c="1"===e.get("fields.isLabradorImageUrl"),u=this.preferWebp&&g?"webp":null,f=[];if((this.preferWebp||"webp"===u)&&f.push({format:"webp",type:"image/webp"}),f.push({format:"jpg",type:"image/jpeg"}),!o&&!n)return this.isEditor?e.setFiltered("image","/images/lab-head_1000.png"):e.setFiltered("image",`${this.api.v1.config.get("image.fallbackUrl")||"/404-image.png"}?noImageFound`),void(e.get("state.isUploading")?e.setFiltered("imageLoadingClass","lab-uploading-image labicon-cloud_up"):e.setFiltered("imageLoadingClass","lab-missing-image"));for(const e of this.viewports){const y={width:t.get("fields.width",!1,e)||t.getProperty("overrideImageSize.width"),height:t.get("fields.height",!1,e)||t.getProperty("overrideImageSize.height")},m=s[e],b={};for(const r of this.allFields){const i=t.get(`fields.${r}`,null,e);(i||"0"===i||0===i)&&(b[r]=i)}const w={imageId:g?void 0:n,format:u,bbRatio:t.get("filtered.bbRatio",null,e)||b.bbRatio||i,whRatio:t.get("filtered.whRatio",null,e)||b.whRatio||r},v={float:null,border:null,shapes:null};for(const e of this.cropParamsFloat)if(void 0!==b[e]){const t=parseFloat(b[e]||0);w[e]=t.toFixed(2)}for(const e of this.cropParamsString){const t=b[e]||null;t&&"null"!==t&&(v[e]=t)}w.width=t.get(`filtered.width.${e}`,null,e)||y.width||Math.ceil(m*w.bbRatio),w.height=t.get(`filtered.height.${e}`,null,e)||y.height||Math.ceil(w.width*w.whRatio);const P={width:w.width,height:w.height};w.width=Math.round(w.width*this.pixelDensityFactors[e]),w.height=Math.round(w.height*this.pixelDensityFactors[e]);if(w.width/w.height>1){if(w.width>this.maxDimension){const e=this.maxDimension/w.width;w.width=Math.floor(w.width*e),w.height=Math.floor(w.height*e)}}else if(w.height>this.maxDimension){const e=this.maxDimension/w.height;w.height=Math.floor(w.height*e),w.width=Math.floor(w.width*e)}const x=this.generateUrl(w,{imageurl:o,forceImageUrl:a,instanceOf:n,isLabradorImageUrl:c,imageUrlOptionsNameValue:h}),M=v.shapes?p.generateShapes(v.shapes,b):"";l[e]={viewport:e,url:x,formats:f,width:P.width,height:P.height,shapes:M,borderClass:"on"===v.border?"borderOn":""},d.push(l[e])}const y=l[this.viewport];e.setFiltered("viewport_list",l),e.setFiltered("viewport_array",d),e.setFiltered("image",y.url),e.setFiltered("imageWidth",y.width),e.setFiltered("imageHeight",y.height),e.setFiltered("imageCleanUrl",y.url.replace(/&(width|height)=\d+/g,"")),e.setFiltered("borderClass",y.borderClass),e.setFiltered("shapes",y.shapes),e.setFiltered("imageLoadingClass",n?"":o?"lab-content-busy":"lab-is-dummy-image")}generateUrl(e,t={}){const r=[],i={width:e.width||t.width||150,height:e.height||t.height||100},s={imageId:e.imageId||t.imageId,x:e.x,y:e.y,cropw:e.cropw,croph:e.croph,panox:e.panox,panoy:e.panoy,panow:e.panow,panoh:e.panoh,heightx:e.heightx,heighty:e.heighty,heightw:e.heightw,heighth:e.heighth,width:i.width,height:i.height,format:e.format||void 0};for(const e of Object.keys(s))void 0!==s[e]&&r.push(`${e}=${s[e]}`);let n=this.imageServer,o="?";return!t.imageurl||!t.forceImageUrl&&t.instanceOf?t.instanceOf?this.imageUrlOptions&&t.imageUrlOptionsNameValue&&(n+=`/${t.imageUrlOptionsNameValue}${t.format?`.${t.format}`:this.imageUrlOptions.extension}`):n="":(-1!==t.imageurl.indexOf(this.imageServer)||t.isLabradorImageUrl?n=t.imageurl:n+=`?imageUrl=${t.imageurl}`,o="&"),n&&(n+=o+r.join("&")),n}readPixelDensity(){const e={};for(const t of this.viewports)e[t]=this.api.v1.view.getPixelDensityFactor(t);return e}}const f={unique:(e=8)=>{const t=`0x${Math.pow(10,e-1)}`;return Math.floor((1+Math.random())*t).toString(16)},async digestString(e){const t=(new TextEncoder).encode(e),r=await crypto.subtle.digest("SHA-256",t);return Array.from(new Uint8Array(r)).map(e=>e.toString(16).padStart(2,"0")).join("")},trim(e,t){let r=(e||"").trim(),i=[];void 0===t?i.push(" "):"string"==typeof t?i.push(t):i=t;for(let e=0;e<i.length;e++)0===r.indexOf(i[e])&&(r=r.slice(i[e].length)),r.lastIndexOf(i[e])>-1&&r.lastIndexOf(i[e])===r.length-i[e].length&&(r=r.slice(0,r.length-i[e].length));return r.trim()},stripTags:(e="",t="")=>(e||"").replace(/<(?:.|\n)*?>/gm,t).trim(),stripLinks:(e="")=>(e||"").replace(/<a[^>]*>(.*?)<\/a>/gm,"$1"),sanitizeString:(e="")=>f.stripTags(f.unescapeEntities(e)).replace(/"/g,"'"),escapeForJavaScript:(e="")=>e?e.replace(/'/g,"\\'").replace(/"/g,'\\"').replace(/\n/g,"\\n").replace(/\u2028/g,"\\u2028").replace(/\u2029/g,"\\u2029"):"",unescapeEntities:(e="")=>(e||"").replace(/&nbsp;/gi," ").replace(/&amp;/gi,"&"),toFileName:(e="")=>e.replace(/\s+/gi,"-").replace(/[^a-zA-Z0-9\-._]/gi,""),ucFirst(e=""){const t=e||"";return t.charAt(0).toUpperCase()+t.slice(1)},parsePath(e=""){const t=this.trim(e,"/").split("/"),r=/\[([0-9]+)\]/;return t.map(e=>{const t={base:e,index:null,path:e},i=r.exec(e);return i&&(t.index=parseInt(i[1],10),t.base=e.replace(`[${t.index}]`,"")),t})},insertAtPosition:(e,t,r)=>[e.slice(0,t),r,e.slice(t)].join(""),labCtrlKey:()=>navigator.platform.toLowerCase().indexOf("mac")>=0?"⌘":"⊞",shiftKey:()=>"⇧",altKey:()=>navigator.platform.toLowerCase().indexOf("mac")>=0?"⌥":"alt",arrowUp:()=>"↑",arrowDown:()=>"↓",arrowLeft:()=>"←",arrowRight:()=>"→",keyMapper(e){if(!e)return"";switch(e){case" ":return"space";case"labCtrlKey":case"metaKey":return f.labCtrlKey();case"shiftKey":return f.shiftKey();case"altKey":return f.altKey();case"ArrowUp":return f.arrowUp();case"ArrowDown":return f.arrowDown();case"ArrowLeft":return f.arrowLeft();case"ArrowRight":return f.arrowRight();default:return f.ucFirst(e.replace("Key",""))}},hotkeyString(e={}){const t=(e.controlkeys||[]).map(e=>f.keyMapper(e));return[...t,f.keyMapper(e.key)].map(e=>`<span class="lab-label-hotkey">${e}</span>`).join("+")},niceNumber(e,t=" "){let r=`${e}`;const i=r.split(".");r=i.shift();let s="";for(;r.length>3;)s=`${t}${r.slice(-3)}${s}`,r=r.slice(0,-3);return(r+s).trim()+(i.length?".":"")+i.join(".")}};class y{static getLineData(e,t,r=!1){const i={};i.bodytext=this.getBodytext(e,t,r),i.tags=t.getProperty("bodytextElements")||["p"],i.headingTags=t.getProperty("bodytextHeadingElements")||["h1","h2","h3"],i.indexRegister=[];let s=0,n=0;y.analyze(i.bodytext).forEach(e=>{if(i.tags.indexOf(e.tag)>-1){const t={charIndex:e.index,bodytextIndex:s++};i.headingTags.indexOf(e.tag)>-1&&(t.bodytextHeadingIndex=n++),i.indexRegister.push(t)}}),i.indexRegister.reverse();for(const e of i.indexRegister)if("number"==typeof e.bodytextHeadingIndex){e.lastHeading=!0;break}return i}static getBodytext(e,t,r=!1){const i=e.get("fields.bodytext")||"";return!r||i?i:t.data.placeholder.bodytext||""}static analyze(e=""){const t=[],r=new RegExp("<([\\/a-zA-Z0-9\\-]*?)(?: .*?)?>","g"),i={tag:null,index:0,level:0};return e.replace(r,(e,r,s)=>{const n=r.indexOf("/"),o=n>-1?r.replace("/",""):r;i.tag?o===i.tag&&(n<0?i.level++:i.level>0?i.level--:(t.push({tag:i.tag,index:i.index,length:s+e.length-i.index}),i.tag=null)):(i.tag=o,i.index=s)}),t}}class m{constructor(e,t){this.api=e,this.viewport=t.viewport,this.allViewports=this.api.v1.viewport.getAll(),this.mainViewport=this.api.v1.viewport.getMain(),this.logger=t.logger,this.viewManager=t.viewManager,this.lineClassSelector="lab-bodytext-line",this.logger.debug(`Bodytext-helper created. Will prepare data for viewports: ${this.allViewports.join(", ")}.`)}run(e,t){this.insertContent(e,t)}insertContent(e,t){const r={bodyText:[],bodyTextHeading:[],lastBodyTextHeading:[]};let i=0;const s=y.getLineData(e,t,this.api.v1.app.mode.isEditor());for(const t of e.children){const e=this.viewManager.getView(t),i=e.get("metadata.bodyTextIndex"),n="number"==typeof i?i:null,o=e.get("metadata.bodyTextHeadingIndex");if(e.get("metadata.lastBodyTextHeading")||!1)r.lastBodyTextHeading.push(t);else if("number"==typeof o)r.bodyTextHeading[o]=r.bodyTextHeading[o]||[],r.bodyTextHeading[o].push(t);else if("number"==typeof n)r.bodyText[n]=r.bodyText[n]||[],r.bodyText[n].push(t);else{const e=s.indexRegister[0]?s.indexRegister[0].bodytextIndex+1:0;r.bodyText[e]=r.bodyText[e]||[],r.bodyText[e].push(t)}}let{bodytext:n}=s;for(const e of s.indexRegister){if(void 0!==r.bodyText[e.bodytextIndex]){const t=this.createMarkup(r.bodyText[e.bodytextIndex],e.charIndex,n);n=t.bodytext,i+=t.count}if(void 0!==e.bodytextHeadingIndex&&void 0!==r.bodyTextHeading[e.bodytextHeadingIndex]){const t=this.createMarkup(r.bodyTextHeading[e.bodytextHeadingIndex],e.charIndex,n);n=t.bodytext,i+=t.count}if(e.lastHeading&&r.lastBodyTextHeading.length){const t=this.createMarkup(r.lastBodyTextHeading,e.charIndex,n);n=t.bodytext,i+=t.count}}for(const e of Object.keys(r.bodyText)){const t=r.bodyText[e];if(t&&t.length)for(const e of t){const t=this.viewManager.getView(e);!0!==t.get("metadata.skipIfOutOfBounds")&&(n+=t.getMarkupString(),i++)}}for(const e of r.lastBodyTextHeading){const t=this.viewManager.getView(e);!0!==t.get("metadata.skipIfOutOfBounds")&&(n+=t.getMarkupString(),i++)}Sys.logger.debug(`Bodytext: Parsed bodytext. Inserted ${i} of ${e.children.length} structures. Tags: [${s.tags.join(", ")}]. Line-count: ${s.indexRegister.length}.`),e.setFiltered("lineData",s),e.setFiltered("bodytext",n)}createMarkup(e,t,r){let i=0,s="";for(;e.length;){const t=e.shift();s+=this.viewManager.getView(t).getMarkupString(),i++}return{count:i,bodytext:f.insertAtPosition(r,t,s)}}getIndexes(e,t){const{indexRegister:r}=y.getLineData(e,t,this.api.v1.app.mode.isEditor());return r.map(e=>e.bodytextIndex)}isBodytextLine(e,t){return e===t||(!!this.api.v1.util.dom.getParentByClass(e,t,this.lineClassSelector)||e.classList.contains(this.lineClassSelector))}getLineClassSelector(){return this.lineClassSelector}}class b{constructor(e,t){this.api=e,this.viewport=t.viewport,this.logger=t.logger,this.viewManager=t.viewManager,this.settings=t.settings,this.isEditor=t.isEditor,this.apiUrl=this.api.v1.properties.get("front_api_url")}prepare(e,t){if(this.isEditor&&e.isPseudo())return;const r=t.getProperty("external");r&&r.fetchInPrepare&&r.url?this.fetchExternalData(e,t,r):r&&r.url||this.logger.warning(`[External] Missing required config "external" or "external.url" for model ${e.getPositionedPath()}. No external content will be fetched.`)}run(e,t){if(this.isEditor&&e.isPseudo())return;const r=t.getProperty("external");r&&!r.fetchInPrepare&&r.url?this.fetchExternalData(e,t,r):r&&r.url||this.logger.warning(`[External] Missing required config "external" or "external.url" for model ${e.getPositionedPath()}. No external content will be fetched.`)}fetchExternalData(e,t,r){if(this.settings.fragmentMode){let t;const i=e.isNonPersistent();if(i){const r=this.api.v1.model.query.getRootModel(),i=e.getPositionedPath();r.get("fields.labExternalPath")===i&&(t=r.get("fields.labExternalData"),t&&(e.set("fields.isFragment","1",{notify:!1,registerModified:!1,save:!1,undoable:!1}),e.set("metadata.isFragment","1",{notify:!1,registerModified:!1,save:!1,undoable:!1})))}else t=e.get("fields.labExternalData");if(t){this.logger.debug(`[External] Data is available for ${i?"non-persistent":"persistent"} element ${e.getPositionedPath()}.`);let s=t;if(t&&this.isExternalData(r))try{s=JSON.parse(t)}catch(t){this.logger.warn(`[External] Cannot parse fetched external data for model ${e.getPositionedPath()}.`),s={}}return void e.set("external",s,{save:!1,undoable:!1})}}const i=this.getUrl(e,t,r,this.isEditor);if(i){if(this.isEditor){const s=e.get("state.requireExternal")||{},n=!0===s[t.getViewport()];return this.viewManager.getExternalContent(e,t,i,r,n),void(n&&(s[t.getViewport()]=!1,e.set("state.requireExternal",s,{save:!1,undoable:!1,notify:!1})))}t.setTemplate(`<div data-lab-placeholder="include" src="${i}" ></div>`)}}isExternalData(e){return"json"===e.type}getUrl(e,t,r,i){const s=this.viewManager.getDataForView(e,t),n=Mustache.render(r.url,s);if(!n)return this.logger.debug(`[External] Resolved empty url for model ${e.getPositionedPath()}`),null;lab_api.v1.app.dbg.extensiveLogging&&this.logger.debug(`[External] Resolved url for model ${e.getPositionedPath()}: "${n}"`);const o=encodeURIComponent(n),a=[`lab_viewport=${this.viewport}`];if(r.headers){const e={};for(const t of Object.keys(r.headers))e[t]=Mustache.render(r.headers[t],s);a.push(`headers=${encodeURIComponent(JSON.stringify(e))}`)}return this.buildUrl(e,o,i,a)}buildUrl(e,t,r,i){const s=i.length?i.join("&"):null;return r?`${this.api.v1.properties.get("proxy")}?query=${t}${s?`&${s}`:""}`:e.isNonPersistent()?`${this.apiUrl}/external/dynamic-data/${this.settings.contentId}/?path=${encodeURIComponent(e.getPositionedPath())}&url=${t}${s?`&${s}`:""}`:`${this.apiUrl}/external/node/${e.getId()}/${this.settings.contentId}/${t}${s?`?${s}`:""}`}}class w{constructor(e){this.description=e,this.startTime=this.getTime(),this.steps=[]}getTime(){return(new Date).getTime()}start(e="[default]"){return{time:this.getTime(),description:e,duration:0}}stop(e){return e.duration=this.getTime()-e.time,this.steps.push(e),e.duration}step(e="[default]"){const t={time:this.getTime(),description:e};return t.duration=this.steps.length>0?t.time-this.steps[this.steps.length-1].time:t.time-this.startTime,this.steps.push(t),t.duration}getMin(){let e=null,t=null;for(const r of this.steps)(null===e||r.duration<e)&&(e=r.duration,t=r);return{time:e,step:t}}getMax(){let e=0,t=null;for(const r of this.steps)(null===t||r.duration>e)&&(e=r.duration,t=r);return{time:e,step:t}}getSteps(){let e=0,t=0,r=null,i=null,s=null;for(const n of this.steps)e+=n.duration,(null===i||n.duration>t)&&(t=n.duration,i=n),(null===r||n.duration<r)&&(r=n.duration,s=n);return{description:this.description,totalTime:e,minTime:r,maxTime:t,meanTime:Math.round(e/this.steps.length),minTimeStep:s,maxTimeStep:i,steps:this.steps}}}const v={percentToGrid:(e,t=12)=>Math.round(e/100*t),gridToPercent:(e,t=12)=>v.floatPrecision(e/t*100),floatPrecision:e=>parseFloat(parseFloat(e).toFixed(2)),distributePercent:(e,t,r=12)=>v.distributeGrid(v.percentToGrid(e,r),t).map(e=>v.gridToPercent(e,r)),distributeGrid:(e,t)=>{let r=t;r>e&&(r=e,Sys.logger.warn(`grid.distributeGrid: Requested count ${t} is larger than gridSize ${e}. Will use count ${r}.`));const i=e/r;if(Number.isInteger(i))return Array(r).fill(i);let s=0,n=!0,o=[];for(let e=0;e<r;e++){const e=n?Math.ceil(i):Math.floor(i);o.push(e),s+=e,n=!n}let a=s-e;if(s!==e){const e=[];for(;a>0&&o.length;){let t=o.shift();t>1&&(t--,a-=1),e.push(t)}o=o.concat(e)}return o.length!==r&&Sys.logger.warn(`Utility-method grid.distributeGrid will return a faulty array. Excpected a count of ${r}, got ${o.length} ...`),o}},P={getData:(e,t,r,i,s,n)=>{const o=v.percentToGrid(e||100,i.span),a={};for(const e of Object.keys(t))t[e]&&(a[e]=v.percentToGrid(t[e],i.span));const l={width:o,css:"",vp:{},cssVp:{}},d=P.getMatchingRule(s,r,i.span);l.vp=P.applyRule(o,a,s.length,d.values,i,n);for(const e of Object.keys(i.prefix))l.cssVp[e]=i.prefix[e]+l.vp[e];return l.css=Object.values(l.cssVp).join(" "),l},applyRule:(e,t,r,i,s,n)=>{const o={};for(const a of Object.keys(s.prefix)){let s=null;t[a]?s=t[a]:i[a]&&(s=P.getMatchingRuleValue(i[a],n,r,e)),o[a]=s?parseInt(s,10):e}return o},getMatchingRuleValue:(e,t,r,i)=>{for(const s of Object.keys(e)){if("first-child"===s&&0===t)return e[s];if("last-child"===s&&t===r-1)return e[s];if("inherit"===s&&e[s])return i;if(P.getNthChild(s)===t+1)return e[s]}return e.default?e.default:null},getNthChild:e=>"nth-child("===e.substring(0,10)?parseInt(e.substring(0,e.length-1).substring(10),10):null,getMatchingRule:(e,t,r)=>{const i=e.length;for(let s=t.length-1;s>=0;s--){if("odd"===t[s].condition&&!P.isEven(i))return t[s];if("even"===t[s].condition&&P.isEven(i))return t[s];if("number"==typeof t[s].condition&&t[s].condition===i)return t[s];if(Array.isArray(t[s].condition)&&t[s].condition.length===i){const n=[];for(let t=0;t<i;t++)n.push(v.percentToGrid(e[t],r));if(P.hasArrayMatch(t[s].condition,n))return t[s]}}return{values:{}}},isEven:e=>!(e%2),hasArrayMatch:(e,t)=>{if(e.length!==t.length)return!1;for(let r=0;r<e.length;r++)if("*"!==e[r]&&e[r]!==t[r])return!1;return!0}};class x{constructor(e={}){this.viewportInfo=e,this.cache=new Map,this.buildtin={width:{viewport:{default:!0},fallback:{default:this.viewportInfo.main}},external:{viewport:{default:!0},fallback:{default:this.viewportInfo.main},attributes:{"*":{viewport:{default:!0},fallback:{default:this.viewportInfo.main}}}}}}resetCache(){this.cache.clear()}get(e,t,r,i=null,s){const n=this.getCacheKey(t,r,i,s);if(!this.cache.has(n)){let t=e.getProperty(`viewportMap.${r}`);!t&&this.buildtin[r]&&(t=this.buildtin[r]),"string"==typeof t&&(t=e.getProperty(`viewportMap.${t}`)),t&&i&&"string"==typeof t.attributes&&(t.attributes=e.getProperty(`viewportMap.${t.attributes}`)),this.cache.set(n,this.defineOrder(s,i,t))}return this.cache.get(n)}defineOrder(e,t,r){if(!r)return[];if(t&&(!r.attributes||!r.attributes[t]&&!r.attributes["*"]))return[];const i={viewport:{},fallback:{},...t?r.attributes[t]||r.attributes["*"]:r},s=this.parseMap(e,i);return s.length&&!1!==i.fallback.no_viewport&&s.push(null),s}parseMap(e,t,r=[]){if(!t)return r;if(!1===t.viewport[e])return r;if((!0===t.viewport[e]||t.viewport.default)&&(r.includes(e)||r.push(e)),t.fallback){if(t.fallback[e]&&t.fallback[e]!==e){const i=t.fallback[e];return t.fallback={...t.fallback},delete t.fallback[e],this.parseMap(i,t,r)}if(t.fallback.default&&t.fallback.default!==e){const e=t.fallback.default;return t.fallback={...t.fallback},delete t.fallback.default,this.parseMap(e,t,r)}}return r}getCacheKey(e,t,r,i){return[e,t,r,i].join("|")}}const M={functionMap:{},isValidFunction:e=>{if(void 0!==M.functionMap[e])return M.hasFunction(e);let t;try{t=eval.call(null,e)}catch(e){t=null}return M.functionMap[e]=t,M.hasFunction(e)},hasFunction:e=>typeof M.functionMap[e]==typeof Function,getFunction:e=>!!e&&(M.isValidFunction(e)?M.functionMap[e]:lab_api.v1.ns.get(e)||!1)};class C{constructor(){this.resolved={pathMatch:new Map}}static getPropertyTypeAndIndex(e,t=!1){const r=/(.+)\[(.*)\]/.exec(e);if(!r||r.length<3)return[t?e.split("|"):e,null,!1];let i=r[1];t&&(i=i.split("|"));const s=r[2]?parseInt(r[2].trim(),10):null;return[i,Number.isInteger(s)?s:null,""===r[2].trim()]}pathMatch(e,t){const r=`${e}||${t}`;if(this.resolved.pathMatch.has(r))return this.resolved.pathMatch.get(r);let i=null;return(this.exactMatch(t,e)||this.wildcardMatch(t,e))&&(i=e),this.resolved.pathMatch.set(r,i),i}exactMatch(e,t){return t.endsWith("//")?e.endsWith(t.slice(0,-1)):t.endsWith("/")?e.endsWith(t):e.endsWith(`${t}/`)}wildcardMatch(e,t){const r=f.trim(t,[" ","/"]).split("/").reverse(),i=f.trim(e,[" ","/"]).split("/").reverse();return this.arrayMatch(i,r)}arrayMatch(e,t,r){const i=e.shift(),s=t.shift();return i===s||"*"===s?!t.length||this.arrayMatch(e,t):""===s?(e.unshift(i),this.arrayMatch(e,t,!0)):!(!r||!e.length)&&(t.unshift(s),this.arrayMatch(e,t,!0))}static getViewForMenuItem(e){return C.getTarget(e.getModel(),e.getView(),{pathHelper:e.getConfig("pathHelper")}).view}static getTarget(e,t,r={}){const i={model:e,view:t};if(r.pathHelper&&r.pathHelper.type){const e=Array.isArray(r.pathHelper.type)?r.pathHelper.type:[r.pathHelper.type];for(const r of e){const e=this.getTargetForPath(i.model,r);if(e)return i.model=e,i.view=lab_api.v1.view.getView(i.model,t.getViewport()),i}return Sys.logger.warn(`[PathHelper] Cannot get target for source. Check config. Tried "${r.pathHelper.type}". Will return original result.`),i}if(r.source&&"model"!==r.source){const e=M.getFunction(r.source);if(!e)return Sys.logger.warn(`[PathHelper] Cannot get function for source. Check config. Tried "${r.source}". Will return original result.`),i;if(i.model=e(),!i.model)return Sys.logger.warn(`[PathHelper] Cannot get bound source from supplied function. Check config. Tried "${r.source}". Will return original result.`),i;i.view=i.model}return i}static getTargetForPath(e,t){const r=t.split(".");if(!["parent","child","root"].includes(r[0]))return Sys.logger.warn(`[PathHelper] Supplied path not valid. Check config. Tried "${t}". Will return original result.`),null;let i;if("parent"===r[0])i=e.getParent();else if("root"===r[0])i=lab_api.v1.model.query.getRootModel();else{const t=r[1],[s,n]=C.getPropertyTypeAndIndex(t);if(null===n)i=lab_api.v1.model.query.getChildOfType(e,s);else{i=lab_api.v1.model.query.getModelsByType(s,e.children)[n]||null}}return i}}class S{constructor(e){this.getView=e.getView,this.getMarkupForModels=e.getMarkupForModels,this.getMarkupString=e.getMarkupString,this.configReader=e.configReader,this.localisation=e.localisation,this.proxies={config:null,cmsConfig:null,root:null,selector:null,preload:null,localisation:null},this.parsedProps=new Map,this.isEditor=this.configReader.getCms("app.isEditMode")}parseProp(e){return this.parsedProps.has(e)||this.parsedProps.set(e,this.doParseProp(e)),this.parsedProps.get(e)}doParseProp(e){const t={prop:e,attr:void 0};if(!e.endsWith("]"))return t;const r=/(.+)\[(.*)\]/.exec(e);return!r||r.length<3?t:{prop:r[1],attr:r[2]}}getProxy(e,t=this.getView(e)){return t.getProxy()||t.setProxy(this.createProxy(e,t)),t.getProxy()}createProxy(e,t){const r=(e,r)=>{const i=this.parseProp(r);return i.attr?t.get(`${e}.${i.prop}.${i.attr}`):t.get(`${e}.${i.prop}`)},i=new Proxy({},{get:(e,t)=>r("fields",t),has:(e,t)=>!!r("fields",t)}),s=new Proxy({},{get:(e,r)=>t.get(`metadata.${r}`),has:(e,r)=>!!t.get(`metadata.${r}`)}),n=new Proxy({},{get:(e,r)=>t.get(`filtered.${r}`),has:(e,r)=>!!t.get(`filtered.${r}`)});return new Proxy({},{get:(e,r)=>"fields"===r?i:"metadata"===r?s:"filtered"===r?n:t.get(r),has:(e,r)=>!!t.get(r)})}getRootProxy(){return this.proxies.root||(lab_api.v1.model.query.getRootModel()?this.proxies.root=this.getProxy(lab_api.v1.model.query.getRootModel()):this.proxies.root={}),this.proxies.root}getParentProxy(e,t){return e.parent?this.isEditor?e.parent.isMarkedForDeletion()?null:(t.getParentProxy()||t.setParentProxy(new Proxy(this.getProxy(e.parent),{get:(t,r)=>(e.parent.addToRedrawDependencies(e),t[r]),has:(e,t)=>t in e})),t.getParentProxy()):this.getProxy(e.parent):null}getChildrenProxy(e,t){return t.getChildrenProxy()||t.setChildrenProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));const n="all"===i?e.children:lab_api.v1.model.query.getModelsByType(i,e.children,s);return this.getProxiesForModels(n,!0)},has:(e,t)=>!0})),t.getChildrenProxy()}getChildProxy(e,t){return t.getChildProxy()||t.setChildProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));const[n,o]=C.getPropertyTypeAndIndex(i,!0);if(null===o){const t=lab_api.v1.model.query.getChildOfType(e,n,s);return t?this.getProxiesForModels([t],!1):null}const a=lab_api.v1.model.query.getModelsByType(n,e.children,s);return a[o]?this.getProxiesForModels([a[o]],!1):null},has:(e,t)=>!0})),t.getChildProxy()}getStoreProxy(e,t,r=!1){if(!t.getStoreProxy(r)){const e={};t.setStoreProxy({get:new Proxy(e,{has:()=>!0,get:(e,t)=>t in e?e[t]:""}),set:new Proxy(e,{has:()=>!0,get:(e,t)=>()=>(r,i)=>(e[t]=i(r),"")})})}return t.getStoreProxy(r)}getPreloadProxy(e){return this.proxies.preload||(this.proxies.preload=this.createPreloadProxy(e)),this.proxies.preload}createPreloadProxy(e){return new Proxy({},{get:(t,r)=>e.getObject(r),has:(e,t)=>!0})}getChildrenMarkupProxy(e,t){return t.getChildrenMarkupProxy()||t.setChildrenMarkupProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));const[n,o,a]=C.getPropertyTypeAndIndex(i,!0),l="all"===n[0]?e.children:lab_api.v1.model.query.getModelsByType(n,e.children,s);return null===o?this.getMarkupForModels(l,a):this.getMarkupForModels(l[o]?[l[o]]:[],!1)},has:(e,t)=>!0})),t.getChildrenMarkupProxy()}getChildMarkupProxy(e,t){return t.getChildMarkupProxy()||t.setChildMarkupProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));const[n,o]=C.getPropertyTypeAndIndex(i,!0),a=lab_api.v1.model.query.getModelsByType(n,e.children,s);return a.length?null===o||0===o?this.getMarkupForModels([a[0]],!1):this.getMarkupForModels(a[o]?[a[o]]:[],!1):""},has:(e,t)=>!0})),t.getChildMarkupProxy()}getSelectorProxy(){if(!this.proxies.selector){const e={get:(e,t)=>{const r=lab_api.v1.model.query.getModelBySelector(t);return r?this.getMarkupString(r,this.getView(r)):""},has:(e,t)=>!0};this.proxies.selector=new Proxy({},e)}return this.proxies.selector}getConfigProxy(){if(!this.proxies.config){const e={get:(e,t)=>this.configReader.get(t),has:(e,t)=>!0};this.proxies.config=new Proxy({},e)}return this.proxies.config}getCmsConfigProxy(){if(!this.proxies.cmsConfig){const e={get:(e,t)=>this.configReader.getCms(t),has:(e,t)=>!0};this.proxies.cmsConfig=new Proxy({},e)}return this.proxies.cmsConfig}getLocalisationProxy(){return this.proxies.localisation||(this.proxies.localisation=()=>(e,t)=>this.localisation.get(e,{fallbackValue:""})),this.proxies.localisation}getProxiesForModels(e,t=!0){const r=e.map(e=>this.getProxy(e));return t?r:r[0]}}class T extends d{constructor(e){super({behaviours:e.behaviours,entries:e.entries,debug:e.settings.debug}),this.logger=e.logger,this.state={isEditor:!1},this.settings=e.settings,this.logger.debug(`Creating instance of ViewManager for viewport ${e.viewport}.`),this.resourceManager=e.resourceManager,this.configReader=e.configReader,this.configProcessor=e.configProcessor,this.viewMap=new Map,this.gridSettings=this.getGridSettings(),this.viewport={name:e.viewport,main:this.configProcessor.getMainViewport(),isMain:this.configProcessor.isMainViewport(),width:this.configProcessor.getViewportWidth()},this.styleManager=e.styleManager,this.preloadHandler=e.preloadHandler,this.localisation=e.localisation,this.viewportsSettings=this.configReader.get("viewports")||{},this.ViewHelpers={};const t=new x(this.viewport);this.viewEventPipe={getViewportOrder:t.get.bind(t)},this.rootModel=null,this.proxyManager=new S({configReader:this.configReader,localisation:this.localisation,getView:this.getView.bind(this),getMarkupForModels:this.getMarkupForModels.bind(this),getMarkupString:this.getMarkupString.bind(this)}),this.renderers={renderViewTemplate:this.renderViewTemplate.bind(this),renderViewPartial:this.renderViewPartial.bind(this),renderPartial:this.renderPartial.bind(this),renderPageElement:this.renderPageElement.bind(this)},this.renderHelpers={trim:()=>(e,t)=>t(e).replace(/\t|\r\n|\n|\r/gm," ").replace(/ +/gm," ").trim(),sanitizeString:()=>(e,t)=>f.sanitizeString(t(e)),stripTags:()=>(e,t)=>f.stripTags(t(e)),stripLinks:()=>(e,t)=>f.stripLinks(t(e)),encodeURIComponent:()=>(e,t)=>encodeURIComponent(t(e)),escapeForJavaScript:()=>(e,t)=>f.escapeForJavaScript(t(e)),cachebuster:()=>e=>{const t=e.split(","),r="cms"===t[0]?"cms":"view",i=this.configReader.getCms(`deployTimestamps.${r}`);if(!i)return"";return`${(t[1]||"?")+(t[2]||"v")}=${i}-L4`},toFixed:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r).toFixed(i)}}}apiReady(e){this.ViewHelpers={image:new u(e,this.getViewHelperParams()),bodytext:new m(e,this.getViewHelperParams()),external:this.getExternalViewHelper(e)}}getGridSettings(){const e=this.configProcessor.getViewport(),t={prefix:this.configReader.get("grid.grid_prefix"),absPrefix:this.configReader.get("grid.abs_grid_prefix"),span:this.configReader.get("grid.total_grid_spans")};return t.prefix[e]||(t.prefix[e]=""),t}getViewHelperParams(){return{viewport:this.viewport.name,logger:this.logger,viewManager:this,isEditor:this.state.isEditor,settings:this.settings}}getViewHelper(e){return e in this.ViewHelpers?this.ViewHelpers[e]:null}getExternalViewHelper(e){return new b(e,this.getViewHelperParams())}allowViewport(e){const t=e.get("metadata.viewportBlacklist");return!t||!Array.isArray(t)||!t.includes(this.viewport.name)}draw(e=[],t=null){this.emitEvent("render",this.viewport.name),this.logger.debug(`[ViewManager] Start rendering for viewport ${this.viewport.name}.`);const r=new w("ViewManager.draw");for(const t of e)this.drawModel(t);this.logger.debug(`[ViewManager] Rendering finished for viewport ${this.viewport.name}. Element-count: ${lab_api.v1.model.query.getModelsFromCache().length}. Duration ${r.step()} ms.`);let i=[];for(const t of e){const e=this.getView(t);i.push(e.getMarkupString())}const s=this.notifyFrontRendered(i);return s.length&&(this.logger.warn('[ViewManager] Listener for event "app-rendered" has modified markup returned from rendering engine.'),i=s.pop()),"function"==typeof t&&t(i),i}notifyFrontRendered(e){return this.requestEvent("rendered",e,this.viewport.name)}drawModel(e,t=!0){if(lab_api.v1.app.dbg.logger.add(this.constructor.name,"drawModel",this.viewport.name),!this.allowViewport(e))return void this.logger.debug(`[ViewManager] Element ${e.getPositionedPath()} is not allowed on viewport ${this.viewport.name}.`);const r=this.getView(e);if(this.prepareDrawing(e,r),t){const t=r.getProperty("childLimit");for(const r of e.children)this.allowChild(e,r,t)&&this.drawModel(r)}this.drawPrepared(e,r)}allowChild(e,t,r){return!(r&&e.children.indexOf(t)>=r)||(this.logger.warn(`[ViewManager] Child-limit (${r}) reached for "${e.getType()}". Child: "${t.getPositionedPath()}". Viewport "${this.viewport.name}".`),this.childLimitDetected(e,t,r))}childLimitDetected(e,t,r){const i=this.requestEvent("childLimitReached",e,t,this.viewport.name,r);return!!i.length&&!!i.pop()}prepareDrawing(e,t){const r=this.performanceLogger.start(["prepare",e.getType()]);this.prepareView(e,t),t.getGrid()||(this.getAndSetGridData(e,t),this.gridIsDefined(e,t)),this.proxyManager.getProxy(e,t),this.notifyOnPrepareViewHelper(e,t),this.prepareViewHelper(e,t),this.notifyOnReady(e,t),this.performanceLogger.end(r)}gridIsDefined(e,t){}drawPrepared(e,t){let r=this.performanceLogger.start(["assembleData",e.getType()]);const i=this.getDataForView(e,t);this.performanceLogger.end(r),this.runViewHelper(e,t),this.notifyBeforeElementDraw(e,t),r=this.performanceLogger.start(["template",e.getType()]),this.renderTemplate(e,t,i),this.performanceLogger.end(r),this.markupStringReady(e,t)}markupStringReady(e,t){this.notifyOnRendered(e,t)}notifyOnPrepareViewHelper(e,t){e.isPseudo()||this.emitBehaviour("onPrepareViewHelper",e,t)}notifyOnReady(e,t){e.isPseudo()||this.emitBehaviour("onReady",e,t)}notifyOnViewHelper(e,t){e.isPseudo()||this.emitBehaviour("onViewHelper",e,t)}notifyBeforeElementDraw(e,t){e.isPseudo()||(this.emitBehaviour("onRender",e,t),this.emitEntry("onRender",e,t))}notifyOnRendered(e,t){this.emitBehaviour("onRendered",e,t),this.emitEntry("onRendered",e,t)}getDataForView(e,t){return t.getData()||this.getAndSetViewData(e,t)}createView(e){const t=e.getGuid();return this.viewMap.get(t)||this.viewMap.set(t,this.newViewInstance(e)),this.viewMap.get(t)}newViewInstance(e){return new c(this.viewport.name,e,this.viewEventPipe)}getView(e){return this.viewMap.get(e.getGuid())||this.createView(e)}getViews(){return this.viewMap.values()}prepareView(e,t){t.isPrepared()||(lab_api.v1.app.dbg.logger.add(this.constructor.name,"prepareView",this.viewport.name),this.setTemplate(e,t),this.setProperties(e,t),this.viewIsResolved(e,t))}setTemplate(e,t){t.setTemplate(this.resourceManager.getTemplateForModel(e,t))}setProperties(e,t){t.setProperties(this.resourceManager.getPropertiesForModel(e,t),!0)}viewIsResolved(e,t){t.setPreparedState(!0)}prepareViewHelper(e,t){if(e.isPseudo())return;const r=t.getProperty("viewHelper");if(!r)return;const i=this.getViewHelper(r);if(i){if(i.prepare){const r=this.performanceLogger.start(["viewhelper-prepare",e.getType()]);i.prepare(e,t),this.performanceLogger.end(r)}}else this.logger.warning(`[ViewManager] Cannot find view-helper ${r} for model ${e.getPositionedPath()}.`)}runViewHelper(e,t){if(e.isPseudo())return;const r=t.getProperty("viewHelper");if(!r)return;const i=this.getViewHelper(r);if(i){this.notifyOnViewHelper(e,t);const r=this.performanceLogger.start(["viewhelper-run",e.getType()]);i.run(e,t),this.performanceLogger.end(r)}else this.logger.warning(`[ViewManager] Cannot find view-helper ${r} for model ${e.getPositionedPath()}.`)}renderTemplate(e,t,r){lab_api.v1.app.dbg.extensiveLogging&&this.logger.debug(`[ViewManager] Start renderTemplate for model ${e.getPositionedPath()}`),e.getNoRenderState()?this.logger.debug(`[ViewManager] Model-state disallows rendering model "${e.getPositionedPath()}".`):this.renderTemplateAndData(e,t,r)}getAndSetViewData(e,t){const r=this.getViewData(e,t);return t.setData(r),r}getGridData(e){const t=e.getGrid()||{};return{width:t.width,absWidth:e.getAbsoluteGridWidth(),css:t.css,absCss:e.getAbsGridCss(),vp:t.vp,absVp:e.getAbsoluteGridWidths(),cssVp:t.cssVp,percentage:v.gridToPercent(t.width)}}getViewData(e,t){const r=lab_api.v1.model.query.getRootModel()||e.getRootParent(),i=lab_api.v1.view.getView(r,t.getViewport());return{get:{current:this.proxyManager.getProxy(e,t),parent:this.proxyManager.getParentProxy(e,t),root:this.proxyManager.getRootProxy(),child:this.proxyManager.getChildProxy(e,t),children:this.proxyManager.getChildrenProxy(e,t),store:this.proxyManager.getStoreProxy(e,t)},set:{store:this.proxyManager.getStoreProxy(e,t,!0)},getPreload:this.proxyManager.getPreloadProxy(this.preloadHandler),child:this.proxyManager.getChildMarkupProxy(e,t),childByIndex:()=>(t,r)=>{const[i,s]=r(t).trim().split(" "),n=parseInt(i,10)||0,o=s?lab_api.v1.model.query.getChildrenOfType(e,s):e.getChildren();return o[n]?this.getMarkupString(o[n],this.getView(o[n])):null},children:this.proxyManager.getChildrenMarkupProxy(e,t),selector:this.proxyManager.getSelectorProxy(e,t),size:{grid:this.getGridData(t),pixelWidth:t.getPixelWidth(),pixelWidths:t.getPixelWidths()},style:{definition:()=>(r,i)=>this.styleManager.getStyleFromDefinition(e,t,i(r)),collection:()=>(r,i)=>this.styleManager.getStyle(e,t,i(r))},app:{viewport:{name:this.viewport.name,width:this.viewport.width,main:this.viewport.main,isMain:this.viewport.isMain},isEditor:this.state.isEditor,isFront:!this.state.isEditor},render:{template:this.renderers.renderViewTemplate,partial:this.renderers.renderViewPartial,sitePartial:this.renderers.renderPartial,pageElement:this.renderers.renderPageElement},helper:{trim:this.renderHelpers.trim,sanitizeString:this.renderHelpers.sanitizeString,stripTags:this.renderHelpers.stripTags,stripLinks:this.renderHelpers.stripLinks,encodeURIComponent:this.renderHelpers.encodeURIComponent,escapeForJavaScript:this.renderHelpers.escapeForJavaScript,cachebuster:this.renderHelpers.cachebuster,toFixed:this.renderHelpers.toFixed},calculator:{add:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)+parseFloat(i)},subtract:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)-parseFloat(i)},divide:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)/parseFloat(i)},multiply:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)*parseFloat(i)}},if:()=>(e,t)=>{const r={"=":(e,t)=>e==t,"!=":(e,t)=>e!=t,"<":(e,t)=>e<t,">":(e,t)=>e>t,"[]":(e,t)=>e.includes(t)};let i=0,s=null,n=[];for(;n.length<2&&i<Object.keys(r).length;)s=Object.keys(r)[i++],n=e.split(s);if(n.length>1){const[e,i]=n.map(e=>t(e).trim());if(r[s](e,i))return"1"}return""},getConfig:this.proxyManager.getConfigProxy(),getCmsConfig:this.proxyManager.getCmsConfigProxy(),image:{getFrontCropUrl:this.getFrontCropUrlHelper(r,i)},lang:this.proxyManager.getLocalisationProxy()}}getFrontCropUrlHelper(e,t){return()=>(t,r)=>{const i=e.get("frontCrop");if(i&&i.pano){const e=r(t).split(","),s=parseInt(e[0],10),n=parseInt(e[1],10),o=e[2]||void 0,a=this.getViewHelper("image").generateUrl(i.pano.fields,{instanceOf:i.pano.instance_of,imageUrlOptionsNameValue:i.pano.instance_of,imageId:i.pano.instance_of,width:s,height:n,format:o});if(a)return a}const s=(lab_api.v1.config.get("faviconList")||[]).pop();return s&&s.iconPath?s.iconPath.startsWith("http")?s.iconPath:lab_api.v1.properties.get("customer_front_url")+s.iconPath:""}}renderPageElement(){return(e,t)=>{const r=e.trim().split(" "),i=t(r.shift()),s=t(r.shift())||i,n=lab_api.v1.config.get(`pageElements.${i}`);if(!n)return this.renderViewPartial()(s,t);const o=this.getTemplate("widgets/structures/root");return o?t(this.renderPageElementRecursive(o,n)):(this.logger.warn('[ViewManager] Cannot find root-widget at "widgets/structures/root". Widget not rendered.'),"")}}getTemplate(e){return this.resourceManager.templates[e]}renderPageElementRecursive(e,t,r={value:1}){const{viewport:i,pageType:s,flag:n}=t.requirements||{};if((!i||i===this.viewport.name)&&(!s||s===this.configProcessor.getPageType())&&(!n||lab_api.v1.util.featureFlags.enabled(n,this.settings.contentId))){const i=r.value,s=t.settings||{},n=[];if(t.children)for(let e=0;e<t.children.length;e++){const i=t.children[e],s=this.getTemplate(`widgets/${i.type}`);if(s){r.value++;const e=this.renderPageElementRecursive(s,i,r);e&&n.push(e)}else this.logger.warn(`[ViewManager] Cannot find widget at "widgets/${i.type}". Widget not rendered.`)}const{tags:o}=Mustache;Mustache.tags=["[[","]]"];const a=Mustache.render(e,{children:n.join(""),settings:s,id:i});return Mustache.tags=o,a}return null}renderViewTemplate(){return(e,t)=>{const r=t(e.trim());return r&&this.getTemplate(r)?t(this.getTemplate(r)):(this.logger.debug(`Render template: Path is not valid: '${r}'`),"")}}renderViewPartial(){return(e,t)=>this.renderPartialWithFallback(e.trim(),t)}renderPartial(){return(e,t)=>this.renderPartialWithOutFallback(e.trim(),t)}renderPartialWithOutFallback(e,t){return this.renderViewTemplate()(`partial/${e}`,t)}renderPartialWithFallback(e,t,r=null,i=[]){const s=r||lab_api.v1.site.getSite().alias,n=this.renderViewTemplate(),o=n(`partial/site/${s}/${e}`,t);if(!o){i.push(s);const r=lab_api.v1.config.get("lab_fallback_site",s);return r&&!i.includes(r)?this.renderPartialWithFallback(e,t,r,i):n(`partial/${e}`,t)}return o}getPixelWidths(e,t){const r=t.getPixelWidths();if(r)return r;const i=t.getAbsoluteGridWidths(),s=i[this.viewport.main],n={};for(const e in this.viewportsSettings)if(this.viewportsSettings[e]){const t=i[e]?i[e]:s;n[e]=Math.ceil(t/this.gridSettings.span*this.viewportsSettings[e].deviceWidth)}return n}calculateGridData(e,t){const r=this.viewport.main,i=t.getWidth(),s=e.getViewportWidths();let n=[i],o=t.getProperty("gridRules")||[];if(Array.isArray(o)||(o=Object.values(o)),o.length){const t=e.parent?e.parent.getPersistentChildren():null;t&&(n=t.map(e=>e.getWidth(r)||e.getWidth()))}return P.getData(i,s,o,this.gridSettings,n,e.getModelIndex(!0))}calculateAbsoluteGridWidths(e,t){const r=t.getGrid().vp;r||this.logger.error("gridWidths do not exist. It should ...");let i={};if(e.parent){const t=this.getView(e.parent);i=this.getAbsoluteGridWidths(e.parent,t)||i}const s={};for(const e of Object.keys(r))s[e]=v.floatPrecision(r[e]/this.gridSettings.span*(i[e]||this.gridSettings.span));return s}getAbsoluteGridWidths(e,t){return t.getAbsoluteGridWidths()}getAbsoluteGridCss(e,t){if(!this.gridSettings.absPrefix)return"";const r=t.getAbsoluteGridWidths();return Object.keys(r).map(e=>this.gridSettings.absPrefix[e]?this.gridSettings.absPrefix[e]+r[e]:"").join(" ")}getAndSetGridData(e,t){const r=this.calculateGridData(e,t);t.setGrid(r),t.setGridWidth(r.vp[this.viewport.name]),t.setAbsoluteGridWidths(this.calculateAbsoluteGridWidths(e,t)),t.setAbsGridCss(this.getAbsoluteGridCss(e,t)),t.setPixelWidths(this.getPixelWidths(e,t))}renderTemplateAndData(e,t,r){t.setMarkupString(Mustache.render(t.getTemplate(),r,this.resourceManager.templates))}getMarkupForModels(e,t=!0){const r=e.map(e=>this.getMarkupString(e,this.getView(e)));return t?r:r.join("")}getMarkupString(e,t){return t.getMarkupString()}getPlaceholders(){return{}}getMarkup(e){return this.getView(e).getMarkup()}}const k={create(){if("undefined"!=typeof crypto&&crypto.randomUUID)return crypto.randomUUID();let e=(new Date).getTime();return"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,t=>{const r=(e+16*Math.random())%16|0;return e=Math.floor(e/16),("x"===t?r:7&r|8).toString(16)})}};class ${constructor(e,t={}){this.parent=null,this.children=[],this.path=e.path,this.data={type:e.type,metadata:e.metadata,contentdata:e.contentdata,width:$.validateInputWidth(e.width),guid:e.guid||k.create(),selector:e.selector},this.fallbackData=e.fallback,this.source={model:null,targets:[],keys:[]};const r=e.state||{};this.state={isNonPersistent:!!r.isNonPersistent,isPseudo:!!r.isPseudo,noRender:!1},this.cache={serialized:null,filtered:e.filtered||{},external:e.external||null,getter:new Map,path:null,positionedPath:{persistent:null,nonPersistent:null},childCount:{value:0}},this.eventPipe={keyModified:t.keyModified,childAdded:t.childAdded}}static validateInputWidth(e){const t=$.getEmptyDataObject();t.value="number"==typeof e?e:100;const r=s.object(e,t);return r.value||0!==Object.keys(r.vp).length||(r.value=100),r}static getEmptyDataObject(){return{value:null,vp:{}}}getNoRenderState(){return this.state.noRender}setNoRenderState(e){this.state.noRender=!!e;for(const t of this.children)t.setNoRenderState(e)}setDataProperty(e,t){this.data[e]=t}getId(){return this.data.contentdata&&this.data.contentdata.id||null}getGuid(){return this.data.guid}isNonPersistent(){return this.state.isNonPersistent||this.state.isPseudo}isPseudo(){return this.state.isPseudo}isDerived(){return!!this.source.model}hasNodeData(e=!1){if(this.data.contentdata)return!0;if(e)for(const t of this.children)if(t.hasNodeData(e))return!0;return!1}getSourceModel(){return this.source.model}setSourceModel(e,t){this.source.model=e,this.source.keys=t}addSourceTarget(e){this.source.targets.includes(e)||this.source.targets.push(e)}getSourceTargets(){return this.source.targets}hasSourceKey(e){if(!this.source.model)return!1;if(!this.source.keys.length)return!0;const t=e.split(".");for(;t.length;){if(this.source.keys.includes(t.join(".")))return!0;t.pop()}return!1}hasKeyInTarget(e){for(const t of this.source.targets)if(t.hasSourceKey(e))return!0;return!1}isSourceKey(e){return this.source.keys.includes(e)}setParent(e){this.parent=e}getParent(){return this.parent}getRootParent(){return this.parent?this.parent.getRootParent():this}getChildren(){return this.children}getPersistentChildren(){return this.children.filter(e=>!e.isNonPersistent())}getNonpersistentChildren(){return this.children.filter(e=>e.isNonPersistent())}getPersistentSiblings(){return this.parent?this.parent.getPersistentChildren():null}addChild(e,t,r=!1){this.addChildAtIndex(e,r?0:this.children.length,t)}addChildAtIndex(e,t,r=!0,i=!1){return e.setParent(this),this.children.length<=t?this.children.push(e):this.children.splice(t,0,e),e.resetPath(),!i&&this.eventPipe.childAdded&&this.eventPipe.childAdded(this,e,t),this.children}getPath(e=!1){return null===this.cache.path&&(this.cache.path=this.parent?`${this.parent.getPath()}/`:this.path),this.cache.path+(e?"":this.getType())}getArrayPath(e=!1){return this.getPath(e).split("/").filter(e=>!!e)}getPositionedPath(e=!1){return e?this.getPersistentPositionedPath():this.getNonPersistentPositionedPath()}getPersistentPositionedPath(){if(null===this.cache.positionedPath.persistent){let e=this.getModelIndexByType(!0);-1===e&&(e=0),this.cache.positionedPath.persistent=`${(this.parent?`${this.parent.getPersistentPositionedPath()}/`:this.path)+this.getType()}[${e}]`}return this.cache.positionedPath.persistent}getNonPersistentPositionedPath(){if(null===this.cache.positionedPath.nonPersistent){let e=this.getModelIndexByType(!1);-1===e&&(e=0),this.cache.positionedPath.nonPersistent=`${(this.parent?`${this.parent.getNonPersistentPositionedPath()}/`:this.path)+this.getType()}[${e}]`}return this.cache.positionedPath.nonPersistent}resetPath(){this.cache.path=null,this.cache.positionedPath={persistent:null,nonPersistent:null};for(const e of this.children)e.resetPath()}isStage(){return this.getRootParent().getType().startsWith("page_")}getModelIndex(e=!1){if(!this.parent)return-1;return(e?this.parent.getPersistentChildren():this.parent.children).indexOf(this)}getModelIndexByType(e=!1){if(!this.parent)return-1;const t=this.getType();let r=-1;for(const i of e?this.parent.getPersistentChildren():this.parent.getChildren())if(i.getType()===t&&(r++,i===this))return r;return r}getType(){return this.data.type}getWidth(e){return e?this.data.width.vp[e]||null:this.data.width.value||100}getViewportWidths(){return this.getRaw("width.vp")||{}}setSelector(e){this.data.selector=e}getSelector(){return this.data.selector}getData(e,t){return e?i.get(e,this.data.contentdata,t):this.data.contentdata}getDataObjectForKey(e,t=!1){if(!t&&this.hasSourceKey(e)){const t=this.source.model.getDataObjectForKey(e);return t.sourceModel=this.source.model,t}const r=e.split(".")[0];return"fields"===r?{base:r,data:this.data.contentdata,fallback:this.fallbackData?this.fallbackData.contentdata:void 0}:"filtered"===r||"external"===r||"childCount"===r?{base:r,data:this.cache,fallback:void 0}:"metadata"===r||"width"===r||"type"===r||"guid"===r?{base:r,data:this.data,fallback:this.fallbackData?this.fallbackData:void 0}:"state"===r?{base:r,data:this,fallback:void 0}:{base:"",data:this.data.contentdata,fallback:void 0}}getRaw(e,t){return e?i.get(e,this.data,t):this.data}setRaw(e,t,r){const s=this.buildQuery(e);if(!s.isVpObj)return void Sys.logger.warn(`LabModel: Cannot set raw value for key "${e}". Not supported.`);const n={...r};delete n.viewport;const o=this.getRaw(e);if(!o&&!t)return;const a=Object.keys(t&&t.vp||{}),l=Object.keys(o&&o.vp||{});for(const r of l)a.includes(r)&&t||this.set(e,void 0,{...n,viewport:r});for(const r of a)this.set(e,t.vp[r],{...n,viewport:r});this.set(e,t?t.value||null:void 0,{...n,predefinedQuery:s}),t||i.delete(e,this.data)}validateVpModelData(e){return!!e&&("object"==typeof e&&(void 0!==e.value||void 0!==e.vp))}buildQuery(e,t){const r=e.split("."),i={min:"width"===r[0]||"external"===r[0]||"childCount"===r[0]?1:2,max:"fields"===r[0]||"filtered"===r[0]?2:1},s="metadata"===r[0]||"fields"===r[0]||"width"===r[0]||"external"===r[0]||"childCount"===r[0],n="external"===r[0],o={path:r.slice(0,i.max).join("."),allowSource:!["childCount","filtered","metadata"].includes(r[0]),attribute:r.length>i.max?r[i.max]:null,key:r.slice(0,i.max+1).join("."),fullPath:e,raw:e,type:s?r[0]:null,isVpObj:s,isValidated:!(s&&!n)||r.length<=i.max+1&&r.length>=i.min};return n&&(o.attribute=r.slice(i.min).join("."),o.key=e),o.isVpObj&&(n?o.fullPath=t?`${r.slice(0,i.max).join(".")}.vp.${t}${o.attribute?`.${o.attribute}`:""}`:`${r.slice(0,i.max).join(".")}.value${o.attribute?`.${o.attribute}`:""}`:"fields"===o.type&&o.path.endsWith("_json")?(o.fullPath=`${o.path}.value${o.attribute?".":""}${r.slice(2).join(".")}`,o.isValidated=!0):(o.fullPath=o.attribute?`${o.path}.${"fields"===o.type?"attributes.":""}${o.attribute}`:o.path,o.fullPath+=t?`.vp.${t}`:".value")),o}get(e,t,r,s){lab_api.v1.app.dbg.logger.add(this.constructor.name,"get");const n=this.getCacheKey(e,t,r),o=r?void 0:null;if(this.cache.getter.has(n))return this.getCacheValue(n);const a=s||this.buildQuery(e,t);if(!a.isValidated)return Sys.logger.warn(`LabModel: Cannot get unvalid key: "${e}".`),this.cache.getter.set(n,o),o;const l=this.getDataObjectForKey(e,!a.allowSource);let d=i.get(a.fullPath,l.data,!0);return void 0===d&&l.fallback&&(d=i.get(a.fullPath,l.fallback,!0)),void 0===d?(this.cache.getter.set(n,o),o):(this.cache.getter.set(n,d),this.getCacheValue(n))}getCacheValue(e){const t=this.cache.getter.get(e);return t&&"object"==typeof t?Array.isArray(t)?[...t]:{...t}:t}getCacheKey(e,t="lab_main",r=!1){return`${e}-${r?1:0}-${t||"lab_main"}`}getAttributeObject(e){const t=this.buildQuery(e);if(!t.isVpObj)return null;const r=this.getDataObjectForKey(e,!0),s=i.get(t.path,r.data,!0);if(!s)return null;const n="fields"===t.type?s.attributes:s;return t.attribute&&!n[t.attribute]?null:t.attribute?{[t.attribute]:n[t.attribute]}:n}set(e,t,{viewport:r=null,notify:s=!0,checkDerived:n=!0,registerModified:o=!0,save:a=!0,predefinedQuery:l=null,undoable:d=!0}={}){if(lab_api.v1.app.dbg.logger.add(this.constructor.name,"set"),!e)return!1;let h=t;const g=l||this.buildQuery(e,r);if(!g.isValidated)return Sys.logger.warn(`LabModel: Cannot set value for key. Key not valid: ${e}.`),!1;const c=this.getDataObjectForKey(e,!g.allowSource);if(!c.data)return Sys.logger.warn(`LabModel: Trying to set data on a non-existing object. Skipping. Key: "${e}". Model-path: "${this.getPath()}".`),!1;const p=i.get(g.fullPath,c.data,!0);if(p===h)return!1;if(p&&void 0===h&&"fields"===g.type&&(h=null),g.isVpObj&&void 0===p&&void 0===i.get(g.path,c.data,!0)&&i.set(g.path,$.getEmptyDataObject(),c.data),s){if(!this.dataWillSet(g.key,h))return Sys.logger.debug(`Pre-set listener has cancelled setting data for path ${e} at model ${this.getPath()}.`),!1;d&&lab_api.v1.history&&lab_api.v1.history.getManager().add(lab_api.v1.history.getManager(),"modelSetter",[this.getGuid(),e,p,{viewport:r,notify:s,registerModified:o,save:!1,predefinedQuery:g,undoable:!1}])}return i.set(g.fullPath,h,c.data),this.keyModified(g.key,r),o&&(this.registerModified(e),c.sourceModel&&c.sourceModel.registerModified(e)),s&&this.dataIsSet(g.key,h,e,a,n),!0}keyModified(e,t){this.eventPipe.keyModified&&this.eventPipe.keyModified(this,e,t)}setFiltered(e,t){return this.set(`filtered.${e}`,t,{notify:!1,save:!1,registerModified:!1})}getSerializedCache(){return this.cache.serialized}setSerializedCache(e){this.cache.serialized=e}dataWillSet(e,t,r){return!0}dataIsSet(e,t,r){}registerModified(e){}}const R={internalToBackend(e,t=!0){const r={...e};r.type=e.type||null,r.id=e.id||null,r.tmpId=e.tmpId||null,r.instance_of=e.instance_of||null,r.parent=e.parent||null,e.status&&(r.status=e.status),r.site_id=e.site_id||null;const i={viewports_json:{}};for(const e of Object.keys(r.fields||{})){let t=r.fields[e];"object"==typeof t&&null!==t||(t={value:t}),this.internalFieldToBackend(e,t,i)}return r.fields=i,r},backendToInternal(e,t=[],r=!0){const i=this.backendToInternalStructure(e.structure,t);return e.contentdata&&(i.contentdata=this.backendToInternalNode(e.contentdata)),i},viewToInternal(e,t,r=lab_api.v1.viewport.getEditable()){let s=!0,n=e;Array.isArray(e)||(s=!1,n=[e]);const o=[],a=["contentdata","metadata","children","width"];for(const e of n){const s=t?i.merge(t,e):e,n={width:{value:null,vp:{}}};s.width&&("object"==typeof s.width?n.width.vp=s.width:(n.width.value=s.width,s.metadata&&"object"==typeof s.metadata.width&&(n.width.vp=s.metadata.width)));for(const e in s)a.includes(e)||(n[e]=s[e]);s.children&&(n.children=this.viewToInternal(s.children,t)),s.contentdata&&(n.contentdata=this.backendToInternalNode(s.contentdata)),s.metadata&&(n.metadata=this.backendToInternalStructureMeta(s.metadata,r)),o.push(n)}return s?o:o[0]},backendToView(e,t=!1){const r=e.fields?{fields:e.fields}:null;r&&(r.type=e.type||null,r.tags=e.tags||void 0,r.instance_of=e.instance_of||null,r.apiResult=e.apiResult,t||(r.id=e.id||void 0));const i=e.width&&"object"==typeof e.width?e.width.value:e.width||null;return{type:e.type||null,metadata:e.metadata||{},width:i,contentdata:r,children:(e.children||[]).map(e=>this.backendToView(e,t))}},apiToData(e,t,r){const i={},s={...t.field||{}},{viewports_json:n}=s;delete s["@attributes"],delete s.viewports_json;for(const e of Object.keys(s))t.field[e]&&("object"==typeof s[e]&&0===Object.keys(s[e]).length?i[e]="":i[e]=s[e]);if(n)try{i.viewports_json=JSON.parse(n)}catch(e){Sys.logger.error(`[serializer] Failed to parse viewports_json: ${e.toString()}`)}return{type:e,id:r&&r.removeId?void 0:t.attribute.id,instance_of:t.attribute?t.attribute.instanceof_id:null,fields:i}},apiToInternal(e,t,r){const i=this.backendToInternalNode(R.apiToData(e,t));return r&&r.removeId&&delete i.id,i},backendToInternalNode(e){const t={...e},r={};if(t.fields&&t.fields.viewports_json)for(const e of Object.keys(t.fields.viewports_json))for(const r of Object.keys(t.fields.viewports_json[e].fields||{}))void 0===t.fields[r]&&(t.fields[r]=null);if(t.fields)for(const e of Object.keys(t.fields||{}))if(e.endsWith("_style_json")){const r=e.replace("_style_json","");t.fields[r]||(t.fields[r]=null)}for(const e of Object.keys(t.fields||{}))if(!e.endsWith("_style_json")&&"viewports_json"!==e){r[e]={value:t.fields[e],vp:this.getViewportKey(e,t.fields),attributes:{}};for(const i in t.fields[`${e}_style_json`]||{})void 0!==t.fields[`${e}_style_json`][i]&&(r[e].attributes[i]={value:t.fields[`${e}_style_json`][i],vp:{}});for(const i in t.fields.viewports_json||{})if(t.fields.viewports_json[i].fields&&void 0!==t.fields.viewports_json[i].fields[`${e}_style_json`])for(const s in t.fields.viewports_json[i].fields[`${e}_style_json`])void 0!==t.fields.viewports_json[i].fields[`${e}_style_json`]&&(r[e].attributes[s]||(r[e].attributes[s]={value:null,vp:{}}),r[e].attributes[s].vp[i]=t.fields.viewports_json[i].fields[`${e}_style_json`][s])}return t.fields=r,t},backendToInternalStructure(e,t){const r=e.metadata?this.backendToInternalStructureMeta(e.metadata,t):{},i={guid:e.id||k.create(),selector:e.selector||null,metadata:r,type:e.type||null,width:{value:e.width?v.floatPrecision(e.width):100,vp:r.width?r.width.vp:{}},children:[]};return delete i.metadata.width,i},backendToInternalStructureMeta(e,t){const r={};for(const i of Object.keys(e))if(r[i]={value:null,vp:{}},"object"!=typeof e[i]||Array.isArray(e[i]))r[i].value=e[i];else for(const s of Object.keys(e[i]||{}))t.includes(s)?r[i].vp[s]=e[i][s]:(r[i].value||(r[i].value={}),r[i].value[s]=e[i][s]);return r},internalToBackendStructureMeta(e){const t={};for(const r of Object.keys(e)){const i=e[r];let s=!1;for(const e of Object.keys(i.vp||{}))s=!0,t[r]||(t[r]={}),t[r][e]=i.vp[e];s||void 0===i.value||(t[r]=i.value)}return t},getViewportKey(e,t){const r={};if(!t.viewports_json)return r;for(const i in t.viewports_json)t.viewports_json[i].fields&&void 0!==t.viewports_json[i].fields[e]&&(r[i]=t.viewports_json[i].fields[e]);return r},internalFieldToBackend(e,t,r){if(!t)return;const i=r;i[e]=t.value;for(const r of Object.keys(t.vp||{}))i.viewports_json||(i.viewports_json={}),i.viewports_json[r]||(i.viewports_json[r]={fields:{}}),i.viewports_json[r].fields[e]=t.vp[r];if(t.attributes){const r=`${e}_style_json`;for(const e of Object.keys(t.attributes)){void 0!==t.attributes[e].value&&(i[r]||(i[r]={}),i[r][e]=t.attributes[e].value);for(const s of Object.keys(t.attributes[e].vp||{}))i.viewports_json||(i.viewports_json={}),i.viewports_json[s]||(i.viewports_json[s]={fields:{}}),i.viewports_json[s].fields[r]||(i.viewports_json[s].fields[r]={}),i.viewports_json[s].fields[r][e]=t.attributes[e].vp[s]}}},filterModifiedContent(e,t){const r={fields:{}},s=e.getModifiedPaths(),n=e.data.contentdata.fields||{};for(const e of s)if(e.startsWith("fields.")){const t=e.replace("fields.",""),i=n[t];this.internalFieldToBackend(t,i,r.fields)}else e.startsWith("state.")||i.set(e,i.get(e,t),r);return r}};class j extends d{constructor(e,t,r,i,s=!1){super({entries:r,behaviours:i,debug:s}),this.configReader=e,this.resourceManager=t,this.models=[],this.cache={id:new Map,guid:new Map},this.eventPipe={keyModified:this.keyModified.bind(this),childAdded:this.childAdded.bind(this)},this.cacheHandler=null}static validateViewInput(e={},t=[],{useExisting:r=!1,intermediateUseExisting:i=!0}={}){for(const r of t)if(!e[r])return null;if(!e.data)return null;if(!e.data.type)return null;const n={...e};return n.options={...n.options||{}},n.options.front=!1!==n.options.front,n.options.editor=!1!==n.options.editor,n.options.frontpage=!0===n.options.frontpage,n.options.articlepage=!0===n.options.articlepage,n.options.template=n.options.template||null,n.options.useExisting=void 0===n.options.useExisting?r:n.options.useExisting,n.options.intermediate=n.options.intermediate||{},n.options.intermediate.useExisting=void 0===n.options.intermediate.useExisting?i:n.options.intermediate.useExisting,n.options.persistentTarget=!!n.options.persistentTarget,n.options.append&&(n.options.append=s.object(n.options.append,{match:"",index:0})),n.options.prepend&&(n.options.prepend=s.object(n.options.prepend,{match:"",index:0})),n}setCacheHandler(e){this.cacheHandler=e}getModelsFromCache(){return Array.from(this.cache.guid.values())}getChildModels(e){const t=[],r=e=>{for(const t of e.children)r(t);t.push(e)};return r(e),t}getModels(){return this.models}getModelById(e){return this.cache.id.get(e)||null}getModelByGuid(e){return this.cache.guid.get(e)||null}getModelBySelector(e){for(const t of this.getModelsFromCache())if(t.getSelector()===e)return t;return null}getModelTypes(e){return e?[...new Set(this.getChildModels(e).map(e=>e.getType()))]:[...new Set(this.getModelsFromCache().map(e=>e.getType()))]}recursiveGetModelByAttribute(e,t,r){}getRootModel(){return this.models[0]}getParentNodeId(e){if(e.parent)return e.parent.hasNodeData()?e.parent.getId():this.getParentNodeId(e.parent);const t=this.getRootModel();return t===e?null:t.getId()}getModelByType(e,t=this.getModelsAsArray()){for(const r of t)if(r.getType()===e)return r;return null}getChildOfType(e,t,r=!1){const i=Array.isArray(t)?t:[t];for(const t of e.children)if(i.includes(t.getType()))return t;if(!r)return null;for(const r of e.children){const e=this.getChildOfType(r,t,!0);if(e)return e}return null}getChildrenOfType(e,t,r=!1,i=!1){const s=[],n=Array.isArray(t)?t:[t];for(const t of e.children)!n.includes(t.getType())||t.isNonPersistent()&&i||s.push(t);if(!r)return s;for(const r of e.children){const e=this.getChildrenOfType(r,t,!0,i);e&&s.push(...e)}return s}getModelsByKeyAndValue(e,t,r=this.getModelsAsArray()){return r.filter(r=>r.get(e)==t)}getModelsByPath(e,t=!0,r=!1,i=null){let s=[];const n=f.trim(e,"/").split("/");let o=n.shift();const a=f.parsePath(o).shift(),l=null!==a.index;l&&(o=a.base);let d=i;i||(d="*"===o?this.models:this.getModelsByType(o,this.models));const h=[];for(let e=0;e<d.length;e++)"*"!==o&&d[e].getType()!==o||d[e].isNonPersistent()&&!r||d[e].getNoRenderState()&&!r||h.push(d[e]);if(l?h[a.index]?s.push(h[a.index]):!t&&h.length&&(a.index>=h.length?s.push(h[h.length-1]):s.push(h[0])):s=h,!s.length)return[];if(n.length){let e=[];for(let i=0;i<s.length;i++)s[i].children.length&&(e=e.concat(this.getModelsByPath(n.join("/"),t,r,s[i].children)));return e}return s}getModelByPath(e,t=!0,r=!1,i=null){const s=this.getModelsByPath(e,t,r,i);return s.length?s[0]:null}getModelsByQuery(e="",t=this.getModelsAsArray()){const r=e.trim().toLowerCase();return t.filter(e=>e.getType().toLowerCase().indexOf(r)>-1)}getModelsByType(e,t=this.models,r=!0){const i=[];return t.forEach(t=>{Array.isArray(e)?e.includes(t.getType())&&i.push(t):t.getType()===e&&i.push(t),r&&i.push(...this.getModelsByType(e,t.children,r))}),i}getNextContentModel(e){let t=this.getRightSibling(e);if(t){const e=this.getFirstContentModel(t);if(e)return e}return e.getParent()&&(t=this.getNextContentModel(e.getParent()),t)?t:null}getParentOfType(e,t,r=!0){const i=e.getParent();return i?i.getType()===t?i:r?this.getParentOfType(i,t,!0):null:null}getLeftSibling(e){if(!e.getParent())return null;const t=e.getModelIndex(!0);if(0===t)return null;return e.getParent().getPersistentChildren()[t-1]||null}getRightSibling(e){if(!e.getParent())return null;const t=e.getModelIndex(!0),r=e.getParent().getPersistentChildren();return r[t+1]?r[t+1]:null}hasChildOfType(e,t,r=!1){return!!this.getChildOfType(e,t,r)}hasChildOfTypes(e,t,r=!1){for(const i of t)if(this.getChildOfType(e,i,r))return!0;return!1}hasChild(e,t){if(!e.children.length)return!1;for(const r of e.children){if(this.is(r,t))return!0;if(this.hasChild(r,t))return!0}return!1}hasParentOfType(e,t,r=!1){return!!this.getParentOfType(e,t,r)}hasParentOfTypes(e,t,r=!1){if(!e||!Array.isArray(t))return!1;for(const i of t)if(this.getParentOfType(e,i,r))return!0;return!1}hasParent(e,t){return!!e.parent&&(!!this.is(e.parent,t)||this.hasParent(e.parent,t))}getModelsAsArray(e=null){let t=[];for(const r of e||this.models)t=t.concat(this.getChildModels(r));return t}getIndex(e,t=!1){return e?e.getModelIndex(t):null}getPath(e,t=!1){return e?e.getPath(t):null}getArrayPath(e,t=!1){return e?e.getArrayPath(t):[]}resetCache(){this.cache.id.clear(),this.cache.guid.clear()}addToCache(e,t=!0){if(e.isPseudo())return;t&&e.children.forEach(e=>this.addToCache(e)),this.cache.guid.set(e.getGuid(),e);const r=e.getId();r&&this.cache.id.set(r,e)}setData(e=[],t=!0){this.resetCache(),this.models=this.newModels(e,!1)}newModels(e=[],t=!0){const r=[];for(const t of e){const e=this.newModel(t);e&&r.push(e)}return r}newModelInstance(e){return new $(e,this.eventPipe)}modelCreated(e){this.addToCache(e)}modelsAdded(e){}newModel(e,t=!0){const r=this.modelData(e);if(!r)return Sys.logger.warn("ModelController: Data do not validate. Cannot create new instance of LabModel."),null;const i=this.newModelInstance(r);if(e.children)for(const r of e.children){const e=this.newModel(r,t);e&&i.addChild(e,t)}return this.modelCreated(i),i}modelData(e){if(!e.type)return Sys.logger.warn('ModelController: Required attribute "type" is missing. Cannot create data for new LabModel.'),null;const t=e;let r="";t.path&&(r=`${f.trim(t.path,["/"])}/`);const i=this.configReader.get(`data.elements.${t.type}.fallbackData`);return{uncreated:!1,type:t.type,path:r,width:"width"in t?t.width:null,metadata:"metadata"in t?{...t.metadata}:{},state:"state"in t?{...t.state}:{},contentdata:"contentdata"in t&&t.contentdata?{...t.contentdata}:null,filtered:"filtered"in t&&t.filtered?{...t.filtered}:null,selector:"selector"in t?t.selector:null,external:"external"in t?t.external:null,guid:"guid"in t?t.guid:null,fallback:i?R.viewToInternal(i):null}}insertAtPath(e){const t=j.validateViewInput(e,["path"],{useExisting:!1});if(!t)return Sys.logger.warn('ModelController: Cannot insert model at path. Missing required input "path", "data", or "data.type".'),null;Sys.logger.debug(`ModelController: Will insert model of type ${t.data.type} at path ${t.path}.`);const r=this.ensurePath(t.path,t.options.persistentTarget,t.options.intermediate.useExisting);if(!r)return Sys.logger.warn(`ModelController: No model inserted at path ${t.path}. Parent not found and could not be created.`),null;const i=this.insertAtParent(r,t.data,t.options);return Sys.logger.debug(`ModelController: Did insert model at path ${t.path}. Type: ${i.getType()}, path: ${i.getPositionedPath()}.`),i}insertBySelector(e){const t=j.validateViewInput(e,["selector"],{useExisting:!1});if(!t)return Sys.logger.warn('ModelController: Cannot insert model by selector. Missing required input "selector", "data", or "data.type".'),null;Sys.logger.debug(`ModelController: Will insert model of type ${t.data.type} at selector ${t.selector}.`);const r=this.getModelBySelector(t.selector);if(!r)return Sys.logger.warn(`ModelController: No model inserted at selector ${t.selector}. Model not found.`),null;const i=this.insertAtParent(r,t.data,t.options);return Sys.logger.debug(`ModelController: Did insert model at selector ${t.selector}. Type: ${i.getType()}, path: ${i.getPositionedPath()}.`),i}insertAtParent(e,t,r={}){const i={};t.state&&t.state.isNonPersistent&&(i.state={isNonPersistent:!0});const s=this.newModel(R.viewToInternal(t,i));if(e)if("number"==typeof r.index){let{index:t}=r;if(r.persistentTarget){const i=r.match?this.getModelsByType(r.match,e.children||[],!1):e.children||[],s=i.filter(e=>!e.isNonPersistent()&&!e.getNoRenderState());t=t<0?0:t>=s.length?s.length?this.getIndex(s[s.length-1])+1:this.getIndex(i[i.length-1])+1:this.getIndex(s[t])}e.addChildAtIndex(s,t)}else e.addChild(s,!0,r.prepend);else r.prepend?this.models.unshift(s):this.models.push(s);return this.modelsAdded([s],r.silent),s}addElement(e){const t={};e.data.state&&e.data.state.isNonPersistent&&(t.state={isNonPersistent:!0});const r=this.ensurePath(e.path,e.options.persistentTarget,e.options.intermediate.useExisting,t);return r&&e.options.useExisting&&(e.data.selector?this.getModelBySelector(e.data.selector):this.getChildOfType(r,e.data.type))?null:this.insertAtParent(r,e.data,e.options)}allowInsetion(e){const t={frontpage:()=>"page_front"===lab_api.v1.model.query.getRootModel().getType(),articlepage:()=>"page_article"===lab_api.v1.model.query.getRootModel().getType(),noticepage:()=>"page_notice"===lab_api.v1.model.query.getRootModel().getType(),gallerypage:()=>"page_gallery"===lab_api.v1.model.query.getRootModel().getType(),template:e=>lab_api.v1.model.query.getRootModel().get("fields.page_template_alias")===e,front:lab_api.v1.app.mode.isFront,editor:lab_api.v1.app.mode.isEditor},r=r=>{for(const i of r)if(e.options[i]&&t[i](e.options[i]))return!0;return!1};return!!r(["front","editor"])&&(!(e.options.template&&!r(["template"]))&&r(["frontpage","articlepage","noticepage","gallerypage"]))}ensurePath(e,t,r=!0,i=null){const s=r?this.getModelsByPath(e,!0,!t).shift():null;if(s)return s;let n="",o=null;const a=f.parsePath(e);for(;a.length;){const e=a.shift();if(!e.base)return o;const s=e.index||0;let l=0,d=!1;const h=`${n}${e.base}[${s}]`;for(;l<=s;){if(!r&&!a.length&&l===s||!this.getModelsByPath(h,!0,!t).length){const t=i?{...i}:{};t.type=e.base;const r=this.newModel(t,!1);o?null!==e.index?o.addChildAtIndex(r,e.index):o.addChild(r):this.models.push(r),this.modelsAdded([r]),l===s&&(o=r,d=!0),Sys.logger.debug(`ModelController: Inserted intermediate model type ${e.base} at path ${r.getPositionedPath()}.`)}l++}n+=`${e.path}/`,o=d?o:this.getModelsByPath(n,!0,!t).shift()}return o}keyModified(e,t,r,i=!0){if(i){if(e.hasKeyInTarget(t))for(const i of e.getSourceTargets())this.keyModified(i,t,r,!1);e.hasSourceKey(t)&&this.keyModified(e.getSourceModel(),t,r)}this.cacheHandler.resetKey(e,t,r),this.triggerRedrawByKey(e,t,r)}childAdded(){}triggerRedrawByKey(e,t,r){}noRender(e){e&&e.setNoRenderState(!0)}notifyOnAcceptContent(e=this.getRootModel(),t=!0){this.emitBehaviour("onAcceptContent",e),t&&e.children.forEach(e=>{this.notifyOnAcceptContent(e,t)})}}class O{constructor(e){this.totalGridSpans=e||12,this.backendNodes=new Map,this.nodeChildren={},this.activeNodes=[],this.offstageTypes=["pasteboard"],this.requireContentdata=["article"]}backendToInternal(e={},t={}){if(!e.data||!e.structure)return Sys.logger.debug("[DataTransformer] Unsupported input data. Require { data: {...}, structure: []"),[];const r=e.data,i=e.structure;this.registerBackendNodes(r);const s=lab_api.v1.viewport.getEditable(),n=R.backendToInternal({contentdata:this.backendNodes.get(r.id),structure:{type:`page_${r.type}`}},s,!1),o=[n];for(const e of i)if(t.skipOffstage&&this.offstageTypes.includes(e.type))Sys.logger.debug(`[DataTransformer] Skipping offstage-element "${e.type}".`);else{const r=this.createModelData(e,t.blacklist||[],t.blacklistOptions||{},s);r&&(this.offstageTypes.includes(e.type)?o.push(r):n.children.push(r))}return this.activeNodes.push(r.id),o}modelsToFragmentApi(e,{viewport:t=null,stringify:r=!1,recursive:i=!0}={}){const s=e.map(e=>this.modelToFragmentApi(e,i,t));return r?s.map(e=>JSON.stringify(e)):s}modelToFragmentApi(e,t,r){const i={nodedata:this.modelToBackend(e,t),isNonPersistent:e.isNonPersistent(),type:e.getType(),width:e.getWidth(r),id:e.getGuid(),node_id:e.getId(),guid:e.getGuid()};if(t){i.children=[];for(const t of e.children)i.children.push(this.modelToFragmentApi(t))}return i}modelToBackend(e,t=!1){let r;const i=e.getSerializedCache();if(i?(lab_api.v1.app.dbg.logger.add(e.constructor.name,"modelToBackend[cache]"),r=i):(lab_api.v1.app.dbg.logger.add(e.constructor.name,"modelToBackend"),r=e.data.contentdata?{...R.internalToBackend(e.data.contentdata)}:{},e.data.contentdata&&(r.parent=lab_api.v1.model.query.getParentNodeId(e)),r.guid=e.data.guid,r.metadata=R.internalToBackendStructureMeta(e.data.metadata),r.metadata.width=e.getViewportWidths(),r.width=e.getWidth(),e.data.selector&&(r.selector=e.data.selector),r.type=e.data.type.replace("page_",""),e.data.tmpId&&(r.tmpId=e.data.tmpId),e.setSerializedCache({...r})),t&&e.children.length){r.children=[];for(const t of e.children)t.isNonPersistent()||r.children.push(this.modelToBackend(t,!0))}return r}apiToInternal({type:e,data:t={},meta:r={},options:i={removeId:!1}}={}){const s=R.apiToInternal(e,t,i),{metadata:n,width:o}=R.viewToInternal({metadata:r,width:r.width});return{type:s.type,contentdata:s,width:o,metadata:n}}apiToView({type:e,data:t={},meta:r={},options:i={removeId:!1}}={}){const s=R.apiToData(e,t,i),n=R.internalToBackend(s);return{type:n.type,contentdata:n,width:r.width,metadata:r}}modelToInternal(e,t=!0,r=!1){const i=JSON.parse(JSON.stringify(e.data));if(r&&(i.contentdata&&delete i.contentdata.id,delete i.guid),i.children=[],!t)return i;for(const t of e.children)i.children.push(this.modelToInternal(t,!0,r));return i}modelToView(e,t=!0,r=!1){const i=this.modelToBackend(e,t);return R.backendToView(i,r)}modelsToView(e,t=!0){return e.map(e=>this.modelToView(e,t))}modifiedToBackend(e,t,r=!0,i=!1){const s=[];for(const e of t)e.getType().startsWith("page_")?s.push(...e.getPersistentChildren()):s.push(e);const n=this.removeFrontCrops(s);return{node:e.map(e=>this.modelNodeToBackend(e,r,i)),structure:n.map(e=>this.modelStructureToBackend(e))}}removeFrontCrops(e){return e.filter(e=>!e.get("fields.metadata_key"))}modelNodeToBackend(e,t=!1,r=!1){const s=this.modelToBackend(e,r);if(t&&!e.isDirty()){const t=R.filterModifiedContent(e,s),r=this.modelNodeBaseToBackend(e);return i.merge(r,t)}return delete s.metadata,delete s.width,s}modelNodeBaseToBackend(e){if(Array.isArray(e))return e.map(e=>this.modelNodeBaseToBackend(e));const t=this.modelToBackend(e),r={type:t.type||null,id:t.id||null,guid:t.guid||null,tmpId:t.tmpId||null,instance_of:t.instance_of||null,parent:t.parent||null,status:t.status||null,site_id:t.site_id||null};return t.primaryTags&&(r.primaryTags=t.primaryTags),t.tags&&(r.tags=t.tags),r}modelStructureToBackend(e,t=!1){const r=this.modelToBackend(e),i={type:r.type,width:r.width,metadata:r.metadata,id:r.guid,selector:r.selector,children:[]};return r.id&&(i.node_id=r.id),e.isNonPersistent()&&(i.isNonPersistent=!0),e.children.forEach(e=>{!t&&e.isNonPersistent()||i.children.push(this.modelStructureToBackend(e,t))}),i}registerBackendNodes(e){if(e.id&&this.backendNodes.set(e.id,this.prepareBackendNode(e)),e.children){this.nodeChildren[e.id]=[];for(const t of e.children)this.registerBackendNodes(t),t.id&&this.nodeChildren[e.id].push(t.id)}}prepareBackendNode(e){const t={};for(const r in e)"children"!==r&&(t[r]=e[r]);return t}createModelData(e,t,r,i,s={}){if(t.includes(e.type)){if(r[e.type]&&r[e.type].includeChildren&&e.children&&s.children){Sys.logger.warn(`[DataTransformer] Found blacklisted element "${e.type}". Skipping. Will include and move children to parent element.`);for(const n of e.children){const e=this.createModelData(n,t,r,i);e&&s.children.push(e)}}else Sys.logger.warn(`[DataTransformer] Found blacklisted element "${e.type}". Skipping.`);return null}const n=R.backendToInternal({contentdata:e.node_id?this.backendNodes.get(e.node_id):null,structure:e},i,!1);if(this.requireContentdata.includes(n.type)&&!n.contentdata)return Sys.logger.debug(`[DataTransformer] Found "${n.type}" without node-data. Skipping.`),null;n.contentdata&&this.activeNodes.push(n.contentdata.id);for(const t in n.width.vp)n.width.vp[t]?n.width.vp[t]&&n.width.vp[t]<=this.totalGridSpans&&Number.isInteger(parseFloat(n.width.vp[t],10))&&(Sys.logger.warn(`[DataTransformer] Will modify Lab3-width for element "${e.type}", viewport "${t}". Was: "${n.width.vp[t]}", New value: "${v.gridToPercent(n.width.vp[t],this.totalGridSpans)}"`),n.width.vp[t]=v.gridToPercent(n.width.vp[t],this.totalGridSpans)):delete n.width.vp[t];if(!e.children){if(!(n.contentdata&&n.contentdata.id&&this.nodeChildren[n.contentdata.id]))return n;e.children=[];for(const t of this.nodeChildren[n.contentdata.id])if(!this.activeNodes.includes(t)){const r=this.backendNodes.get(t);r&&(e.children.push({type:r.type,node_id:t}),Sys.logger.warn(`[DataTransformer] Adding structure-data for deprecated node-child. Type: ${r.type}, id: ${t}`))}}for(const s of e.children){const e=this.createModelData(s,t,r,i,n);e&&n.children.push(e)}return n}}class F{constructor(e,t,r){this.renderer=t,this.log=r,this.styles={definitions:new Map,collections:new Map},this.setupStyles(F.resolveConfig(e||{})),this.styleByKey={},this.defaultItemTemplate="{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"}static resolveConfig(e={}){const t={definitions:{},collections:[]};for(const r of Object.keys(e.definitions||{})){const i=F.resolveDefinition(e.definitions[r]);i&&(t.definitions[r]=i)}const r=Array.isArray(e.collections)?e.collections:Object.values(e.collections||{});for(const e of r){const r=F.resolveCollection(e);r&&t.collections.push(r)}return t}static resolveDefinition(e={}){if(!Array.isArray(e.items)||!e.items.length)return null;const t={requirePath:s.false(e.requirePath),path:s.string(e.path),template:s.stringOrNull(e.template),items:[]};for(const r of e.items){const e=F.resolveItem(r);e&&t.items.push(e)}return t}static resolveItem(e={}){const t=Array.isArray(e.fallback)?e.fallback:[];return"string"==typeof e.fallback&&t.push(e.fallback),{prefix:s.string(e.prefix),postfix:s.string(e.postfix),viewport:s.string(e.viewport),value:s.string(e.value),fallback:t,nullValue:s.stringOrUndefined(e.nullValue)}}static resolveCollection(e){const t=s.string(e.name),r=s.array(e.definitions),i=s.array(e.additions);if(!t||!r.length&&!i.length)return null;const n=[];for(const e of[...r,...i])if("string"==typeof e)n.includes(e)||n.push(e);else{const t=F.resolveDefinition(e);t&&n.push(t)}return{name:t,definitions:n}}setupStyles(e={}){for(const t of Object.keys(e.definitions))this.styles.definitions.set(t,e.definitions[t]);for(const t of e.collections)this.styles.collections.set(t.name,t.definitions);this.log.debug(`StyleManager: Set up and ready. Holds ${this.styles.definitions.size} definitions and ${this.styles.collections.size} collections.`)}getStyleFromDefinition(e,t,r="",i){if(!this.styles.definitions.size)return"";const{name:s,path:n,target:o,targetType:a,index:l}=this.getInputValues(r),d=this.getTargetModel(e,o,a,l);return d?this.getStyleFromDefinitionNamePath(d,s,n,null,i):""}getStyleFromDefinitionNamePath(e,t,r,i,s){const n=this.getDefinition(t);return n?this.parseDefinition(e,t,r,n,i,s):(this.log.warn(`StyleManager: Cannot find style-definition "${t}". Empty string returned.`),"")}getStyle(e,t,r="",i){if(!this.styles.collections.size)return"";const{name:s,path:n,target:o,targetType:a,index:l}=this.getInputValues(r),d=this.getTargetModel(e,o,a,l);if(!d)return this.log.warn(`StyleManager: Cannot find target-model "${o}". Empty string returned. Model: ${e.getPositionedPath()}`),"";const h=this.getCollection(s);if(!h)return this.log.warn(`StyleManager: Cannot find style-collection "${s}". Empty string returned.`),"";const g=[];for(const e of h){const t=this.parseDefinition(d,s,n,e,null,i);t&&g.push(t)}return g.join(" ").trim()}getCollection(e){return this.styles.collections.get(e)}getDefinition(e){return this.styles.definitions.get(e)}getTargetModel(e,t,r,i){if("current"===t)return e;if("parent"===t)return e.getParent();if("root"===t)return lab_api.v1.model.query.getRootModel();if("child"===t){if(null===i)return lab_api.v1.model.query.getChildOfType(e,r);return lab_api.v1.model.query.getModelsByType(r,e.children)[i]||null}return e}getInputValues(e=""){const t=(e||"").split(" ").map(e=>e.trim()).filter(e=>!!e),r=t.shift();let i=t.shift()||"",s="current",n=null,o=null;if(i.startsWith("parent."))s="parent",i=i.replace("parent.","");else if(i.startsWith("root."))s="root",i=i.replace("root.","");else if(i.startsWith("current."))i=i.replace("current.","");else if(i.startsWith("child.")){const e=i.split(".");s=e.shift();const t=e.shift();i=e.join("."),[o,n]=C.getPropertyTypeAndIndex(t)}return{name:r,path:i||null,target:s,targetType:o,index:n}}getItemsViewports(e){const t={};for(const r of e)if(r.viewport&&(t[r.viewport]=!0),r.fallback)for(const e of r.fallback)t[e]=!0;return Object.keys(t)}parseDefinition(e,t,r,i,s,n){let o=i;if("string"==typeof i&&(o=this.getDefinition(i),!o))return this.log.warn(`StyleManager: Cannot find style-definition "${i}". Empty string returned.`),"";const a=[];if(o.requirePath&&!r)return this.log.warn(`StyleManager: Missing required path for style "${t}".`),"";const l=o.requirePath?r:"";for(const t of o.items){const r=this.getItemValueWithFallback(e,o.path,t,l,o.items,s,n);null!=r&&""!==r&&a.push({...t,value:r})}if(!a.length)return"";return this.renderer(o.template||this.defaultItemTemplate,{items:a}).trim().split(" ").filter((e,t,r)=>r.indexOf(e)===t).join(" ")}getItemValueWithFallback(e,t,r,i,s,n,o){const a=i+(i&&t?".":"")+t,l=this.getItemValue(e,r,a,n,o);if(void 0!==l||"current_viewport"===r.viewport)return l;const d={...r};for(d.fallback=[...d.fallback];d.fallback.length;){const t=d.fallback.shift();d.viewport=t;const r=this.getItemValue(e,d,a,n,o);if(r)return r}}getItemValue(e,t,r,i,s){let n,{viewport:o}=t;if("no_viewport"===o?o="":"current_viewport"===o&&(o=s),i)if(o){n=(i.vp||{})[o]}else n=i.value;else n=e.get(r,o,!0);return null!==n&&""!==n&&!1!==n||void 0===t.nullValue?n&&t.value?t.value:n:t.nullValue}}class A{constructor(e){this.headers=e.Headers||{},this.queryString=e.queryString||"",this.params=this.parseQueryString(this.queryString)}parseQueryString(e){const t={},r=e.split("&");for(const e of r){const r=e.split("=");2===r.length&&(t[r[0]]=r[1])}return t}getHeaders(){return this.headers}getHeader(e){return this.headers[e]||null}getQueryString(){return this.queryString}getQueryParam(e){return this.params[e]}hasQueryParam(e){return void 0!==this.getQueryParam(e)}hasQueryValue(e,t){return(this.getQueryParam(e)||"").split(",").includes(t)}}class V{constructor(e,t){this.logger=t,this.siteAlias=e,this.log(`Site-alias: ${this.siteAlias}`),this.featureFlags=[],this.cache={}}prepareFlags(e){const t=[];return Array.isArray(e)&&e.forEach(e=>{if("group"===e.type){const r=e.enabled;e.flags.forEach(e=>{e.enabled=r&&e.enabled,t.push(e)})}else t.push(e)}),this.cache[this.siteAlias]=t,t}enabled(e,t=""){this.featureFlags=this.cache[this.siteAlias]||this.prepareFlags(lab_api.v1.config.getFeatureFlags().flags||[]);return this.featureFlags.filter(r=>{if(Array.isArray(t)){const i=t.map(String);return r.key===e&&(!r.nodeId||i.indexOf(r.nodeId)>-1)&&!0===r.enabled}return r.key===e&&(!r.nodeId||r.nodeId===t.toString())&&!0===r.enabled}).length>0}get(e,t=""){return this.featureFlags.filter(r=>r.key===e&&r.nodeId===t.toString())}log(e,t=null){this.logger&&(t?this.logger.debug(`FeatureFlags: ${e}`,[t]):this.logger.debug(`FeatureFlags: ${e}`))}}class _{static getWords(e){return e.replaceAll("."," ").replaceAll("!"," ").split(" ").filter(e=>""!==e)}static getSentences(e){return e.replaceAll("!",".").split(".").filter(e=>""!==e)}static getReadTime(e,t){const r=_.getWords(e).length/(t||250);return r<.5?.5:Math.round(r)}static lix(e){if(!e)return null;const t=_.getWords(e),r=_.getSentences(e),i=t.filter(e=>e.length>6);return t.length/r.length+100*i.length/t.length}}class I{constructor(){this.ns={}}create(e={}){return{app:{dbg:{logger:{add:()=>{}}},logError:(e={})=>{e&&e.toString&&Sys.logger.debug(`CMS-error: ${e.toString()}`)},logViewError:(e={},t)=>{e&&e.toString&&Sys.logger.debug(`View-error: ${e.toString()}`)},mode:{get:e.configProcessor.getAppMode.bind(e.configProcessor),getSimulatedMode:e.configProcessor.getSimulatedMode.bind(e.configProcessor),isEditor:e.configProcessor.isEditMode.bind(e.configProcessor),isFragmentMode:e.configProcessor.isFragmentMode.bind(e.configProcessor),isFront:e.configProcessor.isPresentationMode.bind(e.configProcessor)},off:e.appManager.off.bind(e.appManager),on:e.appManager.on.bind(e.appManager)},config:{debug:e.configReader.debug.bind(e.configReader),get:e.configReader.get.bind(e.configReader),getConfig:e.configReader.getConfig.bind(e.configReader),getContent:e.configReader.getContent.bind(e.configReader),getFeatureFlags:e.configReader.getFeatureFlags.bind(e.configReader),getPathForSite:e.configReader.getPathForSite.bind(e.configReader),getStorePathForSite:e.configReader.getStorePathForSite.bind(e.configReader),getView:e.configReader.getView.bind(e.configReader),reloadResourceBySite:e.configReader.reloadResourceBySite.bind(e.configReader)},grid:{gridToPercent:v.gridToPercent,percentToGrid:v.percentToGrid},image:{getPreferredImageFormat:e.configProcessor.getPreferredImageFormat.bind(e.configProcessor)},locale:{get:e.localisation.get.bind(e.localisation),off:e.localisation.off.bind(e.localisation),on:e.localisation.on.bind(e.localisation)},model:{getArrayPath:e.modelController.getArrayPath,getPageType:e.configProcessor.getPageType.bind(e.configProcessor),getPath:e.modelController.getPath,insert:{atPath:e.modelController.insertAtPath.bind(e.modelController),bySelector:e.modelController.insertBySelector.bind(e.modelController)},noRender:e.modelController.noRender,off:e.modelController.off.bind(e.modelController),on:e.modelController.on.bind(e.modelController),query:{getChildOfType:e.modelController.getChildOfType.bind(e.modelController),getChildrenOfType:e.modelController.getChildrenOfType.bind(e.modelController),getIndex:e.modelController.getIndex.bind(e.modelController),getModelByGuid:e.modelController.getModelByGuid.bind(e.modelController),getModelById:e.modelController.getModelById.bind(e.modelController),getModelByPath:e.modelController.getModelByPath.bind(e.modelController),getModelBySelector:e.modelController.getModelBySelector.bind(e.modelController),getModelByType:e.modelController.getModelByType.bind(e.modelController),getModels:e.modelController.getModels.bind(e.modelController),getModelsAsArray:e.modelController.getModelsAsArray.bind(e.modelController),getModelsByKeyAndValue:e.modelController.getModelsByKeyAndValue.bind(e.modelController),getModelsByPath:e.modelController.getModelsByPath.bind(e.modelController),getModelsByQuery:e.modelController.getModelsByQuery.bind(e.modelController),getModelsByType:e.modelController.getModelsByType.bind(e.modelController),getModelsFromCache:e.modelController.getModelsFromCache.bind(e.modelController),getModelTypes:e.modelController.getModelTypes.bind(e.modelController),getNextContentModel:e.modelController.getNextContentModel.bind(e.modelController),getParentNodeId:e.modelController.getParentNodeId.bind(e.modelController),getParentOfType:e.modelController.getParentOfType.bind(e.modelController),getRootModel:e.modelController.getRootModel.bind(e.modelController),getSiblingLeft:e.modelController.getLeftSibling.bind(e.modelController),getSiblingRight:e.modelController.getRightSibling.bind(e.modelController),hasChild:e.modelController.hasChild.bind(e.modelController),hasChildOfType:e.modelController.hasChildOfType.bind(e.modelController),hasChildOfTypes:e.modelController.hasChildOfTypes.bind(e.modelController),hasParent:e.modelController.hasParent.bind(e.modelController),hasParentOfType:e.modelController.hasParentOfType.bind(e.modelController),hasParentOfTypes:e.modelController.hasParentOfTypes.bind(e.modelController)},root:{getType:()=>e.modelController.getRootModel()?e.modelController.getRootModel().get("type"):""},serialize:{apiToInternal:e.dataTransformer.apiToInternal.bind(e.dataTransformer),apiToView:e.dataTransformer.apiToView.bind(e.dataTransformer),model:e.dataTransformer.modelToBackend.bind(e.dataTransformer),modelToInternal:e.dataTransformer.modelToInternal.bind(e.dataTransformer),modelToView:e.dataTransformer.modelToView.bind(e.dataTransformer)}},ns:{get:(e="")=>i.get(e,this.ns),set:(e,t)=>i.set(e,t,this.ns)},preload:{get:e.preloadHandler.get.bind(e.preloadHandler),getHeader:e.preloadHandler.getHeader.bind(e.preloadHandler)},properties:{get:e.configReader.getCms.bind(e.configReader),update:e.configReader.updateConfigByPath.bind(e.configReader)},templates:{get:e.resourceManager.getTemplateFile.bind(e.resourceManager)},site:{getSite:e.configProcessor.getSite.bind(e.configProcessor),getSiteById:e.configProcessor.getSiteById.bind(e.configProcessor),getSites:e.configProcessor.getSites.bind(e.configProcessor)},style:{getNamedStyle:e.styleManager.getStyleFromDefinitionNamePath.bind(e.styleManager),getStyle:e.styleManager.getStyleFromDefinition.bind(e.styleManager),getStyles:e.styleManager.getStyle.bind(e.styleManager)},util:{defaults:e.utils.defaults,featureFlags:{enabled:e.featureFlags.enabled.bind(e.featureFlags),get:e.featureFlags.get.bind(e.featureFlags)},functionHelper:{getFunction:e.utils.functionHelper.getFunction,isValidFunction:e.utils.functionHelper.isValidFunction},object:i,request:{getHeader:e.requestUtil.getHeader.bind(e.requestUtil),getHeaders:e.requestUtil.getHeaders.bind(e.requestUtil),getQueryParam:e.requestUtil.getQueryParam.bind(e.requestUtil),getQueryString:e.requestUtil.getQueryString.bind(e.requestUtil),hasQueryParam:e.requestUtil.hasQueryParam.bind(e.requestUtil),hasQueryValue:e.requestUtil.hasQueryValue.bind(e.requestUtil),parseQueryString:e.requestUtil.parseQueryString.bind(e.requestUtil)},string:e.utils.stringHelper},view:{getHelper:e.viewManager?e.viewManager.getViewHelper.bind(e.viewManager):()=>{},getPixelDensityFactor:e.configProcessor.getPixelDensityFactor.bind(e.configProcessor),getView:e.viewManager?e.viewManager.getView.bind(e.viewManager):null,off:e.viewManager?e.viewManager.off.bind(e.viewManager):null,on:e.viewManager?e.viewManager.on.bind(e.viewManager):null,render:({template:t,model:r,viewManager:i=e.viewManager}={})=>{const s=i.getView(r),n=i.getDataForView(r,s);return Mustache.render(t,n,e.resourceManager.templates)}},viewHeaders:{get:t=>e.viewHeaders.get?e.viewHeaders.get(t):"",getAll:()=>e.viewHeaders.getAll?e.viewHeaders.getAll():"",set:(t,r)=>{e.viewHeaders.set&&e.viewHeaders.set(t,r)}},viewport:{getActive:()=>[e.configProcessor.getViewport()],getAll:e.configProcessor.getViewports.bind(e.configProcessor),getEditable:e.configProcessor.getEditableViewports.bind(e.configProcessor),getMain:e.configProcessor.getMainViewport.bind(e.configProcessor),getName:e.configProcessor.getViewport.bind(e.configProcessor),getSubViewports:e.configProcessor.getSubViewports.bind(e.configProcessor),getWidth:e.configProcessor.getViewportWidth.bind(e.configProcessor),isMain:e.configProcessor.isMainViewport.bind(e.configProcessor),isSubViewport:e.configProcessor.isSubViewport.bind(e.configProcessor),isTouchDevice:e.configProcessor.isTouchDevice.bind(e.configProcessor)},text:{getWords:_.getWords,getSentences:_.getSentences,getReadTime:_.getReadTime,lix:_.lix}}}}class D{constructor(e=[]){this.viewManagers=e,Sys.logger.debug(`CacheHandler: Ready to support view-manager(s) for viewport(s): ${this.viewManagers.map(e=>e.viewport.name).join(", ")}`)}setViewManagers(e){this.viewManagers=e}resetKey(e,t,r){this.resetModelCacheForKey(e,t,r),this.resetViewCacheForKey(e,t)}resetModelCacheForKey(e,t,r){e.cache.getter.delete(e.getCacheKey(t,r)),e.cache.getter.delete(e.getCacheKey(t,r,!0)),e.cache.getter.forEach((i,s)=>{s.startsWith(`${t}.`)&&s.endsWith(`-${r||"lab_main"}`)&&e.cache.getter.delete(s)})}resetViewCacheForKey(e,t){for(const r of this.viewManagers)r.getView(e).resetCache(t)}}class E{constructor(e,t=null){this.isEnabled=!0,this.Implementation=e,this.instance=null,this.name=t}initialize(){this.instance=new this.Implementation}disable(){this.isEnabled=!1}enable(){this.isEnabled=!0}call(e,...t){if(this.isEnabled){if(!this.instance){if(!this.Implementation)return;this.initialize(),this.instance.name&&(this.name=this.instance.name)}if(e in this.instance)return this.instance[e](...t)||null}}}class W extends E{}class B extends E{initialize(){this.instance=new this.Implementation(lab_api)}}class H{constructor(e){this.data=e}get(e=""){const t=e.split("."),r=this.getObject(t.shift());return r?t.length?i.get(t.join("."),r):r:null}getObject(e){return e?this.data[e]||null:this.data}getHeader(e){if(e){const t=this.getObject(e);return t?t.responseHeaders:null}return null}}class L extends d{constructor({configReader:e,language:t,siteAlias:r,renderFn:s,configPrefix:n}){super(),this.configReader=e,this.language=t||this.configReader.get("contentLanguage")||"en-GB",this.secondaryLanguage=this.configReader.get("contentLanguageFallback")||this.language,this.siteAlias=r||this.configReader.siteAlias,this.fallbackLanguage="en-GB",this.renderFn=s,this.objectHelper=i,this.configPrefix=n||"int_",this.cache=new Map}overrideLanguage(e){e&&(this.secondaryLanguage===this.language&&(this.secondaryLanguage=e),this.language=e)}get(e,{language:t,siteAlias:r,data:i={},fallbackValue:s,noRender:n=!1}={}){const o=(e||"").trim(),a=i||{},l=t||this.language,d=`${o}_${l}_${r}_${JSON.stringify(a||{})}_${n?"1":"0"}`;return this.cache.has(d)||this.cache.set(d,this.getKey(o,l,r,a,n,s)),this.cache.get(d)}getKey(e,t,r,i,s,n){const o=this.readConfigObject(e,r,t);if(o)return this.returnValue(e,o,i,t,r,"config",s);const a=this.readConfig(e,t,r);return a?this.returnValue(e,a,i,t,r,"configObject",s):t!==this.fallbackLanguage&&t!==this.secondaryLanguage&&this.secondaryLanguage!==this.language?this.getKey(e,this.secondaryLanguage,r,i,s,n):t!==this.fallbackLanguage?this.getKey(e,this.fallbackLanguage,r,i,s,n):void 0===n?e:n}returnValue(e,t,r,i,s,n,o){const a={value:t,data:r},l=this.requestEvent("localisation",{key:e,value:t,data:r,language:i,siteAlias:s,type:n});if(l.length){const e=l.pop();"string"==typeof e.value&&(a.value=e.value,a.data=e.data)}return a.value?o?a.value:this.renderFn(a.value,a.data).trim():e}readConfig(e,t,r){const i=this.configReader.getConfig(`${this.configPrefix}${t}.${e}`,{site:r});return"string"==typeof i?i:void 0}readConfigObject(e,t,r){const i=t||this.siteAlias,s=r||this.language,n=this.configReader.getLocal(`lang.${i}.${s}.${e}`);return"string"==typeof n?n:void 0}}class N extends d{constructor({logger:e={},settings:{siteAlias:t="default",pageType:i="front",contentId:s=null,device:n="desktop",runtime:l={Request:!1},transform:d,fragmentMode:h=null,debug:p=!1,simulatedMode:u=""},resources:{config:f={},templates:y={view:{},editor:{}},properties:m={},data:b=null,preload:w={},viewHeaders:v={},views:P=[]},globals:x={},callbacks:M={},entries:S=[],behaviours:k={}}={}){super({entries:S.map(e=>new W(e)),behaviours:Object.keys(k).reduce((e,t)=>({...e,[t]:k[t].map(e=>new B(e,t))}),{}),debug:p}),this.settings={debug:p,fragmentMode:h,simulatedMode:u,pageType:i,contentId:s,siteAlias:t,device:n,request:l.Request,transform:void 0===d||!!d},this.resources={properties:m,data:b,templates:y?y.view:{},viewHeaders:v},this.logger=e,this.settings.fragmentMode&&this.logger.debug(`[Core] Running fragmentMode: "${h}"`),this.configReader=new o(o.resolveFullConfig(f,r),this.logger),this.configProcessor=new a(this.configReader,this.settings.device,this.settings.fragmentMode,this.settings.pageType,this.settings.simulatedMode),this.logger.debug("---------------------------------------------------------"),this.logger.debug("[Core] Labrador rendering engine"),this.logger.debug(`Version ${this.configReader.getCms("app.version")} - build ${this.configReader.getCms("buildInfo.version")} - views: ${P.join(", ")}`),this.logger.debug("(c) Labrador CMS AS. Use require a valid licence"),this.logger.debug("---------------------------------------------------------"),this.localisation=new L({configReader:this.configReader,renderFn:Mustache.render}),this.viewManager=null,this.pathHelper=new C,this.resourceManager=new g(this.resources.properties,this.resources.templates,this.configReader,c.resolveConfig,this.behaviours,this.pathHelper,this.settings.debug),this.dataTransformer=new O(this.configReader.get("grid.total_grid_spans")),this.modelController=new j(this.configReader,this.resourceManager,this.entries,this.behaviours),this.styleManager=new F(this.configReader.get("style"),Mustache.render,this.logger),this.preloadHandler=new H(w),this.viewManager=new T({resourceManager:this.resourceManager,configReader:this.configReader,configProcessor:this.configProcessor,logger:this.logger,viewport:this.settings.device,styleManager:this.styleManager,entries:this.entries,behaviours:this.behaviours,settings:this.settings,localisation:this.localisation,preloadHandler:this.preloadHandler}),this.api={v1:this.createApi()},x.lab_api=this.api,M.apiReady&&M.apiReady(this.api.v1),this.apiReady(this.api),this.resources.data&&this.setData(this.resources.data)}getApi(){return this.api}createApi(){this.logger.debug("Core: Creating api using CoreApi.");const e=new I,r={appManager:this,configReader:this.configReader,configProcessor:this.configProcessor,modelController:this.modelController,viewManager:this.viewManager,styleManager:this.styleManager,dataTransformer:this.dataTransformer,utils:t,requestUtil:new A(this.settings.request),featureFlags:new V(this.settings.siteAlias,this.logger),preloadHandler:this.preloadHandler,viewHeaders:this.resources.viewHeaders,localisation:this.localisation,resourceManager:this.resourceManager};return e.create(r)}getAllLogs(){return{front:this.getLogs(),view:this.viewManager.getLogs(),resource:this.resourceManager.getLogs(),model:this.modelController.getLogs()}}setSite(e){this.configReader.updateConfigByPath("site",e),this.configReader.getCms("site",{noCache:!0}),this.configProcessor.resetCache()}apiReady(e){this.logger.debug("Core: Api ready."),this.viewManager.apiReady(e),this.modelController.setCacheHandler(new D([this.viewManager])),this.onReady(e)}onReady(e){this.emitEntry("onReady",e)}setData(e){if(!e||!this.settings.transform&&!Array.isArray(e)||this.settings.transform&&!e.data)throw new Error("[Core] Cannot set data. Invalid input. "+(this.settings.transform?"Expecting property data, none given.":`Expecting an array, ${typeof e} given.`));this.viewManager.viewMap.clear();const t=this.settings.transform?this.dataTransformer.backendToInternal(e,{blacklist:this.configReader.get("data.blacklist")||[],skipOffstage:!0}):e;let r=null;const i=this.emitEntry("onDataReady",t);i.length&&(this.logger.warn("[Core] Entry-hook 'onDataReady' has modifyed input-data."),r=i.pop()),this.modelController.setData(r||t),this.resourceManager.rootModelReady(this.modelController.getRootModel()),this.localisation.overrideLanguage(this.modelController.getRootModel().get("fields.seolanguage")),this.modelController.notifyOnAcceptContent(),this.emitEntry("onAcceptContent"),this.emitEvent("acceptContent")}serializeView(e=this.modelController.models){return this.dataTransformer.modelsToView(e)}serializeForFragmentApi(e=this.modelController.models,{device:t=this.settings.device,stringify:r=!0,recursive:i=!0}={}){return this.dataTransformer.modelsToFragmentApi(e,{device:t,stringify:r,recursive:i})}render(e,{transform:t}={}){return new Promise((r,i)=>{void 0!==t&&(this.settings.transform=!!t),this.setData(e),r(this.draw())})}draw(e){return this.viewManager.draw(this.modelController.models,t=>{e&&e(t)})}getMarkup(e){if(!e)return this.logger.warn("Core: No model supplied. Will return empty string."),"";const t=this.viewManager.getView(e);return t?t.getMarkupString()||"":(this.logger.warn(`Core: Cannot get view for model ${e.getPositionedPath()}. Will return empty string.`),"")}}
 //# sourceMappingURL=Core.js.map
 
 /***/ }),
@@ -32234,7 +35342,7 @@ var e={d:(t,r)=>{for(var i in r)e.o(r,i)&&!e.o(t,i)&&Object.defineProperty(t,i,{
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Mapper": () => (/* binding */ Mapper)
+/* harmony export */   Mapper: () => (/* binding */ Mapper)
 /* harmony export */ });
 /* harmony import */ var _ClientData_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ClientData.js */ "./public/common/labrador/ClientData.js");
 /* harmony import */ var _transformers_source_LabradorApi_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./transformers/source/LabradorApi.js */ "./public/common/labrador/transformers/source/LabradorApi.js");
@@ -32330,7 +35438,7 @@ class Mapper {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Reader": () => (/* binding */ Reader)
+/* harmony export */   Reader: () => (/* binding */ Reader)
 /* harmony export */ });
 /**
  * Fetch data and transform to internal format.
@@ -32410,7 +35518,7 @@ class Reader {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Renderer": () => (/* binding */ Renderer)
+/* harmony export */   Renderer: () => (/* binding */ Renderer)
 /* harmony export */ });
 /* harmony import */ var _Core_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Core.js */ "./public/common/labrador/Core.js");
 /* harmony import */ var _build_modules_client_modules_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../build/modules/client_modules.js */ "./build/modules/client_modules.js");
@@ -32540,7 +35648,7 @@ class Renderer {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "FrontContentMapper": () => (/* binding */ FrontContentMapper)
+/* harmony export */   FrontContentMapper: () => (/* binding */ FrontContentMapper)
 /* harmony export */ });
 /**
  * Modify data for each article in the search result
@@ -32638,7 +35746,7 @@ class FrontContentMapper {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "FrontContentRenderer": () => (/* binding */ FrontContentRenderer)
+/* harmony export */   FrontContentRenderer: () => (/* binding */ FrontContentRenderer)
 /* harmony export */ });
 /* harmony import */ var _Mapper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Mapper.js */ "./public/common/labrador/Mapper.js");
 /* harmony import */ var _Reader_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Reader.js */ "./public/common/labrador/Reader.js");
@@ -32760,7 +35868,7 @@ class FrontContentRenderer {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "datatype": () => (/* binding */ datatype)
+/* harmony export */   datatype: () => (/* binding */ datatype)
 /* harmony export */ });
 const datatype = {
 
@@ -32851,7 +35959,7 @@ const datatype = {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RandomRows": () => (/* binding */ RandomRows)
+/* harmony export */   RandomRows: () => (/* binding */ RandomRows)
 /* harmony export */ });
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils.js */ "./public/common/labrador/transformers/utils.js");
 
@@ -32929,7 +36037,7 @@ class RandomRows {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RowsAndColumns": () => (/* binding */ RowsAndColumns)
+/* harmony export */   RowsAndColumns: () => (/* binding */ RowsAndColumns)
 /* harmony export */ });
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils.js */ "./public/common/labrador/transformers/utils.js");
 
@@ -32977,7 +36085,7 @@ class RowsAndColumns {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Filter": () => (/* binding */ Filter)
+/* harmony export */   Filter: () => (/* binding */ Filter)
 /* harmony export */ });
 /* harmony import */ var _datatype_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../datatype.js */ "./public/common/labrador/transformers/datatype.js");
 
@@ -33025,7 +36133,7 @@ class Filter {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "RowLines": () => (/* binding */ RowLines)
+/* harmony export */   RowLines: () => (/* binding */ RowLines)
 /* harmony export */ });
 /* harmony import */ var _datatype_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../datatype.js */ "./public/common/labrador/transformers/datatype.js");
 /**
@@ -33168,7 +36276,7 @@ class RowLines {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Setter": () => (/* binding */ Setter)
+/* harmony export */   Setter: () => (/* binding */ Setter)
 /* harmony export */ });
 /* harmony import */ var _datatype_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../datatype.js */ "./public/common/labrador/transformers/datatype.js");
 
@@ -33213,7 +36321,7 @@ class Setter {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Tags": () => (/* binding */ Tags)
+/* harmony export */   Tags: () => (/* binding */ Tags)
 /* harmony export */ });
 // Filter articles based on tags
 class Tags {
@@ -33279,7 +36387,7 @@ class Tags {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "DachserJson": () => (/* binding */ DachserJson)
+/* harmony export */   DachserJson: () => (/* binding */ DachserJson)
 /* harmony export */ });
 /*
 Input from Dachser JSON feed.
@@ -33390,7 +36498,7 @@ class DachserJson {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "KilkayaStreams": () => (/* binding */ KilkayaStreams)
+/* harmony export */   KilkayaStreams: () => (/* binding */ KilkayaStreams)
 /* harmony export */ });
 /*
 Input: Articles from Kilkaya Streams (personalized content)
@@ -33481,7 +36589,7 @@ class KilkayaStreams {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "LabradorApi": () => (/* binding */ LabradorApi)
+/* harmony export */   LabradorApi: () => (/* binding */ LabradorApi)
 /* harmony export */ });
 /*
 Input: Article from Labrador Search API
@@ -33602,7 +36710,7 @@ class LabradorApi {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "utils": () => (/* binding */ utils)
+/* harmony export */   utils: () => (/* binding */ utils)
 /* harmony export */ });
 const utils = {
 
@@ -33753,18 +36861,18 @@ const utils = {
 /******/ 
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
 /*!*********************************!*\
   !*** ./modules/index_editor.js ***!
   \*********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Entry": () => (/* reexport safe */ _Editor_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "appsModules": () => (/* reexport safe */ _apps_index_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
-/* harmony export */   "behaviours": () => (/* reexport module object */ _behaviours_index_js__WEBPACK_IMPORTED_MODULE_0__),
-/* harmony export */   "collections": () => (/* reexport module object */ _collections_index_js__WEBPACK_IMPORTED_MODULE_2__),
-/* harmony export */   "plugins": () => (/* reexport module object */ _plugins_index_js__WEBPACK_IMPORTED_MODULE_3__)
+/* harmony export */   Entry: () => (/* reexport safe */ _Editor_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   appsModules: () => (/* reexport safe */ _apps_index_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
+/* harmony export */   behaviours: () => (/* reexport module object */ _behaviours_index_js__WEBPACK_IMPORTED_MODULE_0__),
+/* harmony export */   collections: () => (/* reexport module object */ _collections_index_js__WEBPACK_IMPORTED_MODULE_2__),
+/* harmony export */   plugins: () => (/* reexport module object */ _plugins_index_js__WEBPACK_IMPORTED_MODULE_3__)
 /* harmony export */ });
 /* harmony import */ var _behaviours_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./behaviours/index.js */ "./modules/behaviours/index.js");
 /* harmony import */ var _Editor_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Editor.js */ "./modules/Editor.js");
@@ -33781,11 +36889,11 @@ __webpack_require__.r(__webpack_exports__);
 
 })();
 
-var __webpack_exports__Entry = __webpack_exports__.Entry;
-var __webpack_exports__appsModules = __webpack_exports__.appsModules;
-var __webpack_exports__behaviours = __webpack_exports__.behaviours;
-var __webpack_exports__collections = __webpack_exports__.collections;
-var __webpack_exports__plugins = __webpack_exports__.plugins;
+const __webpack_exports__Entry = __webpack_exports__.Entry;
+const __webpack_exports__appsModules = __webpack_exports__.appsModules;
+const __webpack_exports__behaviours = __webpack_exports__.behaviours;
+const __webpack_exports__collections = __webpack_exports__.collections;
+const __webpack_exports__plugins = __webpack_exports__.plugins;
 export { __webpack_exports__Entry as Entry, __webpack_exports__appsModules as appsModules, __webpack_exports__behaviours as behaviours, __webpack_exports__collections as collections, __webpack_exports__plugins as plugins };
 
 //# sourceMappingURL=editor_modules.js.map

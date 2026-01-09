@@ -15,14 +15,6 @@
         -->
     
     <div class="{{ ^settings.is_shared }}labDs-disabled{{ /settings.is_shared }}">
-        <fieldset>
-            <label>Restrict to Sites</label>
-            <div class="lab-values">
-            {{#sites}}
-                <label>{{{name}}}<input type="checkbox" name="sites.{{{name}}}" value="{{{value}}}" {{ #selected }}checked{{ /selected }} {{ ^settings.is_shared }}disabled{{ /settings.is_shared }}/></label>
-            {{/sites}}
-            </div>
-        </fieldset>  
 
         <!-- <fieldset>
             <button id="add-permission-btn" type="button" style="padding: 7px 15px; margin: 0 50px 0 1em; float: right;" {{ ^settings.is_shared }}disabled{{ /settings.is_shared }}>Add</button>

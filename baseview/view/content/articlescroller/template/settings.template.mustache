@@ -89,11 +89,14 @@
         <label for="hideNavigation">Display navigation</label>
         <input id="hideNavigation" type="checkbox" data-lab-reverse="1" name="fields.hideNavigation" {{^get.current.fields.hideNavigation}}checked{{/get.current.fields.hideNavigation}}>
     </div>
+    <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
+        <label for="openInNewTab">Open articles in new tab</label>
+        <input id="openInNewTab" type="checkbox" name="fields.openInNewTab" {{ #get.current.fields.openInNewTab }}checked{{ /get.current.fields.openInNewTab }}>
+    </div>
 
     <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap"></div>
 
     <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Article options</h3>
-
     <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
         <label for="displaySection">Display section</label>
         <input id="displaySection" type="checkbox" name="fields.displaySection" {{#get.current.fields.displaySection}}checked{{/get.current.fields.displaySection}}>
@@ -114,7 +117,6 @@
         <label for="showAuthor">Display byline</label>
         <input id="showAuthor" type="checkbox" name="fields.showAuthor" {{#get.current.fields.showAuthor}}checked{{/get.current.fields.showAuthor}}>
     </div>
-
     <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
         <label for="showPublishedDate">Display published date</label>
         <input id="showPublishedDate" type="checkbox" name="fields.showPublishedDate" {{ #get.current.fields.showPublishedDate }}checked{{ /get.current.fields.showPublishedDate }}>

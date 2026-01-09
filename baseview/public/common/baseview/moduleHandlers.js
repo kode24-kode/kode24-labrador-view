@@ -5,7 +5,7 @@
  * This module import dependencies, read data, create instances and pass the data to them.
  */
 
-import * as modules from '../build/baseview_dependencie_modules.js?v=13';
+import * as modules from '../build/baseview_dependencie_modules.js?v=15';
 
 const handlers = {
     labradorsearch: (item) => new modules.LabradorSearch(item),
@@ -45,4 +45,17 @@ window.baseviewModulesReflow = (key, identifierKey, identifierValue) => {
     if (last && typeof handlers[key] === 'function') {
         handlers[key](last);
     }
+};
+
+// Redraws
+window.baseviewModulesReflowAll = (key) => {
+    const keyArray = window.dachserData.get(key);
+    if (!Array.isArray(keyArray)) {
+        return;
+    }
+    keyArray.forEach((item) => {
+        if (typeof handlers[key] === 'function') {
+            handlers[key](item);
+        }
+    });
 };

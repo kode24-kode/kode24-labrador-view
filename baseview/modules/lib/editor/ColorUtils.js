@@ -17,6 +17,18 @@ export class ColorUtils {
         ];
     }
 
+    static rgbString2hex(rgbString) {
+        if (typeof rgbString !== 'string') {
+            return rgbString;
+        }
+        const rgbArray = rgbString.match(/\d+/g);
+        if (!rgbArray || rgbArray.length !== 3) {
+            return rgbString;
+        }
+        // eslint-disable-next-line no-bitwise
+        return `#${ ((1 << 24) + (parseInt(rgbArray[0], 10) << 16) + (parseInt(rgbArray[1], 10) << 8) + parseInt(rgbArray[2], 10)).toString(16).slice(1).toUpperCase() }`;
+    }
+
     /**
      * Get color brightness
      * @param {Array} rgbArray Input-color in RGB format

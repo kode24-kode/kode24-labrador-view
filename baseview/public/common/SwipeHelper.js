@@ -24,6 +24,9 @@ Dac.SwipeHelper = class {
             },
             itemsSelector: options.itemsSelector
         };
+        this.callbacks = {
+            navUpdate: []
+        };
         const navItems = options.navItemsSelector ? container.querySelector(options.navItemsSelector) : null;
         const previewItems = options.previewItemsSelector ? container.querySelector(options.previewItemsSelector) : null;
         this.elements = {
@@ -36,6 +39,24 @@ Dac.SwipeHelper = class {
             navItems: navItems ? [...navItems.children] : null,
             previewItems: previewItems ? [...previewItems.children] : null
         };
+        this.noIndexList = [];
+        this.domIndex = null;
+
+        if (options.noIndexItemsSelector) {
+            const noIndexElements = container.querySelectorAll(options.noIndexItemsSelector);
+            if (noIndexElements && noIndexElements.length) {
+                this.log(`Will exclude ${ noIndexElements.length } elements from indexing ...`);
+                for (const el of noIndexElements) {
+                    const index = Array.from(this.elements.items).indexOf(el);
+                    if (index !== -1) {
+                        this.noIndexList.push(index);
+                        this.log(` - Excluding index ${ index }`);
+                    }
+                }
+                this.log(`Did exclude ${ this.noIndexList.length } elements from indexing ...`);
+            }
+        }
+
         if (
             !this.validateElement(this.elements.itemsContainer)
             || !this.validateElement(this.elements.items)
@@ -59,6 +80,11 @@ Dac.SwipeHelper = class {
         this.isAutoscrolling = false;
         this.preloadedIndexes = [];
         this.registerAutoscroll();
+    }
+
+    addNavUpdate(callback) {
+        this.log('Adding navigation update callback ...');
+        this.callbacks.navUpdate.push(callback);
     }
 
     reflow() {
@@ -226,6 +252,35 @@ Dac.SwipeHelper = class {
         }
     }
 
+    // this.noIndexList holds a list of items that should not be counted in the public index.
+    internalToPublicIndex(internalIndex, isForward = true) {
+        let result = internalIndex;
+        if (this.noIndexList.length) {
+            let offset = 0;
+            for (const noIndex of this.noIndexList) {
+                if ((!isForward && noIndex < internalIndex) || (isForward && noIndex <= internalIndex)) {
+                    offset++;
+                }
+            }
+            result -= offset;
+        }
+        return result;
+    }
+
+    publicToInternalIndex(publicIndex) {
+        let result = publicIndex;
+        if (this.noIndexList.length) {
+            let offset = 0;
+            for (const noIndex of this.noIndexList) {
+                if (noIndex <= result + offset) {
+                    offset++;
+                }
+            }
+            result += offset;
+        }
+        return result;
+    }
+
     observeElements(root, items) {
         this.log(`Will register IntersectionObserver for ${ items.length } items`);
         const options = {
@@ -237,7 +292,11 @@ Dac.SwipeHelper = class {
             const touchedIndexes = [];
             let visibleIndex = null;
             for (const entry of entries) {
-                const index = Array.from(entry.target.parentNode.children).indexOf(entry.target);
+                const index = Array.from(entry.target.parentNode.querySelectorAll(this.settings.itemsSelector)).indexOf(entry.target);
+                if (index === -1) {
+                    this.unobserve(items);
+                    return;
+                }
                 this.items[index].visible = entry.isIntersecting;
                 touchedIndexes.push(index);
                 if (this.items[index].visible) {
@@ -249,7 +308,27 @@ Dac.SwipeHelper = class {
                 this.log(`IntersectionObserver triggered at index ${ index }. Setting visibility to ${ this.items[index].visible }.`);
             }
             if (visibleIndex !== null) {
-                this.updateNavItems(visibleIndex);
+                const direction = visibleIndex >= this.domIndex ? 'next' : 'prev';
+                let noIndexDistance = null;
+                // Find distance to next noIndex item. Use direction to decide if we should look forward or backward:
+                if (this.noIndexList.length) {
+                    noIndexDistance = this.noIndexList.map((noIndex) => noIndex - visibleIndex).filter((dist) => (direction === 'next' ? dist >= 0 : dist <= 0));
+                    if (noIndexDistance.length) {
+                        noIndexDistance = direction === 'next' ? Math.min(...noIndexDistance) : Math.max(...noIndexDistance);
+                    } else {
+                        noIndexDistance = null;
+                    }
+                }
+                // Set noIndexDistance to a positive int:
+                if (noIndexDistance !== null && noIndexDistance < 0) {
+                    noIndexDistance = Math.abs(noIndexDistance);
+                }
+
+                this.updateNavItems(this.internalToPublicIndex(visibleIndex, visibleIndex > this.index), {
+                    originalIndex: visibleIndex,
+                    direction,
+                    noIndexDistance
+                });
             }
             if (touchedIndexes.includes(0) || touchedIndexes.includes(this.items.length - 1)) {
                 this.updateGui();
@@ -257,6 +336,7 @@ Dac.SwipeHelper = class {
                     this.autoScroll.reset = true;
                 }
             }
+            this.domIndex = visibleIndex;
         }, options);
         for (const item of items) {
             this.observer.observe(item);
@@ -298,7 +378,7 @@ Dac.SwipeHelper = class {
         }
     }
 
-    updateNavItems(index) {
+    updateNavItems(index, { originalIndex, direction, noIndexDistance }) {
         const selector = 'selected';
         if (this.elements.navItems) {
             if (this.elements.navItems[this.index]) {
@@ -317,6 +397,16 @@ Dac.SwipeHelper = class {
             }
         }
         this.index = index;
+
+        for (const fn of this.callbacks.navUpdate) {
+            fn(this.index, {
+                isNoIndex: this.noIndexList.includes(originalIndex),
+                direction,
+                domIndex: originalIndex,
+                noIndexDistance
+            });
+        }
+
     }
 
 };

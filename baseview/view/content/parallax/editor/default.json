@@ -1,4 +1,7 @@
 {
+    "draggable": {
+        "icon": "labicon-parallax"
+    },
     "droppable": {
         "drop": {
             "sourceType": {
@@ -8,7 +11,8 @@
                 "slideshow": "addChild",
                 "markup": "addChild",
                 "text_multiline": "addChild",
-                "text_singleline": "addChild"
+                "text_singleline": "addChild",
+                "graphic": "addChild"
             },
             "default": "default"
         },

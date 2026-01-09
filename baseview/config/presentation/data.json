@@ -65,21 +65,13 @@
                 "fallbackData": {
                     "contentdata": {
                         "fields": {
-                            "submitLabel": "Search",
-                            "navLabel": "Display more",
-                            "nohitsLabel": "No hits. Try modifying your search",
+                            "hideSiteName": false,
+                            "hidePublishedDate": false,
+                            "hideSection": false,
                             "displayAdvanced": false,
                             "displaySites": true,
-                            "searchPlaceholder": "Type your search here ...",
                             "articleCount": 20,
-                            "advancedOpenText": "Open settings",
-                            "advancedCloseText": "Close settings",
-                            "orderBy": "published",
-                            "fromDateLabel": "From date",
-                            "toDateLabel": "To date",
-                            "tagLabel": "Tag",
-                            "authorLabel": "Author",
-                            "allSitesLabel": "All sites"
+                            "orderBy": "published"
                         }
                     },
                     "metadata": {
@@ -175,10 +167,6 @@
                 "fallbackData": {
                     "contentdata": {
                         "fields": {
-                            "titleLatest": "Recent articles",
-                            "titleMostRead": "Most read articles",
-                            "labelLatest": "Latest",
-                            "labelMostRead": "Most read",
                             "iconLatest": "fi-clock",
                             "iconMostRead": "fi-book",
                             "articleCount": "5",
@@ -202,6 +190,15 @@
                         "fields": {
                             "days": "7",
                             "layout": "vertical"
+                        }
+                    }
+                }
+            },
+            "authorBox": {
+                "fallbackData": {
+                    "contentdata": {
+                        "fields": {
+                            "layoutAuthor": "center"
                         }
                     }
                 }

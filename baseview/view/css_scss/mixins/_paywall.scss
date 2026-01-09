@@ -1,3 +1,5 @@
+@use "../components/vars" as *;
+
 @mixin setPaywallTeaserBackgroundGradient ($color: #fff) {
     .teaserContent:before {
         content: "";
@@ -7,80 +9,184 @@
 }
 
 @mixin label {
-    position: absolute;
-    background-color: #fff;
-    color: #000;
-    text-transform: uppercase;
-    line-height: 1.2;
-    padding: 0.3rem 0.5rem;
-    bottom: 0.5rem;
-    right: 0.4rem;
-    box-shadow: 0 0 4px -1px #000;
-    border-radius: 0.2rem;
-    z-index: 1;
+    .content {
+        .paywallLabel {
+            position: absolute;
+            background-color: #fff;
+            color: #000;
+            text-transform: uppercase;
+            line-height: 1.2;
+            padding: 0.3rem 0.5rem;
+            bottom: 0.5rem;
+            right: 0.4rem;
+            box-shadow: 0 0 4px -1px #000;
+            border-radius: 0.2rem;
+            z-index: 1;
 
-    &.belowMedia {
-        position: initial;
-        width: fit-content;
-        display: inline-block;
-        box-shadow: none;
-        border: 1px solid #000;
+            &.belowMedia {
+                position: initial;
+                width: fit-content;
+                display: inline-block;
+                box-shadow: none;
+                border: 1px solid #000;
 
-        &.no-image {
-            margin: initial;
-            float: initial;
+                &.no-image {
+                    margin: initial;
+                    float: initial;
+                }
+            }
+
+            &:empty {
+                display: none;
+            }
+
+            &.no-image {
+                position: relative;
+                float: right;
+                right: 0;
+                bottom: auto;
+                margin: 0.7rem;
+            }
+
+            &.floatLeft {
+                left: 0.4rem;
+                right: auto;
+                top: 0.4rem;
+                bottom: auto;
+            }
+
+            &.floatRight {
+                top: 0.4rem;
+                bottom: auto;
+            }
+
+            &.bottomRight:not(.no-image) {
+                bottom: 0.5rem;
+                right: 1rem;
+                top: auto;
+                left: auto;
+            }
+
+            &.topRight:not(.no-image) {
+                top: 0.5rem;
+                right: 1rem;
+                bottom: auto;
+                left: auto;
+            }
+
+            &.topLeft:not(.no-image) {
+                top: 0.5rem;
+                left: 1rem;
+                bottom: auto;
+                right: auto;
+            }
+
+            &.bottomLeft:not(.no-image) {
+                bottom: 0.5rem;
+                left: 1rem;
+                top: auto;
+                right: auto;
+            }   
         }
-    }
 
-    &:empty {
-        display: none;
-    }
+        &.hasContentPadding {
+            .paywallLabel {
+                &:not(.floatLeft) {
+                    right: 0; // default placement
+                }
 
-    &.no-image {
-        position: relative;
-        float: right;
-        right: 0;
-        bottom: auto;
-        margin: 0.7rem;
-    }
+                &.bottomRight:not(.no-image) {
+                    right: 0;
+                    left: auto;
+                }
 
-    &.floatLeft {
-        left: 0.4rem;
-        right: auto;
-        top: 0.4rem;
-        bottom: auto;
-    }
+                &.topRight:not(.no-image) {
+                    right: 0;
+                    left: auto;
+                }
 
-    &.floatRight {
-        top: 0.4rem;
-        bottom: auto;
-    }
+                &.topLeft:not(.no-image) {
+                    left: 0;
+                    right: auto;
+                }
 
-    &.bottomRight:not(.no-image) {
-        bottom: 0.5rem;
-        right: 1rem;
-        top: auto;
-        left: auto;
-    }
+                &.bottomLeft:not(.no-image) {
+                    left: 0;
+                    right: auto;
+                }  
+            }
 
-    &.topRight:not(.no-image) {
-        top: 0.5rem;
-        right: 1rem;
-        bottom: auto;
-        left: auto;
-    }
+            @include desktop {
+                .media.desktop-floatRight .paywallLabel {
+                    &.topLeft:not(.no-image) {
+                        left: 1rem;
+                    }
 
-    &.topLeft:not(.no-image) {
-        top: 0.5rem;
-        left: 1rem;
-        bottom: auto;
-        right: auto;
-    }
+                    &.bottomLeft:not(.no-image) {
+                        left: 1rem;
+                    }  
+                }
 
-    &.bottomLeft:not(.no-image) {
-        bottom: 0.5rem;
-        left: 1rem;
-        top: auto;
-        right: auto;
+                .media.desktop-floatLeft .paywallLabel {
+                    &.topRight:not(.no-image) {
+                        right: 1rem;
+                    }
+
+                    &.bottomRight:not(.no-image) {
+                        right: 1rem;
+                    }  
+                }
+            }
+        }
+
+        @include desktop_down {
+            &.mobile-hasContentPadding {
+                .paywallLabel {
+                    &:not(.floatLeft) {
+                        right: 0; // default placement
+                    }
+
+                    &.bottomRight:not(.no-image) {
+                        right: 0;
+                        left: auto;
+                    }
+
+                    &.topRight:not(.no-image) {
+                        right: 0;
+                        left: auto;
+                    }
+
+                    &.topLeft:not(.no-image) {
+                        left: 0;
+                        right: auto;
+                    }
+
+                    &.bottomLeft:not(.no-image) {
+                        left: 0;
+                        right: auto;
+                    }  
+                }
+
+                .media.mobile-floatRight .paywallLabel {
+                    &.topLeft:not(.no-image) {
+                        left: 1rem;
+                    }
+
+                    &.bottomLeft:not(.no-image) {
+                        left: 1rem;
+                    }  
+                }
+
+                .media.mobile-floatLeft .paywallLabel {
+                    &.topRight:not(.no-image) {
+                        right: 1rem;
+                    }
+
+                    &.bottomRight:not(.no-image) {
+                        right: 1rem;
+                    }  
+                }
+            }
+        }
     }
 }

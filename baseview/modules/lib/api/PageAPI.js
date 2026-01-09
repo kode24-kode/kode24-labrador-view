@@ -61,7 +61,11 @@ export class PageAPI {
                     results[name] = {
                         items: menu.menuItems,
                         type: menu.type,
-                        selector: menu.selector || ''
+                        selector: menu.selector || '',
+                        menuName: menu.menuName || '',
+                        showMenuName: menu.showMenuNameOnDesktop || menu.showMenuNameOnMobile || false,
+                        showMenuNameOnDesktop: menu.showMenuNameOnDesktop || '',
+                        showMenuNameOnMobile: menu.showMenuNameOnMobile || ''
                     };
                 });
 
@@ -220,7 +224,7 @@ export class PageAPI {
                     name: key,
                     icon: socialItemsConfig[key].icon || '',
                     url: params.socialLinks[key] || '',
-                    shareText: socialItemsConfig[key].shareText || '',
+                    shareText: this.api.v1.locale.get(`socialMedia.shareText.${ key }`, { noRender: true, fallbackValue: '' }),
                     isButton: socialItemsConfig[key].isButton || false
                 }));
                 return {

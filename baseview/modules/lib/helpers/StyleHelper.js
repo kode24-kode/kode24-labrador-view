@@ -7,7 +7,9 @@ export class StyleHelper {
 
         (definitions.rules || []).forEach((rule) => rules.push(rule));
         (definitions.fontface || []).forEach((font) => {
-            const selector = `.font-${ font.family.replace(/ /g, '') }`;
+            // We need to check here if the font.family is an array or not before we set the selector
+            const fixedFamilyKey = Array.isArray(font.family) ? font.family[0] : font.family;
+            const selector = `.font-${ fixedFamilyKey.replace(/ /g, '') }`;
             rules.push(StyleHelper.getFamilyDefinition(selector, font.family));
 
             const weights = {
@@ -28,6 +30,7 @@ export class StyleHelper {
                     used: false
                 }
             };
+
             font.variants.forEach((definedWeight) => {
                 for (const weight of Object.keys(weights)) {
                     const weightDefinition = weights[weight];
@@ -43,16 +46,22 @@ export class StyleHelper {
             fontface: definitions.fontface || [],
             parsedRules: StyleHelper.CSSRuleParser(rules)
         };
+
         result.hasRules = !!result.parsedRules.length;
         return result;
     }
 
     static getFamilyDefinition(selector, family) {
+        // Check if the config family value is an array and if so create a string with all the strings and push to the font-family key
+        const fontvalue = Array.isArray(family)
+            ? `${ family.map((s) => `"${ s }"`).join(', ') }`
+            : `"${ family }"`;
+
         return {
             selector,
             declarations: [{
                 key: 'font-family',
-                value: `"${ family }" !important`
+                value: `${ fontvalue } !important`
             }]
         };
     }
@@ -62,6 +71,7 @@ export class StyleHelper {
         if (weight === 'regular') {
             validatedWeight = 'normal';
         }
+
         return {
             selector: `${ selector  }.font-weight-${  name }`,
             declarations: [{
@@ -73,6 +83,7 @@ export class StyleHelper {
 
     static CSSRuleParser(rules) {
         const results = [];
+
         rules.forEach((rule) => {
             let ruleString = `${ rule.selector } { `;
             let fontSizeMobile;
@@ -100,11 +111,21 @@ export class StyleHelper {
                     } else {
                         ruleString += `${ subrule.key }: "${ subrule.value }"; `;
                     }
+                } else if (subrule.key === 'color') {
+                    if (subrule.value !== 'default') {
+                        ruleString += `${ subrule.key }: ${ subrule.value }; `;
+                    }
+                }  else if (subrule.key === 'text-decoration') {
+                    if (subrule.value !== 'default') {
+                        ruleString += `${ subrule.key }: ${ subrule.value }; `;
+                    }
                 } else {
                     ruleString += `${ subrule.key }: ${ subrule.value }; `;
                 }
             });
+
             ruleString += '}';
+
             if (fontSizeMobile || lineHeightMobile) {
                 ruleString += `@media (max-width: 767px) { .resp_fonts ${ rule.selector } {`;
                 if (fontSizeMobile) {
@@ -115,6 +136,7 @@ export class StyleHelper {
                 }
                 ruleString += `} }`;
             }
+
             results.push(ruleString);
         });
 
@@ -160,6 +182,7 @@ export class StyleHelper {
                 result[viewport].push({ key, value: (custom_css_variables[key][viewport] || {}).value });
             }
         }
+
         return result;
     }
 

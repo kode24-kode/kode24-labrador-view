@@ -8,6 +8,7 @@ export default class {
         this.customFields = lab_api.v1.config.get('customAdapterFields.article') || [];
         this.dateTimeHelper = new DateTimeHelper(this.api.v1.config.get('lang') || undefined);
         this.updateInterval = 30000; // Milliseconds, 10000 = 10 seconds
+        this.searchDebounceTimeout = null; // For debouncing search requests
     }
 
     onProperties() {
@@ -86,6 +87,16 @@ export default class {
             uiInterface.getData();
         };
 
+        // Debounced version of formHandler for text inputs to reduce API requests
+        const debouncedFormHandler = (event) => {
+            if (this.searchDebounceTimeout) {
+                clearTimeout(this.searchDebounceTimeout);
+            }
+            this.searchDebounceTimeout = setTimeout(() => {
+                formHandler(event);
+            }, 500); // 500ms delay
+        };
+
         const updateSections = (siteId) => {
             // Create a select-element containig available sections.
             // The preferred section for user will be selected and stored when changed.
@@ -97,11 +108,7 @@ export default class {
                     value: 'section'
                 }],
                 siteId: siteId ? parseInt(siteId, 10) : null,
-                label: 'All sections',
-                events: [{
-                    name: 'change',
-                    callback: formHandler
-                }]
+                label: 'All sections'
             });
             container.appendChild(selectEl);
             query.api.section = selectEl.value;
@@ -144,8 +151,15 @@ export default class {
             label: 'Only paywall'
         }));
 
+        // Add event listeners with debouncing for text inputs, immediate for others
         for (const formEl of [...form.querySelectorAll('input, select')]) {
-            formEl.addEventListener('input', formHandler, false);
+            // Use debounced handler for text inputs that users typically type into
+            if (formEl.type === 'text' && (formEl.name === 'id' || formEl.name === 'tag' || formEl.name === 'text')) {
+                formEl.addEventListener('input', debouncedFormHandler, false);
+            } else {
+                // Use immediate handler for dropdowns, checkboxes, and date inputs
+                formEl.addEventListener('input', formHandler, false);
+            }
         }
         form.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -358,10 +372,12 @@ export default class {
                 params.push(`(id:(${ idArray.join(' OR ') }))`);
             }
         }
-        if (query.api.section) params.push(`(section:("${ query.api.section }"))`);
+        if (query.api.section) params.push(`(section:("${ encodeURIComponent(query.api.section) }"))`);
         if (query.api.tag) params.push(`(tag:("${ this.trimInputText(query.api.tag) }"))`);
         if (query.api.text) {
-            params.push(`${ this.trimInputText(query.api.text) }*`);
+            const disableWildcard = this.api.v1.config.get('articleSearchWildcardDisabled');
+            const searchTerm = disableWildcard ? this.trimInputText(query.api.text) : `${ this.trimInputText(query.api.text) }*`;
+            params.push(searchTerm);
         }
         if (query.api.onlyMine) {
             params.push('(has_published:me%20OR%20created_by:me)');

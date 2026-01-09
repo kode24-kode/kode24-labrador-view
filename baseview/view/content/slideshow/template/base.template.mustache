@@ -1,5 +1,5 @@
 <div class="{{ #helper.trim }}
-    slideshowcontainer
+    slideshowcontainer {{ ^get.root.filtered.is_gallery }}{{ #get.current.fields.gallery_active }}gallery-mode{{ /get.current.fields.gallery_active }}{{ /get.root.filtered.is_gallery }}
     fullwidthTarget
     {{ #get.current.fields.hideCaptions }}hideCaptions{{ /get.current.fields.hideCaptions }}
     {{ #get.current.fields.hideBylines }}hideBylines{{ /get.current.fields.hideBylines }}
@@ -14,12 +14,19 @@
             padding-top: {{ get.current.filtered.aspectRatio }}%;
         }
     </style>
+    {{ #selector.sticky-gallery-ad }}
+    <div class="sticky-gallery-ad">
+        {{{ selector.sticky-gallery-ad }}}
+    </div>
+    {{ /selector.sticky-gallery-ad }}
     <div class="scroll-container swipehelper snap-container-x snap-element-start">
-        {{ #children.image[] }}
+        {{ #get.current.filtered.imageList }}
             <div class="scroll-item snap-element slideshow-image">
-            {{{ . }}}
+            {{ #get.current.fields.gallery_active }}<a href="/gallery/{{ get.root.id }}/{{ get.current.id }}?photo={{ index }}">{{ /get.current.fields.gallery_active }}
+            {{{ markup }}}
+            {{ #get.current.fields.gallery_active }}</a>{{ /get.current.fields.gallery_active }}
             </div>
-        {{ /children.image[] }}
+        {{ /get.current.filtered.imageList }}
     </div>
     <nav>
         <span class="arrow left">
@@ -29,14 +36,22 @@
             <span></span>
         </span>
         {{ #get.current.metadata.displayNavigation }}<ul>{{ #children.image[] }}<li></li>{{ /children.image[] }}</ul>{{ /get.current.metadata.displayNavigation }}
-        {{ #get.current.metadata.displayPreview }}<div>
-            {{ #get.children.image }}
+        {{ #get.current.metadata.displayPreview }}<div class="slideshow-preview">
+            {{ #get.current.fields.gallery_active }}{{ #get.current.filtered.hasText}}
+            <div class="slideshow-text">{{ #get.current.fields.gallery_display_title }}<h2 class="headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}">{{ get.current.fields.title }}</h2>{{ /get.current.fields.gallery_display_title }}{{ #get.current.fields.gallery_display_description }}<p class="subtitle {{ #style.collection }}text_decoration fields.description{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.description{{ /style.collection }}">{{ get.current.fields.description }}</p>{{ /get.current.fields.gallery_display_description }}</div>
+            {{ /get.current.filtered.hasText}}{{ /get.current.fields.gallery_active }}
+            <div class="slideshow-images">
+            {{ #get.current.filtered.imageList }}{{ #isImage }}
+            {{ #get.current.fields.gallery_active }}<a href="/gallery/{{ get.root.id }}/{{ get.current.id }}?photo={{ index }}">{{ /get.current.fields.gallery_active }}
             <figure>
                 <div class="img">
-                    <img src="{{ filtered.imageCleanUrl }}&width=80">
+                    <img src="{{ url }}&width=280">
                 </div>
             </figure>
-            {{ /get.children.image }}
+            {{ #get.current.fields.gallery_active }}</a>{{ /get.current.fields.gallery_active }}
+            {{ /isImage }}{{ /get.current.filtered.imageList }}
+            {{ #get.current.fields.gallery_active }}<a href="/gallery/{{ get.root.id }}/{{ get.current.id }}" class="gallery-link fi-arrow-up"></a>{{ /get.current.fields.gallery_active }}
+            </div>
         </div>{{ /get.current.metadata.displayPreview }}
     </nav>
 {{ #get.current.id }}
@@ -45,9 +60,10 @@
     window.dachserData.push('swipehelper', {
         selector: '#slideshow-{{ get.current.id }}',
         navItemsSelector: 'nav ul',
-        previewItemsSelector: 'nav div',
+        previewItemsSelector: 'nav div.slideshow-images',
         itemsContainerSelector: '.scroll-container',
         itemsSelector: '.scroll-item',
+        noIndexItemsSelector: '.scroll-item:has(.placeholder_ad)',
         isHorizontal: true,
         navItems: {
             forwardSelector: 'nav .arrow.right',
@@ -61,6 +77,13 @@
         },
         debug: {{ #get.current.filtered.isDebug }}true{{ /get.current.filtered.isDebug }}{{ ^get.current.filtered.isDebug }}false{{ /get.current.filtered.isDebug }}
     });
+    {{ #get.current.metadata.displayPreview }}{{ #get.current.fields.gallery_active }}
+    for (const imageLink of document.querySelectorAll('#slideshow-{{ get.current.id }} .slideshow-preview .slideshow-images a')) {
+        imageLink.addEventListener('click', (event) => {
+            event.stopImmediatePropagation();
+        });
+    }
+    {{ /get.current.fields.gallery_active }}{{ /get.current.metadata.displayPreview }}
     {{ #app.isEditor }}
     if (window.dachserData.reflow) {
         window.dachserData.reflow('swipehelper', 'selector', '#slideshow-{{ get.current.id }}');
@@ -69,9 +92,11 @@
     {{ ^app.isEditor }}
     const captions = document.querySelectorAll('#slideshow-{{ get.current.id }} figcaption[itemprop="caption"]');
     for (const caption of [...captions]) {
-        if (caption.innerText.trim().length > 0) {
+        if (caption.offsetWidth < caption.scrollWidth) {
             const el = document.createElement('span');
             el.classList.add('caption-toggle');
+            el.setAttribute('data-showmore', '{{ #lang }}image.caption.showMoreLabel{{ /lang }}');
+            el.setAttribute('data-showless', '{{ #lang }}image.caption.showLessLabel{{ /lang }}');
             el.addEventListener('click', (event) => {
                 event.preventDefault();
                 event.stopPropagation();

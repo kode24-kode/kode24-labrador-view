@@ -2,29 +2,36 @@
 
 body.notice {
     .notice-header {
-        time, .author {
+        time, 
+        .author {
             padding: var(--columns-gutter);
             font-size: 0.9rem;
+
             &:before {
                 margin-right: 0.3em;
             }
         }
+
         .author:empty {
             display: none;
         }
+
         .tags {
             padding-left: var(--columns-gutter);
             margin: 1em 0;
             font-size: 0.85rem;
             text-transform: uppercase;
+
             span[data-tag] {
                 border-radius: 1em;
                 padding: 0 .8em;
                 margin: 0 0.2em 0.6em 0;
                 white-space: nowrap;
                 display: inline-block;
+
                 a {
                     color: inherit;
+
                     &:hover {
                         text-decoration: underline;
                     }
@@ -41,16 +48,18 @@ body.notice {
     h1 {
         font-size: 2rem;
     }
+
     .bodytext {
         margin-top: 1rem;
     }
 }
 
-@include desktop-down {
+@include desktop_down {
     body.notice {
         h1 {
             font-size: 1.7rem;
         }
+
         .notice-header {
             .author {
                 display: block;

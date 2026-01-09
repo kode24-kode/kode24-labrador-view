@@ -33,12 +33,14 @@ import { ArticleStyling } from './article/ArticleStyling.js';
 import { ArticleSite } from './article/ArticleSite.js';
 import { RoxenExport } from './article/RoxenExport.js';
 import { AptomaExport } from './article/AptomaExport.js';
+import { WoodwingExport } from './article/WoodwingExport.js';
 
 import { CustomElements } from './CustomElements.js';
 import { BylineEditor } from './BylineEditor.js';
 import { TeaserEditor } from './TeaserEditor.js';
 import { FrontContentSupport } from './FrontContentSupport.js';
 import { ParallaxSupport } from './ParallaxSupport.js';
+import { AddComment } from './AddComment.js';
 
 import { TopicSummary } from './article/TopicSummary.js';
 import { ImageColors } from './ImageColors.js';
@@ -71,6 +73,7 @@ export default {
     ArticleTranslate,
     RoxenExport,
     AptomaExport,
+    WoodwingExport,
     CustomElements,
     BylineEditor,
     TeaserEditor,
@@ -80,5 +83,6 @@ export default {
     ImageColors,
     FieldVersion,
     NoticeSettings,
-    NoticeGeneralSettings
+    NoticeGeneralSettings,
+    AddComment
 };

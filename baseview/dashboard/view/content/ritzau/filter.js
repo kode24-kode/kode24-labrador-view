@@ -56,5 +56,9 @@ Lab.View.Filters.content.ritzau = function (viewModel) {
     viewModel.setFiltered("limit", limit);
     viewModel.setFiltered("siteId", currentSiteId);
     viewModel.setFiltered("pageNumber", (page / limit) + 1);
+
+    // For searching. Some weird passthrough from Dashboard.js to here. Just leave it please.
+    var sectionList = viewModel.get("fields.sectionList") || 0;
+    viewModel.setFiltered("sectionList", sectionList);
     
 };

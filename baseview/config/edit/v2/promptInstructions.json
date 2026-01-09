@@ -2,7 +2,7 @@
 
     "promptInstructions": {
         "general": {
-            "originalContent": "\n{{ #params.original_bodytext }}- For context, this is the original article content: \n- The original bodytext: {{{ params.original_bodytext }}}{{ /params.original_bodytext }}{{ #params.original_title }} \n- The original article title: {{{ params.original_title }}}{{ /params.original_title }}{{ #params.original_subtitle }} \n- The original subtitle/lead text: {{{ params.original_subtitle }}}{{ /params.original_subtitle }}{{ #params.original_created }} \n- The article was created: {{{ params.original_created }}}{{ /params.original_created }}{{ #params.original_published }} \n- The article was initially publised: {{{ params.original_published }}}{{ /params.original_published }}{{ #params.original_modified }} \n- The article republished with modifications: {{{ params.original_modified }}}{{ /params.original_modified }}",
+            "originalContent": "\n- Use 'sentence case' in your response. \n{{ #params.original_bodytext }}- For context, this is the original article content: \n- The original bodytext: {{{ params.original_bodytext }}}{{ /params.original_bodytext }}{{ #params.original_title }} \n- The original article title: {{{ params.original_title }}}{{ /params.original_title }}{{ #params.original_subtitle }} \n- The original subtitle/lead text: {{{ params.original_subtitle }}}{{ /params.original_subtitle }}{{ #params.original_created }} \n- The article was created: {{{ params.original_created }}}{{ /params.original_created }}{{ #params.original_published }} \n- The article was initially publised: {{{ params.original_published }}}{{ /params.original_published }}{{ #params.original_modified }} \n- The article republished with modifications: {{{ params.original_modified }}}{{ /params.original_modified }}",
             "errorResponse": "\n- To handle an error when trying to generate: If your are unable to generate a response, please return an descriptive error message like this: ```json{ \"error\": \"Respond with 'Unable to generate content' and give an explanation for why the request failed to generate content\" }```"
         },
         "feature": {
@@ -239,6 +239,41 @@
                 "label": "Gpt-4o [OpenAI - ChatGPT]",
                 "provider": "openAi",
                 "model": "gpt-4o",
+                "integration": "openAi",
+                "serviceType": "chatCompletions"
+            },
+            "openAi-gpt-5-1": {
+                "label": "Gpt-5.1 [OpenAI - ChatGPT]",
+                "provider": "openAi",
+                "model": "gpt-5.1",
+                "integration": "openAi",
+                "serviceType": "chatCompletions"
+            },
+            "openAi-gpt-5-mini": {
+                "label": "Gpt-5 Mini [OpenAI - ChatGPT]",
+                "provider": "openAi",
+                "model": "gpt-5-mini",
+                "integration": "openAi",
+                "serviceType": "chatCompletions"
+            },
+            "openAi-gpt-5-nano": {
+                "label": "Gpt-5 Nano [OpenAI - ChatGPT]",
+                "provider": "openAi",
+                "model": "gpt-5-nano",
+                "integration": "openAi",
+                "serviceType": "chatCompletions"
+            },
+            "openAi-gpt-5": {
+                "label": "Gpt-5 [OpenAI - ChatGPT]",
+                "provider": "openAi",
+                "model": "gpt-5",
+                "integration": "openAi",
+                "serviceType": "chatCompletions"
+            },
+            "openAi-gpt4o-mini": {
+                "label": "Gpt-4o-mini [OpenAI - ChatGPT]",
+                "provider": "openAi",
+                "model": "gpt-4o-mini",
                 "integration": "openAi",
                 "serviceType": "chatCompletions"
             },

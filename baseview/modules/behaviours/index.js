@@ -1,6 +1,7 @@
 export { default as page_article } from './page/Article.js';
 export { default as page_front } from './page/Front.js';
 export { default as page_notice } from './page/Notice.js';
+export { default as page_gallery } from './page/Gallery.js';
 
 export { default as adnuntiusAd } from './elements/AdnuntiusAd.js';
 export { default as apsis_submit } from './elements/ApsisSubmit.js';
@@ -14,6 +15,7 @@ export { default as articlesByTag } from './elements/ArticlesByTag.js';
 export { default as articlescroller } from './elements/ArticleScroller.js';
 export { default as bodytext } from './elements/Bodytext.js';
 export { default as byline } from './elements/Byline.js';
+export { default as authorBox } from './elements/AuthorBox.js';
 export { default as changelog } from './elements/Changelog.js';
 export { default as comments } from './elements/Comments.js';
 export { default as factbox } from './elements/Factbox.js';
@@ -53,3 +55,5 @@ export { default as noticeHeader } from './elements/NoticeHeader.js';
 export { default as chart } from './elements/Chart.js';
 export { default as grid } from './elements/Grid.js';
 export { default as vimond } from './elements/Vimond.js';
+export { default as vp } from './elements/Vp.js';
+export { default as infiniteScroll } from './elements/InfiniteScroll.js';

@@ -152,6 +152,21 @@ body .column.adnuntius-ad.row {
     }
 }
 
+div.placeholder.placement-bgTop_150:has(.row-section .row .adnuntius-ad.sticky),
+div.placeholder.placement-bgTop_300:has(.row-section .row .adnuntius-ad.sticky),
+div.placeholder.placement-top:has(.row-section .row .adnuntius-ad.sticky){
+    position: sticky;
+    display: block;
+    top: calc(var(--space-top-adnuntiusAd, 0) * 1px);
+}
+div.placeholder.placement-top:has(.row-section .row .adnuntius-ad.sticky){
+    z-index: 20;
+}
+
+.adnuntius-ad.sticky {
+    position: sticky;
+}
+
 // Debug:
 .adnuntius-ad-debug {
     min-height: 2em;

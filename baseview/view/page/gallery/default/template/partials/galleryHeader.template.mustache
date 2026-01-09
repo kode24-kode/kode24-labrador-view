@@ -1,0 +1,12 @@
+<div class="gallery-header">
+    <h1>{{{ get.current.filtered.title }}}</h1>
+    <nav>
+        <ul>
+            {{ #get.root.filtered.page_settings.social.items }}
+            <li>{{ > partial/social_button }}</li>
+            {{ /get.root.filtered.page_settings.social.items }}
+            <li class="gallery-toggle-all fi-thumbnails" aria-label="{{ #lang }}gallery.seeAllImages{{ /lang }}" title="{{ #lang }}gallery.seeAllImages{{ /lang }}"></li>
+            <li class="gallery-close"><a href="" class="fi-x" aria-label="{{ #lang }}gallery.navigateToOriginal{{ /lang }}" title="{{ #lang }}gallery.navigateToOriginal{{ /lang }}"></a></li>
+        </ul>
+    </nav>
+</div>

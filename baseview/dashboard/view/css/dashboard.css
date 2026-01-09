@@ -365,6 +365,15 @@ body.labFn-edit .dashboardbox.labFn-isBusy:after {
     background-color: #d2f3d2;
 }
 
+.dashboardbox ul.articles li.lab-article-update-exists {
+    background-color: #f3f3d2;
+    border-bottom-color: #8add8a;
+}
+
+.dashboardbox ul.articles li.lab-article-update-exists:hover {
+    background-color: #f3f3d2;
+}
+
 .dashboardbox ul.articles li[data-visibility-status]:before {
     content: "";
     position: absolute;

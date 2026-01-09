@@ -10,7 +10,7 @@
             "saturday": "laurdag",
             "january": "januar",
             "february": "februar",
-            "mars": "mars",
+            "march": "mars",
             "april": "april",
             "may": "mai",
             "june": "juni",
@@ -80,10 +80,34 @@
         },
         "search": {
             "placeholder": "Søk...",
-            "label": "Søk"
+            "label": "Søk",
+            "openText": "Søk",
+            "closeText": "Lukk",
+            "expandedLabel": "Lukk søk",
+            "collapsedLabel": "Opne søk",
+            "labradorSearch": {
+                "submitLabel": "Søk",
+                "navLabel": "Vis meir",
+                "nohitsLabel": "Inkje treff. Prøv å endra søket ditt.",
+                "searchPlaceholder": "Skriv søket ditt her ...",
+                "advancedOpenText": "Opne filter",
+                "advancedCloseText": "Lukk filter",
+                "fromDateLabel": "Frå dato",
+                "toDateLabel": "Til dato",
+                "tagLabel": "Tagg",
+                "authorLabel": "Forfattar",
+                "allSitesLabel": "Alle sidar"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "Lukk meny",
+            "collapsedLabel": "Opne meny",
+            "buttonText": "Meny"
         },
         "header": {
-            "logo_link_text": "Gå til framside"
+            "logo_link_text": "Gå til framside",
+			"menuScrollerLeftButton": "Rull til venstre",
+			"menuScrollerRightButton": "Rull til høgre"
         },
         "slack_notifier": {
             "publish": {
@@ -121,7 +145,56 @@
             "caption": {
                 "showCaptionLabel": "Vis bilettekst",
                 "hideCaptionLabel": "Skjul bilettekst",
-                "showMoreLabel": "Vis meir"
+                "showMoreLabel": "Vis meir",
+                "showLessLabel": "Vis mindre"
+            }
+        },
+        "mostRead": {
+            "labelLatest": "Siste",
+            "titleLatest": "Nylege artiklar",
+            "labelMostRead": "Mest lesne",
+            "titleMostRead": "Mest lesne artiklar"
+        },
+        "infiniteScroll": {
+            "readMore": "Fortset å lesa"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Del på Facebook",
+                "twitter": "Del på X (Twitter)",
+                "linkedin": "Del på LinkedIn",
+                "mail": "Del via e-mail",
+                "threads": "Del på Threads",
+                "copyLink": "Kopier lenkje",
+                "glimta": "Lås opp med Glimta",
+                "talandeWebb": "Opne Talande Webb-alternativpanelet",
+                "bluesky": "Del på Bluesky",
+                "whatsapp": "Del på WhatsApp",
+                "reddit": "Del på Reddit"
+            }
+        },
+        "gallery": {
+            "label": "Galleri",
+            "seeAllImages": "Sjå alle bilete",
+            "navigateToOriginal": "Gå til originalside"
+        },
+        "weather": {
+            "failedToFetch": "Kunne ikkje hente værdata",
+            "updated": "Oppdatert",
+            "fetchingData": "Lastar værdata",
+            "types": {
+                "clearsky": "Klarvær",
+                "fair": "Lettskya",
+                "partlycloudy": "Delvis skya",
+                "cloudy": "Skya",
+                "rainshowers": "Regnbyger",
+                "rain": "Regn",
+                "snow": "Snø",
+                "sleet": "Sludd",
+                "thunder": "Torden",
+                "fog": "Tåke",
+                "wind": "Vind",
+                "unknown": "Ukjent"
             }
         }
     }

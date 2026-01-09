@@ -1,5 +1,5 @@
 <url>
-    <loc>{{ get.current.filtered.published_url }}</loc>
+    {{ #get.current.filtered.published_url }}<loc>{{ get.current.filtered.published_url }}</loc>{{ /get.current.filtered.published_url }}
     {{ ^get.current.filtered.articleOutOfDate_sitemap }}
         <news:news>
             <news:publication>
@@ -10,4 +10,9 @@
             <news:title>{{ get.current.filtered.title }}</news:title>
         </news:news>
     {{ /get.current.filtered.articleOutOfDate_sitemap }}
+    {{ #get.current.filtered.headerImageUrl }}
+        <image:image>
+            <image:loc>{{ get.current.filtered.headerImageUrl }}</image:loc>
+        </image:image>
+    {{ /get.current.filtered.headerImageUrl }}
 </url>

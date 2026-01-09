@@ -34,6 +34,7 @@ export class ArticleSettings {
             'ConfigOverride',
             'RoxenExport',
             'AptomaExport',
+            'WoodwingExport',
             'ArticleChangelog'
         ].concat(additions).filter((app) => !removals.includes(app));
         this.apps = {};
@@ -298,15 +299,48 @@ export class ArticleSettings {
         }
     }
 
+    /**
+     * Registers an event listener on an input element to handle validation, transformation,
+     * saving, and logging when the element's value changes.
+     *
+     * - Uses the 'blur' event for <input type="datetime-local"> to handle incomplete input.
+     * - Uses the 'change' event for all other input types.
+     * - Validates the input using a registered validator if specified in `pathInfo`.
+     * - If validation fails:
+     *    - Adds 'lab-validation-error' CSS class to the input's parent.
+     *    - Stops further processing for most inputs, **except** for datetime-local inputs,
+     *      which still proceed to save and log even if invalid since it only either returns
+     *      the original value or an empty string.
+     * - Applies a custom value transformer and callback if provided.
+     * - Persists the value to a node or meta path if configured.
+     * - Logs the action with metadata (type, app name, path).
+     *
+     * @param {HTMLInputElement} element - The input element to register.
+     * @param {Object} pathInfo - Configuration object containing validator, transformer, save targets, etc.
+     * @param {boolean} [pathInfo.boolean] - Whether the input should be treated as a boolean (e.g., checkbox).
+     * @param {string} [pathInfo.validator] - Name of a validator function in `valueTransformer`.
+     * @param {Object} [pathInfo.validatorParams] - Optional params passed to the validator.
+     * @param {Function} [pathInfo.transformer] - Function to transform the input value before saving.
+     * @param {Function} [pathInfo.callback] - Function called after value is processed.
+     * @param {string} [pathInfo.node] - Path where the value should be saved (if applicable).
+     * @param {string} [pathInfo.meta] - Metadata key where the value should be stored (if applicable).
+     * @param {boolean} [pathInfo.suggestReload] - Whether to suggest reload after saving.
+     * @param {Object} app - Reference to the application instance, used for logging.
+     */
     registerInputItem(element, pathInfo, app) {
-        element.addEventListener('change', (event) => {
+        // Check if element is a date-time input
+        const isDateTimeLocal = element.type === 'datetime-local';
+        const eventType = isDateTimeLocal ? 'blur' : 'change';
+
+        element.addEventListener(eventType, (event) => {
             let value = pathInfo.boolean ? element.checked : element.value;
             if (pathInfo.validator && this.api.v1.util.valueTransformer[pathInfo.validator]) {
                 if (!this.api.v1.util.valueTransformer[pathInfo.validator](value, pathInfo.validatorParams)) {
                     element.parentElement.classList.add('lab-validation-error');
-                    return;
+                    if (!isDateTimeLocal) return;
+                } else {
+                    element.parentElement.classList.remove('lab-validation-error');
                 }
-                element.parentElement.classList.remove('lab-validation-error');
             }
             if (typeof pathInfo.transformer === 'function') {
                 value = pathInfo.transformer(value, pathInfo);

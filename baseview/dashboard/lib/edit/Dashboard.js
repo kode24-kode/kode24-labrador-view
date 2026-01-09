@@ -82,6 +82,126 @@ var Dashboard = {
         }
     },
 
+    searchExternal: function() {
+
+        var articleSourceList = [
+            {
+                value: "ritzau",
+                key: "Ritzau"
+            }
+        ];
+
+        var siteList = [
+            {
+                value: 1,
+                key: "default"
+            }
+        ];
+
+        if (lab_api.v1.user.hasPermission('site_all')) {
+            siteList = lab_api.v1.user.getSites().map(function(site) {
+                return {
+                    value: site.id,
+                    key: site.alias
+                }
+            });
+        }
+
+        var sectionList = [
+            { "key": "Indland", "value": 1 },
+            { "key": "Udlandt", "value": 2 },
+            { "key": "Kriminal", "value": 3 },
+            { "key": "Politik", "value": 4 },
+            { "key": "Article (finans)", "value": 5 },
+            { "key": "Erhverv", "value": 6 },
+            { "key": "Sport", "value": 7 },
+            { "key": "Underholdning", "value": 8 },
+            { "key": "Pressemedd.", "value": 13 },
+            { "key": "Guidance (finans)", "value": 31 },
+            { "key": "Estimat (finans)", "value": 32 },
+            { "key": "Børskalender (finans)", "value": 33 },
+            { "key": "Market commentary (finans)", "value": 34 },
+            { "key": "Alert (finans)", "value": 39 },
+            { "key": "Flash (finans)", "value": 40 },
+            { "key": "Penge, Forbrug og Sundhed", "value": 48 },
+            { "key": "Topweb (20)", "value": 1000 },
+            { "key": "Prioterede nyheder (5)", "value": 1001 }
+        ]
+
+
+
+        var dialog = Lab.Dialog.modal({
+            title: " ",
+            informalText: LabMain.appController.userEditableState ? "Tip: If you want to store the results simply drag them onto the page." : "",
+            btnTitle: "Search",
+            secondaryBtnTitle: " ",
+            status: "article_search",
+            target: $lab("iframe.labFn-viewport-frame").contents().find("#lab-modalContainer"), // $lab("#lab-modalContainer"),
+            formSettings: [
+                {
+                    key: "query",
+                    placeholder: "Search title, subtitle, bodytext or ID",
+                    type: "text",
+
+                }, {
+                    type: "select",
+                    key: "articleSourceList",
+                    optionList: articleSourceList,
+                    label: "Article Source"
+                }, {
+                    type: "select",
+                    key: "siteId",
+                    optionList: siteList,
+                    label: "Site"
+                }, {
+                    type: "datetime-local",
+                    key: "dateFrom",
+                    label: "Date from"
+                }, {
+                    type: "datetime-local",
+                    key: "dateTo",
+                    label: "Date to"
+                }, {
+                    type: "number",
+                    key: "limit",
+                    min: "1",
+                    max: "40",
+                    label: "Number of results"
+                }, {
+                    type: "select",
+                    key: "sectionList",
+                    optionList: sectionList,
+                    label: "Section"
+                }
+            ],
+            disableKeyEvents: true,
+            callback: function(resp) {
+                if (!resp.data) return;
+                var searchParams = {
+                    query: "",
+                    articleSourceList: "",
+                    siteId: "",
+                    dateFrom: "",
+                    dateTo: "",
+                    limit: "",
+                    sectionList: ""
+                }
+                var hasQuery = false;
+                resp.data.forEach(function(r) {
+                    if (r.key && r.value && typeof(searchParams[r.key] !== "undefined")) {
+                        searchParams[r.key] = r.value;
+                        hasQuery = true;
+                    }
+                });
+                if (hasQuery) {
+                    window.setTimeout(function() {
+                        Dashboard.doExternalSearch(searchParams);
+                    }, 10);
+                }
+            }
+        });
+    },
+
     // Search Labrador-articles.
     // Dashboard.search is set as a callback in the launchMapper for a search-button and hotkey ("S")
     // Perform search by creating a content-box of type "article_list" (as used on Dashboard).
@@ -127,7 +247,7 @@ var Dashboard = {
                 key: "Unpublished"
             }
         ];
-
+ 
         var dialog = Lab.Dialog.modal({
             title: " ",
             informalText: LabMain.appController.userEditableState ? "Tip: If you want to store the results simply drag them onto the page." : "",
@@ -181,7 +301,7 @@ var Dashboard = {
                     author: "",
                     section: "",
                     tag: "",
-                    status: ""
+                    status: "",
                 }
                 var hasQuery = false;
                 resp.data.forEach(function(r) {
@@ -197,6 +317,55 @@ var Dashboard = {
                 }
             }
         });
+    },
+
+    doExternalSearch: function(searchParams) {
+        var pageNode = LabMain.nodeController.getPageNode();
+        var modelType = "ritzau";
+        if (searchParams.articleSourceList) {
+            modelType = searchParams.articleSourceList;
+        }
+        var structureModel = LabMain.structureController.modelForType(modelType, {type: modelType, width: 100, metadata: {lock: false}}, "structure", null);
+        //structureModel.isPseudoModel = true;
+        // site_id because thats what dashboard/view/content/ritzau/filter.js uses.
+        var contentData = {
+            type: modelType,
+            fields: {
+                limit: searchParams.limit,
+                skipOver: 0,
+                site_id: searchParams.siteId,
+                service: 'news',
+                category: '',
+                district: '',
+                onlyLatestVersion: true,
+                search: searchParams.query,
+                dateFrom: searchParams.dateFrom,
+                dateTo: searchParams.dateTo,
+                sectionList: searchParams.sectionList
+            }
+        };
+        var nodeModel = LabMain.nodeController.modelForType(contentData.type, contentData, "content", "search")
+        structureModel.setNodeModel(nodeModel);
+        LabMain.structureController.defaultInit(structureModel);
+
+        var markup = $lab('<section style="overflow: auto; height: 100%; padding: 2em 0 0; margin-bottom: 2em; box-sizing: border-box;"></section>');
+        var row = $lab('<div class="row grid search" style="max-width: 50em; margin: 0 auto 2em; "></div>');
+        row.click(function(e) {
+            e.stopPropagation();
+        });
+
+        markup.append(row);
+        row.append(structureModel.markup);
+        LabMain.Adapter.AjaxAdapterData.runQueue();
+
+        LabMain.appController.displayModal({
+            hideKeys: [27], // 13 = enter, 27 = escape
+            id: 123,
+            allowMenus: false,
+            mainWindow: false,
+            setHeight: true
+        });
+        LabMain.appController.modalWindow.handler.getContainer().append(markup);
     },
 
     doSearch: function(searchParams) {

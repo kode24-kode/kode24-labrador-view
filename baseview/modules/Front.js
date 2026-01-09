@@ -50,7 +50,7 @@ export default class {
             return;
         }
         const dynamicData = new DynamicDataHelper(this.api);
-        const clientSidePlacements = dynamicData.insert(this.api.v1.viewport.getName());
+        const { clientSidePlacements = [] } = dynamicData.insert(this.api.v1.viewport.getName());
         if (clientSidePlacements.length > 0 && !rootModel.get('fields.hideAds')) {
             // The head-template will use this data to render the placements client side using the script ClientAds.js.
             rootModel.setFiltered('clientSidePlacements', JSON.stringify(clientSidePlacements));

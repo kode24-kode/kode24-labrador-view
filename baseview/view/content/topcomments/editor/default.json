@@ -1,6 +1,9 @@
 {
     "contentMenus": {
         "default": {
+            "labels": {
+                "before": ["Latest / most read"]
+            },
             "items": {
                 "edit-settings": {
                     "group": "g5_5",
@@ -28,7 +31,7 @@
     "settingsPanels": {
         "admin": {
             "template": "content/topcomments/template/settings",
-            "title": "Settings for Top comments"
+            "title": "Latest and most read - Settings"
         }
     }
-}
+} 

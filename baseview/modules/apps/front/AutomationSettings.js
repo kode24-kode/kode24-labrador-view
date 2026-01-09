@@ -15,11 +15,6 @@ export class AutomationSettings {
                     <input id="id-meta.automatic" type="checkbox" name="automatic" value="1"{{ #meta.automatic }} checked{{ /meta.automatic }}>
                 </div>
 
-                <div class="lab-formgroup-item lab-space-below-medium lab-grid-large-9 lab-grid-gap lab-inline">
-                    <label for="id-meta.termMode">Use terms, not tags</label>
-                    <input id="id-meta.termMode" type="checkbox" name="termMode" value="1"{{ #meta.termMode }} checked{{ /meta.termMode }}>
-                </div>
-
                 <div class="lab-formgroup-item lab-space-below-medium lab-grid-large-12 lab-grid-gap">
                     <label for="automation-layout">Layout from page</label>
                     <div data-placeholder="automation-layout">
@@ -62,11 +57,6 @@ export class AutomationSettings {
             automatic: {
                 node: 'fields.automatic',
                 meta: 'automatic',
-                boolean: true
-            },
-            termMode: {
-                node: 'fields.termMode',
-                meta: 'termMode',
                 boolean: true
             },
             layout: {

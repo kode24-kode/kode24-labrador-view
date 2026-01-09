@@ -2,6 +2,8 @@ export default class Byline {
 
     constructor(api) {
         this.api = api;
+        this.domain = this.api.v1.site.getSite().domain || this.api.v1.properties.get('customer_front_url');
+        this.authorPagesConfig = this.api.v1.config.get('authorPages') || {};
     }
 
     onId(model) {
@@ -54,11 +56,13 @@ export default class Byline {
         const fields = {
             public_email: view.get('fields.public_email'),
             public_url: view.get('fields.public_url'),
+            email: view.get('fields.email'),
             public_phone: view.get('fields.public_phone'),
             firstname: view.get('fields.firstname'),
             lastname: view.get('fields.lastname'),
             description: view.get('fields.description'),
-            description2: view.get('fields.description2')
+            description2: view.get('fields.description2'),
+            slug: view.get('fields.slug')
         };
 
         /**
@@ -127,6 +131,9 @@ export default class Byline {
                         break;
                     }
                 }
+                if (this.shouldUseAuthorPageUrl(fields, model)) {
+                    element.url = this.authorPageUrl(model);
+                }
             }
 
             if (element.parts.length) {
@@ -136,6 +143,60 @@ export default class Byline {
 
         model.setFiltered('default_color', config.default_color || '');
         model.setFiltered('data', data);
+    }
+
+    /**
+     * Determines whether the author's byline should link to their author page.
+     *
+     * This function checks if the author pages feature is enabled in the site configuration
+     * and whether the current author meets the criteria for having an author page link.
+     * The author page link is used instead of a manually defined email or URL if:
+     *  - The `authorPagesConfig.enabled` flag is true
+     *  - The author has a public or internal email defined
+     *  - Either all authors are allowed (`enableForAll`), or this specific author ID is whitelisted
+     *
+     * @param {Object} fields - The author field values from the view.
+     * @param {Object} model - The model instance representing the byline element.
+     *
+     * @returns {boolean} Returns `true` if the author page URL should be used for the byline link; otherwise `false`.
+     */
+    shouldUseAuthorPageUrl(fields, model) {
+        if (this.authorPagesConfig.enabled && (fields.public_email || fields.email) && model.get('instance_of')) {
+            if (this.authorPagesConfig.enableForAll) {
+                return true;
+            }
+            if (this.authorPagesConfig.enabledAuthorIds) {
+                const enabledIds = this.authorPagesConfig.enabledAuthorIds.split(',').map((id) => parseInt(id.trim(), 10));
+                if (enabledIds.includes(model.get('instance_of'))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Builds and returns the full URL to the author's dedicated author page.
+     *
+     * This method constructs a valid URL to the author’s page using the site’s domain
+     * and the configured author page path. It uses the author’s `slug` (if available)
+     * for cleaner, SEO-friendly URLs; otherwise, it falls back to the author’s instance ID.
+     *
+     * Example output:
+     * ```
+     * https://example.com/author/john-doe
+     * ```
+     *
+     * @param {Object} model - The model instance representing the byline element.
+     *
+     * @returns {string} The complete URL to the author’s page, combining domain, configured path, and slug or ID.
+     */
+    authorPageUrl(model) {
+        const instanceOfId = model.get('instance_of');
+        const instanceOfJson = model.get('instance_of_json') ? JSON.parse(model.get('instance_of_json')) : undefined;
+        const instanceOfSlug = (instanceOfJson && instanceOfJson.fields.slug) ? instanceOfJson.fields.slug : undefined;
+
+        return `${ this.domain }/${ this.authorPagesConfig.path || 'author' }/${ instanceOfSlug || instanceOfId || '' }`;
     }
 
 }

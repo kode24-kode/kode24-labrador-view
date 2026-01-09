@@ -95,58 +95,157 @@
                 "style_list": {
                     "group": "g5",
                     "icon": "labicon-spinner_1",
-                    "title": "Speech bubbles",
-                    "value": false,
-                    "onValue": true,
-                    "offValue": false,
-                    "onValueCondition": "lab-key-is-true",
-                    "bindToSelection": "style_list",
+                    "title": "Layout options",
                     "items": [
                         {
-                            "text": "Square",
-                            "icon": "labicon-button_checkbox",
-                            "title": "Square bubble",
-                            "callback": "toggleKeyAndValue",
-                            "key": "metadata.speech_bubble",
+                            "group": "g1",
+                            "text": "Speech bubbles",
+                            "title": "Speech bubbles",
                             "value": false,
-                            "onValue": "speech-bubble-square",
+                            "onValue": true,
                             "offValue": false,
-                            "bindings": [
+                            "onValueCondition": "lab-key-is-true",
+                            "bindToSelection": "style_list",
+                            "items": [
                                 {
-                                    "path": "metadata.speech_bubble",
-                                    "attribute": "value"
+                                    "text": "Square",
+                                    "icon": "labicon-button_checkbox",
+                                    "title": "Square bubble",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.speech_bubble",
+                                    "value": false,
+                                    "onValue": "speech-bubble-square",
+                                    "offValue": false,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.speech_bubble",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "text": "Oval",
+                                    "icon": "labicon-button_radio",
+                                    "title": "Oval bubble",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.speech_bubble",
+                                    "value": false,
+                                    "onValue": "speech-bubble-oval",
+                                    "offValue": false,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.speech_bubble",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "text": "Dream",
+                                    "icon": "labicon-cloud_up",
+                                    "title": "Dream bubble",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.speech_bubble",
+                                    "value": false,
+                                    "onValue": "speech-bubble-dream",
+                                    "offValue": false,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.speech_bubble",
+                                            "attribute": "value"
+                                        }
+                                    ]
                                 }
                             ]
                         },
                         {
-                            "text": "Oval",
-                            "icon": "labicon-button_radio",
-                            "title": "Oval bubble",
-                            "callback": "toggleKeyAndValue",
-                            "key": "metadata.speech_bubble",
-                            "value": false,
-                            "onValue": "speech-bubble-oval",
-                            "offValue": false,
-                            "bindings": [
+                            "group": "g2",
+                            "text": "Quotation style",
+                            "title": "Quotation style",
+                            "items": [
                                 {
-                                    "path": "metadata.speech_bubble",
-                                    "attribute": "value"
-                                }
-                            ]
-                        },
-                        {
-                            "text": "Dream",
-                            "icon": "labicon-cloud_up",
-                            "title": "Dream bubble",
-                            "callback": "toggleKeyAndValue",
-                            "key": "metadata.speech_bubble",
-                            "value": false,
-                            "onValue": "speech-bubble-dream",
-                            "offValue": false,
-                            "bindings": [
+                                    "icon": "labicon-preview",
+                                    "text": "Display quotation mark",
+                                    "title": "Hide or show quotation mark",
+                                    "autocloseSubmenuAfterAction": false,
+                                    "key": "metadata.hideQuotationMark",
+                                    "onValue": false,
+                                    "offValue": true,
+                                    "callback": "toggleKeyAndValue",
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.hideQuotationMark",
+                                            "attribute": "value",
+                                            "valueTransformer": "toBoolean"
+                                        }
+                                    ]
+                                },
+                                                                {
+                                    "icon": "labicon-preview",
+                                    "text": "Display block line",
+                                    "title": "Hide or show block line",
+                                    "autocloseSubmenuAfterAction": false,
+                                    "key": "metadata.hideBlockLine",
+                                    "onValue": false,
+                                    "offValue": true,
+                                    "callback": "toggleKeyAndValue",
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.hideBlockLine",
+                                            "attribute": "value",
+                                            "valueTransformer": "toBoolean"
+                                        }
+                                    ]
+                                },
                                 {
-                                    "path": "metadata.speech_bubble",
-                                    "attribute": "value"
+                                    "inheritPath": "menu/buttons/backgroundColor.json",
+                                    "icon": "labicon-color_palette",
+                                    "text": "Color options",
+                                    "title": "Quotation color options",
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.ui_color",
+                                            "attribute": "value"
+                                        }
+                                    ],
+                                    "params": {
+                                        "colorPicker": {
+                                            "preview": {
+                                                "active": true,
+                                                "selector": ".quotebox .content",
+                                                "stylePath": null
+                                            },
+                                            "groups": [
+                                                {
+                                                    "values": "background_colors",
+                                                    "eyeDropper": {
+                                                        "key": "metadata.customQuotationMarkColor"
+                                                    },
+                                                    "title": "Quotation mark color",
+                                                    "label": "",
+                                                    "useValueAsLabel": false,
+                                                    "cssPrefix": "",
+                                                    "key": "metadata.quotationMarkColor",
+                                                    "removeBtn": true,
+                                                    "bordered": false,
+                                                    "styleDefinition": "quotationMarkColor"
+                                                },
+                                                {
+                                                    "values": "background_colors",
+                                                    "eyeDropper": {
+                                                        "key": "metadata.customBlockLineColor"
+                                                    },
+                                                    "title": "Block line color",
+                                                    "label": "",
+                                                    "useValueAsLabel": false,
+                                                    "cssPrefix": "",
+                                                    "key": "metadata.blockLineColor",
+                                                    "removeBtn": true,
+                                                    "bordered": false,
+                                                    "styleDefinition": "blockLineColor"
+                                                }
+                                            ]
+                                        }
+                                    }
                                 }
                             ]
                         }
@@ -157,6 +256,9 @@
     },
     "editorSelectors": {
         "edit": ["lab-content-min-height"]
+    },
+    "draggable": {
+        "icon": "labicon-quote"
     },
     "droppable": {
         "drop": {

@@ -1,6 +1,6 @@
 {{ #getConfig.sesamy }}
   {{ #enabled }}
-  <sesamy-content-container gradient {{#getConfig.sesamy.passPageAbsolute}}pass="{{{getConfig.sesamy.passPageAbsolute}}}"{{/getConfig.sesamy.passPageAbsolute}} {{^getConfig.sesamy.passPageAbsolute}}pass="{{{get.root.filtered.customer_front_url}}}/{{{getConfig.sesamy.passPage}}}"{{/getConfig.sesamy.passPageAbsolute}} publisher-content-id="{{ get.root.id }}" class="bodytext">
+  <sesamy-content-container {{ #enabledProxyLock }}lock-mode="proxy" locked-content-selector="div[slot='content']" {{ /enabledProxyLock }}gradient {{#getConfig.sesamy.passPageAbsolute}}pass="{{{getConfig.sesamy.passPageAbsolute}}}"{{/getConfig.sesamy.passPageAbsolute}} {{^getConfig.sesamy.passPageAbsolute}}pass="{{{get.root.filtered.customer_front_url}}}/{{{getConfig.sesamy.passPage}}}"{{/getConfig.sesamy.passPageAbsolute}} publisher-content-id="{{ get.root.id }}" class="bodytext">
     <div slot="preview" class="teaserContent bodytext">
       {{{ get.current.filtered.paywall.intro }}}
     </div>
@@ -10,7 +10,18 @@
   </sesamy-content-container>
     {{ #getConfig.sesamy.settingsUrl }}
     <div class="sesamy-paywall-container">
-      <sesamy-paywall publisher-content-id="{{ get.root.id }}" item-src="{{{get.root.filtered.url}}}" settings-url="{{{getConfig.sesamy.settingsUrl}}}"></sesamy-paywall>
+      <sesamy-paywall publisher-content-id="{{ get.root.id }}" item-src="{{{get.root.filtered.url}}}" settings-url="{{{getConfig.sesamy.settingsUrl}}}">
+        <div slot="below-headline" class="{{{ get.root.fields.paywallLayoutType }}}">
+            {{ #get.root.fields.paywallSalesImage }}
+                <div class="sales-pitch-image">
+                    <img src="{{ #image.getFrontCropUrl }}1200,{{ #calculator.multiply }}1200 {{ getConfig.image.socialAspectRatio }}{{ /calculator.multiply }},jpg{{ /image.getFrontCropUrl }}" alt="">
+                </div>
+            {{ /get.root.fields.paywallSalesImage }}
+            {{ #get.root.fields.paywallSalesPitchContent }}
+              {{> partial/lab4/paywall/salespitch}}
+            {{ /get.root.fields.paywallSalesPitchContent }}
+        </div>
+      </sesamy-paywall>
     <div>
     {{ /getConfig.sesamy.settingsUrl }}
     {{ ^getConfig.sesamy.settingsUrl }}

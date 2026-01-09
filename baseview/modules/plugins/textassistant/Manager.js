@@ -145,7 +145,7 @@ export class Manager {
             const prompt = `${ this.api.v1.util.dom.renderTemplate(group.prompt, dataOptions) }`;
             console.log('Prompt: ', prompt);
             this.api.v1.generate.text({
-                prompt, service: 'chatCompletions', model: aiSettings.model, paths: group.fields.map((field) => field.path)
+                prompt, service: 'chatCompletions', model: aiSettings.model, paths: group.fields.map((field) => field.path), featureName: name
             }).then((result) => {
                 resolve(result);
             }).catch((error) => {
@@ -286,6 +286,33 @@ export class Manager {
             }
             if (newCaption) {
                 imageModel.set('fields.imageCaption', newCaption);
+            }
+
+            if (newCaption && !originalCaption) {
+                // Save the caption to the image node only if there was no caption before
+                const imageId = imageModel.get('instance_of');
+                if (imageId) {
+                    const nodeData = {
+                        type: 'image',
+                        id: imageId,
+                        fields: {
+                            caption: newCaption
+                        }
+                    };
+
+                    const saveFormData = new FormData();
+                    saveFormData.append('json[id]', imageId);
+                    saveFormData.append('json[type]', 'image');
+                    saveFormData.append('json[structure]', null);
+                    saveFormData.append('json[node]', JSON.stringify([nodeData]));
+
+                    this.api.v1.util.httpClient.request('/ajax/node/save-node-and-data', {
+                        body: saveFormData,
+                        method: 'POST'
+                    }).catch((error) => {
+                        console.warn('[TextAssistant] Error saving caption to image node: ', error);
+                    });
+                }
             }
 
             // Update byline

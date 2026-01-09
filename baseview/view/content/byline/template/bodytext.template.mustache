@@ -4,6 +4,7 @@
         {{{ children.image }}}
         <address class="name">
             {{ #get.current.fields.public_email }}<a rel="author" itemprop="url name" href="mailto:{{ get.current.fields.public_email }}">{{ /get.current.fields.public_email }}
+            <span class="lab-hidden-byline-name" itemprop="name">{{{ get.current.fields.firstname }}} {{{ get.current.fields.lastname}}}</span>
             <span class="firstname">{{{ get.current.fields.firstname }}}</span>
             <span class="lastname">{{{ get.current.fields.lastname }}}</span>        
             {{ #get.current.fields.public_email }}</a>{{ /get.current.fields.public_email }}

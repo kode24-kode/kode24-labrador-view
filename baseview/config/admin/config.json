@@ -435,6 +435,14 @@
                                 "label": "Hide modified date",
                                 "contentType": "checkbox",
                                 "defaultValue": false
+                            },
+                            "displayUnifiedDate": {
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "label": "Show only modified date",
+                                "contentType": "checkbox",
+                                "defaultValue": false,
+                                "description": "Published date will be used if article is unmodified."
                             }
                         }
                     },
@@ -550,6 +558,24 @@
                                                         "items": {
                                                             "display": {
                                                                 "label": "Talande Webb",
+                                                                "fallbackToConfig": true,
+                                                                "contentType": "checkbox"
+                                                            }
+                                                        }
+                                                    },
+                                                    "reddit": {
+                                                        "items": {
+                                                            "display": {
+                                                                "label": "Reddit",
+                                                                "fallbackToConfig": true,
+                                                                "contentType": "checkbox"
+                                                            }
+                                                        }
+                                                    },
+                                                    "whatsapp": {
+                                                        "items": {
+                                                            "display": {
+                                                                "label": "Whatsapp",
                                                                 "fallbackToConfig": true,
                                                                 "contentType": "checkbox"
                                                             }
@@ -691,11 +717,98 @@
                                 }
                             }
                         }
+                    },
+                    "bylineSettings": {
+                        "label": "Byline settings",
+                        "description": "Settings for bylines in articles",
+                        "collapsable": true,
+                        "collapsed": true,
+                        "items": {
+                            "roundedBylineImages": {
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "label": "Rounded byline images",
+                                "contentType": "checkbox",
+                                "defaultValue": false
+                            }
+                        }
                     }
                 }
             },
             "view": {
                 "title": "Article settings",
+                "cssFiles": [
+                    "/css/cms/tools/ViewEditor.css"
+                ],
+                "jsFiles": [
+                    "/js/cms/LabUtils/Tools/ViewEditor/Store.js",
+                    "/js/cms/LabUtils/Tools/ViewEditor/ConfigObjectEditor.js"
+                ],
+                "cssClass": "common_editor view_editor"
+            }
+        },
+        "gallerySettings": {
+            "menuItem": {
+                "title": "Gallery Settings",
+                "cssClass": "lab-icon-image"
+            },
+            "editor": {
+                "type": "LabUtils.Tools.ViewEditor.ConfigObjectEditor"
+            },
+            "data": {
+                "configObjectName": "viewConfig",
+                "path": "config.customer.page_settings.gallery",
+                "allowSites": true,
+                "fallbackToConfig": true,
+                "label": "Gallery pages",
+                "description": "By activating this you can let end users click on a slideshow to open it in a separate gallery page.",
+                "items": {
+                    "active": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Activate gallery pages",
+                        "contentType": "checkbox",
+                        "defaultValue": false
+                    },
+                    "displayHeader": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Display standard header",
+                        "contentType": "checkbox",
+                        "defaultValue": false
+                    },
+                    "displayFooter": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Display standard footer",
+                        "contentType": "checkbox",
+                        "defaultValue": false
+                    },
+                    "pageBackgroundColor": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Page background color",
+                        "contentType": "text",
+                        "defaultValue": "#000000"
+                    },
+                    "pageTextColor": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Page text color",
+                        "contentType": "text",
+                        "defaultValue": "#ffffff"
+                    },
+                    "logImageView": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Log image views",
+                        "contentType": "checkbox",
+                        "defaultValue": false
+                    }
+                }
+            },
+            "view": {
+                "title": "Gallery settings",
                 "cssFiles": [
                     "/css/cms/tools/ViewEditor.css"
                 ],
@@ -733,7 +846,7 @@
                                 "description": "5 hours ago"
                             },
                             "dateTime": {
-                                "description": "<table><tr><th>Format</th><th>Output</th><th>Description</th></tr><tr><td>YY</td><td>18</td><td>2 digit year</td></tr><tr><td>YYYY</td><td>2018</td><td>4 digit year</td></tr><tr><td>M</td><td>1-12</td><td>Month number, beginning at 1</td></tr><tr><td>MM</td><td>01-12</td><td>Month number, 2 digits</td></tr><tr><td>MMM</td><td>Jan-Dec</td><td>Abbreviated month name</td></tr><tr><td>MMMM</td><td>January-December</td><td>Full month name</td></tr><tr><td>D</td><td>1-31</td><td>Day of month</td></tr><tr><td>DD</td><td>01-31</td><td>Day of month, 2 digits</td></tr><tr><td>ddd</td><td>Sun-Sat</td><td>Abbreviated name of day of the week</td></tr><tr><td>dddd</td><td>Sunday-Saturday</td><td>Name of day of the week</td></tr><tr><td>H</td><td>0-23</td><td>Hours</td></tr><tr><td>HH</td> <td>00-23</td><td>Hours, 2 digits</td></tr><tr><td>m</td><td>0-59</td><td>Minutes</td></tr><tr><td>mm</td><td>00-59</td><td>Minutes, 2 digits</td></tr><tr><td>s</td><td>0-59</td><td>Seconds</td></tr><tr><td>ss</td><td>00-59</td><td>Seconds, 2 digits</td></tr></table>"
+                                "description": "<table><tr><th>Format</th><th>Output</th><th>Description</th></tr><tr><td>YY</td><td>18</td><td>2 digit year</td></tr><tr><td>YYYY</td><td>2018</td><td>4 digit year</td></tr><tr><td>M</td><td>1-12</td><td>Month number, beginning at 1</td></tr><tr><td>MM</td><td>01-12</td><td>Month number, 2 digits</td></tr><tr><td>MMM</td><td>Jan-Dec</td><td>Abbreviated month name</td></tr><tr><td>MMMM</td><td>January-December</td><td>Full month name</td></tr><tr><td>D</td><td>1-31</td><td>Day of month</td></tr><tr><td>DD</td><td>01-31</td><td>Day of month, 2 digits</td></tr><tr><td>ddd</td><td>Sun-Sat</td><td>Abbreviated name of day of the week</td></tr><tr><td>dddd</td><td>Sunday-Saturday</td><td>Name of day of the week</td></tr><tr><td>H</td><td>0-23</td><td>Hours (24-hour clock)</td></tr><tr><td>HH</td> <td>00-23</td><td>Hours (24-hour clock), 2 digits</td></tr><tr><td>h</td><td>1-12</td><td>Hours (12-hour clock)</td></tr><tr><td>hh</td><td>01-12</td><td>Hours (12-hour clock), 2 digits</td></tr><tr><td>m</td><td>0-59</td><td>Minutes</td></tr><tr><td>mm</td><td>00-59</td><td>Minutes, 2 digits</td></tr><tr><td>s</td><td>0-59</td><td>Seconds</td></tr><tr><td>ss</td><td>00-59</td><td>Seconds, 2 digits</td></tr><tr><td>a</td><td>am pm</td><td>am/pm (lowercase)</td></tr><tr><td>A</td><td>AM PM</td><td>AM/PM (uppercase)</td></tr></table>"
                             },
                             "articleScrollerPublishedDatePrefix": {
                                 "label": "Prefix for article scroller published date",
@@ -847,11 +960,81 @@
                     "search": {
                         "label": "Search",
                         "items": {
+                            "labradorSearch": {
+                                "label": "Labrador Search",
+                                "items": {
+                                    "submitLabel": {
+                                        "label": "Text for search button"
+                                    },
+                                    "navLabel": {
+                                        "label": "Text for button to show more hits"
+                                    },
+                                    "nohitsLabel": {
+                                        "label": "Text for no search results"
+                                    },
+                                    "searchPlaceholder": {
+                                        "label": "Placeholder text"
+                                    },
+                                    "advancedOpenText": {
+                                        "label": "Text for expanding search filter"
+                                    },
+                                    "advancedCloseText": {
+                                        "label": "Text for collapsing search filter"
+                                    },
+                                    "fromDateLabel": {
+                                        "label": "Label for from date filter"
+                                    },
+                                    "toDateLabel": {
+                                        "label": "Label for to date filter"
+                                    },
+                                    "tagLabel": {
+                                        "label": "Label for tag filter"
+                                    },
+                                    "authorLabel": {
+                                        "label": "Label for author filter"
+                                    },
+                                    "allSitesLabel": {
+                                        "label": "Label for option to show all sites"
+                                    }
+                                }
+                            },
                             "placeholder": {
                                 "label": "Placeholder text"
                             },
                             "label": {
                                 "label": "Label for search input"
+                            },
+                            "openText": {
+                                "label": "Toggle text to open search",
+                                "description": "Button text if search is always visible"
+                            },
+                            "closeText": {
+                                "label": "Toggle text to close search"
+                            },
+                            "expandedLabel": {
+                                "label": "Label for expanded search",
+                                "description": "Accessible label for assistive technology"
+                            },
+                            "collapsedLabel": {
+                                "label": "Label for collapsed search",
+                                "description": "Accessible label for assistive technology"
+                            }
+                        }
+                    },
+                    "hamburger": {
+                        "label": "Hamburger menu",
+                        "items": {
+                            "expandedLabel": {
+                                "label": "Label for expanded menu",
+                                "description": "Accessible label for assistive technology"
+                            },
+                            "collapsedLabel": {
+                                "label": "Label for collapsed menu",
+                                "description": "Accessible label for assistive technology"
+                            },
+                            "buttonText": {
+                                "label": "Button text",
+                                "description": "For hamburger buttons with both text and icon"
                             }
                         }
                     },
@@ -860,6 +1043,14 @@
                         "items": {
                             "logo_link_text": {
                                 "label": "Logo link text"
+                            },
+                            "menuScrollerLeftButton": {
+                                "label": "Label for menu scroller left button",
+                                "description": "Accessible label for assistive technology"
+                            },
+                            "menuScrollerRightButton": {
+                                "label": "Label for menu scroller right button",
+                                "description": "Accessible label for assistive technology"
                             }
                         }
                     },
@@ -1042,7 +1233,96 @@
                                     },
                                     "showMoreLabel": {
                                         "label": "Show more",
-                                        "description": "Button text for truncated caption"
+                                        "description": "Button text for truncated caption (truncated)"
+                                    },
+                                    "showLessLabel": {
+                                        "label": "Show less",
+                                        "description": "Button text for truncated caption (unabridged)"
+                                    }
+                                }
+                            },
+                            "videoOverlayLabel": {
+                                "label": "Label on video article overlay"
+                            }
+                        }
+                    },
+                    "mostRead": {
+                        "label": "Latest / most read",
+                        "items": {
+                            "labelLatest": {
+                                "label": "Latest articles label",
+                                "description": "Label for tab displaying recent articles"
+                            },
+                            "titleLatest": {
+                                "label": "Latest articles title"
+                            },
+                            "labelMostRead": {
+                                "label": "Most read articles label",
+                                "description": "Label for tab displaying most read articles"
+                            },
+                            "titleMostRead": {
+                                "label": "Most read articles title"
+                            }
+                        }
+                    },      
+                    "infiniteScroll": {
+                        "label": "Infinite scroll (BETA)",
+                        "description": "Button text shown in collapsed articles in infinite scroll",
+                        "items": {
+                            "readMore": {
+                                "label": "Button to expand article"
+                            }
+                        }
+                    },
+                    "socialMedia": {
+                        "label": "Social media",
+                        "items": {
+                            "shareText": {
+                                "label": "Share text",
+                                "description": "Accessible label for assistive technology"
+                            }
+                        }
+                    },
+                    "gallery": {
+                        "label": "Gallery",
+                        "description": "Slideshow / image gallery",
+                        "items": {
+                            "label": {
+                                "label": "Label for the gallery content type"
+                            },
+                            "seeAllImages": {
+                                "label": "Label for 'see all images' button"
+                            },
+                            "navigateToOriginal": {
+                                "label": "Label for 'navigate to original page' button"
+                            }
+                        }
+                    },
+                    "weather": {
+                        "label": "Weather widget",
+                        "description": "Weather widget found in the header",
+                        "items": {
+                            "failedToFetch": {
+                                "label": "Error message when not getting data."
+                            },
+                            "updated": {
+                                "label": "Last updated time"
+                            },
+                            "fetchingData": {
+                                "label": "Status text while getting data"
+                            },
+                            "types": {
+                                "label": "Weather types",
+                                "description": "Names of the different weather types displayed",
+                                "items": {
+                                    "clearsky": {
+                                        "label": "Clear sky"
+                                    },
+                                    "partlycloudy": {
+                                        "label": "Partly cloudy"
+                                    },
+                                    "rainshowers": {
+                                        "label": "Rain showers"
                                     }
                                 }
                             }
@@ -1092,8 +1372,12 @@
                                 "label": "Site description",
                                 "description": "Add a description for the site to help the AI understand the context of the content",
                                 "contentType": "text"
-                                
-                            
+                            },
+                            "hideDisclaimer": {
+                                "label": "No Disclaimer",
+                                "description": "This removes the disclaimer generation for AI generated content",
+                                "contentType": "checkbox",
+                                "defaultValue": false
                             }
                         }
                     },
@@ -1144,6 +1428,22 @@
                                         "value": "openAi-gpt4o",
                                         "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
                                     }, 
+                                    {
+                                        "value": "openAi-gpt-5-1",
+                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5",
+                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-mini",
+                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-nano",
+                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
+                                    },
                                     {
                                         "value": "vertexAi-gemini-15",
                                         "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]: Balanced, Capable, Versatile"
@@ -1199,6 +1499,22 @@
                                         "label": "Gpt-4o [OpenAI - ChatGPT]"
                                     }, 
                                     {
+                                        "value": "openAi-gpt-5-1",
+                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5",
+                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-mini",
+                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-nano",
+                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
+                                    },
+                                    {
                                         "value": "vertexAi-gemini-15",
                                         "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]"
                                     }
@@ -1236,6 +1552,22 @@
                                         "value": "openAi-gpt4o",
                                         "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
                                     }, 
+                                    {
+                                        "value": "openAi-gpt-5-1",
+                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5",
+                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-mini",
+                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-nano",
+                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
+                                    },
                                     {
                                         "value": "vertexAi-gemini-15",
                                         "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]: Balanced, Capable, Versatile"
@@ -1291,6 +1623,22 @@
                                         "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
                                     }, 
                                     {
+                                        "value": "openAi-gpt-5-1",
+                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5",
+                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-mini",
+                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-nano",
+                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
+                                    },
+                                    {
                                         "value": "vertexAi-gemini-15",
                                         "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]: Balanced, Capable, Versatile"
                                     },
@@ -1343,7 +1691,23 @@
                                     {
                                         "value": "openAi-gpt4o",
                                         "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
-                                    }, 
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-1",
+                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5",
+                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-mini",
+                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-nano",
+                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
+                                    },
                                     {
                                         "value": "vertexAi-gemini-15",
                                         "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]: Balanced, Capable, Versatile"
@@ -1399,6 +1763,22 @@
                                         "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
                                     }, 
                                     {
+                                        "value": "openAi-gpt-5-1",
+                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5",
+                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-mini",
+                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-nano",
+                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
+                                    },
+                                    {
                                         "value": "vertexAi-gemini-15",
                                         "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]: Balanced, Capable, Versatile"
                                     },
@@ -1453,6 +1833,22 @@
                                         "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
                                     }, 
                                     {
+                                        "value": "openAi-gpt-5-1",
+                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5",
+                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-mini",
+                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-nano",
+                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
+                                    },
+                                    {
                                         "value": "vertexAi-gemini-15",
                                         "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]: Balanced, Capable, Versatile"
                                     },
@@ -1495,10 +1891,82 @@
                                     {
                                         "value": "openAi-gpt4o",
                                         "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-1",
+                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5",
+                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-mini",
+                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
+                                    },
+                                    {
+                                        "value": "openAi-gpt-5-nano",
+                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
                                     }
                                 ],
                                 "advanced": true
-                                
+
+                            }
+                        }
+                    },
+                    "imageMetadata": {
+                        "label": "Image metadata",
+                        "description": "Generate AI metadata for images",
+                        "items": {
+                            "promptSite": {
+                                "label": "AI instructions",
+                                "placeholder": "Add site specific instructions for the AI feature, in additon to the default instructions defined by Labrador AI",
+                                "contentType": "textarea",
+                                "adminSettingOnly": true
+                            },
+                            "generateAltTextOnUpload": {
+                                "label": "Auto-generate alt text",
+                                "description": "Automatically generate alt text for images when they are uploaded",
+                                "contentType": "checkbox",
+                                "defaultValue": false
+                            },
+                            "aiProvider": {
+                                "label": "Provider",
+                                "contentType": "select",
+                                "options": [
+                                    {
+                                        "value": "openAi-gpt4o",
+                                        "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
+                                    },
+                                    {
+                                        "value": "openAi-gpt4o-mini",
+                                        "label": "Gpt-4o-mini [OpenAI - ChatGPT]: Fastest, Efficient, Lightweight"
+                                    },
+                                    {
+                                        "value": "anthropic-claude-sonnet-3-7",
+                                        "label": "Claude 3.7 Sonnet [Anthropic]: Balanced, Reliable, Smart"
+                                    },
+                                    {
+                                        "value": "anthropic-claude-sonnet-3-5",
+                                        "label": "Claude 3.5 Sonnet v2 [Anthropic]: Improved, Balanced, Reliable"
+                                    },
+                                    {
+                                        "value": "anthropic-claude-haiku-3-5",
+                                        "label": "Claude 3.5 Haiku [Anthropic]: Fastest, Compact, Responsive"
+                                    }
+                                ],
+                                "advanced": true
+                            },
+                            "languageSiteSetting": {
+                                "label": "Language settings",
+                                "contentType": "select",
+                                "options": [
+                                    {
+                                        "value": "siteLanguage",
+                                        "label": "Use default site language"
+                                    }
+                                ],
+                                "advanced": true
                             }
                         }
                     }
@@ -1624,6 +2092,16 @@
                                 "label": "Blur all content (FOR INTERNAL PAYWALLS ONLY)",
                                 "contentType": "checkbox",
                                 "description": "Will blur all content except header and teaser, and remove possibility to scroll."
+                            },
+                            "paywallLocked": {
+                                "label": "Hide the article bodytext",
+                                "contentType": "checkbox",
+                                "description": "Will hide the article bodytext (and every element inside) behind the paywall."
+                            },
+                            "hidePaywallButton": {
+                                "label": "Hide the paywall button",
+                                "contentType": "checkbox",
+                                "description": "Will hide the AI paywall button in the editor"
                             }
                         }
                     },
@@ -1717,12 +2195,12 @@
                             "title": {
                                 "contentType": "textarea",
                                 "label": "Title",
-                                "placeholder": "HTML for the title-element of the paywall"
+                                "placeholder": "HTML for the title element of the paywall"
                             },
                             "description": {
                                 "contentType": "textarea",
                                 "label": "Description",
-                                "placeholder": "HTML for the description-element of the paywall"
+                                "placeholder": "HTML for the description element of the paywall"
                             },
                             "login": {
                                 "label": "Login",
@@ -1743,7 +2221,7 @@
                                 }
                             },
                             "offers": {
-                                "label": "Sales-posters",
+                                "label": "Sales posters",
                                 "addable": true,
                                 "sortable": true,
                                 "attributes": {
@@ -1756,22 +2234,60 @@
                                             "title": {
                                                 "contentType": "textarea",
                                                 "label": "Title",
-                                                "placeholder": "HTML for the title-element of the sales-poster"
+                                                "placeholder": "HTML for the title element of the sales poster"
                                             },
                                             "price": {
                                                 "contentType": "textarea",
                                                 "label": "Price",
-                                                "placeholder": "HTML for the price-element of the sales-poster"
+                                                "placeholder": "HTML for the price element of the sales poster"
                                             },
                                             "price_description": {
                                                 "contentType": "text",
                                                 "label": "Price description",
-                                                "placeholder": "HTML for the description-element of the sales-poster"
+                                                "placeholder": "HTML for the description element of the sales poster"
                                             },
                                             "action": {
                                                 "contentType": "text",
                                                 "label": "Button title",
-                                                "placeholder": "HTML for the button-element of the sales-poster"
+                                                "placeholder": "HTML for the button element of the sales poster"
+                                            },
+                                            "buttonBackgroundColor": {
+                                                "contentType": "color",
+                                                "label": "Button background color"
+                                            },
+                                            "buttonBorderRadius": {
+                                                "contentType": "select",
+                                                "label": "Button border radius",
+                                                "options": [
+                                                    {
+                                                        "value": "",
+                                                        "label": "Select border radius"
+                                                    },
+                                                    {
+                                                        "value": "0px",
+                                                        "label": "0px"
+                                                    },
+                                                    {
+                                                        "value": "8px",
+                                                        "label": "8px"
+                                                    },
+                                                    {
+                                                        "value": "16px",
+                                                        "label": "16px"
+                                                    },
+                                                    {
+                                                        "value": "32px",
+                                                        "label": "32px"
+                                                    },
+                                                    {
+                                                        "value": "40px",
+                                                        "label": "40px"
+                                                    },
+                                                    {
+                                                        "value": "48px",
+                                                        "label": "48px"
+                                                    }
+                                                ]
                                             },
                                             "providerUrl": {
                                                 "contentType": "url",
@@ -1796,6 +2312,78 @@
                                                         "label": "Highlighted"
                                                     }
                                                 ]
+                                            },
+                                            "posterBorderColor": {
+                                                "contentType": "color",
+                                                "label": "Poster border color"
+                                            },
+                                            "posterBorderRadius": {
+                                                "contentType": "select",
+                                                "label": "Poster border radius",
+                                                "options": [
+                                                    {
+                                                        "value": "",
+                                                        "label": "Select border radius"
+                                                    },
+                                                    {
+                                                        "value": "0px",
+                                                        "label": "0px"
+                                                    },
+                                                    {
+                                                        "value": "8px",
+                                                        "label": "8px"
+                                                    },
+                                                    {
+                                                        "value": "16px",
+                                                        "label": "16px"
+                                                    },
+                                                    {
+                                                        "value": "32px",
+                                                        "label": "32px"
+                                                    },
+                                                    {
+                                                        "value": "40px",
+                                                        "label": "40px"
+                                                    },
+                                                    {
+                                                        "value": "48px",
+                                                        "label": "48px"
+                                                    }
+                                                ]
+                                            },
+                                            "posterBorderWidth": {
+                                                "contentType": "select",
+                                                "label": "Poster border width",
+                                                "options": [
+                                                    {
+                                                        "value": "",
+                                                        "label": "Select border width"
+                                                    },
+                                                    {
+                                                        "value": "0px",
+                                                        "label": "0px"
+                                                    },
+                                                    {
+                                                        "value": "1px",
+                                                        "label": "1px"
+                                                    },
+                                                    {
+                                                        "value": "2px",
+                                                        "label": "2px"
+                                                    },
+                                                    {
+                                                        "value": "3px",
+                                                        "label": "3px"
+                                                    },
+                                                    {
+                                                        "value": "4px",
+                                                        "label": "4px"
+                                                    },
+                                                    {
+                                                        "value": "5px",
+                                                        "label": "5px"
+                                                    }
+                                                ]
                                             }
                                         }
                                     }
@@ -1803,8 +2391,8 @@
                             },
                             "offersDescription": {
                                 "contentType": "textarea",
-                                "label": "Sales-posters - Description",
-                                "placeholder": "HTML for the description-element of the sales-posters"
+                                "label": "Sales posters - Description",
+                                "placeholder": "HTML for the description element of the sales posters"
                             },
                             "update": {
                                 "label": "Paywall - Footer",
@@ -2143,18 +2731,9 @@
             "editor": {
                 "type": "LabUtils.Tools.ViewEditor.ConfigObjectEditor"
             },
-            "data": {
-                "configObjectName": "viewConfig",
-                "path": "config.customer",
-                "allowSites": true,
-                "editRaw": true,
-                "enableAllSites": true,
-                "label": "Edit all data in ConfigObject at path 'config.customer'",
-                "description": "Click the 'Edit JSON' button above to edit. Edit for a specific site by selecting it in the menu above.",
-                "items": {}
-            },
+            "data": {},
             "view": {
-                "title": "Edit ConfigObject",
+                "title": "This tool is deprecated, use <a style=\"text-decoration:underline;\" href=\"/settings/configmanager\">Configmanager</a>)",
                 "cssFiles": [
                     "/css/cms/tools/ViewEditor.css"
                 ],
@@ -2235,6 +2814,14 @@
                                 "defaultValue": "",
                                 "label": "Menu Name",
                                 "placeholder": "The name and identifier of the menu"
+                            },
+                            "showMenuNameOnDesktop": {
+                                "contentType": "checkbox",
+                                "label": "Show menu name on desktop"
+                            },
+                            "showMenuNameOnMobile": {
+                                "contentType": "checkbox",
+                                "label": "Show menu name on mobile"
                             },
                             "selector": {
                                 "contentType": "text",
@@ -3296,7 +3883,7 @@
                         "deletable": true,
                         "contentType": "text",
                         "defaultValue": "",
-                        "label": "Title",
+                        "label": "Section",
                         "placeholder": "Add section ...",
                         "validator": "Lab.Util.String.hasLength",
                         "transformer": "Lab.Util.String.toLowerCase"
@@ -3425,7 +4012,10 @@
                         "label": "Page body",
                         "value": "body"
                     },
-
+                    {
+                        "label": "Paywall label",
+                        "value": ".paywallLabel, .main.article .articleHeader .paywallLabel, .articlescroller.column .content .paywallLabel, article.column.paywall .content .paywallLabel, .column.toplist .content .text .paywallLabel"
+                    },
                     {
                         "label": "---------- Page Header ----------",
                         "value": ""
@@ -3436,77 +4026,144 @@
                     },
                     {
                         "label": "Main menu",
-                        "value": ".mainMenu ul li, .pageHeader .hamburger .hamburger-container .mainMenu ul li"
+                        "value": ".mainMenu ul li a, .mainMenu ul li span, .pageHeader .hamburger .hamburger-container .mainMenu ul li a, .pageHeader .hamburger .hamburger-container .mainMenu ul li span"
+                    },
+                    {
+                        "label": "Main menu name",
+                        "value": ".mainMenu .lab-menu-name"
                     },
                     {
                         "label": "Dropdown menu",
-                        "value": ".dropdownMenu ul li, .pageHeader .hamburger .hamburger-container .dropdownMenu ul li"
+                        "value": ".dropdownMenu ul li a, .dropdownMenu ul li span, .pageHeader .hamburger .hamburger-container .dropdownMenu ul li a, .pageHeader .hamburger .hamburger-container .dropdownMenu ul li span"
+                    },
+                    {
+                        "label": "Dropdown menu name",
+                        "value": ".dropdownMenu .lab-menu-name"
                     },
                     {
                         "label": "Top bar menu",
-                        "value": ".topBarMenu ul li, .pageHeader .hamburger .hamburger-container .topBarMenu ul li"
+                        "value": ".topBarMenu ul li a, .topBarMenu ul li span, .pageHeader .hamburger .hamburger-container .topBarMenu ul li a, .pageHeader .hamburger .hamburger-container .topBarMenu ul li span"
+                    },
+                    {
+                        "label": "Top bar menu name",
+                        "value": ".topBarMenu .lab-menu-name"
                     },
                     {
                         "label": "Bottom bar menu",
-                        "value": ".bottomBarMenu ul li, .pageHeader .hamburger .hamburger-container .bottomBarMenu ul li"
+                        "value": ".bottomBarMenu ul li a, .bottomBarMenu ul li span, .pageHeader .hamburger .hamburger-container .bottomBarMenu ul li a, .pageHeader .hamburger .hamburger-container .bottomBarMenu ul li span"
+                    },
+                    {
+                        "label": "Bottom bar menu name",
+                        "value": ".bottomBarMenu .lab-menu-name"
                     },
                     {
                         "label": "Custom menu 1",
-                        "value": ".customMenu1 ul li, .pageHeader .hamburger .hamburger-container .customMenu1 ul li"
+                        "value": ".customMenu1 ul li a, .customMenu1 ul li span, .pageHeader .hamburger .hamburger-container .customMenu1 ul li a, .pageHeader .hamburger .hamburger-container .customMenu1 ul li span"
+                    },
+                    {
+                        "label": "Custom menu 1 name",
+                        "value": ".customMenu1 .lab-menu-name"
                     },
                     {
                         "label": "Custom menu 2",
-                        "value": ".customMenu2 ul li, .pageHeader .hamburger .hamburger-container .customMenu2 ul li"
+                        "value": ".customMenu2 ul li a, .customMenu2 ul li span, .pageHeader .hamburger .hamburger-container .customMenu2 ul li a, .pageHeader .hamburger .hamburger-container .customMenu2 ul li span"
+                    },
+                    {
+                        "label": "Custom menu 2 name",
+                        "value": ".customMenu2 .lab-menu-name"
                     },
                     {
                         "label": "Custom menu 3",
-                        "value": ".customMenu3 ul li, .pageHeader .hamburger .hamburger-container .customMenu3 ul li"
+                        "value": ".customMenu3 ul li a, .customMenu3 ul li span, .pageHeader .hamburger .hamburger-container .customMenu3 ul li a, .pageHeader .hamburger .hamburger-container .customMenu3 ul li span"
+                    },
+                    {
+                        "label": "Custom menu 3 name",
+                        "value": ".customMenu3 .lab-menu-name"
                     },
                     {
                         "label": "Custom menu 4",
-                        "value": ".customMenu4 ul li, .pageHeader .hamburger .hamburger-container .customMenu4 ul li"
+                        "value": ".customMenu4 ul li a, .customMenu4 ul li span, .pageHeader .hamburger .hamburger-container .customMenu4 ul li a, .pageHeader .hamburger .hamburger-container .customMenu4 ul li span"
+                    },
+                    {
+                        "label": "Custom menu 4 name",
+                        "value": ".customMenu4 .lab-menu-name"
                     },
                     {
                         "label": "Main menu children",
-                        "value": ".mainMenu ul.children li, .pageHeader .hamburger .hamburger-container .mainMenu ul.children ul li"
+                        "value": ".mainMenu ul.children li a, .mainMenu ul.children li span, .pageHeader .hamburger .hamburger-container .mainMenu ul.children li a, .pageHeader .hamburger .hamburger-container .mainMenu ul.children li span"
                     },
                     {
                         "label": "Dropdown menu children",
-                        "value": ".dropdownMenu ul.children li, .pageHeader .hamburger .hamburger-container .dropdownMenu ul.children ul li"
+                        "value": ".dropdownMenu ul.children li a, .dropdownMenu ul.children li span, .pageHeader .hamburger .hamburger-container .dropdownMenu ul.children li a, .pageHeader .hamburger .hamburger-container .dropdownMenu ul.children li span"
                     },
                     {
                         "label": "Top bar menu children",
-                        "value": ".topBarMenu ul.children li, .pageHeader .hamburger .hamburger-container .topBarMenu ul.children ul li"
+                        "value": ".topBarMenu ul.children li a, .topBarMenu ul.children li span, .pageHeader .hamburger .hamburger-container .topBarMenu ul.children li a, .pageHeader .hamburger .hamburger-container .topBarMenu ul.children li span"
                     },
                     {
                         "label": "Bottom bar menu children",
-                        "value": ".bottomBarMenu ul.children li, .pageHeader .hamburger .hamburger-container .bottomBarMenu ul.children ul li"
+                        "value": ".bottomBarMenu ul.children li a, .bottomBarMenu ul.children li span, .pageHeader .hamburger .hamburger-container .bottomBarMenu ul.children li a, .pageHeader .hamburger .hamburger-container .bottomBarMenu ul.children li span"
                     },
                     {
                         "label": "Custom menu 1 children",
-                        "value": ".customMenu1 ul.children li, .pageHeader .hamburger .hamburger-container .customMenu1 ul.children ul li"
+                        "value": ".customMenu1 ul.children li a, .customMenu1 ul.children li span, .pageHeader .hamburger .hamburger-container .customMenu1 ul.children li a, .pageHeader .hamburger .hamburger-container .customMenu1 ul.children li span"
                     },
                     {
                         "label": "Custom menu 2 children",
-                        "value": ".customMenu2 ul.children li, .pageHeader .hamburger .hamburger-container .customMenu2 ul.children ul li"
+                        "value": ".customMenu2 ul.children li a, .customMenu2 ul.children li span, .pageHeader .hamburger .hamburger-container .customMenu2 ul.children li a, .pageHeader .hamburger .hamburger-container .customMenu2 ul.children li span"
                     },
                     {
                         "label": "Custom menu 3 children",
-                        "value": ".customMenu3 ul.children li, .pageHeader .hamburger .hamburger-container .customMenu3 ul.children ul li"
+                        "value": ".customMenu3 ul.children li a, .customMenu3 ul.children li span, .pageHeader .hamburger .hamburger-container .customMenu3 ul.children li a, .pageHeader .hamburger .hamburger-container .customMenu3 ul.children li span"
                     },
                     {
                         "label": "Custom menu 4 children",
-                        "value": ".customMenu4 ul.children li, .pageHeader .hamburger .hamburger-container .customMenu4 ul.children ul li"
+                        "value": ".customMenu4 ul.children li a, .customMenu4 ul.children li span, .pageHeader .hamburger .hamburger-container .customMenu4 ul.children li a, .pageHeader .hamburger .hamburger-container .customMenu4 ul.children li span"
                     },
                     {
                         "label": "Hamburger menu label text",
-                        "value": ".hamburger-button-text button span.open, .hamburger-button-text button span.close"
+                        "value": ".hamburger-button-text button span.open, .hamburger-button-text button span.close, .pageHeader .hamburger .positionRelative .hamburger-button:has(.textBeforeIcon) .burger-btn .textBeforeIcon, .pageHeader .hamburger .positionRelative .hamburger-button:has(.textAfterIcon) .burger-btn .textAfterIcon"
                     },
                     {
                         "label": "Page header search form",
-                        "value": ".pageHeader .search-container input[type=text]"
+                        "value": ".pageHeader .search .search-container input[type=text]"
                     },
-
+                    {
+                        "label": "Page header search form placeholder",
+                        "value": ".pageHeader .search .search-container input[type=text]::placeholder"
+                    },
+                    {
+                        "label": "Page header search form button text",
+                        "value": ".pageHeader .search.bonusButton .search-container button.bonusButton .bonusText, .pageHeader .search button.search-button .openText, .pageHeader .search button.search-button .closeText"
+                    },
+                    {
+                        "label": "Page header weather widget title/location",
+                        "value": ".lab-weather-widget .lab-weather-widget-info .lab-weather-widget-title"
+                    },
+                    {
+                        "label": "Page header weather widget wind/temp/description",
+                        "value": ".lab-weather-widget .lab-weather-widget-info .lab-weather-widget-subinfo .lab-weather-widget-temp, .lab-weather-widget .lab-weather-widget-info .lab-weather-widget-subinfo .lab-weather-widget-description, .lab-weather-widget .lab-weather-widget-info .lab-weather-widget-subinfo .lab-weather-widget-wind"
+                    },
+                    {
+                        "label": "Page header weather widget updated",
+                        "value": ".lab-weather-widget .lab-weather-widget-content .lab-weather-widget-info .lab-weather-widget-updated"
+                    },
+                    {
+                        "label": "Page header weather widget day",
+                        "value": ".lab-weather-widget .lab-weather-widget-content .lab-weather-widget-info .lab-weather-widget-day"
+                    },
+                    {
+                        "label": "Page header weather widget error",
+                        "value": ".lab-weather-widget .lab-weather-widget-content .lab-weather-widget-error"
+                    },
+                    {
+                        "label": "Page header date widget",
+                        "value": ".header-date-section .lab-date-widget-container .lab-date-widget-string"
+                    },
+                    {
+                        "label": "Page header language switcher",
+                        "value": ".lang-switcher ul li a"
+                    },
                     {
                         "label": "---------- Articles ----------",
                         "value": ""
@@ -3524,6 +4181,22 @@
                         "value": ".bodytext > h3"
                     },
                     {
+                        "label": "Bodytext link",
+                        "value": ".bodytext>p a, .bodytext>ul a, .bodytext>ol a, .bodytext>h2 a, .bodytext>h3 a, .bodytext>h4 a"
+                    },
+                    {
+                        "label": "Bodytext related article title",
+                        "value": ".bodytext article.column .content .headline"
+                    },
+                    {
+                        "label": "Bodytext related article subtitle",
+                        "value": ".bodytext article.column .content .subtitle"
+                    },
+                    {
+                        "label": "Bodytext related article kicker",
+                        "value": ".bodytext article.column .content .kicker"
+                    },
+                    {
                         "label": "Article title",
                         "value": ".articleHeader .headline"
                     },
@@ -3532,11 +4205,19 @@
                         "value": ".articleHeader .subtitle"
                     },
                     {
-                        "label": "Article bylines",
-                        "value": ".byline .name"
+                        "label": "Article section",
+                        "value": ".articleHeader .lab-article-section"
                     },
                     {
-                        "label": "Bylines extended description",
+                        "label": "Article bylines",
+                        "value": ".byline .name, .byline .name a"
+                    },
+                    {
+                        "label": "Article bylines description",
+                        "value": ".byline .name .description"
+                    },
+                    {
+                        "label": "Article bylines extended description",
                         "value": ".byline .extended_description"
                     },
                     {
@@ -3553,9 +4234,68 @@
                     },
                     {
                         "label": "Article tags",
-                        "value": ".articleFooter .tags"
+                        "value": ".articleFooter .tags a"
                     },
-
+                    {
+                        "label": "Paywall teaser title",
+                        "value": ".paywallTeaser .inner .header .lab-paywall-teaser-title"
+                    },
+                    {
+                        "label": "Paywall teaser login",
+                        "value": ".paywallTeaser .inner .header .login"
+                    },
+                    {
+                        "label": "Paywall teaser description",
+                        "value": ".paywallTeaser .inner .header .lab-paywall-teaser-header-description"
+                    },
+                    {
+                        "label": "Paywall teaser offer title",
+                        "value": ".paywallTeaser .inner .offers .offer .lab-paywall-teaser-offer-title"
+                    },
+                    {
+                        "label": "Paywall teaser offer price",
+                        "value": ".paywallTeaser .inner .offers .offer .price"
+                    },
+                    {
+                        "label": "Paywall teaser offer price description",
+                        "value": ".paywallTeaser .inner .offers .offer .price_description"
+                    },
+                    {
+                        "label": "Paywall teaser offer button",
+                        "value": ".paywallTeaser .inner .offers .offer .lab-paywall-teaser-offer-button"
+                    },
+                    {
+                        "label": "Paywall teaser offer description",
+                        "value": ".paywallTeaser .inner .offersDescription"
+                    },
+                    {
+                        "label": "Paywall teaser bottom login",
+                        "value": ".paywallTeaser .inner .nav .login"
+                    },
+                    {
+                        "label": "---------- Notices ----------",
+                        "value": ""
+                    },
+                    {
+                        "label": "Notice headline",
+                        "value": "body.notice .notice-header h1"
+                    },
+                    {
+                        "label": "Notice published time",
+                        "value": "body.notice .notice-header time"
+                    },
+                    {
+                        "label": "Notice author",
+                        "value": "body.notice .notice-header .author"
+                    },
+                    {
+                        "label": "Notice tags",
+                        "value": "body.notice .notice-header .tags"
+                    },
+                    {
+                        "label": "Notice body text",
+                        "value": "body.notice .bodytext"
+                    },
                     {
                         "label": "---------- Rows ----------",
                         "value": ""
@@ -3576,7 +4316,6 @@
                         "label": "Row header text (Heading 5)",
                         "value": ".row>h5.row_header_text"
                     },
-
                     {
                         "label": "---------- Article teasers ----------",
                         "value": ""
@@ -3610,10 +4349,13 @@
                         "value": "article .articleHeader .caption"
                     },
                     {
+                        "label": "Article-teaser bylines",
+                        "value": "article.column .content .bylines .name"
+                    },
+                    {
                         "label": "Article published date",
                         "value": "article.column .content .article-published-wrapper .article-published-date"
                     },
-
                     {
                         "label": "---------- Elements ----------",
                         "value": ""
@@ -3631,6 +4373,10 @@
                         "value": ".factbox .kicker"
                     },
                     {
+                        "label": "Factbox links",
+                        "value": ".factbox .fact a"
+                    },
+                    {
                         "label": "Quotebox content",
                         "value": ".quotebox .content h3"
                     },
@@ -3644,15 +4390,19 @@
                     },
                     {
                         "label": "Articles by tag article title",
-                        "value": ".articlesByTag ul li a h4"
+                        "value": ".articlesByTag.toplist ul li a .abt-title"
                     },
                     {
                         "label": "Articles by tag subtitle",
-                        "value": ".articlesByTag ul li a .abt-subtitle"
+                        "value": ".articlesByTag.toplist ul li a .abt-subtitle"
                     },
                     {
                         "label": "Articles by tag kicker",
-                        "value": ".articlesByTag ul li a .abt-kicker"
+                        "value": ".articlesByTag.toplist ul li a .abt-kicker"
+                    },
+                    {
+                        "label": "Articles by tag published date",
+                        "value": ".articlesByTag.toplist ul li a .publishedTime"
                     },
                     {
                         "label": "Article scroller title",
@@ -3717,6 +4467,14 @@
                     {
                         "label": "Toplist article section",
                         "value": ".toplist ul li .text .section"
+                    },
+                    {
+                        "label": "Toplist article kicker",
+                        "value": ".toplist ul li .text.kicker-position-aboveTitle .kicker, .toplist ul li .text.kicker-position-rightOfTitle .kicker"
+                    },
+                    {
+                        "label": "Toplist tab navigation",
+                        "value": ".toplist .tab-navigation a.tab"
                     },
                     {
                         "label": "Inline quote",
@@ -4731,6 +5489,9 @@
                 "label": "Plugin management",
                 "description": "Plugins extend editing features in Labrador CMS. Here you can enable and configure plugins for your site(s).",
                 "allowSites": true,
+                "listener": {
+                    "import": "/view-resources/lib/admin/AutoInsert.js"
+                },
                 "items": {
                     "abtest": {
                         "label": "AB Tests",
@@ -4908,53 +5669,62 @@
                             }
                         }
                     },
-                    "subrite": {
-                        "label": "Subrite subscription services",
-                        "description": "Contact Labrador CMS to add your subrite token to your site. Turn on 'Active' to make the button visible in the editor.",
+                    "pushnotification": {
                         "collapsable": true,
                         "collapsed": true,
+                        "label": "Push Notifications",
+                        "description": "Push notifications to send to external sources. Configure your preferred vendor below. Contact Labrador CMS to add sensitive credentials.",
                         "items": {
-                            "defaultTitle": {
-                                "label": "Default Title",
-                                "contentType": "text",
-                                "description": "Optional: Sets a default push notification title.",
-                                "deletable": false,
+                            "vendor": {
+                                "label": "Vendor",
+                                "contentType": "select",
                                 "defaultValue": "",
-                                "placeholder": "Default Title"
-                            },
-                            "defaultMessage": {
-                                "label": "Default Message",
-                                "contentType": "text",
-                                "description": "Optional: Sets a default push notification body.",
                                 "deletable": false,
-                                "defaultValue": "",
-                                "placeholder": "Default Message"
+                                "options": [
+                                    {
+                                        "value": "",
+                                        "label": "Select a vendor"
+                                    },
+                                    {
+                                        "value": "subrite",
+                                        "label": "Subrite"
+                                    },
+                                    {
+                                        "value": "buyandread",
+                                        "label": "BuyAndRead"
+                                    },
+                                    {
+                                        "value": "forte",
+                                        "label": "Forte"
+                                    }
+                                ]
                             },
-                            "active": {
-                                "label": "Active",
-                                "contentType": "checkbox",
-                                "deletable": false,
-                                "defaultValue": false
-                            }
-                        }
-                    },
-                    "buyandread": {
-                        "collapsable": true,
-                        "collapsed": true,
-                        "label": "BuyAndRead push notification service",
-                        "description": "Configure your <a href=\"https://www.buyandread.com/\" target=\"_blank\">BuyAndRead</a> push notification service with your provider ID. Contact Labrador CMS to add your password and username for BuyAndRead.",
-                        "items": {
                             "providerId": {
                                 "label": "Provider ID",
                                 "contentType": "text",
+                                "description": "Required for BuyAndRead. Contact Labrador CMS to add credentials.",
                                 "deletable": false,
                                 "defaultValue": "",
-                                "placeholder": "provder-id"
+                                "placeholder": "provider-id",
+                                "attributes": {
+                                    "data-require": "buyandread"
+                                }
+                            },
+                            "baseUrl": {
+                                "label": "Base URL",
+                                "contentType": "text",
+                                "description": "Required for Forte. Enter the full base URL (e.g., https://api.example.com).",
+                                "deletable": false,
+                                "defaultValue": "",
+                                "placeholder": "https://api.example.com",
+                                "attributes": {
+                                    "data-require": "forte"
+                                }
                             },
                             "defaultTitle": {
                                 "label": "Default Title",
                                 "contentType": "text",
-                                "description": "Optional: Sets a default push notification title.",
+                                "description": "Optional: Sets a default push notification title and replaces auto set text from article.",
                                 "deletable": false,
                                 "defaultValue": "",
                                 "placeholder": "Default Title"
@@ -4962,7 +5732,7 @@
                             "defaultMessage": {
                                 "label": "Default Message",
                                 "contentType": "text",
-                                "description": "Optional: Sets a default push notification message.",
+                                "description": "Optional: Sets a default push notification body/message and replaces auto set text from article.",
                                 "deletable": false,
                                 "defaultValue": "",
                                 "placeholder": "Default Message"
@@ -4970,9 +5740,23 @@
                             "excludeParamsDefault": {
                                 "label": "Exclude linking article",
                                 "contentType": "checkbox",
-                                "description": "Check to exclude article links by default.",
+                                "description": "BuyAndRead: Check to exclude article links by default.",
                                 "deletable": false,
-                                "defaultValue": false
+                                "defaultValue": false,
+                                "attributes": {
+                                    "data-require": "buyandread"
+                                }
+                            },
+                            "topicString": {
+                                "label": "Topics",
+                                "contentType": "text",
+                                "description": "Add topics in CSV (comma separated values) format to be selectable in the push notification modal. Forte must be notified of any topics added here",
+                                "deletable": false,
+                                "defaultValue": "",
+                                "placeholder": "Europe, Norway, Sports, Politics",
+                                "attributes": {
+                                    "data-require": "forte"
+                                }
                             },
                             "active": {
                                 "label": "Active",
@@ -5026,6 +5810,20 @@
                                 "contentType": "checkbox",
                                 "description": "This will give you the option to override default topic and section in Aptoma export settings on an article"
                             },
+                            "enableNewsPaperSelection": {
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "label": "Enable news paper selection",
+                                "contentType": "checkbox",
+                                "description": "This will give you the option to select news paper in Aptoma export settings on an article"
+                            },
+                            "enableNotes": {
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "label": "Enable article notes",
+                                "contentType": "checkbox",
+                                "description": "This will give you the option to add notes to exported articles"
+                            },
                             "printArticleTypes": {
                                 "addable": true,
                                 "deletable": false,
@@ -5048,6 +5846,32 @@
                                             "placeholder": "Article type ID...",
                                             "defaultValue": "",
                                             "validator": "Lab.Util.String.isNumeric"
+                                        }
+                                    }
+                                }]
+                            },
+                            "printAptomaNewsPapers": { 
+                                "addable": true,
+                                "deletable": false,
+                                "sortable": true,
+                                "label": "Aptoma News Papers",
+                                "description": "Configure news papers to export to",
+                                "items": [{
+                                    "deletable": true,
+                                    "items": {
+                                        "type": {
+                                            "label": "Display name",
+                                            "contentType": "text",
+                                            "placeholder": "News paper name...",
+                                            "defaultValue": "",
+                                            "validator": "Lab.Util.String.hasLength"
+                                        },
+                                        "id": {
+                                            "label": "News paper identifier",
+                                            "contentType": "text",
+                                            "placeholder": "news-paper-identifier",
+                                            "defaultValue": "",
+                                            "validator": "Lab.Util.String.hasLength"
                                         }
                                     }
                                 }]
@@ -5180,7 +6004,7 @@
                                                 { "label": "English (United Kingdom)", "value": "en-GB" },
                                                 { "label": "English (United States)", "value": "en-US" },
                                                 { "label": "Esperanto - esperanto", "value": "eo" },
-                                                { "label": "Estonian - eesti", "value": "et" },
+                                                { "label": "Estonian - eesti", "value": "et-EE" },
                                                 { "label": "Faroese - føroyskt", "value": "fo" },
                                                 { "label": "Filipino", "value": "fil" },
                                                 { "label": "Finnish - suomi", "value": "fi-FI" },
@@ -5377,7 +6201,15 @@
                                         },
                                         {
                                             "value": "browserFeed",
-                                            "label": "Infinite scroll"
+                                            "label": "Infinite scroll - article teasers"
+                                        },
+                                        {
+                                            "value": "infiniteScroll",
+                                            "label": "Infinite scroll - articles (BETA)"
+                                        },
+                                        {
+                                            "value": "articlesByTag",
+                                            "label": "Articles by tag"
                                         }
                                     ]
                                 },
@@ -5400,6 +6232,10 @@
                                                 {
                                                     "value": "section_inline",
                                                     "label": "Bodytext section"
+                                                },
+                                                {
+                                                    "value": "section_right",
+                                                    "label": "Bodytext section right"
                                                 }
                                             ]
                                         },
@@ -5416,6 +6252,34 @@
                                     "label": "Skip if element exists",
                                     "contentType": "checkbox",
                                     "defaultValue": true
+                                },
+                                "metadata": {
+                                    "items": {
+                                        "css": {
+                                            "label": "Width",
+                                            "contentType": "select",
+                                            "defaultValue": "large-6 small-12",
+                                            "deletable": false,
+                                            "options": [
+                                                {
+                                                    "value": "large-12 small-12",
+                                                    "label": "Desktop: large, mobile: large"
+                                                },
+                                                {
+                                                    "value": "large-6 small-12",
+                                                    "label": "Desktop: medium, mobile: large"
+                                                },
+                                                {
+                                                    "value": "large-4 small-12",
+                                                    "label": "Desktop: small, mobile: large"
+                                                }
+                                            ],
+                                            "attributes": {
+                                                "data-require": "articlesByTag|front_rows",
+                                                "data-require-placement": "section_right"
+                                            }
+                                        }
+                                    }
                                 },
                                 "content_data": {
                                     "label": "Content data",
@@ -5453,6 +6317,15 @@
                                                         "data-require": "browserFeed"
                                                     }
                                                 },
+                                                "feed": {
+                                                    "label": "Feed",
+                                                    "description": "Name of feed to fetch articles from. If unset, all articles from the site will be fetched.",
+                                                    "contentType": "string",
+                                                    "defaultValue": "",
+                                                    "attributes": {
+                                                        "data-require": "infiniteScroll"
+                                                    }
+                                                },
                                                 "contentCount": {
                                                     "label": "Number of elements",
                                                     "contentType": "number",
@@ -5487,6 +6360,17 @@
                                                             "defaultValue": 4,
                                                             "deletable": false
                                                         }
+                                                    }
+                                                },
+                                                "title": {
+                                                    "label": "Title",
+                                                    "description": "Title to display for the articles by tag element",
+                                                    "contentType": "text",
+                                                    "defaultValue": "",
+                                                    "placeholder": "Enter title for articles by tag",
+                                                    "deletable": false,
+                                                    "attributes": {
+                                                        "data-require": "articlesByTag"
                                                     }
                                                 }
                                             }
@@ -5578,7 +6462,15 @@
                                         },
                                         {
                                             "value": "browserFeed",
-                                            "label": "Infinite scroll"
+                                            "label": "Infinite scroll - article teasers"
+                                        },
+                                        {
+                                            "value": "infiniteScroll",
+                                            "label": "Infinite scroll - articles (BETA)"
+                                        },
+                                        {
+                                            "value": "articlesByTag",
+                                            "label": "Articles by tag"
                                         }
                                     ]
                                 },
@@ -5650,6 +6542,15 @@
                                                         "data-require": "browserFeed"
                                                     }
                                                 },
+                                                "feed": {
+                                                    "label": "Feed",
+                                                    "description": "Name of feed to fetch articles from. If unset, all articles from the site will be fetched.",
+                                                    "contentType": "string",
+                                                    "defaultValue": "",
+                                                    "attributes": {
+                                                        "data-require": "infiniteScroll"
+                                                    }
+                                                },
                                                 "contentCount": {
                                                     "label": "Number of elements",
                                                     "contentType": "number",
@@ -5684,6 +6585,17 @@
                                                             "defaultValue": 4,
                                                             "deletable": false
                                                         }
+                                                    }
+                                                },
+                                                "title": {
+                                                    "label": "Title",
+                                                    "description": "Title to display for the articles by tag element",
+                                                    "contentType": "text",
+                                                    "defaultValue": "",
+                                                    "placeholder": "Enter title for articles by tag",
+                                                    "deletable": false,
+                                                    "attributes": {
+                                                        "data-require": "articlesByTag"
                                                     }
                                                 }
                                             }
@@ -5756,6 +6668,129 @@
                 "cssFiles": [
                     "/css/cms/tools/ViewEditor.css",
                     "/view-resources/lib/admin/AutoInsert.css"
+                ],
+                "jsFiles": [
+                    "/js/cms/LabUtils/Tools/ViewEditor/Store.js",
+                    "/js/cms/LabUtils/Tools/ViewEditor/ConfigObjectEditor.js"
+                ],
+                "cssClass": "common_editor view_editor"
+            }
+        },
+        "authorPages": {
+            "menuItem": {
+                "title": "Author Pages",
+                "cssClass": "lab-icon-user"
+            },
+            "editor": {
+                "type": "LabUtils.Tools.ViewEditor.ConfigObjectEditor"
+            },
+            "data": {
+                "configObjectName": "viewConfig",
+                "fallbackToConfig": true,
+                "path": "config.customer.authorPages",
+                "allowSites": true,
+                "items": {
+                    "enabled": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Enable Author Pages",
+                        "contentType": "checkbox"
+                    },
+                    "enabledAuthorIds": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "contentType": "textarea",
+                        "defaultValue": "",
+                        "label": "Authors to enable",
+                        "placeholder": "100000, 100001, 100002",
+                        "description": "List author IDs for whom you want to enable author pages. Separate multiple IDs with commas."
+                    },
+                    "enableForAll": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Enable for all authors",
+                        "contentType": "checkbox"
+                    },
+                    "path": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Author Pages Path",
+                        "contentType": "text",
+                        "defaultValue": "",
+                        "placeholder": "author",
+                        "description": "This will be the URL path for the author pages, should just be a single word. Defaults to 'author'"
+                    }
+                }
+            },
+            "view": {
+                "title": "Author Pages",
+                "cssFiles": [
+                    "/css/cms/tools/ViewEditor.css"
+                ],
+                "jsFiles": [
+                    "/js/cms/LabUtils/Tools/ViewEditor/Store.js",
+                    "/js/cms/LabUtils/Tools/ViewEditor/ConfigObjectEditor.js"
+                ],
+                "cssClass": "common_editor view_editor"
+            }
+        },
+        "sitemapConfig": {
+            "menuItem": {
+                "title": "Sitemaps",
+                "cssClass": "lab-icon-pages"
+            },
+            "editor": {
+                "type": "LabUtils.Tools.ViewEditor.ConfigObjectEditor"
+            },
+            "data": {
+                "configObjectName": "viewConfig",
+                "path": "config.customer.sitemap",
+                "allowSites": true,
+                "fallbackToConfig": true,
+                "label": "Configure sitemap settings",
+                "items": {
+                    "enable_article_sitemap": {
+                        "label": "Enable article sitemap",
+                        "contentType": "checkbox",
+                        "description": "Include articles in sitemap",
+                        "defaultValue": true
+                    },
+                    "enable_tag_sitemap": {
+                        "label": "Enable tag sitemap",
+                        "contentType": "checkbox",
+                        "description": "Include tag pages in sitemap",
+                        "defaultValue": true
+                    },
+                    "enable_front_sitemap": {
+                        "label": "Enable front page sitemap",
+                        "contentType": "checkbox",
+                        "description": "Include landing pages in sitemap",
+                        "defaultValue": false
+                    },
+                    "enable_author_sitemap": {
+                        "label": "Enable author sitemap",
+                        "contentType": "checkbox",
+                        "description": "Include author pages in sitemap (requires Author Pages to be enabled in Admin > Author Pages)",
+                        "defaultValue": false
+                    },
+                    "min_articles_per_tag": {
+                        "label": "Minimum articles per tag",
+                        "contentType": "number",
+                        "description": "Minimum number of articles required for a tag to appear in sitemap",
+                        "defaultValue": 10
+                    },
+                    "min_articles_per_author": {
+                        "label": "Minimum articles per author",
+                        "contentType": "number",
+                        "description": "Minimum number of articles required for an author to appear in sitemap (only applies if Author Pages are enabled)",
+                        "defaultValue": 3
+                    }
+                }
+            },
+            "view": {
+                "title": "Sitemaps",
+                "cssFiles": [
+                    "/css/cms/tools/ViewEditor.css"
                 ],
                 "jsFiles": [
                     "/js/cms/LabUtils/Tools/ViewEditor/Store.js",

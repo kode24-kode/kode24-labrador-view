@@ -5,18 +5,21 @@ export class SEOHelper {
         canonical = '',
         isTagpage = false,
         isTagpageWithFrontpage = false,
-        tagpagePath = '/tag/'
+        tagpagePath = '/tag/',
+        publishedUrl = ''
     } = {}) {
         this.settings = {
             pageType,
             canonical,
             isTagpage,
             isTagpageWithFrontpage,
-            tagpagePath
+            tagpagePath,
+            publishedUrl
         };
         this.cache = {
             seoData: null
         };
+        this.imageServer = lab_api.v1.properties.get('image_server');
     }
 
     /**
@@ -76,15 +79,18 @@ export class SEOHelper {
             '@type': 'NewsArticle',
             headline: seoData.title || model.get('fields.title'),
             description: seoData.description,
+            mainEntityOfPage: { '@id': this.settings.publishedUrl },
             availableLanguage: [
                 {
                     '@type': 'Language',
                     alternateName: seoData.language
                 }
             ],
-            images: lab_api.v1.model.query.getChildrenOfType(model, 'image', true).map((image) => {
-                return (image.get('fields.imageurl') || '').includes('width=') ? `${image.get('fields.imageurl')}1200` : `${image.get('fields.imageurl')}&width=1200`;
+            image: lab_api.v1.model.query.getChildrenOfType(model, 'image', true).map((image) => {
+                const imageurl = image.get('fields.imageurl') || `${ this.imageServer }/?imageId=${ image.get('instance_of') }`;
+                return imageurl.endsWith('width=') ? `${ imageurl }1200` : `${ imageurl }&width=1200`;
             }),
+            keywords: (model.get('tags') || []).join(', '),
             author: lab_api.v1.model.query.getChildrenOfType(model, 'byline', true).map((byline) => {
                 let firstname = byline.get('fields.firstname');
                 if (firstname === 'Byline first name') { firstname = ''; }

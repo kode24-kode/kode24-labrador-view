@@ -1,0 +1,283 @@
+{
+    "editors": {
+        "full_name": {
+            "selector": ".full_name",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.full_name",
+            "placeholder": "Click to add full name",
+            "modal": false,
+            "allowNbsp": true,
+            "allowReverting": true,
+            "lineBreaksPerViewport": true,
+            "disabled": true,
+            "textInfoPlacement": "menu"
+        },
+         "description": {
+            "selector": ".description",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.description",
+            "placeholder": "Click to add description",
+            "allowNbsp": true,
+            "allowReverting": true,
+            "disabled": true,
+            "textInfoPlacement": "menu"
+        },
+        "extended_description": {
+            "selector": ".extended_description",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.description2",
+            "placeholder": "Click to add extended description",
+            "allowNbsp": true,
+            "allowReverting": true,
+            "disabled": true,
+            "textInfoPlacement": "menu"
+        },
+        "public_phone": {
+            "selector": ".public_phone",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.public_phone",
+            "placeholder": "Click to add public phone number",
+            "allowNbsp": true,
+            "allowReverting": true,
+            "disabled": true,
+            "textInfoPlacement": "menu"
+        },
+        "public_url": {
+            "selector": ".public_url",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.public_url",
+            "placeholder": "Click to add public url",
+            "allowNbsp": true,
+            "allowReverting": true,
+            "disabled": true,
+            "textInfoPlacement": "menu"
+        },
+        "public_email": {
+            "selector": ".public_email",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.public_email",
+            "placeholder": "Click to add public email",
+            "allowNbsp": true,
+            "allowReverting": true,
+            "disabled": true,
+            "textInfoPlacement": "menu"
+        }
+    },
+    "toolMenus": {
+        "rich_text": {
+            "inheritPath": "menu/tool/rich_text.json"
+        }
+    },
+    "contentMenus": {
+        "default": {
+            "items": {
+                "editSettings": {
+                    "group": "g5",
+                    "icon": "labicon-edit",
+                    "callback": "displaySettingsPanel",
+                    "title": "Settings (,)",
+                    "hotkeys": [
+                        {
+                            "key": ","
+                        }
+                    ],
+                    "params": {
+                        "settingsPanelOptions": "settingsPanels.admin"
+                    }
+                },
+                "color_bg": {
+                    "inheritPath": "menu/buttons/backgroundColor.json",
+                    "group": "g2"
+                },
+                "text-options": {
+                    "inheritPath": "menu/buttons/textOptions.json",
+                    "group": "g4",
+                    "items": {
+                        "kicker": null,
+                        "title": null,
+                        "subtitle": null,
+                        "caption": null,
+                        "textOptions": null
+                    }
+                },
+                "mediaOptions": {
+                    "icon": "labicon-image",
+                    "title": "Media options",
+                    "group": "g4",
+                    "items": {
+                        "toggleImageVisibility": {
+                            "icon": "labicon-image_hide",
+                            "text": "[bound]",
+                            "group": "sg1",
+                            "callback": "toggleKeyAndValue",
+                            "key": "metadata.hideimage",
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.hideimage",
+                                    "attribute": "value"
+                                },
+                                {
+                                    "path": "metadata.hideimage",
+                                    "attribute": "text",
+                                    "valueTransformer": "boolToString",
+                                    "valueTransformerOptions": {
+                                        "offValue": "Hide media element",
+                                        "onValue": "Show media element"
+                                    }
+                                }
+                            ],
+                            "title": "Toggle image"
+                        },
+                        "imageStyling": {
+                            "icon": "labicon-image_gradient",
+                            "text": "Image styling",
+                            "group": "sg1",
+                            "displayCondition": "hasChildOfType",
+                            "callback": "colorPicker",
+                            "autocloseSubmenuAfterAction": false,
+                            "params": {
+                                "modelType": "image",
+                                "recursive": false,
+                                "colorPicker": {
+                                    "display": {
+                                        "position": "after",
+                                        "align": "start"
+                                    },
+                                    "layout": {
+                                        "widthDisabled": "250px"
+                                    },
+                                    "preview": {
+                                        "active": true,
+                                        "selector": ".content, figure",
+                                        "groupSelectors": {
+                                            "metadata.image_overlay": ".imageOverlay",
+                                            "metadata.image_overlay_opacity": ".imageOverlay"
+                                        }
+                                    },
+                                    "groups": [
+                                        {
+                                            "values": "background_colors",
+                                            "title": "Overlay color",
+                                            "label": "",
+                                            "useValueAsLabel": false,
+                                            "cssPrefix": "",
+                                            "key": "metadata.image_overlay",
+                                            "removeBtn": true,
+                                            "bordered": false,
+                                            "styleDefinition": "image_overlay",
+                                            "autoborder": {
+                                                "attribute": "backgroundColor"
+                                            }
+                                        },
+                                        {
+                                            "values": [
+                                                25,
+                                                50,
+                                                75
+                                            ],
+                                            "valuePrefix": "image_overlay_opacity-",
+                                            "title": "Opacity for image overlay",
+                                            "label": "<div class=\"img\"><figure></figure></div>",
+                                            "key": "metadata.image_overlay_opacity",
+                                            "styleDefinition": "image_overlay_opacity",
+                                            "removeBtn": true,
+                                            "bordered": false
+                                        },
+                                        {
+                                            "values": "background_colors",
+                                            "valuePrefix": "image-gradient-",
+                                            "objectValues": false,
+                                            "title": "Image-gradients",
+                                            "label": "<div class=\"img\"><figure></figure></div>",
+                                            "useValueAsLabel": false,
+                                            "key": "metadata.image_gradient",
+                                            "styleDefinition": "image_gradient",
+                                            "removeBtn": true,
+                                            "bordered": false
+                                        },
+                                        {
+                                            "values": "imageGradientDirections",
+                                            "title": "Gradient direction",
+                                            "useValueAsLabel": true,
+                                            "key": "metadata.image_gradient_direction",
+                                            "bordered": true
+                                        },
+                                        {
+                                            "values": [
+                                                20,
+                                                40,
+                                                60,
+                                                80
+                                            ],
+                                            "valuePrefix": "image_gradient_opacity-",
+                                            "title": "Opacity for selected gradient",
+                                            "label": "<div class=\"img\"><figure></figure></div>",
+                                            "key": "metadata.image_gradient_opacity",
+                                            "styleDefinition": "image_gradient_opacity",
+                                            "removeBtn": true,
+                                            "bordered": false
+                                        },
+                                        {
+                                            "values": [
+                                                8,
+                                                16,
+                                                24,
+                                                32,
+                                                40,
+                                                48
+                                            ],
+                                            "title": "Rounded edge pixel value",
+                                            "useValueAsLabel": true,
+                                            "key": "metadata.rounded_image_edge",
+                                            "styleDefinition": "rounded_image_edge",
+                                            "removeBtn": true,
+                                            "bordered": true
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "rounded_image": {
+                            "icon": "labicon-button_radio",
+                            "text": "[bound]",
+                            "group": "sg1",
+                            "callback": "toggleKeyAndValue",
+                            "key": "metadata.rounded_image",
+                            "onValue": "rounded-image",
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.rounded_image",
+                                    "attribute": "value"
+                                },
+                                {
+                                    "path": "metadata.rounded_image",
+                                    "attribute": "text",
+                                    "valueTransformer": "boolToString",
+                                    "valueTransformerOptions": {
+                                        "offValue": "Toggle rounded image",
+                                        "onValue": "Toggle rounded image"
+                                    }
+                                }
+                            ],
+                            "title": "Rounded image"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "settingsPanels": {
+        "admin": {
+            "template": "content/authorBox/template/settings"
+        }
+    }
+}

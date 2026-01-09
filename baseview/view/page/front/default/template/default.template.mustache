@@ -31,7 +31,7 @@
         <a href="#main" class="skip-link">Jump to main content</a>
 
         {{ #render.pageElement }}page_header lab4/page_header{{ /render.pageElement }}
-        {{ > partial/lab4/after_page_header }}
+        {{ #render.partial }}lab4/after_page_header{{ /render.partial }}
 
         {{{ selector.placement_non-relative }}}
 

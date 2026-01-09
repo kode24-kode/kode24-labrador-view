@@ -10,7 +10,7 @@
             "saturday": "lördag",
             "january": "januari",
             "february": "februari",
-            "mars": "mars",
+            "march": "mars",
             "april": "april",
             "may": "maj",
             "june": "juni",
@@ -80,10 +80,34 @@
         },
         "search": {
             "placeholder": "Sök...",
-            "label": "Sök"
+            "label": "Sök",
+            "openText": "Sök",
+            "closeText": "Stäng",
+            "expandedLabel": "Stäng sökningen",
+            "collapsedLabel": "Öppna sökning",
+            "labradorSearch": {
+                "submitLabel": "Sök",
+                "navLabel": "Visa mer",
+                "nohitsLabel": "Inga träffar. Försök att ändra din sökning.",
+                "searchPlaceholder": "Skriv din sökning här ...",
+                "advancedOpenText": "Öppna filtret",
+                "advancedCloseText": "Stäng filtret",
+                "fromDateLabel": "Från datum",
+                "toDateLabel": "Fram till datum",
+                "tagLabel": "Märka",
+                "authorLabel": "Författare",
+                "allSitesLabel": "Alla webbplatser"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "Stäng menyn",
+            "collapsedLabel": "Öppna menyn",
+            "buttonText": "Meny"
         },
         "header": {
-            "logo_link_text": "Gå till forside"
+            "logo_link_text": "Gå till forside",
+			"menuScrollerLeftButton": "Skrolla åt vänster",
+			"menuScrollerRightButton": "Skrolla åt höger"
         },
         "slack_notifier": {
             "publish": {
@@ -121,7 +145,57 @@
             "caption": {
                 "showCaptionLabel": "Visa bildtext",
                 "hideCaptionLabel": "Dölj bildtext",
-                "showMoreLabel": "Visa mer"
+                "showMoreLabel": "Visa mer",
+                "showLessLabel": "Visa mindre"
+            },
+            "videoOverlayLabel": "Videoartikel"
+        },
+        "mostRead": {
+            "labelLatest": "Senaste",
+            "titleLatest": "Senaste artiklarna",
+            "labelMostRead": "Mest lästa",
+            "titleMostRead": "Mest lästa artiklar"
+        },
+        "infiniteScroll": {
+            "readMore": "Fortsätt läsa"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Dela på Facebook",
+                "twitter": "Dela på X (Twitter)",
+                "linkedin": "Dela på LinkedIn",
+                "mail": "Dela via e-post",
+                "threads": "Dela på Threads",
+                "copyLink": "Kopiera länk",
+                "glimta": "Lås upp med Glimta",
+                "talandeWebb": "Öppna Talande Webb alternativpanel",
+                "bluesky": "Dela på Bluesky",
+                "reddit": "Dela på Reddit",
+                "whatsapp": "Dela på WhatsApp"
+            }
+        },
+        "gallery": {
+            "label": "Galleri",
+            "seeAllImages": "Se alla bilder",
+            "navigateToOriginal": "Gå till originalsidan"
+        },
+        "weather": {
+            "failedToFetch": "Kunde inte hämta väderdata",
+            "updated": "Uppdaterad",
+            "fetchingData": "Laddar väderdata",
+            "types": {
+                "clearsky": "Klart väder",
+                "fair": "Lätt molnigt",
+                "partlycloudy": "Delvis molnigt",
+                "cloudy": "Molnigt",
+                "rainshowers": "Regnskurar",
+                "rain": "Regn",
+                "snow": "Snö",
+                "sleet": "Snöblandat regn",
+                "thunder": "Åska",
+                "fog": "Dimma",
+                "wind": "Vind",
+                "unknown": "Okänt"
             }
         }
     }

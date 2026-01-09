@@ -46,6 +46,9 @@
             "path": "metadata.contentPosition"
         }
     },
+    "draggable": {
+        "icon": "labicon-code"
+    },
     "contentMenus": {
         "default": {
             "inheritPath": "menu/content/basemenu.json",

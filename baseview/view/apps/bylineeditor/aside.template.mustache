@@ -18,4 +18,7 @@
         <input class="lab-grid-large-6 lab-grid-gap" type="button" id="btn-remove-image" value="Remove">
         <input class="lab-grid-large-6 lab-grid-gap" type="button" id="btn-change-image" value="{{#url}}Change{{/url}}{{^url}}Add{{/url}}">
     </p>
+    {{ #id }}
+        <p class="lab-info lab-space-above-medium">Byline ID: {{ id }}</p>
+    {{ /id }}
 </div>

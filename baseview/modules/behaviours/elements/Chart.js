@@ -1,6 +1,8 @@
 export default class ChartElement {
 
-    constructor(api, aiSettings = { model: 'gpt-4o', provider: 'openAi', integration: 'openAi' }) {
+    constructor(api, aiSettings = {
+        model: 'gpt-4o', provider: 'openAi', integration: 'openAi', featureName: 'chart'
+    }) {
         this.api = api;
         this.aiSettings = aiSettings;   // Settings for the ai-integration (model, provider, integration)
         this.isEditor = this.api.v1.app.mode.isEditor();
@@ -64,31 +66,27 @@ export default class ChartElement {
     }
 
     tsvToObject(tsvString) {
-        const lines = tsvString.trim().split('\n');
-        const headers = lines[0].split('\t');
+        const normalized = (tsvString === undefined || tsvString === null) ? "" : String(tsvString).replace(/\r\n?/g, "\n").trim();
+        if (!normalized) return { labels: [], datasets: [] };
+        
+        const lines = normalized.split("\n").filter(l => l.trim() !== "");
+        const headerCells = lines[0].split('\t');
+        const datasetHeaders = headerCells.slice(1);
 
         const result = {
             labels: [],
-            datasets: []
+            datasets: datasetHeaders.map(h => ({ label: ((h === null || h === undefined) ? "" : h).trim(), data: [] })),
         };
-
-        // Start from index 1 if headers[0] is empty, indicating the first column is labels
-        const headerStartIndex = headers[0] === '' ? 1 : 0;
-
-        for (let i = headerStartIndex; i < headers.length; i++) {
-            result.datasets.push({
-                label: headers[i],
-                data: []
-            });
-        }
-
+        
         for (let i = 1; i < lines.length; i++) {
-            const values = lines[i].split('\t');
-            result.labels.push(values[0]);
-
-            for (let j = 1; j < values.length; j++) {
-                const cleanedValue = values[j].replace(/\s+/g, '');
-                result.datasets[j - 1].data.push(parseFloat(cleanedValue));
+            const cells = lines[i].split("\t");
+            result.labels.push(((cells[0] === null || cells[0] === undefined) ? "" : cells[0]).trim());
+            
+            for (let d = 0; d < result.datasets.length; d++) {
+                const raw = ((cells[d + 1] === null || cells[d + 1] === undefined) ? "" : cells[d + 1]).trim();
+                const num = raw === "" ? null : Number(raw.replace(/\s+/g, ""));
+                
+                result.datasets[d].data.push(Number.isFinite(num) ? num : null);
             }
         }
 

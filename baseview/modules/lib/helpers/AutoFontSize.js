@@ -13,6 +13,28 @@ export class AutoFontSize {
      * @returns {string} - The modified HTML content of the element after auto-sizing the text.
      */
     static autoSizeText(element, config) {
+        if (!element) return '';
+        
+        let rules = {};
+        if (config) {
+            rules = config;
+        } else {
+          rules = {
+            regex: {},
+            formats: {
+              default: {
+                maxWordLength: 15,
+                minLineLength: 3,
+                ranges: [
+                  {
+                    maxCharacters: Infinity,
+                    numberOfLines: 1
+                  }
+                ]
+              }
+            }
+          };
+        }
         const startFontSize = {
             1: 100,
             2: 70,
@@ -91,8 +113,8 @@ export class AutoFontSize {
      */
     static removeFontSize(element) {
         const title = element.innerHTML;
+        element.innerHTML = this.removeHTMLTags(title);
         return this.removeHTMLTags(title);
-        // return element.innerHTML;
     }
 
     /**
@@ -153,12 +175,18 @@ export class AutoFontSize {
      * @returns {string[]} An array of lines resulting from splitting the sentence.
      */
     static splitSentence(sentence, rules, container) {
-        const { length } = sentence;
+        const text = sentence || '';
+        const { length } = text;
+
+        if (!rules || !rules.formats || !rules.formats[container]) {
+            return [text];
+        }
         const rulesToUse = this.findRules(rules, container);
         const rangeToUse = this.findNumberOfLines(rulesToUse.ranges, length) || 1;
         const maxWordLength = rulesToUse.maxWordLength || null;
         const minLineLength = rulesToUse.minLineLength || null;
-        const lines = this.splitTextEvenly(sentence, rangeToUse, maxWordLength, minLineLength, rules.regex) || [];
+        const regex = rules.reges || {};
+        const lines = this.splitTextEvenly(sentence, rangeToUse, maxWordLength, minLineLength, regex) || [];
         return lines;
     }
 
@@ -282,16 +310,37 @@ export class AutoFontSize {
      * @returns {string[]} An array of word chunks.
      */
     static splitWord(word, maxWordLength) {
+        if (!Number.isFinite(maxWordLength) || maxWordLength <= 0) {
+            return [word];
+        }
+
         const chunks = [];
         let remainingWord = word;
 
+        // Handle case where we would leave just 1-2 characters at the end
         while (remainingWord.length > maxWordLength) {
+            // If we're going to leave just 1-2 characters at the end, adjust the split point
+            if (remainingWord.length > maxWordLength && remainingWord.length <= maxWordLength + 2) {
+                // Split the word in a more balanced way
+                const splitPoint = Math.floor(remainingWord.length / 2);
+                chunks.push(remainingWord.substring(0, splitPoint));
+                remainingWord = remainingWord.substring(splitPoint);
+                break;
+            }
+
             chunks.push(remainingWord.substring(0, maxWordLength));
             remainingWord = remainingWord.substring(maxWordLength);
         }
 
         if (remainingWord.length > 0) {
-            chunks.push(remainingWord);
+            // If the remaining part is just a single letter and we have previous chunks,
+            // append it to the last chunk instead of creating a new one
+            if (remainingWord.length === 1 && chunks.length > 0) {
+                const lastChunk = chunks.pop();
+                chunks.push(lastChunk + remainingWord);
+            } else {
+                chunks.push(remainingWord);
+            }
         }
 
         return chunks;

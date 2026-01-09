@@ -10,9 +10,9 @@ module.exports = {
     output: {
         filename: '[name].js',
         path: `${ __dirname }/build/modules/`,
-        // library: 'LabradorClient',
         libraryTarget: 'module',
-        chunkFormat: 'module'
+        chunkFormat: 'module',
+        chunkLoading: false
     },
 
     experiments: {

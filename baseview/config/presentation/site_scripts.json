@@ -18,10 +18,6 @@
             "requireDom": true
         },
         {
-            "url": "/view-resources/public/common/Parallax.js",
-            "requireDom": true
-        },
-        {
             "url": "/view-resources/public/common/Mustache/mustache.min.js",
             "requireDom": true
         },
