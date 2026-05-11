@@ -1,0 +1,72 @@
+{
+    "editors": {
+        "title": {
+            "selector": "h2",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.title",
+            "placeholder": "Title x",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "attributes": {
+                "text_size": {
+                    "displaySize": false
+                }
+            }
+        },
+        "bodytext": {
+            "selector": "div.lab-recipe-list-ingredients",
+            "fn": "EditFull",
+            "key": "fields.bodytext",
+            "placeholder": "Click to add ingredients",
+            "menu": "rich_text_btxt",
+            "modal": false,
+            "allowNbsp": true,
+            "inlineOnly": true,
+            "attributes": {
+                "font_weight": { "active": true },
+                "text_color": { "active": true },
+                "text_background_color": { "active": true },
+                "text_align": { "active": true },
+                "fontface": { "active": true }
+            },
+            "contentReplacement": null,
+            "displayWordCount": true,
+            "displayCharCount": true,
+            "displayReadtime": false,
+            "allowRichTextPasting": false,
+            "allowedPastedTags": {
+                "a": {
+                    "attributes": ["href", "target"]
+                }
+            },
+            "allowedEmptyTags": {
+                "span": {
+                    "attributes": ["class"]
+                }
+            }
+        }
+    },
+    "toolMenus": {
+        "rich_text": {
+            "inheritPath": "menu/tool/rich_text.json"
+        },
+        "rich_text_btxt": {
+            "inheritPath": "menu/tool/rich_text_bodytext.json"
+        }
+    },
+    "contentMenus": {
+        "default": {
+            "inheritPath": "menu/content/basemenu.json"
+        }
+    },
+    "droppable": {
+        "active": false
+    },
+    "draggable": {
+        "active": false
+    }
+}

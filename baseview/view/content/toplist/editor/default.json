@@ -12,20 +12,145 @@
     },
     "toolMenus": {
         "rich_text": {
-            "inheritPath": "menu/tool/rich_text.json"
+            "inheritPath": "menu/tool/rich_text.json",
+            "items": {
+                "more": {
+                    "items": {
+                        "animations": null
+                    }
+                }
+            }
         }
     },
     "contentMenus": {
         "default": {
             "items": {
+                "listStyle": {
+                    "group": "g4",
+                    "inheritPath": "menu/buttons/backgroundColor.json",
+                    "icon": "labicon-color_palette",
+                    "title": "List color options",
+                    "bindings": [
+                        {
+                            "path": "metadata.ui_color",
+                            "attribute": "value"
+                        }
+                    ],
+                    "params": {
+                        "colorPicker": {
+                            "preview": {
+                                "active": true,
+                                "selector": ".toplist .content",
+                                "stylePath": null
+                            },
+                            "groups": [
+                                {
+                                    "values": "background_colors",
+                                    "eyeDropper": {
+                                        "key": "metadata.customActiveTabBackgroundColor"
+                                    },
+                                    "title": "Active tab background color",
+                                    "label": "",
+                                    "useValueAsLabel": false,
+                                    "cssPrefix": "",
+                                    "key": "metadata.activeTabBackgroundColor",
+                                    "removeBtn": true,
+                                    "bordered": false,
+                                    "styleDefinition": "activeTabBackgroundColor"
+                                },
+                                {
+                                    "values": "font_colors",
+                                    "title": "Active tab text color",
+                                    "label": "A",
+                                    "useValueAsLabel": false,
+                                    "cssPrefix": "",
+                                    "key": "metadata.activeTabTextColor",
+                                    "removeBtn": true,
+                                    "bordered": true,
+                                    "styleDefinition": "activeTabTextColor"
+                                },
+                                {
+                                    "values": "background_colors",
+                                    "eyeDropper": {
+                                        "key": "metadata.customInactiveTabHoverBackgroundColor"
+                                    },
+                                    "title": "Inactive tab(s) hover background color",
+                                    "label": "",
+                                    "useValueAsLabel": false,
+                                    "cssPrefix": "",
+                                    "key": "metadata.inactiveTabHoverBackgroundColor",
+                                    "removeBtn": true,
+                                    "bordered": false,
+                                    "styleDefinition": "inactiveTabHoverBackgroundColor"
+                                },
+                                {
+                                    "values": "font_colors",
+                                    "objectValues": false,
+                                    "title": "Inactive tab(s) hover text color",
+                                    "label": "A",
+                                    "useValueAsLabel": false,
+                                    "cssPrefix": "",
+                                    "key": "metadata.inactiveTabHoverTextColor",
+                                    "removeBtn": true,
+                                    "bordered": true,
+                                    "styleDefinition": "inactiveTabHoverTextColor"
+                                },
+                                {
+                                    "values": "background_colors",
+                                    "eyeDropper": {
+                                        "key": "metadata.customListBorderColor"
+                                    },
+                                    "title": "List border color",
+                                    "label": "",
+                                    "useValueAsLabel": false,
+                                    "cssPrefix": "",
+                                    "key": "metadata.listBorderColor",
+                                    "removeBtn": true,
+                                    "bordered": false,
+                                    "styleDefinition": "listBorderColor"
+                                },
+                                {
+                                    "values": "background_colors",
+                                    "eyeDropper": {
+                                        "key": "metadata.customSiteNameBackgroundColor"
+                                    },
+                                    "title": "Site name background color",
+                                    "label": "",
+                                    "useValueAsLabel": false,
+                                    "cssPrefix": "",
+                                    "key": "metadata.siteNameBackgroundColor",
+                                    "removeBtn": true,
+                                    "bordered": false,
+                                    "styleDefinition": "siteNameBackgroundColor"
+                                },
+                                {
+                                    "values": "background_colors",
+                                    "eyeDropper": {
+                                        "key": "metadata.customTagBackgroundColor"
+                                    },
+                                    "title": "Tag/section background color",
+                                    "label": "",
+                                    "useValueAsLabel": false,
+                                    "cssPrefix": "",
+                                    "key": "metadata.tagBackgroundColor",
+                                    "removeBtn": true,
+                                    "bordered": false,
+                                    "styleDefinition": "tagBackgroundColor"
+                                }
+                            ]
+                        }
+                    }
+                },
                 "editSettings": {
                     "group": "g5",
                     "icon": "labicon-edit",
                     "callback": "displaySettingsPanel",
                     "title": "Settings (,)",
-                    "hotkeys": [{
-                        "key": ","
-                    }],
+                    "hotkeys": [
+                        {
+                            "key": ","
+                        }
+                    ],
                     "params": {
                         "settingsPanelOptions": "settingsPanels.admin"
                     }

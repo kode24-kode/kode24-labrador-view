@@ -104,8 +104,8 @@ export default class {
                         playerUrl: item.playerUrl,
                         preview: item.preview,
                         title: item.title,
-                        caption: item.caption,
-                        byline: item.byline,
+                        caption: item.caption || item.title,
+                        byline: item.extra_metadata_json.videoAuthor,
                         description: item.description,
                         verticalVideo: item.verticalVideo || false
                     }

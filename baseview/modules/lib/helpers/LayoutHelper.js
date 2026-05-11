@@ -5,14 +5,17 @@ export class LayoutHelper {
             top: [],
             floating: [],
             bottom: [],
+            sub: [],
             positions: {
                 kicker: '',
-                title: ''
+                title: '',
+                bylines: ''
             }
         };
 
         let kickerPosition = '';
         let titlePosition = '';
+        let bylinesPosition = '';
 
         // Process the kicker first
         if (view.get('metadata.showKicker') && (isEditor || (!!view.get('fields.kicker') || !!view.get('fields.origin_data_json.teaserKicker') || !!view.get('fields.origin_data_json.kicker')))) {
@@ -45,6 +48,40 @@ export class LayoutHelper {
                 layout.bottom.push('title');
                 layout.positions.title = 'below';
                 titlePosition = 'bottom';
+            }
+        }
+
+        // Process bylines
+        if (view.get('fields.displayByline')) {
+            if (view.get('metadata.floatingBylines')) {
+                layout.floating.push('bylines');
+                layout.positions.bylines = 'floating';
+                bylinesPosition = 'floating';
+            } else {
+                layout.sub.push('bylines');
+                layout.positions.bylines = 'sub';
+                bylinesPosition = 'sub';
+            }
+
+            if (view.get('metadata.bylinesAboveTitle')) {
+                if (titlePosition) {
+                    if (bylinesPosition) {
+                        const index = layout[bylinesPosition].indexOf('bylines');
+                        if (index != -1) {
+                            layout[bylinesPosition].splice(index, 1);
+                        }
+                    }
+
+                    const positionArray = layout[titlePosition];
+                    const titleIndex = positionArray.indexOf('title');
+                    if (titleIndex !== -1) {
+                        positionArray.splice(titleIndex, 0, 'bylines');
+                    } else {
+                        positionArray.push('bylines');
+                    }
+                    layout.positions.bylines = 'aboveTitle';
+                    bylinesPosition = titlePosition;
+                }
             }
         }
 

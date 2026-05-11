@@ -8,16 +8,24 @@ export class PublishUpdater {
     // (void)
     async willPublish() {
 
-        // 1) Find all collections used on this page
+        // 1) Find all collections used on this page (via Elasticsearch)
         const collectionIds = await this.getCollections();
 
-        // 2) Get current stored collection id's
+        // 2) Merge with any collection IDs that were just published but may not yet be in the
+        //    Elasticsearch index (race condition: index is updated asynchronously after publication).
+        const pendingIds = this.model.get('state._abtestPendingCollectionIds') || [];
+        if (pendingIds.length) {
+            this.model.set('state._abtestPendingCollectionIds', [], { notify: false, registerModified: false });
+        }
+        const mergedIds = [...new Set([...collectionIds, ...pendingIds])];
+
+        // 3) Get current stored collection id's
         const current = this.model.get('fields.abtestCollectionIds_json') || [];
 
-        // 3) Check if modified, if so: Store new list on model and re-publish
-        if (this.hasDiff(current, collectionIds)) {
-            this.model.set('fields.abtestCollectionIds_json', collectionIds);
-            this.model.set('fields.lab_override_config_presentation', this.getPreloadConfig(collectionIds));
+        // 4) Check if modified, if so: Store new list on model and re-publish
+        if (this.hasDiff(current, mergedIds)) {
+            this.model.set('fields.abtestCollectionIds_json', mergedIds);
+            this.model.set('fields.lab_override_config_presentation', this.getPreloadConfig(mergedIds));
             setTimeout(() => {
                 this.api.v1.app.publish();
             }, 1000);

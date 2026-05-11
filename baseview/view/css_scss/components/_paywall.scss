@@ -557,7 +557,7 @@
 
 // Paywall locked class for hiding bodytext
 .bodytext.lab-paywall-locked {
-    > *:not(.lab-paywall-unlocked):not(.paywallTeaser):not(.sesamy-paywall-container):not(.iteras-offers):not(.piano-paywall):not([class*="tp"]):not(#nwprependblock) {
+    > *:not(.lab-paywall-unlocked):not(.paywallTeaser):not(.sesamy-paywall-container):not(.iteras-offers):not(.piano-paywall):not([class*="tp"]):not(#nwprependblock):not(#tulo-paywall):not(.bodytext.intro) {
         display: none;
     }
 }

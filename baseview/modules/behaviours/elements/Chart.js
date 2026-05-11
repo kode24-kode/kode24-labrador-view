@@ -66,10 +66,13 @@ export default class ChartElement {
     }
 
     tsvToObject(tsvString) {
-        const normalized = (tsvString === undefined || tsvString === null) ? "" : String(tsvString).replace(/\r\n?/g, "\n").trim();
-        if (!normalized) return { labels: [], datasets: [] };
-        
-        const lines = normalized.split("\n").filter(l => l.trim() !== "");
+        const normalized = (tsvString === undefined || tsvString === null) ? "" : String(tsvString).replace(/\r\n?/g, "\n");
+        const trimmed = normalized.replace(/^\s*\n|\n\s*$/g, '');
+        if (!trimmed) return { labels: [], datasets: [] };
+
+        const lines = trimmed.split("\n").filter(l => l.length > 0);
+        if (lines.length === 0) return { labels: [], datasets: [] };
+
         const headerCells = lines[0].split('\t');
         const datasetHeaders = headerCells.slice(1);
 

@@ -1,6 +1,7 @@
 {
     "collabrador": {
         "active": false,
-        "commentsOnly": false
+        "commentsOnly": true,
+        "commentsOnlyTools": ["EditBodyText", "EditFull"]
     }
 }

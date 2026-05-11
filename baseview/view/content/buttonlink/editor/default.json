@@ -7,7 +7,15 @@
             "key": "fields.title",
             "placeholder": "Add link text here..",
             "modal": false,
-            "allowReverting": true
+            "allowReverting": true,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                }
+            }
         }
     },
     "toolMenus": {

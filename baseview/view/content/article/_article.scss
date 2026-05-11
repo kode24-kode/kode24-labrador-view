@@ -2,6 +2,7 @@
 @use "../../css_scss/mixins/paywall";
 @use "../../css_scss/components/font-size" as *;
 @use "../../css_scss/components/vars" as *;
+@use "../../css_scss/mixins/content-animations" as *;
 
 article.column {
     .content {
@@ -87,7 +88,7 @@ article.column {
         figure {
             margin-bottom: 0.4rem;
             position: relative;
-            
+
             // Figure-element may have grid. Override
             // Update: To support the Grid-element in article teaser width must be unset
             // width: auto;
@@ -98,6 +99,77 @@ article.column {
 
             &.floatRight {
                 margin-left: 0.4em;
+            }
+        }
+
+        // Hover effects for images - Scale (using CSS custom properties)
+        &.lab-has-hover-scale {
+            .media {
+                figure {
+                    overflow: hidden;
+
+                    .img picture img {
+                        transition: transform 0.3s ease;
+                    }
+
+                    &:hover .img picture img {
+                        transform: scale(var(--hover-scale, 1));
+                    }
+                }
+            }
+
+            // Combined with filter
+            &.lab-has-hover-filter-brighten,
+            &.lab-has-hover-filter-darken,
+            &.lab-has-hover-filter-grayscale {
+                .media figure {
+                    .img picture img {
+                        transition: transform 0.3s ease, filter 0.3s ease;
+                    }
+                }
+            }
+        }
+
+        // Hover effects for images - Filter (using CSS custom properties)
+        &.lab-has-hover-filter-brighten {
+            .media {
+                figure {
+                    .img picture img {
+                        transition: filter 0.3s ease;
+                    }
+
+                    &:hover .img picture img {
+                        filter: brightness(var(--hover-filter-brighten, 1));
+                    }
+                }
+            }
+        }
+
+        &.lab-has-hover-filter-darken {
+            .media {
+                figure {
+                    .img picture img {
+                        transition: filter 0.3s ease;
+                    }
+
+                    &:hover .img picture img {
+                        filter: brightness(var(--hover-filter-darken, 1));
+                    }
+                }
+            }
+        }
+
+        &.lab-has-hover-filter-grayscale {
+            .media {
+                figure {
+                    .img picture img {
+                        transition: filter 0.3s ease;
+                    }
+
+                    &:hover .img picture img {
+                        filter: unquote("grayscale(var(--hover-filter-grayscale, 0))");
+                    }
+                }
             }
         }
 
@@ -116,9 +188,29 @@ article.column {
             .article-published-wrapper {
                 padding-right: 0.7rem;
                 padding-top: 4.5px;
-                
+
                 .article-published-date {
                     margin-bottom: 0;
+                }
+            }
+        }
+
+        @include tablet_up {
+            &.align-center {
+                .bylines,
+                .article-published-wrapper {
+                    width: fit-content;
+                    margin-inline: auto;
+                }
+            }
+        }
+
+        @include mobile {
+            &.mobile_text_align_align-center {
+                .bylines,
+                .article-published-wrapper {
+                    width: fit-content;
+                    margin-inline: auto;
                 }
             }
         }
@@ -326,6 +418,62 @@ article.column {
                 }
             }
 
+            &[class*="video-overlay-pos-"] {
+                figure {
+                    &::after {
+                        display: none;
+                    }
+
+                    &::before {
+                        top: auto;
+                        left: auto;
+                        transform: none;
+                        width: 3rem;
+                        height: 3rem;
+                        background-color: rgba(0, 0, 0, 0.5);
+                        background-image: url('data:image/svg+xml;utf8,<svg fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>');
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        background-size: 60%;
+                        mask: none;
+                        -webkit-mask: none;
+                        border-radius: 0.25rem;
+                        opacity: 1;
+                        transition: background-color 0.3s ease;
+                    }
+                }
+
+                &:hover figure::before {
+                    transform: none;
+                    background-color: rgba(0, 0, 0, 0.75);
+                }
+
+                &.video-overlay-pos-top-left figure::before {
+                    top: 0.5rem;
+                    left: 0.5rem;
+                }
+
+                &.video-overlay-pos-top-right figure::before {
+                    top: 0.5rem;
+                    right: 0.5rem;
+                }
+
+                &.video-overlay-pos-bottom-left figure::before {
+                    bottom: 0.5rem;
+                    left: 0.5rem;
+                }
+
+                &.video-overlay-pos-bottom-right figure::before {
+                    bottom: 0.5rem;
+                    right: 0.5rem;
+                }
+
+                &.video-overlay-pos-top-left .video-overlay-label {
+                    left: auto;
+                    right: 0.5rem;
+                }
+            }
+
             @include tablet_up {
                 &.desktop-floatLeft {
                     .teaser-audio {
@@ -437,6 +585,42 @@ article.column {
 
         .media {
             position: relative;
+
+            @include tablet_up {
+                &:has(.graphic[style*="--graphicWidthDesktop"]) {
+                    width: fit-content;
+
+                    &:has(.graphic.desktop-floatRight) {
+                        float: right;
+                    }
+
+                    &:has(.graphic.desktop-floatLeft) {
+                        float: left;
+                    }
+
+                    &:has(.graphic.desktop-floatCenter) {
+                        margin: auto;
+                    }
+                }
+            }
+
+            @include mobile {
+                &:has(.graphic[style*="--graphicWidthMobile"]) {
+                    width: fit-content;
+
+                    &:has(.graphic.mobile-floatRight) {
+                        float: right;
+                    }
+
+                    &:has(.graphic.mobile-floatLeft) {
+                        float: left;
+                    }
+
+                    &:has(.graphic.mobile-floatCenter) {
+                        margin: auto;
+                    }
+                }
+            }
 
             &:last-child {
                 figure {
@@ -624,162 +808,20 @@ article.column {
             }
         }       
 
-        .animate {
-            position: relative;
-            animation: dac-text-slider 4s infinite linear;
-
-            &:before,
-            &:after {
-                content: attr(data-content);
-                position: absolute;
-                left: -100%;
-                background-color: inherit;
-                width: 100%;
-                padding: inherit;
-                top: 0;
-            }
-
-            &:after {
-                left: 100%;
-            }
+        .headline,
+        .subtitle,
+        .kicker,
+        .subarticlesTitle {
+            @include text-animation-styles;
         }
 
-        .flash {
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-
-            &:before {
-                content: "";
-                background-color: #0093c8;
-                border-radius: 100%;
-                animation-duration: 3s;
-                animation-name: dac-text-flash;
-                animation-timing-function: ease-out;
-                animation-iteration-count: infinite;
-                animation-fill-mode: forwards;
-                height: 1em;
-                left: 0;
-                position: absolute;
-                top: 50%;
-                width: 1em;
-                z-index: 1;
-                margin-top: -0.5em;
-            }
-
-            &.align-center:before {
-                left: 50%;
-                margin-left: -0.5em;    
-            }
-
-            &.align-right:before {
-                left: auto;
-                right: 0;
-            }
-        }
-
-        @mixin breaking-animation {
-            &::before {
-                animation: pulse 1s infinite;
-            }
-        }
-
-        .breaking-white,
-        .breaking-red {
-            position: relative;
-            display: flex;
-            align-items: center;
-            padding-left: max(35px, 0.5em) !important;
-
-            &::before {
-                content: '';
-                width: 0.3em;
-                height: 0.3em;
-                position: absolute;
-                top: 50%;
-                left: 12px;
-                border-radius: 50%;
-                border: 0.05em solid white;
-                transform: translateY(-50%);
-            }
-        }
-
-        .headline.breaking-white,
-        .subtitle.breaking-white,
-        .kicker.breaking-white {
-            --pulse-color: rgba(255, 255, 255, 0.2);
-            @include breaking-animation;
-
-            &::before {
-                background-color: white;
-                box-shadow: 
-                    0 0 0 1px var(--pulse-color), 
-                    0 0 0 2px var(--pulse-color), 
-                    0 0 0 3px var(--pulse-color);
-                border: 0.05em solid black;
-                box-shadow: 0 0 0 3px black;
-            }
-        }
-
-        .headline.breaking-red,
-        .subtitle.breaking-red,
-        .kicker.breaking-red {
-            --pulse-color: rgba(255, 0, 0, 0.2);
-            @include breaking-animation;
-
-            &::before {
-                background-color: red;
-                box-shadow: 
-                    0 0 0 1px var(--pulse-color), 
-                    0 0 0 2px var(--pulse-color), 
-                    0 0 0 3px var(--pulse-color);
-            }
-        }
-        
+        // Article-specific: kicker breaking dot needs tighter vertical padding
         .kicker.breaking-white,
         .kicker.breaking-red {
             padding: 4px 0;
         }
 
-        &[class*="bg-"] {
-            .subtitle:last-child {
-                &[class*=breaking] {
-                    &::before {
-                        top: calc(50% - 0.5rem);
-                    }
-                }
-            }
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: translateY(-50%) scale(1);
-                opacity: 1;
-                box-shadow: 
-                    0 0 0 1px var(--pulse-color, rgba(255, 0, 0, 1)), 
-                    0 0 0 2px var(--pulse-color, rgba(255, 0, 0, 0.7)), 
-                    0 0 0 3px var(--pulse-color, rgba(255, 0, 0, 0.5)), 
-            }
-
-            50% {
-                transform: translateY(-50%) scale(1.1);
-                opacity: 0.5;
-                box-shadow: 
-                    0 0 0 2px var(--pulse-color, rgba(255, 0, 0, 0.5)), 
-                    0 0 0 3px var(--pulse-color, rgba(255, 0, 0, 0.3)), 
-                    0 0 0 4px var(--pulse-color, rgba(255, 0, 0, 0.1)), 
-            }
-
-            100% {
-                transform: translateY(-50%) scale(1);
-                opacity: 1;
-                box-shadow: 
-                    0 0 0 1px var(--pulse-color, rgba(255, 0, 0, 1)), 
-                    0 0 0 2px var(--pulse-color, rgba(255, 0, 0, 0.7)), 
-                    0 0 0 3px var(--pulse-color, rgba(255, 0, 0, 0.5)), 
-            }
-        }
-
+        // Article-specific: align flash via container class in addition to element class
         &.align-center .flash:before {
             left: 50%;
             margin-left: -0.5em;
@@ -790,21 +832,14 @@ article.column {
             right: 0;
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            .flash,
-            .animate,
-            .breaking-red,
-            .breaking-white {
-                animation: none !important;
-
-                &::before,
-                &::after {
-                    animation: none !important;
+        // Article-specific: bg-color rows shift the breaking dot position on subtitles
+        &[class*="bg-"] {
+            .subtitle:last-child {
+                &[class*=breaking] {
+                    &::before {
+                        top: calc(50% - 0.5rem);
+                    }
                 }
-            }
-
-            .flash::before {
-                content: none;
             }
         }
     }
@@ -983,33 +1018,8 @@ article.column {
     }
 }
 
-// Note: Use transform (transform: translateX()), not position (left:xxx) to ensure GPU-rendering.
-@keyframes dac-text-slider {
-    0% {
-        transform: translateX(100%);
-    }
-
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
-@keyframes dac-text-flash {
-    0%   {
-        transform: scale(0);
-        opacity: 1;
-    }
-
-    75% {
-        opacity: 0;
-        transform: scale(15);
-    }
-
-    100% {
-        transform: scale(0);
-        opacity: 0;
-    }
-}
+// Note: dac-text-slider, dac-text-flash, and pulse keyframes are defined in
+// css_scss/mixins/_content-animations.scss
 
 article.column .content.fullWidth {
     overflow: visible;
@@ -1065,5 +1075,25 @@ article.column .markupbox.column {
     article.column .content.hasContentPadding figure.desktop-floatLeft,
     article.column .content.hasContentPadding figure.desktop-floatRight {
         margin-bottom: 0;
+    }
+}
+
+// Accessibility: Respect user's motion preferences
+@media (prefers-reduced-motion: reduce) {
+    article.column {
+		.content {
+			// Disable all hover transitions and animations
+			&.lab-has-hover-scale .media figure .img picture img,
+			&.lab-has-hover-filter-brighten .media figure .img picture img,
+			&.lab-has-hover-filter-darken .media figure .img picture img,
+			&.lab-has-hover-filter-grayscale .media figure .img picture img {
+				transition: none !important;
+			}
+
+			// Keep hover effects but remove animation
+			&.lab-has-hover-scale .media figure:hover .img picture img {
+				transform: none;
+			}
+		}
     }
 }

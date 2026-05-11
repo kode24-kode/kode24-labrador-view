@@ -2,10 +2,13 @@
     "icon": "labicon-notes",
     "callback": "runApp",
     "params": {
-      "name": "AddComment",
+      "name": "CollabradorAddComment",
       "options": [],
       "configKey": "collabrador.active"
     },
+    "cssClasses": [
+        "lab-collabrador-btn"
+    ],
     "title": "Add Collabrador comment to element",
     "collabradorCommentsOnly": true,
     "displayCondition": "hasConfig"

@@ -106,8 +106,8 @@
         },
         "header": {
             "logo_link_text": "Gå till forside",
-			"menuScrollerLeftButton": "Skrolla åt vänster",
-			"menuScrollerRightButton": "Skrolla åt höger"
+            "menuScrollerLeftButton": "Skrolla åt vänster",
+            "menuScrollerRightButton": "Skrolla åt höger"
         },
         "slack_notifier": {
             "publish": {
@@ -156,6 +156,9 @@
             "labelMostRead": "Mest lästa",
             "titleMostRead": "Mest lästa artiklar"
         },
+        "authorLatestArticles": {
+            "noBylines": "Inga bylines hittades i artikeln"
+        },
         "infiniteScroll": {
             "readMore": "Fortsätt läsa"
         },
@@ -171,13 +174,17 @@
                 "talandeWebb": "Öppna Talande Webb alternativpanel",
                 "bluesky": "Dela på Bluesky",
                 "reddit": "Dela på Reddit",
-                "whatsapp": "Dela på WhatsApp"
+                "whatsapp": "Dela på WhatsApp",
+                "print": "Skriv ut sida",
+                "googlenews": "Öppna Google News-sidan"
             }
         },
         "gallery": {
             "label": "Galleri",
             "seeAllImages": "Se alla bilder",
-            "navigateToOriginal": "Gå till originalsidan"
+            "navigateToOriginal": "Gå till originalsidan",
+            "imageCountText": "bilder",
+            "autoDescription": "{{ n }} bilder från \"{{ title }}\""
         },
         "weather": {
             "failedToFetch": "Kunde inte hämta väderuppgifter",
@@ -197,6 +204,20 @@
                 "wind": "Vind",
                 "unknown": "Okänt"
             }
+        },
+        "recipe": {
+            "prepTimeLabel": "Förberedelsetid:",
+            "cookTimeLabel": "Tillagningstid:",
+            "totalTimeLabel": "Total tid:",
+            "recipeYieldLabel": "Portioner:",
+            "keywordsLabel": "Nyckelord:",
+            "caloriesLabel": "Kalorier:",
+            "dishLabel": "Rätt:",
+            "cuisineLabel": "Kök:",
+            "printButton": "Skriv ut",
+            "publishedDate": "Publiceringsdatum:",
+            "ingredientsTitle": "Ingredienser",
+            "instructionsTitle": "Instruktioner"
         }
     }
 }

@@ -332,6 +332,24 @@
                             "value": "<span class=\"fi-volume\"> </span>",
                             "text": "Audio",
 							"icon": "fi-volume"
+                        },
+                        {
+                            "callback": "insertRawMarkup",
+                            "value": "<span class=\"fi-blockquote-left\"> </span>",
+                            "text": "Blockquote (left)",
+                            "icon": "fi-blockquote-left"
+                        },
+                        {
+                            "callback": "insertRawMarkup",
+                            "value": "<span class=\"fi-blockquote-right\"> </span>",
+                            "text": "Blockquote (right)",
+                            "icon": "fi-blockquote-right"
+                        },
+                        {
+                            "callback": "insertRawMarkup",
+                            "value": "<span class=\"fi-play\"> </span>",
+                            "text": "Play",
+                            "icon": "fi-play"
                         }
                     ]
                 },

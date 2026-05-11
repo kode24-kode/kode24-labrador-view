@@ -72,9 +72,22 @@ export class AbTest {
         return new Date(date.getTime() + new Date().getTimezoneOffset() * -60 * 1000).toISOString().slice(0, 19);
     }
 
-    serialize(preparedVariants, originalTitle, originalPublishedUrl) {
+    // (string|null) Find the instance_of id of the first image child in serialized model data
+    _findImageInstanceOf(data) {
+        if (!data || !data.children) { return null; }
+        for (const child of data.children) {
+            const type = (child.contentdata && child.contentdata.type) || child.type || '';
+            if (type.includes('image') && child.contentdata && child.contentdata.instance_of) {
+                return child.contentdata.instance_of;
+            }
+        }
+        return null;
+    }
+
+    serialize(preparedVariants, originalTitle, originalPublishedUrl, originalData) {
         const startDate = (this.start !== '') ? new Date(this.start) : '';
         const endDate = (this.end !== '') ? new Date(this.end) : '';
+        const imageServer = lab_api.v1.properties.get('image_server_front');
         const variants = [];
         if (this.includeOriginal) {
             // We need to add an item for the original article-teaser in data we send to Kilkaya
@@ -88,11 +101,15 @@ export class AbTest {
             if (originalPublishedUrl) {
                 data.push({ name: 'url', value: lab_api.v1.site.getSite().domain + originalPublishedUrl });
             }
+            const originalImageInstanceOf = this._findImageInstanceOf(originalData);
+            if (originalImageInstanceOf && imageServer) {
+                data.push({ name: 'image', value: `${ imageServer }/${ originalImageInstanceOf }.webp?imageId=${ originalImageInstanceOf }` });
+            }
             variants.push({
                 vid: 1,
                 active: this.includeOriginal,
                 data,
-                name: title
+                name: 'A'
             });
         }
         let cc = 2;
@@ -104,10 +121,14 @@ export class AbTest {
                     { name: 'title', value: lab_api.v1.util.string.stripTags(variant.data.contentdata.fields.title.value) },
                     { name: 'identifier', value: variant.guid }
                 ],
-                name: variant.name
+                name: String.fromCharCode(cc + 64)
             };
             if (variant.data.contentdata.fields.published_url) {
                 item.data.push({ name: 'url', value: lab_api.v1.site.getSite().domain + variant.data.contentdata.fields.published_url.value });
+            }
+            const variantImageInstanceOf = this._findImageInstanceOf(variant.data);
+            if (variantImageInstanceOf && imageServer) {
+                item.data.push({ name: 'image', value: `${ imageServer }/${ variantImageInstanceOf }.webp?imageId=${ variantImageInstanceOf }` });
             }
             variants.push(item);
             cc += 1;

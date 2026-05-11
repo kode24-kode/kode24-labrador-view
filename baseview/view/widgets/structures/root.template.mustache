@@ -3,34 +3,34 @@
 
     <script>
         (function () {
-            if (!'IntersectionObserver' in window) { return;}
+            if (!'IntersectionObserver' in window) { return; }
 
             var scrollEvents = scrollEvents || [];
             [[ #settings.scrollEvents ]]
-            var event = {
-                target: '[[ target ]][[ ^target ]]header.pageHeader[[ /target ]]',
-                offset: '[[ offset ]][[ ^offset ]]0[[ /offset ]]px',
-                classes: [],
-                styles: []
-            };
-            [[ #classes ]]
-            var classItem = {
-                selector: '[[& selector ]]',
-                class: []
-            };
-            [[ #class ]]
-            classItem.class.push('[[ . ]]');
-            [[ /class ]]
-            event.classes.push(classItem);
-            [[ /classes ]]
-            [[ #styles ]]
-            event.styles.push({
-                selector: '[[& selector ]]',
-                style: '[[ style ]]'
-            });
-            [[ /styles ]]
-            scrollEvents.push(event);
-
+                var event = {
+                    target: '[[ target ]][[ ^target ]]header.pageHeader[[ /target ]]',
+                    offset: '[[ offset ]][[ ^offset ]]0[[ /offset ]]px',
+                    classes: [],
+                    styles: [],
+                    directional: [[ directional ]][[ ^directional ]]false[[ /directional ]]
+                };
+                [[ #classes ]]
+                    var classItem = {
+                        selector: '[[& selector ]]',
+                        class: []
+                    };
+                    [[ #class ]]
+                        classItem.class.push('[[ . ]]');
+                    [[ /class ]]
+                    event.classes.push(classItem);
+                [[ /classes ]]
+                [[ #styles ]]
+                    event.styles.push({
+                        selector: '[[& selector ]]',
+                        style: '[[ style ]]'
+                    });
+                [[ /styles ]]
+                scrollEvents.push(event);
             [[ /settings.scrollEvents ]]
 
             if (scrollEvents) {
@@ -43,37 +43,69 @@
                         cssText: ''
                     }
                 };
-                scrollEvents.forEach(function(event) {
-                    var callback = function (entries, observer) {
-                        if (!entries[0]) { return; }
-                        if (entries[0].isIntersecting) {
-                            event.styles.forEach(function(item) {
-                                (document.querySelector(item.selector) || domInterface).style.cssText = "";
-                            });
-                            event.classes.forEach(function(item) {
-                                item.class.forEach(function(classname) {
-                                    (document.querySelector(item.selector) || domInterface).classList.remove(classname);
-                                });
-                            });
-                        } else {
-                            event.styles.forEach(function(item) {
-                                (document.querySelector(item.selector) || domInterface).style.cssText = item.style;
-                            });
-                            event.classes.forEach(function(item) {
-                                item.class.forEach(function(classname) {
-                                    (document.querySelector(item.selector) || domInterface).classList.add(classname);
-                                });
-                            });
-                        }
-                    };
 
-                    var observer = new IntersectionObserver(callback, {
-                        rootMargin: event.offset,
-                        threshold: 1
-                    });
-                    var target = document.querySelector(event.target);
-                    if (target) {
-                        observer.observe(target);
+                scrollEvents.forEach(function(event) {
+                    if (!event.directional) {
+                        var callback = function(entries, observer) {
+                            if (!entries[0]) { return; }
+                            if (entries[0].isIntersecting) {
+                                event.styles.forEach(function(item) {
+                                    (document.querySelector(item.selector) || domInterface).style.cssText = "";
+                                });
+                                event.classes.forEach(function(item) {
+                                    item.class.forEach(function(classname) {
+                                        (document.querySelector(item.selector) || domInterface).classList.remove(classname);
+                                    });
+                                });
+                            } else {
+                                event.styles.forEach(function(item) {
+                                    (document.querySelector(item.selector) || domInterface).style.cssText = item.style;
+                                });
+                                event.classes.forEach(function(item) {
+                                    item.class.forEach(function(classname) {
+                                        (document.querySelector(item.selector) || domInterface).classList.add(classname);
+                                    });
+                                });
+                            }
+                        };
+
+                        var observer = new IntersectionObserver(callback, {
+                            rootMargin: event.offset,
+                            threshold: 1
+                        });
+                        var target = document.querySelector(event.target);
+                        if (target) {
+                            observer.observe(target);
+                        }
+                    }
+
+                    if (event.directional) {
+                        let previousTop = 0;
+                        window.addEventListener('scroll', function() {
+                            setTimeout(function() {
+                                const currentTop = window.pageYOffset || document.documentElement.scrollTop;
+                                if (currentTop > previousTop + 10) {
+                                    event.styles.forEach(function(item) {
+                                        (document.querySelector(item.selector) || domInterface).style.cssText = item.style;
+                                    });
+                                    event.classes.forEach(function(item) {
+                                        item.class.forEach(function(classname) {
+                                            (document.querySelector(item.selector) || domInterface).classList.add(classname);
+                                        });
+                                    });
+                                } else if (currentTop < previousTop - 10) {
+                                    event.styles.forEach(function(item) {
+                                        (document.querySelector(item.selector) || domInterface).style.cssText = "";
+                                    });
+                                    event.classes.forEach(function(item) {
+                                        item.class.forEach(function(classname) {
+                                            (document.querySelector(item.selector) || domInterface).classList.remove(classname);
+                                        });
+                                    });
+                                }
+                                previousTop = currentTop;
+                            }, 200);
+                        });
                     }
                 });
             }

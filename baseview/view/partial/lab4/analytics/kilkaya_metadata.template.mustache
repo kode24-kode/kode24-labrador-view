@@ -2,6 +2,7 @@
 {{ #helper.trim }}
 var k5aMeta = {
     {{ #get.current.filtered.is_article }}
+    {{ #get.current.filtered.publishhidden }} "disablePageview": true,{{ /get.current.filtered.publishhidden }}
     "paid": {{ #get.current.filtered.paywall.enabled }}1{{ /get.current.filtered.paywall.enabled }}{{ ^get.current.filtered.paywall.enabled }}0{{ /get.current.filtered.paywall.enabled }},
     {{ #get.current.filtered.paywall.enabled }}"paywall": (Dac.clientData.paywall.isAuthenticated ? "open" : "hard"),{{ /get.current.filtered.paywall.enabled }} 
     {{ #get.current.fields.stats_word_count }}"wordCount": "{{ get.current.fields.stats_word_count }}",{{ /get.current.fields.stats_word_count }}

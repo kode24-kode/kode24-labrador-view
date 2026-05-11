@@ -9,7 +9,8 @@ export const Namespace = {
 
         // Generate a citation article from a copy of text and source
         lab_api.v1.ns.set('contextualmenu.callbacks.generateCitationArticle', (model, view, menuItem, params) => {
-            lab_api.v1.apps.start('ArticleCitation', menuItem);
+            const { updatedEditor } = params;
+            lab_api.v1.apps.start('ArticleCitation', menuItem, { model: 'gpt-4o' }, updatedEditor);
         });
 
         // Edit caption, byline and alt-text for original image. Useful for menu-items related to caption-editing of image-crops.
@@ -23,7 +24,6 @@ export const Namespace = {
         // For text-editors: Display a list of articles.
         // Let user click an article to insert an a-tag at selection.
         lab_api.v1.ns.set('contextualmenu.callbacks.insertArticleLink', (model, view, menuItem, params) => {
-
             // Clicking on some element that did not capture the event inside the menu will trigger
             // the blur-event of the bodytext. Disable and enable again in the callback.
             menuItem.menu.tool.disableEndEvent();
@@ -64,6 +64,82 @@ export const Namespace = {
                     }
                 }
             });
+        });
+
+        // Alternative insert function for text editor based on prosemirror.
+        // Let user click an article to insert an a-tag at selection.
+        lab_api.v1.ns.set('contextualmenu.callbacks.insertArticleLinkEditor', (model, view, menuItem, params) => {
+            if (!lab_api.v1.editor.isAvailable()) {
+                Sys.logger.warn('!Baseview Namespace: EditorStore for Prosemirror editor not found');
+                return;
+            }
+            // Pausing blur event for the editor.
+            lab_api.v1.editor.suspend();
+
+            // Opening the collection modal.
+            lab_api.v1.collection.display({
+                name: params.menu.name,
+                modal: true,
+                options: {
+                    click: (uiInterface, targetModel) => {
+                        let url = targetModel.get('fields.published_url');
+                        if (url) {
+                            if (!url.startsWith('http')) {
+                                const site = lab_api.v1.site.getSiteById(targetModel.get('fields.site_id'));
+                                if (site) {
+                                    url = site.domain + url;
+                                }
+                            }
+                        }
+                        const title = targetModel.get('fields.title');
+
+                        // Calling the editor function to insert the article link.
+                        lab_api.v1.editor.link.article.create(url, title);
+
+                        // Close the collection modal.
+                        lab_api.v1.collection.toggle({ name: uiInterface.getName(), modal: true });
+                    }
+                }
+            });
+        });
+
+        // For text-editors. Let user create a quote-box from selection for Prosemirror editor.
+        lab_api.v1.ns.set('contextualmenu.callbacks.insertQuoteEditor', (model, view, menuItem, params) => {
+            if (!lab_api.v1.editor.isAvailable()) {
+                Sys.logger.warn('!Baseview Namespace: EditorStore for Prosemirror editor not found');
+                return;
+            }
+
+            // Pausing blur event for the editor.
+            lab_api.v1.editor.suspend();
+
+            // Get selection from editor
+            const { text: selectedText, index: selectedIndex } = lab_api.v1.editor.selection.get();
+
+            const text = selectedText;
+            if (!text) { return; }
+
+            const index = selectedIndex;
+            if (index === null) { return; }
+
+            // Create element and insert
+            const quoteModel = lab_api.v1.model.create.view({
+                type: 'quotebox',
+                contentdata: {
+                    fields: {
+                        quote: selectedText
+                    }
+                },
+                metadata: {
+                    float: {
+                        desktop: 'floatRight'
+                    },
+                    bodyTextIndex: selectedIndex
+                },
+                width: 33.33
+            });
+            lab_api.v1.model.addChild(model, quoteModel, index);
+            menuItem.menu.tool.end();
         });
 
         // For text-editors. Let user create a quote-box from selection
@@ -266,6 +342,7 @@ export const Namespace = {
             lab_api.v1.apps.start('FieldVersion', {
                 model,
                 field: 'bodytext',
+                resetFields: ['bodytext.editor-structure'],
                 selector: '.main > .bodytext',
                 callbacks: {
                     end: (app) => {
@@ -297,6 +374,85 @@ export const Namespace = {
             });
         });
 
+        // Swaps CSS classes on a DOM element — removes the old set, adds the new set.
+        // Handles space-separated class lists (e.g. "my-class another-class").
+        const applyElementClass = (markup, newClass, prevClass) => {
+            if (prevClass) {
+                prevClass.trim().split(/\s+/).forEach((c) => markup.classList.remove(c));
+            }
+            if (newClass) {
+                newClass.trim().split(/\s+/).forEach((c) => markup.classList.add(c));
+            }
+        };
+
+        // Opens a modal that lets the editor set one or more CSS classes on any element.
+        // The value is saved to metadata.elementClass and applied to the element's root tag
+        // via onRendered() in Front.js (both editor and published page).
+        lab_api.v1.ns.set('contextualmenu.callbacks.setElementClass', (model, view, menuItem, params) => {
+            const inputConfig = {
+                key: 'metadata.elementClass',
+                type: 'text',
+                placeholder: 'my-class another-class',
+                label: 'CSS class(es) – space-separated, without quotes'
+            };
+            const defaults = {
+                grid: 12,
+                id: 'lab-modal-elementclass-input',
+                value: model.get('metadata.elementClass') || '',
+                name: inputConfig.key
+            };
+            // validateFormInputConfig converts the plain config into the format the modal dialog expects.
+            const element = lab_api.v1.util.dom.validateFormInputConfig(inputConfig, defaults);
+
+            let modal = null;
+            modal = lab_api.v1.ui.modal.dialog({
+                content: {
+                    title: 'Set element class',
+                    formgroups: [
+						{
+                        hasGrid: true,
+                        elements: [element]
+                    	}
+					]
+                },
+                footer: {
+                    buttons: [
+						{
+							value: 'Cancel',
+							class: 'lab-link',
+							id: 'lab-modal-elementclass-cancel'
+						}, 
+						{
+							highlight: true,
+							type: 'submit',
+							value: 'OK'
+						}
+					]
+                },
+                callbacks: {
+                    // callbacks.submit (not callbacks.validation.success) fires unconditionally on form submit.
+                    submit: (data) => {
+                        const newClass = (data['metadata.elementClass'] || '').trim();
+                        const prevClass = model.get('metadata.elementClass') || '';
+                        // Save to metadata (null clears the value rather than storing an empty string).
+                        // view.set() — not model.set() — routes through the save pipeline and persists the data.
+                        view.set('metadata.elementClass', newClass || null);
+                        // Update the DOM immediately in the editor for instant visual feedback.
+                        // On re-renders, onRendered() in Front.js re-applies the class automatically.
+                        for (const v of lab_api.v1.view.getViews(model)) {
+                            applyElementClass(v.getMarkup(), newClass, prevClass);
+                        }
+                    }
+                },
+                eventHandlers: [{
+                    selector: '#lab-modal-elementclass-cancel',
+                    event: 'click',
+                    callback: () => modal.close()
+                }],
+                autofocus: true
+            });
+        });
+
         // Toggle pinning of a notice in a live feed
         lab_api.v1.ns.set('contextualmenu.callbacks.toggleNoticePin', (model, view, menuItem, menuParams, callback) => {
             const livefeedModel = model.getParent();
@@ -313,6 +469,11 @@ export const Namespace = {
             livefeedModel.setFiltered('noFetch', false);
             livefeedModel.resetExternalResource();
             livefeedModel.set('fields.pinnedNotices_json', pinneNotices);
+        });
+
+        // Check if Collabrador may run. Used to display Collabrador-related menu-items and hotkey only when Collabrador can run.
+        lab_api.v1.ns.set('collabrador.canRun', () => {
+            return !!lab_api.v1.config.get('collabrador.active');
         });
     }
 };

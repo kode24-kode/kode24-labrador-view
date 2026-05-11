@@ -32,6 +32,7 @@
     </div>
 </section>
 
+{{ ^app.isEditor }}
 <script>
     (function() {
         const settings = {
@@ -121,25 +122,23 @@
             return coordCache[location];
         }
 
-        const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
+        const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(location)}&limit=1`;
 
-        const res = await fetch(url, {
-            headers: {
-                "Accept-Language": "no"
-            }
-        });
+        const res = await fetch(url);
 
         if (!res.ok) {
-            throw new Error(`Nominatim request failed with status ${res.status}`);
+            throw new Error(`Geocoding request failed with status ${res.status}`);
         }
 
         const data = await res.json();
 
-        if (!Array.isArray(data) || data.length === 0) {
+        if (!data.features || data.features.length === 0) {
             throw new Error("Could not find coords for place: " + location);
         }
 
-        const coords = { lat: data[0].lat, lon: data[0].lon };
+        // GeoJSON coordinates are [longitude, latitude]
+        const [lon, lat] = data.features[0].geometry.coordinates;
+        const coords = { lat, lon };
             coordCache[location] = coords;
             return coords;
         }
@@ -238,3 +237,4 @@
         init();
     })();
 </script>
+{{ /app.isEditor }}

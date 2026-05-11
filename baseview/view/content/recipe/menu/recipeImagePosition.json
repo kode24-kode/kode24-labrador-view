@@ -1,0 +1,48 @@
+{
+    "icon": "labicon-image",
+    "title": "Image position",
+    "items": {
+        "imageOnTop": {
+            "icon": "labicon-image_above",
+            "text": "Image on top",
+            "callback": "toggleKeyAndValue",
+            "key": "metadata.imagePosition",
+            "onValue": "imageOnTop",
+            "offValue": false,
+            "bindings": [
+                {
+                    "path": "metadata.imagePosition",
+                    "attribute": "value"
+                }
+            ]
+        },
+        "imageBeside": {
+            "icon": "labicon-align_content_right",
+            "text": "Image beside info",
+            "callback": "toggleKeyAndValue",
+            "key": "metadata.imagePosition",
+            "onValue": "imageBeside",
+            "offValue": false,
+            "bindings": [
+                {
+                    "path": "metadata.imagePosition",
+                    "attribute": "value"
+                }
+            ]
+        },
+        "imageBelow": {
+            "icon": "labicon-moveDown",
+            "text": "Image below info",
+            "callback": "toggleKeyAndValue",
+            "key": "metadata.imagePosition",
+            "onValue": "imageBelow",
+            "offValue": false,
+            "bindings": [
+                {
+                    "path": "metadata.imagePosition",
+                    "attribute": "value"
+                }
+            ]
+        }
+    }
+}

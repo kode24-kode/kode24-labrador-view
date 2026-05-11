@@ -217,6 +217,10 @@ export class ParallaxSupport {
                         value: '',
                         selected: !this.data.spaceBelow
                     }, {
+                        title: '20% of viewport',
+                        value: '20',
+                        selected: this.data.spaceBelow === '20'
+                    }, {
                         title: '50% of viewport',
                         value: '50',
                         selected: this.data.spaceBelow === '50'

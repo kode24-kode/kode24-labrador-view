@@ -1,0 +1,246 @@
+{
+    "releasenotes": {
+        "version": {
+            "int": 1416,
+            "str": "1.4.16"
+        },
+        "items": [
+            {
+                "date": "20260302",
+                "title": "Noscript tag support",
+                "description": "Added support for noscript tags in custom tags system, allowing you to insert noscript elements at various page locations (head top, head bottom, body top, body bottom). This improves accessibility and enables better tracking implementations for users with JavaScript disabled.",
+                "links": [
+                    "/settings/cp?page=customtags"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1544",
+                "isFeature": true
+            },
+            {
+                "date": "20260301",
+                "title": "Simplified recipe styling",
+                "description": "Removed recipe-specific styling fields from style.json to reduce clutter. Recipe elements now use default font styles with fields.name as a standard copyable value, making styling more consistent and easier to manage.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1547",
+                "isImprovement": true
+            },
+            {
+                "date": "20260227",
+                "title": "Default menu hover effect",
+                "description": "Menu items now display an underline effect on hover by default, improving visual feedback and user experience when navigating through menus.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1542",
+                "isImprovement": true
+            },
+            {
+                "date": "20260227",
+                "title": "Byline description link styling",
+                "description": "Fixed font style for links in byline descriptions and extended descriptions, ensuring consistent typography when author descriptions contain hyperlinks.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1546",
+                "isBug": true
+            },
+            {
+                "date": "20260227",
+                "title": "Video overlay positioning",
+                "description": "Article teaser video play icons can now be positioned in any corner of the image (top-left, top-right, bottom-left, bottom-right) instead of only as a centered overlay. This provides more flexible design options for video content presentation.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1541",
+                "isFeature": true
+            },
+            {
+                "date": "20260227",
+                "title": "Enhanced article scroller navigation",
+                "description": "Article scroller navigation arrows can now be centered on images and support reversed color schemes (white background with black arrows). These options provide better visual integration and design flexibility for article scrollers.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1539",
+                "isFeature": true
+            },
+            {
+                "date": "20260225",
+                "title": "AI text generation fix",
+                "description": "Fixed an issue where generating article summaries or other AI-generated text would fail when using the new text editor with structured content in factboxes. The editor structure is now properly cleaned before setting generated text.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1538",
+                "isBug": true
+            },
+            {
+                "date": "20260225",
+                "title": "Articles by section filter",
+                "description": "Added **Use page section** option to Articles by Tag element, allowing you to display articles from the same section as the current page, sorted by publish date. This makes it easier to show related content from the same section without manually specifying tags.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1523",
+                "isFeature": true
+            },
+            {
+                "date": "20260223",
+                "title": "Fixed byline link templates",
+                "description": "Fixed byline links in body text to correctly link to author pages instead of email addresses. This ensures bylines placed in body text or right-side fields work the same as default bylines.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1522",
+                "isBug": true
+            },
+            {
+                "date": "20260223",
+                "title": "Fixed ad unit labels on Safari",
+                "description": "Resolved an issue where ad unit labels were not displaying correctly on Safari and WebKit browsers.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1500",
+                "isBug": true
+            },
+            {
+                "date": "20260223",
+                "title": "Improved Kilkaya preview tracking",
+                "description": "Added **disablePageview** flag for Kilkaya when articles are published as hidden, preventing preview links from incorrectly appearing in K5 streams before official publication.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1519",
+                "isBug": true
+            },
+            {
+                "date": "20260222",
+                "title": "Advanced SEO schema types",
+                "description": "Articles can now use specialized schema types for better search engine visibility: **NewsArticle**, **Article**, **OpinionNewsArticle**, **LiveBlogPosting**, **Recipe**, **VideoObject**, **BroadcastEvent**, and **ImageGallery**. Extended schema option adds rich metadata like article body, word count, reading time, editor information, and detailed author profiles. Live blog notices can include individual BlogPosting schema markup.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1483",
+                "isFeature": true
+            },
+            {
+                "date": "20260220",
+                "title": "Auto-publish bylines",
+                "description": "Bylines are now automatically published when created or updated through the byline editor, ensuring changes immediately appear on front-end author pages.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1534",
+                "isImprovement": true
+            },
+            {
+                "date": "20260219",
+                "title": "AI generation requires body text",
+                "description": "AI text generation features now display a helpful warning when trying to generate content without existing body text, preventing empty generation attempts.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1531",
+                "isImprovement": true
+            },
+            {
+                "date": "20260219",
+                "title": "Redesigned recipe element",
+                "description": "Complete redesign of the recipe element with extensive customization: show/hide controls for all elements, font styling options, image positioning, print-specific settings, flexible layouts for ingredients and instructions, copy/paste styling support, and background color options.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1520",
+                "isFeature": true
+            },
+            {
+                "date": "20260219",
+                "title": "Improved link color inheritance",
+                "description": "Links now properly inherit text color from their parent elements when custom text colors are applied, providing better visual consistency and design flexibility.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1527",
+                "isImprovement": true
+            },
+            {
+                "date": "20260219",
+                "title": "Button link text sizing",
+                "description": "Button links now support adjustable text size and font weight on mobile devices through the editor attributes panel.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1528",
+                "isImprovement": true
+            },
+            {
+                "date": "20260218",
+                "title": "Roxen export history",
+                "description": "Added export history tracking for Roxen integration. Editors can now view a table showing publication name, edition date, export timestamp, and user for all past exports of each article.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1525",
+                "isFeature": true
+            },
+            {
+                "date": "20260217",
+                "title": "Accessibility improvements",
+                "description": "Improved accessibility with proper **clip-path** for visually hidden elements and added missing heading 6 styling.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1526",
+                "isImprovement": true
+            },
+            {
+                "date": "20260213",
+                "title": "Restored favorite bylines",
+                "description": "Byline selector now shows favorite (recently used) bylines by default instead of bylines by user ID, responding to customer feedback.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1515",
+                "isImprovement": true
+            },
+            {
+                "date": "20260211",
+                "title": "Calendar styling improvements",
+                "description": "Article Calendar element now has proper padding and functional background colors (standard and custom), including header styling. Background color options are fully integrated with articles-by-tag titles.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1511",
+                "isImprovement": true
+            },
+            {
+                "date": "20260211",
+                "title": "New text editor support",
+                "description": "Added support for updated text editor including alternative namespace functions for article links and quotes, and updated ArticleCitation to work with both old and new editor implementations. Please let us know on our shared Slack channels or at support@labradorcms.com if you want to try the new text editor.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1488",
+                "isFeature": true
+            },
+            {
+                "date": "20260211",
+                "title": "Enhanced search display options",
+                "description": "Labrador search results now offer options to hide subtitles and show article authors, with dedicated font styling for all result elements including title, subtitle, site name, date, section, and authors.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1512",
+                "isFeature": true
+            },
+            {
+                "date": "20260206",
+                "title": "Tag page title element",
+                "description": "New tag page title element automatically displays the current tag name on tag pages. Text is automatically populated from the page's tag and can be styled but not manually edited.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1504",
+                "isFeature": true
+            },
+            {
+                "date": "20260205",
+                "title": "Article image hover effects",
+                "description": "Article teaser images can now display hover effects including scale-up animations (subtle 1.05 x or standard 1.1 x) and filters (brighten, darken, or grayscale). Effects can be combined and automatically respect user accessibility preferences for reduced motion.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1507",
+                "isFeature": true
+            },
+            {
+                "date": "20260205",
+                "title": "AI tag preservation",
+                "description": "Added an option to preserve existing tags when auto-generating tags with Labrador AI. Enable 'Preserve tags' in tag settings (/settings/cp?page=tag_page) to keep your manually added tags while AI generates additional contextual tags. The default is off to maintain existing workflows.",
+                "links": [
+                    "/settings/cp?page=tag_page"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1493",
+                "isFeature": true
+            },
+            {
+                "date": "20260205",
+                "title": "Play icon added",
+                "description": "Added a new play icon to the rich text editor toolbar, making it easier to insert video or audio indicators in your content.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1509",
+                "isFeature": true
+            },
+            {
+                "date": "20260205",
+                "title": "Removed redundant tooltips",
+                "description": "Removed tooltip hover text from images, dates, and article lists that duplicated visible information, creating a cleaner reading experience.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1497",
+                "isImprovement": true
+            },
+            {
+                "date": "20260205",
+                "title": "Directional scroll headers",
+                "description": "Added support for headers that change based on scroll direction. Headers can now display differently when scrolling down versus scrolling up, enabled by adding a 'directional' property to scroll events in your configuration.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1492",
+                "isFeature": true
+            }
+        ]
+    }
+}

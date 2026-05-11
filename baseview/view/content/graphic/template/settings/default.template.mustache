@@ -1,0 +1,43 @@
+<form method="post">
+    <h2 class="lab-title lab-space-below-medium">Graphic settings</h2>
+    <div class="lab-formgroup lab-grid lab-grid-gap ">
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+            <label for="input-fields.linkUrl">URL, email, or telephone</label>
+            <input type="url" name="fields.linkUrl" value="{{ get.current.fields.linkUrl }}" id="input-fields.linkUrl" placeholder="https://www.example.com, mailto:user@example.com, tel:+4722332244">
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+            <label for="input-fields.linkAltText">Label text</label>
+            <input type="text" name="fields.linkAltText" value="{{ get.current.fields.linkAltText }}" id="input-fields.linkAltText" placeholder="Text content for assistive technologies">
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+            <label for="input-fields.imageAltText">Image alt text</label>
+            <input type="text" name="fields.imageAltText" value="{{ get.current.fields.imageAltText }}" id="input-fields.imageAltText" placeholder="Alt text for image">
+        </div>
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Layout options</h3>
+        <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap">
+            <label for="fields.graphicWidthDesktop">Width desktop (px)</label>
+            <input id="fields.graphicWidthDesktop" type="number" name="fields.graphicWidthDesktop" value="{{ get.current.fields.graphicWidthDesktop }}" min="0">
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap">
+            <label for="fields.graphicWidthMobile">Width mobile (px)</label>
+            <input id="fields.graphicWidthMobile" type="number" name="fields.graphicWidthMobile" value="{{ get.current.fields.graphicWidthMobile }}" min="0">
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+            <label for="fields.centerGraphic">Center within container</label>
+            <input type="checkbox" id="fields.centerGraphic" name="fields.centerGraphic" value="1" {{ #get.current.fields.centerGraphic }}checked{{ /get.current.fields.centerGraphic }}>
+        </div>
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Link options</h3>
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+            <label for="fields.openInNewWindow">Open in new tab/window</label>
+            <input type="checkbox" id="fields.openInNewWindow" name="fields.openInNewWindow" value="1" {{ #get.current.fields.openInNewWindow }}checked{{ /get.current.fields.openInNewWindow }}>
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+            <label for="addRelNoFollow">Add no-follow attribute</label>
+            <input type="checkbox" id="addRelNoFollow" name="fields.addRelNoFollow" value="1" {{ #get.current.fields.addRelNoFollow }}checked{{ /get.current.fields.addRelNoFollow }}>
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+            <label for="fields.sponsored">Add sponsored attribute</label>
+            <input type="checkbox" id="fields.sponsored" name="fields.sponsored" value="1" {{ #get.current.fields.sponsored }}checked{{ /get.current.fields.sponsored }}>
+        </div>
+    </div>
+</form>

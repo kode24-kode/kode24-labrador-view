@@ -1,5 +1,10 @@
 {
     "boxTitle": "Button link",
     "boxDescription": "Link shaped to look like a button",
-    "boxKeywords": "button link"
+    "boxKeywords": "button link",
+    "viewportMap": {
+        "fields": {
+            "title": "presets.vp_content_attributes"
+        }
+    }
 }

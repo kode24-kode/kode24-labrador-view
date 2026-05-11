@@ -1,6 +1,6 @@
 /*!
  * Baseview.
- * Build: 0d442cf96f5b9b3fe807
+ * Build: 6360a5b6d589e0a39048
  * (c) Labrador CMS AS
  * https://www.labradorcms.com
  *
@@ -15,10 +15,10 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Entry: () => (/* binding */ j),
+/* harmony export */   Entry: () => (/* binding */ E),
 /* harmony export */   behaviours: () => (/* binding */ t)
 /* harmony export */ });
-var e={d:(t,i)=>{for(var s in i)e.o(i,s)&&!e.o(t,s)&&Object.defineProperty(t,s,{enumerable:!0,get:i[s]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.r(t),e.d(t,{adnuntiusAd:()=>T,article:()=>b,googleAd:()=>$,image:()=>_,livefeed:()=>w,notice:()=>S,page_article:()=>u,page_front:()=>h});class i{static getSiteStyles(e,t=[]){const i=lab_api.v1.config.get(`site_styles.${e}`)||t;return Sys.logger.debug(`ViewSupport: Found ${Array.isArray(i)?i.length:0} stylesheet(s) for site "${e}".`),i}static getSiteStylesWithFallback(e,t=[]){const i=this.getSiteStyles(e,null);if(null===i){t.push(e);const i=lab_api.v1.config.get("lab_fallback_site",{site:e});if(i&&!t.includes(i))return this.getSiteStylesWithFallback(i,t)}return i||[]}static getSiteScripts(e,t,i){const s=this.filterScriptListByPageType(lab_api.v1.config.get(`site_scripts.${e}`)||[],t,i);return Sys.logger.debug(`ViewSupport: Found ${s.length} script-path(s) for site "${e}".`),s}static getSiteScriptsWithFallback(e,t,i,s=[]){let a=this.getSiteScripts(e,t,i);if(s.length&&(a=this.removeWithInheritFalse(a)),!a.length){s.push(e);const a=lab_api.v1.config.get("lab_fallback_site",{site:e});if(a&&!s.includes(a))return this.getSiteScriptsWithFallback(a,t,i,s).filter(e=>!1!==e.inherit)}return a}static getCommonScripts(e,t,i=!1){const s=this.filterScriptListByPageType(lab_api.v1.config.get("site_scripts_common")||[],e,t,i);return Sys.logger.debug(`ViewSupport: Found ${s.length} common ${i?"script-path(s)":"JS modules"}`),s}static filterScriptListByPageType(e,t,i,s=!1){return e.filter(e=>(!e.isModule&&!s||e.isModule&&s)&&(!e.pageType||e.pageType===t)&&(!i||i&&!e.skipEditor))}static removeWithInheritFalse(e){return Array.isArray(e)&&e.length>0?e.filter(e=>!1!==e.inherit):e}static getSiteFilesForContentboxes(e,t,i,s=[]){const a=[],n=lab_api.v1.model.query.getModelTypes();Sys.logger.debug(`ViewSupport sitefiles: Will register ${i}-file(s) for contentbox-types ${n.join(", ")}.`);for(const e of n){const t=lab_api.v1.config.get(`contentbox_settings.${e}.require.${i}`);if(Array.isArray(t))for(const n of t)a.includes(n)||s.includes(n)||(Sys.logger.debug(`ViewSupport sitefiles: Will include ${i}-file "${n}" for contentbox "${e}".`),a.push(n))}return Sys.logger.debug(`ViewSupport sitefiles: Finished registering ${i}-file(s). Found ${a.length} file(s).`),a}}class s{constructor(e){this.api=e,this.pageType=this.api.v1.model.root.getType()}get media(){return{getLogo:(e=this.api.v1.viewport.getName())=>{const t=this.api.v1.config.get("logo")||{},i=t.uploadedFileUrl?{src:t.uploadedFileUrl,href:t.default.href,type:"img",size:{width:t.logoWidth},title:t.default.title,isCustom:!0}:t[e]||t.default||null;i&&("img"===i.type?i.is_img=!0:"svg"===i.type&&(i.is_svg=!0));return{current:i,sm:t.uploadedFileUrl?{src:t.uploadedFileUrl,href:t.default.href,size:{width:t.logoWidth},title:t.default.title,isCustom:!0}:t.standalone||t.mailmojo||null,mm:t.uploadedMailmojoFileUrl?{src:t.uploadedMailmojoFileUrl,href:t.default.href,size:{width:t.mailmojoLogoWidth},title:t.default.title,isCustom:!0}:t.mailmojo||t.standalone||null}}}}get menus(){return{get:({section:e,defaultSection:t}={},i)=>{const s={},a=Object.values(this.api.v1.config.get("menus")||{});if(a.length<1)return null;const n=i=>{i.forEach(i=>{i.selected=i.section===e||i.section===t,"target"in i||(i.target="_self"),"selector"in i||(i.selector=""),"children"in i||(i.children=[]),i.children.length>0&&(i.hasChildren=!0,n(i.children))})};return a.forEach(e=>{n(e.menuItems);const t=e.type||e.menuName;s[t]={items:e.menuItems,type:e.type,selector:e.selector||"",menuName:e.menuName||"",showMenuName:e.showMenuNameOnDesktop||e.showMenuNameOnMobile||!1,showMenuNameOnDesktop:e.showMenuNameOnDesktop||"",showMenuNameOnMobile:e.showMenuNameOnMobile||""}}),i?s[i]:s}}}get misc(){return{}}get resources(){const e={required:[],getProgressReader:()=>(e.required.push({url:"/view-resources/public/common/ReadProgress.js",requireDom:!1}),{active:!0,minElementCount:lab_api.v1.config.get("displayReadProgress.minElementCount")||25}),getSiteFiles(t,s,a,n,o){const r=i.getSiteScriptsWithFallback(a,n,o),l=i.getCommonScripts(n,o);return e.required.push(...r,...l),{js:i.getSiteFilesForContentboxes(t,s,"js",e.required.map(e=>e.url)),css:i.getSiteFilesForContentboxes(t,s,"css")}},getModules:(e,t,s,a,n)=>i.getCommonScripts(a,n,!0)},t={get:e=>{const i=(lab_api.v1.config.get("analytics.kilkaya")||[]).map(e=>{const t={...e};return t.id&&"string"==typeof t.id&&t.id.trim().endsWith(".js")&&(t.url=t.id),t});let s=this.api.v1.config.get("analytics.adnuntiusConnect");s&&"object"==typeof s&&!Array.isArray(s)&&Object.keys(s).length&&(s=new Array(s));const a={google:this.api.v1.config.get("analytics.google.tracking_id"),google_gtm:this.api.v1.config.get("analytics.google.gtm"),comscore:this.api.v1.config.get("analytics.comscore.comscore_id"),adnuntiusConnect:s,adnuntiusConnectCMP:this.api.v1.config.get("analytics.adnuntiusConnectCMP"),kilkaya:i,kilkayaSettings:this.api.v1.config.get("analytics.kilkayaSettings"),io:this.api.v1.config.get("analytics.io.tracking_id")},n=t.getDataLayer(e);return n.dataLayer&&(a.dataLayer=n.dataLayer),n.usesJWTCookieData&&(a.usesJWTCookieData=n.usesJWTCookieData),a},getDataLayer:e=>{const t=this.api.v1.config.get("analytics.google.dataLayer");let i=!1;if(t&&Array.isArray(t)&&t.length){t.forEach(t=>{let s=null;switch(t.source){case"fixed":s=(t.value||"").trim();break;case"config":s=this.api.v1.properties.get(t.value);break;case"jwtcookie":t.isJWTCookie=!0,s=t.value,i=!0;break;case"article_authors":s=`${(e.bylinesStringCommaSeparated||"").replace(/"/g,"")}`;break;case this.pageType.replace("page_",""):s=this.api.v1.model.query.getRootModel().get(t.value);break;default:Sys.logger.warn(`Unsupported dataLayer source: "${t.source}"`)}t.value=null===s?"":s.toString()});const s=t.map(e=>e.value.length>0).lastIndexOf(!0);t[s]&&(t[s].last=!0)}return{dataLayer:t,usesJWTCookieData:i}}};return{scripts:e,analytics:t}}get settings(){return{get:(e={})=>{const t=this.api.v1.config.get(`page_settings.${e.pageType}.social.display`)||{},i=this.api.v1.model.query.getRootModel().get("fields.show_social_bodytext_before"),s=this.api.v1.model.query.getRootModel().get("fields.show_social_bodytext_after"),a=this.api.v1.model.query.getRootModel().get("fields.show_social_header");null!==i&&(t.bodytext_before=!!i),null!==s&&(t.bodytext_after=!!s),null!==a&&(t.header=!!a);const n=this.api.v1.config.get(`page_settings.${e.pageType}.social.items`)||{},o=this.api.v1.config.get(`page_settings.${e.pageType}.showTags`),r=Object.keys(n).filter(e=>!!n[e].display).map(t=>({name:t,icon:n[t].icon||"",url:e.socialLinks[t]||"",shareText:this.api.v1.locale.get(`socialMedia.shareText.${t}`,{noRender:!0,fallbackValue:""}),isButton:n[t].isButton||!1}));return{page_type:e.pageType,social:{display:{bodytext_before:r.length>0&&!!t.bodytext_before,bodytext_after:r.length>0&&!!t.bodytext_after,header:r.length>0&&!!t.header},items:r},showTags:!1!==o}}}}}class a{static getStyleDefinitions(e){const t=e.v1.properties.get("site.alias"),i=e.v1.config.get("style_definitions",t),s=[];(i.rules||[]).forEach(e=>s.push(e)),(i.fontface||[]).forEach(e=>{const t=`.font-${(Array.isArray(e.family)?e.family[0]:e.family).replace(/ /g,"")}`;s.push(a.getFamilyDefinition(t,e.family));const i={light:{keys:["light","200","100","300"],used:!1},normal:{keys:["regular","normal","400","500"],used:!1},bold:{keys:["bold","600","700"],used:!1},black:{keys:["black","800","900"],used:!1}};e.variants.forEach(e=>{for(const n of Object.keys(i)){const o=i[n];o&&!o.used&&o.keys.indexOf(e)>-1&&(s.push(a.getWeightDefinition(t,e,n)),o.used=!0)}})});const n={fontface:i.fontface||[],parsedRules:a.CSSRuleParser(s)};return n.hasRules=!!n.parsedRules.length,n}static getFamilyDefinition(e,t){return{selector:e,declarations:[{key:"font-family",value:`${Array.isArray(t)?`${t.map(e=>`"${e}"`).join(", ")}`:`"${t}"`} !important`}]}}static getWeightDefinition(e,t,i){let s=t;return"regular"===t&&(s="normal"),{selector:`${e}.font-weight-${i}`,declarations:[{key:"font-weight",value:`${s} !important`}]}}static CSSRuleParser(e){const t=[];return e.forEach(e=>{let i,s,a=`${e.selector} { `;e.declarations.forEach(e=>{"font-size-desktop"===e.key?"default"!==e.value&&(a+=`font-size: ${e.value.slice(0,-2)/16}rem; `):"font-size-mobile"===e.key?"default"!==e.value&&(i=`calc(0.262vw * ${e.value.slice(0,-2)})`):"line-height-desktop"===e.key?"default"!==e.value&&(a+=`line-height: ${e.value}; `):"line-height-mobile"===e.key?"default"!==e.value&&(s=e.value):"font-family"===e.key?e.value.includes("!important")?a+=`${e.key}: ${e.value}; `:a+=`${e.key}: "${e.value}"; `:"color"===e.key||"text-decoration"===e.key?"default"!==e.value&&(a+=`${e.key}: ${e.value}; `):a+=`${e.key}: ${e.value}; `}),a+="}",(i||s)&&(a+=`@media (max-width: 767px) { .resp_fonts ${e.selector} {`,i&&(a+=`font-size: ${i}; `),s&&(a+=`line-height: ${s}; `),a+="} }"),t.push(a)}),t}static getInlineCSS(e,t){return[{key:"custom_properties",value:e.v1.config.get("css_build.custom_properties",{site:t})||""},{key:"background_colors",value:e.v1.config.get("css_build.background_colors",{site:t})||""},{key:"background_colors_opacity",value:e.v1.config.get("css_build.background_colors_opacity",{site:t})||""},{key:"border_colors",value:e.v1.config.get("css_build.border_colors",{site:t})||""},{key:"font_colors",value:e.v1.config.get("css_build.font_colors",{site:t})||""},{key:"image_gradient",value:e.v1.config.get("css_build.image_gradient",{site:t})||""}]}static getCssVariables(e){const t=e.v1.config.get("custom_css_variables")||{},i={no_viewport:[],desktop:[],mobile:[]};for(const e of Object.keys(t))for(const s of Object.keys(t[e]))i[s].push({key:e,value:(t[e][s]||{}).value});return i}}const n={sunday:{en:"sunday",sv:"söndag",dk:"søndag",no:"søndag",nl:"zondag",kl:"sapaat"},monday:{en:"monday",sv:"måndag",dk:"mandag",no:"mandag",nl:"maandag",kl:"ataasinngorneq"},tuesday:{en:"tuesday",sv:"tisdag",dk:"tirsdag",no:"tirsdag",nl:"dinsdag",kl:"marlunngorneq"},wednesday:{en:"wednesday",sv:"onsdag",dk:"onsdag",no:"onsdag",nl:"woensdag",kl:"pingasunngorneq"},thursday:{en:"thursday",sv:"torsdag",dk:"torsdag",no:"torsdag",nl:"donderdag",kl:"sisamanngorneq"},friday:{en:"friday",sv:"fredag",dk:"fredag",no:"fredag",nl:"vrijdag",kl:"tallimanngorneq"},saturday:{en:"saturday",sv:"lördag",dk:"lørdag",no:"lørdag",nl:"zaterdag",kl:"arfininngorneq"},january:{en:"January",sv:"januari",dk:"januar",no:"januar",nl:"januari",kl:"ukiortaarsiorneq"},february:{en:"February",sv:"februari",dk:"februar",no:"februar",nl:"februari",kl:"ukiortaami"},march:{en:"March",sv:"mars",dk:"marts",no:"mars",nl:"maart",kl:"marsi"},april:{en:"April",sv:"april",dk:"april",no:"april",nl:"april",kl:"apriili"},may:{en:"May",sv:"maj",dk:"maj",no:"mai",nl:"mei",kl:"maajii"},june:{en:"June",sv:"juni",dk:"juni",no:"juni",nl:"juni",kl:"juuni"},july:{en:"July",sv:"juli",dk:"juli",no:"juli",nl:"juli",kl:"juuli"},august:{en:"August",sv:"augusti",dk:"august",no:"august",nl:"augustus",kl:"aggusti"},september:{en:"September",sv:"september",dk:"september",no:"september",nl:"september",kl:"septembari"},october:{en:"October",sv:"oktober",dk:"oktober",no:"oktober",nl:"oktober",kl:"oktobari"},november:{en:"November",sv:"november",dk:"november",no:"november",nl:"november",kl:"novembari"},december:{en:"December",sv:"december",dk:"december",no:"desember",nl:"december",kl:"decembari"},ago:{en:"ago",sv:"sedan",dk:"siden",no:"siden",nl:"geleden",kl:"matuma siorna"},now:{en:"now",sv:"nu",dk:"nu",no:"nå",nl:"nu",kl:"maanna"},min:{en:"min"},minutes:{en:"minutes",sv:"minuter",dk:"minutter",no:"minutter",nl:"minuten",kl:"minutsi"},hour:{en:"hour",sv:"timme",dk:"time",no:"time",nl:"uur",kl:"akunnera"},hours:{en:"hours",sv:"timmar",dk:"timer",no:"timer",nl:"uren",kl:"akunnerit"},day:{en:"day",sv:"dag",dk:"dag",no:"dag",nl:"dag",kl:"ulloq"},days:{en:"days",sv:"dagar",dk:"dage",no:"dager",nl:"dagen",kl:"ullut"},monthdayyear:{en:"{{MMMM}} {{DD}}. {{YYYY}}",sv:"{{DD}}/{{MM}} {{YYYY}}",dk:"{{DD}}/{{MM}} {{YYYY}}",no:"{{DD}}/{{MM}} {{YYYY}}",nl:"{{DD}}/{{MM}} {{YYYY}}"},hourminute:{en:"{{HH}}:{{mm}}"}};class o{constructor(e="en",t="en"){this.fallbackLanguage=t,this.language=e||t,this.words=n,this.timezone=this.getTimezone()}getTimezone(){const e=lab_api.v1.config.get("timezone");return void 0===e||Number.isNaN(e)||Number.isNaN(parseFloat(e))?1:parseInt(e,10)}str(e){let{language:t}=this;return e in this.words?(t in this.words[e]||(t=this.fallbackLanguage),t in this.words[e]?this.words[e][t]:null):null}format(e,t){return Mustache.render(t,{YYYY:()=>e.getFullYear(),YY:()=>`${e.getFullYear()}`.slice(-2),MM:()=>(e.getMonth()<9?"0":"")+(e.getMonth()+1),M:()=>e.getMonth()+1,D:()=>e.getDate(),DD:()=>(e.getDate()<10?"0":"")+e.getDate(),H:()=>e.getHours(),HH:()=>(e.getHours()<10?"0":"")+e.getHours(),m:()=>e.getMinutes(),mm:()=>(e.getMinutes()<10?"0":"")+e.getMinutes(),s:()=>e.getSeconds(),ss:()=>(e.getSeconds()<10?"0":"")+e.getSeconds(),dddd:()=>this.weekday(e,!1),ddd:()=>this.weekday(e,!1,3),MMMM:()=>this.monthName(e,!1),MMM:()=>this.monthName(e,!1,3),W:()=>this.weekNumber(e,!0,!0),WW:()=>this.weekNumber(e,!0,!1)})}utcFormat(e,t){const i=this.correctDate(e);return Mustache.render(t,{YYYY:()=>i.getUTCFullYear(),YY:()=>`${i.getUTCFullYear()}`.slice(-2),MM:()=>(i.getUTCMonth()<9?"0":"")+(i.getUTCMonth()+1),M:()=>i.getUTCMonth()+1,D:()=>i.getUTCDate(),DD:()=>(i.getUTCDate()<10?"0":"")+i.getUTCDate(),H:()=>i.getUTCHours(),HH:()=>(i.getUTCHours()<10?"0":"")+i.getUTCHours(),h:()=>this.twelveHourClock(i),hh:()=>this.twelveHourClock(i,!0),m:()=>i.getUTCMinutes(),mm:()=>(i.getUTCMinutes()<10?"0":"")+i.getUTCMinutes(),s:()=>i.getUTCSeconds(),ss:()=>(i.getUTCSeconds()<10?"0":"")+i.getUTCSeconds(),a:()=>i.getUTCHours()<12?"a.m.":"p.m.",A:()=>i.getUTCHours()<12?"A.M.":"P.M.",dddd:()=>this.weekday(i,!0),ddd:()=>this.weekday(i,!0,3),MMMM:()=>this.monthName(i,!0),MMM:()=>this.monthName(i,!0,3),W:()=>this.weekNumber(i,!0,!0),WW:()=>this.weekNumber(i,!0,!1)})}formattedDate(e,t,i=!0,s=!0){let a=t||"";return a=a.replace("Y",e.getFullYear()),a=a.replace("m",(i&&e.getMonth()<9?"0":"")+(e.getMonth()+1)),a=a.replace("d",(i&&e.getDate()<10?"0":"")+e.getDate()),a=a.replace("H",(s&&e.getHours()<10?"0":"")+e.getHours()),a=a.replace("i",(s&&e.getMinutes()<10?"0":"")+e.getMinutes()),a=a.replace("s",e.getSeconds()),a=a.replace("l",this.weekday(e,!1)),a=a.replace("D",this.weekday(e,!1,3)),a=a.replace("F",this.monthName(e,!1)),a=a.replace("M",this.monthName(e,!1,3)),a}formattedUtcDate(e,t,i=!0,s=!0){const a=this.correctDate(e);let n=t||"";return n=n.replace("Y",a.getUTCFullYear()),n=n.replace("m",(i&&a.getUTCMonth()<9?"0":"")+(a.getUTCMonth()+1)),n=n.replace("d",(i&&a.getUTCDate()<10?"0":"")+a.getUTCDate()),n=n.replace("H",(s&&a.getUTCHours()<10?"0":"")+a.getUTCHours()),n=n.replace("i",(s&&a.getUTCMinutes()<10?"0":"")+a.getUTCMinutes()),n=n.replace("s",a.getUTCSeconds()),n=n.replace("l",this.weekday(a,!0)),n=n.replace("D",this.weekday(a,!0,3)),n=n.replace("F",this.monthName(a,!0)),n=n.replace("M",this.monthName(a,!0,3)),n}correctDate(e){return this.manipulateTime(e,this.isSummerTime(e)?this.timezone+1:this.timezone)}utcDate(e){return this.unmanipulateTime(e,this.isSummerTime(e)?this.timezone+1:this.timezone)}timestampToDate(e){return new Date(1e3*e)}toTimestamp(e){return Math.round(e.getTime()/1e3)}parseDate(e){const t=e.substr(0,4),i=e.substr(4,2)-1,s=e.substr(6,2),a=new Date(t,i,s),n=a.getFullYear()==t,o=a.getMonth()==i,r=a.getDate()==s;return n&&o&&r?a:"invalid date"}weekday(e,t=!1,i=9){return([this.str("sunday"),this.str("monday"),this.str("tuesday"),this.str("wednesday"),this.str("thursday"),this.str("friday"),this.str("saturday")][t?e.getUTCDay():e.getDay()]||"").substr(0,i)}monthName(e,t=!1,i=10){return([this.str("january"),this.str("february"),this.str("march"),this.str("april"),this.str("may"),this.str("june"),this.str("july"),this.str("august"),this.str("september"),this.str("october"),this.str("november"),this.str("december")][t?e.getUTCMonth():e.getMonth()]||"").substr(0,i)}weekNumber(e,t=!1,i=!0){const s=new Date(e.valueOf()),a=((t?e.getUTCDay():e.getDay())+6)%7;s.setDate(s.getDate()-a+3);const n=s.valueOf();s.setMonth(0,1),4!==s.getDay()&&s.setMonth(0,1+(4-s.getDay()+7)%7);const o=1+Math.ceil((n-s)/6048e5);return(!i&&o<10?"0":"")+o}timestampToNiceDate(e,t=!1){const i={ago:t?"":this.str("ago"),now:this.str("now"),minute:t?this.str("min"):this.str("minutes"),minutes:t?this.str("min"):this.str("minutes"),hour:this.str("hour"),hours:this.str("hours"),day:this.str("day"),days:this.str("days")},s=(new Date).getTime(),a=new Date(1e3*e).getTime()-0,n=parseInt((s-a)/1e3/60,10);return n<60?n<1?i.now:1==n?`1 ${i.minute} ${i.ago}`:`${n} ${i.minutes} ${i.ago}`:n<1440?1==parseInt(n/60,10)?`1 ${i.hour} ${i.ago}`:`${parseInt(n/60,10)} ${i.hours} ${i.ago}`:parseInt(n/1440,10)<30?1==parseInt(n/1440,10)?`1 ${i.day} ${i.ago}`:`${parseInt(n/1440,10)} ${i.days} ${i.ago}`:this.format(this.timestampToDate(e),this.str("monthdayyear"))}isSummerTime(e){function t(e,t){const i=new Date,s=new Date(Date.UTC(t||i.getFullYear(),e+1,0)),a=s.getDay();return new Date(Date.UTC(s.getFullYear(),s.getMonth(),s.getDate()-a))}const i=e||new Date,s=t(2,i.getFullYear());s.setHours(1);const a=t(9,i.getFullYear());return s.setHours(1),i.getTime()>=s.getTime()&&i.getTime()<a.getTime()}manipulateTime(e,t){return new Date(e.getTime()+60*t*60*1e3)}unmanipulateTime(e,t){return new Date(e.getTime()-60*t*60*1e3)}twelveHourClock(e,t=!1){const i=e.getUTCHours();let s;return 0===i||12===i?s=12:(s=i<12?i:i-12,t&&s<10&&(s=`0${s}`)),s}}class r{static getAdnuntiusSettings(e,t,i,s,a,n=!1,r=!1){Sys.logger.debug(`[AdsHelper.getAdnuntiusSettings] Called with disableSkyscraper=${n}, disableTopBanner=${r}`);const l=(e.v1.config.get("contentbox_settings.adnuntiusAd.bidding")||{}).enabled||!1;function d(e,t){let i="";return l&&e.prebidConfig&&(i=JSON.parse(e.prebidConfig),Array.isArray(i)&&([i]=i),i=JSON.stringify(i)),{...e,prebidConfig:i,metadata:t.metadata||[]}}const g=e.v1.config.get("contentbox_settings.adnuntiusAd.formats")||[],p=e.v1.config.getView(`insertDynamic.${e.v1.model.root.getType().replace("page_","")}.${i.getViewport()}`,a.alias)||[],c=e.v1.model.query.getChildrenOfType(t,"adnuntiusAd",!0,!0),u=[];for(const e of p){const[t]=g.filter(t=>e.content_data.fields.format===t.format);t&&(!1===e.placement.key.includes("skyscraper_")&&"topbanner"!==e.placement.key||e.placement.key.includes("skyscraper_")&&!n||"topbanner"===e.placement.key&&!r)&&u.push(d(t,e))}for(const e of c){const[t]=g.filter(t=>e.get("fields.format")===t.format);t&&u.push(d(t,e))}const h=(new o).utcFormat(new Date,"&tag=week_{{ W }}_{{ YYYY }}");return{enabled:g.length>0,lazyload:e.v1.config.get("contentbox_settings.adnuntiusAd.lazyload")||!1,adUnits:u,spacingTop:e.v1.config.get("contentbox_settings.adnuntiusAd.spacingTop")||120,fetchMarginPercent:s.fetchMarginPercent||150,renderMarginPercent:s.renderMarginPercent||150,bidding:{enabled:l},hideOnTabletWidth:s.hideOnTabletWidth||1316,refreshdelay:e.v1.config.get("contentbox_settings.adnuntiusAd.refreshdelay")||5,refreshcount:e.v1.config.get("contentbox_settings.adnuntiusAd.refreshcount")||1,connectLoading:e.v1.config.get("contentbox_settings.adnuntiusAd.connectLoading")||!1,contkitEnabled:e.v1.config.get("contentbox_settings.adnuntiusAd.contkitEnabled")||!1,newsletter:{targeting:h}}}static getGoogleSettings(e,t,i,s,a,n=!1,o=!1){function r(e,t){const{sizes:i=[],fluid:s=!1}=e,a=i.map(e=>`[${e.width},${e.height}]`);return s&&a.push('"fluid"'),{...e,sizesString:`[${a.join(", ")}]`,metadata:t.metadata||[]}}Sys.logger.debug(`[AdsHelper.getGoogleSettings] Called with disableSkyscraper=${n}, disableTopBanner=${o}`);const l=e.v1.config.get("contentbox_settings.googleAd.formats")||[],d=e.v1.config.get("contentbox_settings.googleAd.anchor")||{enabled:!1,code:"",type:"TOP_ANCHOR"},g=e.v1.config.getView(`insertDynamic.${e.v1.model.root.getType().replace("page_","")}.${i.getViewport()}`,a.alias)||[],p=e.v1.model.query.getChildrenOfType(t,"googleAd",!0,!0),c=[];for(const e of g){const[t]=l.filter(t=>e.content_data.fields.format===t.format),i=e.placement.key,s=t&&(!1===i.includes("skyscraper_")&&"topbanner"!==i||i.includes("skyscraper_")&&!n||"topbanner"===i&&!o);Sys.logger.debug(`[AdsHelper.getGoogleSettings] Placement: ${i}, Format: ${t?t.format:"not found"}, ShouldInclude: ${s}`),s&&c.push(r(t,e))}Sys.logger.debug(`[AdsHelper.getGoogleSettings] Found ${p.length} manual Google Ad(s)`);for(const e of p){const[t]=l.filter(t=>e.get("fields.format")===t.format);t&&(Sys.logger.debug(`[AdsHelper.getGoogleSettings] Adding manual ad with format: ${t.format}`),c.push(r(t,e)))}return Sys.logger.debug(`[AdsHelper.getGoogleSettings] Final visibleUnits count: ${c.length}, formats: ${c.map(e=>e.format).join(", ")}`),{enabled:l.length>0,lazyload:s.lazyload||!1,spacingTop:e.v1.config.get("contentbox_settings.googleAd.spacingTop")||120,fetchMarginPercent:s.fetchMarginPercent||150,renderMarginPercent:s.renderMarginPercent||150,adUnits:c,anchor:d,dfpid:s.dfpid||!1,debugmode:s.debugmode||!1,disableInitialLoad:s.disableInitialLoad||!1,bidding:s.bidding,hideOnTabletWidth:s.hideOnTabletWidth||1316}}}class l{constructor({pageType:e="",canonical:t="",isTagpage:i=!1,isTagpageWithFrontpage:s=!1,tagpagePath:a="/tag/",publishedUrl:n=""}={}){this.settings={pageType:e,canonical:t,isTagpage:i,isTagpageWithFrontpage:s,tagpagePath:a,publishedUrl:n},this.cache={seoData:null},this.imageServer=lab_api.v1.properties.get("image_server")}getStructuredData(e){return e.get("fields.jsonld_json")?e.get("fields.custom_jsonld"):"front"===this.settings.pageType?this.generateFrontData(e):"article"===this.settings.pageType||"notice"===this.settings.pageType?this.generateArticleData(e):null}generateSiteData(e){return{"@context":"http://schema.org","@type":"WebSite",name:lab_api.v1.properties.get("site.display_name"),url:lab_api.v1.properties.get("site.domain")||""}}generateFrontData(e){const t=this.getSEOData(e);return{"@context":"https://schema.org","@type":"WebPage",name:t.title,description:t.description}}generateArticleData(e){const t=this.getSEOData(e),i={"@context":"https://schema.org","@type":"NewsArticle",headline:t.title||e.get("fields.title"),description:t.description,mainEntityOfPage:{"@id":this.settings.publishedUrl},availableLanguage:[{"@type":"Language",alternateName:t.language}],image:lab_api.v1.model.query.getChildrenOfType(e,"image",!0).map(e=>{const t=e.get("fields.imageurl")||`${this.imageServer}/?imageId=${e.get("instance_of")}`;return t.endsWith("width=")?`${t}1200`:`${t}&width=1200`}),keywords:(e.get("tags")||[]).join(", "),author:lab_api.v1.model.query.getChildrenOfType(e,"byline",!0).map(e=>{let t=e.get("fields.firstname");"Byline first name"===t&&(t="");let i=e.get("fields.lastname");"Byline last name"===i&&(i="");const s={"@type":"Person",name:`${t} ${i}`},a=e.get("fields.public_url");a&&(s.url=a);const n=(e.children||[]).filter(e=>"image"===e.type)[0];n&&(s.image={"@type":"ImageObject",url:`${n.get("fields.imageurl")}&width=250`});const o=e.get("fields.public_email");return o&&(s.email=o),s}),publisher:{"@type":"Organization",name:lab_api.v1.properties.get("site.display_name"),logo:{"@type":"ImageObject",url:lab_api.v1.config.get("logo.default.src")}}};return e.get("fields.published")&&(i.datePublished=new Date(1e3*parseInt(e.get("fields.published"),10)).toISOString()),e.get("fields.modified")&&(i.dateModified=new Date(1e3*parseInt(e.get("fields.modified"),10)).toISOString()),"1"===e.get("fields.paywall")&&(i.isAccessibleForFree=!0,i.hasPart={"@type":"WebPageElement",isAccessibleForFree:!1,cssSelector:".teaserContent"}),i}getSEOData(e){if(this.cache.seoData)return this.cache.seoData;let t,i,s;if("article"===this.settings.pageType||"notice"===this.settings.pageType)i=lab_api.v1.util.string.sanitizeString(e.get("fields.seotitle")||e.get("fields.title")||""),s=lab_api.v1.util.string.sanitizeString(e.get("fields.seodescription")||e.get("fields.subtitle")||""),t=e.get("fields.seolanguage")||lab_api.v1.config.get("contentLanguage");else{if(this.settings.isTagpage&&!this.settings.isTagpageWithFrontpage){const e=this.settings.tagpagePath.replace(/\//g,""),t=(this.settings.canonical.split(this.settings.tagpagePath)[1]||"").split("/").filter(e=>!!e),s={tag:t[t.length-1],tags:t,tagPath:e};i=lab_api.v1.locale.get("tags.title_text",{data:s})}else i=lab_api.v1.util.string.sanitizeString(e.get("fields.seotitle")||e.get("fields.name")||"");s=lab_api.v1.util.string.sanitizeString(e.get("fields.seodescription")||"")}return this.cache.seoData={title:i.charAt(0).toUpperCase()+i.slice(1),description:s,language:t},this.cache.seoData}}class d{static prepareForTemplate(e,t,i){const s={meta:{head_top:[],head_bottom:[]},script:{head_top:[],head_bottom:[],body_top:[],body_bottom:[]},style:{head_top:[],head_bottom:[]},link:{head_top:[],head_bottom:[]}},a=e.filter(e=>!(e.pageType&&e.pageType!==t||e.skipEditor&&i));for(const e of Object.keys(s))for(const t of Object.keys(s[e]))s.meta[t]=a.filter(e=>"meta"===e.tag).filter(e=>e.placement===t).map(e=>this.createCustomTag(e)),s.script[t]=a.filter(e=>"script"===e.tag).filter(e=>e.placement===t).map(e=>this.createCustomTag(e)),s.style[t]=a.filter(e=>"style"===e.tag).filter(e=>e.placement===t).map(e=>this.createCustomTag(e)),s.link[t]=a.filter(e=>"link"===e.tag).filter(e=>e.placement===t).map(e=>this.createCustomTag(e));return console.log(s),s}static createCustomTag(e){switch(e.tag){case"link":return this.createLinkTag(e);case"script":return this.createScriptTag(e);case"style":return this.createStyleTag(e);default:return this.createMetaTag(e)}}static fetchDynamicAttribute(e){return lab_api.v1.view.render({model:lab_api.v1.model.query.getRootModel(),template:e})||null}static parseAttributes(e){return e.filter(e=>!!e.key).map(e=>e.value?`${e.key}="${e.value.match(/\{\{.*\}\}/g)?this.fetchDynamicAttribute(e.value):e.value}"`:e.key).join(" ")}static parseVariables(e){return e.replace(/\{\{\{?.*?\}\}\}?/g,this.fetchDynamicAttribute)}static createLinkTag(e){return`<link ${this.parseAttributes(e.attributes)}>`}static createScriptTag(e){return`<script ${this.parseAttributes(e.attributes)}>${e.value?this.parseVariables(e.value):""}<\/script>`}static createMetaTag(e){return`<meta ${this.parseAttributes(e.attributes)}>`}static createStyleTag(e){return`<style ${this.parseAttributes(e.attributes)}>${e.value?this.parseVariables(e.value):""}</style>`}}class g{static buildConfig(e){return{viewConfig:{config:{customer:{paywall:{label:lab_api.v1.config.get("paywall.label")||{}},image:{defaultAspectRatio:lab_api.v1.config.get("image.defaultAspectRatio")||void 0}}}}}}}class p{constructor(e,t){this.api=e,this.page=t}set(e,t){const i=this.export(e,t),s=t.get("type").replace("page_",""),a=this.api.v1.app.mode.isEditor();for(const t of Object.keys(i))e.setFiltered(t,i[t]);e.setFiltered("customTags",d.prepareForTemplate(this.api.v1.config.get("customTags")||[],s,a))}export(e,t){const s={},n=new Date,o=t.get("type").replace("page_",""),d=t.get("id"),p=this.api.v1.site.getSite().domain||this.api.v1.properties.get("customer_front_url"),c=p+t.get("fields.published_url"),u=encodeURIComponent(c),h=this.api.v1.properties.get("image_server"),f=this.api.v1.app.mode.isEditor(),m=this.getCanonicalUrl(e,o,d,p),y=this.api.v1.config.get("tagPagePath")||"/tag/",b="front"===o&&(c.endsWith(y.slice(0,-1))||c.indexOf(y)>-1),v=b&&!c.endsWith(y.slice(0,-1));s.customer_front_url=p,s.isEditMode=f,s.url=c,s.urlEncoded=u,s.specificUrl=m,s.image_server=h,s.pageType=o,s.pageId=d,s.is_article="article"===o,s.is_notice="notice"===o,s.is_front="front"===o,s.is_gallery="gallery"===o,s.is_infiniteArticle="infinitescroll"===t.get("fields.page_template_alias"),s.section=t.get("primaryTags.section")||t.get("fields.defaultsection"),s.device=this.api.v1.viewport.getName(),s.cmsVersion=this.api.v1.properties.get("app.version"),s.front_api_url=this.api.v1.properties.get("front_api_url"),s.xUaDevice=this.api.v1.properties.get("xUaDevice"),s.favicons=this.api.v1.config.get("favicons"),s.faviconList=this.api.v1.config.get("faviconList"),s.skipDefaultFont=this.api.v1.config.get("skipDefaultFont"),s.isDebug=this.api.v1.util.request.hasQueryParam("debug"),s.staticUrl=this.getStaticUrl(e,o,d,p),s.customMetatags=this.getCustomMetatags(),s.footerSettings=this.api.v1.config.get("page_settings.footer"),s.rssDescriptionPrefix=this.api.v1.config.get("viewports.rss.descriptionPrefix"),s.is_tagpage=b,s.contentLanguage=lab_api.v1.config.get("contentLanguage");const _=this.page.media.getLogo(t.getViewport());s.logo=_.current,s.logo_sm=_.sm,s.logo_mm=_.mm,s.misc=this.api.v1.config.get("misc");const k={active:!1,lang:this.api.v1.config.get("google_translate")};k.lang&&Array.isArray(k.lang)&&k.lang.length&&(k.active=!0),s.google_translate=k;const S=new l({pageType:o,canonical:m,isTagpage:b,isTagpageWithFrontpage:v,tagpagePath:y,publishedUrl:c}),w=S.generateSiteData(e),T=S.getStructuredData(e);s.jsonld=JSON.stringify([w,T]);const $=S.getSEOData(e);if(s.seotitle=$.title,s.seodescription=$.description,s.seolanguage=$.language,"article"===o||"notice"===o){const t=e.get("fields.sometitle")||e.get("fields.teaserTitle")||e.get("fields.title");t&&(s.sometitle=this.api.v1.util.string.stripTags(t));const i=e.get("fields.teaserTitle")||e.get("fields.title")||"";i&&(s.kilkayaTitle=this.api.v1.util.string.stripTags(i));const a=e.get("fields.teaserKicker")||e.get("fields.kicker")||"";a&&(s.kilkayaKicker=this.api.v1.util.string.stripTags(a));const n=e.get("fields.somedescription")||e.get("fields.teaserSubtitle")||e.get("fields.subtitle");if(n&&n.length>0)s.somedescription=this.api.v1.util.string.stripTags(n);else{let t=e.get("fields.bodytext")||"";t=this.api.v1.util.string.stripTags(t),s.somedescription=`${t.substring(0,100)} ...`}}else if("front"===o){const t=e.get("fields.someimage");null!=t&&""!==t&&(s.someimage=`${h}/${t}.webp?width=1200&height=630`),s.sometitle=e.get("fields.sometitle")||e.get("fields.name"),s.somedescription=e.get("fields.somedescription")||""}if(this.isAuthorPage(e.get("fields.hostpath"))){const t=e.get("fields.author_json");if(t){const e=[t.fields.firstname||"",t.fields.lastname||""].filter(Boolean).join(" "),i=this.api.v1.properties.get("site.display_name")||"";e&&(s.sometitle=`${e} - ${i}`,s.seotitle=`${e} - ${i}`)}}if(s.social={facebook:`https://www.facebook.com/sharer.php?u=${u}`,twitter:`https://twitter.com/intent/tweet?url=${u}`,mail:`mailto:?subject=${encodeURIComponent(this.api.v1.util.string.stripTags(t.get("fields.title")))}&body=${encodeURIComponent(this.api.v1.util.string.stripTags(t.get("fields.subtitle")))}%0D${u}`,linkedin:`https://www.linkedin.com/sharing/share-offsite/?url=${u}`,threads:`https://threads.net/intent/post?text=${u}`,copyLink:`navigator.clipboard.writeText("${c}");`,glimta:`https://glimta.com/unlock?link=${u}`,talandeWebb:"ReachDeck.panel.toggleBar();",bluesky:`https://bsky.app/intent/compose?text=${encodeURIComponent(`${s.sometitle}\n`)}${u}`,reddit:`https://www.reddit.com/submit?url=${u}&title=${encodeURIComponent(s.sometitle)}`,whatsapp:`https://api.whatsapp.com/send?text=${encodeURIComponent(`${s.sometitle}\n${c}`)}`},"article"===o){const t=this.api.v1.config.get("page_settings.article.ignoredTags")||[],i=this.api.v1.config.get("page_settings.article.ignoredTagPrefix")||[],a=(e.get("tags")||[]).filter(e=>!t.includes(e)).filter(e=>{for(const t of i)if(e.startsWith(t))return!1;return!0});s.tagsString=a.toString();let n="";a.forEach((e,t)=>{n+=`"${e.replace('"',"'")}"`,t<a.length-1&&(n+=", ")}),s.tagsStringCommaSeparated=n;const o=this.api.v1.model.query.getChildrenOfType(e,"byline",!0);if(o){const e=o.map(e=>`"${e.get("fields.firstname")} ${e.get("fields.lastname")}"`).join(", ");s.bylinesStringCommaSeparated=e}}"article"===o&&(e.get("fields.published")&&(s.published=new Date(1e3*parseInt(e.get("fields.published"),10)).toISOString(),s.publishedTimestamp=e.get("fields.published")),e.get("fields.hidefromfp_time")&&(s.hidefromfp_time=new Date(1e3*parseInt(e.get("fields.hidefromfp_time"),10)).toISOString())),s.site=this.api.v1.site.getSite(),s.siteJSON=JSON.stringify(s.site),s["site.domain_no_protocol"]=s.site.domain.split("://").pop(),s.siteAlias=s.site.alias,s.fullUrl=s.site.domain,s[`site_is_${s.siteAlias}`]=!0;const F=this.page.resources;if(!f&&s.is_article&&this.api.v1.config.get("displayReadProgress.active")&&t.get("fields.displayReadProgress")&&(s.readProgress=F.scripts.getProgressReader()),s.siteStylesheetList=i.getSiteStylesWithFallback(s.siteAlias),Sys.logger.debug(`ViewSupport: Will include ${s.siteStylesheetList.length} configured stylesheet(s): "${s.siteStylesheetList.join(", ")}".`),s.siteFiles=F.scripts.getSiteFiles(e,t,s.siteAlias,o,f),s.modules=F.scripts.getModules(e,t,s.siteAlias,o,f),!f){s.analytics=F.analytics.get(s),s.widgets={strossle:this.api.v1.config.get("widgets.strossle.strossle_id")},s.consent={cookieconsent:this.api.v1.config.get("consent.cookieconsent.show"),cookieconsent_culture:this.api.v1.config.get("consent.cookieconsent.culture")||"NB"},this.api.v1.config.get("cookieConsent.enabled")&&F.scripts.required.push({url:"/view-resources/public/common/cookieConsent.js",requireDom:!1}),"desktop"===this.api.v1.viewport.getName()&&t.get("fields.style_slidein")&&(s.style_slidein=!0,F.scripts.required.push({url:"/view-resources/public/common/SlideIn/SlideIn.js",requireDom:!1}));const i=this.api.v1.config.get("adEnvironment")||{},a="1"===t.get("fields.hideAds"),n="1"===t.get("fields.hideSkyscraperAds")||!1,o="1"===t.get("fields.hideTopBannerAd")||"1"===e.get("fields.hideTopBannerAd")||!1;if(Sys.logger.debug(`[PageData] Ad settings: hideAds=${a}, disableSkyscraper=${n}, disableTopBanner=${o}, adEnv=${i.name||"none"}`),!a&&i&&"adnuntius"===i.name)try{s.adnuntius=r.getAdnuntiusSettings(this.api,e,t,i,s.site,n,o)}catch(e){Sys.logger.warn(`[PageData] Failed to prepare Adnuntius ads: ${e.toString()}`)}if(!a&&i&&"google"===i.name)try{s.googleAds=r.getGoogleSettings(this.api,e,t,i,s.site,n,o)}catch(e){Sys.logger.warn(`[PageData] Failed to prepare Google ads: ${e.toString()}`)}s.adEnvironment={...i},s.adEnvironment[`is_${i.name}`]=!0;const l="google"===i.name&&i.bidding&&i.bidding.provider&&i.bidding.provider.name?i.bidding.provider.name:"none";s.adEnvironment[`is_provider_${l}`]=!0}if(this.api.v1.util.request.hasQueryParam("fontpreview")&&(s.fontpreview=this.api.v1.util.request.getQueryParam("fontpreview"),s.analytics=null),s.page_settings=this.page.settings.get({pageType:"notice"===o||"gallery"===o?"article":o,socialLinks:s.social}),"article"===o){const i=this.api.v1.config.get("comments_provider.hideCommentsIfPaywall")||!1,a=this.api.v1.properties.get("paywall")||{},n=lab_api.v1.app.mode.isFront()&&a.active&&!a.hasAccess&&i,r=!1===f&&!1===n;if(t.get("fields.showcomments")&&!n){if(this.api.v1.config.get("comments_provider.facebook")){const e=this.api.v1.config.get("comments_provider.facebook.app_id");e&&(s.facebook={display:r,displayPlaceholder:f,appId:e,pageId:d,url:s.fullUrl+("article"===o?`/a/${d}`:"")},s.displayComments=!0)}if(this.api.v1.config.get("comments_provider.disqus")){const e=this.api.v1.config.get("comments_provider.disqus.enable"),t=this.api.v1.config.get("comments_provider.disqus.script");e&&(s.disqus={display:r,displayPlaceholder:f,canonical:m,pageId:d,script:t},s.displayComments=!0)}const t=this.api.v1.config.get("comments_provider.commento");t&&t.enable&&(s.commento={display:r,displayPlaceholder:f,canonical:m,usePageId:t.usePageId,pageId:d,script:t.script,cssOverride:t.cssOverride,descriptionText:t.descriptionText},s.displayComments=!0);const i=lab_api.v1.config.get("comments_provider.hyvor");if(i&&i.websiteId){const t=e.get("fields.published")||0;s.hyvor={display:r,displayPlaceholder:f,websiteId:i.websiteId,pageId:t>1646908200&&d},i.hidePageIdBeforeDate&&t<i.hidePageIdBeforeDate&&(s.hyvor.pageId=""),s.displayComments=!0}const a=lab_api.v1.config.get("comments_provider.ifragasatt");a&&(s.ifragasatt={display:r,displayPlaceholder:f,customerId:a.customer_id,articleId:`article${d}`},s.displayComments=!0)}}s.menus=this.page.menus.get({defaultSection:t.get("fields.defaultsection"),section:t.get("primaryTags.section")}),s.style_definitions=a.getStyleDefinitions(this.api),s.css_build=a.getInlineCSS(this.api),s.css_variables=a.getCssVariables(this.api),s.contact=this.api.v1.config.get("contact");const D=!!t.get("fields.norobots"),x=t.get("fields.hidefromfp_time"),M=Math.round(n.getTime()/1e3);if(s.norobots=D||x&&x<=M||!1,"article"===o&&this.api.v1.config.get("embeddable.active")&&(s.embeddable={active:!0,display:!!t.get("fields.displayEmbedButton")&&"embed"!==s.device,aboveBodytext:!!t.get("fields.displayEmbedButtonAboveBodytext")&&"embed"!==s.device,isFullContent:this.api.v1.util.request.getQueryString().indexOf("lab_content=full")>-1,hasParallax:this.api.v1.model.query.hasChildOfType(e,"parallax",!0)}),Sys.logger.debug(`ViewSupport: Will include ${F.scripts.required.length} configured script(s): "${F.scripts.required.map(e=>e.url).join(", ")}".`),F.scripts.required.forEach(e=>{if(!e.placeholderKey&&e.requireDom&&(e.placeholderKey="requireDom"),e.placeholderKey){const{placeholderKey:t}=e;e.placeholderKey={},e.placeholderKey[t]=!0}}),s.siteScriptList=F.scripts.required,s.paywall=this.getPaywallInfo(e,f),s.simplestreamEnabled=lab_api.v1.config.get("contentbox_settings.simplestream")||!1,"mailmojo"===s.device&&this.setDefaultMailmojoData(e,t),"article"===o){const t=lab_api.v1.config.get("page_settings.article.ageWarnings");if(Array.isArray(t)){const i=e.get("fields.published");if(i){const s=this.getAgeWarningItem(i,t);s&&e.setFiltered("ageWarning",s)}}}s.featureFlags={responsive_mobile_fonts:!lab_api.v1.util.featureFlags.enabled("Disable responsive mobile fonts",o)},s.clientSideConfig=JSON.stringify(g.buildConfig(this.api));const C=e.get("fields.hostpath");return s.shouldRenderCanonical=!("labrador/http-404"===C||"labrador/http-410"===C),s}getAgeWarningItem(e,t){const i=Object.values(t).filter(e=>!!e.years&&!!e.label).sort((e,t)=>t.years-e.years),s=new Date(1e3*e),a=Date.now()-s,n=new Date(a),o=Math.abs(n.getUTCFullYear()-1970);for(const e of i)if(o>=e.years)return e;return null}setDefaultMailmojoData(e,t){const i=lab_api.v1.config.get("lang")||"no";e.setFiltered("lang",i)}getCanonicalUrl(e,t,i,s,a){const n=e.get("fields.lab_canonical");if(n)return n;if("front"===t){const t=e.get("fields.hostpath");return"index"===t?`${s}/`:this.isAuthorPage(t)?`${s}/${this.getAuthorPageCanonical(e)}`:`${s}/${t}`}return`${s+e.get("fields.published_url")}`}getStaticUrl(e,t,i,s){if("front"===t){const t=lab_api.v1.util.request.getHeader("X-Labrador-404-Referer");if(t)return`${s}${t}`;const i=e.get("fields.hostpath");return i?`${s}/${"index"===i?"":i}`:`${s+e.get("fields.published_url")}`}return`${lab_api.v1.properties.get("site").domain}/a/${i}`}getCustomMetatags(){const e=lab_api.v1.config.get("customMetatags")||[],t=lab_api.v1.config.get("customMetatagsKeyVal")||[],i=[];for(const t of e){const e=Object.keys(t).map(e=>({key:e,value:t[e]}));i.push(e)}for(const e of t)e.length&&i.push(e);return i}getPaywallInfo(e,t){const i=lab_api.v1.properties.get("paywall"),s=!t&&"1"===e.get("fields.paywall"),a=lab_api.v1.config.get("paywall.provider",{site:lab_api.v1.site.getSite().alias})||"internal",n=(!t&&e.get("fields.paywallSalesImage"),!t&&s&&i.hasAccess&&"1"===e.get("fields.paywallShareable"));let o;if("1"===e.get("fields.paywallShareable")){o=lab_api.v1.config.getConfig("pages.localisation.data.items.paywall.items.shareableArticle.items")||{};for(const e of Object.keys(o))o[e]=lab_api.v1.locale.get(`paywall.shareableArticle.${e}`)||""}const r={display:!0,...this.api.v1.config.get("paywall.label")},l=this.api.v1.config.get("paywall.label.text.content"),d=this.api.v1.config.get("paywall.label.icon.content"),g={text:{content:null==l?"Plus":this.api.v1.config.get("paywall.label.text.content")},icon:{content:null==d?"fi-plus":this.api.v1.config.get("paywall.label.icon.content")}};return Object.assign(r,g),r.display&&e.setFiltered("paywallLabel",r),{enabled:s,settings:i,provider:a,shareable:n,shareableArticle:o,hasAccess:!s||!i.active||i.hasAccess,hidePaywallOffers:this.api.v1.util.request.hasQueryValue("lab_opts","paywall_loginonly"),paywallSalesImage:e.get("fields.paywallSalesImage"),paywallSalesPitchContent:e.get("fields.paywallSalesPitchContent"),paywallSalesPitchTitle:e.get("fields.paywallSalesPitchTitle"),paywallLayoutType:e.get("fields.paywallPreview.paywallLayoutType"),requiredProducts:JSON.stringify(this.api.v1.properties.get("app.paywall.requiredProducts")||[])}}isAuthorPage(e){const t=this.api.v1.config.get("authorPages")||{},i=t.path||"author";return!!(e&&t.enabled&&e.startsWith(`${i}/`))}getAuthorPagePath(){return(this.api.v1.config.get("authorPages")||{}).path||"author"}getAuthorPageSlug(e){const t=e.get("fields.author_json");if(t)return t.fields.slug}getAuthorPageId(e){const t=e.get("fields.author_json");if(t)return t.fields.id}getAuthorPageCanonical(e){const t=this.getAuthorPagePath(),i=this.getAuthorPageSlug(e),s=this.getAuthorPageId(e);return`${t}/${i||s}`}}class c{static parseCss(e,t="filtered.autodata"){const i=e.get(t);if(!i||"object"!=typeof i)return;return[Object.values(i.cssObject||{}).join(" "),i.cssString||"",(i.cssArray||[]).join(" ")].join(" ").trim()}static parseAttributes(e){const t=e.get("filtered.autodata.attributesObject");if(!t||"object"!=typeof t)return;return Object.keys(t).map(e=>({key:e,value:t[e]}))}static parseCustomData(e){const t=e.get("filtered.autodata.custom");if(!t||"object"!=typeof t)return;const i={};for(const e of Object.keys(t))i[e]=Object.keys(t[e]).map(i=>({key:i,value:t[e][i]}));return i}static parseCustomDataFromFeed(e,t){const i=lab_api.v1.config.get(`${t}.autodata.mapping`)||{};if(!i||"object"!=typeof i)return;const s={labels:[]};if(i.labels)for(const t of Object.keys(i.labels))e[i.labels[t]]&&s.labels.push({key:t,value:e[i.labels[t]]});return s}}class u{constructor(e){this.api=e,this.pageData=new p(this.api,new s(this.api))}onReady(e,t){this.pageData.set(e,t),e.setFiltered("autodata_css",c.parseCss(e)),e.setFiltered("autodata_attributes",c.parseAttributes(e)),e.setFiltered("autodata_custom",c.parseCustomData(e))}}class h{constructor(e){this.api=e,this.pageData=new p(this.api,new s(this.api))}onReady(e,t){this.pageData.set(e,t)}}class f{static textElements(e,t){const i={top:[],floating:[],bottom:[],positions:{kicker:"",title:""}};let s="",a="";if(e.get("metadata.showKicker")&&(t||e.get("fields.kicker")||e.get("fields.origin_data_json.teaserKicker")||e.get("fields.origin_data_json.kicker"))&&(e.get("metadata.floatingKicker")?(i.floating.push("kicker"),i.positions.kicker="floating",s="floating"):e.get("metadata.kickerBelowImage")?(i.bottom.push("kicker"),i.positions.kicker="below",s="bottom"):(i.top.push("kicker"),i.positions.kicker="above",s="top")),e.get("metadata.hideTitle")||!t&&!e.get("fields.title")||(e.get("metadata.floatingTitle")?(i.floating.push("title"),i.positions.title="floating",a="floating"):e.get("metadata.titleAboveImage")?(i.top.push("title"),i.positions.title="above",a="top"):(i.bottom.push("title"),i.positions.title="below",a="bottom")),e.get("metadata.kickerBelowTitle")&&e.get("metadata.showKicker")&&a){if(s){const e=i[s].indexOf("kicker");-1!==e&&i[s].splice(e,1)}const e=i[a],t=e.indexOf("title");-1!==t?e.splice(t+1,0,"kicker"):e.push("kicker"),i.positions.kicker="belowTitle",s=a}return!e.get("metadata.hidesubtitle")&&(t||e.get("fields.subtitle")||e.get("fields.origin_data_json.teaserSubtitle"))&&(e.get("metadata.floatingSubtitle")?i.floating.push("subtitle"):e.get("metadata.subtitleAboveImage")?i.top.push("subtitle"):i.bottom.push("subtitle")),i}}class m{static convertToIso639(e){let t="";return e&&(t=3===e.length?e.toLowerCase():e.includes("-")?e.split("-")[0].toLowerCase():e.toLowerCase()),t}}class y{static autoSizeText(e,t){if(!e)return"";let i={};i=t||{regex:{},formats:{default:{maxWordLength:15,minLineLength:3,ranges:[{maxCharacters:1/0,numberOfLines:1}]}}};const s={1:100,2:70,3:50,4:45,5:40,6:35,7:30,8:26,9:22,10:20,11:18,12:17,13:16,14:15,15:14,16:13,17:12,18:11,19:10,20:9,21:8,22:7,23:6,24:5,25:4},a=e.innerHTML.replace(/&nbsp;/,"");if(e.querySelector("br")||e.querySelector(".auto-font-size-line-br")){const t=this.handleBreaks(a);e.innerHTML="",t.forEach((i,s)=>{e.innerHTML+=`<span class="auto-font-size-line${s<t.length?" auto-font-size-line-br":""}">${i} </span>`})}else{const i=this.removeHTMLTags(a),s=this.splitSentence(i,t,"default");e.innerHTML="";for(const t of s)e.innerHTML+=`<span class="auto-font-size-line">${t} </span>`}const n=e.querySelectorAll(".auto-font-size-line"),o=e.clientWidth;for(const e of n){const t=s[e.innerText.length]||5;e.clientWidth<o?this.enlargeTitle(e,o,t):e.clientWidth>o&&this.shrinkTitle(e,o,t)}return e.innerHTML}static handleBreaks(e){let t=this.removeHTMLTags(e).split(/<br\s*[^>]*>/gi);return t=t.filter(e=>e.trim().length>0),t}static removeFontSize(e){const t=e.innerHTML;return e.innerHTML=this.removeHTMLTags(t),this.removeHTMLTags(t)}static removeHTMLTags(e){let t=e.replace(/<span class="auto-font-size-hyphen">-<\/span>\s?/g,"");return t=t.replace(/<span class="[^"]*\bauto-font-size-line-br\b[^"]*"[^>]*>(.*?)<\/span>/g,"$1<br>"),t=t.replace(/<span class="[^"]*\bauto-font-size-line\b[^"]*"[^>]*>(.*?)<\/span>/g,"$1"),t=t.replace(/<span[^>]*>([^<]*)<\/span>/g,"$1"),t=t.replace(/(\r\n|\n|\r)/g,""),t}static enlargeTitle(e,t,i,s=100){let a=i;for(;e.clientWidth<t&&a<=s;)a+=1,e.style.setProperty("--lab-auto-font-size",`${a}cqi`);for(;e.clientWidth>=t||a>s;)a-=.1,e.style.setProperty("--lab-auto-font-size",`${a}cqi`)}static shrinkTitle(e,t,i){let s=i;for(;e.clientWidth>t;)s-=.1,e.style.setProperty("--lab-auto-font-size",`${s}cqi`)}static splitSentence(e,t,i){const s=e||"",{length:a}=s;if(!t||!t.formats||!t.formats[i])return[s];const n=this.findRules(t,i),o=this.findNumberOfLines(n.ranges,a)||1,r=n.maxWordLength||null,l=n.minLineLength||null,d=t.reges||{};return this.splitTextEvenly(e,o,r,l,d)||[]}static findRules(e,t){return{...e.formats[t]}}static findNumberOfLines(e,t){const i={maxLineLength:20,numberOfLines:1};for(const s of e)if(t<=s.maxCharacters){i.numberOfLines=s.numberOfLines,i.maxLineLength=s.maxCharacters/s.numberOfLines;break}return i}static checkRegex(e,t,i){let s=t;const a=[];return Array.from(Object.entries(e),([,e])=>e).forEach(e=>{const t=new RegExp(e,"g"),i=s.match(t);i&&a.push(...i)}),a.forEach(e=>{const t=e.replace(/ /g,i);s=s.replace(e,t)}),s}static splitStringIntoParts(e,t,i,s,a){const n=this.checkRegex(i,e,"___").split(" "),o=[];let r="";return n.forEach(e=>{const i=e.trim().replace(new RegExp("___","g")," ");if(i.includes("-"))r.length+i.length+1>t?(o.push(r),r=i):r+=(r.length>0?" ":"")+i;else{const e=this.splitWord(i,s);e.forEach((i,s)=>{r.length+i.length+1>t?(o.push(r),r=i):r+=(r.length>0?" ":"")+i,s<e.length-1&&(r+='<span class="auto-font-size-hyphen">-</span>')})}}),r.length>0&&o.push(r),o}static splitWord(e,t){if(!Number.isFinite(t)||t<=0)return[e];const i=[];let s=e;for(;s.length>t;){if(s.length>t&&s.length<=t+2){const e=Math.floor(s.length/2);i.push(s.substring(0,e)),s=s.substring(e);break}i.push(s.substring(0,t)),s=s.substring(t)}if(s.length>0)if(1===s.length&&i.length>0){const e=i.pop();i.push(e+s)}else i.push(s);return i}static splitTextEvenly(e,t,i,s,a){const n=e.trim(),o=Math.ceil(n.length/t.numberOfLines);let r=this.splitStringIntoParts(n,o,a,i,t.numberOfLines);if(s&&(r=this.mergeShortLines(r,s)),r.length>t.numberOfLines){const e=/<span class="auto-font-size-hyphen">-<\/span>$/,t=r.pop();e.test(r[r.length-1])?r[r.length-1]=r[r.length-1].replace(e,"")+t:r[r.length-1]+=` ${t}`}return r}static mergeShortLines(e,t){const i=[];for(let s=0;s<e.length;s++){let a=e[s].trim();a.length<t&&s<e.length-1&&(a+=` ${e[s+1]}`,s++),i.push(a)}if(i.length>1){const e=i[i.length-1];e.length<t&&(i[i.length-2]+=` ${e}`,i.pop())}return i}}class b{constructor(e){this.api=e,this.imageServer=this.api.v1.properties.get("image_server"),this.rootModel=this.api.v1.model.query.getRootModel(),this.domain=this.api.v1.site.getSite().domain||this.api.v1.properties.get("customer_front_url"),this.fallbackLanguage=this.api.v1.config.get("contentLanguage")||"",this.autoFontSizeConfig=this.api.v1.config.get("autoFontSize")||[],this.autoFontSizePageSettings=Boolean(!!this.rootModel&&this.rootModel.get("fields.autoFontSize")),this.hasAutoFontSize=this.autoFontSizePageSettings&&this.autoFontSizeConfig.enabled,this.autoFontSizeDone=!1,this.dateTimeHelper=new o(this.api.v1.config.get("lang")||void 0)}onInserted(e){if(this.api.v1.app.mode.isEditor()&&this.hasAutoFontSize){e.set("state.autoFontSizeReRender",!0,{notify:!1});const t=(e,t,i)=>{e.get("fields.title")===e.get("state.title")?e.set("state.autoFontSizeReRender",!1,{notify:!1}):(e.set("state.autoFontSizeReRender",!0,{notify:!1}),e.set("metadata.autoFontSizeDone",!1,{notify:!1}))};this.api.v1.model.bindings.bind(e,"fields.title",t)}}onReady(e,t){e.setFiltered("layout",f.textElements(t,this.api.v1.app.mode.isEditor()));let i=e.get("fields.published_url")||"";!/^https?/.test(i)&&i&&(i=this.domain+i),e.setFiltered("published_url",i),e.setFiltered("published_url_rss",i.replace(/&/g,"&amp;"))}onRender(e,t){const i=e.get("instance_of")||e.get("fields.origin_data_json.id"),s=e.get("fields.published")||e.get("fields.origin_data_json.published"),a=e.get("fields.origin_data_json.teaserTitle")||t.get("fields.title")||"",n=e.get("fields.origin_data_json.teaserSubtitle")||t.get("fields.subtitle")||"",o=e.get("fields.origin_data_json.published")||e.get("fields.published"),r=e.get("fields.origin_data_json.teaserKicker")||e.get("fields.origin_data_json.kicker")||t.get("fields.kicker"),l=e.get("fields.site_id")||e.get("fields.origin_data_json.site_id"),d=e.get("fields.origin_data_json.seolanguage")||e.get("fields.seolanguage")||this.fallbackLanguage,g=e.get("fields.origin_data_json.teaserAudio")||e.get("fields.audio"),p=e.get("fields.origin_data_json.teaserAudio_style_json")||e.get("fields.audioInfo")||{},u=e.get("fields.origin_data_json.addRelNoFollow")||e.get("fields.addRelNoFollow")||!1,h=e.get("fields.origin_data_json.addRelSponsored")||e.get("fields.addRelSponsored")||!1,f=e.get("fields.origin_data_json.addRelUgc")||e.get("fields.addRelUgc")||!1;e.setFiltered("published",s),e.setFiltered("title",a),e.setFiltered("kicker",r),e.setFiltered("subtitle",n),e.setFiltered("articleId",i),e.setFiltered("section",e.get("fields.origin_data_json.section_tag")||e.get("fields.section")||""),e.setFiltered("base_url",this.domain),e.setFiltered("published_sitemap",o),e.setFiltered("canonical_url",`${this.getSiteDomain(l)}/a/${i}`),e.setFiltered("tags",e.get("tags")||[]),e.setFiltered("languageIso639",m.convertToIso639(d));const y=(new Date).getTime()-1728e5;if(e.setFiltered("articleOutOfDate_sitemap",y>Math.floor(new Date(o).getTime())),e.setFiltered("addRelNoFollow",u),e.setFiltered("addRelSponsored",h),e.setFiltered("addRelUgc",f),!this.api.v1.config.get("showHiddenTagsOnFront")){const t=(this.api.v1.config.get("tagsToHide")||"").split(",").map(e=>e.trim())||[],i=(e.get("tags")||[]).filter(e=>!t.includes(e));e.setFiltered("tags",i)}if(l){const t=this.api.v1.site.getSiteById(l);t&&e.setFiltered("site_alias",t.alias)}if(g){const t={url:g};if(p){const e=JSON.parse(p);t.title=e.title||null,t.fileType=e.fileType||null,t.playTime=e.playTime||null}e.setFiltered("audio",t)}const b=e.get("fields.origin_data_json.showbylineonfp")||t.get("fields.displayByline")||!1;if(b){const i=t.get("fields.byline")||e.get("fields.origin_data_json.byline"),s=t.get("fields.bylineImage")||e.get("fields.origin_data_json.bylineImage"),a=(e.get("fields.origin_data_json.full_bylines")||e.get("fields.full_bylines_json")||[]).map(e=>({firstname:e.firstname,lastname:e.lastname,description:e.description,imageUrl:e.imageUrl?this.getImageUrl(`${e.imageUrl}&width=90&height=90`):""}));a.length||!i&&!s||a.push({firstname:i,lastname:"",imageUrl:s?this.getImageUrl(`${s}&width=90&height=90`):""}),e.setFiltered("bylines",a),s&&e.setFiltered("bylineImage",`${s}&width=90&height=90`)}e.setFiltered("displayByline",b);const v=t.get("fields.displayPublishedDate")||!1,_=this.api.v1.locale.get("dates.monthdayyear",{noRender:!0});if(e.setFiltered("displayPublishedDate",v),v)if(this.api.v1.app.mode.isEditor()&&!s)e.setFiltered("publishedDate",_);else if(this.api.v1.app.mode.isEditor()||s){const t=new Date(s),i=this.dateTimeHelper.format(t,_);e.setFiltered("publishedDate",i)}else e.setFiltered("displayPublishedDate",!1);let k=e.get("fields.origin_data_json.paywall")||e.get("fields.paywall")||!1;if(k=1===k||"1"===k||!0===k||null,k){const i={display:!0,displayInNewsletter:!0,...this.api.v1.config.get("paywall.label")},s=this.api.v1.config.get("paywall.label.text.content"),a=this.api.v1.config.get("paywall.label.icon.content"),n={text:{content:null==s?"Plus":this.api.v1.config.get("paywall.label.text.content")},icon:{content:null==a?"fi-plus":this.api.v1.config.get("paywall.label.icon.content")}};if(Object.assign(i,n),i.display){i.layout={noImage:!0,float:null};const s=this.api.v1.model.query.getChildOfType(e,"image")||this.api.v1.model.query.getChildOfType(e,"graphic");if(s&&s.get("instance_of")){const e=this.api.v1.view.getView(s,t.getViewport());i.layout.float=this.api.v1.config.get("paywall.label.labelPosition")||e.get("fields.float"),i.layout.noImage=!!t.get("metadata.hideimage")}e.setFiltered("paywallLabel",i)}}else e.setFiltered("paywallLabel",null);e.setFiltered("paywall",k);const S=e.get("metadata.tagPlacement")||"underImage";e.setFiltered("tagPlacement.underImage","underImage"===S),e.setFiltered("tagPlacement.underText","underText"===S);const w=e.get("metadata.sectionPlacement")||"floating";if(e.setFiltered("sectionPlacement.floating","floating"===w),e.setFiltered("sectionPlacement.underImage","underImage"===w),e.setFiltered("sectionPlacement.underText","underText"===w),e.setFiltered("articleWidth",t.getPixelWidth()),e.setFiltered("autodata_css",c.parseCss(e)),e.setFiltered("autodata_content_css",c.parseCss(e,"filtered.autodata_content")),e.setFiltered("autodata_attributes",c.parseAttributes(e)),e.setFiltered("autodata_custom",c.parseCustomData(e)),this.autoFontSizeConfig.enabled&&(this.autoFontSizeDone=e.get("metadata.autoFontSizeDone")),"newssitemap"===this.api.v1.viewport.getName()){const t=this.api.v1.model.query.getChildOfType(e,"image"),i=t.get("instance_of");if(this.imageServer&&t&&i){const t=`${this.imageServer}?imageId=${i}&format=webp&width=500`;e.setFiltered("headerImageUrl",t)}}}onRendered(e,t){if(this.api.v1.app.mode.isEditor()&&this.autoFontSizeConfig.enabled){const i=()=>{const e=t.getMarkup().querySelector(".headline");y.removeFontSize(e),this.api.v1.tool.off("ended",i)};if("desktop"===t.viewport&&this.hasAutoFontSize&&e.get("metadata.autoFontSizeEnabled")&&(this.api.v1.tool.on("started",t=>{"fields.title"===t.key&&t.model===e&&i()}),e.get("state.autoFontSizeReRender")&&e.get("fields.title")&&!this.autoFontSizeDone&&e.get("metadata.autoFontSizeEnabled"))){const i=t.getMarkup().querySelector(".headline"),s=y.autoSizeText(i,this.autoFontSizeConfig);e.set("state.autoFontSizeReRender",!1,{notify:!1}),e.set("state.title",s,{notify:!1}),e.set("metadata.autoFontSizeDone",!0,{notify:!1}),e.set("fields.title",s)}}}onCreated(e){this.hasAutoFontSize&&null===e.get("metadata.autoFontSizeEnabled")&&e.set("metadata.autoFontSizeEnabled",!0,{notify:!1})}getSiteDomain(e){if(!e)return"";const t=this.api.v1.site.getSiteById(e);return t?t.domain:""}getImageUrl(e){return e?e.startsWith("http")?e:this.imageServer+e:""}}class v{constructor(e){this.api=e,this.isEditor=this.api.v1.app.mode.isEditor(),this.isFragmentMode=this.api.v1.app.mode.isFragmentMode(),this.lazyloadImages=!this.isEditor&&!!this.api.v1.config.get("imageLoading.lazy")}check(e,t){if(!this.lazyloadImages||t.getProperty("image.noLazy"))return!1;const i=lab_api.v1.model.query.getParentOfType(e,"row");return!(i&&!this.isFragmentMode&&i.getModelIndex()<5)}}class _{constructor(e){this.api=e,this.lazyloadHelper=new v(e),this.api.v1.app.mode.isEditor()&&(this.cropIds=[],this.rootModel=this.api.v1.model.query.getRootModel(),this.frontcropBinding=this.frontCropChanged.bind(this),this.api.v1.model.bindings.bind(this.rootModel,"frontCrop",this.frontcropBinding),this.frontcropBinding(this.rootModel,"frontCrop",this.rootModel.get("frontCrop")),this.api.v1.ns.set("imageFilter.preview",this.prepareVisualFilters)),this.isFragmentMode=this.api.v1.app.mode.isFragmentMode(),this.isEditorMode=this.api.v1.app.mode.isEditor(),this.boundModels=[]}onInserted(e,t){this.isEditorMode&&e.get("instance_of")&&(this.boundModels.includes(e)||(this.api.v1.model.bindings.bind(e,"fields.imageCaption",this.imageUpdater.bind(this)),this.api.v1.model.bindings.bind(e,"fields.byline",this.imageUpdater.bind(this)),this.boundModels.push(e)))}imageUpdater(e,t,i){if(!i)return;const s=e.get("instance_of");if(!s)return;const a=t.includes("imageCaption"),n=t.includes("byline");this.api.v1.util.httpClient.get(`/ajax/node/get-node?id=${s}`,{resetCache:!0}).then(t=>{const o=t.data,r=o&&o.fields&&o.fields.caption||"",l=o&&o.fields&&o.fields.byline||"",d=a&&!r,g=n&&!l;if(!d&&!g)return;const p=o&&o.fields&&o.fields.extra_metadata_json&&o.fields.extra_metadata_json.currentLanguage||this.api.v1.config.get("contentLanguage")||"en",c=JSON.parse(JSON.stringify(o&&o.fields&&o.fields.extra_metadata_json||{})),u={};if(c.aiMetadata||(c.aiMetadata={}),c.aiMetadata[p]||(c.aiMetadata[p]={}),d){const t=e.get("fields.extra_metadata_json.currentLanguage")||"",s=!t||t===p;!(c.aiMetadata&&c.aiMetadata[p]&&c.aiMetadata[p].caption)&&s&&(u.caption=i,c.aiMetadata[p].caption=i,u.extra_metadata_json=c)}if(g&&(u.byline=i),0===Object.keys(u).length)return;const h={type:"image",id:s,fields:u},f=new FormData;f.append("json[id]",s),f.append("json[type]","image"),f.append("json[structure]",null),f.append("json[node]",JSON.stringify([h])),this.api.v1.util.httpClient.request("/ajax/node/save-node-and-data",{body:f,method:"POST"}).then(()=>{Sys.logger.debug("[Image] Synced caption/byline to backend:",s)}).catch(e=>{Sys.logger.error("[Image] Error syncing to backend:",e)})}).catch(e=>{Sys.logger.error("[Image] Error fetching backend node:",e)})}onViewHelper(e,t){if(e.parent){this.prepareForSlideshow(e,t);const i=t.getViewport();if(this.api.v1.view.getView(e.parent,i).get("metadata.hasFullWidth")){const t="mobile"===i?600:1800;e.setFiltered(`width.${i}`,t)}else e.setFiltered(`width.${i}`,null);e.setFiltered("allowFullwidth","image"!==e.parent.getType())}}onRender(e,t){this.setVisualFilters(e,t),e.setFiltered("lazyloadImages",this.lazyloadHelper.check(e,t)),this.setCaptionOptions(e.getParent(),e,t);const i=t.get("fields.float");e.setFiltered("hasFloat",!!i&&"floatNone"!==i)}onRendered(e,t){if(!this.api.v1.app.mode.isEditor()||!this.cropIds.length)return;const i=parseInt(e.get("instance_of"),10);this.cropIds.includes(i)&&this.markFrontCrop(t,i)}setVisualFilters(e,t){e.setFiltered("filters",this.prepareVisualFilters(e,t))}prepareVisualFilters(e,t,i=!1){const s=[],a=e.get("metadata.filter_blur_active")?e.get("metadata.filter_blur_value")||0:null,n=e.get("metadata.filter_sepia_active")?e.get("metadata.filter_sepia_value")||0:null,o=e.get("metadata.filter_saturate_active")?e.get("metadata.filter_saturate_value")||1:null,r=e.get("metadata.filter_brightness_active")?e.get("metadata.filter_brightness_value")||1:null,l=e.get("metadata.filter_contrast_active")?e.get("metadata.filter_contrast_value")||1:null;return null!==a&&s.push(`blur(${a}px)`),null!==n&&s.push(`sepia(${n})`),null!==o&&s.push(`saturate(${o})`),null!==r&&s.push(`brightness(${r})`),null!==l&&s.push(`contrast(${l})`),i?{filter:s.join(" ")}:s.length?`filter: ${s.join(" ")};`:null}markFrontCrop(e,t){const i=document.createElement("span");i.classList.add("labicon-imgFrontCrop","is-frontcrop"),i.setAttribute("title","Image used as front crop. Click to edit"),i.addEventListener("click",e=>{e.stopPropagation(),e.preventDefault(),this.api.v1.apps.start("ArticleSettings")},!1),e.getMarkup().appendChild(i)}frontCropChanged(e,t,i){let s=this.getImages(this.cropIds);this.cropIds=[],this.updateImages(s),i&&(i.pano&&i.pano.instance_of&&this.cropIds.push(i.pano.instance_of),i.height&&i.height.instance_of&&!this.cropIds.includes(i.height.instance_of)&&this.cropIds.push(i.height.instance_of),s=this.getImages(this.cropIds),this.updateImages(s))}getImages(e){const t=[];for(const i of e)t.push(...this.api.v1.model.query.getModelsByKeyAndValue("instance_of",i));return t}updateImages(e){for(const t of e)this.api.v1.model.addToRedrawQueue(t)}setCaptionOptions(e,t,i){const s=e?this.api.v1.view.getView(e,i.getViewport()):null,a=(e,t,i)=>{if(e){const t=e.get(i);if(!t&&null!==t)return!1;if(t)return!0}return!!t.get(i)};let n=a(s,i,"fields.displayCaption"),o=n||null===i.get("fields.displayCaption")&&!i.get("metadata.hidecaption");!this.api.v1.app.mode.isFront()||t.get("fields.imageCaption")||t.get("fields.byline")||(n=!1,o=!1);const r=a(s,i,"fields.expandableCaption"),l=a(s,i,"fields.truncateCaption");let d=t.get("fields.imageCaption");!t.parent||i.getProperty("image.useCaptionForTitle")&&d||(d=t.parent.get("fields.title")||"");const g={title:d,display:n,displayDefault:o,truncate:l,expandable:r||l};t.setFiltered("captionOptions",g)}prepareForSlideshow(e,t){if(!e.parent||"slideshow"!==e.parent.getType())return;if(t.get("fields.whRatio"))return void e.setFiltered("whRatio",null);const i=e.get("fields.originalWidth"),s=e.get("fields.originalHeight");if(s&&i){const t=s/i;e.setFiltered("whRatio",t)}}}class k extends o{constructor({languageCode:e}={}){super("en"),this.languageCode=e||lab_api.v1.config.get("contentLanguage")}str(e,{data:t,noRender:i}={}){return lab_api.v1.locale.get(`dates.${e}`,{data:t,noRender:i})}timestampToNiceDate(e,t=!1){const i=(new Date).getTime(),s=new Date(1e3*e).getTime()-0,a=parseInt((i-s)/1e3/60,10);if(a<60)return a<1?this.str("now"):this.str("durationSince",{data:{count:a,period:t?this.str("min"):1===a?this.str("minute"):this.str("minutes"),ago:t?"":this.str("ago")}});if(a<1440){const e=parseInt(a/60,10);return this.str("durationSince",{data:{count:e,period:1===e?this.str("hour"):this.str("hours"),ago:t?"":this.str("ago")}})}if(parseInt(a/1440,10)<30){const e=parseInt(a/1440,10);return this.str("durationSince",{data:{count:e,period:1===e?this.str("day"):this.str("days"),ago:t?"":this.str("ago")}})}return this.format(this.timestampToDate(e),this.str("monthdayyear",{noRender:!0}))}}class S{constructor(e){this.api=e,this.dateTimeHelper=new k}onRender(e,t){const i=e.get("fields.modified")||e.get("fields.published");if(null!=i){const t=new Date(1e3*i);e.setFiltered("niceDate",this.dateTimeHelper.timestampToNiceDate(i)),e.setFiltered("publishedDate",this.dateTimeHelper.utcFormat(t,`${this.api.v1.locale.get("dates.monthdayyear",{noRender:!0})} ${this.api.v1.locale.get("dates.hourminute",{noRender:!0})}`)),e.setFiltered("isoDate",t.toISOString())}}}class w{constructor(e){this.api=e,this.baseApiUrl=this.api.v1.properties.get("front_api_url"),this.siteId=this.api.v1.properties.get("site.id"),this.cache=new Map,this.defaultMaxCount=100,this.isEditor=this.api.v1.app.mode.isEditor()}onPrepareViewHelper(e,t){const i=e.get("fields.site")||this.siteId,s=t.get("fields.maxNoticesCount")||this.defaultMaxCount,a=(e.get("fields.tags")||"").toLowerCase().split(",").filter(e=>""!==e),n=this.prepareTags(a),o=this.prepareQuery(n,!1),r=this.prepareQuery(n,!0),l=`${this.baseApiUrl}/notice?content=full&site_id=${i}&limit=${s}`;e.setFiltered("query",o),e.setFiltered("clientQuery",r),e.setFiltered("url",l)}onReady(e,t){const i=t.get("external"),s=e.get("filtered.noFetch")||!1,a=e.get("metadata.blacklist")||[],n=t.get("fields.maxNoticesCount")||this.defaultMaxCount;if(!s&&i){e.setFiltered("noFetch",!0);const t=e.get("fields.pinnedNotices_json")||[];let s=i.result;if(this.api.v1.app.mode.isEditor()){const t=this.api.v1.model.query.getModelsByType("notice",e.children);for(const e of t)this.api.v1.model.delete(e,!0,!0)}s=s.slice(0,n),s.forEach(i=>{const{attribute:s={},field:n={}}=i.notice;if(a.includes(parseInt(s.id||0,10)))return void Sys.logger.warn(`Notice with id ${s.id} is blacklisted from Livefeed and will not be displayed.`);"object"==typeof n.bodytext&&(n.bodytext="");const{title:o,bodytext:r,published:l,modified:d,published_url:g,userName:p}=n,c=[];if(i.notice.children&&i.notice.children.image){const e=Array.isArray(i.notice.children.image)?i.notice.children.image:[i.notice.children.image];for(const t of e){let e={};if(n.structure_json&&t.attribute.id)try{const i=JSON.parse(n.structure_json);for(const s of i)if("bodytext"===s.type){const i=this.getStructure(s.children||[],t.attribute.id);e=i?i.metadata:{};break}}catch(e){Sys.logger.warn(`Failed to parse structure data: ${e.toString()}`)}e.hasFullWidth={desktop:!1,mobile:!1},c.push(this.getImageData(t,e||{}))}}this.api.v1.model.insert.atPath({path:e.getPositionedPath(),data:{type:"notice",contentdata:{id:s.id,fields:{title:o,bodytext:r,published:l,modified:d,published_url:g,userName:p,pinned:t.includes(s.id)},tags:i.notice.tag?i.notice.tag.tag:""},state:{isNonPersistent:!0,editNonPersistent:!0},children:c},options:{silent:!0,index:t.includes(s.id)?0:void 0}})}),e.children.sort((e,i)=>t.includes(e.getId())?-1:t.includes(i.getId())?1:i.getId()-e.getId()),this.api.v1.app.mode.isEditor()&&(this.api.v1.model.addToRedrawQueue(e,!0),this.api.v1.app.save())}const o=this.api.v1.config.get("contentbox_settings.livefeed.updateFrequency")||[{range:[0,600],interval:10},{range:[600,1200],interval:30},{range:[1200],interval:60}];e.setFiltered("updateFrequency",JSON.stringify(o))}onRender(e,t){const i=t.get("fields.placeholder");e.setFiltered("placeholder",i||this.api.v1.locale.get("emptyState.noContentText",{noRender:!0})),e.setFiltered("initialRenderTime",(new Date).getTime()),e.setFiltered("dateStrings",JSON.stringify({now:this.api.v1.locale.get("dates.now",{noRender:!0}),monthdayyear:this.api.v1.locale.get("dates.monthdayyear",{noRender:!0}),hourminute:this.api.v1.locale.get("dates.hourminute",{noRender:!0}),durationSince:this.api.v1.locale.get("dates.durationSince",{noRender:!0}),minute:this.api.v1.locale.get("dates.minute",{noRender:!0}),minutes:this.api.v1.locale.get("dates.minutes",{noRender:!0}),hour:this.api.v1.locale.get("dates.hour",{noRender:!0}),hours:this.api.v1.locale.get("dates.hours",{noRender:!0}),day:this.api.v1.locale.get("dates.day",{noRender:!0}),days:this.api.v1.locale.get("dates.days",{noRender:!0}),ago:this.api.v1.locale.get("dates.ago",{noRender:!0})}))}onChildAdded(e,t){if(this.isEditor&&"notice"!==t.getType()){if(e.children.indexOf(t)>0)return;const i=this.api.v1.model.query.getModelsByType("notice",e.children).filter(e=>e.get("fields.pinned"));if(!i.length)return;let s=0;for(const t of i)e.children.indexOf(t)>s&&(s=e.children.indexOf(t));s>0&&this.api.v1.model.addChild(e,t,s,!1)}}prepareQuery(e,t=!1){const i=t?["(visibility_status:P OR visibility_status:H)"]:["visibility_status:P"];return e.length>0&&i.push(`(${e.join(" OR ")})`),`&query=${encodeURIComponent(i.join(" AND "))}`}prepareTags(e){return e.map(e=>{let t=e.trim();return t.indexOf(" ")>-1&&(t=`"${t}"`),`tag:${t}`})}getImageData(e,t){return this.api.v1.model.serialize.apiToView({type:"image",data:e,meta:t})}onSettingsPanel(e,t,i){const s={layout:null,container:null};return{onDisplay:({model:e,view:t,config:i,markup:a,modal:n})=>{s.layout=a.querySelector("#layout"),s.container=a.querySelector(".horizontalOptions"),s.layout&&s.container&&s.layout.addEventListener("change",e=>{"1"===s.layout.value?s.container.classList.remove("lab-hidden"):s.container.classList.add("lab-hidden")})},onHide:({model:e,view:t,config:i,markup:a,modal:n})=>{s.layout=null,s.container=null,e.setFiltered("noFetch",!1)}}}getStructure(e,t){for(const i of e){if("image"===i.type&&i.node_id==t)return i;if(i.children){const e=this.getStructure(i.children,t);if(e)return e.metadata&&!e.metadata.bodyTextIndex&&i.metadata&&i.metadata.bodyTextIndex&&(e.metadata.bodyTextIndex=i.metadata.bodyTextIndex),e}}return null}}class T{constructor(e){this.api=e}onRender(e,t){const i=this.api.v1.config.get("contentbox_settings.adnuntiusAd.formats")||[],s=e.get("fields.format"),a=i.filter(e=>e.format===s)[0]||{};if(e.setFiltered("adData",a),e.setFiltered("isDebug",this.api.v1.util.request.hasQueryParam("debug")||e.get("metadata.isDebug")),!this.api.v1.app.mode.isEditor()){const t=e.parent&&!0===e.parent.get("metadata.hideOnTablet")&&"tablet"===this.api.v1.config.get("xUaDevice");e.setFiltered("hideOnTablet",t)}if(this.api.v1.app.mode.isEditor()){const t=this.api.v1.model.root.getType().replace("page_",""),a=[];i.forEach(e=>{if(e.selectable&&e.selectable.indexOf(t)>-1||e.selectableOn&&!0===e.selectableOn[t])if(e.format===s){const t={...e};t.selected=!0,a.push(t)}else a.push(e)}),e.setFiltered("formatConfigKeys",a)}const n=this.api.v1.config.get("contentbox_settings.adnuntiusAd.label")||"Annonse",o=e.get("fields.label")||n;e.setFiltered("label",o),e.setFiltered("displayLabel",o&&(e.get("metadata.css")||"").includes("display-label"));if((e.get("metadata.css")||"").includes("sticky")){const t=`top: ${this.api.v1.config.get("contentbox_settings.adnuntiusAd.spacingTop")||120}px;`;e.setFiltered("spacingTop",t)}}}class ${constructor(e){this.api=e}onRender(e,t){const i=this.api.v1.model.query.getRootModel(),s=this.api.v1.config.get("contentbox_settings.googleAd.formats")||[],a=e.get("fields.format"),n=this.api.v1.config.get("adEnvironment")||{},o={bidding:n.bidding,hideOnTabletWidth:n.hideOnTabletWidth||1316,fetchMarginPercent:n.fetchMarginPercent||150,renderMarginPercent:n.renderMarginPercent||150};e.setFiltered("googleAds",o);const r=((e,t)=>{for(let i=0;i<t.length;i++)if(t[i].format===e)return{...t[i]};return{}})(a,s);if(r.key=e.get("metadata.key")||"row",o.bidding&&o.bidding.enabled&&o.bidding.provider&&o.bidding.provider.name&&"livewrapped"===o.bidding.provider.name){const e=()=>{const e=()=>(65536*(1+Math.random())||0).toString(16).substring(1);return`${e()+e()}-${e()}-${e()}-${e()}-${e()}${e()}${e()}`};r.code&&r.code.endsWith("-1")&&(r.code+=`_${e()}`)}"mpu_top"===r.code&&(r.isMpuTop=!0),e.setFiltered("adData",r),e.setFiltered("isDebug",this.api.v1.util.request.hasQueryParam("debug")||e.get("metadata.isDebug"));const l=this.api.v1.config.get("contentbox_settings.googleAd.label")||"Annonse",d=e.get("fields.label")||l;if(e.setFiltered("label",d),!this.api.v1.app.mode.isEditor()){const t=e.parent&&!0===e.parent.get("metadata.hideOnTablet")&&"tablet"===this.api.v1.properties.get("xUaDevice");e.setFiltered("hideOnTablet",t)}if(this.api.v1.app.mode.isEditor()){const t=i.get("type").replace("page_",""),a=[];s.forEach(e=>{(e.selectable&&e.selectable.indexOf(t)>-1||e.selectableOn&&!0===e.selectableOn[t])&&a.push(e)}),e.setFiltered("formatConfigKeys",a)}if((e.get("metadata.css")||"").includes("sticky")){const t=`top: ${this.api.v1.config.get("contentbox_settings.googleAd.spacingTop")||120}px;`;e.setFiltered("spacingTop",t)}}}class F{constructor({path:e=null,selector:t=null,data:i={},options:s={}}={}){this.path=e,this.selector=t,this.data=i,this.options={persistentTarget:!0,intermediate:{useExisting:!0},...s}}}class D{constructor({key:e=null,path:t=null,selector:i=null,placeholder:s=null,metadata:a={},options:{shouldInsert:n=!0,wrap:o=null,skipIfOutOfBounds:r=!1,useIndex:l=!1,useBodyTextIndex:d=!1,useBodyTextHeadingIndex:g=!1,lastBodyTextHeading:p=!1,prepend:c=!1}={}}={}){this.key=e,this.path=t,this.selector=i,this.placeholder=s,this.metadata=a,this.options={shouldInsert:n,wrap:o,skipIfOutOfBounds:r,useIndex:l,useBodyTextIndex:d,useBodyTextHeadingIndex:g,lastBodyTextHeading:p,prepend:c}}}class x{constructor({type:e=null,contentdata:t=null,content_data:i=null,cssSettings:s={},children:a=[],metadata:n={}}={}){this.type=e,this.contentdata=t||i,this.children=a,this.metadata={...n},this.state={};const o=[];this.metadata.css&&o.push(this.metadata.css);for(const e of Object.keys(s))s[e]&&o.push(e);this.metadata.css=o.join(" ")}}class M{constructor(e){this.api=e,this.page=this.api.v1.model.query.getRootModel(),this.pageType=this.api.v1.model.root.getType().replace("page_",""),this.viewports=this.api.v1.viewport.getActive(),this.isEditor=this.api.v1.app.mode.isEditor(),this.cache=new Map,this.pageElements={},this.hideAds="1"===this.page.get("fields.hideAds")||!0===this.page.get("fields.hideAds"),this.hideTopBannerAd="1"===this.page.get("fields.hideTopBannerAd")||!0===this.page.get("fields.hideTopBannerAd"),this.hideSkyscraperAd="1"===this.page.get("fields.hideSkyscraperAd")||!0===this.page.get("fields.hideSkyscraperAd"),this.api.v1.util.request.hasQueryValue("lab_opts","infinitescroll")&&(this.pageType=`${this.pageType}_infinitescroll`)}hasRequiredElement(e){return void 0===this.pageElements[e]&&(this.pageElements[e]=!!this.api.v1.model.query.getModelByType(e)),this.pageElements[e]}insert(e,t=null){const i={clientSidePlacements:[]},s={},a=`insertDynamic.${this.pageType}.${e}`,n=`placements.${this.pageType}.${e}`;let o=!1;const r=(this.api.v1.config.get(n)||[]).filter(e=>!e.client||(e.requireElement&&!this.hasRequiredElement(e.requireElement)||(s[e.key]=e),!1));if(!this.cache.has(a)){const e=`insertDynamicAdditions.${this.pageType}`,t=this.api.v1.config.get(a)||[],n=this.validateConditions(this.api.v1.config.get(e)||[]).reverse();o=n.length>0;const r=[...t,...n],l=(this.isEditor?r.filter(e=>!e.dynamicDataSettings||!e.dynamicDataSettings.hideInEditMode):r).filter(e=>{if(e.placement&&e.placement.key&&s[e.placement.key]){const t={...e,placementData:s[e.placement.key]};return i.clientSidePlacements.push(t),!1}return!0});this.cache.set(a,l)}if(!this.cache.has(n)){if(o){const e=`placementsAdditions.${this.pageType}`,t=this.api.v1.config.get(e)||[];r.push(...t)}this.cache.set(n,r.map(e=>new D(e)))}const l=this.parse(this.cache.get(a),this.cache.get(n),e,t);for(const e of l)e.selector?this.api.v1.model.insert.bySelector({selector:e.selector,data:e.data,options:e.options}):e.path&&this.api.v1.model.insert.atPath({path:e.path,data:e.data,options:e.options});return i}validateConditions(e){return e.filter(e=>{if(e.excludeDuplicates&&this.api.v1.model.query.getModelByType(e.type))return Sys.logger.debug(`[DynamicDataHelper]: Element of type "${e.type}" already exist on page. Skipping.`),!1;if(e&&e.conditions){const{conditions:t}=e;for(const i of t){const{field:t,operator:s,value:a=""}=i,n=this.page.get(t||"",void 0,!0);if(void 0!==n)switch(s){case"equals":if(n!==a)return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;case"notEquals":if(n===a)return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;case"contains":if(!n.includes(a))return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;case"notContains":if(n.includes(a))return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;default:return Sys.logger.warning(`[DynamicDataHelper]: Operator "${s}" is not valid. The condition fails and the item is not inserted onto the page.`),!1}else Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" ignored. Value of field: "${t}" is undefined.`)}return Sys.logger.debug(`[DynamicDataHelper]: All conditions (${t.length}) for inserting element type "${e.type}" accepted. Will insert.`),!0}return Sys.logger.debug(`[DynamicDataHelper]: No validation specified for inserting element type "${e.type}". Will insert.`),!0})}parse(e=[],t=[],i="desktop",s=null){const a=[];for(const n of e){const[o]=t.filter(({key:e})=>e===n.placement.key);if(o)if(this.acceptPath(o.path,s)){const t=this.create(n,o,e,i);if(null!==t&&(t.data.metadata.viewportBlacklist=this.viewports.filter(e=>e!==i),a.push(t),Number.isInteger(t.options.interval)&&Number.isInteger(t.options.index))){const{interval:s}=n.placement,{index:r}=n.placement;let l=r;const d=this.api.v1.model.query.getModelByPath(t.path);if(d){const t=d.getPersistentChildren().length;for(;l<t;){const t=JSON.parse(JSON.stringify(n));t.options.index=l,t.placement.index=l,t.type="placeholder_ad";const r=JSON.parse(JSON.stringify(o));r.selector="";const d=this.create(t,r,e,i);null!==d&&(d.data.metadata.viewportBlacklist=this.viewports.filter(e=>e!==i),a.push(d)),l+=s}}}}else Sys.logger.debug(`[DynamicDataHelper]: Path "${o.path}" not allowed. Filter: "${s}", key: "${n.placement.key}"`);else Sys.logger.debug(`[DynamicDataHelper]: No placement found with key "${n.placement.key}"`)}return a}create(e,t,i,s="desktop"){if(this.filter(e)){const i=this.assemble(e,t);if(t.path&&t.selector){this.api.v1.model.query.getModelBySelector(t.selector)||this.api.v1.model.insert.atPath({path:t.path,data:{type:"placeholder",selector:t.selector,metadata:{...t.metadata||{},key:t.key},state:{isNonPersistent:!0}},options:{index:0,useExisting:!0,prepend:!0,silent:!0}})}const a={...e.options,prepend:t.options.prepend||!1,silent:!0};let{path:n}=t,o=e.placement.index||0,r=null;if(t.selector)r=this.api.v1.model.query.getModelBySelector(t.selector);else if(t.path){const e=this.getModelsByPath(t.path,s);e.length&&(r=t.options.useBodyTextIndex||t.options.useBodyTextHeadingIndex||t.options.lastBodyTextHeading?e.find(e=>"bodytext"===e.getType()):t.options.shouldInsert?e[0].children[o]:e[o])}if(r||!t.options.skipIfOutOfBounds){if(r){o=this.api.v1.model.query.getIndex(r);let e=r.getParent();if("mobile"===s){if(o>0&&o<e.children.length){let t=e.children[o];for(;t;){const i=r.get("width",s,!0);if(void 0===i||100===i)break;t=e.children[++o]}}e.get("metadata.hasRowTitle")&&(0===o||o>=e.children.length)&&(r=e,e=r.getParent(),o=this.api.v1.model.query.getIndex(r),n=e.getPositionedPath())}t.options.useIndex&&o<e.children.length&&(a.index=o),t.options.shouldInsert||(n=e.getPositionedPath(!0))}else a.prepend=!1;return new F({data:i,options:a,selector:t.selector,path:n})}}return null}assemble(e,t){let i=new x(e);return t.selector||(i.metadata={...i.metadata,...t.metadata,css:t.metadata.css?`${i.metadata.css} ${t.metadata.css}`:i.metadata.css||""}),t.options.wrap&&(i=new x({type:t.options.wrap.type,metadata:t.options.wrap.metadata,children:[i]})),t.options.skipIfOutOfBounds&&(i.metadata.skipIfOutOfBounds=!0),t.options.useBodyTextIndex?i.metadata.bodyTextIndex=e.placement.index||0:t.options.useBodyTextHeadingIndex&&(i.metadata.bodyTextHeadingIndex=e.placement.index||0),t.options.lastBodyTextHeading&&(i.metadata.lastBodyTextHeading=!0),i.metadata.options=e.options||{},i.state.isNonPersistent=!0,i}acceptPath(e,t){return!e||!t||e===t}filter(e){return"googleAd"!==e.type&&"adnuntiusAd"!==e.type||(Sys.logger.debug(`[DynamicDataHelper]: Ad insertion requested. ad unit=${e.placement.key} hideAds=${this.hideAds}, hideTopBannerAd=${this.hideTopBannerAd}, hideSkyscraperAd=${this.hideSkyscraperAd}`),"topbanner"===e.placement.key&&this.hideTopBannerAd?(Sys.logger.debug("[DynamicDataHelper]: Top banner ad is hidden. Skipping insertion."),!1):e.placement.key.includes("skyscraper_")&&this.hideSkyscraperAd?(Sys.logger.debug("[DynamicDataHelper]: Skyscraper ad is hidden. Skipping insertion."),!1):!this.hideAds)}getModelsByPath(e,t){const i=`getByPath-${e}`;return this.cache.has(i)||this.cache.set(i,this.api.v1.model.query.getModelsByPath(e,!0,!0)),this.cache.get(i)}}class C{constructor(e){this.api=e,this.request=this.api.v1.util.request}listen(){const e={selector:this.request.getQueryParam("lab_selector")||"contentFromPath",path:this.request.getQueryParam("lab_path"),guid:this.request.getQueryParam("lab_guid")};(e.guid||e.path)&&this.api.v1.model.on("insert",t=>{const i=e.guid?this.getModelByGuid(e.guid,t):this.getModelByPath(e.path,t);if(i)return Sys.logger.debug(`[FragmentHelper] Element found. Path: ${i.getPositionedPath()}, GUID: ${i.getGuid()}.`),i.setSelector(e.selector),"embed"===lab_api.v1.viewport.getName()?this.appendToRoot(t,i):[i]})}getModelByGuid(e){return Sys.logger.debug(`[FragmentHelper] Will filter elements by guid: "${e}".`),this.api.v1.model.query.getModelByGuid(e)}getModelByPath(e,t){Sys.logger.debug(`[FragmentHelper] Will filter elements by path: "${e}".`);const i=this.api.v1.util.string.parsePath(e);if(!i[0])return null;const s=this.api.v1.model.query.getModelsByType(i[0].base,t);return this.api.v1.model.query.getModelByPath(e,!0,!1,s)}appendToRoot(e,t){const i=e[0];return i.children=[t],[i]}}class I{constructor(e){this.api=e,this.paths={main:["parent","guid","type","tags"],fields:["feedId","byline","bylineImage","paywall","published","published_url","site_alias","site_id","subtitle","subtitleHTML","teaserSubtitle","somedescription","title","teaserTitle","titleHTML","seolanguage","seotitle","sometitle","kicker","teaserKicker","showcomments"],fieldsAuto:["section_tag","tags"],fieldsNative:["section"],fieldMap:{subtitle:"description",subtitleHTML:"descriptionHTML",somedescription:"someDescription",teaserSubtitle:"teaserDescription",seolanguage:"seolanguage",seotitle:"seoTitle",sometitle:"someTitle",published_url:"url",section_tag:"section"},fallback:{url:"url"}},this.frontUrl=this.api.v1.site.getSite().domain||this.api.v1.properties.get("customer_front_url"),this.imageServer=this.api.v1.properties.get("image_server")}jsonData(e){Sys.logger.debug("[PageExport] Will export page as JSON-data");const t=this.api.v1.model.serialize.model(e);delete t.guid;return{page:t,result:"page_article"===e.getType()?this.exportArticle():this.exportFront()}}oembed(e){if("page_article"!==e.getType())return Sys.logger.warn("[PageExport] Will not export current page type as oEmbed."),{};const t=(this.api.v1.util.request.getQueryParam("lab_opts")||"").split(",");let i="full";t.includes("embed_type_teaser")&&(t.splice(t.indexOf("embed_type_teaser"),1),i="teaser");const s=t.filter(e=>e.startsWith("embed_no_")),a=["embed_padding"],n=[];for(const e of s)n.push(`dac-${e.replace("embed_","").replace(/_/g,"-")}`);for(const e of a)t.includes(e)&&n.push(`dac-${e.replace("embed_","").replace(/_/g,"-")}`);return Sys.logger.debug("[PageExport] Will export page as oEmbed"),{version:"1.0",type:"rich",width:"",height:"",title:this.api.v1.util.string.sanitizeString(e.get("fields.title")||""),url:e.get("filtered.url")||"",author_name:this.api.v1.site.getSite().display_name||this.api.v1.site.getSite().alias,author_url:this.frontUrl,provider_name:"Labrador",provider_url:"http://www.labradorcms.com/",html:`<div class="labrador-cms-embed" data-lab-style="${n.join(" ")} dac-embed-${i}" data-lab-content="${i}" data-lab-id="${e.get("id")}" data-lab-site="${e.get("filtered.site.domain_no_protocol")}"><script async defer src="${this.frontUrl}/embed.js?v=335"><\/script></div>`}}exportArticle(){}exportFront(){const e=this.api.v1.model.query.getModelByType("dropZone");return this.api.v1.model.query.getModelsByType("article",[e]).map(e=>this.serialize(e)).filter(e=>!!e)}serialize(e){const t=this.api.v1.model.serialize.model(e);if(!t||!t.fields)return null;const i=!!t.fields.origin_data_json,s={images:[],width:e.getWidth("desktop"),metadata:t.metadata,isAutomatic:i,siteDomain:this.frontUrl},a=i?t.fields.origin_data_json:t.fields,n=[...this.paths.fields,...i?this.paths.fieldsAuto:this.paths.fieldsNative];for(const e of this.paths.main)s[e]=t[e]||"";for(const e of n)s[this.paths.fieldMap[e]||e]=a[e]||"";if(s.teaserSubtitle=a.teaserSubtitle||"",i){if(!s.byline){const e=(a.full_bylines||[]).shift();s.byline=e?`${e.firstname} ${e.lastname}`:"",s.bylineImage=s.bylineImage||(e||{}).imageUrl}"string"==typeof s.tags&&(s.tags=s.tags.split(",").map(e=>(e||"").trim())),s.site_alias=(this.api.v1.site.getSiteById(a.site_id)||{}).alias,s.id=parseInt(a.id,10)}else s.titleHTML=s.title,s.title=this.cleanText(s.title),s.descriptionHTML=s.description,s.description=this.cleanText(s.description),s.kickerHTML=s.kicker,s.kicker=this.cleanText(s.kicker),s.id=t.id;s.section_tag=s.section,s.url&&!s.url.startsWith("http")&&(s.url=this.frontUrl+s.url);for(const e of Object.keys(this.paths.fallback))s[e]||(s[e]=a[this.paths.fallback[e]]||"");s.full_bylines=(i?a.full_bylines:a.full_bylines_json)||[],s.full_bylines=s.full_bylines.map(e=>({firstname:e.firstname,lastname:e.lastname,description:e.description,imageUrl:this.getImageUrl(e.imageUrl)})),i&&s.byline&&s.full_bylines.unshift({firstname:s.byline,lastname:"",imageUrl:this.getImageUrl(s.bylineImage)}),!s.byline&&s.full_bylines.length&&(s.byline=`${s.full_bylines[0].firstname} ${s.full_bylines[0].lastname}`,s.bylineImage=s.full_bylines[0].imageUrl.replace(this.imageServer,""));const o=lab_api.v1.config.get("customAdapterFields.article")||[];if(o)for(const e of o)if(e){let i=t.fields[e]||"";!i&&t.fields.origin_data_json&&(i=t.fields.origin_data_json[e]||""),i&&(s[e]=i)}s.paywall="0"!==s.paywall&&!!s.paywall;const r=this.api.v1.model.query.getChildOfType(e,"image");if(r){const e=r.get("filtered.image");e&&s.images.push({url:e,jpg:`${e}&format=jpg`,webp:`${e}&format=webp`,url_size:e,default:"1",id:r.get("instance_of")})}return s}cleanText(e){return this.api.v1.util.string.sanitizeString(e).replace(/&amp;/g,"&")}getImageUrl(e){return e?e.startsWith("http")?e:this.imageServer+e:""}}class A{constructor(e){this.api=e}register(e,t){if(this.api.v1.app.mode.isFragmentMode())return void Sys.logger.debug("[EsiHelper] Labrador is is fragment-mode. Will not register ESI. Skipping.");if(!e)return void Sys.logger.debug("[EsiHelper] Missing model, cannot process. Skipping.");const i=this.api.v1.config.get("footer.include");if(i&&i.pageId){const t=this.getEsiUrl(i);t?"client"===i.render?e.setFiltered("renderFooter.url",t):this.insertEsi(e,t,"esi_footer"):Sys.logger.warning("[EsiHelper] Cannot prepare url for footer-fragment. Missing url.")}const s=this.api.v1.config.get("header.include"),a=this.api.v1.config.get("header.includes")||[],n=[];if(s&&s.pageId){const t=this.insertHeader(s,e);t&&n.push(t)}for(const t of a)if(t&&t.pageId){const i=this.insertHeader(t,e);i&&n.push(i)}e.setFiltered("renderHeader.urls",n.map(e=>`'${e}'`).join(", "))}getEsiUrl(e){if(!e.pageId)return null;const t=["pageId","path","structureType","start","count"],i=[];if(t.forEach(t=>{void 0!==e[t]&&""!==e[t]&&null!==e[t]&&i.push(`${t}=${e[t]}`)}),i.length===t.length){let e=this.api.v1.properties.get("front_api_url");return this.api.v1.app.mode.isEditor()&&"https:"===document.location.protocol&&(e=e.replace("http:","https:")),`${e}/fragment/structure/?${i.join("&")}`}return null}insertEsi(e,t,i){Sys.logger.debug(`[EsiHelper] Will insert fragment for selector: "${i}", url: "${t}".`),this.api.v1.model.insert.atPath({path:e.getPath(),data:{type:"esi",selector:i,contentdata:{fields:{url:t,identifier:i}},state:{isNonPersistent:!0}},options:{frontpage:!0,articlepage:!0}}),this.api.v1.app.mode.isEditor()&&this.fetchEditorEsi(t,`${i}`)}insertHeader(e,t){const i=this.getEsiUrl(e);if(i){if("client"===e.render)return Sys.logger.debug(`[EsiHelper] Found url for header-fragment to render in client: "${i}".`),i;this.insertEsi(t,i,"esi_header")}else Sys.logger.warning("[EsiHelper] Cannot prepare url for header-fragment. Missing url.");return null}fetchEditorEsi(e,t){this.api.v1.view.on("domRendered",(i,s)=>{const a=this.api.v1.model.query.getModelBySelector(t);a&&(Sys.logger.debug(`EsiHelper.fetchEditorEsi: Will fetch esi-substitute for editor. Selector: ${t}, url: ${e}`),this.api.v1.util.httpClient.get(e,{credentials:"omit",type:"text"}).then(e=>{const i=lab_api.v1.view.getView(a,s),n=document.createElement("template");if(n.innerHTML=e,Sys.logger.debug(`EsiHelper.fetchEditorEsi: Esi-substitute fetched. Selector: ${t}, element-count: ${n.content.children.length}`),i.markup){for(const e of[...n.content.children])i.markup.parentElement.insertBefore(e,i.markup);i.markup.remove()}else Sys.logger.warn(`EsiHelper.fetchEditorEsi: Element markup not found. Cannot insert dom-element(s). Selector: ${t}`)}).catch(e=>{Sys.logger.warning(`EsiHelper.fetchEditorEsi: Esi-substitute could not be fetched. Selector: ${t}, error: ${e}`)}))})}}class P{static mediaQueries={desktop:"(min-width:1024px)",mobile:"(max-width: 1023px)"};static createStyle({model:e,view:t,viewports:i,styleCollection:s="content_inline_spacing",mediaQueries:a=this.mediaQueries,returnArray:n=!1}){const o=[],r=`[data-element-guid="${e.getGuid()}"] .content`;for(const n of i)if(a[n]){const i=lab_api.v1.style.getStyles(e,t,s,n);i&&o.push(`@media ${a[n]} { ${r} { ${i} } }`)}return n?o:`<style>${o.join("\n")}</style>`}}const j=class{constructor(){this.name="Baseview",this.api=null,this.pageAPI=null,this.useSpacing=!1}onReady(e){if(this.api=e,Sys.logger.debug(`[Front] Running Baseview version ${this.api.v1.config.get("view_version")}, build ${this.api.v1.config.get("view_build.baseview.version")}`),"json"===this.api.v1.viewport.getName()&&"PageExport.jsonData"===this.api.v1.config.get("viewports.json.renderer")){const e=new I(this.api);this.api.v1.view.on("rendered",(t,i)=>[JSON.stringify(e.jsonData(this.api.v1.model.query.getRootModel()),null,4)])}if("oembed"===this.api.v1.viewport.getName()&&"PageExport.oembed"===this.api.v1.config.get("viewports.oembed.renderer")){const e=new I(this.api);this.api.v1.view.on("rendered",(t,i)=>[JSON.stringify(e.oembed(this.api.v1.model.query.getRootModel()),null,4)])}new C(this.api,this.api.v1.util.request).listen()}onAcceptContent(){const e=this.api.v1.model.query.getRootModel();if(this.useSpacing=!(!e||!e.get("fields.style_spacing")),"editor"===this.api.v1.app.mode.getSimulatedMode())return void Sys.logger.debug("[Front] Labrador is running in simulated editor-mode. Skipping DynamicDataHelper and EsiHelper.");const t=new M(this.api),{clientSidePlacements:i=[]}=t.insert(this.api.v1.viewport.getName());i.length>0&&!e.get("fields.hideAds")&&(e.setFiltered("clientSidePlacements",JSON.stringify(i)),e.setFiltered("clientSideResources",JSON.stringify({configObject:{viewConfig:{config:{customer:{contentbox_settings:{adnuntiusAd:this.api.v1.config.get("contentbox_settings.adnuntiusAd")||{},googleAd:this.api.v1.config.get("contentbox_settings.googleAd")||{}},adEnvironment:this.api.v1.config.get("adEnvironment")||{}}}}},site:this.api.v1.site.getSite(),device:this.api.v1.properties.get("device"),debug:this.api.v1.util.request.hasQueryParam("debug")||!1})));new A(this.api).register(e,this.api.v1.site.getSite().alias),this.api.v1.util.request.hasQueryValue("lab_opts","hideHeader")&&(Sys.logger.debug("[Front] Hiding header and logo based on url param lab_opts=hideHeader ..."),e.setFiltered("pageHeaderDisplay","hideHeaderAndLogo")),this.api.v1.util.request.hasQueryValue("lab_opts","hideFooter")&&(Sys.logger.debug("[Front] Hiding footer based on url param lab_opts=hideFooter ..."),e.setFiltered("pageFooterDisplay","hideFooter")),this.api.v1.util.request.hasQueryValue("lab_opts","hideComments")&&(Sys.logger.debug("[Front] Hiding Hyvor comments based on url param lab_opts=hideComments ..."),e.setFiltered("pageCommentsDisplay","hideComments"))}onRender(e,t){this.useSpacing&&e.setFiltered("styleSheets",P.createStyle({model:e,view:t,viewports:["desktop","mobile"],returnArray:!1}))}onMapData(e){if("text_title"===e.type||"text_subtitle"===e.type){if(!e.contentdata||!e.contentdata.fields)return;const t={...e};return t.type="text_singleline",t.contentdata.fields.text=t.contentdata.fields.title||t.contentdata.fields.subtitle,"text_subtitle"===e.type?(t.contentdata.fields.elementType={value:"h3"},delete t.contentdata.fields.subtitle):(t.contentdata.fields.elementType={value:"h2"},lab_api.v1.util.object.set("attributes.text_size.vp.desktop",lab_api.v1.util.object.get("attributes.text_size.vp.desktop",t.contentdata.fields.text)||44,t.contentdata.fields.text),delete t.contentdata.fields.title),t.lab_internal_format=!0,t}}};
+var e={d:(t,i)=>{for(var s in i)e.o(i,s)&&!e.o(t,s)&&Object.defineProperty(t,s,{enumerable:!0,get:i[s]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.r(t),e.d(t,{adnuntiusAd:()=>D,article:()=>_,googleAd:()=>F,image:()=>w,livefeed:()=>$,notice:()=>k,page_article:()=>m,page_front:()=>f});class i{static getSiteStyles(e,t=[]){const i=lab_api.v1.config.get(`site_styles.${e}`)||t;return Sys.logger.debug(`ViewSupport: Found ${Array.isArray(i)?i.length:0} stylesheet(s) for site "${e}".`),i}static getSiteStylesWithFallback(e,t=[]){const i=this.getSiteStyles(e,null);if(null===i){t.push(e);const i=lab_api.v1.config.get("lab_fallback_site",{site:e});if(i&&!t.includes(i))return this.getSiteStylesWithFallback(i,t)}return i||[]}static getSiteScripts(e,t,i){const s=this.filterScriptListByPageType(lab_api.v1.config.get(`site_scripts.${e}`)||[],t,i);return Sys.logger.debug(`ViewSupport: Found ${s.length} script-path(s) for site "${e}".`),s}static getSiteScriptsWithFallback(e,t,i,s=[]){let a=this.getSiteScripts(e,t,i);if(s.length&&(a=this.removeWithInheritFalse(a)),!a.length){s.push(e);const a=lab_api.v1.config.get("lab_fallback_site",{site:e});if(a&&!s.includes(a))return this.getSiteScriptsWithFallback(a,t,i,s).filter(e=>!1!==e.inherit)}return a}static getCommonScripts(e,t,i=!1){const s=this.filterScriptListByPageType(lab_api.v1.config.get("site_scripts_common")||[],e,t,i);return Sys.logger.debug(`ViewSupport: Found ${s.length} common ${i?"script-path(s)":"JS modules"}`),s}static filterScriptListByPageType(e,t,i,s=!1){return e.filter(e=>(!e.isModule&&!s||e.isModule&&s)&&(!e.pageType||e.pageType===t)&&(!i||i&&!e.skipEditor))}static removeWithInheritFalse(e){return Array.isArray(e)&&e.length>0?e.filter(e=>!1!==e.inherit):e}static getSiteFilesForContentboxes(e,t,i,s=[]){const a=[],n=lab_api.v1.model.query.getModelTypes();Sys.logger.debug(`ViewSupport sitefiles: Will register ${i}-file(s) for contentbox-types ${n.join(", ")}.`);for(const e of n){const t=lab_api.v1.config.get(`contentbox_settings.${e}.require.${i}`);if(Array.isArray(t))for(const n of t)a.includes(n)||s.includes(n)||(Sys.logger.debug(`ViewSupport sitefiles: Will include ${i}-file "${n}" for contentbox "${e}".`),a.push(n))}return Sys.logger.debug(`ViewSupport sitefiles: Finished registering ${i}-file(s). Found ${a.length} file(s).`),a}}class s{constructor(e){this.api=e,this.pageType=this.api.v1.model.root.getType()}get media(){return{getLogo:(e=this.api.v1.viewport.getName())=>{const t=this.api.v1.config.get("logo")||{},i=t.default||{},s=t.mobile||t.default||{},a=t.mainLogo||{},n=t.secondaryLogo||{},o=t.mobileLogo||{},r=t.mailmojoLogo||{},[l,d,g]=[{data:a,legacy:t,uploadedKey:"uploadedFileUrl",widthKey:"logoWidth",heightKey:"logoHeight",hrefKey:"logoHref",altTextKey:"logoAltText",defaultObj:i},{data:n,legacy:t,uploadedKey:"uploadedSecondaryFileUrl",widthKey:"secondaryLogoWidth",heightKey:"secondaryLogoHeight",hrefKey:"secondaryLogoHref",altTextKey:"secondaryLogoAltText",defaultObj:i},{data:o,legacy:t,uploadedKey:"uploadedMobileFileUrl",widthKey:"mobileLogoWidth",heightKey:"mobileLogoHeight",hrefKey:"mobileLogoHref",altTextKey:"mobileLogoAltText",defaultObj:s}].map(({data:i,legacy:s,uploadedKey:a,widthKey:n,heightKey:o,hrefKey:r,altTextKey:l,defaultObj:d})=>{const g=i[a]||s[a]||i.src,c=t[e]||t.default||{},p=c.size||{},h=i[n]||s[n]||i.size&&i.size.width,u=i[o]||s[o]||i.size&&i.size.height,m=h||u,f=m?{width:h,height:u}:{width:p.width,height:p.height};let y;return g?y={src:g,href:i[r]||s[r]||i.href||d.href,type:"img",size:f,title:i[l]||s[l]||i.title||d.title,altText:i[l]||s[l]||i.altText||null,isCustom:!0}:(y=c.src?c:null,y&&m&&(y={src:y.src,href:y.href,type:y.type,size:f,title:y.title,altText:y.altText||null})),y&&("img"===y.type?y.is_img=!0:"svg"===y.type&&(y.is_svg=!0)),y}),c=a.uploadedFileUrl||t.uploadedFileUrl||a.src,p=c?{src:c,href:a.logoHref||t.logoHref||i.href,size:{width:a.logoWidth||t.logoWidth,height:a.logoHeight||t.logoHeight},title:a.logoAltText||t.logoAltText||i.title,isCustom:!0}:t.standalone||t.mailmojo||null,h=r.uploadedMailmojoFileUrl||t.uploadedMailmojoFileUrl||r.src;return{current:l,sm:p,mm:h?{src:h,href:r.mailmojoLogoHref||t.mailmojoLogoHref||i.href,size:{width:r.mailmojoLogoWidth||t.mailmojoLogoWidth,height:r.mailmojoLogoHeight||t.mailmojoLogoHeight},title:r.mailmojoLogoAltText||t.mailmojoLogoAltText||i.title,isCustom:!0}:t.mailmojo||t.standalone||null,secondary:d,mobile:g||l}}}}get menus(){return{get:({section:e,defaultSection:t}={},i)=>{const s={},a=Object.values(this.api.v1.config.get("menus")||{});if(a.length<1)return null;const n=i=>{i.forEach(i=>{i.selected=i.section===e||i.section===t,"target"in i||(i.target="_self"),"selector"in i||(i.selector=""),"children"in i||(i.children=[]),i.children.length>0&&(i.hasChildren=!0,n(i.children))})};return a.forEach(e=>{n(e.menuItems);const t=e.type||e.menuName;s[t]={items:e.menuItems,type:e.type,selector:e.selector||"",menuName:e.menuName||"",showMenuName:e.showMenuNameOnDesktop||e.showMenuNameOnMobile||!1,showMenuNameOnDesktop:e.showMenuNameOnDesktop||"",showMenuNameOnMobile:e.showMenuNameOnMobile||""}}),i?s[i]:s}}}get misc(){return{}}get resources(){const e={required:[],getProgressReader:()=>(e.required.push({url:"/view-resources/public/common/ReadProgress.js",requireDom:!1}),{active:!0,minElementCount:lab_api.v1.config.get("displayReadProgress.minElementCount")||25}),getSiteFiles(t,s,a,n,o){const r=i.getSiteScriptsWithFallback(a,n,o),l=i.getCommonScripts(n,o);return e.required.push(...r,...l),{js:i.getSiteFilesForContentboxes(t,s,"js",e.required.map(e=>e.url)),css:i.getSiteFilesForContentboxes(t,s,"css")}},getModules:(e,t,s,a,n)=>i.getCommonScripts(a,n,!0)},t={get:e=>{const i=(lab_api.v1.config.get("analytics.kilkaya")||[]).map(e=>{const t={...e};return t.id&&"string"==typeof t.id&&t.id.trim().endsWith(".js")&&(t.url=t.id),t});let s=this.api.v1.config.get("analytics.adnuntiusConnect");s&&"object"==typeof s&&!Array.isArray(s)&&Object.keys(s).length&&(s=new Array(s));const a={google:this.api.v1.config.get("analytics.google.tracking_id"),google_gtm:this.api.v1.config.get("analytics.google.gtm"),comscore:this.api.v1.config.get("analytics.comscore.comscore_id"),adnuntiusConnect:s,adnuntiusConnectCMP:this.api.v1.config.get("analytics.adnuntiusConnectCMP"),kilkaya:i,kilkayaSettings:this.api.v1.config.get("analytics.kilkayaSettings"),io:this.api.v1.config.get("analytics.io.tracking_id")},n=t.getDataLayer(e);return n.dataLayer&&(a.dataLayer=n.dataLayer),n.usesJWTCookieData&&(a.usesJWTCookieData=n.usesJWTCookieData),a},getDataLayer:e=>{const t=this.api.v1.config.get("analytics.google.dataLayer");let i=!1;if(t&&Array.isArray(t)&&t.length){t.forEach(t=>{let s=null;switch(t.source){case"fixed":s=(t.value||"").trim();break;case"config":s=this.api.v1.properties.get(t.value);break;case"jwtcookie":t.isJWTCookie=!0,s=t.value,i=!0;break;case"article_authors":s=`${(e.bylinesStringCommaSeparated||"").replace(/"/g,"")}`;break;case this.pageType.replace("page_",""):s=this.api.v1.model.query.getRootModel().get(t.value);break;default:Sys.logger.warn(`Unsupported dataLayer source: "${t.source}"`)}t.value=null===s?"":s.toString()});const s=t.map(e=>e.value.length>0).lastIndexOf(!0);t[s]&&(t[s].last=!0)}return{dataLayer:t,usesJWTCookieData:i}}};return{scripts:e,analytics:t}}get settings(){return{get:(e={})=>{const t=this.api.v1.config.get(`page_settings.${e.pageType}.social.display`)||{},i=this.api.v1.model.query.getRootModel().get("fields.show_social_bodytext_before"),s=this.api.v1.model.query.getRootModel().get("fields.show_social_bodytext_after"),a=this.api.v1.model.query.getRootModel().get("fields.show_social_header");null!==i&&(t.bodytext_before=!!i),null!==s&&(t.bodytext_after=!!s),null!==a&&(t.header=!!a);const n=this.api.v1.config.get(`page_settings.${e.pageType}.social.items`)||{},o=this.api.v1.config.get(`page_settings.${e.pageType}.showTags`),r={"fi-social-facebook":"facebook","fi-social-twitter":"twitter","fi-social-linkedin":"linkedin","fi-social-whatsapp":"whatsapp","fi-mail":"email","fi-social-telegram":"telegram","fi-social-copyLink":"system"},l=Object.keys(n).filter(e=>!!n[e].display).map(t=>{const i=n[t].icon||"";return{name:t,icon:i,url:e.socialLinks[t]||"",shareText:this.api.v1.locale.get(`socialMedia.shareText.${t}`,{noRender:!0,fallbackValue:""}),isButton:n[t].isButton||!1,ampType:r[i]||"",telegram:"telegram"===t,twitter:"twitter"===t,whatsapp:"whatsapp"===t,email:"email"===t}});return{page_type:e.pageType,social:{display:{bodytext_before:l.length>0&&!!t.bodytext_before,bodytext_after:l.length>0&&!!t.bodytext_after,header:l.length>0&&!!t.header},items:l},showTags:!1!==o}}}}}class a{static getStyleDefinitions(e){const t=e.v1.properties.get("site.alias"),i=e.v1.config.get("style_definitions",t),s=[];(i.rules||[]).forEach(e=>s.push(e)),(i.fontface||[]).forEach(e=>{const t=`.font-${(Array.isArray(e.family)?e.family[0]:e.family).replace(/ /g,"")}`;s.push(a.getFamilyDefinition(t,e.family));const i={light:{keys:["light","200","100","300"],used:!1},normal:{keys:["regular","normal","400","500"],used:!1},bold:{keys:["bold","600","700"],used:!1},black:{keys:["black","800","900"],used:!1}};e.variants.forEach(e=>{for(const n of Object.keys(i)){const o=i[n];o&&!o.used&&o.keys.indexOf(e)>-1&&(s.push(a.getWeightDefinition(t,e,n)),o.used=!0)}})});const n={fontface:i.fontface||[],parsedRules:a.CSSRuleParser(s)};return n.hasRules=!!n.parsedRules.length,n}static getFamilyDefinition(e,t){return{selector:e,declarations:[{key:"font-family",value:`${Array.isArray(t)?`${t.map(e=>`"${e}"`).join(", ")}`:`"${t}"`} !important`}]}}static getWeightDefinition(e,t,i){let s=t;return"regular"===t&&(s="normal"),{selector:`${e}.font-weight-${i}`,declarations:[{key:"font-weight",value:`${s} !important`}]}}static CSSRuleParser(e){const t=[];return e.forEach(e=>{let i,s,a=`${e.selector} { `;e.declarations.forEach(e=>{"font-size-desktop"===e.key?"default"!==e.value&&(a+=`font-size: ${e.value.slice(0,-2)/16}rem; `):"font-size-mobile"===e.key?"default"!==e.value&&(i=`calc(0.262vw * ${e.value.slice(0,-2)})`):"line-height-desktop"===e.key?"default"!==e.value&&(a+=`line-height: ${e.value}; `):"line-height-mobile"===e.key?"default"!==e.value&&(s=e.value):"font-family"===e.key?e.value.includes("!important")?a+=`${e.key}: ${e.value}; `:a+=`${e.key}: "${e.value}"; `:"color"===e.key||"text-transform"===e.key||"text-decoration"===e.key?"default"!==e.value&&(a+=`${e.key}: ${e.value}; `):a+=`${e.key}: ${e.value}; `}),a+="}",(i||s)&&(a+=`@media (max-width: 767px) { .resp_fonts ${e.selector} {`,i&&(a+=`font-size: ${i}; `),s&&(a+=`line-height: ${s}; `),a+="} }"),t.push(a)}),t}static getInlineCSS(e,t){return[{key:"custom_properties",value:e.v1.config.get("css_build.custom_properties",{site:t})||""},{key:"background_colors",value:e.v1.config.get("css_build.background_colors",{site:t})||""},{key:"background_colors_opacity",value:e.v1.config.get("css_build.background_colors_opacity",{site:t})||""},{key:"border_colors",value:e.v1.config.get("css_build.border_colors",{site:t})||""},{key:"font_colors",value:e.v1.config.get("css_build.font_colors",{site:t})||""},{key:"image_gradient",value:e.v1.config.get("css_build.image_gradient",{site:t})||""}]}static getCssVariables(e){const t=e.v1.config.get("custom_css_variables")||{},i={no_viewport:[],desktop:[],mobile:[]};for(const e of Object.keys(t))for(const s of Object.keys(t[e]))i[s].push({key:e,value:(t[e][s]||{}).value});return i}}const n={sunday:{en:"sunday",sv:"söndag",dk:"søndag",no:"søndag",nl:"zondag",kl:"sapaat"},monday:{en:"monday",sv:"måndag",dk:"mandag",no:"mandag",nl:"maandag",kl:"ataasinngorneq"},tuesday:{en:"tuesday",sv:"tisdag",dk:"tirsdag",no:"tirsdag",nl:"dinsdag",kl:"marlunngorneq"},wednesday:{en:"wednesday",sv:"onsdag",dk:"onsdag",no:"onsdag",nl:"woensdag",kl:"pingasunngorneq"},thursday:{en:"thursday",sv:"torsdag",dk:"torsdag",no:"torsdag",nl:"donderdag",kl:"sisamanngorneq"},friday:{en:"friday",sv:"fredag",dk:"fredag",no:"fredag",nl:"vrijdag",kl:"tallimanngorneq"},saturday:{en:"saturday",sv:"lördag",dk:"lørdag",no:"lørdag",nl:"zaterdag",kl:"arfininngorneq"},january:{en:"January",sv:"januari",dk:"januar",no:"januar",nl:"januari",kl:"ukiortaarsiorneq"},february:{en:"February",sv:"februari",dk:"februar",no:"februar",nl:"februari",kl:"ukiortaami"},march:{en:"March",sv:"mars",dk:"marts",no:"mars",nl:"maart",kl:"marsi"},april:{en:"April",sv:"april",dk:"april",no:"april",nl:"april",kl:"apriili"},may:{en:"May",sv:"maj",dk:"maj",no:"mai",nl:"mei",kl:"maajii"},june:{en:"June",sv:"juni",dk:"juni",no:"juni",nl:"juni",kl:"juuni"},july:{en:"July",sv:"juli",dk:"juli",no:"juli",nl:"juli",kl:"juuli"},august:{en:"August",sv:"augusti",dk:"august",no:"august",nl:"augustus",kl:"aggusti"},september:{en:"September",sv:"september",dk:"september",no:"september",nl:"september",kl:"septembari"},october:{en:"October",sv:"oktober",dk:"oktober",no:"oktober",nl:"oktober",kl:"oktobari"},november:{en:"November",sv:"november",dk:"november",no:"november",nl:"november",kl:"novembari"},december:{en:"December",sv:"december",dk:"december",no:"desember",nl:"december",kl:"decembari"},ago:{en:"ago",sv:"sedan",dk:"siden",no:"siden",nl:"geleden",kl:"matuma siorna"},now:{en:"now",sv:"nu",dk:"nu",no:"nå",nl:"nu",kl:"maanna"},min:{en:"min"},minutes:{en:"minutes",sv:"minuter",dk:"minutter",no:"minutter",nl:"minuten",kl:"minutsi"},hour:{en:"hour",sv:"timme",dk:"time",no:"time",nl:"uur",kl:"akunnera"},hours:{en:"hours",sv:"timmar",dk:"timer",no:"timer",nl:"uren",kl:"akunnerit"},day:{en:"day",sv:"dag",dk:"dag",no:"dag",nl:"dag",kl:"ulloq"},days:{en:"days",sv:"dagar",dk:"dage",no:"dager",nl:"dagen",kl:"ullut"},monthdayyear:{en:"{{MMMM}} {{DD}}. {{YYYY}}",sv:"{{DD}}/{{MM}} {{YYYY}}",dk:"{{DD}}/{{MM}} {{YYYY}}",no:"{{DD}}/{{MM}} {{YYYY}}",nl:"{{DD}}/{{MM}} {{YYYY}}"},hourminute:{en:"{{HH}}:{{mm}}"}};class o{constructor(e="en",t="en"){this.fallbackLanguage=t,this.language=e||t,this.words=n,this.timezone=this.getTimezone(),this.ianaTimezone=lab_api.v1.config.get("iana_timezone")||null}getTimezone(){const e=lab_api.v1.config.get("timezone");return void 0===e||Number.isNaN(e)||Number.isNaN(parseFloat(e))?1:parseInt(e,10)}str(e){let{language:t}=this;return e in this.words?(t in this.words[e]||(t=this.fallbackLanguage),t in this.words[e]?this.words[e][t]:null):null}format(e,t){return Mustache.render(t,{YYYY:()=>e.getFullYear(),YY:()=>`${e.getFullYear()}`.slice(-2),MM:()=>(e.getMonth()<9?"0":"")+(e.getMonth()+1),M:()=>e.getMonth()+1,D:()=>e.getDate(),DD:()=>(e.getDate()<10?"0":"")+e.getDate(),H:()=>e.getHours(),HH:()=>(e.getHours()<10?"0":"")+e.getHours(),m:()=>e.getMinutes(),mm:()=>(e.getMinutes()<10?"0":"")+e.getMinutes(),s:()=>e.getSeconds(),ss:()=>(e.getSeconds()<10?"0":"")+e.getSeconds(),dddd:()=>this.weekday(e,!1),ddd:()=>this.weekday(e,!1,3),MMMM:()=>this.monthName(e,!1),MMM:()=>this.monthName(e,!1,3),W:()=>this.weekNumber(e,!0,!0),WW:()=>this.weekNumber(e,!0,!1)})}utcFormat(e,t){const i=this.correctDate(e);return Mustache.render(t,{YYYY:()=>i.getUTCFullYear(),YY:()=>`${i.getUTCFullYear()}`.slice(-2),MM:()=>(i.getUTCMonth()<9?"0":"")+(i.getUTCMonth()+1),M:()=>i.getUTCMonth()+1,D:()=>i.getUTCDate(),DD:()=>(i.getUTCDate()<10?"0":"")+i.getUTCDate(),H:()=>i.getUTCHours(),HH:()=>(i.getUTCHours()<10?"0":"")+i.getUTCHours(),h:()=>this.twelveHourClock(i),hh:()=>this.twelveHourClock(i,!0),m:()=>i.getUTCMinutes(),mm:()=>(i.getUTCMinutes()<10?"0":"")+i.getUTCMinutes(),s:()=>i.getUTCSeconds(),ss:()=>(i.getUTCSeconds()<10?"0":"")+i.getUTCSeconds(),a:()=>i.getUTCHours()<12?"a.m.":"p.m.",A:()=>i.getUTCHours()<12?"A.M.":"P.M.",dddd:()=>this.weekday(i,!0),ddd:()=>this.weekday(i,!0,3),MMMM:()=>this.monthName(i,!0),MMM:()=>this.monthName(i,!0,3),W:()=>this.weekNumber(i,!0,!0),WW:()=>this.weekNumber(i,!0,!1)})}formattedDate(e,t,i=!0,s=!0){let a=t||"";return a=a.replace("Y",e.getFullYear()),a=a.replace("m",(i&&e.getMonth()<9?"0":"")+(e.getMonth()+1)),a=a.replace("d",(i&&e.getDate()<10?"0":"")+e.getDate()),a=a.replace("H",(s&&e.getHours()<10?"0":"")+e.getHours()),a=a.replace("i",(s&&e.getMinutes()<10?"0":"")+e.getMinutes()),a=a.replace("s",e.getSeconds()),a=a.replace("l",this.weekday(e,!1)),a=a.replace("D",this.weekday(e,!1,3)),a=a.replace("F",this.monthName(e,!1)),a=a.replace("M",this.monthName(e,!1,3)),a}formattedUtcDate(e,t,i=!0,s=!0){const a=this.correctDate(e);let n=t||"";return n=n.replace("Y",a.getUTCFullYear()),n=n.replace("m",(i&&a.getUTCMonth()<9?"0":"")+(a.getUTCMonth()+1)),n=n.replace("d",(i&&a.getUTCDate()<10?"0":"")+a.getUTCDate()),n=n.replace("H",(s&&a.getUTCHours()<10?"0":"")+a.getUTCHours()),n=n.replace("i",(s&&a.getUTCMinutes()<10?"0":"")+a.getUTCMinutes()),n=n.replace("s",a.getUTCSeconds()),n=n.replace("l",this.weekday(a,!0)),n=n.replace("D",this.weekday(a,!0,3)),n=n.replace("F",this.monthName(a,!0)),n=n.replace("M",this.monthName(a,!0,3)),n}getUtcOffsetMinutes(e,t){const i=new Date(6e4*Math.floor(t.getTime()/6e4)),s=new Intl.DateTimeFormat("en-US",{timeZone:e,year:"numeric",month:"numeric",day:"numeric",hour:"numeric",minute:"numeric",hour12:!1,hourCycle:"h23"}).formatToParts(i),a=Object.fromEntries(s.map(e=>[e.type,parseInt(e.value)])),n=new Date(Date.UTC(a.year,a.month-1,a.day,a.hour,a.minute)).getTime()-i.getTime();return Math.round(n/6e4)}getEffectiveOffset(e){return this.ianaTimezone&&"undefined"!=typeof Intl?this.getUtcOffsetMinutes(this.ianaTimezone,e)/60:this.isSummerTime(e)?this.timezone+1:this.timezone}correctDate(e){return this.manipulateTime(e,this.getEffectiveOffset(e))}utcDate(e){return this.unmanipulateTime(e,this.getEffectiveOffset(e))}timestampToDate(e){return new Date(1e3*e)}toTimestamp(e){return Math.round(e.getTime()/1e3)}parseDate(e){const t=e.substr(0,4),i=e.substr(4,2)-1,s=e.substr(6,2),a=new Date(t,i,s),n=a.getFullYear()==t,o=a.getMonth()==i,r=a.getDate()==s;return n&&o&&r?a:"invalid date"}weekday(e,t=!1,i=9){return([this.str("sunday"),this.str("monday"),this.str("tuesday"),this.str("wednesday"),this.str("thursday"),this.str("friday"),this.str("saturday")][t?e.getUTCDay():e.getDay()]||"").substr(0,i)}monthName(e,t=!1,i=10){return([this.str("january"),this.str("february"),this.str("march"),this.str("april"),this.str("may"),this.str("june"),this.str("july"),this.str("august"),this.str("september"),this.str("october"),this.str("november"),this.str("december")][t?e.getUTCMonth():e.getMonth()]||"").substr(0,i)}weekNumber(e,t=!1,i=!0){const s=new Date(e.valueOf()),a=((t?e.getUTCDay():e.getDay())+6)%7;s.setDate(s.getDate()-a+3);const n=s.valueOf();s.setMonth(0,1),4!==s.getDay()&&s.setMonth(0,1+(4-s.getDay()+7)%7);const o=1+Math.ceil((n-s)/6048e5);return(!i&&o<10?"0":"")+o}timestampToNiceDate(e,t=!1){const i={ago:t?"":this.str("ago"),now:this.str("now"),minute:t?this.str("min"):this.str("minutes"),minutes:t?this.str("min"):this.str("minutes"),hour:this.str("hour"),hours:this.str("hours"),day:this.str("day"),days:this.str("days")},s=(new Date).getTime(),a=new Date(1e3*e).getTime()-0,n=parseInt((s-a)/1e3/60,10);return n<60?n<1?i.now:1==n?`1 ${i.minute} ${i.ago}`:`${n} ${i.minutes} ${i.ago}`:n<1440?1==parseInt(n/60,10)?`1 ${i.hour} ${i.ago}`:`${parseInt(n/60,10)} ${i.hours} ${i.ago}`:parseInt(n/1440,10)<30?1==parseInt(n/1440,10)?`1 ${i.day} ${i.ago}`:`${parseInt(n/1440,10)} ${i.days} ${i.ago}`:this.format(this.timestampToDate(e),this.str("monthdayyear"))}isSummerTime(e){function t(e,t){const i=new Date,s=new Date(Date.UTC(t||i.getFullYear(),e+1,0)),a=s.getDay();return new Date(Date.UTC(s.getFullYear(),s.getMonth(),s.getDate()-a))}const i=e||new Date,s=t(2,i.getFullYear());s.setHours(1);const a=t(9,i.getFullYear());return s.setHours(1),i.getTime()>=s.getTime()&&i.getTime()<a.getTime()}manipulateTime(e,t){return new Date(e.getTime()+60*t*60*1e3)}unmanipulateTime(e,t){return new Date(e.getTime()-60*t*60*1e3)}twelveHourClock(e,t=!1){const i=e.getUTCHours();let s;return 0===i||12===i?s=12:(s=i<12?i:i-12,t&&s<10&&(s=`0${s}`)),s}}class r{static getAdnuntiusSettings(e,t,i,s,a,n=!1,r=!1){Sys.logger.debug(`[AdsHelper.getAdnuntiusSettings] Called with disableSkyscraper=${n}, disableTopBanner=${r}`);const l=(e.v1.config.get("contentbox_settings.adnuntiusAd.bidding")||{}).enabled||!1;function d(e,t){let i="";return l&&e.prebidConfig&&(i=JSON.parse(e.prebidConfig),Array.isArray(i)&&([i]=i),i=JSON.stringify(i)),{...e,prebidConfig:i,metadata:t.metadata||[]}}const g=e.v1.config.get("contentbox_settings.adnuntiusAd.formats")||[],c=e.v1.config.getView(`insertDynamic.${e.v1.model.root.getType().replace("page_","")}.${i.getViewport()}`,a.alias)||[],p=e.v1.model.query.getChildrenOfType(t,"adnuntiusAd",!0,!0),h=[];for(const e of c){const[t]=g.filter(t=>e.content_data.fields.format===t.format);t&&(!1===e.placement.key.includes("skyscraper_")&&"topbanner"!==e.placement.key||e.placement.key.includes("skyscraper_")&&!n||"topbanner"===e.placement.key&&!r)&&h.push(d(t,e))}for(const e of p){const[t]=g.filter(t=>e.get("fields.format")===t.format);t&&h.push(d(t,e))}const u=(new o).utcFormat(new Date,"&tag=week_{{ W }}_{{ YYYY }}");return{enabled:g.length>0,lazyload:e.v1.config.get("contentbox_settings.adnuntiusAd.lazyload")||!1,adUnits:h,spacingTop:e.v1.config.get("contentbox_settings.adnuntiusAd.spacingTop")||120,fetchMarginPercent:s.fetchMarginPercent||150,renderMarginPercent:s.renderMarginPercent||150,mobileScaling:s.mobileScaling||2,bidding:{enabled:l},hideOnTabletWidth:s.hideOnTabletWidth||1316,refreshdelay:e.v1.config.get("contentbox_settings.adnuntiusAd.refreshdelay")||5,refreshcount:e.v1.config.get("contentbox_settings.adnuntiusAd.refreshcount")||1,connectLoading:e.v1.config.get("contentbox_settings.adnuntiusAd.connectLoading")||!1,contkitEnabled:e.v1.config.get("contentbox_settings.adnuntiusAd.contkitEnabled")||!1,newsletter:{targeting:u}}}static getGoogleSettings(e,t,i,s,a,n=!1,o=!1){function r(e,t){const{sizes:i=[],fluid:s=!1}=e,a=i.map(e=>`[${e.width},${e.height}]`);return s&&a.push('"fluid"'),{...e,sizesString:`[${a.join(", ")}]`,metadata:t.metadata||[]}}Sys.logger.debug(`[AdsHelper.getGoogleSettings] Called with disableSkyscraper=${n}, disableTopBanner=${o}`);const l=e.v1.config.get("contentbox_settings.googleAd.formats")||[],d=e.v1.config.get("contentbox_settings.googleAd.anchor")||{enabled:!1,code:"",type:"TOP_ANCHOR"},g=e.v1.config.getView(`insertDynamic.${e.v1.model.root.getType().replace("page_","")}.${i.getViewport()}`,a.alias)||[],c=e.v1.model.query.getChildrenOfType(t,"googleAd",!0,!0),p=[];for(const e of g){const[t]=l.filter(t=>e.content_data.fields.format===t.format),i=e.placement.key,s=t&&(!1===i.includes("skyscraper_")&&"topbanner"!==i||i.includes("skyscraper_")&&!n||"topbanner"===i&&!o);Sys.logger.debug(`[AdsHelper.getGoogleSettings] Placement: ${i}, Format: ${t?t.format:"not found"}, ShouldInclude: ${s}`),s&&p.push(r(t,e))}Sys.logger.debug(`[AdsHelper.getGoogleSettings] Found ${c.length} manual Google Ad(s)`);for(const e of c){const[t]=l.filter(t=>e.get("fields.format")===t.format);t&&(Sys.logger.debug(`[AdsHelper.getGoogleSettings] Adding manual ad with format: ${t.format}`),p.push(r(t,e)))}return Sys.logger.debug(`[AdsHelper.getGoogleSettings] Final visibleUnits count: ${p.length}, formats: ${p.map(e=>e.format).join(", ")}`),{enabled:l.length>0,lazyload:s.lazyload||!1,spacingTop:e.v1.config.get("contentbox_settings.googleAd.spacingTop")||120,fetchMarginPercent:s.fetchMarginPercent||150,renderMarginPercent:s.renderMarginPercent||150,mobileScaling:s.mobileScaling||2,adUnits:p,anchor:d,dfpid:s.dfpid||!1,debugmode:s.debugmode||!1,disableInitialLoad:s.disableInitialLoad||!1,bidding:s.bidding,hideOnTabletWidth:s.hideOnTabletWidth||1316}}}class l{static buildAuthorSchema(e,t={}){const{imageServer:i="",shouldUseAuthorPageUrl:s,getAuthorPageUrl:a,getImageDimensions:n}=t;let o=e.get("fields.firstname");"Byline first name"===o&&(o="");let r=e.get("fields.lastname");"Byline last name"===r&&(r="");const l={"@type":"Person",name:`${o} ${r}`},d=e.get("fields.description");d&&(l.description=lab_api.v1.util.string.sanitizeString(d));const g=e.get("fields.job_title");if(g&&"Click to add job title"!==g&&(l.jobTitle=lab_api.v1.util.string.sanitizeString(g).trim()),s&&s(e))l.url=a(e);else{const t=e.get("fields.public_url");t&&(l.url=t)}const c=lab_api.v1.model.query.getChildrenOfType(e,"image",!0);if(c&&c.length>0){const e=c[0],t=e.get("fields.imageurl")||`${i}/?imageId=${e.get("instance_of")}`,s=t.includes("width=")?t:`${t}&width=250`;if(l.image={"@type":"ImageObject",url:s},n){const t=n(e,250);t&&(l.image.width=t.width,l.image.height=t.height)}}const p=e.get("fields.public_email");p&&(l.email=p);try{const t=[],i=e.get("fields.public_url");i&&t.push(i),t.length>0&&(l.sameAs=t)}catch(e){}return l}static buildPublisherSchema(e=""){const t=lab_api.v1.config.get("logo")||{},i=t.mainLogo||{};let s=lab_api.v1.config.get("seoSchema.publisherLogoUrl")||i.uploadedFileUrl||t.uploadedFileUrl||i.src||t.default&&t.default.src||"";!s||s.startsWith("http://")||s.startsWith("https://")||(s=`${e}${s.startsWith("/")?"":"/"}${s}`);const a=lab_api.v1.config.get("logo.logoWidth")||null,n=lab_api.v1.config.get("logo.logoHeight")||null;return{"@type":"Organization",name:lab_api.v1.properties.get("site.display_name"),url:e,logo:{"@type":"ImageObject",url:s,...a&&{width:a},...n&&{height:n}}}}static buildBroadcasterSchema(e=""){return{"@type":"BroadcastService",name:lab_api.v1.properties.get("site.display_name"),broadcaster:l.buildPublisherSchema(e)}}static buildArticleListItemList(e,t){return e&&0!==e.length?{"@type":"ItemList",itemListElement:e.map((e,i)=>{const s={"@type":"NewsArticle",headline:e.get("fields.title"),url:e.get("fields.published_url")||e.get("fields.url")},a=e.get("fields.someimage");if(a)s.image=`${t}/${a}.webp?width=1200&height=630`;else{const i=lab_api.v1.model.query.getChildrenOfType(e,"image",!0);if(i&&i.length>0){const e=i[0];let a=e.get("fields.imageurl")||`${t}/?imageId=${e.get("instance_of")}`;a.includes("width=")?s.image=a:a.includes("?")?s.image=`${a}&width=1200`:s.image=`${a}?width=1200`}}return{"@type":"ListItem",position:i+1,item:s}})}:null}static buildArticleListHasPart(e,t){return e&&0!==e.length?e.map(e=>{const i={"@type":"NewsArticle",headline:e.get("fields.title"),url:e.get("fields.published_url")||e.get("fields.url")},s=e.get("fields.someimage");if(s)i.image=`${t}/${s}.webp?width=1200&height=630`;else{const s=lab_api.v1.model.query.getChildrenOfType(e,"image",!0);if(s&&s.length>0){const e=s[0],a=e.get("fields.imageurl")||`${t}/?imageId=${e.get("instance_of")}`;i.image=a.endsWith("width=")?`${a}1200`:`${a}&width=1200`}}return i}):null}}class d{constructor({pageType:e="",canonical:t="",isTagpage:i=!1,isTagpageWithFrontpage:s=!1,tagpagePath:a="/tag/",publishedUrl:n=""}={}){this.settings={pageType:e,canonical:t,isTagpage:i,isTagpageWithFrontpage:s,tagpagePath:a,publishedUrl:n},this.cache={seoData:null},this.imageServer=lab_api.v1.properties.get("image_server"),this.domain=lab_api.v1.site.getSite().domain||lab_api.v1.properties.get("customer_front_url"),this.authorPagesConfig=lab_api.v1.config.get("authorPages")||{}}getStructuredData(e){if(e.get("fields.jsonld_json"))return e.get("fields.custom_jsonld");if("front"===this.settings.pageType)return this.generateFrontData(e);if("gallery"===this.settings.pageType)return this.generateGalleryPageData(e);if("article"===this.settings.pageType||"notice"===this.settings.pageType){const t=e.get("fields.seoschematype")||"NewsArticle",i=[];if(["ImageGallery","VideoObject","BroadcastEvent","LiveBlogPosting","Recipe"].includes(t)){let s=null;if("ImageGallery"===t?s=this.generateImageGalleryData(e):"VideoObject"===t?s=this.generateVideoObjectData(e):"BroadcastEvent"===t?s=this.generateBroadcastEventData(e):"LiveBlogPosting"===t?s=this.generateArticleData(e):"Recipe"===t&&(s=this.generateRecipeData(e)),!s)return null;if(i.includes(t)){const t=this.generateArticleData(e);return delete t.mainEntityOfPage,[t,s]}return s}return this.generateArticleData(e)}return null}generateSiteData(e){return{"@context":"http://schema.org","@type":"WebSite",name:lab_api.v1.properties.get("site.display_name"),url:lab_api.v1.properties.get("site.domain")||""}}getPublisherObject(){return l.buildPublisherSchema(this.domain)}getBroadcasterObject(){return l.buildBroadcasterSchema(this.domain)}getArticleImages(e,t=[]){const i=lab_api.v1.model.query.getChildrenOfType(e,"image",!0);if(0===t.length)return i;const s=new Set;return t.forEach(t=>{lab_api.v1.model.query.getChildrenOfType(e,t,!0).forEach(e=>{lab_api.v1.model.query.getChildrenOfType(e,"image",!0).forEach(e=>s.add(e.get("instance_of")))})}),i.filter(e=>!s.has(e.get("instance_of")))}calculateWordCount(e){if(!e)return 0;return lab_api.v1.util.string.stripTags(e).trim().split(/\s+/).filter(e=>e.length>0).length}calculateTimeRequired(e){if(!e||0===e)return"PT1M";return`PT${Math.ceil(e/200)}M`}getImageDimensions(e,t){let i=parseFloat(e.get("fields.whRatio"));if(!i||isNaN(i)){const t=parseInt(e.get("fields.originalWidth"),10),s=parseInt(e.get("fields.originalHeight"),10);if(!(t&&s&&t>0))return null;i=s/t}return{width:t,height:Math.round(t*i)}}buildArticleImageObjects(e){const t=this.getArticleImages(e,["byline"]).map((e,t)=>{const i=e.get("fields.imageurl")||`${this.imageServer}/?imageId=${e.get("instance_of")}`,s=i.endsWith("width=")?`${i}1200`:`${i}&width=1200`,a=this.getImageDimensions(e,1200),n={"@type":"ImageObject",url:s};return 0===t&&(n["@id"]=`${this.settings.publishedUrl}#primaryimage`),a&&(n.width=a.width,n.height=a.height),n});if(0===t.length){const t=e.get("frontCrop"),i=t&&t.pano&&t.pano.instance_of;if(i)return[{"@type":"ImageObject","@id":`${this.settings.publishedUrl}#primaryimage`,url:`${this.imageServer}/${i}.webp?width=1200`}]}return t}shouldUseAuthorPageUrl(e){const t=e.get("fields.public_email"),i=e.get("fields.email"),s=e.get("instance_of");if(this.authorPagesConfig.enabled&&(t||i)&&s){if(this.authorPagesConfig.enableForAll)return!0;if(this.authorPagesConfig.enabledAuthorIds){if(this.authorPagesConfig.enabledAuthorIds.split(",").map(e=>parseInt(e.trim(),10)).includes(s))return!0}}return!1}getAuthorPageUrl(e){const t=e.get("instance_of"),i=e.get("instance_of_json")?JSON.parse(e.get("instance_of_json")):void 0,s=i&&i.fields&&i.fields.slug?i.fields.slug:void 0;return`${this.domain}/${this.authorPagesConfig.path||"author"}/${s||t||""}`}buildArticleListItemList(e){return l.buildArticleListItemList(e,this.imageServer)}buildArticleListHasPart(e){return l.buildArticleListHasPart(e,this.imageServer)}getArticleSchemaType(e){const t=e.get("fields.seoschematype")||"NewsArticle";return["NewsArticle","Article","OpinionNewsArticle","LiveBlogPosting"].includes(t)?t:"NewsArticle"}generateFrontData(e){const t=this.getSEOData(e);if(this.settings.isTagpage){const i={"@context":"https://schema.org","@type":"CollectionPage",url:this.settings.publishedUrl,name:t.title,description:t.description},s=lab_api.v1.model.query.getChildrenOfType(e,"article",!0),a=this.buildArticleListItemList(s);return a&&(i.mainEntity=a),i}const i={"@context":"https://schema.org","@type":"WebPage",url:this.settings.publishedUrl,name:t.title,description:t.description,publisher:this.getPublisherObject()},s=lab_api.v1.model.query.getChildrenOfType(e,"article",!0),a=this.buildArticleListItemList(s);return a&&(i.mainEntity=a,i.hasPart=this.buildArticleListHasPart(s)),i}generateArticleData(e){const t=this.getSEOData(e),i=this.getArticleSchemaType(e),s=this.getArticleImages(e,["byline"]),a=lab_api.v1.config.get("extendedSeoSchema.active"),n={"@context":"https://schema.org","@type":i,headline:t.title||e.get("fields.title"),description:t.description,url:this.settings.publishedUrl,inLanguage:[{"@type":"Language",alternateName:t.language}],image:this.buildArticleImageObjects(e),keywords:(e.get("tags")||[]).join(", ")},o=e.get("fields.someimage");if(o)n.thumbnailUrl=`${this.imageServer}/${o}.webp?width=400`;else if(s&&s.length>0){const e=s[0],t=e.get("fields.imageurl")||`${this.imageServer}/?imageId=${e.get("instance_of")}`;t.includes("width=")?n.thumbnailUrl=t.replace(/width=\d*/,"width=400"):t.includes("?")?n.thumbnailUrl=`${t}&width=400`:n.thumbnailUrl=`${t}?width=400`}else{const t=e.get("frontCrop"),i=t&&t.pano&&t.pano.instance_of;i&&(n.thumbnailUrl=`${this.imageServer}/${i}.webp?width=400`)}const r=e.data&&e.data.contentdata;let d;if(d=e.get("fields.subsection")?r&&r.term&&r.term.section&&r.term.section[0]&&r.term.section[0].displayName||e.get("fields.subsection"):r&&r.mainterm&&r.mainterm.section&&r.mainterm.section[0]&&r.mainterm.section[0].displayName||e.get("primaryTags.section")||e.get("fields.defaultsection"),d&&(n.articleSection=d),a&&(n["@id"]="LiveBlogPosting"===i?`#${i.toLowerCase()}`:`${this.settings.publishedUrl}#${i.toLowerCase()}`),n.author=lab_api.v1.model.query.getChildrenOfType(e,"byline",!0).map(e=>l.buildAuthorSchema(e,{imageServer:this.imageServer,shouldUseAuthorPageUrl:this.shouldUseAuthorPageUrl.bind(this),getAuthorPageUrl:this.getAuthorPageUrl.bind(this),getImageDimensions:this.getImageDimensions.bind(this)})),n.publisher=this.getPublisherObject(),n.mainEntityOfPage=this.settings.publishedUrl,a&&(n.mainEntity={"@type":"WebPage","@id":this.settings.publishedUrl}),e.get("fields.published")&&(n.datePublished=new Date(1e3*parseInt(e.get("fields.published"),10)).toISOString()),e.get("fields.modified")&&(n.dateModified=new Date(1e3*parseInt(e.get("fields.modified"),10)).toISOString()),"1"===e.get("fields.paywall")?(n.isAccessibleForFree=!1,n.hasPart={"@type":"WebPageElement",isAccessibleForFree:!0,cssSelector:".teaserContent"}):n.isAccessibleForFree=!0,a)try{const t=e.get("fields.bodytext"),i="1"===e.get("fields.paywall");if(t&&!i&&(n.articleBody=lab_api.v1.util.string.stripTags(t)),t){const e=this.calculateWordCount(t);e>0&&(n.wordCount=e,n.timeRequired=this.calculateTimeRequired(e))}const s=lab_api.v1.model.query.getChildrenOfType(e,"editor",!0);s&&s.length>0&&(n.editor=s.map(e=>{let t=e.get("fields.firstname")||"",i=e.get("fields.lastname")||"";"Editor first name"===t&&(t=""),"Editor last name"===i&&(i="");const s={"@type":"Person",name:`${t} ${i}`.trim()},a=e.get("fields.description");a&&(s.description=lab_api.v1.util.string.sanitizeString(a));const n=e.get("fields.public_url");n&&(s.url=n);const o=(e.children||[]).filter(e=>"image"===e.type)[0];if(o){s.image={"@type":"ImageObject",url:`${o.get("fields.imageurl")}&width=250`};const e=this.getImageDimensions(o,250);e&&(s.image.width=e.width,s.image.height=e.height)}return s}))}catch(e){}return"LiveBlogPosting"===i&&e.get("fields.published")&&(n.coverageStartTime=new Date(1e3*parseInt(e.get("fields.published"),10)).toISOString()),n}getSEOData(e){if(this.cache.seoData)return this.cache.seoData;let t,i,s;if("article"===this.settings.pageType||"notice"===this.settings.pageType)i=lab_api.v1.util.string.sanitizeString(e.get("fields.seotitle")||e.get("fields.title")||""),s=lab_api.v1.util.string.sanitizeString(e.get("fields.seodescription")||e.get("fields.subtitle")||""),t=e.get("fields.seolanguage")||lab_api.v1.config.get("contentLanguage");else if("gallery"===this.settings.pageType)i=lab_api.v1.util.string.sanitizeString(e.get("filtered.seotitle")||""),s=lab_api.v1.util.string.sanitizeString(e.get("filtered.seodescription")||""),t=lab_api.v1.config.get("contentLanguage");else{if(this.settings.isTagpage&&!this.settings.isTagpageWithFrontpage){const t=lab_api.v1.properties.get("tags_as_terms"),s=(this.settings.canonical.split(this.settings.tagpagePath)[1]||"").split("/").filter(e=>!!e);let a=s[s.length-1]||"";if(t){let t=null;e.data&&e.data.contentdata&&(t=e.data.contentdata.mainterm),t&&t.section&&t.section.displayName&&(a=t.section.displayName)}const n={tag:a,tags:s,tagPath:this.settings.tagpagePath.replace(/\//g,"")};i=lab_api.v1.locale.get("tags.title_text",{data:n})}else i=lab_api.v1.util.string.sanitizeString(e.get("fields.seotitle")||e.get("fields.name")||"");s=lab_api.v1.util.string.sanitizeString(e.get("fields.seodescription")||"")}return this.cache.seoData={title:i.charAt(0).toUpperCase()+i.slice(1),description:s,language:t},this.cache.seoData}buildGalleryImageObjects(e){return(e||[]).map(e=>{const t=e.get("fields.imageurl")||`${this.imageServer}/?imageId=${e.get("instance_of")}`;let i;i=t.includes("width=")?t.replace(/width=\d*/,"width=1200"):t.includes("?")?`${t}&width=1200`:`${t}?width=1200`;const s={"@type":"ImageObject",contentUrl:i},a=this.getImageDimensions(e,1200);a&&(s.width=a.width,s.height=a.height);const n=e.get("fields.caption");n&&(s.caption=lab_api.v1.util.string.sanitizeString(n));const o=e.get("fields.photographer");return o&&(s.author={"@type":"Person",name:lab_api.v1.util.string.sanitizeString(o)}),s})}generateImageGalleryData(e){const t=lab_api.v1.model.query.getChildrenOfType(e,"slideshow",!0)[0],i=this.getSEOData(e),s=this.getArticleImages(e,["byline"])||[];if(!t&&0===s.length)return null;const a={"@context":"https://schema.org","@type":"ImageGallery","@id":`${this.settings.publishedUrl}#gallery`,url:this.settings.publishedUrl,name:i.title,description:t&&t.get("fields.description")||e.get("fields.subtitle")||i.description,mainEntityOfPage:this.settings.publishedUrl,image:this.buildGalleryImageObjects(s)};return a.author=lab_api.v1.model.query.getChildrenOfType(e,"byline",!0).map(e=>l.buildAuthorSchema(e,{imageServer:this.imageServer,shouldUseAuthorPageUrl:this.shouldUseAuthorPageUrl.bind(this),getAuthorPageUrl:this.getAuthorPageUrl.bind(this),getImageDimensions:this.getImageDimensions.bind(this)})),e.get("fields.published")&&(a.datePublished=new Date(1e3*parseInt(e.get("fields.published"),10)).toISOString()),a.publisher=this.getPublisherObject(),a}generateGalleryPageData(e){const t=lab_api.v1.model.query.getChildOfType(e,"slideshow");if(!t)return null;const i=lab_api.v1.model.query.getChildrenOfType(t,"image",!0)||[],s=this.getSEOData(e),a=s.title||e.get("filtered.title")||"",n=s.description||"",o={"@context":"https://schema.org","@type":"ImageGallery","@id":`${this.settings.publishedUrl}#gallery`,url:this.settings.publishedUrl,name:a,numberOfItems:i.length,image:this.buildGalleryImageObjects(i),mainEntityOfPage:this.settings.publishedUrl,publisher:this.getPublisherObject()};n&&(o.description=n);const r=e.get("fields.parent_node_type"),l=e.get("fields.parent_node_published_url"),d=e.get("fields.parent_node_title");if("article"===r&&l){const t=l.startsWith("http")?l:`${this.domain}${l}`;o.isPartOf={"@type":"NewsArticle","@id":`${t}#newsarticle`,headline:d||"",url:t};const i=e.get("fields.parent_node_published"),s=e.get("fields.parent_node_modified");i&&(o.datePublished=new Date(1e3*parseInt(i,10)).toISOString()),s&&(o.dateModified=new Date(1e3*parseInt(s,10)).toISOString())}return o}getFirstVideoWithProperties(e){const t=lab_api.v1.model.query.getChildrenOfType(e,"youtube",!0)[0]||lab_api.v1.model.query.getChildrenOfType(e,"vimond",!0)[0]||lab_api.v1.model.query.getChildrenOfType(e,"vp",!0)[0]||lab_api.v1.model.query.getChildrenOfType(e,"jwplayer",!0)[0];if(!t)return null;const i=t.getType(),s={};if("youtube"===i){const e=t.get("fields.vid");e&&(s.thumbnailUrl=`https://img.youtube.com/vi/${e}/maxresdefault.jpg`,s.embedUrl=`https://www.youtube-nocookie.com/embed/${e}`,s.contentUrl=`https://www.youtube.com/watch?v=${e}`)}else if("vimond"===i||"vp"===i){const e=t.get("fields.playerUrl");e&&(s.embedUrl=e)}else if("jwplayer"===i){const e=t.get("fields.mediaId");e&&(s.contentUrl=e)}return{video:t,type:i,properties:s}}generateVideoObjectData(e){const t=this.getFirstVideoWithProperties(e);if(!t)return null;const i=this.getSEOData(e),{video:s,properties:a}=t,n={"@context":"https://schema.org","@type":"VideoObject","@id":`${this.settings.publishedUrl}#video`,name:i.title||e.get("fields.title"),description:e.get("fields.subtitle")||s.get("fields.caption")||i.description,mainEntityOfPage:this.settings.publishedUrl};n.publisher=this.getPublisherObject(),n.author=lab_api.v1.model.query.getChildrenOfType(e,"byline",!0).map(e=>l.buildAuthorSchema(e,{imageServer:this.imageServer,shouldUseAuthorPageUrl:this.shouldUseAuthorPageUrl.bind(this),getAuthorPageUrl:this.getAuthorPageUrl.bind(this),getImageDimensions:this.getImageDimensions.bind(this)})),e.get("fields.published")&&(n.uploadDate=new Date(1e3*parseInt(e.get("fields.published"),10)).toISOString()),a.thumbnailUrl&&(n.thumbnailUrl=[a.thumbnailUrl]),a.embedUrl&&(n.embedUrl=a.embedUrl),a.contentUrl&&(n.url=a.contentUrl);const o=this.buildArticleImageObjects(e);return o.length>0&&(n.image=o),n}generateBroadcastEventData(e){const t=this.getFirstVideoWithProperties(e);if(!t)return null;const i=this.getSEOData(e),{video:s,properties:a}=t,n={"@type":"VideoObject",name:s.get("fields.caption")||i.title||e.get("fields.title"),description:s.get("fields.caption")||i.description};e.get("fields.published")&&(n.uploadDate=new Date(1e3*parseInt(e.get("fields.published"),10)).toISOString()),a.thumbnailUrl&&(n.thumbnailUrl=a.thumbnailUrl),a.embedUrl&&(n.embedUrl=a.embedUrl),a.contentUrl&&(n.contentUrl=a.contentUrl);const o={"@context":"https://schema.org","@type":"BroadcastEvent","@id":`${this.settings.publishedUrl}#broadcast`,name:i.title||e.get("fields.title"),description:e.get("fields.subtitle")||i.description,mainEntityOfPage:this.settings.publishedUrl,isLiveBroadcast:!0,videoFormat:"HD"};e.get("fields.published")&&(o.startDate=new Date(1e3*parseInt(e.get("fields.published"),10)).toISOString()),o.publishedOn=this.getBroadcasterObject();const r=lab_api.v1.model.query.getChildrenOfType(e,"byline",!0);return r&&r.length>0&&(n.author=r.map(e=>l.buildAuthorSchema(e,{imageServer:this.imageServer,shouldUseAuthorPageUrl:e=>this.shouldUseAuthorPageUrl(e),getAuthorPageUrl:e=>this.getAuthorPageUrl(e),getImageDimensions:(e,t)=>this.getImageDimensions(e,t)}))),o.workPerformed=n,o}generateRecipeData(e){const t=lab_api.v1.model.query.getChildrenOfType(e,"recipe",!0)[0];if(!t)return null;const i=t.get("guid"),s=this.getSEOData(e),a={"@context":"https://schema.org","@type":"WebPage",url:this.settings.publishedUrl,name:s.title||e.get("fields.title"),description:s.description,mainEntity:{"@type":"Recipe","@id":`${this.settings.publishedUrl}#recipe-${i}`}};return a.publisher=this.getPublisherObject(),a}}class g{static prepareForTemplate(e,t,i){const s={meta:{head_top:[],head_bottom:[]},script:{head_top:[],head_bottom:[],body_top:[],body_bottom:[]},style:{head_top:[],head_bottom:[]},link:{head_top:[],head_bottom:[]},noscript:{head_top:[],head_bottom:[],body_top:[],body_bottom:[]}},a=e.filter(e=>!(e.pageType&&e.pageType!==t||e.skipEditor&&i||e.skipFront&&!i));for(const e of Object.keys(s))for(const t of Object.keys(s[e]))s.meta[t]=a.filter(e=>"meta"===e.tag).filter(e=>e.placement===t).map(e=>this.createCustomTag(e)),s.script[t]=a.filter(e=>"script"===e.tag).filter(e=>e.placement===t).map(e=>this.createCustomTag(e)),s.style[t]=a.filter(e=>"style"===e.tag).filter(e=>e.placement===t).map(e=>this.createCustomTag(e)),s.link[t]=a.filter(e=>"link"===e.tag).filter(e=>e.placement===t).map(e=>this.createCustomTag(e)),s.noscript[t]=a.filter(e=>"noscript"===e.tag).filter(e=>e.placement===t).map(e=>this.createCustomTag(e));return console.log(s),s}static createCustomTag(e){switch(e.tag){case"link":return this.createLinkTag(e);case"script":return this.createScriptTag(e);case"style":return this.createStyleTag(e);case"noscript":return this.createNoscriptTag(e);default:return this.createMetaTag(e)}}static fetchDynamicAttribute(e){return lab_api.v1.view.render({model:lab_api.v1.model.query.getRootModel(),template:e})||null}static parseAttributes(e){return e.filter(e=>!!e.key).map(e=>e.value?`${e.key}="${e.value.match(/\{\{.*\}\}/g)?this.fetchDynamicAttribute(e.value):e.value}"`:e.key).join(" ")}static parseVariables(e){return e.replace(/\{\{\{?.*?\}\}\}?/g,this.fetchDynamicAttribute)}static createLinkTag(e){return`<link ${this.parseAttributes(e.attributes)}>`}static createScriptTag(e){return`<script ${this.parseAttributes(e.attributes)}>${e.value?this.parseVariables(e.value):""}<\/script>`}static createMetaTag(e){return`<meta ${this.parseAttributes(e.attributes)}>`}static createStyleTag(e){return`<style ${this.parseAttributes(e.attributes)}>${e.value?this.parseVariables(e.value):""}</style>`}static createNoscriptTag(e){return`<noscript ${this.parseAttributes(e.attributes)}>${e.value?this.parseVariables(e.value):""}</noscript>`}}class c{static buildConfig(e){return{viewConfig:{config:{customer:{paywall:{label:lab_api.v1.config.get("paywall.label")||{}},image:{defaultAspectRatio:lab_api.v1.config.get("image.defaultAspectRatio")||void 0}}}}}}}class p{constructor(e,t){this.api=e,this.page=t}set(e,t){const i=this.export(e,t),s=t.get("type").replace("page_",""),a=this.api.v1.app.mode.isEditor();for(const t of Object.keys(i))e.setFiltered(t,i[t]);e.setFiltered("customTags",g.prepareForTemplate(this.api.v1.config.get("customTags")||[],s,a))}export(e,t){const s={},n=new Date,o=t.get("type").replace("page_",""),l=t.get("id"),g=this.api.v1.site.getSite().domain||this.api.v1.properties.get("customer_front_url"),p=g+t.get("fields.published_url"),h=encodeURIComponent(p),u=this.api.v1.properties.get("image_server"),m=this.api.v1.app.mode.isEditor(),f=this.getCanonicalUrl(e,o,l,g),y=this.api.v1.config.get("tagPagePath")||"/tag/",b="front"===o&&(p.endsWith(y.slice(0,-1))||p.indexOf(y)>-1),v=b&&!p.endsWith(y.slice(0,-1));s.customer_front_url=g,s.isEditMode=m,s.url=p,s.urlEncoded=h,s.specificUrl=f,s.image_server=u,s.pageType=o,s.pageId=l,s.is_article="article"===o,s.is_notice="notice"===o,s.is_front="front"===o,s.is_gallery="gallery"===o,s.is_index="index"===t.get("fields.hostpath"),s.is_infiniteArticle="infinitescroll"===t.get("fields.page_template_alias"),s.section=t.get("primaryTags.section")||t.get("fields.defaultsection"),s.device=this.api.v1.viewport.getName(),s.cmsVersion=this.api.v1.properties.get("app.version"),s.front_api_url=this.api.v1.properties.get("front_api_url"),s.xUaDevice=this.api.v1.properties.get("xUaDevice"),s.favicons=this.api.v1.config.get("favicons"),s.faviconList=this.api.v1.config.get("faviconList"),s.skipDefaultFont=this.api.v1.config.get("skipDefaultFont"),s.isDebug=this.api.v1.util.request.hasQueryParam("debug"),s.staticUrl=this.getStaticUrl(e,o,l,g),s.customMetatags=this.getCustomMetatags(),s.footerSettings=this.api.v1.config.get("page_settings.footer"),s.ampSettings=this.api.v1.config.get("page_settings.amp"),s.rssDescriptionPrefix=this.api.v1.config.get("viewports.rss.descriptionPrefix"),s.is_tagpage=b,s.contentLanguage=lab_api.v1.config.get("contentLanguage"),s.publishhidden="1"===t.get("fields.publishhidden");const _=this.page.media.getLogo(t.getViewport());s.logo=_.current,s.logo_sm=_.sm,s.logo_mm=_.mm,s.logo_secondary=_.secondary,s.logo_mobile=_.mobile,s.misc=this.api.v1.config.get("misc");const S={active:!1,lang:this.api.v1.config.get("google_translate")};S.lang&&Array.isArray(S.lang)&&S.lang.length&&(S.active=!0),s.google_translate=S;const w=new d({pageType:o,canonical:f,isTagpage:b,isTagpageWithFrontpage:v,tagpagePath:y,publishedUrl:p}),T=t.get("mainterm"),k=t.get("term");if(b||T&&T.section){const e=t.get("fields.published_url")||"",i=T&&T.section&&T.section.name?T.section.name:"";let a="",n="";if(T&&T.section&&T.section.uriRootPath)a=T.section.uriRootPath.replace(/^\//,"").split("/")[0];else{const t=e.replace(/^\//,"").split("/").filter(e=>e.length>0);a=t.length>0?t[0]:""}T&&T.section&&T.section.displayName&&(n=T.section.displayName),s.tagDisplayName=n,s.tagSubSection=i,s.tagPrimarySection=a,k&&k.section&&Array.isArray(k.section)&&k.section.length>0&&k.section[0].displayName&&(s.termSectionDisplayName=k.section[0].displayName)}const $=w.generateSiteData(e),D=w.getStructuredData(e),F=Array.isArray(D)?D:[D];s.jsonld=JSON.stringify([$,...F]);const x=w.getSEOData(e);if(s.seotitle=x.title,s.seodescription=x.description,s.seolanguage=x.language,"article"===o||"notice"===o){const t=e.get("fields.sometitle")||e.get("fields.teaserTitle")||e.get("fields.title");t&&(s.sometitle=this.api.v1.util.string.stripTags(t));const i=e.get("fields.teaserTitle")||e.get("fields.title")||"";i&&(s.kilkayaTitle=this.api.v1.util.string.stripTags(i));const a=e.get("fields.teaserKicker")||e.get("fields.kicker")||"";a&&(s.kilkayaKicker=this.api.v1.util.string.stripTags(a));const n=e.get("fields.somedescription")||e.get("fields.teaserSubtitle")||e.get("fields.subtitle");if(n&&n.length>0)s.somedescription=this.api.v1.util.string.stripTags(n);else{let t=e.get("fields.bodytext")||"";t=this.api.v1.util.string.stripTags(t),s.somedescription=`${t.substring(0,100)} ...`}}else if("front"===o){const t=e.get("fields.someimage");null!=t&&""!==t&&(s.someimage=`${u}/${t}.webp?width=1200&height=630`),s.sometitle=e.get("fields.sometitle")||e.get("fields.name"),s.somedescription=e.get("fields.somedescription")||""}if(this.isAuthorPage(e.get("fields.hostpath"))){const t=e.get("fields.author_json");if(t){const e=[t.fields.firstname||"",t.fields.lastname||""].filter(Boolean).join(" "),i=this.api.v1.properties.get("site.display_name")||"";e&&(s.sometitle=`${e} - ${i}`,s.seotitle=`${e} - ${i}`)}}if(s.social={facebook:`https://www.facebook.com/sharer.php?u=${h}`,twitter:`https://twitter.com/intent/tweet?url=${h}`,mail:`mailto:?subject=${encodeURIComponent(this.api.v1.util.string.stripTags(t.get("fields.title")))}&body=${encodeURIComponent(this.api.v1.util.string.stripTags(t.get("fields.subtitle")))}%0D${h}`,linkedin:`https://www.linkedin.com/sharing/share-offsite/?url=${h}`,threads:`https://threads.net/intent/post?text=${h}`,copyLink:`navigator.clipboard.writeText("${p}");`,glimta:`https://glimta.com/unlock?link=${h}`,talandeWebb:"ReachDeck.panel.toggleBar();",bluesky:`https://bsky.app/intent/compose?text=${encodeURIComponent(`${s.sometitle}\n`)}${h}`,reddit:`https://www.reddit.com/submit?url=${h}&title=${encodeURIComponent(s.sometitle)}`,whatsapp:`https://api.whatsapp.com/send?text=${encodeURIComponent(`${s.sometitle}\n${p}`)}`,telegram:`https://t.me/share/url?url=${h}&text=${encodeURIComponent(s.sometitle)}`,print:"window.print();",googlenews:this.api.v1.config.get("page_settings.article.social.items.googlenews.url")||""},"article"===o){const t=this.api.v1.config.get("page_settings.article.ignoredTags")||[],i=this.api.v1.config.get("page_settings.article.ignoredTagPrefix")||[],a=(e.get("tags")||[]).filter(e=>!t.includes(e)).filter(e=>{for(const t of i)if(e.startsWith(t))return!1;return!0});s.tagsString=a.toString();let n="";a.forEach((e,t)=>{n+=`"${e.replace('"',"'")}"`,t<a.length-1&&(n+=", ")}),s.tagsStringCommaSeparated=n;const o=this.api.v1.model.query.getChildrenOfType(e,"byline",!0);if(o){const e=o.map(e=>`"${e.get("fields.firstname")} ${e.get("fields.lastname")}"`).join(", ");s.bylinesStringCommaSeparated=e}}"article"===o&&(e.get("fields.published")&&(s.published=new Date(1e3*parseInt(e.get("fields.published"),10)).toISOString(),s.publishedTimestamp=e.get("fields.published")),e.get("fields.hidefromfp_time")&&(s.hidefromfp_time=new Date(1e3*parseInt(e.get("fields.hidefromfp_time"),10)).toISOString())),s.site=this.api.v1.site.getSite(),s.siteJSON=JSON.stringify(s.site),s["site.domain_no_protocol"]=s.site.domain.split("://").pop(),s.siteAlias=s.site.alias,s.fullUrl=s.site.domain,s[`site_is_${s.siteAlias}`]=!0;const I=this.page.resources;if(!m&&s.is_article&&this.api.v1.config.get("displayReadProgress.active")&&t.get("fields.displayReadProgress")&&(s.readProgress=I.scripts.getProgressReader()),s.siteStylesheetList=i.getSiteStylesWithFallback(s.siteAlias),Sys.logger.debug(`ViewSupport: Will include ${s.siteStylesheetList.length} configured stylesheet(s): "${s.siteStylesheetList.join(", ")}".`),s.siteFiles=I.scripts.getSiteFiles(e,t,s.siteAlias,o,m),s.modules=I.scripts.getModules(e,t,s.siteAlias,o,m),!m){s.analytics=I.analytics.get(s),s.widgets={strossle:this.api.v1.config.get("widgets.strossle.strossle_id")},s.consent={cookieconsent:this.api.v1.config.get("consent.cookieconsent.show"),cookieconsent_culture:this.api.v1.config.get("consent.cookieconsent.culture")||"NB"},this.api.v1.config.get("cookieConsent.enabled")&&I.scripts.required.push({url:"/view-resources/public/common/cookieConsent.js",requireDom:!1}),"desktop"===this.api.v1.viewport.getName()&&t.get("fields.style_slidein")&&(s.style_slidein=!0,I.scripts.required.push({url:"/view-resources/public/common/SlideIn/SlideIn.js",requireDom:!1}));const i=this.api.v1.config.get("adEnvironment")||{},a="1"===t.get("fields.hideAds"),n="1"===t.get("fields.hideSkyscraperAds")||!1,o="1"===t.get("fields.hideTopBannerAd")||"1"===e.get("fields.hideTopBannerAd")||!1;if(Sys.logger.debug(`[PageData] Ad settings: hideAds=${a}, disableSkyscraper=${n}, disableTopBanner=${o}, adEnv=${i.name||"none"}`),!a&&i&&"adnuntius"===i.name)try{s.adnuntius=r.getAdnuntiusSettings(this.api,e,t,i,s.site,n,o)}catch(e){Sys.logger.warn(`[PageData] Failed to prepare Adnuntius ads: ${e.toString()}`)}if(!a&&i&&"google"===i.name)try{s.googleAds=r.getGoogleSettings(this.api,e,t,i,s.site,n,o)}catch(e){Sys.logger.warn(`[PageData] Failed to prepare Google ads: ${e.toString()}`)}}if(this.api.v1.util.request.hasQueryParam("fontpreview")&&(s.fontpreview=this.api.v1.util.request.getQueryParam("fontpreview"),s.analytics=null),s.page_settings=this.page.settings.get({pageType:"notice"===o||"gallery"===o?"article":o,socialLinks:s.social}),"article"===o){const i=this.api.v1.config.get("comments_provider.hideCommentsIfPaywall")||!1,a=this.api.v1.properties.get("paywall")||{},n=lab_api.v1.app.mode.isFront()&&a.active&&!a.hasAccess&&i,r=!1===m&&!1===n;if(t.get("fields.showcomments")&&!n){if(this.api.v1.config.get("comments_provider.facebook")){const e=this.api.v1.config.get("comments_provider.facebook.app_id");e&&(s.facebook={display:r,displayPlaceholder:m,appId:e,pageId:l,url:s.fullUrl+("article"===o?`/a/${l}`:"")},s.displayComments=!0)}if(this.api.v1.config.get("comments_provider.disqus")){const e=this.api.v1.config.get("comments_provider.disqus.enable"),t=this.api.v1.config.get("comments_provider.disqus.script");e&&(s.disqus={display:r,displayPlaceholder:m,canonical:f,pageId:l,script:t},s.displayComments=!0)}const t=this.api.v1.config.get("comments_provider.commento");t&&t.enable&&(s.commento={display:r,displayPlaceholder:m,canonical:f,usePageId:t.usePageId,pageId:l,script:t.script,cssOverride:t.cssOverride,descriptionText:t.descriptionText},s.displayComments=!0);const i=lab_api.v1.config.get("comments_provider.hyvor");if(i&&i.websiteId){const t=e.get("fields.published")||0;s.hyvor={display:r,displayPlaceholder:m,websiteId:i.websiteId,pageId:t>1646908200&&l},i.hidePageIdBeforeDate&&t<i.hidePageIdBeforeDate&&(s.hyvor.pageId=""),s.displayComments=!0}const a=lab_api.v1.config.get("comments_provider.ifragasatt");a&&(s.ifragasatt={display:r,displayPlaceholder:m,customerId:a.customer_id,articleId:`article${l}`},s.displayComments=!0)}}s.menus=this.page.menus.get({defaultSection:t.get("fields.defaultsection"),section:t.get("primaryTags.section")}),s.style_definitions=a.getStyleDefinitions(this.api),s.css_build=a.getInlineCSS(this.api),s.css_variables=a.getCssVariables(this.api),s.contact=this.api.v1.config.get("contact");const P=!!t.get("fields.norobots"),C=t.get("fields.hidefromfp_time"),A=Math.round(n.getTime()/1e3);if(s.norobots=P||C&&C<=A||!1,"article"===o&&this.api.v1.config.get("embeddable.active")&&(s.embeddable={active:!0,display:!!t.get("fields.displayEmbedButton")&&"embed"!==s.device,aboveBodytext:!!t.get("fields.displayEmbedButtonAboveBodytext")&&"embed"!==s.device,isFullContent:this.api.v1.util.request.getQueryString().indexOf("lab_content=full")>-1,hasParallax:this.api.v1.model.query.hasChildOfType(e,"parallax",!0)}),Sys.logger.debug(`ViewSupport: Will include ${I.scripts.required.length} configured script(s): "${I.scripts.required.map(e=>e.url).join(", ")}".`),I.scripts.required.forEach(e=>{if(!e.placeholderKey&&e.requireDom&&(e.placeholderKey="requireDom"),e.placeholderKey){const{placeholderKey:t}=e;e.placeholderKey={},e.placeholderKey[t]=!0}}),s.siteScriptList=I.scripts.required,s.paywall=this.getPaywallInfo(e,m),s.simplestreamEnabled=lab_api.v1.config.get("contentbox_settings.simplestream")||!1,"mailmojo"===s.device&&this.setDefaultMailmojoData(e,t),"article"===o){const t=lab_api.v1.config.get("page_settings.article.ageWarnings");if(Array.isArray(t)){const i=e.get("fields.published");if(i){const s=this.getAgeWarningItem(i,t);s&&e.setFiltered("ageWarning",s)}}}s.featureFlags={responsive_mobile_fonts:!lab_api.v1.util.featureFlags.enabled("Disable responsive mobile fonts",o)},s.clientSideConfig=JSON.stringify(c.buildConfig(this.api));const M=e.get("fields.hostpath");return s.shouldRenderCanonical=!("labrador/http-404"===M||"labrador/http-410"===M),s}getAgeWarningItem(e,t){const i=Object.values(t).filter(e=>!!e.years&&!!e.label).sort((e,t)=>t.years-e.years),s=new Date(1e3*e),a=Date.now()-s,n=new Date(a),o=Math.abs(n.getUTCFullYear()-1970);for(const e of i)if(o>=e.years)return e;return null}setDefaultMailmojoData(e,t){const i=lab_api.v1.config.get("lang")||"no";e.setFiltered("lang",i)}getCanonicalUrl(e,t,i,s,a){const n=e.get("fields.lab_canonical");if(n)return n;if("front"===t){const t=e.get("fields.hostpath");return"index"===t?`${s}/`:this.isAuthorPage(t)?`${s}/${this.getAuthorPageCanonical(e)}`:`${s}/${t}`}return`${s+e.get("fields.published_url")}`}getStaticUrl(e,t,i,s){if("front"===t){const t=lab_api.v1.util.request.getHeader("X-Labrador-404-Referer");if(t)return`${s}${t}`;const i=e.get("fields.hostpath");return i?`${s}/${"index"===i?"":i}`:`${s+e.get("fields.published_url")}`}return`${lab_api.v1.properties.get("site").domain}/a/${i}`}getCustomMetatags(){const e=lab_api.v1.config.get("customMetatags")||[],t=lab_api.v1.config.get("customMetatagsKeyVal")||[],i=[];for(const t of e){const e=Object.keys(t).map(e=>({key:e,value:t[e]}));i.push(e)}for(const e of t)e.length&&i.push(e);return i}getPaywallInfo(e,t){const i=lab_api.v1.properties.get("paywall"),s=!t&&"1"===e.get("fields.paywall"),a=lab_api.v1.config.get("paywall.provider",{site:lab_api.v1.site.getSite().alias})||"internal",n=(!t&&e.get("fields.paywallSalesImage"),!t&&s&&i.hasAccess&&"1"===e.get("fields.paywallShareable"));let o;if("1"===e.get("fields.paywallShareable")){o=lab_api.v1.config.getConfig("pages.localisation.data.items.paywall.items.shareableArticle.items")||{};for(const e of Object.keys(o))o[e]=lab_api.v1.locale.get(`paywall.shareableArticle.${e}`)||""}const r={display:!0,...this.api.v1.config.get("paywall.label")},l=this.api.v1.config.get("paywall.label.text.content"),d=this.api.v1.config.get("paywall.label.icon.content"),g={text:{content:null==l?"Plus":this.api.v1.config.get("paywall.label.text.content")},icon:{content:null==d?"fi-plus":this.api.v1.config.get("paywall.label.icon.content")}};return Object.assign(r,g),r.display&&e.setFiltered("paywallLabel",r),{enabled:s,settings:i,provider:a,shareable:n,shareableArticle:o,hasAccess:!s||!i.active||i.hasAccess,hidePaywallOffers:this.api.v1.util.request.hasQueryValue("lab_opts","paywall_loginonly"),paywallSalesImage:e.get("fields.paywallSalesImage"),paywallSalesPitchContent:e.get("fields.paywallSalesPitchContent"),paywallSalesPitchTitle:e.get("fields.paywallSalesPitchTitle"),paywallLayoutType:e.get("fields.paywallPreview.paywallLayoutType"),requiredProducts:JSON.stringify(this.api.v1.properties.get("app.paywall.requiredProducts")||[])}}isAuthorPage(e){const t=this.api.v1.config.get("authorPages")||{},i=t.path||"author";return!!(e&&t.enabled&&e.startsWith(`${i}/`))}getAuthorPagePath(){return(this.api.v1.config.get("authorPages")||{}).path||"author"}getAuthorPageSlug(e){const t=e.get("fields.author_json");if(t)return t.fields.slug}getAuthorPageId(e){const t=e.get("fields.author_json");if(t)return t.fields.id}getAuthorPageCanonical(e){const t=this.getAuthorPagePath(),i=this.getAuthorPageSlug(e),s=this.getAuthorPageId(e);return`${t}/${i||s}`}}class h{static parseCss(e,t="filtered.autodata"){const i=e.get(t);if(!i||"object"!=typeof i)return;return[Object.values(i.cssObject||{}).join(" "),i.cssString||"",(i.cssArray||[]).join(" ")].join(" ").trim()}static parseAttributes(e){const t=e.get("filtered.autodata.attributesObject");if(!t||"object"!=typeof t)return;return Object.keys(t).map(e=>({key:e,value:t[e]}))}static parseCustomData(e){const t=e.get("filtered.autodata.custom");if(!t||"object"!=typeof t)return;const i={};for(const e of Object.keys(t))i[e]=Object.keys(t[e]).map(i=>({key:i,value:t[e][i]}));return i}static parseCustomDataFromFeed(e,t){const i=lab_api.v1.config.get(`${t}.autodata.mapping`)||{};if(!i||"object"!=typeof i)return;const s={labels:[]};if(i.labels)for(const t of Object.keys(i.labels))e[i.labels[t]]&&s.labels.push({key:t,value:e[i.labels[t]]});return s}}class u{static getEffectiveSettings(e,t){const i=(t.v1.config.get("audio_settings")||{}).texttospeech||{},s=i.provider||{},a=i.enabledGlobally||!1,n=i.hidePlacementInEditor||!1,o=e.get("fields.texttospeechEnabled"),r=e.get("fields.hidePlacementInEditor");return{texttospeechEnabled:null!=o?!0===o||"1"===o:a,hidePlacementInEditor:null!=r?!0===r||"1"===r:n,video:s.video||!1,globalConfig:i}}static insertIfNeeded(e,t,{isEditor:i=!1}={}){const s=u.getEffectiveSettings(t,e);if(!s.globalConfig.enable||!s.texttospeechEnabled)return;if(i&&s.hidePlacementInEditor)return;if(e.v1.model.query.getModelByType("texttospeech"))return;const a=s.globalConfig.path||"page_article/bodytext",n=null!=s.globalConfig.bodyTextIndex?s.globalConfig.bodyTextIndex:0,o=null!=s.globalConfig.index?s.globalConfig.index:0;e.v1.model.insert.atPath({path:a,data:{type:"texttospeech",...i?{state:{isNonPersistent:!0,editNonPersistent:!0,draggableDisabled:!0}}:{},metadata:{isBodytext:!0,bodyTextIndex:n,autoInserted:!0},contentdata:{fields:{video:s.video}}},options:{index:o,persistentTarget:!0,intermediate:{useExisting:!0},silent:!0}})}}class m{constructor(e){this.api=e,this.pageData=new p(this.api,new s(this.api))}onReady(e,t){this.pageData.set(e,t),e.setFiltered("autodata_css",h.parseCss(e)),e.setFiltered("autodata_attributes",h.parseAttributes(e)),e.setFiltered("autodata_custom",h.parseCustomData(e));const i=u.getEffectiveSettings(e,this.api);e.setFiltered("hidePlacementInEditor",i.hidePlacementInEditor),this.api.v1.app.mode.isEditor()&&(this.api.v1.model.bindings.bind(e,"fields.texttospeechEnabled",this._syncTexttospeechElement.bind(this)),this.api.v1.model.bindings.bind(e,"fields.hidePlacementInEditor",this._syncHidePlacementInEditor.bind(this)))}onPrepareViewHelper(e){this.api.v1.app.mode.isEditor()&&u.insertIfNeeded(this.api,e,{isEditor:!0})}_syncHidePlacementInEditor(e){const t=u.getEffectiveSettings(e,this.api);e.setFiltered("hidePlacementInEditor",t.hidePlacementInEditor);const i=this.api.v1.model.query.getModelByType("texttospeech");t.hidePlacementInEditor?i&&i.get("metadata.autoInserted")&&this.api.v1.model.delete(i):i?this.api.v1.model.addToRedrawQueue(i,!0):u.insertIfNeeded(this.api,e,{isEditor:!0})}_syncTexttospeechElement(e){const t=u.getEffectiveSettings(e,this.api),i=this.api.v1.model.query.getModelByType("texttospeech");t.texttospeechEnabled?i||u.insertIfNeeded(this.api,e,{isEditor:!0}):i&&i.get("metadata.autoInserted")&&this.api.v1.model.delete(i)}}class f{constructor(e){this.api=e,this.pageData=new p(this.api,new s(this.api))}onReady(e,t){this.pageData.set(e,t)}}class y{static textElements(e,t){const i={top:[],floating:[],bottom:[],sub:[],positions:{kicker:"",title:"",bylines:""}};let s="",a="",n="";if(e.get("metadata.showKicker")&&(t||e.get("fields.kicker")||e.get("fields.origin_data_json.teaserKicker")||e.get("fields.origin_data_json.kicker"))&&(e.get("metadata.floatingKicker")?(i.floating.push("kicker"),i.positions.kicker="floating",s="floating"):e.get("metadata.kickerBelowImage")?(i.bottom.push("kicker"),i.positions.kicker="below",s="bottom"):(i.top.push("kicker"),i.positions.kicker="above",s="top")),e.get("metadata.hideTitle")||!t&&!e.get("fields.title")||(e.get("metadata.floatingTitle")?(i.floating.push("title"),i.positions.title="floating",a="floating"):e.get("metadata.titleAboveImage")?(i.top.push("title"),i.positions.title="above",a="top"):(i.bottom.push("title"),i.positions.title="below",a="bottom")),e.get("fields.displayByline")&&(e.get("metadata.floatingBylines")?(i.floating.push("bylines"),i.positions.bylines="floating",n="floating"):(i.sub.push("bylines"),i.positions.bylines="sub",n="sub"),e.get("metadata.bylinesAboveTitle")&&a)){if(n){const e=i[n].indexOf("bylines");-1!=e&&i[n].splice(e,1)}const e=i[a],t=e.indexOf("title");-1!==t?e.splice(t,0,"bylines"):e.push("bylines"),i.positions.bylines="aboveTitle",n=a}if(e.get("metadata.kickerBelowTitle")&&e.get("metadata.showKicker")&&a){if(s){const e=i[s].indexOf("kicker");-1!==e&&i[s].splice(e,1)}const e=i[a],t=e.indexOf("title");-1!==t?e.splice(t+1,0,"kicker"):e.push("kicker"),i.positions.kicker="belowTitle",s=a}return!e.get("metadata.hidesubtitle")&&(t||e.get("fields.subtitle")||e.get("fields.origin_data_json.teaserSubtitle"))&&(e.get("metadata.floatingSubtitle")?i.floating.push("subtitle"):e.get("metadata.subtitleAboveImage")?i.top.push("subtitle"):i.bottom.push("subtitle")),i}}class b{static convertToIso639(e){let t="";return e&&(t=3===e.length?e.toLowerCase():e.includes("-")?e.split("-")[0].toLowerCase():e.toLowerCase()),t}}class v{static autoSizeText(e,t){if(!e)return"";let i={};i=t||{regex:{},formats:{default:{maxWordLength:15,minLineLength:3,ranges:[{maxCharacters:1/0,numberOfLines:1}]}}};const s={1:100,2:70,3:50,4:45,5:40,6:35,7:30,8:26,9:22,10:20,11:18,12:17,13:16,14:15,15:14,16:13,17:12,18:11,19:10,20:9,21:8,22:7,23:6,24:5,25:4},a=e.innerHTML.replace(/&nbsp;/,"");if(e.querySelector("br")||e.querySelector(".auto-font-size-line-br")){const t=this.handleBreaks(a);e.innerHTML="",t.forEach((i,s)=>{e.innerHTML+=`<span class="auto-font-size-line${s<t.length?" auto-font-size-line-br":""}">${i} </span>`})}else{const t=this.removeHTMLTags(a),s=this.splitSentence(t,i,"default");e.innerHTML="";for(const t of s)e.innerHTML+=`<span class="auto-font-size-line">${t} </span>`}const n=e.querySelectorAll(".auto-font-size-line"),o=e.clientWidth;for(const e of n){const t=s[e.innerText.length]||5;e.clientWidth<o?this.enlargeTitle(e,o,t):e.clientWidth>o&&this.shrinkTitle(e,o,t)}return e.innerHTML}static handleBreaks(e){let t=this.removeHTMLTags(e).split(/<br\s*[^>]*>/gi);return t=t.filter(e=>e.trim().length>0),t}static removeFontSize(e){const t=e.innerHTML;return e.innerHTML=this.removeHTMLTags(t),this.removeHTMLTags(t)}static removeHTMLTags(e){let t=e.replace(/<span class="auto-font-size-hyphen">-<\/span>\s?/g,"");return t=t.replace(/<span class="[^"]*\bauto-font-size-line-br\b[^"]*"[^>]*>(.*?)<\/span>/g,"$1<br>"),t=t.replace(/<span class="[^"]*\bauto-font-size-line\b[^"]*"[^>]*>(.*?)<\/span>/g,"$1"),t=t.replace(/<span[^>]*>([^<]*)<\/span>/g,"$1"),t=t.replace(/(\r\n|\n|\r)/g,""),t}static enlargeTitle(e,t,i,s=100){let a=i;for(;e.clientWidth<t&&a<=s;)a+=1,e.style.setProperty("--lab-auto-font-size",`${a}cqi`);for(;e.clientWidth>=t||a>s;)a-=.1,e.style.setProperty("--lab-auto-font-size",`${a}cqi`)}static shrinkTitle(e,t,i){let s=i;for(;e.clientWidth>t;)s-=.1,e.style.setProperty("--lab-auto-font-size",`${s}cqi`)}static splitSentence(e,t,i){const s=e||"",{length:a}=s;if(!t||!t.formats||!t.formats[i])return[s];const n=this.findRules(t,i),o=this.findNumberOfLines(n.ranges,a)||1,r=n.maxWordLength||null,l=n.minLineLength||null,d=t.regex||{};return this.splitTextEvenly(e,o,r,l,d)||[]}static findRules(e,t){return{...e.formats[t]}}static findNumberOfLines(e,t){const i={maxLineLength:20,numberOfLines:1};for(const s of e)if(t<=s.maxCharacters){i.numberOfLines=s.numberOfLines,i.maxLineLength=s.maxCharacters/s.numberOfLines;break}return i}static checkRegex(e,t,i){let s=t;const a=[];return Array.from(Object.entries(e),([,e])=>e).forEach(e=>{const t=new RegExp(e,"g"),i=s.match(t);i&&a.push(...i)}),a.forEach(e=>{const t=e.replace(/ /g,i);s=s.replace(e,t)}),s}static splitStringIntoParts(e,t,i,s,a){const n=this.checkRegex(i,e,"___").split(" "),o=[];let r="";return n.forEach(e=>{const i=e.trim().replace(new RegExp("___","g")," ");if(i.includes("-"))r.length+i.length+1>t?(o.push(r),r=i):r+=(r.length>0?" ":"")+i;else{const e=this.splitWord(i,s);e.forEach((i,s)=>{r.length+i.length+1>t?(o.push(r),r=i):r+=(r.length>0?" ":"")+i,s<e.length-1&&(r+='<span class="auto-font-size-hyphen">-</span>')})}}),r.length>0&&o.push(r),o}static splitWord(e,t){if(!Number.isFinite(t)||t<=0)return[e];const i=[];let s=e;for(;s.length>t;){if(s.length>t&&s.length<=t+2){const e=Math.floor(s.length/2);i.push(s.substring(0,e)),s=s.substring(e);break}i.push(s.substring(0,t)),s=s.substring(t)}if(s.length>0)if(1===s.length&&i.length>0){const e=i.pop();i.push(e+s)}else i.push(s);return i}static splitTextEvenly(e,t,i,s,a){const n=e.trim(),o=Math.ceil(n.length/t.numberOfLines);let r=this.splitStringIntoParts(n,o,a,i,t.numberOfLines);if(s&&(r=this.mergeShortLines(r,s)),r.length>t.numberOfLines){const e=/<span class="auto-font-size-hyphen">-<\/span>$/,t=r.pop();e.test(r[r.length-1])?r[r.length-1]=r[r.length-1].replace(e,"")+t:r[r.length-1]+=` ${t}`}return r}static mergeShortLines(e,t){const i=[];for(let s=0;s<e.length;s++){let a=e[s].trim();a.length<t&&s<e.length-1&&(a+=` ${e[s+1]}`,s++),i.push(a)}if(i.length>1){const e=i[i.length-1];e.length<t&&(i[i.length-2]+=` ${e}`,i.pop())}return i}}class _{constructor(e){this.api=e,this.imageServer=this.api.v1.properties.get("image_server"),this.rootModel=this.api.v1.model.query.getRootModel(),this.domain=this.api.v1.site.getSite().domain||this.api.v1.properties.get("customer_front_url"),this.fallbackLanguage=this.api.v1.config.get("contentLanguage")||"",this.autoFontSizeConfig=this.api.v1.config.get("autoFontSize")||[],this.autoFontSizePageSettings=Boolean(!!this.rootModel&&this.rootModel.get("fields.autoFontSize")),this.hasAutoFontSize=this.autoFontSizePageSettings&&this.autoFontSizeConfig.enabled,this.autoFontSizeDone=!1,this.dateTimeHelper=new o(this.api.v1.config.get("lang")||void 0)}onInserted(e){if(this.api.v1.app.mode.isEditor()&&this.hasAutoFontSize){e.set("state.autoFontSizeReRender",!0,{notify:!1});const t=(e,t,i)=>{e.get("fields.title")===e.get("state.title")?e.set("state.autoFontSizeReRender",!1,{notify:!1}):(e.set("state.autoFontSizeReRender",!0,{notify:!1}),e.set("metadata.autoFontSizeDone",!1,{notify:!1}))};this.api.v1.model.bindings.bind(e,"fields.title",t)}}onReady(e,t){e.setFiltered("layout",y.textElements(t,this.api.v1.app.mode.isEditor()));let i=e.get("fields.published_url")||"";!/^https?/.test(i)&&i&&(i=this.domain+i),e.setFiltered("published_url",i),e.setFiltered("published_url_rss",i.replace(/&/g,"&amp;"))}onRender(e,t){const i=e.get("instance_of")||e.get("fields.origin_data_json.id"),s=e.get("fields.published")||e.get("fields.origin_data_json.published"),a=e.get("fields.origin_data_json.teaserTitle")||t.get("fields.title")||"",n=e.get("fields.origin_data_json.teaserSubtitle")||t.get("fields.subtitle")||"",o=e.get("fields.origin_data_json.published")||e.get("fields.published"),r=e.get("fields.origin_data_json.teaserKicker")||e.get("fields.origin_data_json.kicker")||t.get("fields.kicker"),l=e.get("fields.site_id")||e.get("fields.origin_data_json.site_id"),d=e.get("fields.origin_data_json.seolanguage")||e.get("fields.seolanguage")||this.fallbackLanguage,g=e.get("fields.origin_data_json.teaserAudio")||e.get("fields.audio"),c=e.get("fields.origin_data_json.teaserAudio_style_json")||e.get("fields.audioInfo")||{},p=e.get("fields.origin_data_json.addRelNoFollow")||e.get("fields.addRelNoFollow")||!1,u=e.get("fields.origin_data_json.addRelSponsored")||e.get("fields.addRelSponsored")||!1,m=e.get("fields.origin_data_json.addRelUgc")||e.get("fields.addRelUgc")||!1;e.setFiltered("published",s),e.setFiltered("title",a),e.setFiltered("kicker",r),e.setFiltered("subtitle",n),e.setFiltered("articleId",i),e.setFiltered("section",e.get("fields.origin_data_json.section_tag")||e.get("fields.section")||""),e.setFiltered("base_url",this.domain),e.setFiltered("published_sitemap",o),e.setFiltered("canonical_url",`${this.getSiteDomain(l)}/a/${i}`),e.setFiltered("tags",e.get("tags")||[]),e.setFiltered("languageIso639",b.convertToIso639(d));const f=(new Date).getTime()-1728e5;if(e.setFiltered("articleOutOfDate_sitemap",f>Math.floor(new Date(o).getTime())),e.setFiltered("addRelNoFollow",p),e.setFiltered("addRelSponsored",u),e.setFiltered("addRelUgc",m),!this.api.v1.config.get("showHiddenTagsOnFront")){const t=(this.api.v1.config.get("tagsToHide")||"").split(",").map(e=>e.trim())||[],i=(e.get("tags")||[]).filter(e=>!t.includes(e));e.setFiltered("tags",i)}if(l){const t=this.api.v1.site.getSiteById(l);t&&e.setFiltered("site_alias",t.alias)}if(g){const t={url:g};if(c){const e=JSON.parse(c);t.title=e.title||null,t.fileType=e.fileType||null,t.playTime=e.playTime||null}e.setFiltered("audio",t)}const y=e.get("fields.origin_data_json.showbylineonfp")||t.get("fields.displayByline")||!1;if(y){const i=t.get("fields.byline")||e.get("fields.origin_data_json.byline"),s=t.get("fields.bylineImage")||e.get("fields.origin_data_json.bylineImage"),a=(e.get("fields.origin_data_json.full_bylines")||e.get("fields.full_bylines_json")||[]).map(e=>({firstname:e.firstname,lastname:e.lastname,description:e.description,imageUrl:e.imageUrl?this.getImageUrl(`${e.imageUrl}&width=90&height=90`):""}));a.length||!i&&!s||a.push({firstname:i,lastname:"",imageUrl:s?this.getImageUrl(`${s}&width=90&height=90`):""}),e.setFiltered("bylines",a),s&&e.setFiltered("bylineImage",`${s}&width=90&height=90`)}e.setFiltered("displayByline",y);const v=t.get("fields.displayPublishedDate")||!1,_=this.api.v1.locale.get("dates.monthdayyear",{noRender:!0});if(e.setFiltered("displayPublishedDate",v),v)if(this.api.v1.app.mode.isEditor()&&!s)e.setFiltered("publishedDate",_);else if(this.api.v1.app.mode.isEditor()||s){const t=new Date(s),i=this.dateTimeHelper.format(t,_);e.setFiltered("publishedDate",i)}else e.setFiltered("displayPublishedDate",!1);let S=e.get("fields.origin_data_json.paywall")||e.get("fields.paywall")||!1;if(S=1===S||"1"===S||!0===S||null,S){const i={display:!0,displayInNewsletter:!0,...this.api.v1.config.get("paywall.label")},s=this.api.v1.config.get("paywall.label.text.content"),a=this.api.v1.config.get("paywall.label.icon.content"),n={text:{content:null==s?"Plus":this.api.v1.config.get("paywall.label.text.content")},icon:{content:null==a?"fi-plus":this.api.v1.config.get("paywall.label.icon.content")}};if(Object.assign(i,n),i.display){i.layout={noImage:!0,float:null};const s=this.api.v1.model.query.getChildOfType(e,"image")||this.api.v1.model.query.getChildOfType(e,"graphic");if(s&&s.get("instance_of")){const e=this.api.v1.view.getView(s,t.getViewport());i.layout.float=this.api.v1.config.get("paywall.label.labelPosition")||e.get("fields.float"),i.layout.noImage=!!t.get("metadata.hideimage")}e.setFiltered("paywallLabel",i)}}else e.setFiltered("paywallLabel",null);e.setFiltered("paywall",S);const w=e.get("metadata.tagPlacement")||"underImage";e.setFiltered("tagPlacement.underImage","underImage"===w),e.setFiltered("tagPlacement.underText","underText"===w);const T=e.get("metadata.sectionPlacement")||"floating";if(e.setFiltered("sectionPlacement.floating","floating"===T),e.setFiltered("sectionPlacement.underImage","underImage"===T),e.setFiltered("sectionPlacement.underText","underText"===T),e.setFiltered("articleWidth",t.getPixelWidth()),e.setFiltered("autodata_css",h.parseCss(e)),e.setFiltered("autodata_content_css",h.parseCss(e,"filtered.autodata_content")),e.setFiltered("autodata_attributes",h.parseAttributes(e)),e.setFiltered("autodata_custom",h.parseCustomData(e)),this.autoFontSizeConfig.enabled&&(this.autoFontSizeDone=e.get("metadata.autoFontSizeDone")),"newssitemap"===this.api.v1.viewport.getName()){const t=this.api.v1.model.query.getChildOfType(e,"image"),i=t.get("instance_of");if(this.imageServer&&t&&i){const t=`${this.imageServer}?imageId=${i}&format=webp&width=1200`;e.setFiltered("headerImageUrl",t)}}const k=[],$=[],D=e.get("metadata.imageHoverScale");if(D){k.push("lab-has-hover-scale");const e="scale-up-subtle"===D?"1.05":"1.1";$.push(`--hover-scale: ${e}`)}const F=e.get("metadata.imageHoverFilter");if(F){const e=F.replace("filter-","");let t;k.push(`lab-has-hover-filter-${e}`),"brighten"===e?t="1.2":("darken"===e||"grayscale"===e)&&(t="0.8"),$.push(`--hover-filter-${e}: ${t}`)}e.setFiltered("hoverEffectClasses",k.join(" ")),e.setFiltered("hoverEffectStyles",$.join("; "))}onRendered(e,t){if(this.api.v1.app.mode.isEditor()&&this.autoFontSizeConfig.enabled){const i=()=>{const e=t.getMarkup().querySelector(".headline");v.removeFontSize(e),this.api.v1.tool.off("ended",i)};if("desktop"===t.viewport&&this.hasAutoFontSize&&e.get("metadata.autoFontSizeEnabled")&&(this.api.v1.tool.on("started",t=>{"fields.title"===t.key&&t.model===e&&i()}),e.get("state.autoFontSizeReRender")&&e.get("fields.title")&&!this.autoFontSizeDone&&e.get("metadata.autoFontSizeEnabled"))){const i=t.getMarkup().querySelector(".headline"),s=v.autoSizeText(i,this.autoFontSizeConfig);e.set("state.autoFontSizeReRender",!1,{notify:!1}),e.set("state.title",s,{notify:!1}),e.set("metadata.autoFontSizeDone",!0,{notify:!1}),e.set("fields.title",s)}}}onCreated(e){this.hasAutoFontSize&&null===e.get("metadata.autoFontSizeEnabled")&&e.set("metadata.autoFontSizeEnabled",!0,{notify:!1})}getSiteDomain(e){if(!e)return"";const t=this.api.v1.site.getSiteById(e);return t?t.domain:""}getImageUrl(e){return e?e.startsWith("http")?e:this.imageServer+e:""}}class S{constructor(e){this.api=e,this.isEditor=this.api.v1.app.mode.isEditor(),this.isFragmentMode=this.api.v1.app.mode.isFragmentMode(),this.lazyloadImages=!this.isEditor&&!!this.api.v1.config.get("imageLoading.lazy")}check(e,t){if(!this.lazyloadImages||t.getProperty("image.noLazy"))return!1;const i=lab_api.v1.model.query.getParentOfType(e,"row");if(i&&!this.isFragmentMode&&i.getModelIndex()<5)return!1;const s=lab_api.v1.model.query.getParentOfType(e,"slideshow");if(s){if(lab_api.v1.model.query.getParentOfType(s,"articleHeader")&&e.getModelIndex()<1)return!1}return!0}}class w{constructor(e){this.api=e,this.lazyloadHelper=new S(e),this.api.v1.app.mode.isEditor()&&(this.cropIds=[],this.rootModel=this.api.v1.model.query.getRootModel(),this.frontcropBinding=this.frontCropChanged.bind(this),this.api.v1.model.bindings.bind(this.rootModel,"frontCrop",this.frontcropBinding),this.frontcropBinding(this.rootModel,"frontCrop",this.rootModel.get("frontCrop")),this.api.v1.ns.set("imageFilter.preview",this.prepareVisualFilters)),this.isFragmentMode=this.api.v1.app.mode.isFragmentMode(),this.isEditorMode=this.api.v1.app.mode.isEditor(),this.boundModels=[]}onInserted(e,t){this.isEditorMode&&e.get("instance_of")&&(this.boundModels.includes(e)||(this.api.v1.model.bindings.bind(e,"fields.imageCaption",this.imageUpdater.bind(this)),this.api.v1.model.bindings.bind(e,"fields.byline",this.imageUpdater.bind(this)),this.boundModels.push(e)))}imageUpdater(e,t,i){if(!i)return;const s=e.get("instance_of");if(!s)return;const a=t.includes("imageCaption"),n=t.includes("byline");this.api.v1.util.httpClient.get(`/ajax/node/get-node?id=${s}`,{resetCache:!0}).then(t=>{const o=t.data,r=o&&o.fields&&o.fields.caption||"",l=o&&o.fields&&o.fields.byline||"",d=a&&!r,g=n&&!l;if(!d&&!g)return;const c=o&&o.fields&&o.fields.extra_metadata_json&&o.fields.extra_metadata_json.currentLanguage||this.api.v1.config.get("contentLanguage")||"en",p=JSON.parse(JSON.stringify(o&&o.fields&&o.fields.extra_metadata_json||{})),h={};if(p.aiMetadata||(p.aiMetadata={}),p.aiMetadata[c]||(p.aiMetadata[c]={}),d){const t=e.get("fields.extra_metadata_json.currentLanguage")||"",s=!t||t===c;!(p.aiMetadata&&p.aiMetadata[c]&&p.aiMetadata[c].caption)&&s&&(h.caption=i,p.aiMetadata[c].caption=i,h.extra_metadata_json=p)}if(g&&(h.byline=i),0===Object.keys(h).length)return;const u={type:"image",id:s,fields:h},m=new FormData;m.append("json[id]",s),m.append("json[type]","image"),m.append("json[structure]",null),m.append("json[node]",JSON.stringify([u])),this.api.v1.util.httpClient.request("/ajax/node/save-node-and-data",{body:m,method:"POST"}).then(()=>{Sys.logger.debug("[Image] Synced caption/byline to backend:",s)}).catch(e=>{Sys.logger.error("[Image] Error syncing to backend:",e)})}).catch(e=>{Sys.logger.error("[Image] Error fetching backend node:",e)})}onViewHelper(e,t){if(e.parent){this.prepareForSlideshow(e,t);const i=t.getViewport();if(this.api.v1.view.getView(e.parent,i).get("metadata.hasFullWidth")){const t="mobile"===i?600:1800;e.setFiltered(`width.${i}`,t)}else e.setFiltered(`width.${i}`,null);e.setFiltered("allowFullwidth","image"!==e.parent.getType())}}onRender(e,t){this.setVisualFilters(e,t),e.setFiltered("lazyloadImages",this.lazyloadHelper.check(e,t)),this.setCaptionOptions(e.getParent(),e,t);const i=t.get("fields.float");e.setFiltered("hasFloat",!!i&&"floatNone"!==i)}onRendered(e,t){if(!this.api.v1.app.mode.isEditor()||!this.cropIds.length)return;const i=parseInt(e.get("instance_of"),10);this.cropIds.includes(i)&&this.markFrontCrop(t,i)}setVisualFilters(e,t){e.setFiltered("filters",this.prepareVisualFilters(e,t))}prepareVisualFilters(e,t,i=!1){const s=[],a=e.get("metadata.filter_blur_active")?e.get("metadata.filter_blur_value")||0:null,n=e.get("metadata.filter_sepia_active")?e.get("metadata.filter_sepia_value")||0:null,o=e.get("metadata.filter_saturate_active")?e.get("metadata.filter_saturate_value")||1:null,r=e.get("metadata.filter_brightness_active")?e.get("metadata.filter_brightness_value")||1:null,l=e.get("metadata.filter_contrast_active")?e.get("metadata.filter_contrast_value")||1:null;return null!==a&&s.push(`blur(${a}px)`),null!==n&&s.push(`sepia(${n})`),null!==o&&s.push(`saturate(${o})`),null!==r&&s.push(`brightness(${r})`),null!==l&&s.push(`contrast(${l})`),i?{filter:s.join(" ")}:s.length?`filter: ${s.join(" ")};`:null}markFrontCrop(e,t){const i=document.createElement("span");i.classList.add("labicon-imgFrontCrop","is-frontcrop"),i.setAttribute("title","Image used as front crop. Click to edit"),i.addEventListener("click",e=>{e.stopPropagation(),e.preventDefault(),this.api.v1.apps.start("ArticleSettings")},!1),e.getMarkup().appendChild(i)}frontCropChanged(e,t,i){let s=this.getImages(this.cropIds);this.cropIds=[],this.updateImages(s),i&&(i.pano&&i.pano.instance_of&&this.cropIds.push(i.pano.instance_of),i.height&&i.height.instance_of&&!this.cropIds.includes(i.height.instance_of)&&this.cropIds.push(i.height.instance_of),s=this.getImages(this.cropIds),this.updateImages(s))}getImages(e){const t=[];for(const i of e)t.push(...this.api.v1.model.query.getModelsByKeyAndValue("instance_of",i));return t}updateImages(e){for(const t of e)this.api.v1.model.addToRedrawQueue(t)}setCaptionOptions(e,t,i){const s=e?this.api.v1.view.getView(e,i.getViewport()):null,a=(e,t,i)=>{if(e){const t=e.get(i);if(!t&&null!==t)return!1;if(t)return!0}return!!t.get(i)};let n=a(s,i,"fields.displayCaption"),o=n||null===i.get("fields.displayCaption")&&!i.get("metadata.hidecaption");!this.api.v1.app.mode.isFront()||t.get("fields.imageCaption")||t.get("fields.byline")||(n=!1,o=!1);const r=a(s,i,"fields.expandableCaption"),l=a(s,i,"fields.truncateCaption"),d={display:n,displayDefault:o,truncate:l,expandable:r||l};t.setFiltered("captionOptions",d)}prepareForSlideshow(e,t){if(!e.parent||"slideshow"!==e.parent.getType())return;if(t.get("fields.whRatio"))return void e.setFiltered("whRatio",null);const i=e.get("fields.originalWidth"),s=e.get("fields.originalHeight");if(s&&i){const t=s/i;e.setFiltered("whRatio",t)}}}class T extends o{constructor({languageCode:e}={}){super("en"),this.languageCode=e||lab_api.v1.config.get("contentLanguage")}str(e,{data:t,noRender:i}={}){return lab_api.v1.locale.get(`dates.${e}`,{data:t,noRender:i})}timestampToNiceDate(e,t=!1){const i=(new Date).getTime(),s=new Date(1e3*e).getTime()-0,a=parseInt((i-s)/1e3/60,10);if(a<60)return a<1?this.str("now"):this.str("durationSince",{data:{count:a,period:t?this.str("min"):1===a?this.str("minute"):this.str("minutes"),ago:t?"":this.str("ago")}});if(a<1440){const e=parseInt(a/60,10);return this.str("durationSince",{data:{count:e,period:1===e?this.str("hour"):this.str("hours"),ago:t?"":this.str("ago")}})}if(parseInt(a/1440,10)<30){const e=parseInt(a/1440,10);return this.str("durationSince",{data:{count:e,period:1===e?this.str("day"):this.str("days"),ago:t?"":this.str("ago")}})}return this.format(this.timestampToDate(e),this.str("monthdayyear",{noRender:!0}))}}class k{constructor(e){this.api=e,this.dateTimeHelper=new T}onRender(e,t){const i=e.get("fields.modified")||e.get("fields.published");if(null!=i){const t=new Date(1e3*i);e.setFiltered("niceDate",this.dateTimeHelper.timestampToNiceDate(i)),e.setFiltered("publishedDate",this.dateTimeHelper.utcFormat(t,`${this.api.v1.locale.get("dates.monthdayyear",{noRender:!0})} ${this.api.v1.locale.get("dates.hourminute",{noRender:!0})}`)),e.setFiltered("isoDate",t.toISOString())}}}class ${constructor(e){this.api=e,this.baseApiUrl=this.api.v1.properties.get("front_api_url"),this.siteId=this.api.v1.properties.get("site.id"),this.cache=new Map,this.defaultMaxCount=100,this.isEditor=this.api.v1.app.mode.isEditor(),this.rootModel=this.api.v1.model.query.getRootModel()}onPrepareViewHelper(e,t){const i=e.get("fields.site")||this.siteId,s=t.get("fields.maxNoticesCount")||this.defaultMaxCount;let a=(e.get("fields.tags")||"").toLowerCase().split(",").filter(e=>""!==e);0===a.length&&(a=this.getNoticePageTags(),Sys.logger.info(`LiveFeed: No tags configured for the view, using notice page tags: ${a.join(", ")}`));const n=this.prepareTags(a),o=this.prepareQuery(n,!1),r=this.prepareQuery(n,!0),l=`${this.baseApiUrl}/notice?content=full&site_id=${i}&limit=${s}`;e.setFiltered("query",o),e.setFiltered("clientQuery",r),e.setFiltered("url",l)}getNoticePageTags(){const e=(this.rootModel.get("fields.noticeTagString")||"").toLowerCase();return Sys.logger.info(`LiveFeed: Fetching notice tags from root model field 'noticeTagString': ${e}`),e?e.split(/[+/]/).map(e=>e.trim()).filter(e=>""!==e):[]}onReady(e,t){const i=t.get("external"),s=e.get("filtered.noFetch")||!1,a=e.get("metadata.blacklist")||[],n=t.get("fields.maxNoticesCount")||this.defaultMaxCount;if(!s&&i){e.setFiltered("noFetch",!0);const t=e.get("fields.pinnedNotices_json")||[];let s=i.result;if(this.api.v1.app.mode.isEditor()){const t=this.api.v1.model.query.getModelsByType("notice",e.children);for(const e of t)this.api.v1.model.delete(e,!0,!0)}s=s.slice(0,n),s.forEach(i=>{const{attribute:s={},field:n={}}=i.notice;if(a.includes(parseInt(s.id||0,10)))return void Sys.logger.warn(`Notice with id ${s.id} is blacklisted from Livefeed and will not be displayed.`);"object"==typeof n.bodytext&&(n.bodytext="");const{title:o,bodytext:r,published:l,modified:d,published_url:g,userName:c}=n,p=[];if(i.notice.children&&i.notice.children.image){const e=Array.isArray(i.notice.children.image)?i.notice.children.image:[i.notice.children.image];for(const t of e){let e={};if(n.structure_json&&t.attribute.id)try{const i=JSON.parse(n.structure_json);for(const s of i)if("bodytext"===s.type){const i=this.getStructure(s.children||[],t.attribute.id);e=i?i.metadata:{};break}}catch(e){Sys.logger.warn(`Failed to parse structure data: ${e.toString()}`)}e.hasFullWidth={desktop:!1,mobile:!1},p.push(this.getImageData(t,e||{}))}}this.api.v1.model.insert.atPath({path:e.getPositionedPath(),data:{type:"notice",contentdata:{id:s.id,fields:{title:o,bodytext:r,published:l,modified:d,published_url:g,userName:c,pinned:t.includes(s.id)},tags:i.notice.tag?i.notice.tag.tag:""},state:{isNonPersistent:!0,editNonPersistent:!0},children:p},options:{silent:!0,index:t.includes(s.id)?0:void 0}})}),e.children.sort((e,i)=>t.includes(e.getId())?-1:t.includes(i.getId())?1:i.getId()-e.getId()),this.api.v1.app.mode.isEditor()&&(this.api.v1.model.addToRedrawQueue(e,!0),this.api.v1.app.save())}const o=this.api.v1.config.get("contentbox_settings.livefeed.updateFrequency")||[{range:[0,600],interval:10},{range:[600,1200],interval:30},{range:[1200],interval:60}];e.setFiltered("updateFrequency",JSON.stringify(o))}onRender(e,t){const i=t.get("fields.placeholder");e.setFiltered("placeholder",i||this.api.v1.locale.get("emptyState.noContentText",{noRender:!0})),e.setFiltered("initialRenderTime",(new Date).getTime()),e.setFiltered("dateStrings",JSON.stringify({now:this.api.v1.locale.get("dates.now",{noRender:!0}),monthdayyear:this.api.v1.locale.get("dates.monthdayyear",{noRender:!0}),hourminute:this.api.v1.locale.get("dates.hourminute",{noRender:!0}),durationSince:this.api.v1.locale.get("dates.durationSince",{noRender:!0}),minute:this.api.v1.locale.get("dates.minute",{noRender:!0}),minutes:this.api.v1.locale.get("dates.minutes",{noRender:!0}),hour:this.api.v1.locale.get("dates.hour",{noRender:!0}),hours:this.api.v1.locale.get("dates.hours",{noRender:!0}),day:this.api.v1.locale.get("dates.day",{noRender:!0}),days:this.api.v1.locale.get("dates.days",{noRender:!0}),ago:this.api.v1.locale.get("dates.ago",{noRender:!0})}))}onChildAdded(e,t){if(this.isEditor&&"notice"!==t.getType()){if(e.children.indexOf(t)>0)return;const i=this.api.v1.model.query.getModelsByType("notice",e.children).filter(e=>e.get("fields.pinned"));if(!i.length)return;let s=0;for(const t of i)e.children.indexOf(t)>s&&(s=e.children.indexOf(t));s>0&&this.api.v1.model.addChild(e,t,s,!1)}}prepareQuery(e,t=!1){const i=t?["(visibility_status:P OR visibility_status:H)"]:["visibility_status:P"];return e.length>0&&i.push(`(${e.join(" OR ")})`),`&query=${encodeURIComponent(i.join(" AND "))}`}prepareTags(e){return e.map(e=>{let t=e.trim();return t.indexOf(" ")>-1&&(t=`"${t}"`),`tag:${t}`})}getImageData(e,t){return this.api.v1.model.serialize.apiToView({type:"image",data:e,meta:t})}onSettingsPanel(e,t,i){const s={layout:null,container:null};return{onDisplay:({model:e,view:t,config:i,markup:a,modal:n})=>{s.layout=a.querySelector("#layout"),s.container=a.querySelector(".horizontalOptions"),s.layout&&s.container&&s.layout.addEventListener("change",e=>{"1"===s.layout.value?s.container.classList.remove("lab-hidden"):s.container.classList.add("lab-hidden")})},onHide:({model:e,view:t,config:i,markup:a,modal:n})=>{s.layout=null,s.container=null,e.setFiltered("noFetch",!1)}}}getStructure(e,t){for(const i of e){if("image"===i.type&&i.node_id==t)return i;if(i.children){const e=this.getStructure(i.children,t);if(e)return e.metadata&&!e.metadata.bodyTextIndex&&i.metadata&&i.metadata.bodyTextIndex&&(e.metadata.bodyTextIndex=i.metadata.bodyTextIndex),e}}return null}}class D{constructor(e){this.api=e}onRender(e,t){const i=this.api.v1.config.get("contentbox_settings.adnuntiusAd.formats")||[],s=e.get("fields.format"),a=i.filter(e=>e.format===s)[0]||{};if(e.setFiltered("adData",a),e.setFiltered("isDebug",this.api.v1.util.request.hasQueryParam("debug")||e.get("metadata.isDebug")),!this.api.v1.app.mode.isEditor()){const t=e.parent&&!0===e.parent.get("metadata.hideOnTablet")&&"tablet"===this.api.v1.config.get("xUaDevice");e.setFiltered("hideOnTablet",t)}if(this.api.v1.app.mode.isEditor()){const t=this.api.v1.model.root.getType().replace("page_",""),a=[];i.forEach(e=>{if(e.selectable&&e.selectable.indexOf(t)>-1||e.selectableOn&&!0===e.selectableOn[t])if(e.format===s){const t={...e};t.selected=!0,a.push(t)}else a.push(e)}),e.setFiltered("formatConfigKeys",a)}const n=this.api.v1.config.get("contentbox_settings.adnuntiusAd.label")||"Annonse",o=e.get("fields.label")||n;e.setFiltered("label",o),e.setFiltered("displayLabel",o&&(e.get("metadata.css")||"").includes("display-label"));if((e.get("metadata.css")||"").includes("sticky")){const t=`top: ${this.api.v1.config.get("contentbox_settings.adnuntiusAd.spacingTop")||120}px;`;e.setFiltered("spacingTop",t)}}}class F{constructor(e){this.api=e}onRender(e,t){const i=this.api.v1.model.query.getRootModel(),s=this.api.v1.config.get("contentbox_settings.googleAd.formats")||[],a=e.get("fields.format"),n=this.api.v1.config.get("adEnvironment")||{},o={bidding:n.bidding,hideOnTabletWidth:n.hideOnTabletWidth||1316,fetchMarginPercent:n.fetchMarginPercent||150,renderMarginPercent:n.renderMarginPercent||150,mobileScaling:n.mobileScaling||2};e.setFiltered("googleAds",o);const r=o.bidding&&o.bidding.provider&&"optidigital"===o.bidding.provider.name;e.setFiltered("isOptiDigital",r);const l=((e,t)=>{for(let i=0;i<t.length;i++)if(t[i].format===e)return{...t[i]};return{}})(a,s);if(l.key=e.get("metadata.key")||"row",o.bidding&&o.bidding&&o.bidding.provider&&o.bidding.provider.name&&"livewrapped"===o.bidding.provider.name){const e=()=>{const e=()=>(65536*(1+Math.random())||0).toString(16).substring(1);return`${e()+e()}-${e()}-${e()}-${e()}-${e()}${e()}${e()}`};l.code&&l.code.endsWith("-1")&&(l.code+=`_${e()}`)}"mpu_top"===l.code&&(l.isMpuTop=!0),e.setFiltered("adData",l),e.setFiltered("isDebug",this.api.v1.util.request.hasQueryParam("debug")||e.get("metadata.isDebug"));const d=this.api.v1.config.get("contentbox_settings.googleAd.label")||"Annonse",g=e.get("fields.label")||d;if(e.setFiltered("label",g),!this.api.v1.app.mode.isEditor()){const t=e.parent&&!0===e.parent.get("metadata.hideOnTablet")&&"tablet"===this.api.v1.properties.get("xUaDevice");e.setFiltered("hideOnTablet",t)}if(this.api.v1.app.mode.isEditor()){const t=i.get("type").replace("page_",""),a=[];s.forEach(e=>{(e.selectable&&e.selectable.indexOf(t)>-1||e.selectableOn&&!0===e.selectableOn[t])&&a.push(e)}),e.setFiltered("formatConfigKeys",a)}if((e.get("metadata.css")||"").includes("sticky")){const t=`top: ${this.api.v1.config.get("contentbox_settings.googleAd.spacingTop")||120}px;`;e.setFiltered("spacingTop",t)}}}class x{constructor({path:e=null,selector:t=null,data:i={},options:s={}}={}){this.path=e,this.selector=t,this.data=i,this.options={persistentTarget:!0,intermediate:{useExisting:!0},...s}}}class I{constructor({key:e=null,path:t=null,selector:i=null,placeholder:s=null,metadata:a={},options:{shouldInsert:n=!0,wrap:o=null,skipIfOutOfBounds:r=!1,useIndex:l=!1,useBodyTextIndex:d=!1,useBodyTextHeadingIndex:g=!1,lastBodyTextHeading:c=!1,prepend:p=!1}={}}={}){this.key=e,this.path=t,this.selector=i,this.placeholder=s,this.metadata=a,this.options={shouldInsert:n,wrap:o,skipIfOutOfBounds:r,useIndex:l,useBodyTextIndex:d,useBodyTextHeadingIndex:g,lastBodyTextHeading:c,prepend:p}}}class P{constructor({type:e=null,contentdata:t=null,content_data:i=null,cssSettings:s={},children:a=[],metadata:n={}}={}){this.type=e,this.contentdata=t||i,this.children=a,this.metadata={...n},this.state={};const o=[];this.metadata.css&&o.push(this.metadata.css);for(const e of Object.keys(s))s[e]&&o.push(e);this.metadata.css=o.join(" ")}}class C{constructor(e){this.api=e,this.page=this.api.v1.model.query.getRootModel(),this.pageType=this.api.v1.model.root.getType().replace("page_",""),this.viewports=this.api.v1.viewport.getActive(),this.isEditor=this.api.v1.app.mode.isEditor(),this.cache=new Map,this.pageElements={},this.hideAds="1"===this.page.get("fields.hideAds")||!0===this.page.get("fields.hideAds"),this.hideTopBannerAd="1"===this.page.get("fields.hideTopBannerAd")||!0===this.page.get("fields.hideTopBannerAd"),this.hideSkyscraperAd="1"===this.page.get("fields.hideSkyscraperAd")||!0===this.page.get("fields.hideSkyscraperAd"),this.api.v1.util.request.hasQueryValue("lab_opts","infinitescroll")&&(this.pageType=`${this.pageType}_infinitescroll`)}hasRequiredElement(e){return void 0===this.pageElements[e]&&(this.pageElements[e]=!!this.api.v1.model.query.getModelByType(e)),this.pageElements[e]}insert(e,t=null){const i={clientSidePlacements:[]},s={},a=`insertDynamic.${this.pageType}.${e}`,n=`placements.${this.pageType}.${e}`;let o=!1;const r=(this.api.v1.config.get(n)||[]).filter(e=>!e.client||(e.requireElement&&!this.hasRequiredElement(e.requireElement)||(s[e.key]=e),!1));if(!this.cache.has(a)){const e=`insertDynamicAdditions.${this.pageType}`,t=this.api.v1.config.get(a)||[];Sys.logger.debug(`[DynamicDataHelper]: Found ${t.length} items from ${a}.`);const n=this.validateConditions(this.api.v1.config.get(e)||[]).reverse();o=n.length>0,Sys.logger.debug(`[DynamicDataHelper]: Found ${n.length} additions from ${e}.`);const r=[...t,...n];Sys.logger.debug(`[DynamicDataHelper]: Merged content has ${r.length} items.`);const l=(this.isEditor?r.filter(e=>!e.dynamicDataSettings||!e.dynamicDataSettings.hideInEditMode):r).filter(e=>{if(e.placement&&e.placement.key&&s[e.placement.key]){const t={...e,placementData:s[e.placement.key]};return i.clientSidePlacements.push(t),!1}return!0});Sys.logger.debug(`[DynamicDataHelper]: Filtered content has ${l.length} items. ${i.clientSidePlacements.length} items are client-side placements.`),this.cache.set(a,l)}if(!this.cache.has(n)){if(o){const e=`placementsAdditions.${this.pageType}`,t=this.api.v1.config.get(e)||[];r.push(...t)}this.cache.set(n,r.map(e=>new I(e)))}const l=this.parse(this.cache.get(a),this.cache.get(n),e,t);for(const e of l)e.selector?this.api.v1.model.insert.bySelector({selector:e.selector,data:e.data,options:e.options}):e.path&&this.api.v1.model.insert.atPath({path:e.path,data:e.data,options:e.options});return i}validateConditions(e){return e.filter(e=>{if(e.excludeDuplicates&&this.api.v1.model.query.getModelByType(e.type))return Sys.logger.debug(`[DynamicDataHelper]: Element of type "${e.type}" already exist on page. Skipping.`),!1;if(e&&e.conditions){const{conditions:t}=e;for(const i of t){const{field:t,operator:s,value:a=""}=i,n=this.page.get(t||"",void 0,!0);if(void 0!==n)switch(s){case"equals":if(n!==a)return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;case"notEquals":if(n===a)return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;case"contains":if(!n.includes(a))return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;case"notContains":if(n.includes(a))return Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" failed. Field: "${t}", operator "${s}", value: "${a}", page value: "${n}".`),!1;break;default:return Sys.logger.warning(`[DynamicDataHelper]: Operator "${s}" is not valid. The condition fails and the item is not inserted onto the page.`),!1}else Sys.logger.debug(`[DynamicDataHelper]: Condition for inserting element type "${e.type}" ignored. Value of field: "${t}" is undefined.`)}return Sys.logger.debug(`[DynamicDataHelper]: All conditions (${t.length}) for inserting element type "${e.type}" accepted. Will insert.`),!0}return Sys.logger.debug(`[DynamicDataHelper]: No validation specified for inserting element type "${e.type}". Will insert.`),!0})}parse(e=[],t=[],i="desktop",s=null){const a=[];for(const n of e){const[o]=t.filter(({key:e})=>e===n.placement.key);if(o)if(this.acceptPath(o.path,s)){const t=this.create(n,o,e,i);if(null!==t&&(t.data.metadata.viewportBlacklist=this.viewports.filter(e=>e!==i),a.push(t),Number.isInteger(t.options.interval)&&Number.isInteger(t.options.index))){const{interval:s}=n.placement,{index:r}=n.placement;let l=r;const d=this.api.v1.model.query.getModelByPath(t.path);if(d){const t=d.getPersistentChildren().length;for(;l<t;){const t=JSON.parse(JSON.stringify(n));t.options.index=l,t.placement.index=l,t.type="placeholder_ad";const r=JSON.parse(JSON.stringify(o));r.selector="";const d=this.create(t,r,e,i);null!==d&&(d.data.metadata.viewportBlacklist=this.viewports.filter(e=>e!==i),a.push(d)),l+=s}}}}else Sys.logger.debug(`[DynamicDataHelper]: Path "${o.path}" not allowed. Filter: "${s}", key: "${n.placement.key}"`);else Sys.logger.debug(`[DynamicDataHelper]: No placement found with key "${n.placement.key}"`)}return a}create(e,t,i,s="desktop"){if(this.filter(e)){const i=this.assemble(e,t);if(t.path&&t.selector){this.api.v1.model.query.getModelBySelector(t.selector)||this.api.v1.model.insert.atPath({path:t.path,data:{type:"placeholder",selector:t.selector,metadata:{...t.metadata||{},key:t.key},state:{isNonPersistent:!0}},options:{index:0,useExisting:!0,prepend:!0,silent:!0}})}const a={...e.options,prepend:t.options.prepend||!1,silent:!0};let{path:n}=t,o=e.placement.index||0,r=null;if(t.selector)r=this.api.v1.model.query.getModelBySelector(t.selector);else if(t.path){const e=this.getModelsByPath(t.path,s);e.length&&(r=t.options.useBodyTextIndex||t.options.useBodyTextHeadingIndex||t.options.lastBodyTextHeading?e.find(e=>"bodytext"===e.getType()):t.options.shouldInsert?e[0].children[o]:e[o])}if(r||!t.options.skipIfOutOfBounds){if(r){o=this.api.v1.model.query.getIndex(r);let e=r.getParent();if("mobile"===s){if(o>0&&o<e.children.length){let t=e.children[o];for(;t;){const i=r.get("width",s,!0);if(void 0===i||100===i)break;t=e.children[++o]}}e.get("metadata.hasRowTitle")&&(0===o||o>=e.children.length)&&(r=e,e=r.getParent(),o=this.api.v1.model.query.getIndex(r),n=e.getPositionedPath())}t.options.useIndex&&o<e.children.length&&(a.index=o),t.options.shouldInsert||(n=e.getPositionedPath(!0))}else a.prepend=!1;return new x({data:i,options:a,selector:t.selector,path:n})}}return null}assemble(e,t){let i=new P(e);return t.selector||(i.metadata={...i.metadata,...t.metadata,css:t.metadata.css?`${i.metadata.css} ${t.metadata.css}`:i.metadata.css||""}),t.options.wrap&&(i=new P({type:t.options.wrap.type,metadata:t.options.wrap.metadata,children:[i]})),t.options.skipIfOutOfBounds&&(i.metadata.skipIfOutOfBounds=!0),t.options.useBodyTextIndex?i.metadata.bodyTextIndex=e.placement.index||0:t.options.useBodyTextHeadingIndex&&(i.metadata.bodyTextHeadingIndex=e.placement.index||0),t.options.lastBodyTextHeading&&(i.metadata.lastBodyTextHeading=!0),i.metadata.options=e.options||{},i.state.isNonPersistent=!0,i}acceptPath(e,t){return!e||!t||e===t}filter(e){return"googleAd"!==e.type&&"adnuntiusAd"!==e.type||(Sys.logger.debug(`[DynamicDataHelper]: Ad insertion requested. ad unit=${e.placement.key} hideAds=${this.hideAds}, hideTopBannerAd=${this.hideTopBannerAd}, hideSkyscraperAd=${this.hideSkyscraperAd}`),"topbanner"===e.placement.key&&this.hideTopBannerAd?(Sys.logger.debug("[DynamicDataHelper]: Top banner ad is hidden. Skipping insertion."),!1):e.placement.key.includes("skyscraper_")&&this.hideSkyscraperAd?(Sys.logger.debug("[DynamicDataHelper]: Skyscraper ad is hidden. Skipping insertion."),!1):!this.hideAds)}getModelsByPath(e,t){const i=`getByPath-${e}`;return this.cache.has(i)||this.cache.set(i,this.api.v1.model.query.getModelsByPath(e,!0,!0)),this.cache.get(i)}}class A{constructor(e){this.api=e,this.request=this.api.v1.util.request}listen(){const e={selector:this.request.getQueryParam("lab_selector")||"contentFromPath",path:this.request.getQueryParam("lab_path"),guid:this.request.getQueryParam("lab_guid")};(e.guid||e.path)&&this.api.v1.model.on("insert",t=>{const i=e.guid?this.getModelByGuid(e.guid,t):this.getModelByPath(e.path,t);if(i)return Sys.logger.debug(`[FragmentHelper] Element found. Path: ${i.getPositionedPath()}, GUID: ${i.getGuid()}.`),i.setSelector(e.selector),"embed"===lab_api.v1.viewport.getName()?this.appendToRoot(t,i):[i]})}getModelByGuid(e){return Sys.logger.debug(`[FragmentHelper] Will filter elements by guid: "${e}".`),this.api.v1.model.query.getModelByGuid(e)}getModelByPath(e,t){Sys.logger.debug(`[FragmentHelper] Will filter elements by path: "${e}".`);const i=this.api.v1.util.string.parsePath(e);if(!i[0])return null;const s=this.api.v1.model.query.getModelsByType(i[0].base,t);return this.api.v1.model.query.getModelByPath(e,!0,!1,s)}appendToRoot(e,t){const i=e[0];return i.children=[t],[i]}}class M{constructor(e){this.api=e,this.paths={main:["parent","guid","type","tags"],fields:["feedId","byline","bylineImage","paywall","published","published_url","site_alias","site_id","subtitle","subtitleHTML","teaserSubtitle","somedescription","title","teaserTitle","titleHTML","seolanguage","seotitle","sometitle","kicker","teaserKicker","showcomments"],fieldsAuto:["section_tag","tags"],fieldsNative:["section"],fieldMap:{subtitle:"description",subtitleHTML:"descriptionHTML",somedescription:"someDescription",teaserSubtitle:"teaserDescription",seolanguage:"seolanguage",seotitle:"seoTitle",sometitle:"someTitle",published_url:"url",section_tag:"section"},fallback:{url:"url"}},this.frontUrl=this.api.v1.site.getSite().domain||this.api.v1.properties.get("customer_front_url"),this.imageServer=this.api.v1.properties.get("image_server")}jsonData(e){Sys.logger.debug("[PageExport] Will export page as JSON-data");const t=this.api.v1.model.serialize.model(e);delete t.guid;return{page:t,result:"page_article"===e.getType()?this.exportArticle():this.exportFront()}}oembed(e){if("page_article"!==e.getType())return Sys.logger.warn("[PageExport] Will not export current page type as oEmbed."),{};const t=(this.api.v1.util.request.getQueryParam("lab_opts")||"").split(",");let i="full";t.includes("embed_type_teaser")&&(t.splice(t.indexOf("embed_type_teaser"),1),i="teaser");const s=t.filter(e=>e.startsWith("embed_no_")),a=["embed_padding"],n=[];for(const e of s)n.push(`dac-${e.replace("embed_","").replace(/_/g,"-")}`);for(const e of a)t.includes(e)&&n.push(`dac-${e.replace("embed_","").replace(/_/g,"-")}`);return Sys.logger.debug("[PageExport] Will export page as oEmbed"),{version:"1.0",type:"rich",width:"",height:"",title:this.api.v1.util.string.sanitizeString(e.get("fields.title")||""),url:e.get("filtered.url")||"",author_name:this.api.v1.site.getSite().display_name||this.api.v1.site.getSite().alias,author_url:this.frontUrl,provider_name:"Labrador",provider_url:"http://www.labradorcms.com/",html:`<div class="labrador-cms-embed" data-lab-style="${n.join(" ")} dac-embed-${i}" data-lab-content="${i}" data-lab-id="${e.get("id")}" data-lab-site="${e.get("filtered.site.domain_no_protocol")}"><script async defer src="${this.frontUrl}/embed.js?v=335"><\/script></div>`}}exportArticle(){}exportFront(){const e=this.api.v1.model.query.getModelByType("dropZone");return this.api.v1.model.query.getModelsByType("article",[e]).map(e=>this.serialize(e)).filter(e=>!!e)}serialize(e){const t=this.api.v1.model.serialize.model(e);if(!t||!t.fields)return null;const i=!!t.fields.origin_data_json,s={images:[],width:e.getWidth("desktop"),metadata:t.metadata,isAutomatic:i,siteDomain:this.frontUrl},a=i?t.fields.origin_data_json:t.fields,n=[...this.paths.fields,...i?this.paths.fieldsAuto:this.paths.fieldsNative];for(const e of this.paths.main)s[e]=t[e]||"";for(const e of n)s[this.paths.fieldMap[e]||e]=a[e]||"";if(s.teaserSubtitle=a.teaserSubtitle||"",i){if(!s.byline){const e=(a.full_bylines||[]).shift();s.byline=e?`${e.firstname} ${e.lastname}`:"",s.bylineImage=s.bylineImage||(e||{}).imageUrl}"string"==typeof s.tags&&(s.tags=s.tags.split(",").map(e=>(e||"").trim())),s.site_alias=(this.api.v1.site.getSiteById(a.site_id)||{}).alias,s.id=parseInt(a.id,10)}else s.titleHTML=s.title,s.title=this.cleanText(s.title),s.descriptionHTML=s.description,s.description=this.cleanText(s.description),s.kickerHTML=s.kicker,s.kicker=this.cleanText(s.kicker),s.id=t.id;s.section_tag=s.section,s.url&&!s.url.startsWith("http")&&(s.url=this.frontUrl+s.url);for(const e of Object.keys(this.paths.fallback))s[e]||(s[e]=a[this.paths.fallback[e]]||"");s.full_bylines=(i?a.full_bylines:a.full_bylines_json)||[],s.full_bylines=s.full_bylines.map(e=>({firstname:e.firstname,lastname:e.lastname,description:e.description,imageUrl:this.getImageUrl(e.imageUrl)})),i&&s.byline&&s.full_bylines.unshift({firstname:s.byline,lastname:"",imageUrl:this.getImageUrl(s.bylineImage)}),!s.byline&&s.full_bylines.length&&(s.byline=`${s.full_bylines[0].firstname} ${s.full_bylines[0].lastname}`,s.bylineImage=s.full_bylines[0].imageUrl.replace(this.imageServer,""));const o=lab_api.v1.config.get("customAdapterFields.article")||[];if(o)for(const e of o)if(e){let i=t.fields[e]||"";!i&&t.fields.origin_data_json&&(i=t.fields.origin_data_json[e]||""),i&&(s[e]=i)}s.paywall="0"!==s.paywall&&!!s.paywall;const r=this.api.v1.model.query.getChildOfType(e,"image");if(r){const e=r.get("filtered.image");if(e){const t=r.get("fields.altText")||"";s.images.push({url:e,jpg:`${e}&format=jpg`,webp:`${e}&format=webp`,url_size:e,default:"1",id:r.get("instance_of"),altText:t})}}return s}cleanText(e){return this.api.v1.util.string.sanitizeString(e).replace(/&amp;/g,"&")}getImageUrl(e){return e?e.startsWith("http")?e:this.imageServer+e:""}}class O{constructor(e){this.api=e}register(e,t){if(this.api.v1.app.mode.isFragmentMode())return void Sys.logger.debug("[EsiHelper] Labrador is is fragment-mode. Will not register ESI. Skipping.");if(!e)return void Sys.logger.debug("[EsiHelper] Missing model, cannot process. Skipping.");const i=this.api.v1.config.get("footer.include");if(i&&i.pageId){const t=this.getEsiUrl(i);t?"client"===i.render?e.setFiltered("renderFooter.url",t):this.insertEsi(e,t,"esi_footer"):Sys.logger.warning("[EsiHelper] Cannot prepare url for footer-fragment. Missing url.")}const s=this.api.v1.config.get("header.include"),a=this.api.v1.config.get("header.includes")||[],n=[];if(s&&s.pageId){const t=this.insertHeader(s,e);t&&n.push(t)}for(const t of a)if(t&&t.pageId){const i=this.insertHeader(t,e);i&&n.push(i)}e.setFiltered("renderHeader.urls",n.map(e=>`'${e}'`).join(", "))}getEsiUrl(e){if(!e.pageId)return null;const t=["pageId","path","structureType","start","count"],i=[];if(t.forEach(t=>{void 0!==e[t]&&""!==e[t]&&null!==e[t]&&i.push(`${t}=${e[t]}`)}),i.length===t.length){let e=this.api.v1.properties.get("front_api_url");return this.api.v1.app.mode.isEditor()&&"https:"===document.location.protocol&&(e=e.replace("http:","https:")),`${e}/fragment/structure/?${i.join("&")}`}return null}insertEsi(e,t,i){Sys.logger.debug(`[EsiHelper] Will insert fragment for selector: "${i}", url: "${t}".`),this.api.v1.model.insert.atPath({path:e.getPath(),data:{type:"esi",selector:i,contentdata:{fields:{url:t,identifier:i}},state:{isNonPersistent:!0}},options:{frontpage:!0,articlepage:!0}}),this.api.v1.app.mode.isEditor()&&this.fetchEditorEsi(t,`${i}`)}insertHeader(e,t){const i=this.getEsiUrl(e);if(i){if("client"===e.render)return Sys.logger.debug(`[EsiHelper] Found url for header-fragment to render in client: "${i}".`),i;this.insertEsi(t,i,"esi_header")}else Sys.logger.warning("[EsiHelper] Cannot prepare url for header-fragment. Missing url.");return null}fetchEditorEsi(e,t){this.api.v1.view.on("domRendered",(i,s)=>{const a=this.api.v1.model.query.getModelBySelector(t);a&&(Sys.logger.debug(`EsiHelper.fetchEditorEsi: Will fetch esi-substitute for editor. Selector: ${t}, url: ${e}`),this.api.v1.util.httpClient.get(e,{credentials:"omit",type:"text"}).then(e=>{const i=lab_api.v1.view.getView(a,s),n=document.createElement("template");if(n.innerHTML=e,Sys.logger.debug(`EsiHelper.fetchEditorEsi: Esi-substitute fetched. Selector: ${t}, element-count: ${n.content.children.length}`),i.markup){for(const e of[...n.content.children])i.markup.parentElement.insertBefore(e,i.markup);i.markup.remove()}else Sys.logger.warn(`EsiHelper.fetchEditorEsi: Element markup not found. Cannot insert dom-element(s). Selector: ${t}`)}).catch(e=>{Sys.logger.warning(`EsiHelper.fetchEditorEsi: Esi-substitute could not be fetched. Selector: ${t}, error: ${e}`)}))})}}class j{static mediaQueries={desktop:"(min-width:1024px)",mobile:"(max-width: 1023px)"};static createStyle({model:e,view:t,viewports:i,styleCollection:s="content_inline_spacing",mediaQueries:a=this.mediaQueries,returnArray:n=!1}){const o=[],r=`[data-element-guid="${e.getGuid()}"] .content`;for(const n of i)if(a[n]){const i=lab_api.v1.style.getStyles(e,t,s,n);i&&o.push(`@media ${a[n]} { ${r} { ${i} } }`)}return n?o:`<style>${o.join("\n")}</style>`}}const E=class{constructor(){this.name="Baseview",this.api=null,this.pageAPI=null,this.useSpacing=!1}onReady(e){if(this.api=e,Sys.logger.debug(`[Front] Running Baseview version ${this.api.v1.config.get("view_version")}, build ${this.api.v1.config.get("view_build.baseview.version")}`),"json"===this.api.v1.viewport.getName()&&"PageExport.jsonData"===this.api.v1.config.get("viewports.json.renderer")){const e=new M(this.api);this.api.v1.view.on("rendered",(t,i)=>[JSON.stringify(e.jsonData(this.api.v1.model.query.getRootModel()),null,4)])}if("oembed"===this.api.v1.viewport.getName()&&"PageExport.oembed"===this.api.v1.config.get("viewports.oembed.renderer")){const e=new M(this.api);this.api.v1.view.on("rendered",(t,i)=>[JSON.stringify(e.oembed(this.api.v1.model.query.getRootModel()),null,4)])}new A(this.api,this.api.v1.util.request).listen()}onAcceptContent(){const e=this.api.v1.model.query.getRootModel();if(this.useSpacing=!(!e||!e.get("fields.style_spacing")),"editor"===this.api.v1.app.mode.getSimulatedMode())return void Sys.logger.debug("[Front] Labrador is running in simulated editor-mode. Skipping DynamicDataHelper and EsiHelper.");const t=new C(this.api),{clientSidePlacements:i=[]}=t.insert(this.api.v1.viewport.getName());i.length>0&&!e.get("fields.hideAds")&&(e.setFiltered("clientSidePlacements",JSON.stringify(i)),e.setFiltered("clientSideResources",JSON.stringify({configObject:{viewConfig:{config:{customer:{contentbox_settings:{adnuntiusAd:this.api.v1.config.get("contentbox_settings.adnuntiusAd")||{},googleAd:this.api.v1.config.get("contentbox_settings.googleAd")||{}},adEnvironment:this.api.v1.config.get("adEnvironment")||{}}}}},site:this.api.v1.site.getSite(),device:this.api.v1.properties.get("device"),debug:this.api.v1.util.request.hasQueryParam("debug")||!1}))),e&&"page_article"===e.getType()&&u.insertIfNeeded(this.api,e);new O(this.api).register(e,this.api.v1.site.getSite().alias),this.api.v1.util.request.hasQueryValue("lab_opts","hideHeader")&&(Sys.logger.debug("[Front] Hiding header and logo based on url param lab_opts=hideHeader ..."),e.setFiltered("pageHeaderDisplay","hideHeaderAndLogo")),this.api.v1.util.request.hasQueryValue("lab_opts","hideFooter")&&(Sys.logger.debug("[Front] Hiding footer based on url param lab_opts=hideFooter ..."),e.setFiltered("pageFooterDisplay","hideFooter")),this.api.v1.util.request.hasQueryValue("lab_opts","hideComments")&&(Sys.logger.debug("[Front] Hiding Hyvor comments based on url param lab_opts=hideComments ..."),e.setFiltered("pageCommentsDisplay","hideComments"))}onRender(e,t){this.useSpacing&&e.setFiltered("styleSheets",j.createStyle({model:e,view:t,viewports:["desktop","mobile"],returnArray:!1}))}onRendered(e,t){const i=e.get("metadata.elementClass");if(!i)return;const s=t.getMarkup();if(s)i.trim().split(/\s+/).filter(Boolean).forEach(e=>s.classList.add(e));else{const e=t.getMarkupString();if(!e)return;const s=i.trim().split(/\s+/).filter(e=>e&&/^[a-zA-Z0-9_-]+$/.test(e)).join(" ");if(!s)return;t.setMarkupString(e.replace('class="',`class="${s} `))}}onMapData(e){if("text_title"===e.type||"text_subtitle"===e.type){if(!e.contentdata||!e.contentdata.fields)return;const t={...e};return t.type="text_singleline",t.contentdata.fields.text=t.contentdata.fields.title||t.contentdata.fields.subtitle,"text_subtitle"===e.type?(t.contentdata.fields.elementType={value:"h3"},delete t.contentdata.fields.subtitle):(t.contentdata.fields.elementType={value:"h2"},lab_api.v1.util.object.set("attributes.text_size.vp.desktop",lab_api.v1.util.object.get("attributes.text_size.vp.desktop",t.contentdata.fields.text)||44,t.contentdata.fields.text),delete t.contentdata.fields.title),t.lab_internal_format=!0,t}}};
 
 /***/ }),
 
@@ -35,10 +35,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   templates: () => (/* binding */ templates)
 /* harmony export */ });
 // View export from Baseview
-// Version: 1.4.14, build: 454
-const config = {"view_version":"1.4.14","view_name":"Baseview","view_build":{"baseview":{"releasenotes":"1414:3","userReleasenotes":"1414:22","version":454}},"viewports":{"mobile":{"deviceWidth":480},"desktop":{"deviceWidth":1058}},"imageUrlOptions":{"extension":".webp","nameField":"instance_of"},"viewHelper":{"image":{"viewports":["desktop","mobile"],"pixelDensityFactor":2}},"grid":{"total_grid_spans":12,"grid_prefix":{"mobile":"small-","desktop":"large-"},"abs_grid_prefix":{"mobile":"small-abs-","desktop":"large-abs-"}},"style":{"definitions":{"css_style":{"requirePath":false,"path":"metadata.css_style","items":[{"prefix":"style-","postfix":""}]},"style_preset":{"path":"metadata.style_preset","items":[{"viewport":"no_viewport"}]},"text_size":{"requirePath":true,"path":"text_size","items":[{"viewport":"desktop","fallback":"no_viewport","prefix":"t"},{"viewport":"mobile","prefix":"tm"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"font_weight":{"requirePath":true,"path":"font_weight","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"m-"}]},"bold":{"requirePath":true,"path":"bold","items":[{"viewport":"no_viewport"}]},"text_background_color":{"requirePath":true,"path":"text_background_color","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_","nullValue":"no_bg_color"}]},"text_background_color_op":{"requirePath":true,"path":"text_background_color_op","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_","nullValue":"no_bg_color"}]},"custom_text_background_color":{"requirePath":true,"path":"custom_text_background_color","items":[{"prefix":"background-color:","postfix":" !important;"}]},"custom_text_color":{"requirePath":true,"path":"custom_text_color","items":[{"prefix":"color:","postfix":" !important;"}]},"custom_text_shadow":{"requirePath":true,"path":"custom_text_shadow","items":[{"prefix":"text-shadow:"}]},"text_color":{"requirePath":true,"path":"text_color","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"text_align":{"requirePath":true,"path":"text_align","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"],"prefix":"align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_text_align_align-"}]},"fontface":{"requirePath":true,"path":"fontface","items":[{"prefix":"font-"}]},"italic":{"requirePath":true,"path":"italic","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"],"nullValue":"no_italic"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"m-","nullValue":"no_italic"}]},"underline":{"requirePath":true,"path":"underline","items":[{"viewport":"no_viewport"}]},"texttransform":{"requirePath":true,"path":"texttransform","items":[{"viewport":"no_viewport"}]},"strikethrough":{"requirePath":true,"path":"strikethrough","items":[{"viewport":"no_viewport"}]},"text_shadow":{"requirePath":true,"path":"text_shadow","items":[{"viewport":"no_viewport"}]},"animate":{"requirePath":true,"path":"animate","items":[{"viewport":"no_viewport"}]},"background_color":{"requirePath":false,"path":"metadata.background_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"","postfix":""},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_","postfix":"","nullValue":"no_bg_color"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"background_opacity":{"requirePath":false,"path":"metadata.background_color_op","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"","postfix":""},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_","postfix":""}]},"background_gradient":{"requirePath":false,"path":"metadata.gradient","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"border_color":{"requirePath":false,"path":"metadata.border_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_","nullValue":"no_border_color"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"border_side":{"requirePath":false,"path":"metadata.border_side","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_","nullValue":"no_border_side"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"border_width":{"requirePath":false,"path":"metadata.border_width","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"border_width_","nullValue":"no_border_width"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"border_width_mobile_","nullValue":"no_border_width"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"border_radius":{"requirePath":false,"path":"metadata.border_radius","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"border-radius-","nullValue":"no_border_radius"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"border-radius-mobile_","nullValue":"no_border_radius"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"rounded_image_edge":{"requirePath":false,"path":"metadata.rounded_image_edge","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"rounded-image-edge-","nullValue":"no_rounded-image-edge"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"rounded-image-edge-mobile_","nullValue":"no_rounded-image-edge-mobile"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"rounded_image":{"requirePath":false,"path":"metadata.rounded_image","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"]}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"layout":{"requirePath":false,"path":"metadata.layout","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"layout_mobile_"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"fitContent":{"requirePath":false,"path":"metadata.fitContent","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"fitContent_mobile_"}],"template":"{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"},"shadow":{"requirePath":false,"path":"metadata.shadow","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"shadow_mobile_"}]},"metadata_text_color":{"requirePath":false,"path":"metadata.text_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_text_color-_"}]},"hover_text_color":{"requirePath":false,"path":"metadata.hover_text_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_hover_text_color-_"}]},"hover_bg_color":{"requirePath":false,"path":"metadata.hover_bg_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_hover_bg_color-_"}]},"hover_border_color":{"requirePath":false,"path":"metadata.hover_border_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_hover_border_color-_"}]},"image_overlay":{"requirePath":false,"path":"metadata.image_overlay","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"image_overlay_opacity":{"requirePath":false,"path":"metadata.image_overlay_opacity","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"image_gradient":{"requirePath":false,"path":"metadata.image_gradient","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"image_gradient_opacity":{"requirePath":false,"path":"metadata.image_gradient_opacity","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"]},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"color_mobile_"}]},"float":{"requirePath":false,"path":"metadata.float","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-"}]},"spacing":{"requirePath":false,"path":"fields.spacing","items":[{"prefix":"spacing-","nullValue":"default"}]},"spacing_outer_top":{"requirePath":false,"path":"metadata.spacing_outer_top","items":[{"viewport":"current_viewport","prefix":"margin-top:","postfix":"% !important;"}]},"spacing_outer_right":{"requirePath":false,"path":"metadata.spacing_outer_right","items":[{"viewport":"current_viewport","prefix":"margin-right:","postfix":"% !important;"}]},"spacing_outer_bottom":{"requirePath":false,"path":"metadata.spacing_outer_bottom","items":[{"viewport":"current_viewport","prefix":"margin-bottom:","postfix":"% !important;"}]},"spacing_outer_left":{"requirePath":false,"path":"metadata.spacing_outer_left","items":[{"viewport":"current_viewport","prefix":"margin-left:","postfix":"% !important;"}]},"spacing_inner_top":{"requirePath":false,"path":"metadata.spacing_inner_top","items":[{"viewport":"current_viewport","prefix":"padding-top:","postfix":"% !important;"}]},"spacing_inner_right":{"requirePath":false,"path":"metadata.spacing_inner_right","items":[{"viewport":"current_viewport","prefix":"padding-right:","postfix":"% !important;"}]},"spacing_inner_bottom":{"requirePath":false,"path":"metadata.spacing_inner_bottom","items":[{"viewport":"current_viewport","prefix":"padding-bottom:","postfix":"% !important;"}]},"spacing_inner_left":{"requirePath":false,"path":"metadata.spacing_inner_left","items":[{"viewport":"current_viewport","prefix":"padding-left:","postfix":"% !important;"}]},"pull_up":{"requirePath":false,"path":"metadata.pull_up","items":[{"viewport":"desktop","prefix":"large-pull-"},{"viewport":"mobile","prefix":"small-pull-"}]},"content_text_align":{"requirePath":false,"path":"metadata.text_align","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_text_align_align-"}]},"content_vertical_text_align":{"requirePath":false,"path":"metadata.vertical_text_align","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"vertical-text-align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-vertical-text-align-"}]},"text_align_row":{"requirePath":false,"path":"metadata.text_align_row","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile_text_align_align-"}]},"vertical_align":{"requirePath":false,"path":"metadata.vertical_align","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"grid-vas-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-grid-vas-"}]},"vertical_align_content":{"requirePath":false,"path":"metadata.vertical_align_content","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"grid-align-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-grid-align-"}]},"custom_background_color":{"requirePath":false,"path":"metadata.custom_background_color","items":[{"prefix":"background-color:","postfix":";"}]},"custom_background_color_L3":{"requirePath":false,"path":"metadata.box_custom_background","items":[{"prefix":"background-color:","postfix":";"}]},"custom_border_color":{"requirePath":false,"path":"metadata.custom_border_color","items":[{"prefix":"border-color:","postfix":" !important;"}]},"movableContainer":{"requirePath":true,"items":[{"viewport":"desktop","value":"desktop-movable-container","nullValue":""},{"viewport":"mobile","value":"mobile-movable-container","nullValue":""}]},"movableElement":{"requirePath":true,"items":[{"viewport":"desktop","value":"desktop-movable-element","nullValue":""},{"viewport":"mobile","value":"mobile-movable-element","nullValue":""}]},"collapsedContent":{"requirePath":true,"items":[{"viewport":"desktop","value":"desktop-collapsed-element","nullValue":""},{"viewport":"mobile","value":"mobile-collapsed-element","nullValue":""}]},"imageAlign":{"requirePath":true,"items":[{"viewport":"desktop","fallback":["no_viewport"],"prefix":"desktop-"},{"viewport":"mobile","fallback":["no_viewport"],"prefix":"mobile-"}]},"imageBorder":{"requirePath":true,"items":[{"value":"bordered"}]},"vertical_space_outside_top":{"requirePath":false,"path":"metadata.spaceOutsideTop","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-space-outsideTop-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-space-outsideTop-"}]},"vertical_space_outside_bottom":{"requirePath":false,"path":"metadata.spaceOutsideBottom","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-space-outsideBottom-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-space-outsideBottom-"}]},"vertical_space_inside_top":{"requirePath":false,"path":"metadata.spaceInsideTop","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-space-insideTop-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-space-insideTop-"}]},"vertical_space_inside_bottom":{"requirePath":false,"path":"metadata.spaceInsideBottom","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"desktop-space-insideBottom-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-space-insideBottom-"}]},"fullWidth":{"requirePath":false,"path":"metadata.hasFullWidth","items":[{"viewport":"desktop","fallback":["no_viewport"],"prefix":"desktop-","value":"fullWidth","nullValue":""},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-","value":"fullWidth","nullValue":""}]},"fullWidthLimit":{"path":"metadata.hasFullWidthWithLimit","items":[{"viewport":"desktop","fallback":["no_viewport"],"prefix":"desktop-","value":"fullWithLimit","nullValue":""},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-","value":"fullWithLimit","nullValue":""}]},"expandedState":{"path":"metadata.expandedState","items":[{"viewport":"desktop","postfix":"-desktop","value":"state-expanded","nullValue":""},{"viewport":"mobile","postfix":"-mobile","value":"state-expanded","nullValue":""}]},"dacBtn":{"requirePath":true,"path":"dacBtn","items":[{"viewport":"no_viewport","value":"dacBtn bg-btn-color"}]},"responsive_size":{"requirePath":true,"items":[{"viewport":"mobile","prefix":"small-vw-"}]},"compactDisplay":{"path":"metadata.compactDisplay","items":[{"value":"compactDisplay"}]},"horizontalSubArticles":{"path":"metadata.horizontalSubArticles","items":[{"value":"horizontalSubArticles"}]},"subArticlesNextToFloatingImage":{"path":"metadata.subArticlesNextToFloatingImage","items":[{"value":"subArticlesNextToFloatingImage"}]},"subArticlesShowBulletIcons":{"path":"metadata.subArticlesShowBulletIcons","items":[{"value":"subArticlesShowBulletIcons"}]},"subimagePlacement":{"requirePath":false,"path":"metadata.subimagePlacement","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"placement-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-placement-"}]},"subimageSize":{"requirePath":false,"path":"metadata.subimageSize","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"prefix":"size-"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"prefix":"mobile-size-"}]},"hasTextPadding":{"requirePath":true,"path":"text_background_color","items":[{"viewport":"desktop","fallback":["no_viewport","mobile"],"value":"hasTextPadding"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"value":"mobile-hasTextPadding"}]},"hasTextPaddingCustom":{"requirePath":true,"path":"custom_text_background_color","items":[{"value":"hasTextPadding"},{"value":"mobile-hasTextPadding"}]},"hasContentPadding":{"path":"metadata.background_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"value":"hasContentPadding"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"value":"mobile-hasContentPadding"}]},"hasContentPaddingCustom":{"path":"metadata.custom_background_color","items":[{"value":"hasContentPadding"},{"value":"mobile-hasContentPadding"}]},"hasBorder":{"path":"metadata.border_color","items":[{"viewport":"desktop","fallback":["mobile","no_viewport"],"value":"hasBorder"},{"viewport":"mobile","fallback":["desktop","no_viewport"],"value":"mobile-hasBorder"}]},"hasBorderCustom":{"path":"metadata.custom_border_color","items":[{"value":"hasBorder"},{"value":"mobile-hasBorder"}]}},"collections":{"text_decoration":{"name":"text_decoration","definitions":["text_size","font_weight","bold","text_background_color","text_background_color_op","text_color","text_align","fontface","italic","underline","texttransform","strikethrough","text_shadow","animate","dacBtn","hasTextPadding","hasTextPaddingCustom"]},"text_decoration_inline_style":{"name":"text_decoration_inline_style","definitions":["custom_text_background_color","custom_text_color","custom_text_shadow"]},"section_decoration":{"name":"section_decoration","definitions":["style_preset","vertical_space_outside_top","vertical_space_outside_bottom"]},"box_decoration":{"name":"box_decoration","definitions":["float","pull_up","vertical_align","vertical_align_content","css_style","style_preset","vertical_space_outside_top","vertical_space_outside_bottom","vertical_space_inside_top","vertical_space_inside_bottom","expandedState","compactDisplay","horizontalSubArticles","subArticlesNextToFloatingImage","subArticlesShowBulletIcons"]},"box_fullWidth":{"name":"box_fullWidth","definitions":["fullWidth","fullWidthLimit"]},"content_decoration":{"name":"content_decoration","definitions":["background_color","background_opacity","background_gradient","border_color","border_side","border_width","border_radius","rounded_image_edge","rounded_image","image_gradient","image_gradient_opacity","content_text_align","content_vertical_text_align","hasContentPadding","hasContentPaddingCustom","hasBorder","hasBorderCustom"]},"content_inline_style":{"name":"content_inline_style","definitions":["custom_background_color","custom_background_color_L3","custom_border_color"]},"content_inline_spacing":{"name":"content_inline_spacing","definitions":["spacing_inner_top","spacing_inner_right","spacing_inner_bottom","spacing_inner_left","spacing_outer_top","spacing_outer_right","spacing_outer_bottom","spacing_outer_left"]},"subimage":{"name":"subimage","definitions":["subimagePlacement","subimageSize"]}},"copyDefinitions":[{"definition":"text_size","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"font_weight","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"text_background_color","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"text_background_color_op","data":[{"path":"fields.title"}]},{"definition":"text_color","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"text_align","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"fontface","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"italic","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"underline","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"texttransform","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"strikethrough","data":[{"path":"fields.text"},{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"animate","data":[{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"custom_text_shadow","data":[{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"text_shadow","data":[{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"custom_text_color","data":[{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"custom_text_background_color","data":[{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.description"},{"path":"fields.author"},{"path":"fields.quote"},{"path":"fields.firstname"},{"path":"fields.lastname"},{"path":"fields.imageCaption"},{"path":"fields.byline"}]},{"definition":"css_style"},{"definition":"style_preset"},{"definition":"background_color"},{"definition":"custom_background_color"},{"definition":"background_opacity"},{"definition":"background_gradient"},{"definition":"image_gradient"},{"definition":"border_color"},{"definition":"border_side"},{"definition":"border_width"},{"definition":"border_radius"},{"definition":"rounded_image_edge"},{"definition":"rounded_image"},{"definition":"layout"},{"definition":"shadow"},{"definition":"fitContent"},{"definition":"metadata_text_color"},{"definition":"hover_bg_color"},{"definition":"hover_text_color"},{"definition":"hover_border_color"},{"definition":"image_overlay"},{"definition":"image_overlay_opacity"},{"definition":"image_gradient_opacity"},{"definition":"float"},{"definition":"pull_up"},{"definition":"content_text_align"},{"definition":"content_vertical_text_align"},{"definition":"vertical_align"},{"definition":"vertical_space_outside_top"},{"definition":"vertical_space_outside_bottom"},{"definition":"vertical_space_inside_top"},{"definition":"vertical_space_inside_bottom"},{"definition":"spacing_outer_top","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_outer_right","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_outer_bottom","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_outer_left","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_inner_top","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_inner_right","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_inner_bottom","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"definition":"spacing_inner_left","data":[{"values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"targets":["article","articleHeader"],"data":[{"path":"metadata.image_gradient_direction","values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"targets":["image"],"data":[{"path":"fields.bbRatio","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.whRatio","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.float","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.shapes","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.displayCaption"},{"path":"fields.expandableCaption"},{"path":"fields.truncateCaption"}]},{"targets":["article"],"data":[{"path":"fields.displayByline","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.displayVideoArticleOverlay","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.hideVideoArticleLabel","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.showSection","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.sectionPlacement"},{"path":"metadata.showTags","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.tagPlacement"},{"path":"metadata.subarticles","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"fields.displayPublishedDate"}]},{"targets":["article","articleHeader"],"data":[{"path":"metadata.showKicker","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.kickerBelowImage","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.kickerBelowTitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.floatingKicker","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hideTitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.titleAboveImage","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.floatingTitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hidesubtitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.floatingSubtitle","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hideimage","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hasFullWidth","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.hasFullWidthWithLimit","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.compactDisplay"},{"path":"metadata.horizontalSubArticles","values":{"no_viewport":null}},{"path":"metadata.subArticlesNextToFloatingImage","values":{"no_viewport":null}},{"path":"metadata.subArticlesShowBulletIcons","values":{"no_viewport":null}},{"path":"metadata.sub_hideImage","values":{"no_viewport":null}},{"path":"metadata.sub_hideTitle"},{"path":"metadata.sub_hideSubtitle"}]},{"targets":["row"],"data":[{"path":"metadata.hasRowTitle"},{"path":"metadata.vertical_align_content"},{"path":"metadata.isSection","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.text_background_color","values":{"no_viewport":null,"desktop":null,"mobile":null}},{"path":"metadata.text_color","values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"targets":["userFeedback","timeline"],"data":[{"path":"metadata.ui_color"},{"path":"metadata.ui_text_color"}]},{"targetPath":"bodytext/","data":[{"path":"width","values":{"no_viewport":null,"desktop":null,"mobile":null}}]},{"targets":["grid"],"data":[{"path":"fields.columnCount"},{"path":"fields.rowCount"},{"path":"fields.noSpace"}]},{"definition":"hasTextPadding","data":[{"path":"fields.title"},{"path":"fields.subtitle"},{"path":"fields.kicker"},{"path":"fields.text"}]},{"definition":"hasContentPadding"},{"definition":"hasBorder"}],"presets":{}},"data":{"blacklist":["sub_content"],"blacklistOptions":{"sub_content":{"includeChildren":true}},"elements":{"text_singleline":{"fallbackData":{"contentdata":{"fields":{"elementType":"h2"}}}},"articleHeader":{"source":{"node":"page","keys":["fields.title","fields.subtitle","fields.kicker","fields.published","fields.modified","fields.created"]},"fallbackData":{"contentdata":{"fields":{"displayCaption":true}},"metadata":{"showKicker":true}}},"page_notice":{"fallbackData":{"contentdata":{"fields":{"uiColor":"bg-primary"}}}},"noticeHeader":{"source":{"node":"page"}},"bodytext":{"source":{"node":"page"}},"articleMeta":{"source":{"node":"page"}},"articleFooter":{"source":{"node":"page"}},"labradorSearch":{"fallbackData":{"contentdata":{"fields":{"hideSiteName":false,"hidePublishedDate":false,"hideSection":false,"displayAdvanced":false,"displaySites":true,"articleCount":20,"orderBy":"published"}},"metadata":{"ui_color":"bg-secondary"}}},"timeline":{"fallbackData":{"metadata":{"ui_color":"bg-primary","ui_text_color":"primary"}}},"livefeed":{"fallbackData":{"metadata":{"ui_color":"bg-primary"},"contentdata":{"fields":{"maxNoticesCount":20,"viewports_json":{"desktop":{"fields":{"visibleCount":3}},"mobile":{"fields":{"visibleCount":2}}}}}}},"image":{"fallbackData":{"metadata":{"bodyTextIndex":0,"subimagePlacement":{"desktop":"topright"}}}},"graphic":{"fallbackData":{"metadata":{"subimagePlacement":{"desktop":"topright"}}}},"articlesByTag":{"fallbackData":{"contentdata":{"fields":{"title":"","title_style_json":{"text_background_color":"bg-black"}}}}},"front_rows":{"fallbackData":{"contentdata":{"fields":{"fragment_json":{"start":0,"count":1}}}}},"buttonlink":{"fallbackData":{"metadata":{"background_color":"bg-primary","text_color":"white","border_color":"bg-primary"}}},"topcomments":{"fallbackData":{"contentdata":{"fields":{"iconLatest":"fi-clock","iconMostRead":"fi-book","articleCount":"5","days":"7"}}}},"factbox":{"fallbackData":{"metadata":{"expandedState":{"desktop":true}}}},"toplist":{"fallbackData":{"contentdata":{"fields":{"days":"7","layout":"vertical"}}}},"authorBox":{"fallbackData":{"contentdata":{"fields":{"layoutAuthor":"center"}}}},"articleList":{"fallbackData":{"contentdata":{"fields":{"imageLayout":"left","layout":"default"}}}},"article":{"fallbackData":{"metadata":{"sub_hideSubtitle":true}}}},"presets":{},"presetBlacklist":{"article":["article/"]}},"int_en-GB":{"dates":{"sunday":"sunday","monday":"monday","tuesday":"tuesday","wednesday":"wednesday","thursday":"thursday","friday":"friday","saturday":"saturday","january":"January","february":"February","march":"March","april":"April","may":"May","june":"June","july":"July","august":"August","september":"September","october":"October","november":"November","december":"December","ago":"ago","now":"now","minute":"minute","min":"min","minutes":"minutes","hour":"hour","hours":"hours","day":"day","days":"days","durationSince":"{{count}} {{period}} {{ago}}","monthdayyear":"{{D}} {{MMMM}} {{YYYY}}","hourminute":"{{HH}}:{{mm}}","dateTime":"{{D}} {{MMMM}} {{YYYY}} - {{HH}}:{{mm}}","articleScrollerPublishedDatePrefix":"","articleScrollerPublishedFormat":"{{DD}}.{{MM}} - {{HH}}:{{mm}}"},"newsletter":{"generic":{"signup":"Sign up for the newsletter","hiddenValue":"Signup from website","yourEmail":"Type your e-mail","subscribeButton":"Subscribe"},"mailmojo":{"title":"Newsletter","notice":"You are receiving this e-mail because you are subscribed to our e-mail list.","preferences":"Your settings","unsubscribe":"Unsubscribe","view":"Open in browser","date":"d. MMMM Y"}},"embed":{"embed_label":"Embed this","heading":"Embed article","description":"Copy and paste the HTML code below into the page where you want to embed this article.","label_teaser":"Preview","label_full":"Full article","label_copy":"Copy code","title_customize":"Customize embedded content","label_content_title":"Display title","label_content_subtitle":"Display subtitle","label_content_image":"Display main image","label_content_padding":"Padding","label_content_sitelink":"Display link to site","label_content_sitelinkLogo":"Display logo in link to site","label_content_poweredby":"Display 'Powered By' link","text_code_copied":"Copied!","close":"Close","page_sitelink_prefix":"Read more","page_sitelink_postfix":""},"ai":{"factbox_disclaimer":"This factbox was generated by Labrador AI and proof-read by a journalist."},"tags":{"title_text":"{{tagPath}}: {{ tag }}"},"search":{"placeholder":"Search...","label":"Search","openText":"Search","closeText":"Close","expandedLabel":"Close search","collapsedLabel":"Open search","labradorSearch":{"submitLabel":"Search","navLabel":"Display more","nohitsLabel":"No hits. Try modifying your search.","searchPlaceholder":"Type your search here ...","advancedOpenText":"Open filter","advancedCloseText":"Close filter","fromDateLabel":"From date","toDateLabel":"To date","tagLabel":"Tag","authorLabel":"Author","allSitesLabel":"All sites"}},"hamburger":{"expandedLabel":"Close menu","collapsedLabel":"Open menu","buttonText":"Menu"},"header":{"logo_link_text":"Go to frontpage","menuScrollerLeftButton":"Scroll left","menuScrollerRightButton":"Scroll right"},"slack_notifier":{"publish":{"article":"*Article published*\n*Title*: {{{title}}}\n*Page ID*: {{id}}\n{{#modified}}*Date*: {{modified}}\n{{/modified}}{{#published_ahead}}*Note: Published ahead*\n{{/published_ahead}}{{#hidden}}*Published hidden*\n{{/hidden}}*User*: {{user}}\n*<{{{url_front}}}|View page>* - *<{{{url_editor}}}|Edit page>*","front":"*Front page published*\n*Title*: {{{title}}}\n*Page ID*: {{id}}\n*Date*: {{modified}}\n{{#published_ahead}}*Note: Published ahead*\n{{/published_ahead}}{{#hidden}}*Published hidden*\n{{/hidden}}*User*: {{user}}\n*<{{{url_front}}}|View page>* - *<{{{url_editor}}}|Edit page>*","notice":"*Notice published*\n*Title*: {{{title}}}\n*Page ID*: {{id}}\n*Date*: {{modified}}{{#hidden}}*Published hidden*\n{{/hidden}}*User*: {{user}}\n*<{{{url_front}}}|View page>* - *<{{{url_editor}}}|Edit page>*"},"error":{"all":"*{{ #isCmsError }}CMS error{{ /isCmsError }}{{ ^isCmsError }}View error{{ /isCmsError }}*: {{{message}}}\n*Stack trace*: ```{{{stackTrace}}}```\n*User*: {{user}}\n*<{{{url_editor}}}|Edit page>* - *<{{{url_monitor}}}|Developer Monitor>*"}},"contentboxes":{"articleScrollerLeftButton":"Go left","articleScrollerRightButton":"Go right"},"metadata":{"publishedLabel":"Published","modifiedLabel":"Modified","unpublishedLabel":"Unpublished","readTimeLabel":"Read time"},"notice":{"relatedContent":{"header":"Related content"},"pinnedLabel":"Pinned"},"changelog":{"changelogLabel":"Changelog"},"paywall":{"shareableArticle":{"shareArticleButton":"Share article","trySubscriptionButton":"Try subscription","trySubscriptionLink":"-","messageTitle":"Thank you for sharing this article","messageBeforeSharing":"Your friend will be able to read the whole article","messageAfterSharing":"Your friend will now be able to read the whole article","bannerGuestReader":"You have access to the article because a friend shared it with you","shareByMail":"Mail","shareByMailSubject":"I want to share this article with you","shareByMailBody":"You can read this paywalled article by clicking this link","shareByFacebook":"Facebook","shareByCopy":"Copy link","sharedByCopy":"Link copied"},"piano":{"login":"Log in","logout":"Log out","myAccount":"My account"}},"emptyState":{"noContentText":"No content"},"image":{"caption":{"showCaptionLabel":"Show caption","hideCaptionLabel":"Hide caption","showMoreLabel":"Show more","showLessLabel":"Show less"},"videoOverlayLabel":"Video article"},"mostRead":{"labelLatest":"Latest","titleLatest":"Recent articles","labelMostRead":"Most read","titleMostRead":"Most read articles"},"infiniteScroll":{"readMore":"Continue reading"},"socialMedia":{"shareText":{"facebook":"Share on Facebook","twitter":"Share on X (Twitter)","linkedin":"Share on LinkedIn","mail":"Share by email","threads":"Share on Threads","copyLink":"Copy link","glimta":"Unlock with Glimta","talandeWebb":"Open Talande Webb option panel","bluesky":"Share on Bluesky","reddit":"Share on Reddit","whatsapp":"Share on WhatsApp"}},"weather":{"failedToFetch":"Could not fetch weather data","updated":"Updated","fetchingData":"Loading weather data","types":{"clearsky":"Clear sky","fair":"Fair","partlycloudy":"Partly cloudy","cloudy":"Cloudy","rainshowers":"Rain showers","rain":"Rain","snow":"Snow","sleet":"Sleet","thunder":"Thunder","fog":"Fog","wind":"Wind","unknown":"Unknown"}},"gallery":{"label":"Gallery","seeAllImages":"See all images","navigateToOriginal":"Navigate to original page"}}};
+// Version: undefined, build: undefined
+const config = {};
 const properties = {"content_settings/front/vp_data.json":{"viewportMap":{"presets":{"vp_data":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"},"attributes":"presets.vp_content_attributes.attributes"},"vp_content_attributes":{"attributes":{"font_weight":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"text_size":{"viewport":{"default":true}},"text_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"text_background_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"text_align":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"italic":{"viewport":{"default":true},"fallback":{"default":"desktop"}}}},"vp_metadata_attributes":{"attributes":{"bodyTextIndex":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"showKicker":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hideTitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"titleAboveImage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"floatingTitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"floatingSubtitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"subtitleAboveImage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hidesubtitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"kickerBelowImage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"kickerBelowTitle":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"floatingKicker":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hasFullWidth":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hasFullWidthWithLimit":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"background_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"gradient":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_overlay":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_overlay_opacity":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_gradient":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_gradient_opacity":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"image_gradient_direction":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"background_color_op":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hideimage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"rounded_image_edge":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"rounded_image":{"viewport":{"default":false},"fallback":{"default":"desktop"}},"spacing_outer_top":{"viewport":{"default":true}},"spacing_outer_right":{"viewport":{"default":true}},"spacing_outer_bottom":{"viewport":{"default":true}},"spacing_outer_left":{"viewport":{"default":true}},"spacing_inner_top":{"viewport":{"default":true}},"spacing_inner_right":{"viewport":{"default":true}},"spacing_inner_bottom":{"viewport":{"default":true}},"spacing_inner_left":{"viewport":{"default":true}},"pull_up":{"viewport":{"default":true}},"float":{"viewport":{"default":true}},"border_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_side":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_width":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_radius":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"subarticles":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"showSection":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"showTags":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"text_align":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"vertical_align":{"viewport":{"default":true}},"hideViewport":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"expandedState":{"viewport":{"default":true}},"displayNavigation":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"displayPreview":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}}}}},"width":{"viewport":{"default":true},"fallback":{"mailmojo":"desktop"}},"metadata":"presets.vp_metadata_attributes"}},"content/row/front/default.json":{"viewportMap":{"metadata":{"attributes":{"bodyTextIndex":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"hasFullWidth":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hasFullWidthWithLimit":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"background_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"background_color_op":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_color":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_side":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"border_width":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"vertical_align":{"viewport":{"default":true}},"isSection":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"hideViewport":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"spaceOutsideTop":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"spaceOutsideBottom":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"spaceInsideTop":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"spaceInsideBottom":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"float":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"text_size":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"text_color":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"text_background_color":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"movableContent":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"collapsedContent":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"contentPosition":{"viewport":{"default":true},"fallback":{"no_viewport":false}}}}}},"content/columns/front/default.json":{},"content_settings/front/grid/default.json":{"gridRules":{"oddRule":{"condition":"odd","values":{"mobile":{"default":12}}},"evenRule":{"condition":"even","values":{"mobile":{"default":12}}}}},"content/article/front/default.json":{"viewportMap":{"fields":{"title":"presets.vp_content_attributes","subtitle":"presets.vp_content_attributes","kicker":"presets.vp_content_attributes","displayByline":"presets.vp_data","displayCaption":"presets.vp_data"}}},"content/image/front/default.json":{"boxTitle":"Media placeholder","boxDescription":"Add placeholder for media (images, videos, etc.)","viewHelper":"image","viewportMap":{"fields":{"x":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"y":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"cropw":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"croph":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"float":{"viewport":{"default":true}},"shapes":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"bbRatio":{"viewport":{"default":true}},"vpWidth":{"viewport":{"default":true}},"whRatio":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"height":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"width":{"viewport":{"default":true}}},"metadata":{"attributes":{"float":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"bodyTextIndex":{"viewport":{"default":true},"fallback":{"default":"desktop","desktop":"mobile"}},"hideViewport":{"viewport":{"default":true},"fallback":{"no_viewport":false}},"hasFullWidth":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"zoomable":{"viewport":{"default":true},"fallback":{"default":"no_viewport","desktop":"no_viewport"}},"subimage":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"subimagePlacement":{"viewport":{"default":true},"fallback":{"default":"desktop"}},"subimageSize":{"viewport":{"default":true},"fallback":{"default":"desktop"}}}}}},"content/image/front/subImage.json":{"overrideImageSize":{"width":320}},"content/image/front/subImageMobile.json":{"overrideImageSize":{"width":103}},"content/notice/front/default.json":{"boxTitle":"Notice","viewHelper":"bodytext","bodytextElements":["p","h2","h3","h4","ul","ol","li"],"viewportMap":{"fields":{"title":"presets.vp_content_attributes"}}},"content/row/_resources.json":{"presentation":{"stage":{"lab-default":{"template":{"default":"content/row/template/default"},"properties":{"default":["content_settings/front/vp_data.json","content/row/front/default.json"]}}}}},"content/columns/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content/columns/front/default.json","content_settings/front/grid/default.json"]},"template":{"default":"content/columns/template/default"}}}}},"content/article/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content/article/front/default.json","content_settings/front/grid/default.json","content_settings/front/vp_data.json"]},"template":{"default":"content/article/template/default","partials":["content/article/template/partials/kicker","content/article/template/partials/subtitle","content/article/template/partials/title","partial/elements/paywallLabel"]}},"article//":{"template":{"default":"content/article/template/subarticle"}}}}},"content/image/_resources.json":{"presentation":{"stage":{"lab-default":{"template":{"default":"content/image/template/default","partials":["content/image/template/article","content/image/template/partials/caption_links","content/image/template/partials/caption","content/image/template/partials/img","content/image/template/partials/child"]},"properties":{"default":["content/image/front/default.json"]}},"article":{"template":{"default":"content/image/template/article"}},"image":{"properties":{"default":"content/image/front/subImage.json","mobile":"content/image/front/subImageMobile.json"}},"notice":{"template":{"default":"content/image/template/grid"}}}}},"content/notice/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content_settings/front/grid/default.json","content_settings/front/vp_data.json","content/notice/front/default.json"]},"template":{"default":"content/notice/template/default"}}}}},"content/adnuntiusAd/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content_settings/front/grid/default.json"]},"template":{"default":"content/adnuntiusAd/template/default"}}}}},"content/googleAd/_resources.json":{"presentation":{"stage":{"lab-default":{"properties":{"default":["content_settings/front/grid/default.json"]},"template":{"default":"content/googleAd/template/default"}}}}}};
-const templates = {"content/row/template/default":"{{ #get.current.metadata.isSection }}\n<div data-element-guid=\"{{ get.current.guid }}\" class=\"{{ #helper.trim }}\nrow-section \n{{ #style.collection }}section_decoration{{ /style.collection }}\n{{ #style.collection }}content_decoration{{ /style.collection }}\n{{ #style.definition }}movableContainer metadata.movableContent{{ /style.definition }}\n{{ #style.definition }}movableElement metadata.movableContent{{ /style.definition }}\n{{ #style.definition }}collapsedContent metadata.collapsedContent{{ /style.definition }}\n{{ /helper.trim }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\">\n{{ /get.current.metadata.isSection }}\n<div {{ ^get.current.metadata.isSection }}data-element-guid=\"{{ get.current.guid }}\" {{ /get.current.metadata.isSection }}class=\"{{ #helper.trim }}\n    row\n    {{ size.grid.css }}\n    {{ #get.current.metadata.fullWidthContent }}fullWidthContent{{ /get.current.metadata.fullWidthContent }}\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #style.collection }}content_decoration{{ /style.collection }}\n    {{ #style.definition }}movableContainer metadata.movableContent{{ /style.definition }}\n    {{ #style.definition }}movableElement metadata.movableContent{{ /style.definition }}\n    {{ #style.definition }}collapsedContent metadata.collapsedContent{{ /style.definition }}\n    {{ #get.current.metadata.hasRowTitle }}has-row-header{{ /get.current.metadata.hasRowTitle }}\n    {{ #get.children.mediaContainer }}has-media-container{{ /get.children.mediaContainer }}\n    {{ /helper.trim }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\"{{ #get.current.metadata.sectionId }} id=\"{{ get.current.metadata.sectionId }}\"{{ /get.current.metadata.sectionId }}>{{ #get.current.metadata.hasRowTitle }}\n    {{ #get.current.metadata.rowTitleTag }}\n    <{{ get.current.metadata.rowTitleTag }} class=\"row_header_text large-12 small-12 {{ #style.collection }}text_decoration metadata{{ /style.collection }} {{ #style.definition }}text_align_row{{ /style.definition }}\">{{{ get.current.metadata.rowTitle }}}</{{ get.current.metadata.rowTitleTag }}>\n    {{ /get.current.metadata.rowTitleTag }}\n    {{ ^get.current.metadata.rowTitleTag }}\n    <h5 class=\"row_header_text large-12 small-12 {{ #style.collection }}text_decoration metadata{{ /style.collection }} {{ #style.definition }}text_align_row{{ /style.definition }}\">{{{ get.current.metadata.rowTitle }}}</h5>\n    {{ /get.current.metadata.rowTitleTag }}\n    {{ /get.current.metadata.hasRowTitle }}{{ #get.current.metadata.movableContent }}{{{ get.current.filtered.movableStyle }}}{{ /get.current.metadata.movableContent }}{{{ children.all }}}</div>\n{{ #get.current.metadata.isSection }}\n</div>\n{{ /get.current.metadata.isSection }}\n","content/columns/template/default":"<div data-element-guid=\"{{ get.current.guid }}\" class=\"columns {{ size.grid.css }} {{ size.grid.absCss }}\">{{{ children.all }}}</div>","content/article/template/default":"<article {{ #helper.trim }}\n    data-element-guid=\"{{ get.current.guid }}\"\n    class=\"column\n        {{ #style.collection }}box_decoration{{ /style.collection }}\n        {{ #get.current.filtered.paywall }}paywall{{ /get.current.filtered.paywall }}\n        {{ size.grid.css }}\n        {{ size.grid.absCss }}\n        {{ get.current.filtered.autodata_css }}\"\n    {{ #get.current.filtered.autodata_attributes }} {{ key }}=\"{{ value }}\"{{ /get.current.filtered.autodata_attributes }} \n    data-site-alias=\"{{ get.current.filtered.site_alias }}\" \n    data-section=\"{{ get.current.filtered.section }}\" \n    data-instance=\"{{ get.current.instance_of }}{{ ^get.current.instance_of }}{{ get.current.id }}{{ /get.current.instance_of }}\" \n    {{ #get.child.image.fields.float }}data-image-float=\"{{ get.child.image.fields.float }}\"{{ /get.child.image.fields.float }}\n    itemscope\n    {{ /helper.trim }}>\n    {{{ get.current.filtered.styleSheets }}}\n    <div class=\"{{ #helper.trim }}\n        content\n        {{ #style.collection }}content_decoration{{ /style.collection }}\n        {{ #get.current.metadata.image_gradient_direction }}image-gradient-{{ get.current.metadata.image_gradient_direction }}{{ /get.current.metadata.image_gradient_direction }} \n        {{ #style.collection }}box_fullWidth{{ /style.collection }}\n        {{ /helper.trim }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\">\n        \n        {{#get.current.fields.published_url}}<a itemprop=\"url\"{{ #get.current.fields.open_in_new_window }} target=\"_blank\"{{ /get.current.fields.open_in_new_window }} class=\"\" href=\"{{{ get.current.fields.published_url }}}\" data-k5a-url=\"{{{ get.current.filtered.canonical_url }}}\" rel=\"{{ #get.current.filtered.addRelUgc }}ugc {{ /get.current.filtered.addRelUgc }}{{ #get.current.filtered.addRelSponsored }}sponsored {{ /get.current.filtered.addRelSponsored }}{{ #get.current.filtered.addRelNoFollow }}nofollow{{ /get.current.filtered.addRelNoFollow }}\">{{/get.current.fields.published_url}}\n\n        {{ #get.current.filtered.layout.top }}\n        {{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}\n        {{ /get.current.filtered.layout.top }}\n\n        <div class=\"media{{ #get.current.metadata.floatingTextSubset }} floatingTextSubset{{ /get.current.metadata.floatingTextSubset }} {{ #style.definition }}imageAlign child.image.fields.float{{ /style.definition }}{{ #get.current.fields.displayVideoArticleOverlay }} video-overlay{{ /get.current.fields.displayVideoArticleOverlay }}\">\n            {{^get.current.metadata.hideimage}}\n                {{{ placeholder.no_media }}}\n\n                {{{ child.image }}}\n                {{{ child.graphic }}}\n                {{{ child.slideshow }}}\n                {{{ child.youtube }}}\n                {{{ child.simplestream }}}\n                {{{ child.markup }}}\n                {{{ child.parallax }}}\n                {{{ child.grid }}}\n            \n            {{/get.current.metadata.hideimage}}\n            <div class=\"floatingText\">\n                {{ #get.current.filtered.layout.floating }}\n                {{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}\n                {{ /get.current.filtered.layout.floating }}\n\n                <div class=\"labels\">\n                    {{ #get.current.filtered.autodata_custom.labels }}\n                    <div class=\"label\" data-label-key=\"{{ key }}\" data-label-value=\"{{ value }}\"><span class=\"label-value\">{{ value }}</span></div>\n                    {{ /get.current.filtered.autodata_custom.labels }}\n                    {{ #get.current.filtered.sectionPlacement.floating }}\n                        {{ #get.current.metadata.showSection }}\n                            {{ #get.current.filtered.section }}<p itemprop=\"section\" class=\"section\" data-tag=\"{{ get.current.filtered.section }}\">{{ get.current.filtered.section }}</p>{{ /get.current.filtered.section }}\n                        {{ /get.current.metadata.showSection }}\n                    {{ /get.current.filtered.sectionPlacement.floating }}\n                </div>\n            </div>\n            {{ #get.current.metadata.enableAudio }}{{ #render.template }}content/article/template/partials/audio{{ /render.template }}{{ /get.current.metadata.enableAudio }}\n            {{ #get.current.filtered.paywallLabel }}{{> partial/elements/paywallLabel }}{{ /get.current.filtered.paywallLabel }}\n\n            {{ #get.current.fields.displayVideoArticleOverlay }}\n                {{ ^get.current.fields.hideVideoArticleLabel }}<p class=\"video-overlay-label\">{{ #lang }}image.videoOverlayLabel{{ /lang }}</p>{{ /get.current.fields.hideVideoArticleLabel }}\n            {{ /get.current.fields.displayVideoArticleOverlay }}\n        </div>\n        {{ #get.current.fields.displayCaption }}\n            <div class=\"caption {{ #helper.trim }}\n                {{ #app.isEditor }}expanded{{ /app.isEditor }}\n                {{ #get.current.fields.truncateCaption }}truncate{{ /get.current.fields.truncateCaption }}\n                {{ ^get.current.fields.truncateCaption }}\n                    {{ #get.child.image.fields.truncateCaption }}truncate{{ /get.child.image.fields.truncateCaption }}\n                {{ /get.current.fields.truncateCaption }}\n                {{ /helper.trim }}\" data-showmore=\"{{ #lang }}image.caption.showMoreLabel{{ /lang }}\"{{ #get.child.image.filtered.captionOptions.expandable }} data-expandable=\"true\" data-showcaption=\"{{ #lang }}image.caption.showCaptionLabel{{ /lang }}\" data-hidecaption=\"{{ #lang }}image.caption.hideCaptionLabel{{ /lang }}\"{{ /get.child.image.filtered.captionOptions.expandable }}>\n                <figcaption itemprop=\"caption\" class=\"{{ #style.collection }}text_decoration child.image.fields.imageCaption{{ /style.collection }}\">{{ #helper.stripLinks }}{{ #get.child.image.fields.globalCaption }}{{{ get.child.image.fields.globalCaption }}}{{ /get.child.image.fields.globalCaption }}{{ ^get.child.image.fields.globalCaption }}{{{ get.child.image.fields.imageCaption }}}{{ /get.child.image.fields.globalCaption }}{{ /helper.stripLinks }}</figcaption>\n                <figcaption itemprop=\"author\" class=\"{{ #style.collection }}text_decoration child.image.fields.byline{{ /style.collection }}\" data-byline-prefix=\"{{{ getConfig.image.imageBylinePrefix }}}\">{{ #helper.stripLinks }}{{{ get.child.image.fields.byline }}}{{ /helper.stripLinks }}</figcaption>\n            </div>\n        {{ /get.current.fields.displayCaption }}\n\n        {{ #get.current.metadata.vertical_text_align }}\n            <div class=\"vertically-aligned-text\">\n        {{ /get.current.metadata.vertical_text_align }}\n            {{ #get.current.filtered.paywallLabel }}{{> partial/elements/paywallLabel }}{{ /get.current.filtered.paywallLabel }}\n\n            {{ #get.current.filtered.sectionPlacement.underImage }}\n                {{ #get.current.metadata.showSection }}\n                    {{ #get.current.filtered.section }}<p itemprop=\"section\" class=\"section\" data-tag=\"{{ get.current.filtered.section }}\">{{ get.current.filtered.section }}</p>{{ /get.current.filtered.section }}\n                {{ /get.current.metadata.showSection }}\n            {{ /get.current.filtered.sectionPlacement.underImage }}\n        \n            {{ #get.current.filtered.tagPlacement.underImage }}\n                {{ #get.current.metadata.showTags }}\n                <div itemprop=\"tags\" class=\"tags\">{{#get.current.filtered.tags}}\n                    <span itemprop=\"tag\" class=\"tag\" data-tag=\"{{ . }}\">{{.}}</span>\n                {{/get.current.filtered.tags}}</div>\n                {{ /get.current.metadata.showTags }}\n            {{ /get.current.filtered.tagPlacement.underImage }}\n            {{ #get.current.filtered.layout.bottom }}\n            {{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}\n            {{ /get.current.filtered.layout.bottom }}\n\n            {{ #get.current.filtered.sectionPlacement.underText }}\n                {{ #get.current.metadata.showSection }}\n                    {{ #get.current.filtered.section }}<p itemprop=\"section\" class=\"section\" data-tag=\"{{ get.current.filtered.section }}\">{{ get.current.filtered.section }}</p>{{ /get.current.filtered.section }}\n                {{ /get.current.metadata.showSection }}\n            {{ /get.current.filtered.sectionPlacement.underText }}\n        \n            {{ #get.current.filtered.tagPlacement.underText }}\n                {{ #get.current.metadata.showTags }}\n                <div itemprop=\"tags\" class=\"tags under-text\">{{#get.current.filtered.tags}}\n                    <span itemprop=\"tag\" class=\"tag\" data-tag=\"{{ . }}\">{{.}}</span>\n                {{/get.current.filtered.tags}}</div>\n                {{ /get.current.metadata.showTags }}\n            {{ /get.current.filtered.tagPlacement.underText }}\n\n        {{ #get.current.metadata.vertical_text_align }}\n            </div>\n        {{ /get.current.metadata.vertical_text_align }}\n\n        {{ #get.current.filtered.displayByline }}\n        <div class=\"bylines\">{{ #get.current.filtered.bylines }}\n            <div class=\"byline column\" itemscope=\"\" itemtype=\"http://schema.org/Person\">\n                <div class=\"content\">\n                    {{ #imageUrl}}\n                    <figure>\n                        <img itemprop=\"image\" src=\"{{{ imageUrl}}}\">\n                    </figure>\n                    {{ /imageUrl}}\n                    <address class=\"name\">{{{ firstname }}} {{{ lastname }}}{{ #getConfig.contentbox_settings.article.show_byline_description }}{{ #description}}, <span class=\"author-description\">{{{ description }}}</span>{{ /description}}{{ /getConfig.contentbox_settings.article.show_byline_description }}</address>\n                </div>\n            </div>\n        {{ /get.current.filtered.bylines }}\n        {{ #get.current.filtered.displayPublishedDate }}\n            <div class=\"article-published-wrapper\">\n                <p class=\"article-published-date\">{{{ get.current.filtered.publishedDate }}}</p>\n            </div>\n        {{ /get.current.filtered.displayPublishedDate }}\n        </div>\n        {{ /get.current.filtered.displayByline}}\n\n        {{ ^get.current.filtered.displayByline}}\n            {{ #get.current.filtered.displayPublishedDate }}\n                <div class=\"article-published-wrapper\">\n                    <p class=\"article-published-date\">{{{ get.current.filtered.publishedDate }}}</p>\n                </div>\n            {{ /get.current.filtered.displayPublishedDate }}\n        {{ /get.current.filtered.displayByline}}\n\n        {{#get.current.fields.published_url}}</a>{{/get.current.fields.published_url}}\n\n        {{ #get.current.metadata.subarticles }}\n            <p class=\"subarticlesTitle bold {{ #style.collection }}text_decoration fields.subarticlesTitle{{ /style.collection }}\" style=\"margin: 0.6em 0 0;\">{{{ get.current.fields.subarticlesTitle }}}</p>\n            <ul class=\"relatedArticles\">{{ #children.article[]+ }}\n            {{{ . }}}\n            {{ /children.article[]+ }}</ul>\n        {{ /get.current.metadata.subarticles }}\n        <time itemprop=\"datePublished\" datetime=\"{{ get.current.filtered.published }}\"></time>\n    </div>\n</article>\n","content/article/template/partials/kicker":"<div {{ #get.current.fields.kicker[animate] }}data-content=\"{{ #helper.sanitizeString }}{{{ get.current.filtered.kicker }}}{{ /helper.sanitizeString }}\"{{ /get.current.fields.kicker[animate] }}\nstyle=\"{{ #style.collection }}text_decoration_inline_style fields.kicker{{ /style.collection }}\"\nclass=\"kicker {{ get.current.filtered.layout.positions.kicker }} {{ #style.collection }}text_decoration fields.kicker{{ /style.collection }}\">\n{{{ get.current.filtered.kicker }}}\n</div>","content/article/template/partials/subtitle":"<p itemprop=\"description\" \n    class=\"subtitle {{ #style.collection }}text_decoration fields.subtitle{{ /style.collection }}{{ #get.current.metadata.subtitleAboveImage }} subtitleAboveImage{{ /get.current.metadata.subtitleAboveImage }}\"\n    style=\"{{ #style.collection }}text_decoration_inline_style fields.subtitle{{ /style.collection }}\"\n    {{ #get.current.fields.kicker[animate] }}data-content=\"{{ #helper.sanitizeString }}{{{ get.current.filtered.kicker }}}{{ /helper.sanitizeString }}\"{{ /get.current.fields.kicker[animate] }}>\n    {{{ get.current.filtered.subtitle }}}\n</p>\n","content/article/template/partials/title":"<h2 itemprop=\"headline\" \n    class=\"headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}\"\n    style=\"{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}\"\n    {{ #get.current.fields.title[animate] }}data-content=\"{{ #helper.sanitizeString }}{{{ get.current.filtered.title }}}{{ /helper.sanitizeString }}\"{{ /get.current.fields.title[animate] }}>{{{ get.current.filtered.title }}}\n</h2>","partial/elements/paywallLabel":"<div class=\"paywallLabel{{ #layout.noImage }} no-image{{ /layout.noImage }} {{ get.current.metadata.paywallLabelPosition }}{{ ^get.current.metadata.paywallLabelPosition }} {{ layout.float }}{{ /get.current.metadata.paywallLabelPosition }}\">{{ ^get.current.filtered.paywallLabel.hideLabelIcon }}{{ #icon.content }}<span class=\"{{ icon.content }}\"></span> {{/icon.content }}{{ /get.current.filtered.paywallLabel.hideLabelIcon }}{{ ^get.current.filtered.paywallLabel.hideLabelText }}{{ text.content }}{{ /get.current.filtered.paywallLabel.hideLabelText }}</div>\n","content/article/template/subarticle":"<li id=\"article-{{ get.current.id }}\" class=\"column\" itemtype=\"http://schema.org/NewsArticle\" itemscope=\"\">\n    <a itemprop=\"url\" href=\"{{ get.current.fields.published_url }}\" data-k5a-url=\"{{{ get.current.filtered.canonical_url }}}\">\n        {{ ^get.parent.metadata.sub_hideImage }}\n        {{{ children.image[0] }}}\n        {{ /get.parent.metadata.sub_hideImage }}\n        <div class=\"text\">\n            {{ ^get.parent.metadata.sub_hideTitle }}\n            <h5 itemprop=\"name headline\" class=\"subarticle {{ #style.collection }}text_decoration fields.title{{ /style.collection }}\">{{{ get.current.fields.title }}}</h5>\n            {{ /get.parent.metadata.sub_hideTitle }}\n            {{ ^get.parent.metadata.sub_hideSubtitle }}\n            <p class=\"subarticle {{ #style.collection }}text_decoration fields.subtitle{{ /style.collection }}\">{{{ get.current.fields.subtitle }}}</p>\n            {{ /get.parent.metadata.sub_hideSubtitle }}\n        </div>\n    </a>\n</li>\n","content/image/template/default":"<figure data-element-guid=\"{{ get.current.guid }}\" class=\"{{#helper.trim}}\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #get.current.filtered.hasFloat }}{{ #style.definition }}responsive_size fields.vpWidth{{ /style.definition }}{{ /get.current.filtered.hasFloat }}\n    {{ #style.definition }}imageBorder fields.border{{ /style.definition }}\n    {{ #style.definition }}imageAlign fields.float{{ /style.definition }}\n    {{ get.current.filtered.imageLoadingClass }}\n    {{/helper.trim}}\" {{ #get.current.filtered.hasFloat }}{{ ^get.current.fields.vpWidth }}style=\"width:{{ get.current.filtered.imageWidth }}px;\"{{ /get.current.fields.vpWidth }}{{ /get.current.filtered.hasFloat }}>\n    <div class=\"img{{ #get.current.filtered.allowFullwidth }} fullwidthTarget{{ /get.current.filtered.allowFullwidth }} {{ #style.collection }}content_decoration{{ /style.collection }}\">\n        {{ > content/image/template/partials/img }}\n        {{ > content/image/template/partials/shapes }}\n    </div>\n    {{ ^get.parent.filtered.layout.floating }} {{ #get.current.filtered.captionOptions.display }}\n    {{ > content/image/template/partials/caption }}\n    {{ /get.current.filtered.captionOptions.display }} {{ /get.parent.filtered.layout.floating }}\n</figure>\n","content/image/template/article":"<figure data-element-guid=\"{{ get.current.guid }}\" class=\"{{#helper.trim}}\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #get.current.filtered.hasFloat }}{{ #style.definition }}responsive_size fields.vpWidth{{ /style.definition }}{{ /get.current.filtered.hasFloat }}\n    {{ #style.definition }}imageBorder fields.border{{ /style.definition }}\n    {{ #style.definition }}imageAlign fields.float{{ /style.definition }}\n    {{ get.current.filtered.imageLoadingClass }}\n    {{/helper.trim}}\" {{ #get.current.filtered.hasFloat }}{{ ^get.current.fields.vpWidth }}style=\"width:{{ get.current.filtered.imageWidth }}px;\"{{ /get.current.fields.vpWidth }}{{ /get.current.filtered.hasFloat }}>\n    <div class=\"img fullwidthTarget\">\n        {{ > content/image/template/partials/img }}\n        {{ > content/image/template/partials/shapes }}\n    </div>\n    {{ #get.parent.metadata.image_overlay }}<div class=\"imageOverlay {{ get.parent.metadata.image_overlay }} {{ get.parent.metadata.image_overlay_opacity }}\"></div>{{ /get.parent.metadata.image_overlay }}\n    {{ > content/image/template/partials/child }}\n</figure>\n","content/image/template/partials/caption_links":"<div class=\"caption {{ #helper.trim }}\n    {{ #app.isEditor }}expanded{{ /app.isEditor }}\n    {{ #get.parent.fields.truncateCaption }}truncate{{ /get.parent.fields.truncateCaption }}\n    {{ ^get.parent.fields.truncateCaption }}\n        {{ #get.current.fields.truncateCaption }}truncate{{ /get.current.fields.truncateCaption }}\n    {{ /get.parent.fields.truncateCaption }}\n    {{ /helper.trim }}\" data-showmore=\"{{ #lang }}image.caption.showMoreLabel{{ /lang }}\"{{ #get.current.filtered.captionOptions.expandable }} data-expandable=\"true\" data-showcaption=\"{{ #lang }}image.caption.showCaptionLabel{{ /lang }}\" data-hidecaption=\"{{ #lang }}image.caption.hideCaptionLabel{{ /lang }}\"{{ /get.current.filtered.captionOptions.expandable }}>\n    <figcaption itemprop=\"caption\" class=\"{{ #style.collection }}text_decoration fields.imageCaption{{ /style.collection }}\">{{{ get.current.fields.imageCaption }}}</figcaption>\n    <figcaption itemprop=\"author\" class=\"{{ #style.collection }}text_decoration fields.byline{{ /style.collection }}\" data-byline-prefix=\"{{{ getConfig.image.imageBylinePrefix }}}\">{{{ get.current.fields.byline }}}</figcaption>\n</div>","content/image/template/partials/caption":"<div class=\"caption {{ #helper.trim }}\n    {{ #app.isEditor }}expanded{{ /app.isEditor }}\n    {{ #get.parent.fields.truncateCaption }}truncate{{ /get.parent.fields.truncateCaption }}\n    {{ ^get.parent.fields.truncateCaption }}\n        {{ #get.current.fields.truncateCaption }}truncate{{ /get.current.fields.truncateCaption }}\n    {{ /get.parent.fields.truncateCaption }}\n    {{ /helper.trim }}\" data-showmore=\"{{ #lang }}image.caption.showMoreLabel{{ /lang }}\"{{ #get.current.filtered.captionOptions.expandable }} data-expandable=\"true\" data-showcaption=\"{{ #lang }}image.caption.showCaptionLabel{{ /lang }}\" data-hidecaption=\"{{ #lang }}image.caption.hideCaptionLabel{{ /lang }}\"{{ /get.current.filtered.captionOptions.expandable }}>\n    <figcaption itemprop=\"caption\" class=\"{{ #style.collection }}text_decoration fields.imageCaption{{ /style.collection }}\">{{ #get.parent.fields.globalCaption }}{{{ get.parent.fields.globalCaption }}}{{ /get.parent.fields.globalCaption }}{{ ^get.parent.fields.globalCaption }}{{{ get.current.fields.imageCaption }}}{{ /get.parent.fields.globalCaption }}</figcaption>\n    <figcaption itemprop=\"author\" class=\"{{ #style.collection }}text_decoration fields.byline{{ /style.collection }}\" data-byline-prefix=\"{{{ getConfig.image.imageBylinePrefix }}}\">{{{ get.current.fields.byline }}}</figcaption>\n</div>","content/image/template/partials/img":"<picture>\n    {{ #get.current.filtered.viewport_list.desktop.formats }}\n    <source srcset=\"{{{ get.current.filtered.viewport_list.desktop.url }}}&format={{ format }}\" \n        width=\"{{{ get.current.filtered.viewport_list.desktop.width }}}\"\n        height=\"{{{ get.current.filtered.viewport_list.desktop.height }}}\"\n        media=\"(min-width: 768px)\"\n        type=\"{{{ type }}}\">    \n    {{ /get.current.filtered.viewport_list.desktop.formats }}\n    {{ #get.current.filtered.viewport_list.mobile.formats }}\n    <source srcset=\"{{{ get.current.filtered.viewport_list.mobile.url }}}&format={{ format }}\" \n        width=\"{{{ get.current.filtered.viewport_list.mobile.width }}}\"\n        height=\"{{{ get.current.filtered.viewport_list.mobile.height }}}\"\n        media=\"(max-width: 767px)\"\n        type=\"{{{ type }}}\">    \n    {{ /get.current.filtered.viewport_list.mobile.formats }}\n    <img src=\"{{{ get.current.filtered.viewport_list.mobile.url }}}&format=jpg\"\n        width=\"{{{ get.current.filtered.viewport_list.mobile.width }}}\"\n        height=\"{{{ get.current.filtered.viewport_list.mobile.height }}}\"\n        title=\"{{ #helper.sanitizeString }}\n        {{ #getConfig.image.showBylineAsTitle }}{{{ get.current.fields.byline }}}{{ /getConfig.image.showBylineAsTitle }}\n        {{ ^getConfig.image.showBylineAsTitle }}{{{ get.current.filtered.captionOptions.title }}}{{ /getConfig.image.showBylineAsTitle }}\n        {{ /helper.sanitizeString }}\"\n        alt=\"{{ #helper.sanitizeString }}{{ #get.current.fields.altText }}{{{ get.current.fields.altText }}}{{ /get.current.fields.altText }}{{ /helper.sanitizeString }}\" \n        {{ #get.current.filtered.lazyloadImages }}loading=\"lazy\"{{ /get.current.filtered.lazyloadImages }}\n        {{ #app.isEditor }}\n        class=\"{{ #helper.getEditorLoadingClass }}{{ /helper.getEditorLoadingClass }}\"\n        style=\"{{ #helper.getEditorLoadingStyle }}{{ /helper.getEditorLoadingStyle }} {{{ get.current.filtered.filters }}}\"    \n        {{ /app.isEditor }}\n        {{ ^app.isEditor }}\n        style=\"{{{ get.current.filtered.filters }}}\"    \n        {{ /app.isEditor }}>\n</picture>","content/image/template/partials/child":"{{ #get.current.metadata.subimage }}\n    {{ #app.isEditor }}\n    <div class=\"imageChildren {{ #style.collection }}subimage{{ /style.collection }}\">{{{ children.all }}}</div>\n    {{ /app.isEditor }}\n    {{ #app.isFront }}{{ #children.all[0] }}\n    <div class=\"imageChildren {{ #style.collection }}subimage{{ /style.collection }}\">{{{ children.all }}}</div>\n    {{ /children.all[0] }}{{ /app.isFront }}\n{{ /get.current.metadata.subimage }}\n","content/image/template/grid":"<figure data-element-guid=\"{{ get.current.guid }}\"{{ #get.current.metadata.zoomable }} data-zoomable=\"1\"{{ /get.current.metadata.zoomable }} class=\"{{#helper.trim}}\n    column\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #style.collection }}box_fullWidth{{ /style.collection }}\n    {{ size.grid.css }}\n    {{ size.grid.absCss }}\n    {{ get.current.filtered.borderClass }}\n    {{ get.current.filtered.imageLoadingClass }}\n    {{/helper.trim}}\">\n    {{{ get.current.filtered.styleSheets }}}\n    <div class=\"content {{ #style.collection }}content_decoration{{ /style.collection }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\">\n        {{^get.current.instance_of}}\n                {{ > content/image/template/placeholder }}\n        {{/get.current.instance_of}}\n        {{#get.current.instance_of}}\n\n        <div class=\"img fullwidthTarget\">\n            {{ > content/image/template/partials/img }}\n            {{ > content/image/template/partials/shapes }}\n        </div>\n        {{ #get.current.filtered.captionOptions.displayDefault }}\n        {{ > content/image/template/partials/caption_links }}\n        {{ /get.current.filtered.captionOptions.displayDefault }}\n        {{/get.current.instance_of}}\n    </div>\n</figure>\n","content/notice/template/default":"<div class=\"notice column\n  {{ #style.collection }}box_decoration{{ /style.collection }}\" id=\"notice-{{ get.current.id }}\" data-tags=\"{{{ get.current.tags }}}\">\n    <div class=\"content {{ #style.collection }}content_decoration{{ /style.collection }}\" title=\"{{{ get.current.fields.title }}}\">\n        <h2><a href=\"/notice/{{ get.current.id }}\">{{{ get.current.fields.title }}}</a></h2>\n        <div class=\"meta\">\n            <time class=\"fi-clock\" datetime=\"{{ get.current.filtered.isoDate }}\" title=\"{{ get.current.filtered.publishedDate }}\">{{ get.current.filtered.niceDate }}</time>\n            {{ #get.current.fields.userName }}<span class=\"author fi-torsos\">{{{ get.current.fields.userName }}}</span>{{ /get.current.fields.userName }}\n            {{ #get.current.fields.pinned }}{{ ^get.parent.metadata.hidePinIcon }} <span class=\"pinned fi-marker\"> {{ #lang }}notice.pinnedLabel{{ /lang }}</span>{{ /get.parent.metadata.hidePinIcon }}{{ /get.current.fields.pinned }}\n        </div>\n        <div class=\"text bodytext\">{{{ get.current.filtered.bodytext }}}</div>\n    </div>\n</div>","content/adnuntiusAd/template/default":"{{ ^get.current.filtered.hideOnTablet }}\n\n<div class=\"{{ #helper.trim }}\n    column\n    adnuntius-ad\n    {{ get.current.fields.css }}\n    {{ ^get.current.metadata.isBodytext }}\n    {{ size.grid.css }}\n    {{ /get.current.metadata.isBodytext }}\n    {{ get.current.metadata.css }}\n    {{ #get.current.filtered.isDebug }}adnuntius-ad-debug{{ /get.current.filtered.isDebug }}\n    {{ /helper.trim }}\" {{ #get.current.filtered.isDebug }}data-ad-format=\"{{{ get.current.fields.format }}}\" data-ad-size=\"{{ get.current.filtered.adData.width }}x{{ get.current.filtered.adData.height }}\"{{ /get.current.filtered.isDebug }}style=\"{{get.current.filtered.spacingTop}}{{ #get.current.metadata.style }} {{{ get.current.metadata.style }}}{{ /get.current.metadata.style }}\" data-element-guid=\"{{ get.current.guid }}\">\n    {{ #app.isEditor }}\n    <div class=\"ad-editor-preview adnuntius-ad-content\" style=\"width:{{ get.current.filtered.adData.width }}px; height:{{ get.current.filtered.adData.height }}px;\" title=\"{{ get.current.fields.format }}\">\n        <h4>Adnuntius-ad</h4>\n        Format: <strong>{{ get.current.fields.format }}</strong><br>\n        size: <strong>{{ get.current.filtered.adData.width }}x{{ get.current.filtered.adData.height }}</strong>\n    </div>\n    {{ /app.isEditor }}\n    {{ ^app.isEditor }}\n    <div id=\"adn-{{{ get.current.filtered.adData.auId }}}\" {{ #get.current.metadata.defaultHeight }}style=\"display:block;height:{{get.current.metadata.defaultHeight}}px;\"{{ /get.current.metadata.defaultHeight }}{{ ^get.current.metadata.defaultHeight }}style=\"display:none;\"{{ /get.current.metadata.defaultHeight }} class=\"adnuntius-ad-content\">\n        <span class=\"ad-label\">{{ get.current.filtered.label }}</span>\n    </div>\n    {{ /app.isEditor }}\n</div>\n\n{{ /get.current.filtered.hideOnTablet }}\n","content/googleAd/template/default":"{{ ^get.current.filtered.hideOnTablet }}\n<div data-element-guid=\"{{ get.current.guid }}\" class=\"{{ #helper.trim }}\n    column\n    google-ad\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ ^get.current.metadata.isBodytext }}\n    {{ size.grid.css }}\n    {{ size.grid.absCss }}\n    {{ /get.current.metadata.isBodytext }}\n    {{ get.current.fields.css }}\n    {{ get.current.metadata.css }}\n    {{ #get.current.filtered.isDebug }}adnuntius-ad-debug{{ /get.current.filtered.isDebug }}\n    {{ /helper.trim }}\" {{ #get.current.filtered.isDebug }}data-ad-format=\"{{{ get.current.fields.format }}}\"{{ /get.current.filtered.isDebug }} style=\"{{get.current.filtered.spacingTop}}{{ #get.current.metadata.style }} {{{ get.current.metadata.style }}}{{ /get.current.metadata.style }}\">\n\n    {{ #app.isEditor }}\n    <div class=\"ad-editor-preview\" title=\"{{ get.current.fields.format }}\">\n        <h4>Google-ad</h4>\n        Format: <strong>{{ get.current.fields.format }}</strong>\n    </div>\n    {{ /app.isEditor }}\n    {{ ^app.isEditor }}\n    {{ #get.current.filtered.googleAds.bidding.enabled }}\n        {{ #get.current.filtered.googleAds.bidding.provider.name }}\n            <span class=\"ad-label\">{{ get.current.filtered.label }}</span>\n            {{ #render.template }}content/googleAd/template/{{ get.current.filtered.googleAds.bidding.provider.name}}{{ /render.template }}\n        {{ /get.current.filtered.googleAds.bidding.provider.name }}\n    {{ /get.current.filtered.googleAds.bidding.enabled }}\n    {{ ^get.current.filtered.googleAds.bidding.enabled }}\n        <span class=\"ad-label\">{{ get.current.filtered.label }}</span>\n        <div class=\"adunit\" id=\"{{{ get.current.filtered.adData.code }}}\" {{ #get.current.metadata.defaultHeight }}style=\"min-height:{{ get.current.metadata.defaultHeight }}px;\"{{ /get.current.metadata.defaultHeight }}></div>\n        <script>\n            googletag.cmd.push(function() {\n                googletag.display('{{{ get.current.filtered.adData.code }}}');\n            });\n        </script>\n        {{ #get.current.metadata.options.refresh }}\n        <script type=\"module\">\n            const data = labClientAPI.get('adData') || [];\n            data.push({\n                format: '{{ get.current.fields.format }}',\n                code: '{{ get.current.filtered.adData.code }}',\n                interval: {{ get.current.metadata.options.interval }},\n                index: {{ get.current.metadata.options.index }},\n                preloadIndex: {{ get.current.metadata.options.preloadIndex }}\n            });\n            labClientAPI.set('adData', data);\n        </script>\n        {{ /get.current.metadata.options.refresh }}\n    {{ /get.current.filtered.googleAds.bidding.enabled }}\n    {{ /app.isEditor }}\n</div>\n{{ /get.current.filtered.hideOnTablet }}"};
+const templates = {"content/row/template/default":"{{ #get.current.metadata.isSection }}\n<div data-element-guid=\"{{ get.current.guid }}\" class=\"{{ #helper.trim }}\nrow-section \n{{ #style.collection }}section_decoration{{ /style.collection }}\n{{ #style.collection }}content_decoration{{ /style.collection }}\n{{ #style.definition }}movableContainer metadata.movableContent{{ /style.definition }}\n{{ #style.definition }}movableElement metadata.movableContent{{ /style.definition }}\n{{ #style.definition }}collapsedContent metadata.collapsedContent{{ /style.definition }}\n{{ /helper.trim }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\">\n{{ /get.current.metadata.isSection }}\n<div {{ ^get.current.metadata.isSection }}data-element-guid=\"{{ get.current.guid }}\" {{ /get.current.metadata.isSection }}class=\"{{ #helper.trim }}\n    row\n    {{ size.grid.css }}\n    {{ #get.current.metadata.fullWidthContent }}fullWidthContent{{ /get.current.metadata.fullWidthContent }}\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #style.collection }}content_decoration{{ /style.collection }}\n    {{ #style.definition }}movableContainer metadata.movableContent{{ /style.definition }}\n    {{ #style.definition }}movableElement metadata.movableContent{{ /style.definition }}\n    {{ #style.definition }}collapsedContent metadata.collapsedContent{{ /style.definition }}\n    {{ #get.current.metadata.hasRowTitle }}has-row-header{{ /get.current.metadata.hasRowTitle }}\n    {{ #get.children.mediaContainer }}has-media-container{{ /get.children.mediaContainer }}\n    {{ /helper.trim }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\"{{ #get.current.metadata.sectionId }} id=\"{{ get.current.metadata.sectionId }}\"{{ /get.current.metadata.sectionId }}>{{ #get.current.metadata.hasRowTitle }}\n    {{ #get.current.metadata.rowTitleTag }}\n    <{{ get.current.metadata.rowTitleTag }} class=\"row_header_text large-12 small-12 {{ #style.collection }}text_decoration metadata{{ /style.collection }} {{ #style.definition }}text_align_row{{ /style.definition }}\">{{{ get.current.metadata.rowTitle }}}</{{ get.current.metadata.rowTitleTag }}>\n    {{ /get.current.metadata.rowTitleTag }}\n    {{ ^get.current.metadata.rowTitleTag }}\n    <h5 class=\"row_header_text large-12 small-12 {{ #style.collection }}text_decoration metadata{{ /style.collection }} {{ #style.definition }}text_align_row{{ /style.definition }}\">{{{ get.current.metadata.rowTitle }}}</h5>\n    {{ /get.current.metadata.rowTitleTag }}\n    {{ /get.current.metadata.hasRowTitle }}{{ #get.current.metadata.movableContent }}{{{ get.current.filtered.movableStyle }}}{{ /get.current.metadata.movableContent }}{{{ children.all }}}</div>\n{{ #get.current.metadata.isSection }}\n</div>\n{{ /get.current.metadata.isSection }}\n","content/columns/template/default":"<div data-element-guid=\"{{ get.current.guid }}\" class=\"columns {{ size.grid.css }} {{ size.grid.absCss }}\">{{{ children.all }}}</div>","content/article/template/default":"<article {{ #helper.trim }}\n    data-element-guid=\"{{ get.current.guid }}\"\n    class=\"column\n        {{ #style.collection }}box_decoration{{ /style.collection }}\n        {{ #get.current.filtered.paywall }}paywall{{ /get.current.filtered.paywall }}\n        {{ size.grid.css }}\n        {{ size.grid.absCss }}\n        {{ get.current.filtered.autodata_css }}\"\n    {{ #get.current.filtered.autodata_attributes }} {{ key }}=\"{{ value }}\"{{ /get.current.filtered.autodata_attributes }} \n    data-site-alias=\"{{ get.current.filtered.site_alias }}\" \n    data-section=\"{{ get.current.filtered.section }}\" \n    data-instance=\"{{ get.current.instance_of }}{{ ^get.current.instance_of }}{{ get.current.id }}{{ /get.current.instance_of }}\" \n    {{ #get.child.image.fields.float }}data-image-float=\"{{ get.child.image.fields.float }}\"{{ /get.child.image.fields.float }}\n    itemscope\n    {{ /helper.trim }}>\n    {{{ get.current.filtered.styleSheets }}}\n    <div class=\"{{ #helper.trim }}\n        content\n        {{ #style.collection }}content_decoration{{ /style.collection }}\n        {{ #get.current.metadata.image_gradient_direction }}image-gradient-{{ get.current.metadata.image_gradient_direction }}{{ /get.current.metadata.image_gradient_direction }}\n        {{ get.current.filtered.hoverEffectClasses }}\n        {{ #style.collection }}box_fullWidth{{ /style.collection }}\n        {{ /helper.trim }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}{{ #get.current.filtered.hoverEffectStyles }} {{ get.current.filtered.hoverEffectStyles }}{{ /get.current.filtered.hoverEffectStyles }}\">\n        \n        {{ #get.current.fields.published_url }}<a itemprop=\"url\"{{ #get.current.fields.open_in_new_window }} target=\"_blank\"{{ /get.current.fields.open_in_new_window }} class=\"\" href=\"{{{ get.current.fields.published_url }}}\" data-k5a-url=\"{{{ get.current.filtered.canonical_url }}}\" rel=\"{{ #get.current.filtered.addRelUgc }}ugc {{ /get.current.filtered.addRelUgc }}{{ #get.current.filtered.addRelSponsored }}sponsored {{ /get.current.filtered.addRelSponsored }}{{ #get.current.filtered.addRelNoFollow }}nofollow{{ /get.current.filtered.addRelNoFollow }}\">{{/get.current.fields.published_url}}\n\n        {{ #get.current.filtered.layout.top }}\n            {{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}\n        {{ /get.current.filtered.layout.top }}\n\n        <div class=\"media{{ #get.current.metadata.floatingTextSubset }} floatingTextSubset{{ /get.current.metadata.floatingTextSubset }} {{ #style.definition }}imageAlign child.image.fields.float{{ /style.definition }}{{ #get.current.fields.displayVideoArticleOverlay }} video-overlay{{ #get.current.fields.videoOverlayPosition }} video-overlay-pos-{{ get.current.fields.videoOverlayPosition }}{{ /get.current.fields.videoOverlayPosition }}{{ /get.current.fields.displayVideoArticleOverlay }}\">\n            {{ ^get.current.metadata.hideimage }}\n                {{{ placeholder.no_media }}}\n                {{{ child.image }}}\n                {{{ child.graphic }}}\n                {{{ child.slideshow }}}\n                {{{ child.youtube }}}\n                {{{ child.simplestream }}}\n                {{{ child.markup }}}\n                {{{ child.parallax }}}\n                {{{ child.grid }}}\n            {{ /get.current.metadata.hideimage }}\n\n            <div class=\"floatingText\">\n                {{ #get.current.filtered.layout.floating }}\n                    {{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}\n                {{ /get.current.filtered.layout.floating }}\n\n                <div class=\"labels\">\n                    {{ #get.current.filtered.autodata_custom.labels }}\n                    <div class=\"label\" data-label-key=\"{{ key }}\" data-label-value=\"{{ value }}\"><span class=\"label-value\">{{ value }}</span></div>\n                    {{ /get.current.filtered.autodata_custom.labels }}\n                    {{ #get.current.filtered.sectionPlacement.floating }}\n                        {{ #get.current.metadata.showSection }}\n                            {{ #get.current.filtered.section }}<p itemprop=\"section\" class=\"section\" data-tag=\"{{ get.current.filtered.section }}\">{{ get.current.filtered.section }}</p>{{ /get.current.filtered.section }}\n                        {{ /get.current.metadata.showSection }}\n                    {{ /get.current.filtered.sectionPlacement.floating }}\n                </div>\n            </div>\n            {{ #get.current.metadata.enableAudio }}{{ #render.template }}content/article/template/partials/audio{{ /render.template }}{{ /get.current.metadata.enableAudio }}\n            {{ #get.current.filtered.paywallLabel }}{{> partial/elements/paywallLabel }}{{ /get.current.filtered.paywallLabel }}\n\n            {{ #get.current.fields.displayVideoArticleOverlay }}\n                {{ ^get.current.fields.hideVideoArticleLabel }}<p class=\"video-overlay-label\">{{ #lang }}image.videoOverlayLabel{{ /lang }}</p>{{ /get.current.fields.hideVideoArticleLabel }}\n            {{ /get.current.fields.displayVideoArticleOverlay }}\n        </div>\n        {{ #get.current.fields.displayCaption }}\n            <div class=\"caption {{ #helper.trim }}\n                {{ #app.isEditor }}expanded{{ /app.isEditor }}\n                {{ #get.current.fields.truncateCaption }}truncate{{ /get.current.fields.truncateCaption }}\n                {{ ^get.current.fields.truncateCaption }}\n                    {{ #get.child.image.fields.truncateCaption }}truncate{{ /get.child.image.fields.truncateCaption }}\n                {{ /get.current.fields.truncateCaption }}\n                {{ /helper.trim }}\" data-showmore=\"{{ #lang }}image.caption.showMoreLabel{{ /lang }}\"{{ #get.child.image.filtered.captionOptions.expandable }} data-expandable=\"true\" data-showcaption=\"{{ #lang }}image.caption.showCaptionLabel{{ /lang }}\" data-hidecaption=\"{{ #lang }}image.caption.hideCaptionLabel{{ /lang }}\"{{ /get.child.image.filtered.captionOptions.expandable }}>\n                <figcaption itemprop=\"caption\" class=\"{{ #style.collection }}text_decoration child.image.fields.imageCaption{{ /style.collection }}\">{{ #helper.stripLinks }}{{ #get.child.image.fields.globalCaption }}{{{ get.child.image.fields.globalCaption }}}{{ /get.child.image.fields.globalCaption }}{{ ^get.child.image.fields.globalCaption }}{{{ get.child.image.fields.imageCaption }}}{{ /get.child.image.fields.globalCaption }}{{ /helper.stripLinks }}</figcaption>\n                <figcaption itemprop=\"author\" class=\"{{ #style.collection }}text_decoration child.image.fields.byline{{ /style.collection }}\" data-byline-prefix=\"{{{ getConfig.image.imageBylinePrefix }}}\">{{ #helper.stripLinks }}{{{ get.child.image.fields.byline }}}{{ /helper.stripLinks }}</figcaption>\n            </div>\n        {{ /get.current.fields.displayCaption }}\n\n        {{ #get.current.metadata.vertical_text_align }}\n            <div class=\"vertically-aligned-text\">\n        {{ /get.current.metadata.vertical_text_align }}\n            {{ #get.current.filtered.paywallLabel }}{{> partial/elements/paywallLabel }}{{ /get.current.filtered.paywallLabel }}\n\n            {{ #get.current.filtered.sectionPlacement.underImage }}\n                {{ #get.current.metadata.showSection }}\n                    {{ #get.current.filtered.section }}<p itemprop=\"section\" class=\"section\" data-tag=\"{{ get.current.filtered.section }}\">{{ get.current.filtered.section }}</p>{{ /get.current.filtered.section }}\n                {{ /get.current.metadata.showSection }}\n            {{ /get.current.filtered.sectionPlacement.underImage }}\n        \n            {{ #get.current.filtered.tagPlacement.underImage }}\n                {{ #get.current.metadata.showTags }}\n                <div itemprop=\"tags\" class=\"tags\">{{#get.current.filtered.tags}}\n                    <span itemprop=\"tag\" class=\"tag\" data-tag=\"{{ . }}\">{{.}}</span>\n                {{/get.current.filtered.tags}}</div>\n                {{ /get.current.metadata.showTags }}\n            {{ /get.current.filtered.tagPlacement.underImage }}\n            {{ #get.current.filtered.layout.bottom }}\n                {{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}\n            {{ /get.current.filtered.layout.bottom }}\n\n            {{ #get.current.filtered.sectionPlacement.underText }}\n                {{ #get.current.metadata.showSection }}\n                    {{ #get.current.filtered.section }}<p itemprop=\"section\" class=\"section\" data-tag=\"{{ get.current.filtered.section }}\">{{ get.current.filtered.section }}</p>{{ /get.current.filtered.section }}\n                {{ /get.current.metadata.showSection }}\n            {{ /get.current.filtered.sectionPlacement.underText }}\n        \n            {{ #get.current.filtered.tagPlacement.underText }}\n                {{ #get.current.metadata.showTags }}\n                <div itemprop=\"tags\" class=\"tags under-text\">{{#get.current.filtered.tags}}\n                    <span itemprop=\"tag\" class=\"tag\" data-tag=\"{{ . }}\">{{.}}</span>\n                {{/get.current.filtered.tags}}</div>\n                {{ /get.current.metadata.showTags }}\n            {{ /get.current.filtered.tagPlacement.underText }}\n\n        {{ #get.current.filtered.displayByline }}\n            {{ #get.current.filtered.layout.sub }}\n                {{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}\n            {{ /get.current.filtered.layout.sub }}\n        {{ /get.current.filtered.displayByline }}\n\n        {{ ^get.current.filtered.displayByline }}\n            {{ #get.current.filtered.displayPublishedDate }}\n                <div class=\"article-published-wrapper\">\n                    <p class=\"article-published-date\">{{{ get.current.filtered.publishedDate }}}</p>\n                </div>\n            {{ /get.current.filtered.displayPublishedDate }}\n        {{ /get.current.filtered.displayByline }}\n\n        {{ #get.current.metadata.vertical_text_align }}\n            </div>\n        {{ /get.current.metadata.vertical_text_align }}\n\n        {{#get.current.fields.published_url}}</a>{{/get.current.fields.published_url}}\n\n        {{ #get.current.metadata.subarticles }}\n            <p class=\"subarticlesTitle bold {{ #style.collection }}text_decoration fields.subarticlesTitle{{ /style.collection }}\" style=\"margin: 0.6em 0 0;\">{{{ get.current.fields.subarticlesTitle }}}</p>\n            <ul class=\"relatedArticles\">{{ #children.article[]+ }}\n            {{{ . }}}\n            {{ /children.article[]+ }}</ul>\n        {{ /get.current.metadata.subarticles }}\n        <time itemprop=\"datePublished\" datetime=\"{{ get.current.filtered.published }}\"></time>\n    </div>\n</article>\n","content/article/template/partials/kicker":"<div {{ #get.current.fields.kicker[animate] }}data-content=\"{{ #helper.sanitizeString }}{{{ get.current.filtered.kicker }}}{{ /helper.sanitizeString }}\"{{ /get.current.fields.kicker[animate] }}\nstyle=\"{{ #style.collection }}text_decoration_inline_style fields.kicker{{ /style.collection }}\"\nclass=\"kicker {{ get.current.filtered.layout.positions.kicker }} {{ #style.collection }}text_decoration fields.kicker{{ /style.collection }}\">\n{{{ get.current.filtered.kicker }}}\n</div>","content/article/template/partials/subtitle":"<p itemprop=\"description\" \n    class=\"subtitle {{ #style.collection }}text_decoration fields.subtitle{{ /style.collection }}{{ #get.current.metadata.subtitleAboveImage }} subtitleAboveImage{{ /get.current.metadata.subtitleAboveImage }}\"\n    style=\"{{ #style.collection }}text_decoration_inline_style fields.subtitle{{ /style.collection }}\"\n    {{ #get.current.fields.subtitle[animate] }}data-content=\"{{ #helper.sanitizeString }}{{{ get.current.filtered.subtitle }}}{{ /helper.sanitizeString }}\"{{ /get.current.fields.subtitle[animate] }}>\n    {{{ get.current.filtered.subtitle }}}\n</p>\n","content/article/template/partials/title":"<h2 itemprop=\"headline\" \n    class=\"headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}\"\n    style=\"{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}\"\n    {{ #get.current.fields.title[animate] }}data-content=\"{{ #helper.sanitizeString }}{{{ get.current.filtered.title }}}{{ /helper.sanitizeString }}\"{{ /get.current.fields.title[animate] }}>{{{ get.current.filtered.title }}}\n</h2>","partial/elements/paywallLabel":"<div class=\"paywallLabel{{ #layout.noImage }} no-image{{ /layout.noImage }} {{ get.current.metadata.paywallLabelPosition }}{{ ^get.current.metadata.paywallLabelPosition }} {{ layout.float }}{{ /get.current.metadata.paywallLabelPosition }}\">{{ ^get.current.filtered.paywallLabel.hideLabelIcon }}{{ #icon.content }}<span class=\"{{ icon.content }}\"></span> {{/icon.content }}{{ /get.current.filtered.paywallLabel.hideLabelIcon }}{{ ^get.current.filtered.paywallLabel.hideLabelText }}{{ text.content }}{{ /get.current.filtered.paywallLabel.hideLabelText }}</div>\n","content/article/template/subarticle":"<li id=\"article-{{ get.current.id }}\" class=\"column\">\n    <a itemprop=\"url\" href=\"{{ get.current.fields.published_url }}\" data-k5a-url=\"{{{ get.current.filtered.canonical_url }}}\">\n        {{ ^get.parent.metadata.sub_hideImage }}\n            {{{ children.image[0] }}}\n        {{ /get.parent.metadata.sub_hideImage }}\n        <div class=\"text\">\n            {{ ^get.parent.metadata.sub_hideTitle }}\n                <h5 itemprop=\"name headline\" class=\"subarticle {{ #style.collection }}text_decoration fields.title{{ /style.collection }}\">{{{ get.current.fields.title }}}</h5>\n            {{ /get.parent.metadata.sub_hideTitle }}\n            {{ ^get.parent.metadata.sub_hideSubtitle }}\n                <p class=\"subarticle {{ #style.collection }}text_decoration fields.subtitle{{ /style.collection }}\">{{{ get.current.fields.subtitle }}}</p>\n            {{ /get.parent.metadata.sub_hideSubtitle }}\n        </div>\n    </a>\n</li>\n","content/image/template/default":"<figure data-element-guid=\"{{ get.current.guid }}\" class=\"{{#helper.trim}}\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #get.current.filtered.hasFloat }}{{ #style.definition }}responsive_size fields.vpWidth{{ /style.definition }}{{ /get.current.filtered.hasFloat }}\n    {{ #style.definition }}imageBorder fields.border{{ /style.definition }}\n    {{ #style.definition }}imageAlign fields.float{{ /style.definition }}\n    {{ get.current.filtered.imageLoadingClass }}\n    {{/helper.trim}}\" {{ #get.current.filtered.hasFloat }}{{ ^get.current.fields.vpWidth }}style=\"width:{{ get.current.filtered.imageWidth }}px;\"{{ /get.current.fields.vpWidth }}{{ /get.current.filtered.hasFloat }}>\n    <div class=\"img{{ #get.current.filtered.allowFullwidth }} fullwidthTarget{{ /get.current.filtered.allowFullwidth }} {{ #style.collection }}content_decoration{{ /style.collection }}\">\n        {{ > content/image/template/partials/img }}\n        {{ > content/image/template/partials/shapes }}\n    </div>\n    {{ ^get.parent.filtered.layout.floating }} {{ #get.current.filtered.captionOptions.display }}\n    {{ > content/image/template/partials/caption }}\n    {{ /get.current.filtered.captionOptions.display }} {{ /get.parent.filtered.layout.floating }}\n</figure>\n","content/image/template/article":"<figure data-element-guid=\"{{ get.current.guid }}\" class=\"{{#helper.trim}}\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #get.current.filtered.hasFloat }}{{ #style.definition }}responsive_size fields.vpWidth{{ /style.definition }}{{ /get.current.filtered.hasFloat }}\n    {{ #style.definition }}imageBorder fields.border{{ /style.definition }}\n    {{ #style.definition }}imageAlign fields.float{{ /style.definition }}\n    {{ get.current.filtered.imageLoadingClass }}\n    {{/helper.trim}}\" {{ #get.current.filtered.hasFloat }}{{ ^get.current.fields.vpWidth }}style=\"width:{{ get.current.filtered.imageWidth }}px;\"{{ /get.current.fields.vpWidth }}{{ /get.current.filtered.hasFloat }}>\n    <div class=\"img fullwidthTarget\">\n        {{ > content/image/template/partials/img }}\n        {{ > content/image/template/partials/shapes }}\n    </div>\n    {{ #get.parent.metadata.image_overlay }}<div class=\"imageOverlay {{ get.parent.metadata.image_overlay }} {{ get.parent.metadata.image_overlay_opacity }}\"></div>{{ /get.parent.metadata.image_overlay }}\n    {{ > content/image/template/partials/child }}\n</figure>\n","content/image/template/partials/caption_links":"<div class=\"caption {{ #helper.trim }}\n    {{ #app.isEditor }}expanded{{ /app.isEditor }}\n    {{ #get.parent.fields.truncateCaption }}truncate{{ /get.parent.fields.truncateCaption }}\n    {{ ^get.parent.fields.truncateCaption }}\n        {{ #get.current.fields.truncateCaption }}truncate{{ /get.current.fields.truncateCaption }}\n    {{ /get.parent.fields.truncateCaption }}\n    {{ /helper.trim }}\" data-showmore=\"{{ #lang }}image.caption.showMoreLabel{{ /lang }}\"{{ #get.current.filtered.captionOptions.expandable }} data-expandable=\"true\" data-showcaption=\"{{ #lang }}image.caption.showCaptionLabel{{ /lang }}\" data-hidecaption=\"{{ #lang }}image.caption.hideCaptionLabel{{ /lang }}\"{{ /get.current.filtered.captionOptions.expandable }}>\n    <figcaption itemprop=\"caption\" class=\"{{ #style.collection }}text_decoration fields.imageCaption{{ /style.collection }}\">{{{ get.current.fields.imageCaption }}}</figcaption>\n    <figcaption itemprop=\"author\" class=\"{{ #style.collection }}text_decoration fields.byline{{ /style.collection }}\" data-byline-prefix=\"{{{ getConfig.image.imageBylinePrefix }}}\">{{{ get.current.fields.byline }}}</figcaption>\n</div>","content/image/template/partials/caption":"<div class=\"caption {{ #helper.trim }}\n    {{ #app.isEditor }}expanded{{ /app.isEditor }}\n    {{ #get.parent.fields.truncateCaption }}truncate{{ /get.parent.fields.truncateCaption }}\n    {{ ^get.parent.fields.truncateCaption }}\n        {{ #get.current.fields.truncateCaption }}truncate{{ /get.current.fields.truncateCaption }}\n    {{ /get.parent.fields.truncateCaption }}\n    {{ /helper.trim }}\" data-showmore=\"{{ #lang }}image.caption.showMoreLabel{{ /lang }}\"{{ #get.current.filtered.captionOptions.expandable }} data-expandable=\"true\" data-showcaption=\"{{ #lang }}image.caption.showCaptionLabel{{ /lang }}\" data-hidecaption=\"{{ #lang }}image.caption.hideCaptionLabel{{ /lang }}\"{{ /get.current.filtered.captionOptions.expandable }}>\n    <figcaption itemprop=\"caption\" class=\"{{ #style.collection }}text_decoration fields.imageCaption{{ /style.collection }}\">{{ #get.parent.fields.globalCaption }}{{{ get.parent.fields.globalCaption }}}{{ /get.parent.fields.globalCaption }}{{ ^get.parent.fields.globalCaption }}{{{ get.current.fields.imageCaption }}}{{ /get.parent.fields.globalCaption }}</figcaption>\n    <figcaption itemprop=\"author\" class=\"{{ #style.collection }}text_decoration fields.byline{{ /style.collection }}\" data-byline-prefix=\"{{{ getConfig.image.imageBylinePrefix }}}\">{{{ get.current.fields.byline }}}</figcaption>\n</div>","content/image/template/partials/img":"<picture>\n    {{ #get.current.filtered.viewport_list.desktop.formats }}\n    <source srcset=\"{{{ get.current.filtered.viewport_list.desktop.url }}}&format={{ format }}\" \n        width=\"{{{ get.current.filtered.viewport_list.desktop.width }}}\"\n        height=\"{{{ get.current.filtered.viewport_list.desktop.height }}}\"\n        media=\"(min-width: 768px)\"\n        type=\"{{{ type }}}\">    \n    {{ /get.current.filtered.viewport_list.desktop.formats }}\n    {{ #get.current.filtered.viewport_list.mobile.formats }}\n    <source srcset=\"{{{ get.current.filtered.viewport_list.mobile.url }}}&format={{ format }}\" \n        width=\"{{{ get.current.filtered.viewport_list.mobile.width }}}\"\n        height=\"{{{ get.current.filtered.viewport_list.mobile.height }}}\"\n        media=\"(max-width: 767px)\"\n        type=\"{{{ type }}}\">    \n    {{ /get.current.filtered.viewport_list.mobile.formats }}\n    <img src=\"{{{ get.current.filtered.viewport_list.mobile.url }}}&format=jpg\"\n        width=\"{{{ get.current.filtered.viewport_list.mobile.width }}}\"\n        height=\"{{{ get.current.filtered.viewport_list.mobile.height }}}\"\n        alt=\"{{ #helper.sanitizeString }}{{ #get.current.fields.altText }}{{{ get.current.fields.altText }}}{{ /get.current.fields.altText }}{{ /helper.sanitizeString }}\" \n        {{ #get.current.filtered.lazyloadImages }}loading=\"lazy\"{{ /get.current.filtered.lazyloadImages }}{{ ^get.current.filtered.lazyloadImages }}fetchpriority=\"high\"{{ /get.current.filtered.lazyloadImages }}\n        {{ #app.isEditor }}\n        class=\"{{ #helper.getEditorLoadingClass }}{{ /helper.getEditorLoadingClass }}\"\n        style=\"{{ #helper.getEditorLoadingStyle }}{{ /helper.getEditorLoadingStyle }} {{{ get.current.filtered.filters }}}\"    \n        {{ /app.isEditor }}\n        {{ ^app.isEditor }}\n        style=\"{{{ get.current.filtered.filters }}}\"    \n        {{ /app.isEditor }}>\n</picture>","content/image/template/partials/child":"{{ #get.current.metadata.subimage }}\n    {{ #app.isEditor }}\n    <div class=\"imageChildren {{ #style.collection }}subimage{{ /style.collection }}\">{{{ children.all }}}</div>\n    {{ /app.isEditor }}\n    {{ #app.isFront }}{{ #children.all[0] }}\n    <div class=\"imageChildren {{ #style.collection }}subimage{{ /style.collection }}\">{{{ children.all }}}</div>\n    {{ /children.all[0] }}{{ /app.isFront }}\n{{ /get.current.metadata.subimage }}\n","content/image/template/grid":"<figure data-element-guid=\"{{ get.current.guid }}\"{{ #get.current.metadata.zoomable }} data-zoomable=\"1\"{{ /get.current.metadata.zoomable }} class=\"{{#helper.trim}}\n    column\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ #style.collection }}box_fullWidth{{ /style.collection }}\n    {{ size.grid.css }}\n    {{ size.grid.absCss }}\n    {{ get.current.filtered.borderClass }}\n    {{ get.current.filtered.imageLoadingClass }}\n    {{/helper.trim}}\">\n    {{{ get.current.filtered.styleSheets }}}\n    <div class=\"content {{ #style.collection }}content_decoration{{ /style.collection }}\" style=\"{{ #style.collection }}content_inline_style{{ /style.collection }}\">\n        {{^get.current.instance_of}}\n                {{ > content/image/template/placeholder }}\n        {{/get.current.instance_of}}\n        {{#get.current.instance_of}}\n\n        <div class=\"img fullwidthTarget\">\n            {{ > content/image/template/partials/img }}\n            {{ > content/image/template/partials/shapes }}\n        </div>\n        {{ #get.current.filtered.captionOptions.displayDefault }}\n        {{ > content/image/template/partials/caption_links }}\n        {{ /get.current.filtered.captionOptions.displayDefault }}\n        {{/get.current.instance_of}}\n    </div>\n</figure>\n","content/notice/template/default":"<div class=\"notice column\n  {{ #style.collection }}box_decoration{{ /style.collection }}\" id=\"notice-{{ get.current.id }}\" data-tags=\"{{{ get.current.tags }}}\">\n    <div class=\"content {{ #style.collection }}content_decoration{{ /style.collection }}\" title=\"{{{ get.current.fields.title }}}\">\n        <h2><a href=\"/notice/{{ get.current.id }}\">{{{ get.current.fields.title }}}</a></h2>\n        <div class=\"meta\">\n            <time class=\"fi-clock\" datetime=\"{{ get.current.filtered.isoDate }}\" title=\"{{ get.current.filtered.publishedDate }}\">{{ get.current.filtered.niceDate }}</time>\n            {{ #get.current.fields.userName }}<span class=\"author fi-torsos\">{{{ get.current.fields.userName }}}</span>{{ /get.current.fields.userName }}\n            {{ #get.current.fields.pinned }}{{ ^get.parent.metadata.hidePinIcon }} <span class=\"pinned fi-marker\"> {{ #lang }}notice.pinnedLabel{{ /lang }}</span>{{ /get.parent.metadata.hidePinIcon }}{{ /get.current.fields.pinned }}\n        </div>\n        <div class=\"text bodytext\">{{{ get.current.filtered.bodytext }}}</div>\n    </div>\n</div>\n{{ #getConfig.noticeStructuredData.active }}<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"BlogPosting\",\n  \"@id\": \"#notice{{ get.current.id }}\",\n  \"headline\": \"{{{ get.current.fields.title }}}\",\n  \"articleBody\": \"{{{ get.current.fields.bodytext }}}\",\n  \"datePublished\": \"{{ get.current.filtered.isoDate }}\"{{ #get.current.fields.modified }},\n  \"dateModified\": \"{{ get.current.filtered.isoModifiedDate }}\"{{ /get.current.fields.modified }},\n  {{ #get.current.fields.userName }}\"author\": {\n    \"@type\": \"Person\",\n    \"name\": \"{{{ get.current.fields.userName }}}\"\n  },\n  {{ /get.current.fields.userName }}\"isPartOf\": {\n    \"@type\": \"LiveBlogPosting\",\n    \"@id\": \"#liveblogposting\"\n  }\n}\n</script>{{ /getConfig.noticeStructuredData.active }}","content/adnuntiusAd/template/default":"{{ ^get.current.filtered.hideOnTablet }}\n\n<div class=\"{{ #helper.trim }}\n    column\n    adnuntius-ad\n    {{ get.current.fields.css }}\n    {{ ^get.current.metadata.isBodytext }}\n    {{ size.grid.css }}\n    {{ /get.current.metadata.isBodytext }}\n    {{ get.current.metadata.css }}\n    {{ #get.current.filtered.isDebug }}adnuntius-ad-debug{{ /get.current.filtered.isDebug }}\n    {{ /helper.trim }}\" {{ #get.current.filtered.isDebug }}data-ad-format=\"{{{ get.current.fields.format }}}\" data-ad-size=\"{{ get.current.filtered.adData.width }}x{{ get.current.filtered.adData.height }}\"{{ /get.current.filtered.isDebug }}style=\"{{get.current.filtered.spacingTop}}{{ #get.current.metadata.style }} {{{ get.current.metadata.style }}}{{ /get.current.metadata.style }}\" data-element-guid=\"{{ get.current.guid }}\">\n    {{ #app.isEditor }}\n    <div class=\"ad-editor-preview adnuntius-ad-content\" style=\"width:{{ get.current.filtered.adData.width }}px; height:{{ get.current.filtered.adData.height }}px;\" title=\"{{ get.current.fields.format }}\">\n        <h4>Adnuntius-ad</h4>\n        Format: <strong>{{ get.current.fields.format }}</strong><br>\n        size: <strong>{{ get.current.filtered.adData.width }}x{{ get.current.filtered.adData.height }}</strong>\n    </div>\n    {{ /app.isEditor }}\n    {{ ^app.isEditor }}\n    <div id=\"adn-{{{ get.current.filtered.adData.auId }}}\" {{ #get.current.metadata.defaultHeight }}style=\"display:block;height:{{get.current.metadata.defaultHeight}}px;\"{{ /get.current.metadata.defaultHeight }}{{ ^get.current.metadata.defaultHeight }}style=\"display:none;\"{{ /get.current.metadata.defaultHeight }} class=\"adnuntius-ad-content\">\n        <span class=\"ad-label\">{{ get.current.filtered.label }}</span>\n    </div>\n    {{ /app.isEditor }}\n</div>\n\n{{ /get.current.filtered.hideOnTablet }}\n","content/googleAd/template/default":"{{ ^get.current.filtered.hideOnTablet }}\n<div data-element-guid=\"{{ get.current.guid }}\" class=\"{{ #helper.trim }}\n    column\n    google-ad\n    {{ #style.collection }}box_decoration{{ /style.collection }}\n    {{ ^get.current.metadata.isBodytext }}\n    {{ size.grid.css }}\n    {{ size.grid.absCss }}\n    {{ /get.current.metadata.isBodytext }}\n    {{ get.current.fields.css }}\n    {{ get.current.metadata.css }}\n    {{ #get.current.filtered.isDebug }}adnuntius-ad-debug{{ /get.current.filtered.isDebug }}\n    {{ /helper.trim }}\" {{ #get.current.filtered.isDebug }}data-ad-format=\"{{{ get.current.fields.format }}}\"{{ /get.current.filtered.isDebug }} style=\"{{get.current.filtered.spacingTop}}{{ #get.current.metadata.style }} {{{ get.current.metadata.style }}}{{ /get.current.metadata.style }}\">\n\n    {{ #app.isEditor }}\n    <div class=\"ad-editor-preview\" title=\"{{ get.current.fields.format }}\">\n        <h4>Google-ad</h4>\n        Format: <strong>{{ get.current.fields.format }}</strong>\n    </div>\n    {{ /app.isEditor }}\n    {{ ^app.isEditor }}\n    {{ #get.current.filtered.googleAds.bidding }}\n        {{ #get.current.filtered.googleAds.bidding.provider.name }}\n            <span class=\"ad-label\">{{ get.current.filtered.label }}</span>\n            {{ #render.template }}content/googleAd/template/{{ get.current.filtered.googleAds.bidding.provider.name}}/placement{{ /render.template }}\n        {{ /get.current.filtered.googleAds.bidding.provider.name }}\n    {{ /get.current.filtered.googleAds.bidding }}\n    {{ ^get.current.filtered.googleAds.bidding }}\n        <span class=\"ad-label\">{{ get.current.filtered.label }}</span>\n        <div class=\"adunit\" id=\"{{{ get.current.filtered.adData.code }}}\" {{ #get.current.metadata.defaultHeight }}style=\"min-height:{{ get.current.metadata.defaultHeight }}px;\"{{ /get.current.metadata.defaultHeight }}></div>\n        <script>\n            googletag.cmd.push(function() {\n                googletag.display('{{{ get.current.filtered.adData.code }}}');\n            });\n        </script>\n        {{ #get.current.metadata.options.refresh }}\n        <script type=\"module\">\n            const data = labClientAPI.get('adData') || [];\n            data.push({\n                format: '{{ get.current.fields.format }}',\n                code: '{{ get.current.filtered.adData.code }}',\n                interval: {{ get.current.metadata.options.interval }},\n                index: {{ get.current.metadata.options.index }},\n                preloadIndex: {{ get.current.metadata.options.preloadIndex }}\n            });\n            labClientAPI.set('adData', data);\n        </script>\n        {{ /get.current.metadata.options.refresh }}\n    {{ /get.current.filtered.googleAds.bidding }}\n    {{ /app.isEditor }}\n</div>\n{{ /get.current.filtered.hideOnTablet }}"};
 
 
 /***/ }),
@@ -122,6 +122,9 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     updateBodytextAds(model) {
+        if (this.api.v1.collabrador.isActive()) {
+            return;
+        }
         // Remove non-persistent elements from model
         const children = [...model.getChildren()];
         for (const child of children) {
@@ -264,6 +267,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_helpers_PageExport_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/helpers/PageExport.js */ "./modules/lib/helpers/PageExport.js");
 /* harmony import */ var _lib_helpers_dynamic_EsiHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/helpers/dynamic/EsiHelper.js */ "./modules/lib/helpers/dynamic/EsiHelper.js");
 /* harmony import */ var _lib_helpers_Spacing_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/helpers/Spacing.js */ "./modules/lib/helpers/Spacing.js");
+/* harmony import */ var _lib_helpers_TextToSpeechHelper_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lib/helpers/TextToSpeechHelper.js */ "./modules/lib/helpers/TextToSpeechHelper.js");
+
 
 
 
@@ -340,6 +345,11 @@ __webpack_require__.r(__webpack_exports__);
             }));
         }
 
+        // Auto-insert the TTS element for article pages when TTS is enabled.
+        if (rootModel && rootModel.getType() === 'page_article') {
+            _lib_helpers_TextToSpeechHelper_js__WEBPACK_IMPORTED_MODULE_5__.TextToSpeechHelper.insertIfNeeded(this.api, rootModel);
+        }
+
         const esiHelper = new _lib_helpers_dynamic_EsiHelper_js__WEBPACK_IMPORTED_MODULE_3__.EsiHelper(this.api);
         esiHelper.register(rootModel, this.api.v1.site.getSite().alias);
 
@@ -370,6 +380,39 @@ __webpack_require__.r(__webpack_exports__);
         }
     }
 
+    // Apply a custom CSS class stored in metadata.elementClass to the element's root HTML tag.
+    // Set via "Set element class" in the editor's contextual menu (basemenu.json + Namespace.js).
+    // Runs for every element on every render, but exits immediately if no class is set.
+    onRendered(model, view) {
+        const elementClass = model.get('metadata.elementClass');
+        if (!elementClass) { return; }
+
+        const markup = view.getMarkup();
+        if (markup) {
+            // In the editor, view.getMarkup() returns a live DOM element — use classList directly.
+            elementClass.trim().split(/\s+/).filter(Boolean).forEach((c) => markup.classList.add(c));
+        } else {
+            // On the front-end, rendering is server-side (Node.js) and there is no DOM.
+            // view.getMarkup() returns null; the output is an HTML string instead.
+            // We inject the class into the first class=" attribute of the root element,
+            // then write the modified string back before the framework collects the final output.
+            const markupString = view.getMarkupString();
+
+            if (!markupString) { 
+				return; 
+			}
+
+            // Sanitize: only allow valid CSS class name characters to prevent HTML injection.
+            const classes = elementClass.trim().split(/\s+/).filter((c) => c && /^[a-zA-Z0-9_-]+$/.test(c)).join(' ');
+
+            if (!classes) { 
+				return; 
+			}
+
+            view.setMarkupString(markupString.replace('class="', `class="${classes} `));
+        }
+    }
+
     onMapData(data) {
         // Map text_title and text_subtitle to text_singleline
         if (data.type === 'text_title' || data.type === 'text_subtitle') {
@@ -394,109 +437,6 @@ __webpack_require__.r(__webpack_exports__);
     }
 
 });
-
-
-/***/ }),
-
-/***/ "./modules/apps/AddComment.js":
-/*!************************************!*\
-  !*** ./modules/apps/AddComment.js ***!
-  \************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   AddComment: () => (/* binding */ AddComment)
-/* harmony export */ });
-class AddComment {
-
-    constructor(api, menuItem) {
-        this.api = api;
-        this.menuItem = menuItem;
-        this.model = menuItem.getModel();
-        this.data = {
-            id: null,
-            fields: {},
-            children: []
-        };
-        this.registered = false;
-        this.saveInProgress = false;
-        this.modal = null;
-        this.display();
-    }
-
-    display() {
-        this.modal = this.api.v1.ui.modal.dialog({
-            defaultButtons: false,
-            container: {
-                width: 500
-            },
-            content: {
-                header: 'Add comment',
-                markup: this.getMarkup(this.data)
-            },
-            callbacks: {
-                didDisplay: (modal) => {},
-                submit: (formElements) => {
-                    this.save(formElements);
-                },
-                end: () => {
-                    if (this.endcallback && !this.saveInProgress) {
-                        this.endcallback(this.data.id);
-                    }
-                }
-            },
-            eventHandlers: [{
-                selector: '#cancel-btn',
-                event: 'click',
-                callback: (theModal, event) => {
-                    theModal.close();
-                }
-            }],
-            keyValidation: [{
-                key: 'comment',
-                validator: 'notEmpty'
-            }],
-            footer: {
-                buttons: [
-                    {
-                        value: 'Cancel',
-                        highlight: false,
-                        id: 'cancel-btn'
-                    },
-                    {
-                        value: 'Add comment',
-                        type: 'submit',
-                        highlight: true
-                    }
-                ]
-            }
-        });
-    }
-
-    save(formElements) {
-        this.api.v1.collabrador.addComment(
-            {
-                from: 0,
-                to: 0,
-                text: formElements.comment || '',
-                tagGuid: this.model.get('guid') || '',
-                author: 'Test Testersen', // Not needed when we go to prod, will be handled by the token
-                email: 'test@testersen.no' // Not needed when we go to prod, will be handled by the token
-            }
-        )
-    }
-
-    getMarkup(data) {
-        return this.api.v1.util.dom.renderView('apps/addComment/editor', {}, false);
-    }
-
-    // Temp only
-    generateRandomId(length = 8) {
-        return Math.random().toString(36).substring(2, length + 2);
-    }
-
-}
 
 
 /***/ }),
@@ -542,6 +482,11 @@ class BylineEditor {
         }
     }
 
+    canDelete() {
+        // Only users with node_delete_all permission can delete
+        return this.data.id && this.api.v1.user.hasPermission('node_delete_all');
+    }
+
     display() {
         this.modal = this.api.v1.ui.modal.dialog({
             defaultButtons: false,
@@ -577,6 +522,12 @@ class BylineEditor {
                 callback: (theModal, event) => {
                     theModal.close();
                 }
+            }, {
+                selector: '#byline-delete',
+                event: 'click',
+                callback: (theModal, event) => {
+                    this.deleteByline(theModal);
+                }
             }],
             keyValidation: [{
                 key: 'firstname',
@@ -598,6 +549,11 @@ class BylineEditor {
                         highlight: false,
                         id: 'byline-cancel'
                     },
+                    ...(this.canDelete() ? [{
+                        value: 'Delete',
+                        highlight: false,
+                        id: 'byline-delete'
+                    }] : []),
                     {
                         value: this.data.id ? 'Update byline' : 'Create byline',
                         type: 'submit',
@@ -787,6 +743,111 @@ class BylineEditor {
         }
     }
 
+    deleteByline(modal) {
+        if (!this.data.id) {
+            console.log('Cannot delete byline without ID');
+            return;
+        }
+
+        lab_api.v1.ui.modal.dialog({
+            content: {
+                title: 'Confirm deletion',
+                description: 'Are you sure you want to delete this byline? This action cannot be undone.'
+            },
+            footer: {
+                buttons: [
+                    {
+                        value: 'Cancel',
+                        highlight: false,
+                        id: 'delete-cancel'
+                    },
+                    {
+                        value: 'Delete',
+                        highlight: true,
+                        id: 'delete-confirm'
+                    }
+                ]
+            },
+            eventHandlers: [
+                {
+                    selector: '#delete-cancel',
+                    event: 'click',
+                    callback: (confirmModal) => {
+                        confirmModal.close();
+                    }
+                },
+                {
+                    selector: '#delete-confirm',
+                    event: 'click',
+                    callback: (confirmModal) => {
+                        confirmModal.close();
+
+                        const formData = new FormData();
+                        formData.append('id', this.data.id);
+
+                        this.api.v1.util.httpClient.request('/ajax/byline/delete', {
+                            body: formData,
+                            method: 'POST'
+                        })
+                        .then((resp) => {
+                            if (resp.success) {
+                                modal.close();
+                                if (this.endcallback) {
+                                    this.endcallback(null);
+                                }
+                            } else {
+                                Sys.logger.warn(`[Byline] Error deleting byline:`, (resp.error || 'Unknown error'));
+                                lab_api.v1.ui.modal.dialog({
+                                    container: {
+                                        state: {
+                                            error: true
+                                        }
+                                    },
+                                    content: {
+                                        title: 'Error: Delete byline',
+                                        description: `An error has occurred: ${ resp.error || 'Unknown error' }`
+                                    },
+                                    footer: {
+                                        buttons: [
+                                            {
+                                                type: 'submit',
+                                                value: 'Close',
+                                                highlight: true
+                                            }
+                                        ]
+                                    }
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            Sys.logger.warn(`[Byline] Error deleting byline:`, error);
+                            lab_api.v1.ui.modal.dialog({
+                                container: {
+                                    state: {
+                                        error: true
+                                    }
+                                },
+                                content: {
+                                    title: 'Error: Delete byline',
+                                    description: `An error has occurred: ${ error }`
+                                },
+                                footer: {
+                                    buttons: [
+                                        {
+                                            type: 'submit',
+                                            value: 'Close',
+                                            highlight: true
+                                        }
+                                    ]
+                                }
+                            });
+                        });
+                    }
+                }
+            ]
+        });
+    }
+
     saveByline(newId) {
         const formData = new FormData();
         const payload = [{ type: 'byline', id: this.data.id, fields: this.data.fields }];
@@ -808,9 +869,20 @@ class BylineEditor {
             if (this.endcallback) {
                 this.endcallback(newId);
             }
+            this.publishByline(newId || this.data.id);
         }).catch((error) => {
             console.log('error: ', error);
         });
+    }
+
+    publishByline(id) {
+        const formData = new FormData();
+        formData.append('id', id);
+        this.api.v1.util.httpClient.request('/ajax/publish/save-article', { body: formData, method: 'POST' }).then((resp) => {
+            console.log('Byline published successfully');
+        }).catch((error) => {
+            console.log('error: ', error);
+        });        
     }
 
     deleteNewlyCreatedImage() {
@@ -1848,6 +1920,10 @@ class ParallaxSupport {
                         title: 'None (default)',
                         value: '',
                         selected: !this.data.spaceBelow
+                    }, {
+                        title: '20% of viewport',
+                        value: '20',
+                        selected: this.data.spaceBelow === '20'
                     }, {
                         title: '50% of viewport',
                         value: '50',
@@ -3207,6 +3283,7 @@ class ArticleAudio {
         this.rootModel = params.rootModel;
         this.setter = params.setter;
         this.log = params.log;
+        this.helpers = params.helpers;
         this.enabled = true;
         this.dom = {
             audioFields: {
@@ -3215,7 +3292,9 @@ class ArticleAudio {
                 playTime: null,
                 fileType: null,
                 disableField: null
-            }
+            },
+            texttospeechEnabled: null,
+            hidePlacementInEditor: null,
         };
         this.bindingsHandler = this.onMarkup.bind(this);
         this.hasAudioCollection = this.api.v1.config.get('drawerAdditions').some((item) => item.collection === 'Audio');
@@ -3240,7 +3319,24 @@ class ArticleAudio {
                     {{ /hasAudioCollection }}
                  </div>
             </div>
- 
+
+            {{ #hasTextToSpeech }}
+            <div class="lab-formgroup lab-grid">
+                <h3 class="lab-grid-large-12">Text-to-Speech Settings</h3>
+                <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                    <p class="lab-info">Override global settings (enabled: {{ globalConfig.texttospeechEnabled }})</p>
+                </div>
+                <div class="lab-formgroup-item lab-grid-large-12 lab-inline">
+                    <label for="texttospeechEnabled">Text-to-Speech enabled</label>
+                    <input type="checkbox" name="fields.texttospeechEnabled" id="texttospeechEnabled" value="1" {{ #fields.texttospeechEnabled }}checked{{ /fields.texttospeechEnabled }}>
+                </div>
+                <div class="lab-formgroup-item lab-grid-large-12 lab-inline">
+                    <label for="hidePlacementInEditor">Hide placement in editor</label>
+                    <input type="checkbox" name="fields.hidePlacementInEditor" id="hidePlacementInEditor" value="1" {{ #fields.hidePlacementInEditor }}checked{{ /fields.hidePlacementInEditor }}>
+                </div>
+            </div>
+            {{ /hasTextToSpeech }}
+
         </div>`;
     }
 
@@ -3252,21 +3348,49 @@ class ArticleAudio {
     }
 
     onPaths() {
-        return {};
+        return {
+            'fields.texttospeechEnabled': { node: 'fields.texttospeechEnabled', boolean: true },
+            'fields.hidePlacementInEditor': { node: 'fields.hidePlacementInEditor', boolean: true }
+        };
     }
 
     onMarkup() {
+        // Get global Text-to-Speech settings
+        const audioSettings = this.api.v1.config.get('audio_settings') ?? {};
+        const globalTexttospeechEnabled = audioSettings.texttospeech?.enabledGlobally ?? false;
+        const globalhidePlacementInEditor = audioSettings.texttospeech?.hidePlacementInEditor ?? false;
+
+        // Get article-specific values, default to global config if not set
+        const articleTexttospeechEnabled = this.rootModel.get('fields.texttospeechEnabled');
+        const articlehidePlacementInEditor = this.rootModel.get('fields.hidePlacementInEditor');
+
+        // Use article value if explicitly set, otherwise use global config
+        const effectiveTexttospeechEnabled = articleTexttospeechEnabled !== undefined && articleTexttospeechEnabled !== null
+            ? this.helpers.toBoolean(articleTexttospeechEnabled)
+            : globalTexttospeechEnabled;
+
+        const effectivehidePlacementInEditor = articlehidePlacementInEditor !== undefined && articlehidePlacementInEditor !== null
+            ? this.helpers.toBoolean(articlehidePlacementInEditor)
+            : globalhidePlacementInEditor;
+
         const markup = this.api.v1.util.dom.renderTemplate(this.template, {
             fields: {
-                teaserAudio: this.rootModel.get('fields.teaserAudio')
+                teaserAudio: this.rootModel.get('fields.teaserAudio'),
+                texttospeechEnabled: effectiveTexttospeechEnabled,
+                hidePlacementInEditor: effectivehidePlacementInEditor
             },
             hasAudioCollection: this.hasAudioCollection,
+            hasTextToSpeech: this.api.v1.config.get('audio_settings.texttospeech.enable') === true,
             audio: {
                 disableField: this.rootModel.get('fields.teaserAudio.urlFieldDisabled') || Boolean(this.rootModel.get('fields.teaserAudio')),
                 title: this.rootModel.get('fields.teaserAudio.title'),
                 playTime: this.rootModel.get('fields.teaserAudio.playTime'),
                 fileType: this.rootModel.get('fields.teaserAudio.fileType'),
                 url: this.rootModel.get('fields.teaserAudio')
+            },
+            globalConfig: {
+                texttospeechEnabled: globalTexttospeechEnabled,
+                hidePlacementInEditor: globalhidePlacementInEditor
             }
         }, true);
 
@@ -3306,6 +3430,10 @@ class ArticleAudio {
             }, false);
 
         }
+
+        // Handle Text-to-Speech settings checkboxes
+        this.dom.texttospeechEnabled = markup.querySelector('#texttospeechEnabled');
+        this.dom.hidePlacementInEditor = markup.querySelector('#hidePlacementInEditor');
 
         return markup;
     }
@@ -3682,16 +3810,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class ArticleCitation {
 
-    constructor(api, menuItem, aiOptions = { model: 'gpt-4o' }) {
+    constructor(api, menuItem, aiOptions = { model: 'gpt-4o' }, updatedEditor = false) {
 
         this.api = api;
         this.rootModel = this.api.v1.model.query.getRootModel();
         this.menuItem = menuItem;
-        this.bodytext = this.setupBodytext();
+        this.bodytext = this.setupBodytext(updatedEditor);
 
         this.enabled = false;
         this.modal = null;
         this.aiOptions = aiOptions;
+        this.updatedEditor = updatedEditor;
 
         this.template = `
             <div class="lab-modal-form lab-grid">
@@ -3723,16 +3852,25 @@ class ArticleCitation {
         `;
         this.display();
         this.generatedContent = '';
-        this.temporaryContent = '<span class="temporaryGeneratedString"> </span>';
+
+        if (updatedEditor === false) {
+            // Instead of adding temporary content add it editor directly.
+            this.temporaryContent = '<span class="temporaryGeneratedString"> </span>';
+        } else {
+            // Pausing blur event for the editor.
+            this.api.v1.editor.suspend();
+        }
+
         this.contentRemove = '';
         this.contentUpdate = '';
 
     }
 
-    setupBodytext() {
-        this.menuItem.menu.tool.insertMarkup('<span class="temporaryGeneratedString"> </span>');
+    setupBodytext(updatedEditor) {
+        if (!updatedEditor) {
+            this.menuItem.menu.tool.insertMarkup('<span class="temporaryGeneratedString"> </span>');
+        }
         return this.rootModel.get('fields.bodytext');
-
     }
 
     getMarkup() {
@@ -3856,14 +3994,40 @@ class ArticleCitation {
                     btnOverwrite.addEventListener('click', (event) => {
                         this.contentUpdate = generatedText.textContent;
                         this.contentRemove = this.bodytext;
+
+                        // Insert for new text editor.
+                        if (this.updatedEditor) {
+                            // Remove all bodytext.
+                            this.api.v1.editor.bodytext.clear();
+
+                            // insert text at start.
+                            this.api.v1.editor.bodytext.insert(this.contentUpdate);
+
+                            // Set focus back to editor.
+                            this.api.v1.editor.focus();
+                        }
+
                         modal.close();
                     });
 
                     // Insert into bodytext
                     const btnInsert = modalMarkup.querySelector(`#suggest-btn-insert-content`);
                     btnInsert.addEventListener('click', (event) => {
-                        this.contentUpdate = generatedText.textContent;
+
+                        // Insert for new text editor.
+                        if (this.updatedEditor) {
+
+                            // insert text at cursor.
+                            this.api.v1.editor.selection.insert(generatedText.textContent);
+                            // Set focus back to editor.
+                            this.api.v1.editor.focus();
+                        } else {
+                            // Insert for old text editor.
+                            this.contentUpdate = generatedText.textContent;
+                        }
+
                         this.contentRemove = this.temporaryContent;
+
                         modal.close();
                     });
 
@@ -3896,7 +4060,6 @@ class ArticleCitation {
 
                     // Update bodytext
                     this.rootModel.set('fields.bodytext', this.contentUpdate);
-
                 }
             }
 
@@ -4143,9 +4306,10 @@ class ArticleDates {
     dateTransformer(pathInfo, toTimestamp = true) {
         const dateTime = this.dom[pathInfo.node].dateTime.value;
         if (toTimestamp) {
-            return this.getTimestamp(dateTime);
+            const result = dateTime ? this.getTimestamp(dateTime) : null;
+            return result ? result : null;
         }
-        return `${ new Date(dateTime).toISOString().split('.')[0] }Z`;
+        return dateTime ? `${ new Date(dateTime).toISOString().split('.')[0] }Z` : null;
     }
 
     onMarkup() {
@@ -4195,6 +4359,9 @@ class ArticleDates {
     }
 
     getTimestamp(dateTime) {
+        if (!dateTime) {
+            return null;
+        }
         const d = new Date(`${ dateTime }Z`);
         const localDate = new Date(d.valueOf() + d.getTimezoneOffset() * 60000);
         return localDate.getTime() / 1000;
@@ -4230,6 +4397,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ArticleGeneralTeaser: () => (/* binding */ ArticleGeneralTeaser)
 /* harmony export */ });
+/* harmony import */ var _lib_helpers_TermHelper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helpers/TermHelper.js */ "./modules/lib/helpers/TermHelper.js");
+
+
 class ArticleGeneralTeaser {
 
     constructor(api, params) {
@@ -4248,13 +4418,16 @@ class ArticleGeneralTeaser {
             tagHandlerContainer: null,
             tagHandler: null,
             sectionElement: null,
+            sectionLabel: null,
+            subsectionElement: null,
+            subsectionLabel: null,
             focusTagInput: false
         };
         this.models = {
             pano: null,
             height: null
         };
-        const ar = this.api.v1.config.get('image.defaultAspectRatio') || 0.5;
+        const ar = 0.45;
         this.cropContainer = {
             panow: 270,
             panoh: Math.round(ar * 270),
@@ -4323,6 +4496,20 @@ class ArticleGeneralTeaser {
                 </div>
             </div>
 
+            <div class="lab-formgroup lab-grid lab-space-below-large" id="subsection-container">
+                <div class="lab-formgroup-item lab-grid-large-12">
+                    <h2 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-none">Subsection</h2>
+                    <select name="fields.subsection" id="subsection">
+                        <option value="">Select subsection</option>
+                        {{ #subsectionOptions }}
+                        <option value="{{ value }}"{{ #selected }} selected{{ /selected }}>{{ value }}</option>
+                        {{ /subsectionOptions }}
+                    </select>
+                    <p class="lab-info">Select a tag to set as subsection for this article</p>
+                    <p id="subsection-label">{{ #subsection }}Selected subsection: <strong>{{ subsection }}</strong>{{ /subsection }}{{ ^subsection }}No subsection selected{{ /subsection }}</p>
+                </div>
+            </div>
+
             <div class="lab-formgroup lab-grid lab-space-below-large">
                 <br><br><br><br>
                 <!-- space to allow tag-suggestions ... -->
@@ -4365,6 +4552,9 @@ class ArticleGeneralTeaser {
                     const v = value.trim();
                     return v === this.rootModel.get('fields.title') ? '' : v;
                 }
+            },
+            'fields.subsection': {
+                node: 'fields.subsection'
             }
         };
     }
@@ -4375,6 +4565,11 @@ class ArticleGeneralTeaser {
 
     onMarkup() {
         const section = (this.rootModel.get('primaryTags.section') || '').toLowerCase();
+        const subsection = this.rootModel.get('fields.subsection') || '';
+        const tags = this.rootModel.get('tags') || [];
+        const tagsAsTerms = lab_api.v1.properties.get('tags_as_terms');
+        const enableSubsectionPicker = tagsAsTerms || !!this.api.v1.config.get('enableSubsectionPicker');
+
         const markup = this.api.v1.util.dom.renderTemplate(this.template, {
             fields: {
                 teaserKicker: this.api.v1.util.string.stripTags(this.rootModel.get('fields.teaserKicker') || this.rootModel.get('fields.kicker')),
@@ -4383,7 +4578,10 @@ class ArticleGeneralTeaser {
             },
             sections: (this.api.v1.config.get('tags.section') || []).map((name) => ({ name: name.toLowerCase(), selected: name.toLowerCase() === section })),
             section,
-            tags: this.rootModel.get('tags')
+            tags,
+            subsection,
+            subsectionOptions: tagsAsTerms ? [] : tags.map((tag) => ({ value: tag, selected: tag === subsection })),
+            tagsAsTerms
         }, true);
         this.dom.crops = markup.querySelector('[data-placeholder="lab-frontcrops"]');
 
@@ -4483,16 +4681,28 @@ class ArticleGeneralTeaser {
         const tagHandlerContainer = markup.querySelector('[data-handler="tagHandler"]');
         const sectionElement = markup.querySelector('[name="primaryTags.section"]');
         const sectionLabel = markup.querySelector('#section-label');
+        const subsectionElement = markup.querySelector('[name="fields.subsection"]');
+        const subsectionLabel = markup.querySelector('#subsection-label');
+        const subsectionContainer = markup.querySelector('#subsection-container');
+
+        if (!enableSubsectionPicker && subsectionContainer) {
+            subsectionContainer.style.display = 'none';
+        }
 
         if (this.dom.tagHandlerContainer) { this.dom.tagHandlerContainer.replaceWith(tagHandlerContainer); }
         if (this.dom.sectionElement) { this.dom.sectionElement.replaceWith(sectionElement); }
         if (this.dom.sectionLabel) { this.dom.sectionLabel.replaceWith(sectionLabel); }
+        if (this.dom.subsectionElement && subsectionElement) { this.dom.subsectionElement.replaceWith(subsectionElement); }
+        if (this.dom.subsectionLabel && subsectionLabel) { this.dom.subsectionLabel.replaceWith(subsectionLabel); }
 
         this.dom.tagHandlerContainer = tagHandlerContainer;
         this.dom.sectionElement = sectionElement;
         this.dom.sectionLabel = sectionLabel;
+        if (subsectionElement) this.dom.subsectionElement = subsectionElement;
+        if (subsectionLabel) this.dom.subsectionLabel = subsectionLabel;
 
         this.setupSections();
+        this.setupSubsection();
         this.setupTags();
 
         return markup;
@@ -4596,6 +4806,73 @@ class ArticleGeneralTeaser {
                 path: 'primaryTags.section'
             });
         }, false);
+    }
+
+    setupSubsection() {
+        if (!this.dom.subsectionElement) { return; }
+
+        const tagsAsTerms = lab_api.v1.properties.get('tags_as_terms');
+
+        this.dom.subsectionElement.addEventListener('change', (event) => {
+            const previousSubsection = this.rootModel.get('fields.subsection') || '';
+            const value = this.dom.subsectionElement.value;
+            this.rootModel.set('fields.subsection', value);
+
+            if (tagsAsTerms) {
+                if (previousSubsection) { this.api.v1.util.tags.remove(previousSubsection); }
+                if (value) { this.api.v1.util.tags.add(value); }
+            }
+
+            // Update the label immediately
+            if (this.dom.subsectionLabel) {
+                if (value) {
+                    // Use DOM methods to avoid XSS (value comes from user input)
+                    this.dom.subsectionLabel.textContent = 'Selected subsection: ';
+                    const strong = document.createElement('strong');
+                    strong.textContent = value;
+                    this.dom.subsectionLabel.appendChild(strong);
+                } else {
+                    this.dom.subsectionLabel.textContent = 'No subsection selected';
+                }
+            }
+
+            this.log({
+                type: 'data',
+                app: this.constructor.name,
+                path: 'fields.subsection'
+            });
+        }, false);
+
+        if (tagsAsTerms) {
+            // Populate subsection options from the terms API, filtered by current section
+            const section = (this.rootModel.get('primaryTags.section') || '').toLowerCase();
+            const currentSubsection = this.rootModel.get('fields.subsection') || '';
+
+            _lib_helpers_TermHelper_js__WEBPACK_IMPORTED_MODULE_0__.TermHelper.fetchTerms('section').then((terms) => {
+                const parentTerm = _lib_helpers_TermHelper_js__WEBPACK_IMPORTED_MODULE_0__.TermHelper.findTermByName(terms, section);
+                const children = parentTerm ? _lib_helpers_TermHelper_js__WEBPACK_IMPORTED_MODULE_0__.TermHelper.getChildTerms(terms, parentTerm.id) : [];
+
+                // Clear existing options (keep the empty default)
+                this.dom.subsectionElement.innerHTML = '<option value="">Select subsection</option>';
+                children.forEach((term) => {
+                    const option = document.createElement('option');
+                    option.value = term.name;
+                    option.textContent = term.displayName;
+                    if (term.name === currentSubsection) { option.selected = true; }
+                    this.dom.subsectionElement.appendChild(option);
+                });
+            }).catch(() => {
+                // Silently fail — subsection picker stays empty
+            });
+        } else {
+            // Tag-based: validate subsection is still in current tags
+            // (if tag was removed, clear the subsection to maintain consistency)
+            const currentSubsection = this.rootModel.get('fields.subsection') || '';
+            const tags = this.rootModel.get('tags') || [];
+            if (currentSubsection && !tags.includes(currentSubsection)) {
+                this.rootModel.set('fields.subsection', '');
+            }
+        }
     }
 
     updateDisabledState(field, forceClean = false, compareField = null) {
@@ -4799,11 +5076,13 @@ class ArticleGeneralTeaser {
 
     async setFrontCropFromModel(model, instance_of) {
         this.dom.crops.classList.add('lab-busy');
+        const altText = model ? (model.get('fields.altText') || '') : '';
         const panoData = this.api.v1.util.object.merge(this.defaultCropData(), {
             contentdata: {
                 instance_of: instance_of || model.get('instance_of'),
                 fields: {
-                    metadata_key: 'fcp'
+                    metadata_key: 'fcp',
+                    ...(altText && { altText })
                 }
             }
         });
@@ -4811,7 +5090,8 @@ class ArticleGeneralTeaser {
             contentdata: {
                 instance_of: instance_of || model.get('instance_of'),
                 fields: {
-                    metadata_key: 'fch'
+                    metadata_key: 'fch',
+                    ...(altText && { altText })
                 }
             },
             type: 'image'
@@ -5242,7 +5522,7 @@ class ArticleStyling {
                 </div>
 
                 <div class="lab-formgroup-item lab-grid-large-6 lab-inline">
-                    <label for="hidePublishedDate">Hide published date</label>
+                    <label for="hidePublishedDate">Hide published/modified date</label>
                     <input type="checkbox" value="1" name="fields.hidePublishedDate" id="hidePublishedDate" {{ #fields.hidePublishedDate }}checked{{ /fields.hidePublishedDate }}>
                 </div>
 
@@ -5688,6 +5968,15 @@ class ArticleTranslate {
             const articleId = this.rootModel.get('id');
             const languageName = this.getLanguageName(this.selectedLanguage);
 
+            // Clear editor structure to avoid showing old content in the editor.
+            if (this.rootModel && this.api.v1.editor.hasBeenUsed(this.rootModel, 'bodytext')) {
+                try {
+                    this.api.v1.editor.structure.clear(this.rootModel, 'fields.bodytext');
+                } catch (error) {
+                    Sys.logger.warn('[ArticleTranslate] - Failed to clear editor structure:', error);
+                }
+            }
+
             // Get new copy data - getNodeAndData
             this.getNodeAndData(articleId).then((nodeData) => {
             // Translate content - translateContent
@@ -5722,7 +6011,6 @@ class ArticleTranslate {
 
                                 // Force an editor reload to see changes:
                                 window.location.href = `/edit/article/id/${ articleId }`;
-
                             });
                     });
             });
@@ -6720,6 +7008,101 @@ class ArticleTranslate {
 
 /***/ }),
 
+/***/ "./modules/apps/article/NTBExport.js":
+/*!*******************************************!*\
+  !*** ./modules/apps/article/NTBExport.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   NTBExport: () => (/* binding */ NTBExport)
+/* harmony export */ });
+class NTBExport {
+
+    constructor(api, params) {
+        this.api = api;
+        this.rootModel = params.rootModel;
+        this.enabled = this.api.v1.user.hasPermission('export_ntb');
+        this.template = `<div class="lab-modal-form lab-grid lab-hidden">
+            <div class="lab-formgroup lab-grid lab-space-above-none">
+                <h2 class="lab-title lab-grid-large-12 lab-space-below-medium lab-space-above-none">Export article to NTB</h2>
+                <p class="lab-para lab-grid-large-12">Last exported: <strong data-name="export-date">--</strong></p>
+            </div>
+            <div class="lab-formgroup lab-grid lab-space-above-none lab-align-right">
+                <div class="lab-formgroup-item lab-grid-large-12 lab-space-below-medium">
+                    <input type="button" value="Export article">
+                </div>
+            </div>
+            <div class="lab-formgroup lab-grid lab-space-above-none">
+                <p class="lab-para lab-grid-large-12" id="messageArea"></p>
+            </div>
+        </div>`;
+    }
+
+    // SettingsFront: If section exist: add item to it, if not: create.
+    onAside() {
+        return {
+            section: 'Export',
+            label: 'NTB'
+        };
+    }
+
+    onPaths() {}
+
+    onMarkup() {
+        const markupObject = {
+            fields: {
+                name: this.rootModel.get('fields.name'),
+                labId: this.rootModel.get('fields.id')
+            }
+        };
+        const markup = this.api.v1.util.dom.renderTemplate(this.template, markupObject, true);
+        const exportDate = markup.querySelector('[data-name="export-date"]');
+        const lastExported = this.rootModel.get('fields.ntbNitfLastExported');
+        if (lastExported) {
+            exportDate.textContent = new Date(lastExported * 1000).toLocaleString();
+        }
+        this.setupSubmit(markup, exportDate);
+        return markup;
+    }
+
+    setupSubmit(markup, exportDate) {
+        const btn = markup.querySelector('input[type=button]');
+        const messageArea = markup.querySelector('#messageArea');
+
+        btn.addEventListener('click', (event) => {
+            markup.classList.add('lab-busy');
+            btn.setAttribute('disabled', 'disabled');
+            messageArea.textContent = '';
+
+            const id = this.rootModel.getId();
+            fetch(`/api/v2/ntb-nitf-export/${ id }`, { method: 'PUT' })
+                .then((response) => response.json().then((json) => ({ ok: response.ok, json })))
+                .then(({ ok, json }) => {
+                    if (ok) {
+                        messageArea.textContent = `Exported as ${ json.filename }`;
+                        exportDate.textContent = new Date(json.ntbNitfLastExported * 1000).toLocaleString();
+                    } else {
+                        const message = json?.error?.[0]?.message;
+                        messageArea.textContent = message ? `Export failed: ${ message }` : 'Export failed.';
+                    }
+                })
+                .catch(() => {
+                    messageArea.textContent = 'Export failed.';
+                })
+                .finally(() => {
+                    markup.classList.remove('lab-busy');
+                    btn.removeAttribute('disabled');
+                });
+        });
+    }
+
+}
+
+
+/***/ }),
+
 /***/ "./modules/apps/article/RoxenExport.js":
 /*!*********************************************!*\
   !*** ./modules/apps/article/RoxenExport.js ***!
@@ -6767,6 +7150,22 @@ class RoxenExport {
             </div>
             <div class="lab-formgroup lab-grid lab-space-above-none">
                 <p class="lab-para lab-grid-large-12" id="messageArea"></p>
+            </div>
+            <div class="lab-formgroup lab-grid lab-space-above-none" id="exportHistoryContainer" style="display:none;">
+                <h3 class="lab-title lab-grid-large-12 lab-space-below-small lab-space-above-none">Export history</h3>
+                <div class="lab-grid-large-12">
+                    <table class="lab-table lab-table-tight" id="exportHistoryTable" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Publication</th>
+                                <th>Edition date</th>
+                                <th>Exported</th>
+                                <th>User</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>`;
     }
@@ -6862,7 +7261,10 @@ class RoxenExport {
 
         this.dom.exportDate = markup.querySelector('[data-name=export-date]');
         this.dom.messageArea = markup.querySelector('#messageArea');
+        this.dom.exportHistoryContainer = markup.querySelector('#exportHistoryContainer');
+        this.dom.exportHistoryTableBody = markup.querySelector('#exportHistoryTable tbody');
         this.updateExportDate();
+        this.renderExportHistory();
         this.setupSubmit(markup);
         return markup;
     }
@@ -6889,6 +7291,7 @@ class RoxenExport {
                     const publication = `lab-${ site.id }`;
                     const publicationsSelect = markup.querySelector('#lab-roxen-publication-select');
                     const publicationFromSelect = publicationsSelect.value;
+                    const selectedPublications = Array.from(publicationsSelect.selectedOptions).map((o) => ({ value: o.value, name: o.text }));
                     data.data.fields.print_publication = (publicationFromSelect || publication);
                     data.data.fields.print_edition_date = editionDate;
                     if (this.multiPublicationEnabled) {
@@ -6916,8 +7319,12 @@ class RoxenExport {
                                 this.rootModel.set('fields.print_publication', (publicationFromSelect || publication));
                                 this.rootModel.set('fields.print_edition_date', editionDate);
                                 this.rootModel.set('fields.print_id', validItems.map((item) => item.object_id).join(','));
+                                selectedPublications.forEach((pub) => {
+                                    this.addExportHistoryEntry(pub.value, editionDate, pub.name);
+                                });
                                 this.displayMessage(`The article was successfully exported to ${ validItems.length } publication(s) in Roxen`);
                                 this.updateExportDate();
+                                this.renderExportHistory();
                             } else {
                                 // Some items were missing object_id or array was empty
                                 this.displayMessage('There was a problem sending the article');
@@ -6929,8 +7336,10 @@ class RoxenExport {
                             this.rootModel.set('fields.print_publication', (publicationFromSelect || publication));
                             this.rootModel.set('fields.print_edition_date', editionDate);
                             this.rootModel.set('fields.print_id', resp.object_id);
+                            this.addExportHistoryEntry((publicationFromSelect || publication), editionDate, selectedPublications.length ? selectedPublications[0].name : '');
                             this.displayMessage('The article was successfully exported to Roxen');
                             this.updateExportDate();
+                            this.renderExportHistory();
                         } else {
                             this.displayMessage('There was a problem sending the article');
                             console.log(resp);
@@ -6959,6 +7368,84 @@ class RoxenExport {
             formattedDate = this.dateTimeHelper.timestampToNiceDate(lastExport);
         }
         this.dom.exportDate.innerHTML = formattedDate;
+    }
+
+    /**
+     * Returns the parsed export history array from the model.
+     * @returns {Array<Object>} The export history entries.
+     */
+    getExportHistory() {
+        const historyRaw = this.rootModel.get('fields.roxen_export_history_json') || [];
+        
+        if (typeof historyRaw === 'string') {
+            try {
+                const parsed = JSON.parse(historyRaw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                console.warn('Failed to parse fields.roxen_export_history_json in RoxenExport.getExportHistory()', e);
+                return [];
+            }
+        }
+        
+        if (Array.isArray(historyRaw)) {
+            return [...historyRaw];
+        }
+        
+        return [];
+    }
+
+    /**
+     * Renders the export history table from stored history entries.
+     * Hides the table if no history exists.
+     */
+    renderExportHistory() {
+        const history = this.getExportHistory();
+
+        if (!history.length) {
+            this.dom.exportHistoryContainer.style.display = 'none';
+            return;
+        }
+
+        this.dom.exportHistoryContainer.style.display = '';
+        this.dom.exportHistoryTableBody.innerHTML = '';
+        history.forEach((entry) => {
+            const row = document.createElement('tr');
+            const pubCell = document.createElement('td');
+            pubCell.textContent = entry.publicationName || entry.publication || '';
+            const editionCell = document.createElement('td');
+            if (entry.editionDate) {
+                const [y, m, d] = entry.editionDate.split('-');
+                editionCell.textContent = this.dateTimeHelper.format(new Date(y, m - 1, d), '{{ DD }}.{{ MM }}.{{ YYYY }}');
+            }
+            const exportedCell = document.createElement('td');
+            exportedCell.textContent = entry.timestamp ? this.dateTimeHelper.format(this.dateTimeHelper.timestampToDate(entry.timestamp), '{{ DD }}.{{ MM }}.{{ YYYY }} {{ HH }}:{{ mm }}') : '';
+            const userCell = document.createElement('td');
+            userCell.textContent = entry.userName || '';
+            row.append(pubCell, editionCell, exportedCell, userCell);
+            this.dom.exportHistoryTableBody.appendChild(row);
+        });
+    }
+
+    /**
+     * Adds a new entry to the export history stored on the model.
+     * @param {string} publication - The publication identifier (e.g. "lab-123").
+     * @param {string} editionDate - The selected print edition date.
+     * @param {string} publicationName - The human-readable publication name.
+     */
+    addExportHistoryEntry(publication, editionDate, publicationName) {
+        const history = this.getExportHistory();
+        const userName = this.api.v1.user.getUserName();
+
+        history.unshift({
+            publication,
+            publicationName,
+            editionDate,
+            timestamp: Math.floor(Date.now() / 1000),
+            userId: this.api.v1.user.getUserId(),
+            userName
+        });
+
+        this.rootModel.set('fields.roxen_export_history_json', history);
     }
 
 }
@@ -8039,7 +8526,8 @@ class ArticleSettings {
             'RoxenExport',
             'AptomaExport',
             'WoodwingExport',
-            'ArticleChangelog'
+            'ArticleChangelog',
+            'NTBExport'
         ].concat(additions).filter((app) => !removals.includes(app));
         this.apps = {};
 
@@ -8450,10 +8938,11 @@ __webpack_require__.r(__webpack_exports__);
 class FieldVersion {
 
     constructor(api, {
-        field = null, model = null, limit = 400, callbacks = {}, selector = ''
+        field = null, resetFields = [], model = null, limit = 400, callbacks = {}, selector = ''
     } = {}) {
         this.api = api;
         this.field = field;
+        this.resetFields = resetFields;
         this.model = model;
         this.limit = limit;
         this.callbacks = callbacks;
@@ -8677,6 +9166,9 @@ class FieldVersion {
             return;
         }
         this.model.set(`fields.${ this.field }`, this.state.data[this.state.index].value);
+        for (const field of this.resetFields) {
+            this.model.set(`fields.${ field }`, null);
+        }
         this.end();
         this.api.v1.model.highlight.message(this.model, 'Revision inserted');
     }
@@ -9995,6 +10487,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_helpers_ContentLanguages_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helpers/ContentLanguages.js */ "./modules/lib/helpers/ContentLanguages.js");
 
 
+const schemaTypes = [
+    { value: 'NewsArticle', label: 'News Article' },
+    { value: 'Article', label: 'Article' },
+    { value: 'OpinionNewsArticle', label: 'Opinion Article' },
+    { value: 'LiveBlogPosting', label: 'Liveblog' },
+    { value: 'Recipe', label: 'Recipe' },
+    { value: 'VideoObject', label: 'Video' },
+    { value: 'BroadcastEvent', label: 'Broadcast Event (Live Video)' },
+    { value: 'ImageGallery', label: 'Image Gallery' }
+];
+
 class SeoSettings {
 
     constructor(api, params) {
@@ -10016,6 +10519,16 @@ class SeoSettings {
                     <label for="seo-seodescription">SEO description</label>
                     <textarea data-sugegstion-name="seo_content" name="fields.seodescription" id="seo-seodescription" placeholder="Search engine description ...">{{ fields.seodescription }}</textarea>
                 </div>
+
+                ${ !this.isFrontPage ? `<div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                    <label for="seo-schematype">Schema Type</label>
+                    <select name="fields.seoschematype" id="seo-schematype">
+                        <option value="">Select schema type</option>
+                        {{ #schemaTypes }}
+                        <option value="{{ value }}"{{ #selected }} selected{{ /selected }}>{{ label }}</option>
+                        {{ /schemaTypes }}
+                    </select>
+                </div>` : '' }
 
                 <div class="lab-formgroup-item lab-grid-large-12 lab-inline lab-grid-gap">
                     <label for="norobots">Hide from Google</label>
@@ -10082,6 +10595,9 @@ class SeoSettings {
             'fields.norobots': {
                 node: 'fields.norobots', boolean: true
             },
+            'fields.seoschematype': {
+                node: 'fields.seoschematype'
+            },
             'fields.sometitle': {
                 node: 'fields.sometitle'
             },
@@ -10100,6 +10616,9 @@ class SeoSettings {
         const selectedLanguage = seolanguage || defaultLanguage;
         const languages = _lib_helpers_ContentLanguages_js__WEBPACK_IMPORTED_MODULE_0__["default"].map((language) => ({ name: language.name, code: language.code, selected: language.code === selectedLanguage }));
 
+        const selectedSchemaType = this.rootModel.get('fields.seoschematype') || 'NewsArticle';
+        const mappedSchemaTypes = schemaTypes.map((type) => ({ value: type.value, label: type.label, selected: type.value === selectedSchemaType }));
+
         if (this.rootModel.getType() === 'page_front') {
             const frontMarkup = this.api.v1.util.dom.renderTemplate(this.template, {
                 fields: {
@@ -10113,6 +10632,7 @@ class SeoSettings {
                 },
                 images_url: this.api.v1.properties.get('image_server'),
                 languages,
+                schemaTypes: mappedSchemaTypes,
                 defaultLanguage
             }, true);
 
@@ -10141,6 +10661,7 @@ class SeoSettings {
         const markup = this.api.v1.util.dom.renderTemplate(this.template, {
             buttons,
             languages,
+            schemaTypes: mappedSchemaTypes,
             defaultLanguage,
             fields: {
                 seotitle: this.rootModel.get('fields.seotitle'),
@@ -10166,8 +10687,17 @@ class SeoSettings {
                 const inputEls = [...markup.querySelectorAll(`[data-sugegstion-name="${ name }"]`)];
                 this.toggleSuggestUI(false, btn, inputEls);
                 lab_api.v1.ns.get('textAssistant.fetchByName')(name).then((result) => {
-                    if (result) {
+                    if (result && Object.keys(result).length > 0) {
                         this.setSuggestionValue(result, inputEls);
+                    } else {
+                        this.api.v1.ui.modal.dialog({
+                            container: { state: { error: true } },
+                            content: {
+                                title: 'Missing content',
+                                description: 'The article needs body text before generating suggestions.'
+                            },
+                            footer: { buttons: [{ type: 'submit', value: 'Close', highlight: true }] }
+                        });
                     }
                     this.toggleSuggestUI(true, btn, inputEls);
                 }).catch((error) => {
@@ -10824,10 +11354,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TeaserEditor_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./TeaserEditor.js */ "./modules/apps/TeaserEditor.js");
 /* harmony import */ var _FrontContentSupport_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./FrontContentSupport.js */ "./modules/apps/FrontContentSupport.js");
 /* harmony import */ var _ParallaxSupport_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./ParallaxSupport.js */ "./modules/apps/ParallaxSupport.js");
-/* harmony import */ var _AddComment_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./AddComment.js */ "./modules/apps/AddComment.js");
-/* harmony import */ var _article_TopicSummary_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./article/TopicSummary.js */ "./modules/apps/article/TopicSummary.js");
-/* harmony import */ var _ImageColors_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./ImageColors.js */ "./modules/apps/ImageColors.js");
-/* harmony import */ var _fieldversion_index_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./fieldversion/index.js */ "./modules/apps/fieldversion/index.js");
+/* harmony import */ var _article_TopicSummary_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./article/TopicSummary.js */ "./modules/apps/article/TopicSummary.js");
+/* harmony import */ var _ImageColors_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./ImageColors.js */ "./modules/apps/ImageColors.js");
+/* harmony import */ var _fieldversion_index_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./fieldversion/index.js */ "./modules/apps/fieldversion/index.js");
+/* harmony import */ var _article_NTBExport_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./article/NTBExport.js */ "./modules/apps/article/NTBExport.js");
 /**
  * Export a list of standalone apps as modules
  * Secondary views may override by replacing one or more modules
@@ -10909,12 +11439,12 @@ __webpack_require__.r(__webpack_exports__);
     TeaserEditor: _TeaserEditor_js__WEBPACK_IMPORTED_MODULE_30__.TeaserEditor,
     FrontContentSupport: _FrontContentSupport_js__WEBPACK_IMPORTED_MODULE_31__.FrontContentSupport,
     ParallaxSupport: _ParallaxSupport_js__WEBPACK_IMPORTED_MODULE_32__.ParallaxSupport,
-    TopicSummary: _article_TopicSummary_js__WEBPACK_IMPORTED_MODULE_34__.TopicSummary,
-    ImageColors: _ImageColors_js__WEBPACK_IMPORTED_MODULE_35__.ImageColors,
-    FieldVersion: _fieldversion_index_js__WEBPACK_IMPORTED_MODULE_36__.FieldVersion,
+    TopicSummary: _article_TopicSummary_js__WEBPACK_IMPORTED_MODULE_33__.TopicSummary,
+    ImageColors: _ImageColors_js__WEBPACK_IMPORTED_MODULE_34__.ImageColors,
+    FieldVersion: _fieldversion_index_js__WEBPACK_IMPORTED_MODULE_35__.FieldVersion,
     NoticeSettings: _notice_index_js__WEBPACK_IMPORTED_MODULE_20__.NoticeSettings,
     NoticeGeneralSettings: _notice_NoticeGeneralSettings_js__WEBPACK_IMPORTED_MODULE_21__.NoticeGeneralSettings,
-    AddComment: _AddComment_js__WEBPACK_IMPORTED_MODULE_33__.AddComment
+    NTBExport: _article_NTBExport_js__WEBPACK_IMPORTED_MODULE_36__.NTBExport
 });
 
 
@@ -11850,10 +12380,41 @@ class Article {
             const headerImage = this.api.v1.model.query.getChildOfType(model, 'image');
             const imageId = headerImage.get('instance_of');
             if (this.imageServer && headerImage && imageId) {
-                const headerImageUrl = `${ this.imageServer }?imageId=${ imageId }&format=webp&width=500`;
+                const headerImageUrl = `${ this.imageServer }?imageId=${ imageId }&format=webp&width=1200`;
                 model.setFiltered('headerImageUrl', headerImageUrl);
             }
         }
+
+        // Hover effects on the image
+        const hoverClasses = [];
+        const hoverStyles = [];
+
+        const hoverScale = model.get('metadata.imageHoverScale');
+        if (hoverScale) {
+            hoverClasses.push('lab-has-hover-scale');
+            const scaleValue = hoverScale === 'scale-up-subtle' ? '1.05' : '1.1';
+            hoverStyles.push(`--hover-scale: ${ scaleValue }`);
+        }
+
+        const hoverFilter = model.get('metadata.imageHoverFilter');
+        if (hoverFilter) {
+            const filterType = hoverFilter.replace('filter-', '');
+            hoverClasses.push(`lab-has-hover-filter-${ filterType }`);
+
+            // Set filter value based on type
+            let filterValue;
+            if (filterType === 'brighten') {
+                filterValue = '1.2';
+            } else if (filterType === 'darken') {
+                filterValue = '0.8';
+            } else if (filterType === 'grayscale') {
+                filterValue = '0.8';
+            }
+            hoverStyles.push(`--hover-filter-${ filterType }: ${ filterValue }`);
+        }
+
+        model.setFiltered('hoverEffectClasses', hoverClasses.join(' '));
+        model.setFiltered('hoverEffectStyles', hoverStyles.join('; '));
     }
 
     onRendered(model, view) {
@@ -12051,21 +12612,109 @@ class ArticleFooter {
         this.ignoredTags = this.api.v1.config.get('page_settings.article.ignoredTags') || [];
         this.ignoredTagPrefix = this.api.v1.config.get('page_settings.article.ignoredTagPrefix') || [];
         this.adminIgnoredTags = !this.api.v1.config.get('showHiddenTagsOnArticle') ? (this.api.v1.config.get('tagsToHide') || '').split(',').map((tag) => tag.trim()) : [];
+
+        // Term compatibility: Load term configs from properties (exposed from PHP)
+        // These are cached in constructor for performance (avoid repeated lookups in onRender)
+        this.tagsAsTermsConfig = this.api.v1.properties.get('tags_as_terms');
+        this.termCollectionConfig = this.api.v1.properties.get('tag_term_collection') || 'keyword';
+        this.tagPagePathConfig = this.api.v1.config.get('tagPagePath') || '/tag/';
     }
 
     onRender(model, view) {
         const allIgnoredTags = [...new Set([...this.ignoredTags, ...this.adminIgnoredTags])];
+        const rootModel = this.api.v1.model.query.getRootModel();
 
-        const tags = (this.api.v1.model.query.getRootModel().get('tags') || []).filter((tag) => !allIgnoredTags.includes(tag)).filter((tag) => {
-            for (const prefix of this.ignoredTagPrefix) {
-                if (tag.startsWith(prefix)) {
-                    return false;
+        // Get regular tags (keep as strings for backward compatibility)
+        const tags = (rootModel.get('tags') || [])
+            .filter((tag) => !allIgnoredTags.includes(tag))
+            .filter((tag) => {
+                for (const prefix of this.ignoredTagPrefix) {
+                    if (tag.startsWith(prefix)) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+
+        // Term compatibility: Provide rich term objects when tags_as_terms is enabled
+        // (includes displayName, uriPath for proper display and hierarchical URLs)
+        const tagsAsTerms = this.tagsAsTermsConfig;
+        const termCollection = this.termCollectionConfig;
+        const terms = rootModel.get('term');
+        const mainterm = rootModel.get('mainterm');
+
+        // Build termData if terms are enabled and we have at least one source of term data
+        const hasTerms = tagsAsTerms && (
+            (terms && (terms[termCollection] || terms.section)) ||
+            (mainterm && mainterm.section)
+        );
+
+        let termData = null;
+        if (hasTerms) {
+            termData = [];
+
+            // Term compatibility: Add mainterm (section) first for proper display order
+            if (mainterm && mainterm.section) {
+                const sectionTerm = mainterm.section;
+                // Skip hidden terms and ignored tags
+                if (!allIgnoredTags.includes(sectionTerm.name) && !sectionTerm.hidden) {
+                    termData.push({
+                        name: sectionTerm.name || '',
+                        displayName: sectionTerm.displayName || sectionTerm.name || '',
+                        uriPath: sectionTerm.uriPath || sectionTerm.name || '',
+                        uriName: sectionTerm.uriName || sectionTerm.name || '',
+                        isMainTerm: true
+                    });
                 }
             }
-            return true;
-        });
-        model.setFiltered('tags', tags);
-        model.setFiltered('tagPagePath', this.api.v1.config.get('tagPagePath') || '/tag/');
+
+            // Term compatibility: Merge terms from both keyword and section collections
+            // (both collections can contain tags, need to check both)
+            const allRegularTerms = [
+                ...((terms && terms[termCollection]) || []),  // keyword collection
+                ...((terms && terms.section) || [])            // section collection
+            ];
+
+            // Filter and map all terms at once
+            const regularTerms = allRegularTerms
+                .filter((term) => !allIgnoredTags.includes(term.name))
+                .filter((term) => {
+                    for (const prefix of this.ignoredTagPrefix) {
+                        if (term.name && term.name.startsWith(prefix)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                })
+                // Skip hidden terms
+                .filter((term) => !term.hidden)
+                // Skip if already added as mainterm
+                .filter((term) => {
+                    if (mainterm && mainterm.section && mainterm.section.name === term.name) {
+                        return false;
+                    }
+                    return true;
+                })
+                // Remove duplicates by name (in case a term appears in both collections)
+                .filter((term, index, self) =>
+                    index === self.findIndex((t) => t.name === term.name)
+                )
+                .map((term) => ({
+                    name: term.name || '',
+                    displayName: term.displayName || term.name || '',
+                    uriPath: term.uriPath || term.name || '',
+                    uriName: term.uriName || term.name || '',
+                    isMainTerm: false
+                }));
+
+            termData = termData.concat(regularTerms);
+        }
+
+        // Set both for backward compatibility and new functionality
+        const tagPagePath = this.tagPagePathConfig;
+        model.setFiltered('tags', tags);              // Strings (backward compatible)
+        model.setFiltered('termData', termData);      // Rich objects (new)
+        model.setFiltered('tagPagePath', tagPagePath);
     }
 
 }
@@ -12090,6 +12739,8 @@ class ArticleHeader {
 
     constructor(api) {
         this.api = api;
+        this.rootModel = this.api.v1.model.query.getRootModel();
+        this.tagsAsTermsConfig = this.api.v1.properties.get('tags_as_terms');
     }
 
     onInserted(model) {
@@ -12099,6 +12750,58 @@ class ArticleHeader {
         }
     }
 
+    onReady(model, view) {
+        const tagsAsTerms = this.tagsAsTermsConfig;
+        const showSubsection = model.get('metadata.showSubsection');
+        if (showSubsection) {
+            const subsectionField = this.rootModel.get('fields.subsection');
+            let subsectionTerm;
+            const terms = this.rootModel.get('term');
+            if (subsectionField && tagsAsTerms && terms) {
+                if (terms.section) {
+                    const sectionTerm = terms.section.find((term) => term.name === subsectionField || term.name === subsectionField.replace(' ', '-'));
+                    if (sectionTerm) {
+                        subsectionTerm = sectionTerm.displayName;
+                    }
+                }
+                if (!subsectionTerm && terms.keyword) {
+                    const keywordTerm = terms.keyword.find((term) => term.name === subsectionField || term.name === subsectionField.replace(' ', '-'));
+                    if (keywordTerm) {
+                        subsectionTerm = keywordTerm.displayName;
+                    }
+                }
+            }
+            model.setFiltered('subsection', subsectionTerm || subsectionField || '');
+
+            const subsectionLabelHasLink = model.get('metadata.subsectionLabelHasLink');
+            if (subsectionLabelHasLink) {
+                const siteDomain = this.api.v1.site.getSite().domain;
+                const sectionName = this.rootModel.get('primaryTags.section');
+                const subsectionTagPageLink = `${ siteDomain }/${ sectionName }/${ subsectionField }`;
+                model.setFiltered('subsectionLink', subsectionTagPageLink);
+            }
+        }
+
+        const showSection = model.get('metadata.showSection');
+        if (showSection) {
+            const sectionInDateline = model.get('metadata.sectionInDateline');
+            if (sectionInDateline) {
+                const sectionLabelHasLink = model.get('metadata.sectionLabelHasLink');
+                if (sectionLabelHasLink) {
+                    const tagPath = this.api.v1.config.get('tagPagePath') || '/tag/';
+                    const siteDomain = this.api.v1.site.getSite().domain;
+                    const sectionName = this.rootModel.get('primaryTags.section');
+                    const sectionTagPageLink = `${ siteDomain }${ tagPath }${ sectionName }`;
+                    model.setFiltered('sectionLink', sectionTagPageLink);
+                }
+            }
+        }
+
+        const mainterm = this.rootModel.get('mainterm');
+        const sectionDisplayName = tagsAsTerms && mainterm && mainterm.section && mainterm.section.displayName ? mainterm.section.displayName : this.rootModel.get('primaryTags.section');
+        model.setFiltered('sectionDisplayName', sectionDisplayName);
+    }
+ 
     onRender(model, view) {
         const layout = _lib_helpers_LayoutHelper_js__WEBPACK_IMPORTED_MODULE_0__.LayoutHelper.textElements(view, this.api.v1.app.mode.isEditor());
         model.setFiltered('layout', layout);
@@ -12116,7 +12819,7 @@ class ArticleHeader {
         if (sectionLabelHasLink) {
             const tagPath = this.api.v1.config.get('tagPagePath') || '/tag/';
             const siteDomain = this.api.v1.site.getSite().domain;
-            const sectionName = this.api.v1.model.query.getRootModel().get('primaryTags.section');
+            const sectionName = this.rootModel.get('primaryTags.section');
             const sectionTagPageLink = `${ siteDomain }${ tagPath }${ sectionName }`;
             model.setFiltered('sectionLink', sectionTagPageLink);
         }
@@ -12137,11 +12840,11 @@ class ArticleHeader {
             if (cropData) { return; }
             const instanceOfId = childModel.get('instance_of');
             if (instanceOfId) {
-                this.setFrontCrop(instanceOfId);
+                this.setFrontCrop(instanceOfId, childModel);
             } else {
                 // If image is being downloaded, wait for it to finish and then set the front crop.
                 this.api.v1.model.bindings.bind(childModel, 'instance_of', (image, path, value) => {
-                    this.setFrontCrop(value);
+                    this.setFrontCrop(value, childModel);
                 });
             }
         }).catch((err) => {
@@ -12149,7 +12852,8 @@ class ArticleHeader {
         });
     }
 
-    setFrontCrop(instanceOfId) {
+    setFrontCrop(instanceOfId, imageModel) {
+        const altText = imageModel ? (imageModel.get('fields.altText') || '') : '';
         const data = {
             type: 'image',
             contentdata: {
@@ -12158,7 +12862,8 @@ class ArticleHeader {
                     croph: 100,
                     cropw: 100,
                     x: 0,
-                    y: 0
+                    y: 0,
+                    ...(altText && { altText })
                 }
             }
         };
@@ -12354,10 +13059,10 @@ class ArticleMeta {
             formatted: ''
         };
 
-        // Unified: Display modified-date if exist. If not: Use publish-date
+        // Unified: Display modified date if it exists. If not: Use published date. Article setting for hiding dates should also apply to this field.
         const displayUnifiedDate = this.api.v1.config.get('contentbox_settings.articleMeta.displayUnifiedDate') || this.api.v1.config.get('articleMetaSettings.displayUnifiedDate');
         const unified = { hide: true };
-        if (displayUnifiedDate) {
+        if (displayUnifiedDate && !model.get('fields.hidePublishedDate')) {
             unified.hide = false;
             unified.isoDate = (modifiedDate || publishedDate).toISOString();
             unified.timestamp = modifiedTimestamp || articleTimestamp;
@@ -12848,6 +13553,7 @@ class ArticleScroller {
                 kicker: article.kicker || article.teaserKicker || '',
                 subtitle: article.teaserSubtitle ? article.teaserSubtitle : article.description,
                 image: !settings.hideImages && article.images && article.images.length ? (`${ article.images[0].url }${ article.images[0].url.includes('?') ? '&' : '?' }${ imgArgs.join('&') }`) : false,
+                imageAlt: article.images && article.images.length ? (article.images[0].altText || '') : '',
                 autodata: autodata || '',
                 section: article.section || '',
                 paywall: !!article.paywall,
@@ -12945,6 +13651,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ ArticlesByTag)
 /* harmony export */ });
 /* harmony import */ var _lib_helpers_datetime_DateTimeHelper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helpers/datetime/DateTimeHelper.js */ "./modules/lib/helpers/datetime/DateTimeHelper.js");
+/* harmony import */ var _lib_helpers_TermHelper_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lib/helpers/TermHelper.js */ "./modules/lib/helpers/TermHelper.js");
+
 
 
 class ArticlesByTag {
@@ -12969,7 +13677,7 @@ class ArticlesByTag {
             title: true,
             subtitle: true,
             published: false,
-			counter: false
+            counter: false
         };
         const editDisplayOptions = [];
         const selectedDisplayOptions = model.get('fields.displayOptions_json') || {};
@@ -13000,7 +13708,7 @@ class ArticlesByTag {
         model.setFiltered('tagPagePath', lab_api.v1.config.get('tagPagePath') || '/tag/');
         model.setFiltered('limit', query_json.limit || 10);
 
-        const setQuery = (m, tags, mode) => {
+        const setQuery = (m, tags, mode, useSection = false) => {
             const sanitizedTags = [];
 
             if (Array.isArray(tags)) {
@@ -13014,7 +13722,13 @@ class ArticlesByTag {
 
             const id = this.rootModel.get('id');
             let queryString;
-            if (m.get('fields.useApiQuery') && m.get('fields.apiQuery')) {
+            if (useSection) {
+                const section = this.rootModel.get('primaryTags.section') || this.rootModel.get('fields.defaultsection');
+                if (section) {
+                    const sanitizedSection = section.replace(/([\(\)\s+])/g, '\\$1').toLowerCase();
+                    queryString = `section:"${ sanitizedSection }" AND published:[* TO NOW] AND NOT id:${ id }`;
+                }
+            } else if (m.get('fields.useApiQuery') && m.get('fields.apiQuery')) {
 
                 const query = m.get('fields.apiQuery')
                     .replace(/\b(AND|OR|NOT)\b/g, '__$1__')
@@ -13044,11 +13758,13 @@ class ArticlesByTag {
         if (!this.isEditor) {
             model.setFiltered('lazyloadImages', lab_api.v1.config.get('imageLoading.lazy') || false);
 
-            const section = this.rootModel.get('primaryTags.section');
+            const section = this.rootModel.get('primaryTags.section') || this.rootModel.get('fields.defaultsection');
             let tags = [];
             tags = (this.rootModel.get('tags') || []).filter((tag) => tag !== section);
 
-            if (model.get('fields.usePageTags')) {
+            if (model.get('fields.usePageSection')) {
+                setQuery(model, [], 'published', true);
+            } else if (model.get('fields.usePageTags')) {
                 setQuery(model, tags, 'published');
             } else if (model.get('fields.useApiQuery') && model.get('fields.apiQuery')) {
                 setQuery(model, '', 'published');
@@ -13081,8 +13797,13 @@ class ArticlesByTag {
             model.setFiltered('siteOptions', siteOptions);
             model.setFiltered('editDisplayOptions', editDisplayOptions);
 
+            const tagsAsTerms = lab_api.v1.properties.get('tags_as_terms');
+            const termCollection = lab_api.v1.properties.get('tag_term_collection') || 'keyword';
+
             const updateTags = () => {
-                if (model.get('fields.useApiQuery')) {
+                if (model.get('fields.usePageSection')) {
+                    setQuery(model, [], 'edit', true);
+                } else if (model.get('fields.useApiQuery')) {
                     setQuery(model, '', 'edit');
                 } else {
                     let tags = [];
@@ -13099,12 +13820,19 @@ class ArticlesByTag {
                         });
                     }
                     setQuery(model, tags, 'edit');
+
+                    if (tagsAsTerms && tags.length > 0) {
+                        _lib_helpers_TermHelper_js__WEBPACK_IMPORTED_MODULE_1__.TermHelper.fetchTermsByNames(`section,${termCollection}`, tags).then((terms) => {
+                            model.set('fields.selectedTerms_json', terms, { save: false });
+                        }).catch(() => {});
+                    }
                 }
             };
 
-            // Unset fields.usePageTags when editing tags-field:
+            // Unset fields.usePageTags and fields.usePageSection when editing tags-field:
             const updateTagsString = () => {
                 model.set('fields.usePageTags', false);
+                model.set('fields.usePageSection', false);
                 updateTags();
             };
 
@@ -13112,8 +13840,9 @@ class ArticlesByTag {
             if (!this.boundIds[guid]) {
                 this.boundIds[guid] = true;
                 this.api.v1.model.bindings.bind(this.rootModel, 'tags', updateTags);
+                this.api.v1.model.bindings.bind(this.rootModel, 'primaryTags.section', updateTags);
                 this.api.v1.model.bindings.bind(model, 'fields.usePageTags', updateTags);
-                this.api.v1.model.bindings.bind(model, 'fields.usePageTags', updateTags);
+                this.api.v1.model.bindings.bind(model, 'fields.usePageSection', updateTags);
                 this.api.v1.model.bindings.bind(model, 'fields.tagsString', updateTagsString);
             }
 
@@ -13205,7 +13934,7 @@ class AuthorBox {
             const imageChildren = this.api.v1.model.query.getChildrenOfType(model, 'image');
 
             // Get imageurl in the authordata.children image
-            if (authordata && authordata.children.image) {
+            if (authordata && authordata.children && authordata.children.image) {
                 const image = authordata.children.image[0];
 
                 // Get instance_of from imageurl
@@ -13382,6 +14111,173 @@ class AuthorBox {
 
 /***/ }),
 
+/***/ "./modules/behaviours/elements/AuthorLatestArticles.js":
+/*!*************************************************************!*\
+  !*** ./modules/behaviours/elements/AuthorLatestArticles.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AuthorLatestArticles)
+/* harmony export */ });
+/* harmony import */ var _lib_helpers_datetime_DateTimeHelper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helpers/datetime/DateTimeHelper.js */ "./modules/lib/helpers/datetime/DateTimeHelper.js");
+
+
+class AuthorLatestArticles {
+
+    constructor(api) {
+        this.api = api;
+        this.rootModel = this.api.v1.model.query.getRootModel();
+        this.isEditor = this.api.v1.app.mode.isEditor();
+        this.config = this.api.v1.config.get('contentbox_settings.authorLatestArticles') || {
+            niceDates: true,
+            dateFormat: '{{ DD }}.{{ MM }}.{{ YYYY }}'
+        };
+        this.preferredImageFormat = lab_api.v1.image.getPreferredImageFormat();
+
+        // Tracks models already bound to avoid duplicate bindings if onReady fires multiple times
+        this.boundModels = [];
+    }
+
+    // In the editor, respond to byline additions and removals by re-rendering.
+    onReady(model, view) {
+        if (!this.isEditor) {
+			return;
+		}
+
+        const guid = model.getGuid();
+
+        if (this.boundModels.includes(guid)) {
+			return;
+		}
+
+        this.boundModels.push(guid);
+
+		const articleMetaModel = this.api.v1.model.query.getModelByType('articleMeta');
+
+		lab_api.v1.model.on('childAdded', (params) => {
+			if(params.parentModel === articleMetaModel) {
+            	this.api.v1.model.redraw(model);
+			}
+		});
+
+		this.api.v1.model.on('childRemoved', (params) => {
+			if(params.parentModel === articleMetaModel) {
+            	this.api.v1.model.redraw(model);
+			}
+		})
+    }
+
+    // Returns the instance_of IDs of all byline elements on the current article page.
+    // These IDs correspond to the author person nodes and match the byline_ids field
+    // returned by the front API, which we use to filter articles in onRender.
+    _getBylineInstanceIds() {
+        const bylineModels = this.api.v1.model.query.getChildrenOfType(this.rootModel, 'byline', true) || [];
+        return bylineModels.map((b) => parseInt(b.get('instance_of'), 10)).filter(Boolean);
+    }
+
+    // We can't filter by author in the Solr query because byline data is not indexed
+    // as a searchable field — it's only added to the response after Solr retrieval.
+    // Instead, we fetch recent articles (date-filtered only) with an inflated limit
+    // so onRender has enough results to filter down to the configured count.
+    onViewHelper(model, view) {
+        const limit = parseInt(model.get('metadata.articleCount') || 3, 10);
+        const daysAgo = parseInt(model.get('metadata.daysAgo') || 365, 10);
+        const bylineIds = this._getBylineInstanceIds();
+
+        let query = '';
+        if (bylineIds.length > 0) {
+            const currentId = this.rootModel.get('id');
+            const publishedFrom = `NOW/DAY-${daysAgo}DAYS`;
+            query = `published:[${publishedFrom} TO NOW]${currentId ? ` AND NOT id:${currentId}` : ''}`;
+        }
+
+        // Fetch more than the display limit so onRender can filter by author and still
+        // have enough results. Capped at 50 to avoid excessive API responses.
+        const fetchLimit = bylineIds.length > 0 ? Math.min(limit * 5, 50) : limit;
+
+        model.setFiltered('query', encodeURIComponent(query));
+        model.setFiltered('limit', fetchLimit);
+        model.setFiltered('site_id', this.api.v1.site.getSite().id);
+        model.setFiltered('displayOptions', {
+            hideImage: !!model.get('metadata.hideImage'),
+            hideKicker: !!model.get('metadata.hideKicker'),
+            hideDate: !!model.get('metadata.hideDate'),
+            showSubtitle: !!model.get('metadata.showSubtitle'),
+            showDivider: !!model.get('metadata.showDivider'),
+            imageOnlyFirst: !!model.get('metadata.imageOnlyFirst'),
+            hideDateIcon: !!model.get('metadata.hideDateIcon')
+        });
+
+        if (!this.isEditor) {
+            model.setFiltered('lazyloadImages', lab_api.v1.config.get('imageLoading.lazy') || false);
+
+            const imageWidth = 200;
+            const aspectRatio = lab_api.v1.config.get('contentbox_settings.authorLatestArticles.imageAspectRatio') || lab_api.v1.config.get('image.defaultAspectRatio');
+            const imgArgs = [
+                `width=${imageWidth}`,
+                `height=${Math.floor(imageWidth * aspectRatio)}`
+            ];
+
+            if (this.preferredImageFormat && this.preferredImageFormat !== 'jpg') {
+                imgArgs.push(`format=${this.preferredImageFormat}`);
+            }
+
+            model.setFiltered('imageServer', this.api.v1.properties.get('image_server'));
+            model.setFiltered('imgArgs', imgArgs.join('&'));
+        }
+    }
+
+    // Filter the returned articles by matching byline_ids from the API response
+    // against the current page's author IDs, then maps results to template data.
+    onRender(model, view) {
+        model.setFiltered('placeholder', this.api.v1.locale.get('emptyState.noContentText', { noRender: true }));
+
+        const lang = this.api.v1.config.get('lang') || 'no';
+        const dateHelper = new _lib_helpers_datetime_DateTimeHelper_js__WEBPACK_IMPORTED_MODULE_0__.DateTimeHelper(lang);
+        const external = view.get('external');
+        const templateData = [];
+
+        const limit = parseInt(model.get('metadata.articleCount') || 3, 10);
+        const bylineIds = this._getBylineInstanceIds();
+        const niceDates = model.get('metadata.niceDates') !== undefined ? !!model.get('metadata.niceDates') : this.config.niceDates;
+        const dateFormat = this.api.v1.locale.get('dates.monthdayyear', { noRender: true }) || this.config.dateFormat;
+
+        if (external && external.result) {
+            for (const a of external.result) {
+                if (templateData.length >= limit) break;
+                if (a.type !== 'article') continue;
+
+                // Skip articles that don't share at least one author with the current page
+                if (bylineIds.length > 0) {
+                    const articleBylineIds = (a.byline_ids || []).map((id) => parseInt(id, 10));
+                    if (!bylineIds.some((id) => articleBylineIds.includes(id))) continue;
+                }
+
+                const dateString = a.published || null;
+                const publishedDate = new Date(dateString);
+
+                templateData.push({
+                    kicker: a.kicker,
+                    title: a.title,
+                    subtitle: a.subtitle,
+                    published_url: a.published_url,
+                    frontCropUrl: a.frontCropUrl,
+                    formatted: dateString && niceDates ? dateHelper.timestampToNiceDate(dateHelper.toTimestamp(publishedDate)) : dateHelper.format(publishedDate, dateFormat)
+                });
+            }
+        }
+
+        model.setFiltered('templateData', templateData);
+        model.setFiltered('hasBylines', bylineIds.length > 0);
+    }
+
+}
+
+
+/***/ }),
+
 /***/ "./modules/behaviours/elements/Bodytext.js":
 /*!*************************************************!*\
   !*** ./modules/behaviours/elements/Bodytext.js ***!
@@ -13417,8 +14313,7 @@ class Bodytext {
             isInternal: this.provider === 'internal' && this.internal.active,
 
             active: this.isFront && (this.provider === 'internal' ? this.internal.active : !!Number(model.get('fields.paywall'))),
-            access: this.provider === 'internal' && this.internal.active ? this.internal.hasAccess : false,
-
+            access: (this.provider === 'internal' && this.internal.active) || this.provider === 'tulo' ? this.internal.hasAccess : false,
             provider: this.provider,
             intro: this.provider !== 'internal' ? _lib_helpers_Paywall_js__WEBPACK_IMPORTED_MODULE_0__.Paywall.filterBodytext(model, view) : undefined,
             bodytext: this.provider !== 'internal' ? model.get('filtered.bodytext') : undefined
@@ -13426,10 +14321,10 @@ class Bodytext {
 
         if (paywall.active && !paywall.access && !isNewzwareEnabled) {
             if (this.provider === 'internal') {
-                model.setFiltered('bodytext', _lib_helpers_Paywall_js__WEBPACK_IMPORTED_MODULE_0__.Paywall.filterBodytext(model, view));
+                model.setFiltered('bodytext', _lib_helpers_Paywall_js__WEBPACK_IMPORTED_MODULE_0__.Paywall.filterBodytext(model, view), true);
             } else {
                 // Original bodytext, inside article
-                model.setFiltered('bodytext', '');
+                model.setFiltered('bodytext', '', true);
             }
         }
 
@@ -13440,10 +14335,10 @@ class Bodytext {
             // Standard sesamy - empty bodytext inside article if protected
             if (this.internal.isProtected === true && sesamyConfig.enabled === true) {
                 // Original bodytext, not positioned inside sesamy container
-                model.setFiltered('bodytext', '');
+                model.setFiltered('bodytext', '', true);
             } else if (sesamyConfig.enabled === false) {
                 // Restore original bodytext if sesamy is disabled
-                model.setFiltered('bodytext', model.get('fields.bodytext'));
+                model.setFiltered('bodytext', model.get('fields.bodytext'), true);
             }
 
             // Proxy lock - remove bodytext from paywall container if protected
@@ -13606,6 +14501,7 @@ class Byline {
             public_phone: view.get('fields.public_phone'),
             firstname: view.get('fields.firstname'),
             lastname: view.get('fields.lastname'),
+            job_title: view.get('fields.job_title'),
             description: view.get('fields.description'),
             description2: view.get('fields.description2'),
             slug: view.get('fields.slug')
@@ -13656,7 +14552,8 @@ class Byline {
                     element.parts.push({
                         key: part,
                         value,
-                        title
+                        title,
+                        isJobTitle: part === 'job_title'
                     });
                 }
             });
@@ -13698,7 +14595,7 @@ class Byline {
      * and whether the current author meets the criteria for having an author page link.
      * The author page link is used instead of a manually defined email or URL if:
      *  - The `authorPagesConfig.enabled` flag is true
-     *  - The author has a public or internal email defined
+     *  - The author has a slug, or a public/internal email defined
      *  - Either all authors are allowed (`enableForAll`), or this specific author ID is whitelisted
      *
      * @param {Object} fields - The author field values from the view.
@@ -13707,7 +14604,7 @@ class Byline {
      * @returns {boolean} Returns `true` if the author page URL should be used for the byline link; otherwise `false`.
      */
     shouldUseAuthorPageUrl(fields, model) {
-        if (this.authorPagesConfig.enabled && (fields.public_email || fields.email) && model.get('instance_of')) {
+        if (this.authorPagesConfig.enabled && (fields.public_email || fields.email || fields.slug) && model.get('instance_of')) {
             if (this.authorPagesConfig.enableForAll) {
                 return true;
             }
@@ -13904,10 +14801,13 @@ class ChartElement {
     }
 
     tsvToObject(tsvString) {
-        const normalized = (tsvString === undefined || tsvString === null) ? "" : String(tsvString).replace(/\r\n?/g, "\n").trim();
-        if (!normalized) return { labels: [], datasets: [] };
-        
-        const lines = normalized.split("\n").filter(l => l.trim() !== "");
+        const normalized = (tsvString === undefined || tsvString === null) ? "" : String(tsvString).replace(/\r\n?/g, "\n");
+        const trimmed = normalized.replace(/^\s*\n|\n\s*$/g, '');
+        if (!trimmed) return { labels: [], datasets: [] };
+
+        const lines = trimmed.split("\n").filter(l => l.length > 0);
+        if (lines.length === 0) return { labels: [], datasets: [] };
+
         const headerCells = lines[0].split('\t');
         const datasetHeaders = headerCells.slice(1);
 
@@ -14551,15 +15451,20 @@ class GoogleAd {
             bidding: adEnv.bidding,
             hideOnTabletWidth: adEnv.hideOnTabletWidth || 1316,
             fetchMarginPercent: adEnv.fetchMarginPercent || 150,
-            renderMarginPercent: adEnv.renderMarginPercent || 150
+            renderMarginPercent: adEnv.renderMarginPercent || 150,
+            mobileScaling: adEnv.mobileScaling || 2.0
         };
         model.setFiltered('googleAds', googleAds);
+
+        // Set flag for OptiDigital provider
+        const isOptiDigital = googleAds.bidding && googleAds.bidding.provider && googleAds.bidding.provider.name === 'optidigital';
+        model.setFiltered('isOptiDigital', isOptiDigital);
 
         const format = getFormat(key, formatConfig);
         format.key = model.get('metadata.key') || 'row';
 
         // Livewrapped special case
-        if (googleAds.bidding && googleAds.bidding.enabled && googleAds.bidding.provider && googleAds.bidding.provider.name) {
+        if (googleAds.bidding && googleAds.bidding && googleAds.bidding.provider && googleAds.bidding.provider.name) {
             if (googleAds.bidding.provider.name === 'livewrapped') {
                 const guidGenerator = () => {
                     const S4 = () => (((1 + Math.random()) * 0x10000) || 0).toString(16).substring(1);
@@ -14646,22 +15551,72 @@ class GoogleCSE {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Image)
+/* harmony export */   "default": () => (/* binding */ Graphic)
 /* harmony export */ });
 /* harmony import */ var _lib_helpers_LazyloadHelper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/helpers/LazyloadHelper.js */ "./modules/lib/helpers/LazyloadHelper.js");
 
 
-class Image {
+class Graphic {
 
-    // Common instance for all image-elements on page
     constructor(api) {
         this.api = api;
         this.lazyloadHelper = new _lib_helpers_LazyloadHelper_js__WEBPACK_IMPORTED_MODULE_0__.LazyloadHelper(api);
     }
 
-    // (void) Element is about to be rendered.
     onRender(model, view) {
         model.setFiltered('lazyloadImages', this.lazyloadHelper.check(model, view));
+
+        const alignmentDesktop = model.get('fields.graphicAlignmentDesktop');
+        const alignmentMobile = model.get('fields.graphicAlignmentMobile');
+
+        const alignmentOptionsDesktop = [
+            {
+                value: '',
+                name: 'Default alignment',
+                selected: alignmentDesktop === ''
+            }, 
+            {
+                value: 'Center',
+                name: 'Centered',
+                selected: alignmentDesktop === 'Center'
+            }, 
+            {
+                value: 'Left',
+                name: 'Align left',
+                selected: alignmentDesktop === 'Left'
+            }, 
+            {
+                value: 'Right',
+                name: 'Align right',
+                selected: alignmentDesktop === 'Right'
+            }
+        ];
+
+        const alignmentOptionsMobile = [
+            {
+                value: '',
+                name: 'Default alignment',
+                selected: alignmentMobile === ''
+            }, 
+            {
+                value: 'Center',
+                name: 'Centered',
+                selected: alignmentMobile === 'Center'
+            }, 
+            {
+                value: 'Left',
+                name: 'Align left',
+                selected: alignmentMobile === 'Left'
+            }, 
+            {
+                value: 'Right',
+                name: 'Align right',
+                selected: alignmentMobile === 'Right'
+            }
+        ];
+
+        model.setFiltered('alignmentOptionsDesktop', alignmentOptionsDesktop);
+        model.setFiltered('alignmentOptionsMobile', alignmentOptionsMobile);
     }
 
 }
@@ -15078,12 +16033,7 @@ class Image {
         }
         const expandable = hasPath(parentView, view, `fields.expandableCaption`);
         const truncate = hasPath(parentView, view, `fields.truncateCaption`);
-        let title = model.get('fields.imageCaption');
-        if (model.parent && (!view.getProperty('image.useCaptionForTitle') || !title)) {
-            title = model.parent.get('fields.title') || '';
-        }
         const captionOptions = {
-            title,
             display,
             displayDefault,
             truncate,
@@ -15172,6 +16122,53 @@ class InfiniteScroll {
         model.setFiltered('infiniteSource', infiniteSource);
         model.setFiltered('infiniteFeed', infiniteFeed);
 
+    }
+
+}
+
+
+/***/ }),
+
+/***/ "./modules/behaviours/elements/Instagram.js":
+/*!**************************************************!*\
+  !*** ./modules/behaviours/elements/Instagram.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Instagram)
+/* harmony export */ });
+class Instagram {
+
+    constructor(api) {
+        this.api = api;
+        this.rootModel = this.api.v1.model.query.getRootModel();
+    }
+
+    onViewHelper(model, view) {
+        // Extract Instagram post ID for AMP
+        const isAMP = this.rootModel.get('filtered.isAMP');
+        const instagramUrl = model.get('fields.instagramUrl');
+
+        if (instagramUrl && isAMP) {
+            const match = instagramUrl.match(/\/(p|reel|tv)\/([A-Za-z0-9_-]+)/);
+            if (match && match[2]) {
+                model.setFiltered('instagramId', match[2]);
+            }
+        }
+
+        this.scheduleInstagramProcess();
+    }
+
+    scheduleInstagramProcess() {
+        // Debounce to avoid multiple calls
+        clearTimeout(this._instagramTimeout);
+        this._instagramTimeout = setTimeout(() => {
+            if (window.instgrm && window.instgrm.Embeds && window.instgrm.Embeds.process) {
+                window.instgrm.Embeds.process();
+            }
+        }, 100);
     }
 
 }
@@ -15357,12 +16354,19 @@ class LiveFeed {
         this.cache = new Map();
         this.defaultMaxCount = 100;
         this.isEditor = this.api.v1.app.mode.isEditor();
+        this.rootModel = this.api.v1.model.query.getRootModel();
     }
 
     onPrepareViewHelper(model, view) {
         const site = model.get('fields.site') || this.siteId;
         const maxNoticesCount = view.get('fields.maxNoticesCount') || this.defaultMaxCount;
-        const tags = (model.get('fields.tags') || '').toLowerCase().split(',').filter((tag) => tag !== '');
+        let tags = (model.get('fields.tags') || '').toLowerCase().split(',').filter((tag) => tag !== '');
+
+        if (tags.length === 0) {
+            tags = this.getNoticePageTags();
+            Sys.logger.info(`LiveFeed: No tags configured for the view, using notice page tags: ${ tags.join(', ') }`);
+        }
+
         const preparedTags = this.prepareTags(tags);
         const query = this.prepareQuery(preparedTags, false);
         const clientQuery = this.prepareQuery(preparedTags, true);
@@ -15370,6 +16374,16 @@ class LiveFeed {
         model.setFiltered('query', query);
         model.setFiltered('clientQuery', clientQuery);
         model.setFiltered('url', url);
+    }
+
+    getNoticePageTags() {
+        const noticeTagString = (this.rootModel.get('fields.noticeTagString') || '').toLowerCase();
+        Sys.logger.info(`LiveFeed: Fetching notice tags from root model field 'noticeTagString': ${ noticeTagString }`);
+        if (!noticeTagString) {
+            return [];
+        }
+
+        return noticeTagString.split(/[+/]/).map((tag) => tag.trim()).filter((tag) => tag !== '');
     }
 
     onReady(model, view) {
@@ -16536,6 +17550,383 @@ class Parallax {
 
 /***/ }),
 
+/***/ "./modules/behaviours/elements/Recipe.js":
+/*!***********************************************!*\
+  !*** ./modules/behaviours/elements/Recipe.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Recipe)
+/* harmony export */ });
+class Recipe {
+
+    constructor(api) {
+        this.api = api;
+        this.isEditor = this.api.v1.app.mode.isEditor();
+        if (this.isEditor) {
+            this.api.v1.ns.set('recipe.insertIngredients', (model, view, menuItem, params) => {
+                this.addRecipeIngredients(model);
+            });
+            this.api.v1.ns.set('recipe.insertInstructions', (model, view, menuItem, params) => {
+                this.addRecipeInstructions(model);
+            });
+        }
+    }
+
+    onRender(model, view) {
+        const rootModel = this.api.v1.model.query.getRootModel();
+        const name = model.get('fields.name') || '';
+        const recipeIngredientsModel = this.api.v1.model.query.getChildOfType(model, 'recipeIngredients');
+        const recipeInstructionsModel = this.api.v1.model.query.getChildOfType(model, 'recipeInstructions');
+        const recipeIngredientsHtml = recipeIngredientsModel ? recipeIngredientsModel.get('fields.bodytext') : '';
+        const recipeInstructionsHtml = recipeInstructionsModel ? recipeInstructionsModel.get('fields.bodytext') : '';
+        const bylineNames = [];
+        const isFrontPage = rootModel.getType() === 'page_front';
+        if (!isFrontPage) {
+            const bylines = this.api.v1.model.query.getChildrenOfType(rootModel, 'byline', true);
+            if (bylines) {
+                bylines.forEach((byline) => {
+                    const bylineName = `${ byline.get('fields.firstname') } ${ byline.get('fields.lastname') }`.trim();
+                    if (bylineName) {
+                        bylineNames.push(bylineName);
+                    }
+                });
+            }
+        }
+
+        if (this.isEditor && !model.get('fields.author') && bylineNames.length) {
+            model.set('fields.author', bylineNames.join(', '));
+        }
+
+        const authorField = model.get('fields.author') || bylineNames.join(', ');
+        const authorNames = authorField.split(',').map(n => n.trim()).filter(Boolean);
+        let authorJson;
+        if (authorNames.length === 0) {
+            authorJson = 'null';
+        } else if (authorNames.length === 1) {
+            authorJson = JSON.stringify({ '@type': 'Person', name: authorNames[0] });
+        } else {
+            authorJson = JSON.stringify(authorNames.map(name => ({ '@type': 'Person', name })));
+        }
+
+        let keywords = model.get('fields.keywords') || '';
+        if (keywords) {
+            keywords = keywords.split(',').map(v => v.trim()).filter(Boolean)
+        }
+
+        model.setFiltered('keywords', JSON.stringify(keywords));
+        if (recipeIngredientsHtml) {
+            model.setFiltered('recipeIngredients', JSON.stringify(this.extractIngredientsFromHtml(recipeIngredientsHtml)));
+        }
+        if (recipeInstructionsHtml) {
+            model.setFiltered('recipeInstructions', JSON.stringify(this.extractInstructionsFromHtml(recipeInstructionsHtml, name)));
+        }
+        model.setFiltered('author', authorJson);
+
+        // Get image child if exists
+        const imageModel = this.api.v1.model.query.getChildOfType(model, 'image');
+        if (imageModel) {
+            const imageUrl = imageModel.get('fields.guid');
+            if (imageUrl) {
+                // Set image URL for Schema.org JSON-LD
+                model.setFiltered('imageUrl', imageUrl);
+            }
+        }
+
+        // Set ISO 8601 duration format for total time, prep time, and cook time.
+        const recipeTotalTime = model.get('fields.totalTime') || '';
+        const recipePrepTime = model.get('fields.prepTime') || '';
+        const recipeCookTime = model.get('fields.prepTime') || '';
+        if (recipeTotalTime) {
+            model.setFiltered('isoTime.totalTime', this.convertToISO8601Duration(recipeTotalTime));
+        }
+        if (recipePrepTime) {
+            model.setFiltered('isoTime.prepTime', this.convertToISO8601Duration(recipePrepTime));
+        }
+        if (recipeCookTime) {
+            model.setFiltered('isoTime.cookTime', this.convertToISO8601Duration(recipeCookTime));
+        }
+        // calculate cook time if we don't have the cook time at hand
+        else if (recipeTotalTime && recipePrepTime) {
+            model.setFiltered('isoTime.cookTime', this.iso8601DurationDifference(this.convertToISO8601Duration(recipeTotalTime), this.convertToISO8601Duration(recipePrepTime)));
+        }
+    }
+
+    /**
+     * Helper-functions for recipe
+     */
+
+    addRecipeIngredients(model) {
+        const child = this.api.v1.model.create.view({
+            type: 'recipeIngredients',
+            contentdata: {
+                fields: {
+                    title: ''
+                }
+            }
+        });
+        this.api.v1.model.addChild(model, child);
+    }
+
+    addRecipeInstructions(model) {
+        const child = this.api.v1.model.create.view({
+            type: 'recipeInstructions',
+            contentdata: {
+                fields: {
+                    title: ''
+                }
+            }
+        });
+        this.api.v1.model.addChild(model, child);
+    }
+
+    /**
+     * Converts a time duration string to ISO 8601 duration format.
+     *
+     * @param {string} input - The time duration string to convert.
+     * @returns {string} The converted time duration in ISO 8601 format.
+     */
+    convertToISO8601Duration(input) {
+        const hoursRegex = /(\d+)\s*(?:time|timer|hour|hours|horas)/i;
+        const minutesRegex = /(\d+)\s*(?:minut|minutter|minut|minutes|mins|min|minutos)/i;
+        const hoursMatch = input.match(hoursRegex);
+        const minutesMatch = input.match(minutesRegex);
+        let hours = 0;
+        let minutes = 0;
+        if (hoursMatch) {
+            hours = parseInt(hoursMatch[1], 10);
+        }
+
+        if (minutesMatch) {
+            minutes = parseInt(minutesMatch[1], 10);
+        }
+
+        if (!hoursMatch && !minutesMatch) {
+            return input; // Return the original input if no valid time duration is found
+        }
+
+        let isoDuration = 'PT';
+        if (hours > 0) {
+            isoDuration += `${ hours }H`;
+        }
+        if (minutes > 0) {
+            isoDuration += `${ minutes }M`;
+        }
+
+        return isoDuration;
+    }
+
+    /**
+     * Calculates the difference between two ISO 8601 durations and returns the result in ISO 8601 format.
+     *
+     * @param {string} duration1 - The first ISO 8601 duration.
+     * @param {string} duration2 - The second ISO 8601 duration.
+     * @returns {string} The difference between the two durations in ISO 8601 format.
+     */
+    iso8601DurationDifference(duration1, duration2) {
+        const time1 = this.parseDuration(duration1);
+        const time2 = this.parseDuration(duration2);
+        const totalMinutes1 = time1.hours * 60 + time1.minutes;
+        const totalMinutes2 = time2.hours * 60 + time2.minutes;
+        const diffMinutes = totalMinutes1 - totalMinutes2;
+
+        if (diffMinutes < 0) {
+            return 'PT0M';
+        }
+
+        const hours = Math.floor(diffMinutes / 60);
+        const minutes = diffMinutes % 60;
+
+        let result = 'PT';
+        if (hours > 0) {
+            result += `${ hours }H`;
+        }
+        if (minutes > 0 || hours === 0) {
+            result += `${ minutes }M`;
+        }
+
+        return result;
+    }
+
+    /**
+     * Function to parse an ISO 8601 duration string into hours and minute.
+     *
+     * @param {string} duration - The duration string in the format ISO 8601 duration format (PT1H15M).
+     * @returns {Object} - An object with the parsed hours and minutes.
+     */
+    parseDuration(duration) {
+        const hoursMatch = duration.match(/(\d+)H/);
+        const minutesMatch = duration.match(/(\d+)M/);
+
+        const hours = hoursMatch ? parseInt(hoursMatch[1], 10) : 0;
+        const minutes = minutesMatch ? parseInt(minutesMatch[1], 10) : 0;
+
+        return { hours, minutes };
+    }
+
+    /**
+     * Extracts ingredients from an HTML string.
+     *
+     * @param {string} htmlString - The HTML string to extract ingredients from.
+     * @returns {Array} - An array of ingredients extracted from the HTML string, either as plain strings or PropertyValue objects.
+     */
+    extractIngredientsFromHtml(htmlString) {
+        const ingredients = [];
+
+        // Regular expression to match both <ul> and <ol> content
+        const listRegex = /<(ul|ol)\b[^>]*>(.*?)<\/\1>/gs;
+        let match;
+
+        // Check for <ul> or <ol> tags first
+        if ((match = listRegex.exec(htmlString)) !== null) {
+            do {
+                const listContent = match[2]; // The content inside the <ul> or <ol>
+                const listItems = listContent.match(/<li>(.*?)<\/li>/g);
+
+                if (listItems) {
+                    listItems.forEach((item) => {
+                        const text = item.replace(/<\/?li>/g, '').trim();
+                        ingredients.push(this.parseIngredient(text));
+                    });
+                }
+            } while ((match = listRegex.exec(htmlString)) !== null);
+        } else {
+            // If no <ul> or <ol> tags are found, fall back to <p> tags
+            const paragraphRegex = /<p>(.*?)<\/p>/gs;
+            while ((match = paragraphRegex.exec(htmlString)) !== null) {
+                const text = match[1].trim();
+                if (text) {
+                    ingredients.push(this.parseIngredient(text));
+                }
+            }
+        }
+
+        return ingredients;
+    }
+
+    /**
+     * Parses an ingredient string to extract amount and name.
+     *
+     * @param {string} text - The ingredient text to parse.
+     * @returns {Object|string} - Either a PropertyValue object with value and name, or the original string.
+     */
+    parseIngredient(text) {
+        // Regex to match amount at the beginning (numbers, fractions, ranges, or "or" expressions)
+        // Examples: "3", "1/2", "3/4", "1-2", "3 or 4", "1 1/2"
+        const amountRegex = /^([\d\/\-\s]+(?:\s+or\s+[\d\/\-\s]+)?)\s+(.+)$/i;
+        const match = text.match(amountRegex);
+
+        if (match) {
+            const value = match[1].trim();
+            const name = match[2].trim();
+            return {
+                '@type': 'PropertyValue',
+                value: value,
+                name: name
+            };
+        } else {
+            // No amount found, check if it looks like it might need PropertyValue format anyway
+            // If it contains common ingredient terms, return as PropertyValue with empty value
+            return {
+                '@type': 'PropertyValue',
+                value: '',
+                name: text
+            };
+        }
+    }
+
+    /**
+     * Extracts methods from an HTML string and returns them as an array of objects.
+     *
+     * @param {string} htmlString - The HTML string to extract methods from.
+     * @param {string} defaultSectionName - The default section name to use if no heading is found.
+     * @returns {Array} An array of method objects.
+     */
+    extractInstructionsFromHtml(htmlString, defaultSectionName) {
+        const methods = [];
+        const listRegex = /<(ul|ol)\b[^>]*>(.*?)<\/\1>/gs;
+        const paragraphRegex = /<p>(.*?)<\/p>/gs;
+        let match;
+
+        // Function to find the preceding <h2>, <h3>, or <h4>
+        function findHeadingBefore(matchIndex) {
+            const headingRegex = /<(h2|h3|h4)>(.*?)<\/\1>/g;
+            let lastHeading = null;
+            let headingMatch;
+
+            while ((headingMatch = headingRegex.exec(htmlString)) !== null) {
+                if (headingMatch.index < matchIndex) {
+                    lastHeading = headingMatch[2].trim();
+                } else {
+                    break;
+                }
+            }
+
+            return lastHeading || defaultSectionName;
+        }
+
+        // Process <ul> or <ol> lists
+        while ((match = listRegex.exec(htmlString)) !== null) {
+            const listContent = match[2]; // The content inside the <ul> or <ol>
+            const listItems = listContent.match(/<li>(.*?)<\/li>/g);
+            const sectionName = findHeadingBefore(match.index);
+
+            const steps = [];
+            if (listItems) {
+                listItems.forEach((item, index) => {
+                    const step = item.replace(/<\/?li>/g, '').trim();
+                    steps.push({
+                        '@type': 'HowToStep',
+                        position: index + 1,
+                        text: step
+                    });
+                });
+            }
+
+            methods.push({
+                '@type': 'HowToSection',
+                name: sectionName,
+                itemListElement: steps
+            });
+        }
+
+        // If no <ul> or <ol> tags are found, fall back to <p> tags
+        if (methods.length === 0) {
+            const steps = [];
+            let paragraphMatch;
+            const sectionName = findHeadingBefore(htmlString.length); // Use the last found heading
+            let position = 1;
+
+            while ((paragraphMatch = paragraphRegex.exec(htmlString)) !== null) {
+                const text = paragraphMatch[1].trim();
+                if (text) {
+                    steps.push({
+                        '@type': 'HowToStep',
+                        position: position++,
+                        text: text
+                    });
+                }
+            }
+
+            if (steps.length > 0) {
+                methods.push({
+                    '@type': 'HowToSection',
+                    name: sectionName,
+                    itemListElement: steps
+                });
+            }
+        }
+
+        return methods;
+    }
+
+}
+
+
+/***/ }),
+
 /***/ "./modules/behaviours/elements/RemoteProduction.js":
 /*!*********************************************************!*\
   !*** ./modules/behaviours/elements/RemoteProduction.js ***!
@@ -16746,28 +18137,7 @@ class Scrollbox {
         if (child.getType() !== 'article') {
             return;
         }
-        // {
-        //     "metadata": {
-        //         "floatingTitle": true,
-        //         ...
-        //     },
-        //     "contentdata": {
-        //         "fields.displayByline": false
-        //     },
-        //     "children": {
-        //         "image": {
-        //             "contentdata": {
-        //                 "fields.whRatio": {
-        //                     "value": "1.2",
-        //                     "vp": {
-        //                         "mobile": "0.8"
-        //                     }
-        //                 },
-        //                 "fields.bbRatio": "0.4"
-        //             }
-        //         }
-        //     }
-        // }
+
         const setValues = (m, obj, fieldPrefix) => {
             if (!obj) { return; }
             for (const key of Object.keys(obj)) {
@@ -16780,6 +18150,7 @@ class Scrollbox {
                 }
             }
         };
+
         setValues(child, this.api.v1.config.get('contentbox_settings.scrollbox.dataForAddedChild.article.metadata'), 'metadata.');
         setValues(child, this.api.v1.config.get('contentbox_settings.scrollbox.dataForAddedChild.article.contentdata'));
         if (child.children.length && child.children[0].getType() === 'image') {
@@ -16865,7 +18236,7 @@ class Slideshow {
         const imageList = [];
         let counter = 0;
         for (const child of model.getChildren()) {
-            if (child.getType() === 'image' || child.getType() === 'placeholder_ad') {
+            if (child.getType() === 'image' || child.getType() === 'placeholder_ad' || child.getType() === 'frontContent') {
                 const childView = this.api.v1.view.getView(child, view.getViewport());
                 const markup = childView.getMarkupString(); // Ensure the view is rendered to get any dynamic changes (e.g. lazy loading)
                 imageList.push({
@@ -16879,8 +18250,10 @@ class Slideshow {
                 }
             }
         }
+
+		model.set('fields.imageCount', imageList.length);
         model.setFiltered('imageList', imageList);
-        model.setFiltered('hasText', this.isEditor || (!!(model.get('fields.title') || model.get('fields.description'))));
+        model.setFiltered('hasText', this.isEditor || (!!(model.get('fields.title') || model.get('fields.description') || model.get('fields.gallery_display_total_images'))));
 
     }
 
@@ -16924,6 +18297,50 @@ class Tablebox {
         model.setFiltered('table', processedTable);
     }
 
+}
+
+
+/***/ }),
+
+/***/ "./modules/behaviours/elements/TagPageTitle.js":
+/*!*****************************************************!*\
+  !*** ./modules/behaviours/elements/TagPageTitle.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ TagPageTitle)
+/* harmony export */ });
+class TagPageTitle {
+
+    constructor(api) {
+        this.api = api;
+        this.isEditor = this.api.v1.app.mode.isEditor();
+        this.rootModel = this.api.v1.model.query.getRootModel();
+    }
+
+    onRender(model, view) {
+        // Only fetch the tag on front-end (not in editor)
+        // In editor, the template shows "Tag Title" placeholder
+        if (!this.isEditor) {
+            let tagTitle = '';
+
+            // Primary method: Extract from hostpath (e.g., /tag/security -> security)
+            // On tag pages, the hostpath is set to "{tagPath}/{tagName}" by the PageByAlias controller
+            const hostpath = this.rootModel.get('fields.hostpath') || '';
+
+            // Split the path and get the last segment (the tag name)
+            const pathSegments = hostpath.split('/').filter(segment => segment.length > 0);
+            if (pathSegments.length >= 2) {
+                // If path has 2+ segments (e.g., "tag" and "security"), take the last one
+                tagTitle = decodeURIComponent(pathSegments[pathSegments.length - 1]);
+            }
+
+            // Set the filtered data for the template
+            model.setFiltered('tagTitle', tagTitle);
+        }
+    }
 }
 
 
@@ -17085,6 +18502,40 @@ class Tagboard {
         model.setFiltered('sourcesConfig', sourcesConfig);
     }
 
+}
+
+
+/***/ }),
+
+/***/ "./modules/behaviours/elements/TermsPageHeader.js":
+/*!********************************************************!*\
+  !*** ./modules/behaviours/elements/TermsPageHeader.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ TermsPageHeader)
+/* harmony export */ });
+class TermsPageHeader {
+
+    constructor(api) {
+        this.api = api;
+        this.isEditor = this.api.v1.app.mode.isEditor();
+        this.rootModel = this.api.v1.model.query.getRootModel();
+    }
+
+    onRender(model, view) {
+
+        if (!this.isEditor) {
+            // Access mainterm from rootModel (where page-level data is stored)
+            const displayName = this.rootModel.get('mainterm.section.displayName');
+            const description = this.rootModel.get('mainterm.section.parameters.description');
+
+            model.setFiltered('displayName', displayName);
+            model.setFiltered('description', description);
+        }
+    }
 }
 
 
@@ -17937,11 +19388,20 @@ class Twitter {
 
     constructor(api) {
         this.api = api;
+        this.rootModel = this.api.v1.model.query.getRootModel();
     }
 
     onViewHelper(model, view) {
         const lang = model.get('fields.lang') || lab_api.v1.config.get('lang') || 'no';
         model.setFiltered('lang', lang);
+
+        const twitterUrl = model.get('fields.tweeturl');
+        if (twitterUrl) {
+            const match = twitterUrl.match(/status\/(\d+)/);
+            if (match) {
+                model.setFiltered('tweetId', match[1]);
+            }
+        }
     }
 
 }
@@ -18268,55 +19728,60 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   articleList: () => (/* reexport safe */ _elements_ArticleList_js__WEBPACK_IMPORTED_MODULE_10__["default"]),
 /* harmony export */   articleMeta: () => (/* reexport safe */ _elements_ArticleMeta_js__WEBPACK_IMPORTED_MODULE_11__["default"]),
 /* harmony export */   articlesByTag: () => (/* reexport safe */ _elements_ArticlesByTag_js__WEBPACK_IMPORTED_MODULE_12__["default"]),
-/* harmony export */   articlescroller: () => (/* reexport safe */ _elements_ArticleScroller_js__WEBPACK_IMPORTED_MODULE_13__["default"]),
-/* harmony export */   authorBox: () => (/* reexport safe */ _elements_AuthorBox_js__WEBPACK_IMPORTED_MODULE_16__["default"]),
-/* harmony export */   bodytext: () => (/* reexport safe */ _elements_Bodytext_js__WEBPACK_IMPORTED_MODULE_14__["default"]),
-/* harmony export */   byline: () => (/* reexport safe */ _elements_Byline_js__WEBPACK_IMPORTED_MODULE_15__["default"]),
-/* harmony export */   changelog: () => (/* reexport safe */ _elements_Changelog_js__WEBPACK_IMPORTED_MODULE_17__["default"]),
-/* harmony export */   chart: () => (/* reexport safe */ _elements_Chart_js__WEBPACK_IMPORTED_MODULE_53__["default"]),
-/* harmony export */   comments: () => (/* reexport safe */ _elements_Comments_js__WEBPACK_IMPORTED_MODULE_18__["default"]),
-/* harmony export */   factbox: () => (/* reexport safe */ _elements_Factbox_js__WEBPACK_IMPORTED_MODULE_19__["default"]),
-/* harmony export */   frontContent: () => (/* reexport safe */ _elements_FrontContent_js__WEBPACK_IMPORTED_MODULE_21__["default"]),
-/* harmony export */   front_rows: () => (/* reexport safe */ _elements_Front_rows_js__WEBPACK_IMPORTED_MODULE_20__["default"]),
-/* harmony export */   globalChangelog: () => (/* reexport safe */ _elements_GlobalChangelog_js__WEBPACK_IMPORTED_MODULE_22__["default"]),
-/* harmony export */   googleAd: () => (/* reexport safe */ _elements_GoogleAd_js__WEBPACK_IMPORTED_MODULE_23__["default"]),
-/* harmony export */   googleCSE: () => (/* reexport safe */ _elements_GoogleCSE_js__WEBPACK_IMPORTED_MODULE_24__["default"]),
-/* harmony export */   graphic: () => (/* reexport safe */ _elements_Graphic_js__WEBPACK_IMPORTED_MODULE_26__["default"]),
-/* harmony export */   grid: () => (/* reexport safe */ _elements_Grid_js__WEBPACK_IMPORTED_MODULE_54__["default"]),
-/* harmony export */   image: () => (/* reexport safe */ _elements_Image_js__WEBPACK_IMPORTED_MODULE_25__["default"]),
-/* harmony export */   infiniteScroll: () => (/* reexport safe */ _elements_InfiniteScroll_js__WEBPACK_IMPORTED_MODULE_57__["default"]),
-/* harmony export */   jwplayer: () => (/* reexport safe */ _elements_JWPlayer_js__WEBPACK_IMPORTED_MODULE_44__["default"]),
-/* harmony export */   labradorSearch: () => (/* reexport safe */ _elements_LabradorSearch_js__WEBPACK_IMPORTED_MODULE_27__["default"]),
-/* harmony export */   livefeed: () => (/* reexport safe */ _elements_LiveFeed_js__WEBPACK_IMPORTED_MODULE_51__["default"]),
-/* harmony export */   markup: () => (/* reexport safe */ _elements_Markup_js__WEBPACK_IMPORTED_MODULE_28__["default"]),
-/* harmony export */   mobiltests: () => (/* reexport safe */ _elements_Mobiltests_js__WEBPACK_IMPORTED_MODULE_29__["default"]),
-/* harmony export */   motortests: () => (/* reexport safe */ _elements_Motortests_js__WEBPACK_IMPORTED_MODULE_30__["default"]),
-/* harmony export */   newsletter_submit: () => (/* reexport safe */ _elements_Newsletter_submit_js__WEBPACK_IMPORTED_MODULE_31__["default"]),
-/* harmony export */   notice: () => (/* reexport safe */ _elements_Notice_js__WEBPACK_IMPORTED_MODULE_50__["default"]),
-/* harmony export */   noticeHeader: () => (/* reexport safe */ _elements_NoticeHeader_js__WEBPACK_IMPORTED_MODULE_52__["default"]),
+/* harmony export */   articlescroller: () => (/* reexport safe */ _elements_ArticleScroller_js__WEBPACK_IMPORTED_MODULE_14__["default"]),
+/* harmony export */   authorBox: () => (/* reexport safe */ _elements_AuthorBox_js__WEBPACK_IMPORTED_MODULE_17__["default"]),
+/* harmony export */   authorLatestArticles: () => (/* reexport safe */ _elements_AuthorLatestArticles_js__WEBPACK_IMPORTED_MODULE_13__["default"]),
+/* harmony export */   bodytext: () => (/* reexport safe */ _elements_Bodytext_js__WEBPACK_IMPORTED_MODULE_15__["default"]),
+/* harmony export */   byline: () => (/* reexport safe */ _elements_Byline_js__WEBPACK_IMPORTED_MODULE_16__["default"]),
+/* harmony export */   changelog: () => (/* reexport safe */ _elements_Changelog_js__WEBPACK_IMPORTED_MODULE_18__["default"]),
+/* harmony export */   chart: () => (/* reexport safe */ _elements_Chart_js__WEBPACK_IMPORTED_MODULE_58__["default"]),
+/* harmony export */   comments: () => (/* reexport safe */ _elements_Comments_js__WEBPACK_IMPORTED_MODULE_19__["default"]),
+/* harmony export */   factbox: () => (/* reexport safe */ _elements_Factbox_js__WEBPACK_IMPORTED_MODULE_20__["default"]),
+/* harmony export */   frontContent: () => (/* reexport safe */ _elements_FrontContent_js__WEBPACK_IMPORTED_MODULE_22__["default"]),
+/* harmony export */   front_rows: () => (/* reexport safe */ _elements_Front_rows_js__WEBPACK_IMPORTED_MODULE_21__["default"]),
+/* harmony export */   globalChangelog: () => (/* reexport safe */ _elements_GlobalChangelog_js__WEBPACK_IMPORTED_MODULE_23__["default"]),
+/* harmony export */   googleAd: () => (/* reexport safe */ _elements_GoogleAd_js__WEBPACK_IMPORTED_MODULE_24__["default"]),
+/* harmony export */   googleCSE: () => (/* reexport safe */ _elements_GoogleCSE_js__WEBPACK_IMPORTED_MODULE_25__["default"]),
+/* harmony export */   graphic: () => (/* reexport safe */ _elements_Graphic_js__WEBPACK_IMPORTED_MODULE_27__["default"]),
+/* harmony export */   grid: () => (/* reexport safe */ _elements_Grid_js__WEBPACK_IMPORTED_MODULE_59__["default"]),
+/* harmony export */   image: () => (/* reexport safe */ _elements_Image_js__WEBPACK_IMPORTED_MODULE_26__["default"]),
+/* harmony export */   infiniteScroll: () => (/* reexport safe */ _elements_InfiniteScroll_js__WEBPACK_IMPORTED_MODULE_62__["default"]),
+/* harmony export */   instagram: () => (/* reexport safe */ _elements_Instagram_js__WEBPACK_IMPORTED_MODULE_45__["default"]),
+/* harmony export */   jwplayer: () => (/* reexport safe */ _elements_JWPlayer_js__WEBPACK_IMPORTED_MODULE_49__["default"]),
+/* harmony export */   labradorSearch: () => (/* reexport safe */ _elements_LabradorSearch_js__WEBPACK_IMPORTED_MODULE_28__["default"]),
+/* harmony export */   livefeed: () => (/* reexport safe */ _elements_LiveFeed_js__WEBPACK_IMPORTED_MODULE_56__["default"]),
+/* harmony export */   markup: () => (/* reexport safe */ _elements_Markup_js__WEBPACK_IMPORTED_MODULE_29__["default"]),
+/* harmony export */   mobiltests: () => (/* reexport safe */ _elements_Mobiltests_js__WEBPACK_IMPORTED_MODULE_30__["default"]),
+/* harmony export */   motortests: () => (/* reexport safe */ _elements_Motortests_js__WEBPACK_IMPORTED_MODULE_31__["default"]),
+/* harmony export */   newsletter_submit: () => (/* reexport safe */ _elements_Newsletter_submit_js__WEBPACK_IMPORTED_MODULE_32__["default"]),
+/* harmony export */   notice: () => (/* reexport safe */ _elements_Notice_js__WEBPACK_IMPORTED_MODULE_55__["default"]),
+/* harmony export */   noticeHeader: () => (/* reexport safe */ _elements_NoticeHeader_js__WEBPACK_IMPORTED_MODULE_57__["default"]),
 /* harmony export */   page_article: () => (/* reexport safe */ _page_Article_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
 /* harmony export */   page_front: () => (/* reexport safe */ _page_Front_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
 /* harmony export */   page_gallery: () => (/* reexport safe */ _page_Gallery_js__WEBPACK_IMPORTED_MODULE_3__["default"]),
 /* harmony export */   page_notice: () => (/* reexport safe */ _page_Notice_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
-/* harmony export */   parallax: () => (/* reexport safe */ _elements_Parallax_js__WEBPACK_IMPORTED_MODULE_32__["default"]),
-/* harmony export */   remoteproduction: () => (/* reexport safe */ _elements_RemoteProduction_js__WEBPACK_IMPORTED_MODULE_45__["default"]),
-/* harmony export */   row: () => (/* reexport safe */ _elements_Row_js__WEBPACK_IMPORTED_MODULE_48__["default"]),
-/* harmony export */   scrollbox: () => (/* reexport safe */ _elements_Scrollbox_js__WEBPACK_IMPORTED_MODULE_47__["default"]),
-/* harmony export */   simplestream: () => (/* reexport safe */ _elements_Simplestream_js__WEBPACK_IMPORTED_MODULE_33__["default"]),
-/* harmony export */   slideshow: () => (/* reexport safe */ _elements_Slideshow_js__WEBPACK_IMPORTED_MODULE_34__["default"]),
-/* harmony export */   tablebox: () => (/* reexport safe */ _elements_Tablebox_js__WEBPACK_IMPORTED_MODULE_35__["default"]),
-/* harmony export */   tagboard: () => (/* reexport safe */ _elements_Tagboard_js__WEBPACK_IMPORTED_MODULE_36__["default"]),
-/* harmony export */   text_multiline: () => (/* reexport safe */ _elements_TextMultiline_js__WEBPACK_IMPORTED_MODULE_37__["default"]),
-/* harmony export */   timeline: () => (/* reexport safe */ _elements_Timeline_js__WEBPACK_IMPORTED_MODULE_49__["default"]),
-/* harmony export */   tips_box: () => (/* reexport safe */ _elements_Tips_box_js__WEBPACK_IMPORTED_MODULE_38__["default"]),
-/* harmony export */   topcomments: () => (/* reexport safe */ _elements_Topcomments_js__WEBPACK_IMPORTED_MODULE_46__["default"]),
-/* harmony export */   toplist: () => (/* reexport safe */ _elements_Toplist_js__WEBPACK_IMPORTED_MODULE_39__["default"]),
-/* harmony export */   tvguide: () => (/* reexport safe */ _elements_Tvguide_js__WEBPACK_IMPORTED_MODULE_40__["default"]),
-/* harmony export */   twitter: () => (/* reexport safe */ _elements_Twitter_js__WEBPACK_IMPORTED_MODULE_41__["default"]),
-/* harmony export */   userFeedback: () => (/* reexport safe */ _elements_UserFeedback_js__WEBPACK_IMPORTED_MODULE_42__["default"]),
-/* harmony export */   vimond: () => (/* reexport safe */ _elements_Vimond_js__WEBPACK_IMPORTED_MODULE_55__["default"]),
-/* harmony export */   vp: () => (/* reexport safe */ _elements_Vp_js__WEBPACK_IMPORTED_MODULE_56__["default"]),
-/* harmony export */   youtube: () => (/* reexport safe */ _elements_YouTube_js__WEBPACK_IMPORTED_MODULE_43__["default"])
+/* harmony export */   parallax: () => (/* reexport safe */ _elements_Parallax_js__WEBPACK_IMPORTED_MODULE_33__["default"]),
+/* harmony export */   recipe: () => (/* reexport safe */ _elements_Recipe_js__WEBPACK_IMPORTED_MODULE_34__["default"]),
+/* harmony export */   remoteproduction: () => (/* reexport safe */ _elements_RemoteProduction_js__WEBPACK_IMPORTED_MODULE_50__["default"]),
+/* harmony export */   row: () => (/* reexport safe */ _elements_Row_js__WEBPACK_IMPORTED_MODULE_53__["default"]),
+/* harmony export */   scrollbox: () => (/* reexport safe */ _elements_Scrollbox_js__WEBPACK_IMPORTED_MODULE_52__["default"]),
+/* harmony export */   simplestream: () => (/* reexport safe */ _elements_Simplestream_js__WEBPACK_IMPORTED_MODULE_35__["default"]),
+/* harmony export */   slideshow: () => (/* reexport safe */ _elements_Slideshow_js__WEBPACK_IMPORTED_MODULE_36__["default"]),
+/* harmony export */   tablebox: () => (/* reexport safe */ _elements_Tablebox_js__WEBPACK_IMPORTED_MODULE_37__["default"]),
+/* harmony export */   tagPageTitle: () => (/* reexport safe */ _elements_TagPageTitle_js__WEBPACK_IMPORTED_MODULE_39__["default"]),
+/* harmony export */   tagboard: () => (/* reexport safe */ _elements_Tagboard_js__WEBPACK_IMPORTED_MODULE_38__["default"]),
+/* harmony export */   termsPageHeader: () => (/* reexport safe */ _elements_TermsPageHeader_js__WEBPACK_IMPORTED_MODULE_40__["default"]),
+/* harmony export */   text_multiline: () => (/* reexport safe */ _elements_TextMultiline_js__WEBPACK_IMPORTED_MODULE_41__["default"]),
+/* harmony export */   timeline: () => (/* reexport safe */ _elements_Timeline_js__WEBPACK_IMPORTED_MODULE_54__["default"]),
+/* harmony export */   tips_box: () => (/* reexport safe */ _elements_Tips_box_js__WEBPACK_IMPORTED_MODULE_42__["default"]),
+/* harmony export */   topcomments: () => (/* reexport safe */ _elements_Topcomments_js__WEBPACK_IMPORTED_MODULE_51__["default"]),
+/* harmony export */   toplist: () => (/* reexport safe */ _elements_Toplist_js__WEBPACK_IMPORTED_MODULE_43__["default"]),
+/* harmony export */   tvguide: () => (/* reexport safe */ _elements_Tvguide_js__WEBPACK_IMPORTED_MODULE_44__["default"]),
+/* harmony export */   twitter: () => (/* reexport safe */ _elements_Twitter_js__WEBPACK_IMPORTED_MODULE_46__["default"]),
+/* harmony export */   userFeedback: () => (/* reexport safe */ _elements_UserFeedback_js__WEBPACK_IMPORTED_MODULE_47__["default"]),
+/* harmony export */   vimond: () => (/* reexport safe */ _elements_Vimond_js__WEBPACK_IMPORTED_MODULE_60__["default"]),
+/* harmony export */   vp: () => (/* reexport safe */ _elements_Vp_js__WEBPACK_IMPORTED_MODULE_61__["default"]),
+/* harmony export */   youtube: () => (/* reexport safe */ _elements_YouTube_js__WEBPACK_IMPORTED_MODULE_48__["default"])
 /* harmony export */ });
 /* harmony import */ var _page_Article_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./page/Article.js */ "./modules/behaviours/page/Article.js");
 /* harmony import */ var _page_Front_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./page/Front.js */ "./modules/behaviours/page/Front.js");
@@ -18331,51 +19796,61 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _elements_ArticleList_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./elements/ArticleList.js */ "./modules/behaviours/elements/ArticleList.js");
 /* harmony import */ var _elements_ArticleMeta_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./elements/ArticleMeta.js */ "./modules/behaviours/elements/ArticleMeta.js");
 /* harmony import */ var _elements_ArticlesByTag_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./elements/ArticlesByTag.js */ "./modules/behaviours/elements/ArticlesByTag.js");
-/* harmony import */ var _elements_ArticleScroller_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./elements/ArticleScroller.js */ "./modules/behaviours/elements/ArticleScroller.js");
-/* harmony import */ var _elements_Bodytext_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./elements/Bodytext.js */ "./modules/behaviours/elements/Bodytext.js");
-/* harmony import */ var _elements_Byline_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./elements/Byline.js */ "./modules/behaviours/elements/Byline.js");
-/* harmony import */ var _elements_AuthorBox_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./elements/AuthorBox.js */ "./modules/behaviours/elements/AuthorBox.js");
-/* harmony import */ var _elements_Changelog_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./elements/Changelog.js */ "./modules/behaviours/elements/Changelog.js");
-/* harmony import */ var _elements_Comments_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./elements/Comments.js */ "./modules/behaviours/elements/Comments.js");
-/* harmony import */ var _elements_Factbox_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./elements/Factbox.js */ "./modules/behaviours/elements/Factbox.js");
-/* harmony import */ var _elements_Front_rows_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./elements/Front_rows.js */ "./modules/behaviours/elements/Front_rows.js");
-/* harmony import */ var _elements_FrontContent_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./elements/FrontContent.js */ "./modules/behaviours/elements/FrontContent.js");
-/* harmony import */ var _elements_GlobalChangelog_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./elements/GlobalChangelog.js */ "./modules/behaviours/elements/GlobalChangelog.js");
-/* harmony import */ var _elements_GoogleAd_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./elements/GoogleAd.js */ "./modules/behaviours/elements/GoogleAd.js");
-/* harmony import */ var _elements_GoogleCSE_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./elements/GoogleCSE.js */ "./modules/behaviours/elements/GoogleCSE.js");
-/* harmony import */ var _elements_Image_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./elements/Image.js */ "./modules/behaviours/elements/Image.js");
-/* harmony import */ var _elements_Graphic_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./elements/Graphic.js */ "./modules/behaviours/elements/Graphic.js");
-/* harmony import */ var _elements_LabradorSearch_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./elements/LabradorSearch.js */ "./modules/behaviours/elements/LabradorSearch.js");
-/* harmony import */ var _elements_Markup_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./elements/Markup.js */ "./modules/behaviours/elements/Markup.js");
-/* harmony import */ var _elements_Mobiltests_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./elements/Mobiltests.js */ "./modules/behaviours/elements/Mobiltests.js");
-/* harmony import */ var _elements_Motortests_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./elements/Motortests.js */ "./modules/behaviours/elements/Motortests.js");
-/* harmony import */ var _elements_Newsletter_submit_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./elements/Newsletter_submit.js */ "./modules/behaviours/elements/Newsletter_submit.js");
-/* harmony import */ var _elements_Parallax_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./elements/Parallax.js */ "./modules/behaviours/elements/Parallax.js");
-/* harmony import */ var _elements_Simplestream_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./elements/Simplestream.js */ "./modules/behaviours/elements/Simplestream.js");
-/* harmony import */ var _elements_Slideshow_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./elements/Slideshow.js */ "./modules/behaviours/elements/Slideshow.js");
-/* harmony import */ var _elements_Tablebox_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./elements/Tablebox.js */ "./modules/behaviours/elements/Tablebox.js");
-/* harmony import */ var _elements_Tagboard_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./elements/Tagboard.js */ "./modules/behaviours/elements/Tagboard.js");
-/* harmony import */ var _elements_TextMultiline_js__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./elements/TextMultiline.js */ "./modules/behaviours/elements/TextMultiline.js");
-/* harmony import */ var _elements_Tips_box_js__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./elements/Tips_box.js */ "./modules/behaviours/elements/Tips_box.js");
-/* harmony import */ var _elements_Toplist_js__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./elements/Toplist.js */ "./modules/behaviours/elements/Toplist.js");
-/* harmony import */ var _elements_Tvguide_js__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./elements/Tvguide.js */ "./modules/behaviours/elements/Tvguide.js");
-/* harmony import */ var _elements_Twitter_js__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./elements/Twitter.js */ "./modules/behaviours/elements/Twitter.js");
-/* harmony import */ var _elements_UserFeedback_js__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./elements/UserFeedback.js */ "./modules/behaviours/elements/UserFeedback.js");
-/* harmony import */ var _elements_YouTube_js__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./elements/YouTube.js */ "./modules/behaviours/elements/YouTube.js");
-/* harmony import */ var _elements_JWPlayer_js__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./elements/JWPlayer.js */ "./modules/behaviours/elements/JWPlayer.js");
-/* harmony import */ var _elements_RemoteProduction_js__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./elements/RemoteProduction.js */ "./modules/behaviours/elements/RemoteProduction.js");
-/* harmony import */ var _elements_Topcomments_js__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./elements/Topcomments.js */ "./modules/behaviours/elements/Topcomments.js");
-/* harmony import */ var _elements_Scrollbox_js__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./elements/Scrollbox.js */ "./modules/behaviours/elements/Scrollbox.js");
-/* harmony import */ var _elements_Row_js__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./elements/Row.js */ "./modules/behaviours/elements/Row.js");
-/* harmony import */ var _elements_Timeline_js__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./elements/Timeline.js */ "./modules/behaviours/elements/Timeline.js");
-/* harmony import */ var _elements_Notice_js__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./elements/Notice.js */ "./modules/behaviours/elements/Notice.js");
-/* harmony import */ var _elements_LiveFeed_js__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./elements/LiveFeed.js */ "./modules/behaviours/elements/LiveFeed.js");
-/* harmony import */ var _elements_NoticeHeader_js__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./elements/NoticeHeader.js */ "./modules/behaviours/elements/NoticeHeader.js");
-/* harmony import */ var _elements_Chart_js__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./elements/Chart.js */ "./modules/behaviours/elements/Chart.js");
-/* harmony import */ var _elements_Grid_js__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./elements/Grid.js */ "./modules/behaviours/elements/Grid.js");
-/* harmony import */ var _elements_Vimond_js__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./elements/Vimond.js */ "./modules/behaviours/elements/Vimond.js");
-/* harmony import */ var _elements_Vp_js__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./elements/Vp.js */ "./modules/behaviours/elements/Vp.js");
-/* harmony import */ var _elements_InfiniteScroll_js__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./elements/InfiniteScroll.js */ "./modules/behaviours/elements/InfiniteScroll.js");
+/* harmony import */ var _elements_AuthorLatestArticles_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./elements/AuthorLatestArticles.js */ "./modules/behaviours/elements/AuthorLatestArticles.js");
+/* harmony import */ var _elements_ArticleScroller_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./elements/ArticleScroller.js */ "./modules/behaviours/elements/ArticleScroller.js");
+/* harmony import */ var _elements_Bodytext_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./elements/Bodytext.js */ "./modules/behaviours/elements/Bodytext.js");
+/* harmony import */ var _elements_Byline_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./elements/Byline.js */ "./modules/behaviours/elements/Byline.js");
+/* harmony import */ var _elements_AuthorBox_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./elements/AuthorBox.js */ "./modules/behaviours/elements/AuthorBox.js");
+/* harmony import */ var _elements_Changelog_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./elements/Changelog.js */ "./modules/behaviours/elements/Changelog.js");
+/* harmony import */ var _elements_Comments_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./elements/Comments.js */ "./modules/behaviours/elements/Comments.js");
+/* harmony import */ var _elements_Factbox_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./elements/Factbox.js */ "./modules/behaviours/elements/Factbox.js");
+/* harmony import */ var _elements_Front_rows_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./elements/Front_rows.js */ "./modules/behaviours/elements/Front_rows.js");
+/* harmony import */ var _elements_FrontContent_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./elements/FrontContent.js */ "./modules/behaviours/elements/FrontContent.js");
+/* harmony import */ var _elements_GlobalChangelog_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./elements/GlobalChangelog.js */ "./modules/behaviours/elements/GlobalChangelog.js");
+/* harmony import */ var _elements_GoogleAd_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./elements/GoogleAd.js */ "./modules/behaviours/elements/GoogleAd.js");
+/* harmony import */ var _elements_GoogleCSE_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./elements/GoogleCSE.js */ "./modules/behaviours/elements/GoogleCSE.js");
+/* harmony import */ var _elements_Image_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./elements/Image.js */ "./modules/behaviours/elements/Image.js");
+/* harmony import */ var _elements_Graphic_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./elements/Graphic.js */ "./modules/behaviours/elements/Graphic.js");
+/* harmony import */ var _elements_LabradorSearch_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./elements/LabradorSearch.js */ "./modules/behaviours/elements/LabradorSearch.js");
+/* harmony import */ var _elements_Markup_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./elements/Markup.js */ "./modules/behaviours/elements/Markup.js");
+/* harmony import */ var _elements_Mobiltests_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./elements/Mobiltests.js */ "./modules/behaviours/elements/Mobiltests.js");
+/* harmony import */ var _elements_Motortests_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./elements/Motortests.js */ "./modules/behaviours/elements/Motortests.js");
+/* harmony import */ var _elements_Newsletter_submit_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./elements/Newsletter_submit.js */ "./modules/behaviours/elements/Newsletter_submit.js");
+/* harmony import */ var _elements_Parallax_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./elements/Parallax.js */ "./modules/behaviours/elements/Parallax.js");
+/* harmony import */ var _elements_Recipe_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./elements/Recipe.js */ "./modules/behaviours/elements/Recipe.js");
+/* harmony import */ var _elements_Simplestream_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./elements/Simplestream.js */ "./modules/behaviours/elements/Simplestream.js");
+/* harmony import */ var _elements_Slideshow_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./elements/Slideshow.js */ "./modules/behaviours/elements/Slideshow.js");
+/* harmony import */ var _elements_Tablebox_js__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./elements/Tablebox.js */ "./modules/behaviours/elements/Tablebox.js");
+/* harmony import */ var _elements_Tagboard_js__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./elements/Tagboard.js */ "./modules/behaviours/elements/Tagboard.js");
+/* harmony import */ var _elements_TagPageTitle_js__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./elements/TagPageTitle.js */ "./modules/behaviours/elements/TagPageTitle.js");
+/* harmony import */ var _elements_TermsPageHeader_js__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./elements/TermsPageHeader.js */ "./modules/behaviours/elements/TermsPageHeader.js");
+/* harmony import */ var _elements_TextMultiline_js__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./elements/TextMultiline.js */ "./modules/behaviours/elements/TextMultiline.js");
+/* harmony import */ var _elements_Tips_box_js__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./elements/Tips_box.js */ "./modules/behaviours/elements/Tips_box.js");
+/* harmony import */ var _elements_Toplist_js__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./elements/Toplist.js */ "./modules/behaviours/elements/Toplist.js");
+/* harmony import */ var _elements_Tvguide_js__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./elements/Tvguide.js */ "./modules/behaviours/elements/Tvguide.js");
+/* harmony import */ var _elements_Instagram_js__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./elements/Instagram.js */ "./modules/behaviours/elements/Instagram.js");
+/* harmony import */ var _elements_Twitter_js__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./elements/Twitter.js */ "./modules/behaviours/elements/Twitter.js");
+/* harmony import */ var _elements_UserFeedback_js__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./elements/UserFeedback.js */ "./modules/behaviours/elements/UserFeedback.js");
+/* harmony import */ var _elements_YouTube_js__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./elements/YouTube.js */ "./modules/behaviours/elements/YouTube.js");
+/* harmony import */ var _elements_JWPlayer_js__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./elements/JWPlayer.js */ "./modules/behaviours/elements/JWPlayer.js");
+/* harmony import */ var _elements_RemoteProduction_js__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./elements/RemoteProduction.js */ "./modules/behaviours/elements/RemoteProduction.js");
+/* harmony import */ var _elements_Topcomments_js__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./elements/Topcomments.js */ "./modules/behaviours/elements/Topcomments.js");
+/* harmony import */ var _elements_Scrollbox_js__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./elements/Scrollbox.js */ "./modules/behaviours/elements/Scrollbox.js");
+/* harmony import */ var _elements_Row_js__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./elements/Row.js */ "./modules/behaviours/elements/Row.js");
+/* harmony import */ var _elements_Timeline_js__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./elements/Timeline.js */ "./modules/behaviours/elements/Timeline.js");
+/* harmony import */ var _elements_Notice_js__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./elements/Notice.js */ "./modules/behaviours/elements/Notice.js");
+/* harmony import */ var _elements_LiveFeed_js__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./elements/LiveFeed.js */ "./modules/behaviours/elements/LiveFeed.js");
+/* harmony import */ var _elements_NoticeHeader_js__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./elements/NoticeHeader.js */ "./modules/behaviours/elements/NoticeHeader.js");
+/* harmony import */ var _elements_Chart_js__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./elements/Chart.js */ "./modules/behaviours/elements/Chart.js");
+/* harmony import */ var _elements_Grid_js__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./elements/Grid.js */ "./modules/behaviours/elements/Grid.js");
+/* harmony import */ var _elements_Vimond_js__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./elements/Vimond.js */ "./modules/behaviours/elements/Vimond.js");
+/* harmony import */ var _elements_Vp_js__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./elements/Vp.js */ "./modules/behaviours/elements/Vp.js");
+/* harmony import */ var _elements_InfiniteScroll_js__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./elements/InfiniteScroll.js */ "./modules/behaviours/elements/InfiniteScroll.js");
+
+
+
+
+
 
 
 
@@ -18452,6 +19927,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_api_PageAPI_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/api/PageAPI.js */ "./modules/lib/api/PageAPI.js");
 /* harmony import */ var _lib_PageData_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lib/PageData.js */ "./modules/lib/PageData.js");
 /* harmony import */ var _lib_helpers_AutodataHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../lib/helpers/AutodataHelper.js */ "./modules/lib/helpers/AutodataHelper.js");
+/* harmony import */ var _lib_helpers_TextToSpeechHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/helpers/TextToSpeechHelper.js */ "./modules/lib/helpers/TextToSpeechHelper.js");
+
 
 
 
@@ -18466,12 +19943,72 @@ class Article {
     onReady(model, view) {
         this.pageData.set(model, view);
 
-        // Autodata
         model.setFiltered('autodata_css', _lib_helpers_AutodataHelper_js__WEBPACK_IMPORTED_MODULE_2__.AutodataHelper.parseCss(model));
         model.setFiltered('autodata_attributes', _lib_helpers_AutodataHelper_js__WEBPACK_IMPORTED_MODULE_2__.AutodataHelper.parseAttributes(model));
         model.setFiltered('autodata_custom', _lib_helpers_AutodataHelper_js__WEBPACK_IMPORTED_MODULE_2__.AutodataHelper.parseCustomData(model));
+
+        const audioSettings = _lib_helpers_TextToSpeechHelper_js__WEBPACK_IMPORTED_MODULE_3__.TextToSpeechHelper.getEffectiveSettings(model, this.api);
+        model.setFiltered('hidePlacementInEditor', audioSettings.hidePlacementInEditor);
+
+        
+        if (this.api.v1.app.mode.isEditor()) {
+            // Bind "Article Settings -> Audio -> Text-to-Speech enabled"
+            // to auto-insert/remove TTS content box on toggle.
+            this.api.v1.model.bindings.bind(
+                model,
+                'fields.texttospeechEnabled',
+                this._syncTexttospeechElement.bind(this)
+            );
+            // Bind "Article Settings -> Audio -> Hide placement in editor"
+            // to keep the effective filtered value in sync.
+            this.api.v1.model.bindings.bind(
+                model,
+                'fields.hidePlacementInEditor',
+                this._syncHidePlacementInEditor.bind(this)
+            );
+        }
     }
 
+    // Editor-mode insertion runs here - after updateBodytextAds() has swept non-persistent
+    // elements in onAcceptContent. Front-mode insertion is handled by Front.js, because
+    // insert.atPath is only safe from entry-level hooks, not behaviour hooks (see
+    // TextToSpeechHelper.insertIfNeeded for details).
+    onPrepareViewHelper(model) {
+        if (!this.api.v1.app.mode.isEditor()) { return; }
+        _lib_helpers_TextToSpeechHelper_js__WEBPACK_IMPORTED_MODULE_3__.TextToSpeechHelper.insertIfNeeded(this.api, model, { isEditor: true });
+    }
+
+    _syncHidePlacementInEditor(model) {
+        const settings = _lib_helpers_TextToSpeechHelper_js__WEBPACK_IMPORTED_MODULE_3__.TextToSpeechHelper.getEffectiveSettings(model, this.api);
+        model.setFiltered('hidePlacementInEditor', settings.hidePlacementInEditor);
+
+        const existingTts = this.api.v1.model.query.getModelByType('texttospeech');
+        if (settings.hidePlacementInEditor) {
+            if (existingTts && existingTts.get('metadata.autoInserted')) {
+                this.api.v1.model.delete(existingTts);
+            }
+        } else {
+            if (!existingTts) {
+                _lib_helpers_TextToSpeechHelper_js__WEBPACK_IMPORTED_MODULE_3__.TextToSpeechHelper.insertIfNeeded(this.api, model, { isEditor: true });
+            } else {
+                this.api.v1.model.addToRedrawQueue(existingTts, true);
+            }
+        }
+    }
+
+    _syncTexttospeechElement(model) {
+        const settings = _lib_helpers_TextToSpeechHelper_js__WEBPACK_IMPORTED_MODULE_3__.TextToSpeechHelper.getEffectiveSettings(model, this.api);
+        const existingTts = this.api.v1.model.query.getModelByType('texttospeech');
+
+        if (settings.texttospeechEnabled) {
+            if (!existingTts) {
+                _lib_helpers_TextToSpeechHelper_js__WEBPACK_IMPORTED_MODULE_3__.TextToSpeechHelper.insertIfNeeded(this.api, model, { isEditor: true });
+            }
+        } else if (existingTts && existingTts.get('metadata.autoInserted')) {
+            // Only remove the auto-inserted preview, never a user-placed persistent element
+            this.api.v1.model.delete(existingTts);
+        }
+    }
 }
 
 
@@ -18520,6 +20057,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_api_PageAPI_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/api/PageAPI.js */ "./modules/lib/api/PageAPI.js");
 /* harmony import */ var _lib_PageData_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lib/PageData.js */ "./modules/lib/PageData.js");
+/* harmony import */ var _lib_helpers_GallerySeoHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../lib/helpers/GallerySeoHelper.js */ "./modules/lib/helpers/GallerySeoHelper.js");
+
 
 
 
@@ -18529,6 +20068,7 @@ class Gallery {
         this.api = api;
         this.pageData = new _lib_PageData_js__WEBPACK_IMPORTED_MODULE_1__.PageData(this.api, new _lib_api_PageAPI_js__WEBPACK_IMPORTED_MODULE_0__.PageAPI(this.api));
         this.isFront = this.api.v1.app.mode.isFront();
+        const isMobile = this.api.v1.viewport.getName() === 'mobile';
 
         const galleryConfig = this.api.v1.config.get('page_settings.gallery') || {};
         this.gallerySettings = {
@@ -18536,7 +20076,8 @@ class Gallery {
             displayFooter: this.api.v1.util.defaults.true(galleryConfig.displayFooter),
             pageBackgroundColor: galleryConfig.pageBackgroundColor || '#000000',
             pageTextColor: galleryConfig.pageTextColor || '#ffffff',
-            logImageView: this.api.v1.util.defaults.false(galleryConfig.logImageView)
+            logImageView: this.api.v1.util.defaults.false(galleryConfig.logImageView),
+            mobileVertical: this.api.v1.util.defaults.false(isMobile && galleryConfig.mobileVertical)
         };
     }
 
@@ -18560,6 +20101,64 @@ class Gallery {
         // Add fields.published_url to generate url's for social media sharing:
         model.set('fields.published_url', `/gallery/${ model.getId() }/${ slideshow.getId() }`);
 
+        // Compose SEO + SoMe title/description before pageData.set so
+        // SEOHelper.getStructuredData picks up the filtered values when it
+        // assembles the jsonld.
+        const parentNodeTitle    = model.get('fields.parent_node_title');
+        const parentSeoTitle     = model.get('fields.parent_node_seotitle');
+        const articleTitleForSeo = parentSeoTitle || parentNodeTitle;
+        const slideshowTitle     = slideshow.get('fields.title');
+        const slideshowDesc      = slideshow.get('fields.description');
+        const galleryLabel       = this.api.v1.locale.get('gallery.label');
+        const siteName           = this.api.v1.properties.get('site.display_name') || '';
+        const locale             = this.api.v1.locale;
+        const imageCount         = (this.api.v1.model.query.getChildrenOfType(slideshow, 'image', true) || []).length;
+
+        const seoTitle = _lib_helpers_GallerySeoHelper_js__WEBPACK_IMPORTED_MODULE_2__.GallerySeoHelper.composeTitle({
+            articleTitle:   articleTitleForSeo,
+            slideshowTitle, galleryLabel, siteName
+        });
+
+        const seoDescription = _lib_helpers_GallerySeoHelper_js__WEBPACK_IMPORTED_MODULE_2__.GallerySeoHelper.composeDescription({
+            slideshowDescription: slideshowDesc,
+            parentSeoDescription: model.get('fields.parent_node_seodescription'),
+            parentSubtitle:       model.get('fields.parent_node_subtitle'),
+            imageCount,
+            articleTitle:         articleTitleForSeo,
+            locale
+        });
+
+        const someTitle = _lib_helpers_GallerySeoHelper_js__WEBPACK_IMPORTED_MODULE_2__.GallerySeoHelper.composeSomeTitle({
+            slideshowTitle,
+            parentSomeTitle: model.get('fields.parent_node_sometitle'),
+            parentTitle:     parentNodeTitle,
+            galleryLabel, siteName
+        });
+
+        const someDescription = _lib_helpers_GallerySeoHelper_js__WEBPACK_IMPORTED_MODULE_2__.GallerySeoHelper.composeSomeDescription({
+            slideshowDescription:  slideshowDesc,
+            parentSomeDescription: model.get('fields.parent_node_somedescription'),
+            parentSeoDescription:  model.get('fields.parent_node_seodescription'),
+            parentSubtitle:        model.get('fields.parent_node_subtitle'),
+            imageCount,
+            articleTitle:          articleTitleForSeo,
+            locale
+        });
+
+        model.set('filtered.title',          slideshowTitle || galleryLabel);
+        model.set('filtered.seotitle',       seoTitle);
+        model.set('filtered.sometitle',      someTitle);
+        model.set('filtered.seodescription', seoDescription);
+        model.set('filtered.somedescription', someDescription);
+        model.set('filtered.gallerySettings', this.gallerySettings);
+        model.set('filtered.imageCount',      imageCount);
+
+        // Get parent article title if this gallery is accessed from an article
+        const showArticleTitle = slideshow.get('fields.gallery_show_article_title');
+        if (parentNodeTitle && showArticleTitle) {
+            model.set('filtered.parentArticleTitle', parentNodeTitle);
+        }
+
         this.pageData.set(model, view);
 
         // Disable gallery mode for slideshow
@@ -18582,17 +20181,6 @@ class Gallery {
         } else {
             slideshowView.set('fields.aspectRatio', 0.75);
         }
-
-        // Update filtered values for title and description used for meta tags and analytics:
-        const title = `${ this.api.v1.locale.get('gallery.label') } - ${ slideshow.get('fields.title') || slideshow.getId() }`;
-        const description = `${ slideshow.get('fields.description') || '[description]' }`;
-        model.set('filtered.title', slideshow.get('fields.title') || this.api.v1.locale.get('gallery.label'));
-        model.set('filtered.seotitle', title);
-        model.set('filtered.sometitle', title);
-        model.set('filtered.seodescription', description);
-        model.set('filtered.somedescription', description);
-        model.set('filtered.gallerySettings', this.gallerySettings);
-        model.set('filtered.imageCount', slideshow.children.length);
     }
 
 }
@@ -19324,7 +20912,9 @@ __webpack_require__.r(__webpack_exports__);
 
         if (this.updateContents && this.updateContents.footer && this.updateContents.footer === true) {
             const updateContentCallback = uiInterface.getProperty('updateContentCallback');
-            return updateContentCallback(form, { type: 'footer' });
+            if (updateContentCallback) {
+                return updateContentCallback(form, { type: 'footer' });
+            }
         }
 
         return form;
@@ -19629,11 +21219,13 @@ __webpack_require__.r(__webpack_exports__);
 
                 if (this.updateContents && this.updateContents.markExisting) {
                     const updateContentCallback = uiInterface.getProperty('updateContentCallback');
-                    const params = {
-                        type: 'markExisting',
-                        id
-                    };
-                    item = updateContentCallback(item, params);
+                    if (updateContentCallback) {
+                        const params = {
+                            type: 'markExisting',
+                            id
+                        };
+                        item = updateContentCallback(item, params);
+                    }
                 }
             }
         }
@@ -19863,7 +21455,9 @@ __webpack_require__.r(__webpack_exports__);
 
         if (this.updateContents && this.updateContents.footer && this.updateContents.footer === true) {
             const updateContentCallback = uiInterface.getProperty('updateContentCallback');
-            return updateContentCallback(form, { type: 'footer' });
+            if (updateContentCallback) {
+                return updateContentCallback(form, { type: 'footer' });
+            }
         }
 
         return form;
@@ -20092,11 +21686,13 @@ __webpack_require__.r(__webpack_exports__);
 
                 if (this.updateContents && this.updateContents.markExisting) {
                     const updateContentCallback = uiInterface.getProperty('updateContentCallback');
-                    const params = {
-                        type: 'markExisting',
-                        id
-                    };
-                    item = updateContentCallback(item, params);
+                    if (updateContentCallback) {
+                        const params = {
+                            type: 'markExisting',
+                            id
+                        };
+                        item = updateContentCallback(item, params);
+                    }
                 }
             }
         }
@@ -20266,7 +21862,8 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     getDefaultBylineId() {
-        return parseInt(lab_api.v1.user.getField('defaultByline'), 10);
+        const defaultByline = lab_api.v1.user.getField('defaultByline');
+        return defaultByline ? parseInt(defaultByline, 10) : null;
     }
 
     getFavouriteBylineIds() {
@@ -20301,11 +21898,13 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     // If no search is defined:
-    // Display default byline + recently used bylines
+    // Display favourite bylines
     onGetUrl(uiInterface, options) {
         const defaultBylineId = this.getDefaultBylineId();
         const query = uiInterface.getProperty('query');
+
         if (!query.firstname && !query.lastname && !query.bylineId) {
+            // Get favourite byline IDs and default byline
             const ids = [...this.getFavouriteBylineIds().filter((id) => id !== defaultBylineId)];
             if (defaultBylineId) {
                 ids.unshift(defaultBylineId);
@@ -20317,11 +21916,17 @@ __webpack_require__.r(__webpack_exports__);
 
     onMapData(uiInterface, data, options) {
         const result = data.data.map((item) => {
+            // Extract created_by and modified_by from fields
+            const createdBy = item.fields && item.fields.created_by ? item.fields.created_by : null;
+            const modifiedBy = item.fields && item.fields.modified_by ? item.fields.modified_by : null;
+
             const bylineData = {
                 type: item.type ? item.type : 'byline',
                 contentdata: {
                     instance_of: item.id ? item.id : null,
-                    fields: item.fields
+                    fields: item.fields,
+                    created_by: createdBy,
+                    modified_by: modifiedBy
                 },
                 filtered: {
                     name: `${ item.fields.firstname } ${ item.fields.lastname }`,
@@ -20382,13 +21987,33 @@ __webpack_require__.r(__webpack_exports__);
         uiInterface.setProperty('contentList', contentList);
         const permissions = uiInterface.getProperty('permissions');
         const defaultByline = this.getDefaultBylineId();
+        const currentUserId = this.api.v1.user.getUserId();
 
-        // Add edit-button. Todo: Check permissions
+        // Add edit-button based on modified_by/created_by ownership or defaultByline
         for (const item of contentList) {
             const id = item.model.get('instance_of');
             if (id) {
-                if (permissions.all || (id === defaultByline && permissions.mine)) {
+                // Access created_by and modified_by from model (stored in contentdata)
+                const createdByValue = item.model.get('created_by');
+                const modifiedByValue = item.model.get('modified_by');
+
+                const createdBy = createdByValue ? parseInt(createdByValue, 10) : null;
+                const modifiedBy = modifiedByValue ? parseInt(modifiedByValue, 10) : null;
+
+                // Users with byline_edit_all can edit anything
+                if (permissions.all) {
                     this.addEditLink(uiInterface, id, item.element);
+                }
+                // Users with byline_edit_mine can edit if:
+                // 1. It's their default byline OR
+                // 2. modified_by (custom field) matches current user OR
+                // 3. created_by (custom field) matches current user
+                else if (permissions.mine) {
+                    if (id === defaultByline ||
+                        (modifiedBy && modifiedBy === currentUserId) ||
+                        (createdBy && createdBy === currentUserId)) {
+                        this.addEditLink(uiInterface, id, item.element);
+                    }
                 }
             }
         }
@@ -20459,247 +22084,6 @@ __webpack_require__.r(__webpack_exports__);
                 }
             }
         }
-    }
-
-});
-
-
-/***/ }),
-
-/***/ "./modules/collections/Collabrador.js":
-/*!********************************************!*\
-  !*** ./modules/collections/Collabrador.js ***!
-  \********************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/** FEATURE STILL IN DEVELOPMENT */
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (class {
-
-    constructor(api) {
-        this.api = api;
-    }
-
-    onCreated(uiInterface, options) {
-        // Initialize on creation
-        lab_api.v1.collabrador.init().catch(error => {
-            console.error('Collabrador initialization failed:', error);
-            return;
-        });
-
-        // Expose handler globally for console debugging
-        window.collabradorHandler = this;
-        this.websocket = lab_api.v1.collabrador.initWebSocket(this.onWebsocketMessage, uiInterface, options);
-    }
-
-    onWebsocketMessage(event, uiInterface, options) {
-        uiInterface.getData();
-    }
-
-    onHeader(uiInterface) {
-        const form = this.api.v1.util.dom.renderView('collections/collabrador/header', {}, true);
-
-        return form;
-    }
-
-    async onGetData(uiInterface, options) {
-        try {
-            // Fetch comments
-            const comments = await lab_api.v1.collabrador.getComments();
-
-            // Store comments for template rendering
-            uiInterface.setProperty('comments', comments);
-
-            // Return a single dummy item to trigger onRendered
-            // We'll replace it with our custom template
-            return comments && comments.length ? [{
-                type: 'collabrador-comments',
-                contentdata: {}
-            }] : [];
-        } catch (error) {
-            console.error('Failed to get comments data:', error);
-            return [];
-        }
-    }
-
-    onRendered(uiInterface) {
-        // Get the stored comments
-        console.log('Collabrador feature still in development!');
-        const comments = uiInterface.getProperty('comments');
-
-        if (!comments || !comments.length) {
-            return;
-        }
-
-        // Get the container element
-        const container = uiInterface.getMarkup().querySelector('.lab-collection-items');
-
-        // Clear container
-        container.innerHTML = '';
-
-        // Render all comments at once using the template
-        const commentsEl = this.api.v1.util.dom.renderView('collections/collabrador/comment', {
-            comments
-        }, true);
-
-        // Extract all child nodes from the rendered element and append them
-        const fragment = document.createDocumentFragment();
-        while (commentsEl.firstChild) {
-            fragment.prepend(commentsEl.firstChild);
-        }
-        container.appendChild(fragment);
-
-        const commentElements = container.querySelectorAll('.comment');
-
-        commentElements.forEach((comment) => {
-            comment.addEventListener('mouseover', () => {
-                const { guid } = comment.dataset;
-                if (!guid) return;
-                const model = this.api.v1.model.query.getModelByGuid(guid);
-                if (!model) return;
-                this.api.v1.model.highlight.default(model, { scroll: true, speed: 500, approximateScroll: true });
-            })
-        })
-
-        // Add event listeners for all buttons
-        const editBtns = container.querySelectorAll('.comment-btn-edit');
-        const resolveBtns = container.querySelectorAll('.comment-btn-resolve');
-        const saveBtns = container.querySelectorAll('.comment-btn-save');
-        const cancelBtns = container.querySelectorAll('.comment-btn-cancel');
-        const textElements = container.querySelectorAll('.comment-text');
-
-        editBtns.forEach((btn) => {
-            btn.addEventListener('click', (event) => {
-                event.stopPropagation();
-                const comment = btn.closest('.comment').querySelector('.comment-text').innerText;
-                const commentId = btn.getAttribute('data-id');
-                this.handleEditComment(comment, btn.closest('.comment'), container, commentId);
-            }, false);
-        });
-
-        resolveBtns.forEach((btn) => {
-            btn.addEventListener('click', (event) => {
-                event.stopPropagation();
-                const comment = btn.closest('.comment').querySelector('.comment-text').innerText;
-                const commentId = btn.getAttribute('data-id');
-                this.handleResolveComment(comment, btn.closest('.comment'), commentId);
-            }, false);
-        });
-
-        saveBtns.forEach((btn) => {
-            btn.addEventListener('click', (event) => {
-                event.stopPropagation();
-                const comment = btn.closest('.comment').querySelector('.comment-text').innerText;
-                const commentId = btn.getAttribute('data-id');
-                this.handleSaveComment(comment, btn.closest('.comment'), commentId);
-            }, false);
-        });
-
-        cancelBtns.forEach((btn) => {
-            btn.addEventListener('click', (event) => {
-                event.stopPropagation();
-                this.handleCancelComment(btn.closest('.comment'));
-            }, false);
-        });
-
-        textElements.forEach((element) => {
-            element.addEventListener('click', () => {
-                this.handleTextClick(element);
-            }, false);
-        });
-
-    }
-
-    handleEditComment(comment, element, container, commentId) {
-        this.closeAllOpenEditMode(container);
-
-        const textElement = element.querySelector('.comment-text');
-        const cancelBtn = element.querySelector('.comment-btn-cancel');
-        const editBtn = element.querySelector('.comment-btn-edit');
-        const resolveBtn = element.querySelector('.comment-btn-resolve');
-        const saveBtn = element.querySelector('.comment-btn-save');
-        const textarea = document.createElement('textarea');
-
-        textarea.classList.add('comment-textarea-edit');
-        textarea.value = comment;
-        element.insertBefore(textarea, textElement);
-        element.classList.add('comment-edit-mode');
-        textElement.classList.add('hidden');
-        cancelBtn.classList.remove('hidden');
-        editBtn.classList.add('hidden');
-        resolveBtn.classList.add('hidden');
-        saveBtn.classList.remove('hidden');
-        textarea.focus();
-    }
-
-    handleResolveComment(comment, element, commentId) {
-        const commentData = {
-            id: commentId,
-            resolved: true
-        }
-        // TODO: handle errors from Collabrador
-        this.api.v1.collabrador.modifyComment(commentData);
-        element.classList.add('comment-resolved');
-        const cancelBtn = element.querySelector('.comment-btn-cancel');
-        const editBtn = element.querySelector('.comment-btn-edit');
-        const resolveBtn = element.querySelector('.comment-btn-resolve');
-        const saveBtn = element.querySelector('.comment-btn-save');
-        cancelBtn.classList.add('hidden');
-        editBtn.classList.add('hidden');
-        resolveBtn.classList.add('hidden');
-        saveBtn.classList.add('hidden');
-    }
-
-    handleSaveComment(comment, element, commentId) {
-        const textElement = element.querySelector('.comment-text');
-        const textArea = element.querySelector('.comment-textarea-edit');
-        const commentData = {
-            id: commentId,
-            text: textArea.value
-        };
-        this.api.v1.collabrador.modifyComment(commentData).then((response) => {
-            textElement.innerText = textArea.value;
-        }).catch((error) => {
-            console.error("Error: ", error);
-        });
-
-        this.endEditMode(element);
-    }
-
-    handleCancelComment(element) {
-        this.endEditMode(element);
-    }
-
-    handleTextClick(element) {
-        element.classList.toggle('expanded');
-    }
-
-    closeAllOpenEditMode(container) {
-        const openEditors = container.querySelectorAll('.comment-edit-mode');
-        openEditors.forEach((element) => {
-            this.endEditMode(element);
-        });
-    }
-
-    endEditMode(element) {
-        const textElement = element.querySelector('.comment-text');
-        const cancelBtn = element.querySelector('.comment-btn-cancel');
-        const editBtn = element.querySelector('.comment-btn-edit');
-        const resolveBtn = element.querySelector('.comment-btn-resolve');
-        const saveBtn = element.querySelector('.comment-btn-save');
-        const textArea = element.querySelector('.comment-textarea-edit');
-
-        element.classList.remove('comment-edit-mode');
-        textElement.classList.remove('hidden');
-        cancelBtn.classList.add('hidden');
-        editBtn.classList.remove('hidden');
-        resolveBtn.classList.remove('hidden');
-        saveBtn.classList.add('hidden');
-        textArea.remove();
     }
 
 });
@@ -21019,67 +22403,6 @@ __webpack_require__.r(__webpack_exports__);
         query.currentToken = query[active];
         uiInterface.setProperty('query', query);
         uiInterface.getData();
-    }
-
-});
-
-
-/***/ }),
-
-/***/ "./modules/collections/NewComment.js":
-/*!*******************************************!*\
-  !*** ./modules/collections/NewComment.js ***!
-  \*******************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (class {
-
-    constructor(api) {
-        this.api = api;
-    }
-
-    onHeader(uiInterface, params) {
-        const form = this.api.v1.util.dom.renderView('collections/newComment/header', {}, true);
-        form.querySelector('#add-comment').addEventListener('click', (event) => {
-            event.preventDefault();
-            this.api.v1.collabrador.addComment(
-                {
-                    from: 0,
-                    to: 0,
-                    text: form.querySelector('#new-comment').value,
-                    tagGuid: this.api.v1.model.query.getRootModel().data.guid || '', // Will be the guid of the element but for collection the Guid of the article itself
-                    author: 'Test Testersen', // Not needed when we go to prod, will be handled by the token
-                    email: 'test@testersen.no' // Not needed when we go to prod, will be handled by the token
-                }
-            );
-            form.querySelector('#new-comment').value = '';
-        });
-        form.querySelector('#cancel-comment').addEventListener('click', (event) => {
-            event.preventDefault();
-            form.querySelector('#new-comment').value = '';
-        });
-        return form;
-    }
-
-    onGetData(uiInterface, options) {
-        return [
-            {
-                type: 'collabrador-comments',
-                contentdata: {}
-            }
-        ];
-    }
-
-    onRendered(uiInterface) {
-        // Get the container element
-        const container = uiInterface.getMarkup().querySelector('.lab-collection-items');
-
-        // Clear container
-        if (container) container.remove();
     }
 
 });
@@ -21910,8 +23233,8 @@ __webpack_require__.r(__webpack_exports__);
                         playerUrl: item.playerUrl,
                         preview: item.preview,
                         title: item.title,
-                        caption: item.caption,
-                        byline: item.byline,
+                        caption: item.caption || item.title,
+                        byline: item.extra_metadata_json.videoAuthor,
                         description: item.description,
                         verticalVideo: item.verticalVideo || false
                     }
@@ -22200,10 +23523,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ArticlesNotice: () => (/* reexport safe */ _ArticlesNotice_js__WEBPACK_IMPORTED_MODULE_11__["default"]),
 /* harmony export */   Audio: () => (/* reexport safe */ _Audio_js__WEBPACK_IMPORTED_MODULE_10__["default"]),
 /* harmony export */   Bylines: () => (/* reexport safe */ _Bylines_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
-/* harmony export */   Collabrador: () => (/* reexport safe */ _Collabrador_js__WEBPACK_IMPORTED_MODULE_14__["default"]),
 /* harmony export */   Graphics: () => (/* reexport safe */ _Graphics_js__WEBPACK_IMPORTED_MODULE_9__["default"]),
 /* harmony export */   JWPlayer: () => (/* reexport safe */ _JWPlayer_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
-/* harmony export */   NewComment: () => (/* reexport safe */ _NewComment_js__WEBPACK_IMPORTED_MODULE_15__["default"]),
 /* harmony export */   RemoteProduction: () => (/* reexport safe */ _RemoteProduction_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
 /* harmony export */   Search: () => (/* reexport safe */ _Search_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
 /* harmony export */   Simplestream: () => (/* reexport safe */ _Simplestream_js__WEBPACK_IMPORTED_MODULE_8__["default"]),
@@ -22225,10 +23546,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ArticlesNotice_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ArticlesNotice.js */ "./modules/collections/ArticlesNotice.js");
 /* harmony import */ var _Vimond_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Vimond.js */ "./modules/collections/Vimond.js");
 /* harmony import */ var _Vp_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Vp.js */ "./modules/collections/Vp.js");
-/* harmony import */ var _Collabrador_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Collabrador.js */ "./modules/collections/Collabrador.js");
-/* harmony import */ var _NewComment_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./NewComment.js */ "./modules/collections/NewComment.js");
-
-
 
 
 
@@ -22317,6 +23634,7 @@ class PageData {
         exports.is_notice = PAGE_TYPE === 'notice';
         exports.is_front = PAGE_TYPE === 'front';
         exports.is_gallery = PAGE_TYPE === 'gallery';
+        exports.is_index = view.get('fields.hostpath') === 'index';
         exports.is_infiniteArticle = view.get('fields.page_template_alias') === 'infinitescroll';
         exports.section = view.get('primaryTags.section') || view.get('fields.defaultsection');
         exports.device = this.api.v1.viewport.getName();
@@ -22330,15 +23648,20 @@ class PageData {
         exports.staticUrl = this.getStaticUrl(model, PAGE_TYPE, PAGE_ID, CUSTOMER_FRONT_URL);
         exports.customMetatags = this.getCustomMetatags();
         exports.footerSettings = this.api.v1.config.get('page_settings.footer');
+        exports.ampSettings = this.api.v1.config.get('page_settings.amp');
         exports.rssDescriptionPrefix = this.api.v1.config.get('viewports.rss.descriptionPrefix');
         exports.is_tagpage = IS_TAGPAGE;
         exports.contentLanguage = lab_api.v1.config.get('contentLanguage');
+        // if the publishhidden field is set to "1" then true otherwise false.
+        exports.publishhidden = view.get('fields.publishhidden') === '1';
 
         // Media.
         const logo = this.page.media.getLogo(view.getViewport());
         exports.logo = logo.current;
         exports.logo_sm = logo.sm;
         exports.logo_mm = logo.mm;
+        exports.logo_secondary = logo.secondary;
+        exports.logo_mobile = logo.mobile;
 
         // Note: Is this still used?
         exports.misc = this.api.v1.config.get('misc');
@@ -22362,11 +23685,47 @@ class PageData {
             publishedUrl: URL
         });
 
+        // Set term of section and subsection
+        const mainterm = view.get('mainterm');
+        const term = view.get('term');
+        if (IS_TAGPAGE || (mainterm && mainterm.section)) {
+            const publishedUrl = view.get('fields.published_url') || '';
+
+            // tagSubSection: use mainterm section name if exists, otherwise empty
+            const tagSubSection = mainterm && mainterm.section && mainterm.section.name ? mainterm.section.name : '';
+            let tagPrimarySection = '';
+            let tagDisplayName = '';
+
+            if (mainterm && mainterm.section && mainterm.section.uriRootPath) {
+                // Find uriRootPath inside term if using terms instead of tags
+                tagPrimarySection = mainterm.section.uriRootPath.replace(/^\//, '').split('/')[0];
+            } else {
+                // Fallback: extract from published_url for regular pages
+                const urlSegments = publishedUrl.replace(/^\//, '').split('/').filter(seg => seg.length > 0);
+                tagPrimarySection = urlSegments.length > 0 ? urlSegments[0] : '';
+            }
+
+            if (mainterm && mainterm.section && mainterm.section.displayName) {
+                tagDisplayName = mainterm.section.displayName;
+            }
+
+            exports.tagDisplayName = tagDisplayName;
+            exports.tagSubSection = tagSubSection;
+            exports.tagPrimarySection = tagPrimarySection;
+
+            // Get subsection displayName
+            if (term && term.section && Array.isArray(term.section) && term.section.length > 0 && term.section[0].displayName) {
+                exports.termSectionDisplayName = term.section[0].displayName;
+            }
+        }
+
         // Set JSON-LD json string.
         const site_jsonld = seoHelper.generateSiteData(model);
         const jsonld = seoHelper.getStructuredData(model);
 
-        exports.jsonld = JSON.stringify([site_jsonld, jsonld]);
+        // jsonld can be a single object or an array (e.g., when ImageGallery returns [Article, Gallery])
+        const jsonldArray = Array.isArray(jsonld) ? jsonld : [jsonld];
+        exports.jsonld = JSON.stringify([site_jsonld, ...jsonldArray]);
 
         // Set SEO Data (title and description).
         const seoData = seoHelper.getSEOData(model);
@@ -22441,7 +23800,10 @@ class PageData {
             talandeWebb: `ReachDeck.panel.toggleBar();`,
             bluesky: `https://bsky.app/intent/compose?text=${ encodeURIComponent(`${ exports.sometitle }\n`) }${ URL_ENCODED }`,
             reddit: `https://www.reddit.com/submit?url=${ URL_ENCODED }&title=${ encodeURIComponent(exports.sometitle) }`,
-            whatsapp: `https://api.whatsapp.com/send?text=${ encodeURIComponent(`${ exports.sometitle }\n${ URL }`) }`
+            whatsapp: `https://api.whatsapp.com/send?text=${ encodeURIComponent(`${ exports.sometitle }\n${ URL }`) }`,
+            telegram: `https://t.me/share/url?url=${ URL_ENCODED }&text=${ encodeURIComponent(exports.sometitle) }`,
+            print: 'window.print();',
+			googlenews: this.api.v1.config.get('page_settings.article.social.items.googlenews.url') || ''
         };
 
         // Set article tags and byline as comma separated string
@@ -22551,14 +23913,6 @@ class PageData {
                     Sys.logger.warn(`[PageData] Failed to prepare Google ads: ${ error.toString() }`);
                 }
             }
-
-            // Let template know which ad environment and provider used.
-            exports.adEnvironment = { ...adEnv };
-            exports.adEnvironment[`is_${ adEnv.name }`] = true;
-            const providerName = adEnv.name === 'google' && adEnv.bidding && adEnv.bidding.provider && adEnv.bidding.provider.name
-                ? adEnv.bidding.provider.name
-                : 'none';
-            exports.adEnvironment[`is_provider_${ providerName }`] = true;
         }
 
         if (this.api.v1.util.request.hasQueryParam('fontpreview')) {
@@ -22974,24 +24328,58 @@ class PageAPI {
             // (object) { current, sm }
             getLogo: (viewport = this.api.v1.viewport.getName()) => {
                 const logo = this.api.v1.config.get('logo') || {};
-                const activeLogo = logo.uploadedFileUrl ? {
-                    src: logo.uploadedFileUrl, href: logo.default.href, type: 'img', size: { width: logo.logoWidth }, title: logo.default.title, isCustom: true
-                } : logo[viewport] || logo.default || null;
-                if (activeLogo) {
-                    if (activeLogo.type === 'img') {
-                        activeLogo.is_img = true;
-                    } else if (activeLogo.type === 'svg') {
-                        activeLogo.is_svg = true;
-                    }
-                }
+                const logoDefault = logo.default || {};
+                const logoMobile = logo.mobile || logo.default || {};
+                // Support both new nested paths (logo.mainLogo.*) and old flat paths (logo.*) for backwards compatibility
+                const logoMain = logo.mainLogo || {};
+                const logoSecondary = logo.secondaryLogo || {};
+                const logoMobileGroup = logo.mobileLogo || {};
+                const logoMailmojo = logo.mailmojoLogo || {};
 
-                const logo_sm = logo.uploadedFileUrl ? { src: logo.uploadedFileUrl, href: logo.default.href, size: { width: logo.logoWidth }, title: logo.default.title, isCustom: true } : logo.standalone || logo.mailmojo || null;
-                const logo_mm = logo.uploadedMailmojoFileUrl ? { src: logo.uploadedMailmojoFileUrl, href: logo.default.href, size: { width: logo.mailmojoLogoWidth }, title: logo.default.title, isCustom: true } : logo.mailmojo || logo.standalone || null;
+                const [activeLogo, activeSecondaryLogo, activeMobileLogo] = [
+                    { data: logoMain, legacy: logo, uploadedKey: 'uploadedFileUrl', widthKey: 'logoWidth', heightKey: 'logoHeight', hrefKey: 'logoHref', altTextKey: 'logoAltText', defaultObj: logoDefault },
+                    { data: logoSecondary, legacy: logo, uploadedKey: 'uploadedSecondaryFileUrl', widthKey: 'secondaryLogoWidth', heightKey: 'secondaryLogoHeight', hrefKey: 'secondaryLogoHref', altTextKey: 'secondaryLogoAltText', defaultObj: logoDefault },
+                    { data: logoMobileGroup, legacy: logo, uploadedKey: 'uploadedMobileFileUrl', widthKey: 'mobileLogoWidth', heightKey: 'mobileLogoHeight', hrefKey: 'mobileLogoHref', altTextKey: 'mobileLogoAltText', defaultObj: logoMobile }
+                ].map(({ data, legacy, uploadedKey, widthKey, heightKey, hrefKey, altTextKey, defaultObj }) => {
+                    const src = data[uploadedKey] || legacy[uploadedKey] || data.src;
+                    const configObj = logo[viewport] || logo.default || {};
+                    const configSize = configObj.size || {};
+                    const adminWidth = data[widthKey] || legacy[widthKey] || (data.size && data.size.width);
+                    const adminHeight = data[heightKey] || legacy[heightKey] || (data.size && data.size.height);
+                    const hasAdminSize = adminWidth || adminHeight;
+                    const size = hasAdminSize ? { width: adminWidth, height: adminHeight } : { width: configSize.width, height: configSize.height };
+                    let result;
+                    if (src) {
+                        result = {
+                            src, href: data[hrefKey] || legacy[hrefKey] || data.href || defaultObj.href, type: 'img',
+                            size: size,
+                            title: data[altTextKey] || legacy[altTextKey] || data.title || defaultObj.title,
+                            altText: data[altTextKey] || legacy[altTextKey] || data.altText || null, isCustom: true
+                        };
+                    } else {
+                        result = configObj.src ? configObj : null;
+                        if (result && hasAdminSize) {
+                            result = { src: result.src, href: result.href, type: result.type, size: size, title: result.title, altText: result.altText || null };
+                        }
+                    }
+                    if (result) {
+                        if (result.type === 'img') { result.is_img = true; }
+                        else if (result.type === 'svg') { result.is_svg = true; }
+                    }
+                    return result;
+                });
+
+                const mainSrc = logoMain.uploadedFileUrl || logo.uploadedFileUrl || logoMain.src;
+                const logo_sm = mainSrc ? { src: mainSrc, href: logoMain.logoHref || logo.logoHref || logoDefault.href, size: { width: logoMain.logoWidth || logo.logoWidth, height: logoMain.logoHeight || logo.logoHeight }, title: logoMain.logoAltText || logo.logoAltText || logoDefault.title, isCustom: true } : logo.standalone || logo.mailmojo || null;
+                const mmSrc = logoMailmojo.uploadedMailmojoFileUrl || logo.uploadedMailmojoFileUrl || logoMailmojo.src;
+                const logo_mm = mmSrc ? { src: mmSrc, href: logoMailmojo.mailmojoLogoHref || logo.mailmojoLogoHref || logoDefault.href, size: { width: logoMailmojo.mailmojoLogoWidth || logo.mailmojoLogoWidth, height: logoMailmojo.mailmojoLogoHeight || logo.mailmojoLogoHeight }, title: logoMailmojo.mailmojoLogoAltText || logo.mailmojoLogoAltText || logoDefault.title, isCustom: true } : logo.mailmojo || logo.standalone || null;
 
                 return {
-                    current: activeLogo,
+                    current: activeLogo,    
                     sm: logo_sm,
-                    mm: logo_mm
+                    mm: logo_mm,
+                    secondary: activeSecondaryLogo,
+                    mobile: activeMobileLogo || activeLogo
                 };
             }
         };
@@ -23182,13 +24570,34 @@ class PageAPI {
 
                 const socialItemsConfig = this.api.v1.config.get(`page_settings.${ params.pageType }.social.items`) || {};
                 const showTagsSetting = this.api.v1.config.get(`page_settings.${ params.pageType }.showTags`);
-                const socialItems = Object.keys(socialItemsConfig).filter((key) => !!socialItemsConfig[key].display).map((key) => ({
-                    name: key,
-                    icon: socialItemsConfig[key].icon || '',
-                    url: params.socialLinks[key] || '',
-                    shareText: this.api.v1.locale.get(`socialMedia.shareText.${ key }`, { noRender: true, fallbackValue: '' }),
-                    isButton: socialItemsConfig[key].isButton || false
-                }));
+
+                // Map icon classes to AMP social share types
+                const iconToAmpType = {
+                    'fi-social-facebook': 'facebook',
+                    'fi-social-twitter': 'twitter',
+                    'fi-social-linkedin': 'linkedin',
+                    'fi-social-whatsapp': 'whatsapp',
+                    'fi-mail': 'email',
+                    'fi-social-telegram': 'telegram',
+                    'fi-social-copyLink': 'system'
+                };
+
+                const socialItems = Object.keys(socialItemsConfig).filter((key) => !!socialItemsConfig[key].display).map((key) => {
+                    const icon = socialItemsConfig[key].icon || '';
+                    return {
+                        name: key,
+                        icon,
+                        url: params.socialLinks[key] || '',
+                        shareText: this.api.v1.locale.get(`socialMedia.shareText.${ key }`, { noRender: true, fallbackValue: '' }),
+                        isButton: socialItemsConfig[key].isButton || false,
+                        ampType: iconToAmpType[icon] || '',
+                        // Add boolean flags for conditional rendering in templates
+                        telegram: key === 'telegram',
+                        twitter: key === 'twitter',
+                        whatsapp: key === 'whatsapp',
+                        email: key === 'email'
+                    };
+                });
                 return {
                     page_type: params.pageType,
                     social: {
@@ -23294,7 +24703,21 @@ class ImageUploadProcessor {
             modified: callbacks.modified || null
         };
         this.lastEditId = null;
-        this.selectedLanguage = this.api.v1.config.get('contentLanguage') || 'en';
+
+        // Determine initial language based on languageSiteSetting
+        const site = this.api.v1.site.getSite();
+        const siteAlias = site && site.alias;
+        const labradorAiConfig = this.api.v1.config.get('labradorAi', { site: siteAlias });
+        const languageSiteSetting = labradorAiConfig?.imageMetadata?.languageSiteSetting;
+
+        if (languageSiteSetting === 'seoLanguage') {
+            const rootModel = this.api.v1.model.query.getModelByType('article') || this.api.v1.model.query.getModelByType('bodytext');
+            const seoLanguage = rootModel?.get('fields.seolanguage');
+            this.selectedLanguage = seoLanguage || this.api.v1.config.get('contentLanguage') || 'en';
+        } else {
+            // Default to siteLanguage
+            this.selectedLanguage = this.api.v1.config.get('contentLanguage') || 'en';
+        }
         this.template = `<div class="lab-fileuploader" data-lab-content="1">
             <div class="lab-formgroup">
                 <div style="display: flex; align-items: center; gap: 12px; padding: 12px; border-bottom: 1px solid black; border-top: 1px solid black;">
@@ -23491,8 +24914,8 @@ class ImageUploadProcessor {
 
     async regenerateAIMetadata(imageId) {
         const site = lab_api.v1.site.getSite();
-        const defaultLanguage = lab_api.v1.config.get('contentLanguage') || 'en';
-        const languageToUse = this.selectedLanguage || defaultLanguage;
+        const siteAlias = site && site.alias;
+        const languageToUse = this.selectedLanguage || 'en';
 
         // Find the button and disable it during generation
         const button = this.modal.markup.querySelector(`button.lab-generate[data-id="${ imageId }"]`);
@@ -23540,7 +24963,9 @@ class ImageUploadProcessor {
                 prompt: 'Make sure to generate caption and alt text that are different from the current context'
             };
 
-            const plainBodyText = this.api.v1.bodytext.getText(this.api.v1.model.query.getModelByType('bodytext'));
+            const bodytextModel = this.api.v1.model.query.getModelByType('bodytext');
+            const plainBodyText = bodytextModel && this.api.v1.bodytext.getText(bodytextModel);
+
             if (plainBodyText) {
                 // Append the bodytext context to the prompt
                 payload.prompt = `
@@ -23573,6 +24998,26 @@ class ImageUploadProcessor {
                 const caption = response.metadata.caption || '';
                 const altText = response.metadata.alt_text || '';
                 const tags = response.tags || [];
+
+                // Log to UI-Log
+                if (this.api.v1.eventmonitor.writer.log) {
+                    const paths = [`imageId_${ imageId }`];
+                    if (caption) {
+                        paths.push('caption');
+                    }
+                    if (altText) {
+                        paths.push('altText');
+                    }
+                    if (tags && tags.length) {
+                        paths.push('tags');
+                    }
+                    this.api.v1.eventmonitor.writer.log({
+                        action: 'labradorAI',
+                        ...{
+                            type: 'image', subtype: 'metadata', provider: response.provider, model: response.model, feature: 'upload_regenerate', paths
+                        }
+                    });
+                }
 
                 // Save the metadata to backend
                 const fields = {
@@ -23814,7 +25259,8 @@ const Namespace = {
 
         // Generate a citation article from a copy of text and source
         lab_api.v1.ns.set('contextualmenu.callbacks.generateCitationArticle', (model, view, menuItem, params) => {
-            lab_api.v1.apps.start('ArticleCitation', menuItem);
+            const { updatedEditor } = params;
+            lab_api.v1.apps.start('ArticleCitation', menuItem, { model: 'gpt-4o' }, updatedEditor);
         });
 
         // Edit caption, byline and alt-text for original image. Useful for menu-items related to caption-editing of image-crops.
@@ -23828,7 +25274,6 @@ const Namespace = {
         // For text-editors: Display a list of articles.
         // Let user click an article to insert an a-tag at selection.
         lab_api.v1.ns.set('contextualmenu.callbacks.insertArticleLink', (model, view, menuItem, params) => {
-
             // Clicking on some element that did not capture the event inside the menu will trigger
             // the blur-event of the bodytext. Disable and enable again in the callback.
             menuItem.menu.tool.disableEndEvent();
@@ -23869,6 +25314,82 @@ const Namespace = {
                     }
                 }
             });
+        });
+
+        // Alternative insert function for text editor based on prosemirror.
+        // Let user click an article to insert an a-tag at selection.
+        lab_api.v1.ns.set('contextualmenu.callbacks.insertArticleLinkEditor', (model, view, menuItem, params) => {
+            if (!lab_api.v1.editor.isAvailable()) {
+                Sys.logger.warn('!Baseview Namespace: EditorStore for Prosemirror editor not found');
+                return;
+            }
+            // Pausing blur event for the editor.
+            lab_api.v1.editor.suspend();
+
+            // Opening the collection modal.
+            lab_api.v1.collection.display({
+                name: params.menu.name,
+                modal: true,
+                options: {
+                    click: (uiInterface, targetModel) => {
+                        let url = targetModel.get('fields.published_url');
+                        if (url) {
+                            if (!url.startsWith('http')) {
+                                const site = lab_api.v1.site.getSiteById(targetModel.get('fields.site_id'));
+                                if (site) {
+                                    url = site.domain + url;
+                                }
+                            }
+                        }
+                        const title = targetModel.get('fields.title');
+
+                        // Calling the editor function to insert the article link.
+                        lab_api.v1.editor.link.article.create(url, title);
+
+                        // Close the collection modal.
+                        lab_api.v1.collection.toggle({ name: uiInterface.getName(), modal: true });
+                    }
+                }
+            });
+        });
+
+        // For text-editors. Let user create a quote-box from selection for Prosemirror editor.
+        lab_api.v1.ns.set('contextualmenu.callbacks.insertQuoteEditor', (model, view, menuItem, params) => {
+            if (!lab_api.v1.editor.isAvailable()) {
+                Sys.logger.warn('!Baseview Namespace: EditorStore for Prosemirror editor not found');
+                return;
+            }
+
+            // Pausing blur event for the editor.
+            lab_api.v1.editor.suspend();
+
+            // Get selection from editor
+            const { text: selectedText, index: selectedIndex } = lab_api.v1.editor.selection.get();
+
+            const text = selectedText;
+            if (!text) { return; }
+
+            const index = selectedIndex;
+            if (index === null) { return; }
+
+            // Create element and insert
+            const quoteModel = lab_api.v1.model.create.view({
+                type: 'quotebox',
+                contentdata: {
+                    fields: {
+                        quote: selectedText
+                    }
+                },
+                metadata: {
+                    float: {
+                        desktop: 'floatRight'
+                    },
+                    bodyTextIndex: selectedIndex
+                },
+                width: 33.33
+            });
+            lab_api.v1.model.addChild(model, quoteModel, index);
+            menuItem.menu.tool.end();
         });
 
         // For text-editors. Let user create a quote-box from selection
@@ -24071,6 +25592,7 @@ const Namespace = {
             lab_api.v1.apps.start('FieldVersion', {
                 model,
                 field: 'bodytext',
+                resetFields: ['bodytext.editor-structure'],
                 selector: '.main > .bodytext',
                 callbacks: {
                     end: (app) => {
@@ -24102,6 +25624,85 @@ const Namespace = {
             });
         });
 
+        // Swaps CSS classes on a DOM element — removes the old set, adds the new set.
+        // Handles space-separated class lists (e.g. "my-class another-class").
+        const applyElementClass = (markup, newClass, prevClass) => {
+            if (prevClass) {
+                prevClass.trim().split(/\s+/).forEach((c) => markup.classList.remove(c));
+            }
+            if (newClass) {
+                newClass.trim().split(/\s+/).forEach((c) => markup.classList.add(c));
+            }
+        };
+
+        // Opens a modal that lets the editor set one or more CSS classes on any element.
+        // The value is saved to metadata.elementClass and applied to the element's root tag
+        // via onRendered() in Front.js (both editor and published page).
+        lab_api.v1.ns.set('contextualmenu.callbacks.setElementClass', (model, view, menuItem, params) => {
+            const inputConfig = {
+                key: 'metadata.elementClass',
+                type: 'text',
+                placeholder: 'my-class another-class',
+                label: 'CSS class(es) – space-separated, without quotes'
+            };
+            const defaults = {
+                grid: 12,
+                id: 'lab-modal-elementclass-input',
+                value: model.get('metadata.elementClass') || '',
+                name: inputConfig.key
+            };
+            // validateFormInputConfig converts the plain config into the format the modal dialog expects.
+            const element = lab_api.v1.util.dom.validateFormInputConfig(inputConfig, defaults);
+
+            let modal = null;
+            modal = lab_api.v1.ui.modal.dialog({
+                content: {
+                    title: 'Set element class',
+                    formgroups: [
+						{
+                        hasGrid: true,
+                        elements: [element]
+                    	}
+					]
+                },
+                footer: {
+                    buttons: [
+						{
+							value: 'Cancel',
+							class: 'lab-link',
+							id: 'lab-modal-elementclass-cancel'
+						}, 
+						{
+							highlight: true,
+							type: 'submit',
+							value: 'OK'
+						}
+					]
+                },
+                callbacks: {
+                    // callbacks.submit (not callbacks.validation.success) fires unconditionally on form submit.
+                    submit: (data) => {
+                        const newClass = (data['metadata.elementClass'] || '').trim();
+                        const prevClass = model.get('metadata.elementClass') || '';
+                        // Save to metadata (null clears the value rather than storing an empty string).
+                        // view.set() — not model.set() — routes through the save pipeline and persists the data.
+                        view.set('metadata.elementClass', newClass || null);
+                        // Update the DOM immediately in the editor for instant visual feedback.
+                        // On re-renders, onRendered() in Front.js re-applies the class automatically.
+                        for (const v of lab_api.v1.view.getViews(model)) {
+                            applyElementClass(v.getMarkup(), newClass, prevClass);
+                        }
+                    }
+                },
+                eventHandlers: [{
+                    selector: '#lab-modal-elementclass-cancel',
+                    event: 'click',
+                    callback: () => modal.close()
+                }],
+                autofocus: true
+            });
+        });
+
         // Toggle pinning of a notice in a live feed
         lab_api.v1.ns.set('contextualmenu.callbacks.toggleNoticePin', (model, view, menuItem, menuParams, callback) => {
             const livefeedModel = model.getParent();
@@ -24118,6 +25719,11 @@ const Namespace = {
             livefeedModel.setFiltered('noFetch', false);
             livefeedModel.resetExternalResource();
             livefeedModel.set('fields.pinnedNotices_json', pinneNotices);
+        });
+
+        // Check if Collabrador may run. Used to display Collabrador-related menu-items and hotkey only when Collabrador can run.
+        lab_api.v1.ns.set('collabrador.canRun', () => {
+            return !!lab_api.v1.config.get('collabrador.active');
         });
     }
 };
@@ -24191,6 +25797,7 @@ class AdsHelper {
             spacingTop: api.v1.config.get('contentbox_settings.adnuntiusAd.spacingTop') || 120,
             fetchMarginPercent: adEnv.fetchMarginPercent || 150,
             renderMarginPercent: adEnv.renderMarginPercent || 150,
+            mobileScaling: adEnv.mobileScaling || 2.0,
             bidding: {
                 enabled: adnuntiusBiddingEnabled
             },
@@ -24259,6 +25866,7 @@ class AdsHelper {
             spacingTop: api.v1.config.get('contentbox_settings.googleAd.spacingTop') || 120,
             fetchMarginPercent: adEnv.fetchMarginPercent || 150,
             renderMarginPercent: adEnv.renderMarginPercent || 150,
+            mobileScaling: adEnv.mobileScaling || 2.0,
             adUnits: visibleUnits,
             anchor,
             dfpid: adEnv.dfpid || false,
@@ -24270,6 +25878,218 @@ class AdsHelper {
     }
 
 }
+
+
+/***/ }),
+
+/***/ "./modules/lib/helpers/AiModels.js":
+/*!*****************************************!*\
+  !*** ./modules/lib/helpers/AiModels.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   AiModels: () => (/* binding */ AiModels),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * AiModels helper class
+ *
+ * Centralized management of AI models with support for:
+ * - Text and Image model separation
+ * - Default model selection
+ * - Model availability checking
+ * - Automatic fallback to defaults when models not found
+ */
+
+class AiModels {
+
+    constructor() {
+        this.config = null;
+        this.defaults = null;
+        this.initialized = false;
+        this.initPromise = this.loadConfig();
+    }
+
+    async loadConfig() {
+        /**
+         * Load the AI models configuration from aiModels.json
+         * Uses lab_api.v1.config if available, otherwise fetches directly
+         */
+        try {
+            // Try to get from lab_api config system first (if available)
+            if (typeof lab_api !== 'undefined' && lab_api?.v1?.config?.get) {
+                const config = lab_api.v1.config.get('aiModels');
+                if (config) {
+                    this.config = config;
+                    this.defaults = this.config.defaults;
+                    this.initialized = true;
+                    return;
+                }
+            }
+
+            // Fallback: fetch the JSON file directly
+            const response = await fetch('/view-resources/baseview/config/edit/v2/aiModels.json');
+            if (!response.ok) {
+                throw new Error(`Failed to load aiModels.json: ${response.statusText}`);
+            }
+            this.config = await response.json();
+            this.defaults = this.config.defaults;
+            this.initialized = true;
+        } catch (error) {
+            // Provide minimal fallback config
+            this.config = {
+                defaults: { text: 'openAi-gpt-5-4', image: 'openAi-gpt-5-4' },
+                models: { text: {}, image: {} }
+            };
+            this.defaults = this.config.defaults;
+            this.initialized = true;
+        }
+    }
+
+    async ensureInitialized() {
+        /**
+         * Ensure the config is loaded before using any methods
+         */
+        if (!this.initialized) {
+            await this.initPromise;
+        }
+    }
+
+    /**
+     * Get all available models for a specific capability (text or image)
+     * @param {string} capability - 'text' or 'image'
+     * @returns {Object} Available models for the capability
+     */
+    getModelsByCapability(capability) {
+        if (!this.initialized || !this.config) {
+            return {};
+        }
+        if (!this.config.models[capability]) {
+            return {};
+        }
+        return this.config.models[capability];
+    }
+
+    /**
+     * Get all text models
+     * @returns {Object} All text models
+     */
+    getTextModels() {
+        return this.getModelsByCapability('text');
+    }
+
+    /**
+     * Get all image models
+     * @returns {Object} All image models
+     */
+    getImageModels() {
+        return this.getModelsByCapability('image');
+    }
+
+    /**
+     * Get default model for a capability
+     * @param {string} capability - 'text' or 'image'
+     * @returns {string} Default model ID
+     */
+    getDefaultModel(capability) {
+        return this.defaults[capability] || this.defaults.text;
+    }
+
+    /**
+     * Get model configuration by ID
+     * @param {string} modelId - The model ID
+     * @param {string} capability - Optional capability to search in
+     * @returns {Object|null} Model configuration or null if not found
+     */
+    getModelById(modelId, capability = null) {
+        if (capability) {
+            return this.config.models[capability]?.[modelId] || null;
+        }
+
+        // Search in both text and image models
+        for (const cap of ['text', 'image']) {
+            const model = this.config.models[cap]?.[modelId];
+            if (model) {
+                return model;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Resolve a model ID, using default if not found
+     * @param {string} modelId - The model ID to resolve
+     * @param {string} capability - Optional capability context
+     * @param {string} preferredFallback - Optional preferred fallback model ID (e.g., customer's global default)
+     * @returns {Object} Object with resolved model ID and info
+     */
+    resolveModel(modelId, capability = 'text', preferredFallback = null) {
+        if (!modelId) {
+            const defaultId = preferredFallback || this.getDefaultModel(capability);
+            return {
+                modelId: defaultId,
+                model: this.getModelById(defaultId, capability),
+                originalModelId: null
+            };
+        }
+
+        // Check if model exists
+        const model = this.getModelById(modelId, capability);
+        if (!model) {
+            // Use preferred fallback if provided, otherwise use system default
+            const defaultId = preferredFallback || this.getDefaultModel(capability);
+            return {
+                modelId: defaultId,
+                model: this.getModelById(defaultId, capability),
+                originalModelId: modelId,
+                notFound: true
+            };
+        }
+
+        return {
+            modelId,
+            model,
+            originalModelId: null
+        };
+    }
+
+    /**
+     * Get model options formatted for admin dropdown
+     * @param {string} capability - 'text' or 'image'
+     * @returns {Array} Array of options with value and label
+     */
+    getModelOptionsForAdmin(capability) {
+        const models = this.getModelsByCapability(capability);
+        return Object.entries(models).map(([key, model]) => ({
+            value: key,
+            label: model.label
+        }));
+    }
+
+    /**
+     * Get model configuration compatible with promptInstructions aiProvider format
+     * @param {string} modelId - The model ID
+     * @returns {Object} Model configuration in aiProvider format
+     */
+    getProviderConfig(modelId) {
+        const resolved = this.resolveModel(modelId);
+        if (!resolved.model) {
+            return null;
+        }
+
+        return {
+            label: resolved.model.label,
+            provider: resolved.model.provider,
+            model: resolved.model.model,
+            integration: resolved.model.integration,
+            serviceType: resolved.model.serviceType
+        };
+    }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AiModels);
 
 
 /***/ }),
@@ -24357,7 +26177,7 @@ class AutoFontSize {
             });
         } else {
             const titleWithSpaces = this.removeHTMLTags(title);
-            const titleLines = this.splitSentence(titleWithSpaces, config, 'default');
+            const titleLines = this.splitSentence(titleWithSpaces, rules, 'default');
             element.innerHTML = '';  // eslint-disable-line no-param-reassign
             for (const line of titleLines) {
                 element.innerHTML += `<span class="auto-font-size-line">${ line } </span>`;  // eslint-disable-line no-param-reassign
@@ -24471,7 +26291,7 @@ class AutoFontSize {
         const rangeToUse = this.findNumberOfLines(rulesToUse.ranges, length) || 1;
         const maxWordLength = rulesToUse.maxWordLength || null;
         const minLineLength = rulesToUse.minLineLength || null;
-        const regex = rules.reges || {};
+        const regex = rules.regex || {};
         const lines = this.splitTextEvenly(sentence, rangeToUse, maxWordLength, minLineLength, regex) || [];
         return lines;
     }
@@ -25001,7 +26821,7 @@ const contentLanguages = [
     { name: 'Chinese (Traditional) - 中文（繁體）', code: 'zh-TW' },
     { name: 'Corsican', code: 'co' },
     { name: 'Croatian - hrvatski', code: 'hr' },
-    { name: 'Czech - čeština', code: 'cs' },
+    { name: 'Czech - čeština', code: 'cs-CZ' },
     { name: 'Danish - dansk', code: 'da-DK' },
     { name: 'Dutch - Nederlands', code: 'nl-NL' },
     { name: 'Dutch - Belgium', code: 'nl-BE' },
@@ -25180,15 +27000,22 @@ class CustomTags {
             link: {
                 head_top: [],
                 head_bottom: []
+            },
+            noscript: {
+                head_top: [],
+                head_bottom: [],
+                body_top: [],
+                body_bottom: []
             }
         };
-        const filtered = tags.filter((tag) => (!tag.pageType || tag.pageType === pageType) && !(tag.skipEditor && isEditMode));
+        const filtered = tags.filter((tag) => (!tag.pageType || tag.pageType === pageType) && !(tag.skipEditor && isEditMode) && !(tag.skipFront && !isEditMode));
         for (const tag of Object.keys(result)) {
             for (const placement of Object.keys(result[tag])) {
                 result.meta[placement] = filtered.filter((item) => item.tag === 'meta').filter((item) => item.placement === placement).map((item) => this.createCustomTag(item));
                 result.script[placement] = filtered.filter((item) => item.tag === 'script').filter((item) => item.placement === placement).map((item) => this.createCustomTag(item));
                 result.style[placement] = filtered.filter((item) => item.tag === 'style').filter((item) => item.placement === placement).map((item) => this.createCustomTag(item));
                 result.link[placement] = filtered.filter((item) => item.tag === 'link').filter((item) => item.placement === placement).map((item) => this.createCustomTag(item));
+                result.noscript[placement] = filtered.filter((item) => item.tag === 'noscript').filter((item) => item.placement === placement).map((item) => this.createCustomTag(item));
             }
         }
         console.log(result);
@@ -25203,6 +27030,8 @@ class CustomTags {
                 return this.createScriptTag(item);
             case 'style':
                 return this.createStyleTag(item);
+            case 'noscript':
+                return this.createNoscriptTag(item);
             default:
                 return this.createMetaTag(item);
         }
@@ -25239,6 +27068,11 @@ class CustomTags {
     // <style>body { background-color: lightblue; }</style>
     static createStyleTag(item) {
         return `<style ${ this.parseAttributes(item.attributes) }>${ item.value ? this.parseVariables(item.value) : '' }</style>`;
+    }
+
+    // <noscript><img src="https://example.com/tracker.gif"></noscript>
+    static createNoscriptTag(item) {
+        return `<noscript ${ this.parseAttributes(item.attributes) }>${ item.value ? this.parseVariables(item.value) : '' }</noscript>`;
     }
 
 }
@@ -25412,6 +27246,221 @@ class FragmentHelper {
 
 /***/ }),
 
+/***/ "./modules/lib/helpers/GallerySeoHelper.js":
+/*!*************************************************!*\
+  !*** ./modules/lib/helpers/GallerySeoHelper.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   GallerySeoHelper: () => (/* binding */ GallerySeoHelper)
+/* harmony export */ });
+/**
+ * Pure-function helpers for composing gallery-page SEO and SoMe title and
+ * description. No DOM, no lab_api at module scope — all inputs passed in,
+ * so these are unit-testable without a full editor environment.
+ */
+class GallerySeoHelper {
+
+    /**
+     * Compose the meta (SEO) title for a gallery page.
+     *
+     * Fallback chain:
+     *   1. `{articleTitle} — {galleryLabel}` when there's a parent article
+     *   2. articleTitle alone (no label available)
+     *   3. slideshowTitle
+     *   4. galleryLabel
+     * Then appended with ` | {siteName}` (unless the content already ends with it).
+     *
+     * @param {Object} input
+     * @param {string} [input.articleTitle]       Parent article title, if any.
+     * @param {string} [input.slideshowTitle]     Slideshow's own title.
+     * @param {string} [input.galleryLabel]       Localized "Gallery".
+     * @param {string} [input.siteName]           site.display_name.
+     * @returns {string}
+     */
+    static composeTitle({
+        articleTitle, slideshowTitle, galleryLabel, siteName
+    }) {
+        // Trim candidates first — a whitespace-only value (e.g. "   ") is
+        // effectively empty for SEO purposes and should fall through the
+        // chain rather than short-circuit.
+        const article = (articleTitle || '').trim();
+        const slide   = (slideshowTitle || '').trim();
+        const label   = (galleryLabel || '').trim();
+
+        let content;
+        if (article && label) {
+            content = `${ article } — ${ label }`;
+        } else if (article) {
+            content = article;
+        } else if (slide) {
+            content = slide;
+        } else {
+            content = label;
+        }
+        return this.withSite(content, siteName);
+    }
+
+    /**
+     * Compose the social-share (SoMe) title for a gallery page. Prefers the
+     * slideshow's own title because an author who named the slideshow did so
+     * intentionally for this gallery; falls through to the article's curated
+     * SoMe title, then article title, then the localized gallery label.
+     *
+     * Fallback chain:
+     *   1. slideshowTitle       (author-picked for this gallery)
+     *   2. parentSomeTitle      (article's SoMe title)
+     *   3. parentTitle          (article's main title)
+     *   4. galleryLabel
+     * Then appended with ` | {siteName}`.
+     *
+     * @param {Object} input
+     * @param {string} [input.slideshowTitle]
+     * @param {string} [input.parentSomeTitle]
+     * @param {string} [input.parentTitle]
+     * @param {string} [input.galleryLabel]
+     * @param {string} [input.siteName]
+     * @returns {string}
+     */
+    static composeSomeTitle({
+        slideshowTitle, parentSomeTitle, parentTitle, galleryLabel, siteName
+    }) {
+        const slide     = (slideshowTitle || '').trim();
+        const parentSom = (parentSomeTitle || '').trim();
+        const parent    = (parentTitle || '').trim();
+        const label     = (galleryLabel || '').trim();
+
+        let content;
+        if (slide)          { content = slide; }
+        else if (parentSom) { content = parentSom; }
+        else if (parent)    { content = parent; }
+        else                { content = label; }
+        return this.withSite(content, siteName);
+    }
+
+    /**
+     * Append ` | siteName` to content, unless content already ends with it
+     * or either side is empty.
+     */
+    static withSite(content, siteName) {
+        const c = (content || '').trim();
+        const s = (siteName || '').trim();
+        if (!c) { return s; }
+        if (!s) { return c; }
+        // Match the full " | siteName" delimiter rather than a raw suffix —
+        // a title like "MySite" shouldn't be treated as already suffixed
+        // with siteName "Site".
+        const delim = ` | ${ s }`;
+        if (c.toLowerCase().endsWith(delim.toLowerCase())) { return c; }
+        return `${ c } | ${ s }`;
+    }
+
+    /**
+     * Compose the meta (SEO) description for a gallery page.
+     *
+     * Fallback chain (first non-empty wins):
+     *   1. slideshowDescription
+     *   2. parentSeoDescription
+     *   3. localized auto-template `gallery.autoDescription` with { n, title }
+     *   4. parentSubtitle
+     *   5. empty string — NEVER a literal placeholder.
+     *
+     * The auto-template is prioritised over the parent article's subtitle
+     * because the template describes the gallery itself ("N images from
+     * Title") while the subtitle is about the parent article.
+     *
+     * @returns {string}
+     */
+    static composeDescription({
+        slideshowDescription, parentSeoDescription, parentSubtitle,
+        imageCount, articleTitle, locale
+    }) {
+        return this.pickDescription([
+            slideshowDescription,
+            parentSeoDescription,
+            () => this.autoDescription({ imageCount, articleTitle, locale }),
+            parentSubtitle
+        ]);
+    }
+
+    /**
+     * Compose the social-share (SoMe) description for a gallery page.
+     *
+     * Fallback chain (first non-empty wins):
+     *   1. slideshowDescription
+     *   2. parentSomeDescription  (article's curated SoMe description)
+     *   3. parentSeoDescription
+     *   4. localized auto-template `gallery.autoDescription`
+     *   5. parentSubtitle
+     *   6. empty string.
+     *
+     * @returns {string}
+     */
+    static composeSomeDescription({
+        slideshowDescription, parentSomeDescription, parentSeoDescription,
+        parentSubtitle, imageCount, articleTitle, locale
+    }) {
+        return this.pickDescription([
+            slideshowDescription,
+            parentSomeDescription,
+            parentSeoDescription,
+            () => this.autoDescription({ imageCount, articleTitle, locale }),
+            parentSubtitle
+        ]);
+    }
+
+    /**
+     * Walk a list of candidates (strings or zero-arg producers) and return
+     * the first non-empty trimmed+truncated value. Returns '' if none match.
+     */
+    static pickDescription(candidates) {
+        for (const c of candidates) {
+            const raw = typeof c === 'function' ? c() : c;
+            const trimmed = (raw || '').trim();
+            if (trimmed) {
+                return this.truncate(trimmed, 160);
+            }
+        }
+        return '';
+    }
+
+    /**
+     * Render the localized auto-description template. Returns '' when the
+     * inputs are insufficient or the locale key is missing / malformed.
+     */
+    static autoDescription({ imageCount, articleTitle, locale }) {
+        if (!(imageCount > 0) || !articleTitle || !locale) { return ''; }
+        const out = locale.get('gallery.autoDescription', {
+            data: { n: imageCount, title: articleTitle }
+        });
+        const trimmed = (out || '').trim();
+        // Guard against missing locale key (locale.get returns the literal key)
+        // and against unresolved mustache interpolation.
+        if (!trimmed) { return ''; }
+        if (trimmed.startsWith('gallery.autoDescription')) { return ''; }
+        if (trimmed.includes('{{')) { return ''; }
+        return trimmed;
+    }
+
+    /**
+     * Truncate to max chars. Prefer a word boundary if one lies within the
+     * last 25% of the cut; otherwise hard-cut. Appends an ellipsis.
+     */
+    static truncate(s, max) {
+        if (s.length <= max) { return s; }
+        const cut = s.slice(0, max);
+        const lastSpace = cut.lastIndexOf(' ');
+        const base = lastSpace > max * 0.75 ? cut.slice(0, lastSpace) : cut;
+        return `${ base.trimEnd() }…`;
+    }
+
+}
+
+
+/***/ }),
+
 /***/ "./modules/lib/helpers/LabradorAi.js":
 /*!*******************************************!*\
   !*** ./modules/lib/helpers/LabradorAi.js ***!
@@ -25423,6 +27472,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   LabradorAi: () => (/* binding */ LabradorAi)
 /* harmony export */ });
 /* harmony import */ var _ContentLanguages_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ContentLanguages.js */ "./modules/lib/helpers/ContentLanguages.js");
+/* harmony import */ var _AiModels_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AiModels.js */ "./modules/lib/helpers/AiModels.js");
+
 
 
 /**
@@ -25445,6 +27496,8 @@ class LabradorAi {
         this.rootModel = rootModel;
         this.promptInstructions = this.api.v1.config.get('promptInstructions');
         this.siteInfo = this.getSiteInfo();
+        this.aiModels = new _AiModels_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
+        this.aiModelsReady = this.aiModels.ensureInitialized();
     }
 
     getSiteInfo(sitealias = null) {
@@ -25609,24 +27662,53 @@ class LabradorAi {
          * Get the AI settings for the current feature, as defined in admin page Labrador AI for the current site.
          * Passed on to backend AI integration for generation of content
          * Default to provider/model set in 'prompt instructions'-config
+         * Handles deprecated model fallback automatically
          * @param {Object} promptConfig - The prompt configuration to get the AI settings for
          */
 
+        let selectedProviderId = null;
+
+        // Get global default from customer config for use as fallback
+        const labradorAiConfig = this.api.v1.config.get('labradorAi', { site: this.siteAlias });
+        const globalSettings = labradorAiConfig?.globalSettings;
+        const customerGlobalDefault = globalSettings?.defaultTextModel;
+
         // Use customer defined provider, if set in promptConfig
-        if (promptConfig?.aiProvider && this.promptInstructions?.aiProvider && this.promptInstructions.aiProvider[promptConfig.aiProvider]) {
-            return this.promptInstructions.aiProvider[promptConfig.aiProvider];
+        if (promptConfig?.aiProvider && promptConfig.aiProvider !== 'default') {
+            selectedProviderId = promptConfig.aiProvider;
         }
-
+        // If "default" is selected or not set, use global default from config
+        else if (!promptConfig?.aiProvider || promptConfig?.aiProvider === 'default') {
+            selectedProviderId = customerGlobalDefault || this.aiModels.getDefaultModel('text');
+        }
         // Fallback to default provider, as set in "prompt instructions"
-        if (this.promptInstructionsFeature?.providerDefault && this.promptInstructions.aiProvider[this.promptInstructionsFeature.providerDefault]) {
-            return this.promptInstructions.aiProvider[this.promptInstructionsFeature.providerDefault];
+        else if (this.promptInstructionsFeature?.providerDefault) {
+            selectedProviderId = this.promptInstructionsFeature.providerDefault;
+        }
+        // Final fallback to default text model
+        else {
+            selectedProviderId = this.aiModels.getDefaultModel('text');
         }
 
-        const defaultAiProvider = 'openAi-gpt4o';
+        // Resolve model (handles deprecated models with fallback)
+        // Pass customer's global default as preferred fallback so deprecated models use it instead of system default
+        const featureName = params.featureName || '';
+        const resolved = this.aiModels.resolveModel(selectedProviderId, 'text', customerGlobalDefault);
 
-        const aiProvider = this.promptInstructions.aiProvider[defaultAiProvider];
+        // Get provider config from centralized models
+        let aiProvider;
+        if (resolved.model) {
+            aiProvider = this.aiModels.getProviderConfig(resolved.modelId);
+        }
+
+        if (!aiProvider) {
+            // Ultimate fallback - use default text model from config
+            const defaultId = this.aiModels.getDefaultModel('text');
+            aiProvider = this.aiModels.getProviderConfig(defaultId);
+        }
+
         aiProvider.searchForKeywords = promptConfig.searchForKeywords || [];
-        aiProvider.featureName = params.featureName || '';
+        aiProvider.featureName = featureName;
         return aiProvider;
     }
 
@@ -25750,6 +27832,9 @@ class LabradorAi {
         if (fields && config.originalContent) {
             unRenderedPrompt += config.originalContent;
         }
+
+        // Add strict JSON formatting instruction at the end to ensure models return valid JSONs
+        unRenderedPrompt += '\n\nCRITICAL: You must respond with valid JSON only. No explanations, no preamble, no markdown code blocks. Your entire response must be parseable by JSON.parse(). Do not add any text before or after the JSON object.';
 
         const prompt = this.api.v1.util.dom.renderTemplate(unRenderedPrompt, { params: config });
         return prompt;
@@ -25887,6 +27972,31 @@ class LabradorAi {
             promptConfig.model = templateConfigItems.model.defaultValue;
         }
             */
+
+        // Populate aiProvider options dynamically from centralized models
+        if (templateConfigItems.aiProvider) {
+            const models = this.aiModels.getModelsByCapability('text');
+
+            // Add "Default" option first
+            const aiProviderOptions = [
+                { label: 'Default (uses global setting)', value: 'default' }
+            ];
+
+            // Add all available models
+            for (const [modelId, model] of Object.entries(models)) {
+                aiProviderOptions.push({
+                    label: model.label,
+                    value: modelId
+                });
+            }
+
+            templateConfigItems.aiProvider.options = aiProviderOptions;
+
+            // Set default value if not already set
+            if (!templateConfigItems.aiProvider.defaultValue) {
+                templateConfigItems.aiProvider.defaultValue = 'default';
+            }
+        }
 
         // option for language, fetch language list set that to "options"
         if (templateConfigItems.languageContent) {
@@ -26136,13 +28246,20 @@ class LabradorAi {
         }
         for (const field of Object.keys(modelFields)) {
             if (setToRootModel === true) {
+                // Remove editor-structure from root model.
+                this.cleanStructureFromModelOrView(this.rootModel, field);
                 this.rootModel.set(`fields.${ field }`, modelFields[field]);
             }
             if (setToViewAiField === true) {
                 for (const parentView of parentViews) {
+                    // Remove editor-structure from view.
+                    this.cleanStructureFromModelOrView(parentView, field);
                     parentView.set(`fields.${ field }`, modelFields[field]);
                 }
             }
+
+            // Remove editor-structure from model.
+            this.cleanStructureFromModelOrView(model, field);
             model.set(`fields.${ field }`, modelFields[field]);
         }
 
@@ -26249,6 +28366,19 @@ class LabradorAi {
 
         jsonString = jsonString.trim();
         return jsonString;
+    }
+
+    /**
+     * Clean the editor-structure from the given model or view
+     *
+     * @param {object} modelOrView - The Labrador element-model or view to clean the editor-structure from
+     * @param {string} field - The field to clean the editor-structure from
+     */
+    cleanStructureFromModelOrView(modelOrView, field) {
+        // Check for editor-structure in attributes and remove if present.
+        if (modelOrView.get(`fields.${ field }.editor-structure`)) {
+            modelOrView.set(`fields.${ field }.editor-structure`, null);
+        }
     }
 
     appendLocalizedString(model, fieldPath, localizationPath) {
@@ -26454,14 +28584,17 @@ class LayoutHelper {
             top: [],
             floating: [],
             bottom: [],
+            sub: [],
             positions: {
                 kicker: '',
-                title: ''
+                title: '',
+                bylines: ''
             }
         };
 
         let kickerPosition = '';
         let titlePosition = '';
+        let bylinesPosition = '';
 
         // Process the kicker first
         if (view.get('metadata.showKicker') && (isEditor || (!!view.get('fields.kicker') || !!view.get('fields.origin_data_json.teaserKicker') || !!view.get('fields.origin_data_json.kicker')))) {
@@ -26494,6 +28627,40 @@ class LayoutHelper {
                 layout.bottom.push('title');
                 layout.positions.title = 'below';
                 titlePosition = 'bottom';
+            }
+        }
+
+        // Process bylines
+        if (view.get('fields.displayByline')) {
+            if (view.get('metadata.floatingBylines')) {
+                layout.floating.push('bylines');
+                layout.positions.bylines = 'floating';
+                bylinesPosition = 'floating';
+            } else {
+                layout.sub.push('bylines');
+                layout.positions.bylines = 'sub';
+                bylinesPosition = 'sub';
+            }
+
+            if (view.get('metadata.bylinesAboveTitle')) {
+                if (titlePosition) {
+                    if (bylinesPosition) {
+                        const index = layout[bylinesPosition].indexOf('bylines');
+                        if (index != -1) {
+                            layout[bylinesPosition].splice(index, 1);
+                        }
+                    }
+
+                    const positionArray = layout[titlePosition];
+                    const titleIndex = positionArray.indexOf('title');
+                    if (titleIndex !== -1) {
+                        positionArray.splice(titleIndex, 0, 'bylines');
+                    } else {
+                        positionArray.push('bylines');
+                    }
+                    layout.positions.bylines = 'aboveTitle';
+                    bylinesPosition = titlePosition;
+                }
             }
         }
 
@@ -26568,6 +28735,13 @@ class LazyloadHelper {
         const row = lab_api.v1.model.query.getParentOfType(model, 'row');
         if (row && !this.isFragmentMode && row.getModelIndex() < 5) {
             return false;
+        }
+        const slideshow = lab_api.v1.model.query.getParentOfType(model, 'slideshow');
+        if (slideshow) {
+            const articleHeader = lab_api.v1.model.query.getParentOfType(slideshow, 'articleHeader');
+            if (articleHeader && model.getModelIndex() < 1) {
+                return false;
+            }
         }
         return true;
     }
@@ -26800,13 +28974,15 @@ class PageExport {
         if (imageModel) {
             const url = imageModel.get('filtered.image');
             if (url) {
+                const altText = imageModel.get('fields.altText') || '';
                 result.images.push({
                     url,
                     jpg: `${ url }&format=jpg`,
                     webp: `${ url }&format=webp`,
                     url_size: url,
                     default: '1',
-                    id: imageModel.get('instance_of')
+                    id: imageModel.get('instance_of'),
+                    altText
                 });
             }
         }
@@ -27051,6 +29227,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   SEOHelper: () => (/* binding */ SEOHelper)
 /* harmony export */ });
+/* harmony import */ var _SEOSchemaUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SEOSchemaUtils.js */ "./modules/lib/helpers/SEOSchemaUtils.js");
+
+
 class SEOHelper {
 
     constructor({
@@ -27073,6 +29252,8 @@ class SEOHelper {
             seoData: null
         };
         this.imageServer = lab_api.v1.properties.get('image_server');
+        this.domain = lab_api.v1.site.getSite().domain || lab_api.v1.properties.get('customer_front_url');
+        this.authorPagesConfig = lab_api.v1.config.get('authorPages') || {};
     }
 
     /**
@@ -27088,7 +29269,52 @@ class SEOHelper {
         if (this.settings.pageType === 'front') {
             return this.generateFrontData(model);
         }
+        if (this.settings.pageType === 'gallery') {
+            return this.generateGalleryPageData(model);
+        }
         if (this.settings.pageType === 'article' || this.settings.pageType === 'notice') {
+            const schemaType = model.get('fields.seoschematype') || 'NewsArticle';
+
+            // Special schema types that can be paired with articles
+            // Note: Recipe block generates detailed Recipe schema; this just creates the page wrapper
+            const specialSchemas = ['ImageGallery', 'VideoObject', 'BroadcastEvent', 'LiveBlogPosting', 'Recipe'];
+            const requiresArticle = [];
+
+            if (specialSchemas.includes(schemaType)) {
+                let specialSchemaData = null;
+
+                // Generate the special schema
+                if (schemaType === 'ImageGallery') {
+                    specialSchemaData = this.generateImageGalleryData(model);
+                } else if (schemaType === 'VideoObject') {
+                    specialSchemaData = this.generateVideoObjectData(model);
+                } else if (schemaType === 'BroadcastEvent') {
+                    specialSchemaData = this.generateBroadcastEventData(model);
+                } else if (schemaType === 'LiveBlogPosting') {
+                    specialSchemaData = this.generateArticleData(model);
+                } else if (schemaType === 'Recipe') {
+                    specialSchemaData = this.generateRecipeData(model);
+                }
+
+                if (!specialSchemaData) {
+                    return null;
+                }
+
+                // Include NewsArticle for types that require it (ImageGallery, BroadcastEvent, LiveBlogPosting)
+                // VideoObject and Recipe are standalone
+                if (requiresArticle.includes(schemaType)) {
+                    const articleData = this.generateArticleData(model);
+                    // generateArticleData now normalizes non-article types to NewsArticle automatically
+                    // Remove mainEntityOfPage from article since the special schema has it
+                    delete articleData.mainEntityOfPage;
+                    return [articleData, specialSchemaData];
+                }
+
+                // Return standalone special schema (VideoObject and Recipe)
+                return specialSchemaData;
+            }
+
+            // For all other types (NewsArticle, Article, OpinionNewsArticle)
             return this.generateArticleData(model);
         }
         return null;
@@ -27115,74 +29341,341 @@ class SEOHelper {
         };
     }
 
+    getPublisherObject() {
+        return _SEOSchemaUtils_js__WEBPACK_IMPORTED_MODULE_0__.SEOSchemaUtils.buildPublisherSchema(this.domain);
+    }
+
+    getBroadcasterObject() {
+        return _SEOSchemaUtils_js__WEBPACK_IMPORTED_MODULE_0__.SEOSchemaUtils.buildBroadcasterSchema(this.domain);
+    }
+
+    /**
+     * Get article images, optionally excluding images from specified parent types
+     * @param {Object} model - The article model
+     * @param {Array<string>} excludedParentTypes - Array of parent types to exclude (e.g., ['byline'])
+     * @returns {Array} Filtered array of image nodes
+     */
+    getArticleImages(model, excludedParentTypes = []) {
+        const allImages = lab_api.v1.model.query.getChildrenOfType(model, 'image', true);
+
+        if (excludedParentTypes.length === 0) {
+            return allImages;
+        }
+
+        // Collect IDs of images to exclude based on parent types
+        const excludedImageIds = new Set();
+        excludedParentTypes.forEach((parentType) => {
+            const parents = lab_api.v1.model.query.getChildrenOfType(model, parentType, true);
+            parents.forEach((parent) => {
+                const images = lab_api.v1.model.query.getChildrenOfType(parent, 'image', true);
+                images.forEach((img) => excludedImageIds.add(img.get('instance_of')));
+            });
+        });
+
+        return allImages.filter((image) => !excludedImageIds.has(image.get('instance_of')));
+    }
+
+    /**
+     * Calculate word count from HTML text
+     * @param {string} htmlText - The HTML text to count words from
+     * @returns {number} Word count
+     */
+    calculateWordCount(htmlText) {
+        if (!htmlText) {
+            return 0;
+        }
+        // Strip HTML tags and count words
+        const plainText = lab_api.v1.util.string.stripTags(htmlText);
+        const words = plainText.trim().split(/\s+/).filter((word) => word.length > 0);
+        return words.length;
+    }
+
+    /**
+     * Calculate reading time in ISO 8601 duration format
+     * @param {number} wordCount - Number of words
+     * @returns {string} Duration in ISO 8601 format (e.g., "PT5M" for 5 minutes)
+     */
+    calculateTimeRequired(wordCount) {
+        if (!wordCount || wordCount === 0) {
+            return 'PT1M';
+        }
+        // Average reading speed: 200 words per minute
+        const minutes = Math.ceil(wordCount / 200);
+        return `PT${ minutes }M`;
+    }
+
+    /**
+     * Calculate resized image dimensions maintaining aspect ratio
+     * @param {Object} image - Image model
+     * @param {number} targetWidth - Desired width
+     * @returns {Object} {width, height} or null if ratio unavailable
+     */
+    getImageDimensions(image, targetWidth) {
+        let whRatio = parseFloat(image.get('fields.whRatio'));
+
+        // Fallback: calculate from originalWidth/originalHeight if whRatio not available
+        if (!whRatio || isNaN(whRatio)) {
+            const originalWidth = parseInt(image.get('fields.originalWidth'), 10);
+            const originalHeight = parseInt(image.get('fields.originalHeight'), 10);
+
+            if (originalWidth && originalHeight && originalWidth > 0) {
+                whRatio = originalHeight / originalWidth;
+            } else {
+                return null;
+            }
+        }
+
+        // whRatio = height / width, so targetHeight = targetWidth * whRatio
+        return {
+            width: targetWidth,
+            height: Math.round(targetWidth * whRatio)
+        };
+    }
+
+    /**
+     * Build ImageObject array from article images for use in JSON-LD schemas
+     * @param {Object} model - Article model
+     * @returns {Array} Array of ImageObject schema objects
+     */
+    buildArticleImageObjects(model) {
+        const images = this.getArticleImages(model, ['byline']);
+        const result = images.map((image, index) => {
+            const imageurl = image.get('fields.imageurl') || `${ this.imageServer }/?imageId=${ image.get('instance_of') }`;
+            const url = imageurl.endsWith('width=') ? `${ imageurl }1200` : `${ imageurl }&width=1200`;
+            const dimensions = this.getImageDimensions(image, 1200);
+            const imageObject = {
+                '@type': 'ImageObject',
+                url
+            };
+
+            if (index === 0) {
+                imageObject['@id'] = `${ this.settings.publishedUrl }#primaryimage`;
+            }
+
+            if (dimensions) {
+                imageObject.width = dimensions.width;
+                imageObject.height = dimensions.height;
+            }
+
+            return imageObject;
+        });
+
+        if (result.length === 0) {
+            const frontCrop = model.get('frontCrop');
+            const fcInstanceOf = frontCrop && frontCrop.pano && frontCrop.pano.instance_of;
+            if (fcInstanceOf) {
+                return [{
+                    '@type': 'ImageObject',
+                    '@id': `${ this.settings.publishedUrl }#primaryimage`,
+                    url: `${ this.imageServer }/${ fcInstanceOf }.webp?width=1200`
+                }];
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Determines whether the author should have an author page URL in the schema
+     * @param {Object} byline - The byline model
+     * @returns {boolean} True if author page should be used
+     */
+    shouldUseAuthorPageUrl(byline) {
+        const fields = {
+            public_email: byline.get('fields.public_email'),
+            email: byline.get('fields.email')
+        };
+        const instanceOf = byline.get('instance_of');
+
+        if (this.authorPagesConfig.enabled && (fields.public_email || fields.email) && instanceOf) {
+            if (this.authorPagesConfig.enableForAll) {
+                return true;
+            }
+            if (this.authorPagesConfig.enabledAuthorIds) {
+                const enabledIds = this.authorPagesConfig.enabledAuthorIds.split(',').map((id) => parseInt(id.trim(), 10));
+                if (enabledIds.includes(instanceOf)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Builds the author page URL
+     * @param {Object} byline - The byline model
+     * @returns {string} The author page URL
+     */
+    getAuthorPageUrl(byline) {
+        const instanceOfId = byline.get('instance_of');
+        const instanceOfJson = byline.get('instance_of_json') ? JSON.parse(byline.get('instance_of_json')) : undefined;
+        const instanceOfSlug = (instanceOfJson && instanceOfJson.fields && instanceOfJson.fields.slug) ? instanceOfJson.fields.slug : undefined;
+
+        return `${ this.domain }/${ this.authorPagesConfig.path || 'author' }/${ instanceOfSlug || instanceOfId || '' }`;
+    }
+
+    buildArticleListItemList(articles) {
+        return _SEOSchemaUtils_js__WEBPACK_IMPORTED_MODULE_0__.SEOSchemaUtils.buildArticleListItemList(articles, this.imageServer);
+    }
+
+    buildArticleListHasPart(articles) {
+        return _SEOSchemaUtils_js__WEBPACK_IMPORTED_MODULE_0__.SEOSchemaUtils.buildArticleListHasPart(articles, this.imageServer);
+    }
+
+    /**
+     * Determines the correct article schema type
+     * @param {LabModel} model - The article model
+     * @returns {string} The normalized article schema type (NewsArticle, Article, OpinionNewsArticle, or LiveBlogPosting)
+     */
+    getArticleSchemaType(model) {
+        const schemaType = model.get('fields.seoschematype') || 'NewsArticle';
+
+        // Valid article schema types that can be used directly
+        const validArticleTypes = ['NewsArticle', 'Article', 'OpinionNewsArticle', 'LiveBlogPosting'];
+
+        // Normalize non-article types to NewsArticle (ImageGallery, BroadcastEvent, Recipe, etc)
+        if (!validArticleTypes.includes(schemaType)) {
+            return 'NewsArticle';
+        }
+
+        return schemaType;
+    }
+
     generateFrontData(model) {
         const seoData = this.getSEOData(model);
-        return {
+
+        // Use CollectionPage for tag pages
+        if (this.settings.isTagpage) {
+            const output = {
+                '@context': 'https://schema.org',
+                '@type': 'CollectionPage',
+                url: this.settings.publishedUrl,
+                name: seoData.title,
+                description: seoData.description
+            };
+
+            // Try to get article list if available
+            const articles = lab_api.v1.model.query.getChildrenOfType(model, 'article', true);
+            const mainEntity = this.buildArticleListItemList(articles);
+            if (mainEntity) {
+                output.mainEntity = mainEntity;
+            }
+
+            return output;
+        }
+
+        // All other front pages - WebPage with automatic article lists
+        const output = {
             '@context': 'https://schema.org',
             '@type': 'WebPage',
+            url: this.settings.publishedUrl,
             name: seoData.title,
-            description: seoData.description
+            description: seoData.description,
+            publisher: this.getPublisherObject()
         };
+
+        // Add article lists if articles exist
+        const articles = lab_api.v1.model.query.getChildrenOfType(model, 'article', true);
+        const mainEntity = this.buildArticleListItemList(articles);
+        if (mainEntity) {
+            output.mainEntity = mainEntity;
+            output.hasPart = this.buildArticleListHasPart(articles);
+        }
+
+        return output;
     }
 
     generateArticleData(model) {
         const seoData = this.getSEOData(model);
+        const schemaType = this.getArticleSchemaType(model);
+
+        // Get article images, excluding images from bylines
+        const images = this.getArticleImages(model, ['byline']);
+
+        // Check if extended schema is enabled
+        const extendedSchema = lab_api.v1.config.get('extendedSeoSchema.active');
+
         const output = {
             '@context': 'https://schema.org',
-            '@type': 'NewsArticle',
+            '@type': schemaType,
             headline: seoData.title || model.get('fields.title'),
             description: seoData.description,
-            mainEntityOfPage: { '@id': this.settings.publishedUrl },
-            availableLanguage: [
+            url: this.settings.publishedUrl,
+            inLanguage: [
                 {
                     '@type': 'Language',
                     alternateName: seoData.language
                 }
             ],
-            image: lab_api.v1.model.query.getChildrenOfType(model, 'image', true).map((image) => {
-                const imageurl = image.get('fields.imageurl') || `${ this.imageServer }/?imageId=${ image.get('instance_of') }`;
-                return imageurl.endsWith('width=') ? `${ imageurl }1200` : `${ imageurl }&width=1200`;
-            }),
-            keywords: (model.get('tags') || []).join(', '),
-            author: lab_api.v1.model.query.getChildrenOfType(model, 'byline', true).map((byline) => {
-                let firstname = byline.get('fields.firstname');
-                if (firstname === 'Byline first name') { firstname = ''; }
-                let lastname = byline.get('fields.lastname');
-                if (lastname === 'Byline last name') { lastname = ''; }
-                const result = {
-                    '@type': 'Person',
-                    name: `${ firstname } ${ lastname }`
-                };
-
-                const public_url = byline.get('fields.public_url');
-                if (public_url) {
-                    result.url = public_url;
-                }
-
-                const image = (byline.children || []).filter((child) => child.type === 'image')[0];
-                if (image) {
-                    result.image = {
-                        '@type': 'ImageObject',
-                        url: `${ image.get('fields.imageurl') }&width=250`
-                    };
-                }
-
-                const public_email = byline.get('fields.public_email');
-                if (public_email) {
-                    result.email = public_email;
-                }
-
-                return result;
-            }),
-            publisher: {
-                '@type': 'Organization',
-                name: lab_api.v1.properties.get('site.display_name'),
-                logo: {
-                    '@type': 'ImageObject',
-                    url: lab_api.v1.config.get('logo.default.src')
-                }
-            }
+            image: this.buildArticleImageObjects(model),
+            keywords: (model.get('tags') || []).join(', ')
         };
+
+        // Add thumbnailUrl - use someimage if available, otherwise use first image, then frontcrop as fallback
+        const someimage = model.get('fields.someimage');
+        if (someimage) {
+            output.thumbnailUrl = `${ this.imageServer }/${ someimage }.webp?width=400`;
+        } else if (images && images.length > 0) {
+            const firstImage = images[0];
+            const imageurl = firstImage.get('fields.imageurl') || `${ this.imageServer }/?imageId=${ firstImage.get('instance_of') }`;
+            // Replace existing width parameter or add new one
+            if (imageurl.includes('width=')) {
+                output.thumbnailUrl = imageurl.replace(/width=\d*/, 'width=400');
+            } else if (imageurl.includes('?')) {
+                output.thumbnailUrl = `${ imageurl }&width=400`;
+            } else {
+                output.thumbnailUrl = `${ imageurl }?width=400`;
+            }
+        } else {
+            const frontCrop = model.get('frontCrop');
+            const fcInstanceOf = frontCrop && frontCrop.pano && frontCrop.pano.instance_of;
+            if (fcInstanceOf) {
+                output.thumbnailUrl = `${ this.imageServer }/${ fcInstanceOf }.webp?width=400`;
+            }
+        }
+
+        // Add articleSection if available
+        const contentdata = model.data && model.data.contentdata;
+        let section;
+        if (model.get('fields.subsection')) {
+            section = (contentdata && contentdata.term && contentdata.term.section && contentdata.term.section[0] && contentdata.term.section[0].displayName)
+                || model.get('fields.subsection');
+        } else {
+            section = (contentdata && contentdata.mainterm && contentdata.mainterm.section && contentdata.mainterm.section[0] && contentdata.mainterm.section[0].displayName)
+                || model.get('primaryTags.section') || model.get('fields.defaultsection');
+        }
+        if (section) {
+            output.articleSection = section;
+        }
+
+        // Add @id only if extended schema is enabled
+        if (extendedSchema) {
+            output['@id'] = schemaType === 'LiveBlogPosting'
+                ? `#${ schemaType.toLowerCase() }`
+                : `${ this.settings.publishedUrl }#${ schemaType.toLowerCase() }`;
+        }
+
+        // Add authors
+        output.author = lab_api.v1.model.query.getChildrenOfType(model, 'byline', true).map((byline) => _SEOSchemaUtils_js__WEBPACK_IMPORTED_MODULE_0__.SEOSchemaUtils.buildAuthorSchema(byline, {
+            imageServer: this.imageServer,
+            shouldUseAuthorPageUrl: this.shouldUseAuthorPageUrl.bind(this),
+            getAuthorPageUrl: this.getAuthorPageUrl.bind(this),
+            getImageDimensions: this.getImageDimensions.bind(this)
+        }));
+
+        // Add publisher
+        output.publisher = this.getPublisherObject();
+
+        // Set mainEntityOfPage for articles
+        output.mainEntityOfPage = this.settings.publishedUrl;
+
+        // Add mainEntity only if extended schema is enabled
+        if (extendedSchema) {
+            output.mainEntity = {
+                '@type': 'WebPage',
+                '@id': this.settings.publishedUrl
+            };
+        }
 
         if (model.get('fields.published')) {
             output.datePublished = new Date(parseInt(model.get('fields.published'), 10) * 1000).toISOString();
@@ -27193,12 +29686,88 @@ class SEOHelper {
         }
 
         if (model.get('fields.paywall') === '1') {
-            output.isAccessibleForFree = true;
+            output.isAccessibleForFree = false;
             output.hasPart = {
                 '@type': 'WebPageElement',
-                isAccessibleForFree: false,
+                isAccessibleForFree: true,
                 cssSelector: '.teaserContent'
             };
+        } else {
+            output.isAccessibleForFree = true;
+        }
+
+        // Add extended schema fields if enabled
+        if (extendedSchema) {
+            try {
+                const bodytext = model.get('fields.bodytext');
+                const isPaywalled = model.get('fields.paywall') === '1';
+
+                // Add articleBody only if not paywalled
+                if (bodytext && !isPaywalled) {
+                    output.articleBody = lab_api.v1.util.string.stripTags(bodytext);
+                }
+
+                // Calculate and add word count
+                if (bodytext) {
+                    const wordCount = this.calculateWordCount(bodytext);
+                    if (wordCount > 0) {
+                        output.wordCount = wordCount;
+                        output.timeRequired = this.calculateTimeRequired(wordCount);
+                    }
+                }
+
+                // Add editor information if available
+                const editors = lab_api.v1.model.query.getChildrenOfType(model, 'editor', true);
+                if (editors && editors.length > 0) {
+                    output.editor = editors.map((editor) => {
+                        let firstname = editor.get('fields.firstname') || '';
+                        let lastname = editor.get('fields.lastname') || '';
+                        if (firstname === 'Editor first name') firstname = '';
+                        if (lastname === 'Editor last name') lastname = '';
+
+                        const editorResult = {
+                            '@type': 'Person',
+                            name: `${ firstname } ${ lastname }`.trim()
+                        };
+
+                        const description = editor.get('fields.description');
+                        if (description) {
+                            editorResult.description = lab_api.v1.util.string.sanitizeString(description);
+                        }
+
+                        const public_url = editor.get('fields.public_url');
+                        if (public_url) {
+                            editorResult.url = public_url;
+                        }
+
+                        const image = (editor.children || []).filter((child) => child.type === 'image')[0];
+                        if (image) {
+                            editorResult.image = {
+                                '@type': 'ImageObject',
+                                url: `${ image.get('fields.imageurl') }&width=250`
+                            };
+
+                            // Add calculated dimensions for resized image
+                            const dimensions = this.getImageDimensions(image, 250);
+                            if (dimensions) {
+                                editorResult.image.width = dimensions.width;
+                                editorResult.image.height = dimensions.height;
+                            }
+                        }
+
+                        return editorResult;
+                    });
+                }
+            } catch (error) {
+                // Extended schema failed — continue with base schema
+            }
+        }
+
+        // Add coverageStartTime for LiveBlogPosting
+        if (schemaType === 'LiveBlogPosting') {
+            if (model.get('fields.published')) {
+                output.coverageStartTime = new Date(parseInt(model.get('fields.published'), 10) * 1000).toISOString();
+            }
         }
 
         return output;
@@ -27220,19 +29789,44 @@ class SEOHelper {
             title = lab_api.v1.util.string.sanitizeString(model.get('fields.seotitle') || model.get('fields.title') || '');
             description = lab_api.v1.util.string.sanitizeString(model.get('fields.seodescription') || model.get('fields.subtitle') || '');
             language = model.get('fields.seolanguage') || lab_api.v1.config.get('contentLanguage');
+        } else if (this.settings.pageType === 'gallery') {
+            // Gallery pages compose their title/description in Gallery.js onReady,
+            // writing the result onto filtered.seotitle / filtered.seodescription.
+            title = lab_api.v1.util.string.sanitizeString(model.get('filtered.seotitle') || '');
+            description = lab_api.v1.util.string.sanitizeString(model.get('filtered.seodescription') || '');
+            language = lab_api.v1.config.get('contentLanguage');
         } else {
             if (this.settings.isTagpage && !this.settings.isTagpageWithFrontpage) {
 
-                // Todo: Backend should deliver an array of tags.
-                const tagPath = this.settings.tagpagePath.replace(/\//g, '');
+                // Term compatibility: Use term displayName for proper-cased SEO titles
+                // (e.g., "Sports" instead of "sports" for better presentation)
+                const tagsAsTerms = lab_api.v1.properties.get('tags_as_terms');
+
+                // Extract URL segments (needed for backward compatibility with locale templates)
                 const tagsString = this.settings.canonical.split(this.settings.tagpagePath)[1] || '';
-                const tags = tagsString.split('/').filter((item) => !!item);
+                const urlSegments = tagsString.split('/').filter((item) => !!item);
+
+                let tag = urlSegments[urlSegments.length - 1] || '';
+
+                // When terms are active, use displayName for tag (for proper-cased titles)
+                if (tagsAsTerms) {
+                    // Get term data from contentdata.mainterm
+                    let mainterm = null;
+                    if (model.data && model.data.contentdata) {
+                        mainterm = model.data.contentdata.mainterm;
+                    }
+
+                    // Use term displayName if available
+                    if (mainterm && mainterm.section && mainterm.section.displayName) {
+                        tag = mainterm.section.displayName;
+                    }
+                }
 
                 // Data for mustache-template
                 const data = {
-                    tag: tags[tags.length - 1],
-                    tags,
-                    tagPath
+                    tag,  // Display name when terms active, URL segment otherwise
+                    tags: urlSegments,  // Full URL path segments (for breadcrumbs/joining)
+                    tagPath: this.settings.tagpagePath.replace(/\//g, '')
                 };
 
                 // Get the template from locale and render with tagPath and tag from data
@@ -27254,6 +29848,600 @@ class SEOHelper {
         return this.cache.seoData;
     }
 
+    /**
+     * Build ImageObject array for a gallery/slideshow. Shared between
+     * generateImageGalleryData (article-embedded gallery schema) and
+     * generateGalleryPageData (standalone gallery pages).
+     *
+     * @param {Array} images Array of image models
+     * @returns {Array} Array of ImageObject schema entries
+     */
+    buildGalleryImageObjects(images) {
+        return (images || []).map((image) => {
+            const imageurl = image.get('fields.imageurl') || `${ this.imageServer }/?imageId=${ image.get('instance_of') }`;
+            // Three cases: existing width= gets replaced, URL with query gets &-appended,
+            // URL without query gets ?-appended. Matches the pattern used in
+            // generateArticleData for thumbnailUrl.
+            let url;
+            if (imageurl.includes('width=')) {
+                url = imageurl.replace(/width=\d*/, 'width=1200');
+            } else if (imageurl.includes('?')) {
+                url = `${ imageurl }&width=1200`;
+            } else {
+                url = `${ imageurl }?width=1200`;
+            }
+
+            const mediaObject = {
+                '@type': 'ImageObject',
+                contentUrl: url
+            };
+
+            const dimensions = this.getImageDimensions(image, 1200);
+            if (dimensions) {
+                mediaObject.width = dimensions.width;
+                mediaObject.height = dimensions.height;
+            }
+
+            const caption = image.get('fields.caption');
+            if (caption) {
+                mediaObject.caption = lab_api.v1.util.string.sanitizeString(caption);
+            }
+
+            const photographer = image.get('fields.photographer');
+            if (photographer) {
+                mediaObject.author = {
+                    '@type': 'Person',
+                    name: lab_api.v1.util.string.sanitizeString(photographer)
+                };
+            }
+
+            return mediaObject;
+        });
+    }
+
+    generateImageGalleryData(model) {
+        const firstGallery = lab_api.v1.model.query.getChildrenOfType(model, 'slideshow', true)[0];
+
+        const seoData = this.getSEOData(model);
+        const images = this.getArticleImages(model, ['byline']) || [];
+
+        if (!firstGallery && images.length === 0) {
+            return null;
+        }
+
+        const output = {
+            '@context': 'https://schema.org',
+            '@type': 'ImageGallery',
+            '@id': `${ this.settings.publishedUrl }#gallery`,
+            url: this.settings.publishedUrl,
+            name: seoData.title,
+            description: (firstGallery && firstGallery.get('fields.description')) || model.get('fields.subtitle') || seoData.description,
+            mainEntityOfPage: this.settings.publishedUrl,
+            image: this.buildGalleryImageObjects(images)
+        };
+
+        // Add authors from article bylines
+        output.author = lab_api.v1.model.query.getChildrenOfType(model, 'byline', true).map((byline) => _SEOSchemaUtils_js__WEBPACK_IMPORTED_MODULE_0__.SEOSchemaUtils.buildAuthorSchema(byline, {
+            imageServer: this.imageServer,
+            shouldUseAuthorPageUrl: this.shouldUseAuthorPageUrl.bind(this),
+            getAuthorPageUrl: this.getAuthorPageUrl.bind(this),
+            getImageDimensions: this.getImageDimensions.bind(this)
+        }));
+
+        // Add datePublished from article
+        if (model.get('fields.published')) {
+            output.datePublished = new Date(parseInt(model.get('fields.published'), 10) * 1000).toISOString();
+        }
+
+        // Add publisher
+        output.publisher = this.getPublisherObject();
+
+        return output;
+    }
+
+    /**
+     * Generate structured data for a dedicated gallery page.
+     * Emits an ImageGallery schema. When the gallery has an article parent,
+     * adds isPartOf + datePublished + dateModified from the parent article.
+     *
+     * @param {LabModel} model The gallery page node.
+     * @returns {Object|null} ImageGallery schema or null if no slideshow found.
+     */
+    generateGalleryPageData(model) {
+        const slideshow = lab_api.v1.model.query.getChildOfType(model, 'slideshow');
+        if (!slideshow) {
+            return null;
+        }
+
+        const images = lab_api.v1.model.query.getChildrenOfType(slideshow, 'image', true) || [];
+
+        // Go through getSEOData so name/description are sanitized the same way
+        // as the article/notice/front paths. Reading filtered.* directly would
+        // skip the sanitizer and could let HTML or </script>-like sequences
+        // leak into the JSON-LD payload.
+        const seoData = this.getSEOData(model);
+        const name = seoData.title || model.get('filtered.title') || '';
+        const description = seoData.description || '';
+
+        const output = {
+            '@context': 'https://schema.org',
+            '@type': 'ImageGallery',
+            '@id': `${ this.settings.publishedUrl }#gallery`,
+            url: this.settings.publishedUrl,
+            name,
+            numberOfItems: images.length,
+            image: this.buildGalleryImageObjects(images),
+            mainEntityOfPage: this.settings.publishedUrl,
+            publisher: this.getPublisherObject()
+        };
+
+        if (description) {
+            output.description = description;
+        }
+
+        // isPartOf + dates only make sense when parent is an article — a
+        // front's "published"/"modified" timestamps aren't article-like and
+        // would be misleading on an ImageGallery.
+        const parentType  = model.get('fields.parent_node_type');
+        const parentUrl   = model.get('fields.parent_node_published_url');
+        const parentTitle = model.get('fields.parent_node_title');
+        if (parentType === 'article' && parentUrl) {
+            const absoluteParentUrl = parentUrl.startsWith('http') ? parentUrl : `${ this.domain }${ parentUrl }`;
+            output.isPartOf = {
+                '@type': 'NewsArticle',
+                '@id': `${ absoluteParentUrl }#newsarticle`,
+                headline: parentTitle || '',
+                url: absoluteParentUrl
+            };
+
+            const parentPublished = model.get('fields.parent_node_published');
+            const parentModified  = model.get('fields.parent_node_modified');
+            if (parentPublished) {
+                output.datePublished = new Date(parseInt(parentPublished, 10) * 1000).toISOString();
+            }
+            if (parentModified) {
+                output.dateModified = new Date(parseInt(parentModified, 10) * 1000).toISOString();
+            }
+        }
+
+        return output;
+    }
+
+    getFirstVideoWithProperties(model) {
+        const firstVideo = lab_api.v1.model.query.getChildrenOfType(model, 'youtube', true)[0]
+                           || lab_api.v1.model.query.getChildrenOfType(model, 'vimond', true)[0]
+                           || lab_api.v1.model.query.getChildrenOfType(model, 'vp', true)[0]
+                           || lab_api.v1.model.query.getChildrenOfType(model, 'jwplayer', true)[0];
+
+        if (!firstVideo) {
+            return null;
+        }
+
+        const videoType = firstVideo.getType();
+        const properties = {};
+
+        // YouTube-specific properties
+        if (videoType === 'youtube') {
+            const videoId = firstVideo.get('fields.vid');
+            if (videoId) {
+                properties.thumbnailUrl = `https://img.youtube.com/vi/${ videoId }/maxresdefault.jpg`;
+                properties.embedUrl = `https://www.youtube-nocookie.com/embed/${ videoId }`;
+                properties.contentUrl = `https://www.youtube.com/watch?v=${ videoId }`;
+            }
+        }
+        // Vimond and VP-specific properties (both use playerUrl)
+        else if (videoType === 'vimond' || videoType === 'vp') {
+            const playerUrl = firstVideo.get('fields.playerUrl');
+            if (playerUrl) {
+                properties.embedUrl = playerUrl;
+            }
+        }
+        // JWPlayer-specific properties
+        else if (videoType === 'jwplayer') {
+            const mediaId = firstVideo.get('fields.mediaId');
+            if (mediaId) {
+                properties.contentUrl = mediaId;
+            }
+        }
+
+        return {
+            video: firstVideo,
+            type: videoType,
+            properties
+        };
+    }
+
+    generateVideoObjectData(model) {
+        const videoData = this.getFirstVideoWithProperties(model);
+        if (!videoData) {
+            return null;
+        }
+
+        const seoData = this.getSEOData(model);
+        const { video, properties } = videoData;
+
+        const output = {
+            '@context': 'https://schema.org',
+            '@type': 'VideoObject',
+            '@id': `${ this.settings.publishedUrl }#video`,
+            name: seoData.title || model.get('fields.title'),
+            description: model.get('fields.subtitle') || video.get('fields.caption') || seoData.description,
+            mainEntityOfPage: this.settings.publishedUrl
+        };
+
+        // Add publisher
+        output.publisher = this.getPublisherObject();
+
+        // Add authors
+        output.author = lab_api.v1.model.query.getChildrenOfType(model, 'byline', true).map((byline) => _SEOSchemaUtils_js__WEBPACK_IMPORTED_MODULE_0__.SEOSchemaUtils.buildAuthorSchema(byline, {
+            imageServer: this.imageServer,
+            shouldUseAuthorPageUrl: this.shouldUseAuthorPageUrl.bind(this),
+            getAuthorPageUrl: this.getAuthorPageUrl.bind(this),
+            getImageDimensions: this.getImageDimensions.bind(this)
+        }));
+
+        // Add uploadDate from article's published date
+        if (model.get('fields.published')) {
+            output.uploadDate = new Date(parseInt(model.get('fields.published'), 10) * 1000).toISOString();
+        }
+
+        // Add video-specific properties
+        if (properties.thumbnailUrl) {
+            output.thumbnailUrl = [properties.thumbnailUrl];
+        }
+        if (properties.embedUrl) {
+            output.embedUrl = properties.embedUrl;
+        }
+        if (properties.contentUrl) {
+            output.url = properties.contentUrl;
+        }
+
+        // Add article images as ImageObjects
+        const articleImages = this.buildArticleImageObjects(model);
+        if (articleImages.length > 0) {
+            output.image = articleImages;
+        }
+
+        return output;
+    }
+
+    generateBroadcastEventData(model) {
+        const videoData = this.getFirstVideoWithProperties(model);
+        if (!videoData) {
+            return null;
+        }
+
+        const seoData = this.getSEOData(model);
+        const { video, properties } = videoData;
+
+        // Create VideoObject for the broadcast
+        const videoObject = {
+            '@type': 'VideoObject',
+            name: video.get('fields.caption') || seoData.title || model.get('fields.title'),
+            description: video.get('fields.caption') || seoData.description
+        };
+
+        // Add uploadDate from article's published date
+        if (model.get('fields.published')) {
+            videoObject.uploadDate = new Date(parseInt(model.get('fields.published'), 10) * 1000).toISOString();
+        }
+
+        if (properties.thumbnailUrl) {
+            videoObject.thumbnailUrl = properties.thumbnailUrl;
+        }
+        if (properties.embedUrl) {
+            videoObject.embedUrl = properties.embedUrl;
+        }
+        if (properties.contentUrl) {
+            videoObject.contentUrl = properties.contentUrl;
+        }
+
+        // Create BroadcastEvent with proper structure
+        const broadcastEvent = {
+            '@context': 'https://schema.org',
+            '@type': 'BroadcastEvent',
+            '@id': `${ this.settings.publishedUrl }#broadcast`,
+            name: seoData.title || model.get('fields.title'),
+            description: model.get('fields.subtitle') || seoData.description,
+            mainEntityOfPage: this.settings.publishedUrl,
+            isLiveBroadcast: true,
+            videoFormat: 'HD'
+        };
+
+        // Add startDate from article's published date
+        if (model.get('fields.published')) {
+            broadcastEvent.startDate = new Date(parseInt(model.get('fields.published'), 10) * 1000).toISOString();
+        }
+
+        // Add publishedOn (BroadcastService)
+        broadcastEvent.publishedOn = this.getBroadcasterObject();
+
+        // Add authors to the VideoObject (VideoObject is a CreativeWork, author is valid there)
+        const bylines = lab_api.v1.model.query.getChildrenOfType(model, 'byline', true);
+        if (bylines && bylines.length > 0) {
+            videoObject.author = bylines.map((byline) => _SEOSchemaUtils_js__WEBPACK_IMPORTED_MODULE_0__.SEOSchemaUtils.buildAuthorSchema(byline, {
+                imageServer: this.imageServer,
+                shouldUseAuthorPageUrl: (b) => this.shouldUseAuthorPageUrl(b),
+                getAuthorPageUrl: (b) => this.getAuthorPageUrl(b),
+                getImageDimensions: (image, width) => this.getImageDimensions(image, width)
+            }));
+        }
+
+        // Add the VideoObject as workPerformed
+        broadcastEvent.workPerformed = videoObject;
+
+        // Return standalone BroadcastEvent
+        return broadcastEvent;
+    }
+
+    generateRecipeData(model) {
+        const firstRecipe = lab_api.v1.model.query.getChildrenOfType(model, 'recipe', true)[0];
+        if (!firstRecipe) {
+            return null;
+        }
+
+        const recipeGuid = firstRecipe.get('guid');
+        const seoData = this.getSEOData(model);
+
+        // Recipe block generates full Recipe JSON-LD schema with unique @id
+        // Header only provides WebPage wrapper that references the recipe as main entity
+        const output = {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            url: this.settings.publishedUrl,
+            name: seoData.title || model.get('fields.title'),
+            description: seoData.description,
+            mainEntity: {
+                '@type': 'Recipe',
+                '@id': `${ this.settings.publishedUrl }#recipe-${ recipeGuid }`
+            }
+        };
+
+        // Add publisher
+        output.publisher = this.getPublisherObject();
+
+        return output;
+    }
+
+}
+
+
+/***/ }),
+
+/***/ "./modules/lib/helpers/SEOSchemaUtils.js":
+/*!***********************************************!*\
+  !*** ./modules/lib/helpers/SEOSchemaUtils.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SEOSchemaUtils: () => (/* binding */ SEOSchemaUtils)
+/* harmony export */ });
+/**
+ * Utility functions for building JSON-LD schema objects
+ */
+
+class SEOSchemaUtils {
+
+    /**
+     * Builds author/person schema object
+     * @param {Object} byline - The byline model
+     * @param {Object} options - Configuration options
+     * @param {string} options.imageServer - Image server URL
+     * @param {Function} options.shouldUseAuthorPageUrl - Function to check if author page URL should be used
+     * @param {Function} options.getAuthorPageUrl - Function to get author page URL
+     * @returns {Object} Person schema object
+     */
+    static buildAuthorSchema(byline, options = {}) {
+        const { imageServer = '', shouldUseAuthorPageUrl, getAuthorPageUrl, getImageDimensions } = options;
+
+        let firstname = byline.get('fields.firstname');
+        if (firstname === 'Byline first name') { firstname = ''; }
+        let lastname = byline.get('fields.lastname');
+        if (lastname === 'Byline last name') { lastname = ''; }
+
+        const result = {
+            '@type': 'Person',
+            name: `${firstname} ${lastname}`
+        };
+
+        // Add description
+        const description = byline.get('fields.description');
+        if (description) {
+            result.description = lab_api.v1.util.string.sanitizeString(description);
+        }
+
+        // Add job title
+        const jobTitle = byline.get('fields.job_title');
+        if (jobTitle  && jobTitle !== 'Click to add job title') {
+            result.jobTitle = lab_api.v1.util.string.sanitizeString(jobTitle).trim();
+        }
+
+        // Use author page URL if enabled, otherwise fall back to public_url
+        if (shouldUseAuthorPageUrl && shouldUseAuthorPageUrl(byline)) {
+            result.url = getAuthorPageUrl(byline);
+        } else {
+            const public_url = byline.get('fields.public_url');
+            if (public_url) {
+                result.url = public_url;
+            }
+        }
+
+        // Add author image if available
+        const images = lab_api.v1.model.query.getChildrenOfType(byline, 'image', true);
+        if (images && images.length > 0) {
+            const image = images[0];
+            const imageurl = image.get('fields.imageurl') || `${imageServer}/?imageId=${image.get('instance_of')}`;
+            const finalUrl = imageurl.includes('width=') ? imageurl : `${imageurl}&width=250`;
+            result.image = {
+                '@type': 'ImageObject',
+                url: finalUrl
+            };
+
+            // Add calculated dimensions for resized image
+            if (getImageDimensions) {
+                const dimensions = getImageDimensions(image, 250);
+                if (dimensions) {
+                    result.image.width = dimensions.width;
+                    result.image.height = dimensions.height;
+                }
+            }
+        }
+
+        const public_email = byline.get('fields.public_email');
+        if (public_email) {
+            result.email = public_email;
+        }
+
+        // Add sameAs (alternative URLs for the author)
+        try {
+            const sameAsLinks = [];
+            const public_url = byline.get('fields.public_url');
+
+            if (public_url) {
+                sameAsLinks.push(public_url);
+            }
+
+            if (sameAsLinks.length > 0) {
+                result.sameAs = sameAsLinks;
+            }
+        } catch (error) {
+            // Silently skip sameAs if there's an error
+        }
+
+        return result;
+    }
+
+    /**
+     * Builds publisher organization schema object
+     * @returns {Object} Organization schema object
+     */
+    static buildPublisherSchema(domain = '') {
+        const logo = lab_api.v1.config.get('logo') || {};
+        const logoMain = logo.mainLogo || {};
+        let logoSrc = lab_api.v1.config.get('seoSchema.publisherLogoUrl')
+            || logoMain.uploadedFileUrl
+            || logo.uploadedFileUrl
+            || logoMain.src
+            || (logo.default && logo.default.src)
+            || '';
+        if (logoSrc && !logoSrc.startsWith('http://') && !logoSrc.startsWith('https://')) {
+            logoSrc = `${domain}${logoSrc.startsWith('/') ? '' : '/'}${logoSrc}`;
+        }
+        const logoWidth = lab_api.v1.config.get('logo.logoWidth') || null;
+        const logoHeight = lab_api.v1.config.get('logo.logoHeight') || null;
+        return {
+            '@type': 'Organization',
+            name: lab_api.v1.properties.get('site.display_name'),
+            url: domain,
+            logo: {
+                '@type': 'ImageObject',
+                url: logoSrc,
+                ...(logoWidth && { width: logoWidth }),
+                ...(logoHeight && { height: logoHeight })
+            }
+        };
+    }
+
+    /**
+     * Builds broadcaster service schema object
+     * @returns {Object} BroadcastService schema object
+     */
+    static buildBroadcasterSchema(domain = '') {
+        return {
+            '@type': 'BroadcastService',
+            name: lab_api.v1.properties.get('site.display_name'),
+            broadcaster: SEOSchemaUtils.buildPublisherSchema(domain)
+        };
+    }
+
+    /**
+     * Builds an article list as ItemList schema
+     * @param {Array} articles - Array of article models
+     * @param {string} imageServer - Image server URL
+     * @returns {Object|null} ItemList schema object or null if no articles
+     */
+    static buildArticleListItemList(articles, imageServer) {
+        if (!articles || articles.length === 0) {
+            return null;
+        }
+
+        return {
+            '@type': 'ItemList',
+            itemListElement: articles.map((article, index) => {
+                const item = {
+                    '@type': 'NewsArticle',
+                    headline: article.get('fields.title'),
+                    url: article.get('fields.published_url') || article.get('fields.url')
+                };
+
+                // Add image if available - check someimage first (front/teaser image), then first child image
+                const someimage = article.get('fields.someimage');
+                if (someimage) {
+                    item.image = `${imageServer}/${someimage}.webp?width=1200&height=630`;
+                } else {
+                    const images = lab_api.v1.model.query.getChildrenOfType(article, 'image', true);
+                    if (images && images.length > 0) {
+                        const firstImage = images[0];
+                        let imageurl = firstImage.get('fields.imageurl') || `${imageServer}/?imageId=${firstImage.get('instance_of')}`;
+                        // Ensure width parameter is set
+                        if (imageurl.includes('width=')) {
+                            // Already has width, keep as is
+                            item.image = imageurl;
+                        } else if (imageurl.includes('?')) {
+                            // Has query params, add width
+                            item.image = `${imageurl}&width=1200`;
+                        } else {
+                            // No query params, add width
+                            item.image = `${imageurl}?width=1200`;
+                        }
+                    }
+                }
+
+                return {
+                    '@type': 'ListItem',
+                    position: index + 1,
+                    item
+                };
+            })
+        };
+    }
+
+    /**
+     * Builds an article list as hasPart schema
+     * @param {Array} articles - Array of article models
+     * @param {string} imageServer - Image server URL
+     * @returns {Array|null} Array of NewsArticle objects or null if no articles
+     */
+    static buildArticleListHasPart(articles, imageServer) {
+        if (!articles || articles.length === 0) {
+            return null;
+        }
+
+        return articles.map((article) => {
+            const item = {
+                '@type': 'NewsArticle',
+                headline: article.get('fields.title'),
+                url: article.get('fields.published_url') || article.get('fields.url')
+            };
+
+            // Add image if available - check someimage first (front/teaser image), then first child image
+            const someimage = article.get('fields.someimage');
+            if (someimage) {
+                item.image = `${imageServer}/${someimage}.webp?width=1200&height=630`;
+            } else {
+                const images = lab_api.v1.model.query.getChildrenOfType(article, 'image', true);
+                if (images && images.length > 0) {
+                    const firstImage = images[0];
+                    const imageurl = firstImage.get('fields.imageurl') || `${imageServer}/?imageId=${firstImage.get('instance_of')}`;
+                    item.image = imageurl.endsWith('width=') ? `${imageurl}1200` : `${imageurl}&width=1200`;
+                }
+            }
+
+            return item;
+        });
+    }
 }
 
 
@@ -27424,6 +30612,10 @@ class StyleHelper {
                     if (subrule.value !== 'default') {
                         ruleString += `${ subrule.key }: ${ subrule.value }; `;
                     }
+                }  else if (subrule.key === 'text-transform') {
+                    if (subrule.value !== 'default') {
+                        ruleString += `${ subrule.key }: ${ subrule.value }; `;
+                    }
                 }  else if (subrule.key === 'text-decoration') {
                     if (subrule.value !== 'default') {
                         ruleString += `${ subrule.key }: ${ subrule.value }; `;
@@ -27584,6 +30776,231 @@ class TableFormatter {
 
 /***/ }),
 
+/***/ "./modules/lib/helpers/TermHelper.js":
+/*!*******************************************!*\
+  !*** ./modules/lib/helpers/TermHelper.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   TermHelper: () => (/* binding */ TermHelper)
+/* harmony export */ });
+/**
+ * Utility functions for working with terms (sections, keywords, etc.)
+ */
+
+class TermHelper {
+
+    /**
+     * Normalizes a term name for comparison.
+     * Lowercases, strips diacritics, and replaces spaces with hyphens.
+     * @param {string} str
+     * @returns {string}
+     */
+    static normalize(str) {
+        return (str || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-');
+    }
+
+    /**
+     * Fetches terms from the search endpoint.
+     * @param {string} collection - Term collection (e.g. 'section')
+     * @param {number} limit - Max number of terms to return (default 500)
+     * @returns {Promise<Array>}
+     */
+    static async fetchTerms(collection, limit = 500) {
+        const response = await fetch(`/ajax/term/search?collection=${encodeURIComponent(collection)}&limit=${limit}`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch terms: ${response.status}`);
+        }
+        return response.json();
+    }
+
+    /**
+     * Finds a term in a list by matching name string (accent- and hyphen-insensitive).
+     * @param {Array} terms - Array of term objects from the API
+     * @param {string} name - Name to match against
+     * @returns {Object|null}
+     */
+    static findTermByName(terms, name) {
+        const normalized = TermHelper.normalize(name);
+        return terms.find((term) => TermHelper.normalize(term.name) === normalized) || null;
+    }
+
+    /**
+     * Returns all child terms of a given parent ID.
+     * @param {Array} terms - Array of term objects from the API
+     * @param {number} parentId - Parent term ID
+     * @returns {Array}
+     */
+    static getChildTerms(terms, parentId) {
+        return terms.filter((term) => term.parentId === parentId);
+    }
+
+    /**
+     * Fetches term data for a list of term names in a single request.
+     * @param {string} collection - Term collection (e.g. 'section')
+     * @param {Array<string>} names - Array of term name strings
+     * @returns {Promise<Array>} Array of matched term objects
+     */
+    static async fetchTermsByNames(collection, names) {
+        if (!names || names.length === 0) { return []; }
+        const response = await fetch(`/ajax/term/get-term?collection=${encodeURIComponent(collection)}&termName=${encodeURIComponent(names.join(','))}`);
+        if (!response.ok) { return []; }
+        const data = await response.json();
+        // Endpoint returns a single object for one name, array for multiple
+        return Array.isArray(data) ? data : [data];
+    }
+
+}
+
+
+/***/ }),
+
+/***/ "./modules/lib/helpers/TextToSpeechHelper.js":
+/*!***************************************************!*\
+  !*** ./modules/lib/helpers/TextToSpeechHelper.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   TextToSpeechHelper: () => (/* binding */ TextToSpeechHelper)
+/* harmony export */ });
+/**
+ * TextToSpeechHelper
+ *
+ * Helper to calculate effective Text-to-Speech settings for article models.
+ * Combines global config with article-specific overrides.
+ */
+
+class TextToSpeechHelper {
+
+    /**
+     * Calculate effective Text-to-Speech settings.
+     *
+     * Returns settings object for the caller to consume.
+     *
+     * @param {Object} model - The page_article model
+     * @param {Object} api - The Labrador API instance
+     * @returns {Object} Effective settings
+     *   {
+     *     texttospeechEnabled: boolean,
+     *     video: boolean,        // provider-specific setting
+     *     globalConfig: Object   // full texttospeech config
+     *   }
+     */
+    static getEffectiveSettings(model, api) {
+        const audioSettings = api.v1.config.get('audio_settings') || {};
+        const textToSpeechConfig = audioSettings.texttospeech || {};
+        const providerConfig = textToSpeechConfig.provider || {};
+
+        // Global TTS setting
+        const globalTexttospeechEnabled =
+            textToSpeechConfig.enabledGlobally || false;
+        const globalhidePlacementInEditor =
+            textToSpeechConfig.hidePlacementInEditor || false;
+        
+        // Article-specific overrides (set in modules/apps/article/ArticleAudio.js)
+        const articleTexttospeechEnabled =
+            model.get('fields.texttospeechEnabled');
+        const articlehidePlacementInEditor =
+            model.get('fields.hidePlacementInEditor');
+
+        // Resolve effective Text-to-Speech enabled
+        const effectiveTexttospeechEnabled =
+            articleTexttospeechEnabled !== undefined &&
+            articleTexttospeechEnabled !== null
+                ? (articleTexttospeechEnabled === true ||
+                   articleTexttospeechEnabled === '1')
+                : globalTexttospeechEnabled;
+        
+        const effectivehidePlacementInEditor =
+            articlehidePlacementInEditor !== undefined &&
+            articlehidePlacementInEditor !== null
+                ? (articlehidePlacementInEditor === true ||
+                   articlehidePlacementInEditor === '1')
+                : globalhidePlacementInEditor;
+        
+        // Provider-specific global setting
+        const globalProvidervideo =
+            providerConfig.video || false;
+
+        return {
+            texttospeechEnabled: effectiveTexttospeechEnabled,
+            hidePlacementInEditor: effectivehidePlacementInEditor,
+            video: globalProvidervideo,
+            globalConfig: textToSpeechConfig
+        };
+    }
+
+    /**
+     * Insert a texttospeech element if TTS is enabled and one does not already exist.
+     *
+     * Must be called from an entry-level onAcceptContent hook (e.g. Front.js) in front mode,
+     * or from onPrepareViewHelper in editor mode. Behaviour-hook onAcceptContent runs before
+     * the model tree is ready for insertions and will throw a 500 in front mode.
+     *
+     * @param {Object} api - The Labrador API instance
+     * @param {Object} model - The page_article model
+     * @param {Object} options
+     * @param {boolean} options.isEditor - Pass state flags for the non-persistent editor preview
+     */
+    static insertIfNeeded(api, model, { isEditor = false } = {}) {
+        const settings = TextToSpeechHelper.getEffectiveSettings(model, api);
+
+        // If config doesn't allow insertion, return
+        if (!settings.globalConfig.enable || !settings.texttospeechEnabled) { return; }
+
+        // In editor mode, skip insertion if the placement should be hidden
+        if (isEditor && settings.hidePlacementInEditor) { return; }
+
+        // Don't insert if a TTS box is present in article
+        if (api.v1.model.query.getModelByType('texttospeech')) { return; }
+
+        // Where to insert
+        const path = settings.globalConfig.path || 'page_article/bodytext';
+        const bodyTextIndex = settings.globalConfig.bodyTextIndex != null ? settings.globalConfig.bodyTextIndex : 0;
+        const index = settings.globalConfig.index != null ? settings.globalConfig.index : 0;
+
+        // Do the insertion
+        api.v1.model.insert.atPath({
+            path,
+            data: {
+                type: 'texttospeech',
+                // Non-persistent insertion in editor
+                ...(isEditor ? {
+                    state: {
+                        isNonPersistent: true,
+                        editNonPersistent: true,
+                        draggableDisabled: true
+                    }
+                } : {}),
+                metadata: {
+                    isBodytext: true,
+                    bodyTextIndex,
+                    autoInserted: true
+                },
+                contentdata: {
+                    fields: {
+                        video: settings.video
+                    }
+                }
+            },
+            options: {
+                index,
+                persistentTarget: true,
+                intermediate: {
+                    useExisting: true
+                },
+                silent: true
+            }
+        });
+    }
+}
+
+/***/ }),
+
 /***/ "./modules/lib/helpers/datetime/DateTimeHelper.js":
 /*!********************************************************!*\
   !*** ./modules/lib/helpers/datetime/DateTimeHelper.js ***!
@@ -27604,6 +31021,7 @@ class DateTimeHelper {
         this.language = language || fallbackLanguage;
         this.words = _words_js__WEBPACK_IMPORTED_MODULE_0__["default"];
         this.timezone = this.getTimezone();
+        this.ianaTimezone = lab_api.v1.config.get('iana_timezone') || null;
     }
 
     // (int) Get GMT timezone. Defaults to Western Europe (1)
@@ -27730,12 +31148,45 @@ class DateTimeHelper {
         return format;
     }
 
+    // Returns the UTC offset in minutes for an IANA timezone at a given instant.
+    // Uses Intl.DateTimeFormat.formatToParts() as a bridge until Temporal is available
+    // in all browsers. See: labrador2/docs/design/locale/timezones/topic--js-timezone-apis.md
+    getUtcOffsetMinutes(timeZone, date) {
+        // Truncate to minute boundary - formatToParts drops seconds,
+        // so the input must also drop them for the diff to be exact
+        const d = new Date(Math.floor(date.getTime() / 60000) * 60000);
+
+        // Format in the target zone, reconstruct as UTC, compare to original
+        const inZone = new Intl.DateTimeFormat('en-US', {
+            timeZone,
+            year: 'numeric', month: 'numeric', day: 'numeric',
+            hour: 'numeric', minute: 'numeric', hour12: false, hourCycle: 'h23',
+        }).formatToParts(d);
+
+        const parts = Object.fromEntries(inZone.map(p => [p.type, parseInt(p.value)]));
+        const localDate = new Date(Date.UTC(
+            parts.year, parts.month - 1, parts.day,
+            parts.hour, parts.minute
+        ));
+        const diff = localDate.getTime() - d.getTime();
+        return Math.round(diff / 60000);
+    }
+
+    // Returns the UTC offset in hours for the given date, using the site's IANA timezone
+    // if configured, or falling back to the integer offset + European DST rules.
+    getEffectiveOffset(date) {
+        if (this.ianaTimezone && typeof Intl !== 'undefined') {
+            return this.getUtcOffsetMinutes(this.ianaTimezone, date) / 60;
+        }
+        return this.isSummerTime(date) ? this.timezone + 1 : this.timezone;
+    }
+
     correctDate(date) {
-        return this.manipulateTime(date, this.isSummerTime(date) ? this.timezone + 1 : this.timezone);
+        return this.manipulateTime(date, this.getEffectiveOffset(date));
     }
 
     utcDate(date) {
-        return this.unmanipulateTime(date, this.isSummerTime(date) ? this.timezone + 1 : this.timezone);
+        return this.unmanipulateTime(date, this.getEffectiveOffset(date));
     }
 
     timestampToDate(timestamp) {
@@ -28321,9 +31772,12 @@ class DynamicDataHelper {
             // insertDynamicAdditions ignores viewport
             const contentAdditionsPath = `insertDynamicAdditions.${ this.pageType }`;
             const defaultValue = this.api.v1.config.get(contentPath) || [];
+            Sys.logger.debug(`[DynamicDataHelper]: Found ${ defaultValue.length } items from ${ contentPath }.`);
             const additionsValue = this.validateConditions(this.api.v1.config.get(contentAdditionsPath) || []).reverse();
             hasAdditions = additionsValue.length > 0;
+            Sys.logger.debug(`[DynamicDataHelper]: Found ${ additionsValue.length } additions from ${ contentAdditionsPath }.`);
             const mergedValue = [...defaultValue, ...additionsValue];
+            Sys.logger.debug(`[DynamicDataHelper]: Merged content has ${ mergedValue.length } items.`);
             const content = (this.isEditor ? mergedValue.filter((item) => (!item.dynamicDataSettings || !item.dynamicDataSettings.hideInEditMode)) : mergedValue).filter((item) => {
                 if (item.placement && item.placement.key && clientSidePlacements[item.placement.key]) {
                     const clientSideItem = { ...item, placementData: clientSidePlacements[item.placement.key] };
@@ -28332,6 +31786,7 @@ class DynamicDataHelper {
                 }
                 return true;
             });
+            Sys.logger.debug(`[DynamicDataHelper]: Filtered content has ${ content.length } items. ${ returnValue.clientSidePlacements.length } items are client-side placements.`);
             this.cache.set(contentPath, content);
         }
 
@@ -29077,9 +32532,22 @@ class AbTest {
         return new Date(date.getTime() + new Date().getTimezoneOffset() * -60 * 1000).toISOString().slice(0, 19);
     }
 
-    serialize(preparedVariants, originalTitle, originalPublishedUrl) {
+    // (string|null) Find the instance_of id of the first image child in serialized model data
+    _findImageInstanceOf(data) {
+        if (!data || !data.children) { return null; }
+        for (const child of data.children) {
+            const type = (child.contentdata && child.contentdata.type) || child.type || '';
+            if (type.includes('image') && child.contentdata && child.contentdata.instance_of) {
+                return child.contentdata.instance_of;
+            }
+        }
+        return null;
+    }
+
+    serialize(preparedVariants, originalTitle, originalPublishedUrl, originalData) {
         const startDate = (this.start !== '') ? new Date(this.start) : '';
         const endDate = (this.end !== '') ? new Date(this.end) : '';
+        const imageServer = lab_api.v1.properties.get('image_server_front');
         const variants = [];
         if (this.includeOriginal) {
             // We need to add an item for the original article-teaser in data we send to Kilkaya
@@ -29093,11 +32561,15 @@ class AbTest {
             if (originalPublishedUrl) {
                 data.push({ name: 'url', value: lab_api.v1.site.getSite().domain + originalPublishedUrl });
             }
+            const originalImageInstanceOf = this._findImageInstanceOf(originalData);
+            if (originalImageInstanceOf && imageServer) {
+                data.push({ name: 'image', value: `${ imageServer }/${ originalImageInstanceOf }.webp?imageId=${ originalImageInstanceOf }` });
+            }
             variants.push({
                 vid: 1,
                 active: this.includeOriginal,
                 data,
-                name: title
+                name: 'A'
             });
         }
         let cc = 2;
@@ -29109,10 +32581,14 @@ class AbTest {
                     { name: 'title', value: lab_api.v1.util.string.stripTags(variant.data.contentdata.fields.title.value) },
                     { name: 'identifier', value: variant.guid }
                 ],
-                name: variant.name
+                name: String.fromCharCode(cc + 64)
             };
             if (variant.data.contentdata.fields.published_url) {
                 item.data.push({ name: 'url', value: lab_api.v1.site.getSite().domain + variant.data.contentdata.fields.published_url.value });
+            }
+            const variantImageInstanceOf = this._findImageInstanceOf(variant.data);
+            if (variantImageInstanceOf && imageServer) {
+                item.data.push({ name: 'image', value: `${ imageServer }/${ variantImageInstanceOf }.webp?imageId=${ variantImageInstanceOf }` });
             }
             variants.push(item);
             cc += 1;
@@ -29182,16 +32658,24 @@ class PublishUpdater {
     // (void)
     async willPublish() {
 
-        // 1) Find all collections used on this page
+        // 1) Find all collections used on this page (via Elasticsearch)
         const collectionIds = await this.getCollections();
 
-        // 2) Get current stored collection id's
+        // 2) Merge with any collection IDs that were just published but may not yet be in the
+        //    Elasticsearch index (race condition: index is updated asynchronously after publication).
+        const pendingIds = this.model.get('state._abtestPendingCollectionIds') || [];
+        if (pendingIds.length) {
+            this.model.set('state._abtestPendingCollectionIds', [], { notify: false, registerModified: false });
+        }
+        const mergedIds = [...new Set([...collectionIds, ...pendingIds])];
+
+        // 3) Get current stored collection id's
         const current = this.model.get('fields.abtestCollectionIds_json') || [];
 
-        // 3) Check if modified, if so: Store new list on model and re-publish
-        if (this.hasDiff(current, collectionIds)) {
-            this.model.set('fields.abtestCollectionIds_json', collectionIds);
-            this.model.set('fields.lab_override_config_presentation', this.getPreloadConfig(collectionIds));
+        // 4) Check if modified, if so: Store new list on model and re-publish
+        if (this.hasDiff(current, mergedIds)) {
+            this.model.set('fields.abtestCollectionIds_json', mergedIds);
+            this.model.set('fields.lab_override_config_presentation', this.getPreloadConfig(mergedIds));
             setTimeout(() => {
                 this.api.v1.app.publish();
             }, 1000);
@@ -29774,7 +33258,7 @@ class TestManagerBase {
         if (this.ui.displayTestData) {
             this.ui.endTestNowButton = this.ui.container.querySelector('.end-test-now-btn');
             this.ui.endTestNowButton.addEventListener('click', (event) => {
-                if (this.test && this.test.isRunning()) {
+                if (this.test && this.test.id && !this.test.isFinished()) {
                     this.deleteTest();
                 }
             });
@@ -30297,10 +33781,16 @@ class TestManagerBase {
                 }
             }
         }
-        if (!this.test && this.ui.displayTestData) {
-            this.test = new _AbTest_js__WEBPACK_IMPORTED_MODULE_1__.AbTest({ placeId: this.instanceOfId, url: this.getFrontUrl(), testMethod: this.default_test_method });
-            this.testInstanceCreated();
-            if (this.collection.test_id) {
+        if (this.ui.displayTestData) {
+            if (!this.test) {
+                this.test = new _AbTest_js__WEBPACK_IMPORTED_MODULE_1__.AbTest({ placeId: this.instanceOfId, url: this.getFrontUrl(), testMethod: this.default_test_method });
+                this.testInstanceCreated();
+            }
+            // Fetch (or re-fetch) test data when:
+            // - we don't have a test ID yet (first load), OR
+            // - the test is still running and may have finished since last check.
+            // Skipping re-fetch for already-finished tests avoids unnecessary API calls.
+            if (this.collection.test_id && (!this.test.id || this.test.isRunning())) {
                 Sys.logger.debug(`[TestManagerBase] Found A/B test. ID: ${ this.collection.test_id }`);
                 const test_data = await this.api.v1.abtest.test.get(this.collection.test_id);
                 if (!test_data.success) {
@@ -30482,14 +33972,15 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
 
                 const promises = [];
                 if (this.test.id) {
-                    promises.push(this.api.v1.abtest.test.update(this.test.id, this.test.serialize(this.preparedVariants)));
+                    promises.push(this.api.v1.abtest.test.update(this.test.id, this.test.serialize(this.preparedVariants, this.model.get('fields.title'), this.model.get('fields.published_url'), this.getModelData(this.model))));
                 } else {
                     promises.push(
                         this.api.v1.abtest.test.create(
                             this.test.serialize(
                                 this.preparedVariants,
                                 this.model.get('fields.title'),
-                                this.model.get('fields.published_url')
+                                this.model.get('fields.published_url'),
+                                this.getModelData(this.model)
                             )
                         )
                     );
@@ -30669,9 +34160,24 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
             }
             this.api.v1.abtest.collection.list(referenceId).then((data) => {
                 if (data && data.result && data.result.length) {
-                    this.api.v1.abtest.collection.load(data.result[0]).then((collection) => {
-                        resolve(collection);
-                    });
+                    // Try each result ID in order. The Elasticsearch index may contain stale
+                    // entries for collection nodes that have since been deleted from the DB
+                    // (e.g. after replacing the article on a plug). If load() fails for an ID
+                    // we move on to the next rather than leaving the Promise unsettled, which
+                    // would permanently hang the AB-test editor.
+                    const tryLoad = (index) => {
+                        if (index >= data.result.length) {
+                            reject(new Error(`No loadable collection found for reference id "${ referenceId }". All ${ data.result.length } index entries failed to load.`));
+                            return;
+                        }
+                        this.api.v1.abtest.collection.load(data.result[index])
+                            .then((collection) => resolve(collection))
+                            .catch(() => {
+                                Sys.logger.warn(`[TestManagerBase] Collection id "${ data.result[index] }" is indexed but its node data is missing. Trying next entry.`);
+                                tryLoad(index + 1);
+                            });
+                    };
+                    tryLoad(0);
                 } else {
                     reject(new Error(`No collection for reference id "${ referenceId }".`));
                 }
@@ -30885,6 +34391,15 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
                     const el = view.setExtraElement('abElement', this.getCustomIcon(this.model, view, this));
                     view.getMarkup().appendChild(el);
                 }
+                // Immediately sync icon CSS state from in-memory test status.
+                // This ensures the icon turns green (is_active) right after publishing,
+                // and updates to is_completed when a test finishes — without relying
+                // on the async Kilkaya check in checkRunningAbTestState().
+                const iconEl = view.getExtraElement('abElement');
+                if (iconEl) {
+                    iconEl.classList.toggle('is_active', this.test.isRunning());
+                    iconEl.classList.toggle('is_completed', this.test.isFinished());
+                }
             }
         } else {
             this.removeTestBtn();
@@ -30912,7 +34427,7 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
         this.ui.minVariantDifferenceField.disabled = !!this.test.published;
         this.ui.resetTestButton.disabled = (this.collection.test_id === null && this.test && this.test.id);
         this.ui.startTestNowButton.disabled = (this.test && this.test.isFinished()) || this.preparedVariants.size === 0;
-        this.ui.endTestNowButton.disabled = !this.test || (this.test && !this.test.isRunning());
+        this.ui.endTestNowButton.disabled = !this.test || !this.test.id || this.test.isFinished();
         this.ui.suggestBtn.disabled = this.test && this.test.isRunning();
         if (this.ui.navTestResultsContainer) {
             this.ui.navTestResultsContainer.disabled = !(this.test && this.test.results.statistics);
@@ -31115,6 +34630,34 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
             });
     }
 
+    /**
+     * Publish images belonging to variants to the front server.
+     * Variant models are non-persistent, so their image children are not picked up
+     * by the normal publish flow. We explicitly POST each image to save-article here,
+     * before publishing the collection, so they are available when the front renders variants.
+     */
+    publishVariantImages() {
+        const imageIds = new Set();
+        for (const [, obj] of this.preparedVariants) {
+            const image = this.api.v1.model.query.getChildOfType(obj.model, 'image');
+            if (image) {
+                const instanceOf = image.get('instance_of');
+                if (instanceOf) {
+                    imageIds.add(instanceOf);
+                }
+            }
+        }
+        return Promise.all([...imageIds].map((id) => {
+            const formData = new FormData();
+            formData.append('id', id);
+            formData.append('lockId', id);
+            return fetch('/ajax/publish/save-article', { method: 'POST', body: formData })
+                .catch((err) => {
+                    Sys.logger.warn(`[TestManagerBase] Failed to publish variant image ${ id }: ${ err }`);
+                });
+        }));
+    }
+
     publish() {
         if (this.collection) {
             if (!this.validateVariants(this.preparedVariants)) {
@@ -31148,9 +34691,20 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
             this.collection.pageId = this.api.v1.model.query.getRootModel().get('id');
 
             this.saveOrUpdateTest()
+                .then(() => this.publishVariantImages())
                 .then(() => this.api.v1.abtest.collection.publish(this.collection))
                 .then(() => {
                     this.updatePublishStatus();
+                    // Signal the collection ID to PublishUpdater so it can include it in the
+                    // preload config even if the Elasticsearch index hasn't updated yet (race condition).
+                    const rootModel = this.api.v1.model.query.getRootModel();
+                    const collectionId = this.collection.getId();
+                    if (collectionId) {
+                        const pending = rootModel.get('state._abtestPendingCollectionIds') || [];
+                        if (!pending.includes(collectionId)) {
+                            rootModel.set('state._abtestPendingCollectionIds', [...pending, collectionId], { notify: false, registerModified: false });
+                        }
+                    }
                     this.api.v1.app.publish();
                     this.ui.container.classList.remove('lab-busy');
                     this.toggleBusyState(false);
@@ -31225,18 +34779,12 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
 
     deleteTest() {
         if (this.test && this.test.id) {
-            // First, unpublish the test, then delete it.
-            this.unpublishTest().then(() => {
-                this.api.v1.abtest.test.delete(this.test.id).then((result) => {
-                    this.doResetTest();
-                    this.save();
-                    console.log(`[TestManager] Test deleted`);
-                }).catch((error) => {
-                    console.error(`[TestManager] Error deleting test: `, error);
-                });
-                this.test = null;
+            this.api.v1.abtest.test.delete(this.test.id).then((result) => {
+                this.doResetTest();
+                this.save();
+                console.log(`[TestManager] Test deleted`);
             }).catch((error) => {
-                console.error(`[TestManager] Error unpublishing test: `, error);
+                console.error(`[TestManager] Error deleting test: `, error);
             });
         } else {
             console.warn('[TestManager] No test to delete ...');
@@ -32023,6 +35571,307 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./modules/plugins/collabrador/index.js":
+/*!**********************************************!*\
+  !*** ./modules/plugins/collabrador/index.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * Collabrador plugin for Labrador CMS
+ * ©️ Labrador CMS AS
+ */
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+    name: 'Collabrador Plugin',
+    description: 'Enable Collabrador features in Baseview',
+    version: '1.0.0',
+    predicate: (api) => api.v1.config.get('collabrador.active'),
+    
+    behaviours: {
+        bodytext: class {
+            onInserted(model) {
+                this.enabled = lab_api.v1.config.get('collabrador.active');
+                if (!this.enabled) return;
+                
+                lab_api.v1.app.on('collabradorMessage', () => {
+                    const views = lab_api.v1.view.getViews(model) || [];
+                    
+                    for (const view of views) {
+                        const markup = view.getMarkup();
+                        renderComments(model, markup);
+                    }
+                });
+                
+                lab_api.v1.customEvents.on('inlineCommentClicked', (data) => {
+                    if (model.get('guid') !== data.guid) return;
+                    
+                    const views = lab_api.v1.view.getViews(model) || [];
+                    
+                    for (const view of views) {
+                        const markup = view.getMarkup();
+                        const comments = markup.querySelectorAll('collabrador-inline-comment') || [];
+                        
+                        for (const comment of comments) {
+                            comment.removeAttribute('data-active');
+                        }
+                        
+                        const activeComments = markup.querySelectorAll(`[data-comment-id="${data.commentId}"]`) || [];
+                        
+                        for (const comment of activeComments) {
+                            
+                            comment.setAttribute('data-active', true);
+                        }
+                    }
+
+                    const desktopView = views.find(v => v.getViewport() === 'desktop');
+                    const firstActive = desktopView?.getMarkup().querySelector(`[data-comment-id="${data.commentId}"]`);
+                    if (firstActive) {
+                        scrollToCommentIfNeeded(firstActive);
+                    }
+                });
+
+                lab_api.v1.customEvents.on('clearActiveInlineComments', () => {
+                    const views = lab_api.v1.view.getViews(model) || [];
+
+                    for (const view of views) {
+                        const markup = view.getMarkup();
+                        renderComments(model, markup);
+                    }
+                });
+
+                lab_api.v1.collection.on('closed', (uiInterface) => {
+                    if (uiInterface.getName() !== 'Collabrador') return;
+
+                    const views = lab_api.v1.view.getViews(model) || [];
+
+                    for (const view of views) {
+                        const markup = view.getMarkup();
+                        renderComments(model, markup);
+                    }
+                });
+
+            }
+
+            onRendered(model, view) {
+                if (!this.enabled) return;
+                
+                const markup = view.getMarkup();
+                renderComments(model, markup);
+            }
+        },
+
+        factbox: class {
+            onInserted(model) {
+                this.enabled = lab_api.v1.config.get('collabrador.active');
+                if (!this.enabled) return;
+                
+                lab_api.v1.app.on('collabradorMessage', () => {
+                    const views = lab_api.v1.view.getViews(model) || [];
+                    
+                    for (const view of views) {
+                        const markup = view.getMarkup();
+                        renderComments(model, markup);
+                    }
+                });
+                
+                lab_api.v1.customEvents.on('inlineCommentClicked', (data) => {
+                    if (model.get('guid') !== data.guid) return;
+                    
+                    const views = lab_api.v1.view.getViews(model) || [];
+                    
+                    for (const view of views) {
+                        const markup = view.getMarkup();
+                        const comments = markup.querySelectorAll('collabrador-inline-comment') || [];
+                        
+                        for (const comment of comments) {
+                            comment.removeAttribute('data-active');
+                        }
+                        
+                        const activeComments = markup.querySelectorAll(`[data-comment-id="${data.commentId}"]`) || [];
+                        
+                        for (const comment of activeComments) {
+                            comment.setAttribute('data-active', true);
+                        }
+                    }
+
+                    const desktopView = views.find(v => v.getViewport() === 'desktop');
+                    const firstActive = desktopView?.getMarkup().querySelector(`[data-comment-id="${data.commentId}"]`);
+                    if (firstActive) {
+                        scrollToCommentIfNeeded(firstActive);
+                    }
+                });
+
+                lab_api.v1.customEvents.on('clearActiveInlineComments', () => {
+                    const views = lab_api.v1.view.getViews(model) || [];
+
+                    for (const view of views) {
+                        const markup = view.getMarkup();
+                        renderComments(model, markup);
+                    }
+                });
+
+                lab_api.v1.collection.on('closed', (uiInterface) => {
+                    if (uiInterface.getName() !== 'Collabrador') return;
+
+                    const views = lab_api.v1.view.getViews(model) || [];
+
+                    for (const view of views) {
+                        const markup = view.getMarkup();
+                        renderComments(model, markup);
+                    }
+                });
+            }
+
+            onRendered(model, view) {
+                if (!this.enabled) return;
+                
+                const markup = view.getMarkup();
+                renderComments(model, markup);
+            }
+        },
+
+        text_multiline: class {
+            onInserted(model) {
+                this.enabled = lab_api.v1.config.get('collabrador.active');
+                if (!this.enabled) return;
+                
+                lab_api.v1.app.on('collabradorMessage', () => {
+                    const views = lab_api.v1.view.getViews(model) || [];
+                    
+                    for (const view of views) {
+                        const markup = view.getMarkup();
+                        renderComments(model, markup);
+                    }
+                });
+                
+                lab_api.v1.customEvents.on('inlineCommentClicked', (data) => {
+                    if (model.get('guid') !== data.guid) return;
+                    
+                    const views = lab_api.v1.view.getViews(model) || [];
+                    
+                    for (const view of views) {
+                        const markup = view.getMarkup();
+                        const comments = markup.querySelectorAll('collabrador-inline-comment') || [];
+                        
+                        for (const comment of comments) {
+                            comment.removeAttribute('data-active');
+                        }
+                        
+                        const activeComments = markup.querySelectorAll(`[data-comment-id="${data.commentId}"]`) || [];
+                        
+                        for (const comment of activeComments) {
+                            comment.setAttribute('data-active', true);
+                        }
+                    }
+
+                    const desktopView = views.find(v => v.getViewport() === 'desktop');
+                    const firstActive = desktopView?.getMarkup().querySelector(`[data-comment-id="${data.commentId}"]`);
+                    if (firstActive) {
+                        scrollToCommentIfNeeded(firstActive);
+                    }
+                });
+
+                lab_api.v1.customEvents.on('clearActiveInlineComments', () => {
+                    const views = lab_api.v1.view.getViews(model) || [];
+                    
+                    for (const view of views) {
+                        const markup = view.getMarkup();
+                        renderComments(model, markup);
+                    }
+                });
+                
+                lab_api.v1.collection.on('closed', (uiInterface) => {
+                    if (uiInterface.getName() !== 'Collabrador') return;
+                    
+                    const views = lab_api.v1.view.getViews(model) || [];
+                    
+                    for (const view of views) {
+                        const markup = view.getMarkup();
+                        renderComments(model, markup);
+                    }
+                });
+            }
+
+            onRendered(model, view) {
+                if (!this.enabled) return;
+                
+                const markup = view.getMarkup();
+                renderComments(model, markup);
+            }
+        }
+    },
+
+});
+
+function scrollToCommentIfNeeded(element) {
+    const margin = 200;
+    const iframeEl = element.ownerDocument?.defaultView?.frameElement;
+    const elRect = element.getBoundingClientRect();
+
+    if (iframeEl) {
+        const iframeRect = iframeEl.getBoundingClientRect();
+        const absoluteTop = iframeRect.top + elRect.top;
+        const absoluteBottom = iframeRect.top + elRect.bottom;
+
+        if (absoluteTop < margin || absoluteBottom > window.innerHeight - margin) {
+            const targetY = window.scrollY + absoluteTop - (window.innerHeight / 2);
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+        }
+    } else if (elRect.top < margin || elRect.bottom > window.innerHeight - margin) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+let pendingAllComments = null;
+
+function getAllComments() {
+    if (pendingAllComments) return pendingAllComments;
+
+    pendingAllComments = lab_api.v1.collabrador.getInlineComments().finally(() => {
+        pendingAllComments = null;
+    });
+
+    return pendingAllComments;
+}
+
+async function renderComments(model, markup, allComments) {
+    if (!allComments) {
+        allComments = await getAllComments();
+        if (!Array.isArray(allComments)) return;
+    }
+
+    const guid = model.get('guid');
+    const comments = allComments.filter(c => c.tagGuid === guid);
+
+    lab_api.v1.editor.comments.renderHighlights(
+        markup,
+        comments
+    );
+
+    if (lab_api.v1.model.query.hasChildOfTypes(model, ['factbox', 'text_multiline'])) {
+        const children = [
+            ...lab_api.v1.model.query.getChildrenOfType(model, 'factbox'),
+            ...lab_api.v1.model.query.getChildrenOfType(model, 'text_multiline'),
+        ];
+
+        for (const child of children) {
+            const views = lab_api.v1.view.getViews(child) || [];
+
+            for (const view of views) {
+                renderComments(child, view.getMarkup(), allComments);
+            }
+        }
+    }
+}
+
+
+/***/ }),
+
 /***/ "./modules/plugins/index.js":
 /*!**********************************!*\
   !*** ./modules/plugins/index.js ***!
@@ -32033,6 +35882,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   abtest: () => (/* reexport safe */ _abtest_index_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
 /* harmony export */   app_pusher: () => (/* reexport safe */ _app_pusher_index_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   collabrador: () => (/* reexport safe */ _collabrador_index_js__WEBPACK_IMPORTED_MODULE_9__["default"]),
 /* harmony export */   paywall: () => (/* reexport safe */ _paywall_index_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
 /* harmony export */   publishhistory: () => (/* reexport safe */ _publishhistory_index_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
 /* harmony export */   pushnotification: () => (/* reexport safe */ _pushnotification_index_js__WEBPACK_IMPORTED_MODULE_8__["default"]),
@@ -32050,6 +35900,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _slack_notifier_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./slack_notifier/index.js */ "./modules/plugins/slack_notifier/index.js");
 /* harmony import */ var _paywall_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./paywall/index.js */ "./modules/plugins/paywall/index.js");
 /* harmony import */ var _pushnotification_index_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pushnotification/index.js */ "./modules/plugins/pushnotification/index.js");
+/* harmony import */ var _collabrador_index_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./collabrador/index.js */ "./modules/plugins/collabrador/index.js");
+
 
 
 
@@ -33676,13 +37528,25 @@ const tansa = {
         for (const item of targets) {
             const domElement = tansa.getDomElement(item);
             if (domElement && !domElement.classList.contains('lab-defaultTextValue')) {
-                item.value = domElement.innerHTML;
+                const clone = domElement.cloneNode(true);
+                clone.querySelectorAll('[data-lab-content]').forEach((el) => el.remove());
+                item.value = clone.innerHTML;
             }
         }
+
         for (const item of targets) {
             tansa.saveTarget(item);
         }
         lab_api.v1.app.save();
+    },
+
+    hasNewTexteditor: (item) => {
+        const view = lab_api.v1.view.getView(item.model);
+        const editorConfig = view.getProperty('editors') || [];
+        // editorConfig may now be an array or an object. If object, only use values:
+        const editorConfigArray = Array.isArray(editorConfig) ? editorConfig : Object.values(editorConfig);
+        // Iterate editorConfig objects and check if 'fn' property is 'EditBodyText' for object where 'key' is equal to item.path:
+        return editorConfigArray.some((editor) => editor.key === item.path && editor.fn === 'EditBodyText');
     },
 
     saveTarget: (item) => {
@@ -33692,15 +37556,51 @@ const tansa = {
             view.set(item.path, item.value, true);
         } else {
             setTimeout(() => {
-                // Dispatch click and blur events to trigger the model update through connected text tool.
-                // This ensures that logic for removing DOM of child elements etc. (bodytext) are run.
+
                 const domElement = tansa.getDomElement(item);
                 if (!domElement) { return; }
-                domElement.innerHTML = item.value;
-                domElement.dispatchEvent(new Event('click'));
-                setTimeout(() => {
-                    domElement.dispatchEvent(new Event('blur'));
-                }, 100);
+
+                // Check if Prosemirror has been used for the field. If we need to clear
+                // the structure for the item.path. and handle update through click i
+                // a different way to ensure child position.
+                if (tansa.hasNewTexteditor(item) && lab_api.v1.editor.hasBeenUsed(item.model, item.path)) {
+
+                    // Add to fields.
+                    item.model.set(item.path, item.value);
+
+                    // Prosemirror editor clear structure for item[path].
+                    lab_api.v1.editor.structure.clear(item.model, item.path);
+
+                    // Activate.
+                    domElement.dispatchEvent(new Event('click'));
+
+                    setTimeout(() => {
+                    // Poll until editor is available and valid
+                        const waitForEditor = () => {
+                            // Check if editor exists and is still valid
+                            if (lab_api.v1.editor.isAvailable()) {
+                                try {
+                                    lab_api.v1.editor.blur();
+                                } catch (error) {
+                                    Sys.logger.warn('[Tansa] Error blurring editor, retrying...', error);
+                                    setTimeout(waitForEditor, 50);
+                                }
+                            } else {
+                                setTimeout(waitForEditor, 50);
+                            }
+                        };
+                        waitForEditor();
+                    }, 50);
+                } else {
+                    // Dispatch click and blur events to trigger the model update through connected text tool.
+                    // This ensures that logic for removing DOM of child elements etc. (bodytext) are run.
+                    domElement.innerHTML = item.value;
+                    domElement.dispatchEvent(new Event('click'));
+                    setTimeout(() => {
+                        domElement.dispatchEvent(new Event('blur'));
+                    }, 100);
+                }
+
             }, 200);
         }
     }
@@ -33869,7 +37769,10 @@ class Manager {
             cssLoaded: false
         };
         this.settings = {
-            minLength: 500
+            minLength: 500,
+            tags: {
+                preserveTagsWhenGenerating: this.api.v1.config.get('preserveTagsWhenGenerating') || false
+            }
         };
         this.writingStyles = Array.isArray(config.writingStyles) ? config.writingStyles : [];
         this.writingTones = Array.isArray(config.writingTones) ? config.writingTones : [];
@@ -34010,8 +37913,7 @@ class Manager {
         });
     }
 
-    fetchByGroup(group, fields, { tone, style } = {}, aiSettings = { model: 'gpt-4o' }, retryFetch = false) {
-        console.log('FETCH BY GROUP');
+    fetchByGroup(group, fields, { tone, style } = {}, aiSettings = { model: 'gpt-4o' }, retryFetch = false, triggeredFrom = null) {
         return new Promise((resolve, reject) => {
             const bodytext = this.getBodytext();
             if (!bodytext) {
@@ -34032,7 +37934,7 @@ class Manager {
                 resolve({});
                 return;
             } */
-            if (['title_subtitle', 'some_content', 'tags', 'seo_content', 'paywallSalesPitch'].includes(group.name)) {
+            if (['title_subtitle', 'some_content', 'tags', 'seo_content'].includes(group.name)) {
                 const params = {
                     featureName: group.name,
                     updateModel: false
@@ -34046,7 +37948,7 @@ class Manager {
                         reject(error);
                     });
 
-            } else {
+            } else if (triggeredFrom !== 'generateSuggestionsButton') {
                 const language = this.setupLanguage();
 
                 const prompt = `${ this.api.v1.util.dom.renderTemplate(group.prompt, {
@@ -34189,14 +38091,14 @@ class Manager {
     }
 
     // (Promise)
-    uiFetchByGroup(group, fields) {
+    uiFetchByGroup(group, fields, triggeredFrom = null) {
         return new Promise((resolve, reject) => {
             const tone = this.getUserSetting('writingTone');
             const style = this.getUserSetting('writingStyle');
             if (group.ui.refresh) {
                 group.ui.refresh.classList.add('lab-disabled', 'lab-busy');
             }
-            this.fetchByGroup(group, fields, { tone, style }).then((values) => {
+            this.fetchByGroup(group, fields, { tone, style }, { model: 'gpt-4o' }, false, triggeredFrom).then((values) => {
                 if (group.ui.refresh) {
                     group.ui.refresh.classList.remove('lab-disabled', 'lab-busy');
                 }
@@ -34212,9 +38114,9 @@ class Manager {
     }
 
     // (Promise) Resolves an array of objects containing keys and values of suggestions
-    uiFetchAll() {
+    uiFetchAll(triggeredFrom = null) {
         return new Promise((resolve, reject) => {
-            const promises = this.groups.map((group) => this.uiFetchByGroup(group, group.fields));
+            const promises = this.groups.map((group) => this.uiFetchByGroup(group, group.fields, triggeredFrom));
             Promise.all(promises).then((results) => {
                 resolve(results);
             }).catch((error) => {
@@ -34341,11 +38243,19 @@ class Manager {
                     if (result[field.name]) {
                         let value = result[field.name] || '';
                         if (field.name === 'tags') {
-                            value = [...result[field.name]];
+                            value = [...result[field.name]].map((tag) => tag.trim().toLowerCase());
                             const primaryTags = this.model.get('primaryTags');
                             if (primaryTags && primaryTags.section) {
                                 value.push(primaryTags.section);
-
+                            }
+                            if (this.settings.tags.preserveTagsWhenGenerating) {
+                                const currentTags = this.model.get(field.path) || [];
+                                for (const tag of currentTags) {
+                                    if (!value.includes(tag.toLowerCase())) {
+                                        // Append existing tag to the end of the array:
+                                        value.push(tag);
+                                    }
+                                }
                             }
                         }
                         field.setValue(value);
@@ -34641,7 +38551,7 @@ class Manager {
                 selector: '#button-suggest',
                 event: 'click',
                 callback: () => {
-                    this.uiFetchAll();
+                    this.uiFetchAll('generateSuggestionsButton');
                 }
             }, {
                 selector: '#button-insert',
@@ -35326,10 +39236,10 @@ class ClientData {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Core: () => (/* binding */ N)
+/* harmony export */   Core: () => (/* binding */ q)
 /* harmony export */ });
 /*! For license information please see Core.js.LICENSE.txt */
-var e={d:(t,r)=>{for(var i in r)e.o(r,i)&&!e.o(t,i)&&Object.defineProperty(t,i,{enumerable:!0,get:r[i]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.r(t),e.d(t,{defaults:()=>s,functionHelper:()=>M,grid:()=>v,interpolation:()=>n,objectHelper:()=>i,stringHelper:()=>f,uuid:()=>k});const r={state:"",version:"4.2.15",build:{styleguide:4,releasenotes:"40214:6",userReleasenotes:"40215:8",browsers:{chrome:94},version:525}},i={get:(e,t,r)=>e.split(".").reduce((e,t)=>e&&void 0!==e[t]?e[t]:r?void 0:null,t),set:(e,t,r)=>(e.split(".").reduce((e,r,s,n)=>{if(s!==n.length-1)return i.isObject(e[r])?e[r]:e[r]={};e[r]=t},r),r),delete:(e,t)=>{e.split(".").reduce((e,t,r,s)=>{if(r!==s.length-1)return i.isObject(e[t])?e[t]:e[t]={};delete e[t]},t)},isObject:e=>e&&"object"==typeof e&&!Array.isArray(e),hasContent:e=>!!i.isObject(e)&&!!Object.keys(e).length,merge:(e,t)=>{if(Array.isArray(e)&&Array.isArray(t))return t;const r=Object.assign(Array.isArray(e)?[]:{},e);if(i.isObject(e)&&i.isObject(t))for(const s of Object.keys(t))i.isObject(t[s])?s in e&&i.isObject(e[s])?r[s]=i.merge(e[s],t[s]):Object.assign(r,{[s]:t[s]}):Object.assign(r,{[s]:t[s]});return r},mergeArray:(e,t,r=!0)=>{const i=[...e||[],...t||[]];return r?[...new Set(i)]:i},clone:(e,t)=>{if(!e)return e;let r;if(!t&&e instanceof Array)r=e.slice(0);else{r=e instanceof Array?[]:{};for(const s in e)e.hasOwnProperty(s)&&(t&&"object"==typeof e[s]&&null!==e[s]?r[s]=i.clone(e[s],t):r[s]=e[s])}return r},serialize(e,t="=",r="&"){const i=[];for(const r of Object.keys(e))i.push(r+t+e[r]);return i.length?i.join(r):null}},s={true:e=>void 0===e||!!e,false:e=>!!e,string:(e,t="")=>"string"==typeof e?e:t,stringRestricted:(e,t="",r=[])=>"string"!=typeof e?t:r.includes(e)?e:t,pixelString:(e,t="")=>{if("number"==typeof e)return`${e}px`;if("string"!=typeof e)return t;const r=e.trim().split("px");return 2!==r.length||isNaN(r[0])?t:`${r[0]}px`},stringOrNull:e=>"string"==typeof e?e:null,stringOrUndefined:e=>"string"==typeof e?e:void 0,numberOrDefault:(e,t=0)=>"number"==typeof e?e:t,array:(e,t=[])=>Array.isArray(e)?e:t,arrayOrNull:e=>Array.isArray(e)?e:null,object:(e,t={},r=t)=>!e||"object"!=typeof e||Array.isArray(e)?t:{...r,...e},objectOrArray:(e,t={})=>Array.isArray(e)?e:s.object(e,t),notNullOrUndefined:(e,t)=>null==e?t:e,notUndefined:(e,t)=>void 0===e?t:e},n={resolve:(e,t,r)=>"object"==typeof e?n.resolveObject(e,t,r):"string"==typeof e?n.resolveString(e,t,r):e,resolveObject:(e,t,r)=>{for(const i in e)"object"==typeof e[i]?e[i]=n.resolveObject(e[i],t,r):"string"==typeof e[i]&&(e[i]=n.resolveString(e[i],t,r));return e},resolveString:(e,t,r)=>{if(-1===e.indexOf("${"))return e;return e.replace(/\${([^{}]*)}/g,(e,i)=>{const s=r.getCms(i.trim());return"string"==typeof s||"number"==typeof s?s:("undefined"!=typeof Sys&&Sys.logger.warn(`Cannot interpolate config value "${e}". Description: ${t}.`),e)})}};class o{constructor(e,t){this.logger=t,this.log("Setup"),this.config=e,this.siteAlias=this.config.site&&this.config.site.alias||null,this.fallbackSites=this.resolveSiteAliases(this.siteAlias),this.log(`Site-alias: ${this.siteAlias}`),this.log(`Will use site(s): ${this.fallbackSites}`),this.resources=[{name:"config",source:"config",path:"customer",sitesPrefix:"customer.site_config_",storeSitesPrefix:null,siteOverride:{},paths:[],content:[],resolved:!1},{name:"cmsConfig",source:"config",path:"",sitesPrefix:null,storeSitesPrefix:null,paths:[],content:[],resolved:!1},{name:"viewConfig",source:"configObject",path:"ConfigObject.viewConfig.config.customer",sitesPrefix:"ConfigObject.viewConfig.config.customer.site_config.",storeSitesPrefix:"config.customer.site_config.",siteOverride:{},paths:[],content:[],resolved:!1},{name:"featureFlags",source:"configObject",path:"ConfigObject.featureFlags",sitesPrefix:"ConfigObject.featureFlags.site.",storeSitesPrefix:"site.",siteOverride:{},paths:[],content:[],resolved:!1},{name:"content",source:"configObject",path:"ConfigObject.content",sitesPrefix:null,storeSitesPrefix:null,paths:[],content:[],resolved:!1},{name:"localisation",source:"configObject",path:"ConfigObject.localisation",sitesPrefix:null,storeSitesPrefix:null,paths:[],content:[],resolved:!1}],this.resourceObject={},this.cache={get:{},debug:{getter:{},reload:{},update:{},resetCache:{}}},this.setupResources()}static resolveFullConfig(e={},t={}){const r={ConfigObject:{},app:{mode:"presentation",version:"[unversioned cms]"},mainViewport:s.string(e.deviceMain,e.device||"desktop"),isTouchDevice:s.false(e.isTouchDevice),sites:s.array(e.sites),...e};return r.app.version=t.version||r.app.version,r.buildInfo=t.build||e.build,r.customer=o.resolveConfig(e.customer),r}static resolveConfig(e={}){const t={grid:{},...e};t.resourceAllocation=s.object(t.resourceAllocation,{resourceMaps:["_resources"],mergeMaps:!0});const r=t.viewHelper||{};return t.viewHelper={image:s.object(r.image,{viewports:["desktop"],pixelDensityFactor:1})},t.appMapper=s.objectOrArray(t.appMapper),t.view_name=s.string(t.view_name,"[unnamed view]"),t.view_version=s.string(t.view_version,"[unversioned view]"),t.grid.total_grid_spans=s.numberOrDefault(t.grid.total_grid_spans,12),t.grid.grid_prefix=s.object(t.grid.grid_prefix),t.grid.abs_grid_prefix=s.object(t.grid.abs_grid_prefix,null),t.preload=s.array(t.preload),t.preloadObject=s.object(t.preloadObject),t.viewports=s.object(t.viewports),t.viewport=s.string(t.viewport),t.touchEditingViewport=s.string(t.touchEditingViewport),t.style=s.object(t.style,{definitions:{},collections:[],presets:[],copyDefinitions:[]}),t.image=s.object(t.image,{defaultAspectRatio:.45,defaultBoundingBoxWidthRatio:1}),t.imageUrlOptions=s.object(t.imageUrlOptions),t.tags=s.object(t.tags,{},{section:[]}),t.elementList=s.object(t.elementList,{all:[],favourites:[]}),t.elementListAdditions=s.object(t.elementListAdditions,{all:[],favourites:[]}),t.elementListRemovals=s.object(t.elementListRemovals,{all:[],favourites:[]}),t.autoscroll=s.object(t.autoscroll,{scrollDistance:100,scrollBuffer:50,accelerator:{max:3,step:.2}}),t.markLockedPaths=s.true(t.markLockedPaths),t.minimap=s.object(t.minimap,{structure:null,pageType:[]}),t.exitWarning=s.stringOrNull(t.exitWarning),t.publish=s.object(t.publish,{retry:{count:4,delay:2e3},options:{article:{hidden:!0,defaultHidden:!1}}}),t.autolock=s.object(t.autolock,{timeout:18e5}),t.networkWarning=s.object(t.networkWarning,null,{offline:{alert:!0,lockPage:!0},online:{alert:!0}}),t.image_preview=s.object(t.image_preview,{width:1600,compression:50}),t.textTools=s.object(t.textTools,{characterBlacklists:{utf:[]},text_size:{min:{default:14},max:{default:150,mobile:80}}}),t.structure_map=s.object(t.structure_map),t.shapes=s.object(t.shapes),t.requiredElements=s.array(t.requiredElements),t.requiredElementsAdditions=s.array(t.requiredElementsAdditions),t.data=s.object(t.data,{elements:{},presets:{},presetBlacklist:{},blacklist:[],blacklistOptions:{}}),t.pageElements=s.object(t.pageElements),t.drawer=s.array(t.drawer),t.drawerAdditions=s.array(t.drawerAdditions),t.drawerRemovals=s.array(t.drawerRemovals),t.maxChildCount=s.numberOrDefault(t.maxChildCount,150),t}log(e,t=null){this.logger&&(t?this.logger.debug(`[ConfigReader] ${e}`,[t]):this.logger.debug(`[ConfigReader] ${e}`))}setupResources(){for(const e of this.resources)this.resourceObject[e.name]=e}setupResource(e,t=null){const r=!!t&&t!==this.siteAlias,i=this.resourceObject[e];this.log(`Settings up resource "${e}". Site: "${t||this.siteAlias}". Site-override: ${i.sitesPrefix?r:"n/a"}`),t&&!i.siteOverride[t]&&(i.siteOverride[t]={content:[],paths:[],resolved:!1});const s=t?i.siteOverride[t]:i,n=r?this.resolveSiteAliases(t):this.fallbackSites;for(const e of this.calculateResourcePaths(i,n)){s.paths.push(e);const t=this.getPath(e,this.config);s.content.push({path:e,value:t||{}})}return s.resolved=!0,s}reloadResourceBySite(e,t,r){if(e&&this.resourceObject[e]&&r){this.cache.debug.reload[`${e}|${t||"no-site"}`]=this.cache.debug.reload[`${e}|${t||"no-site"}`]?this.cache.debug.reload[`${e}|${t||"no-site"}`]+1:1;const s=n.resolve(r,"reload_resouce",{getCms:e=>i.get(e,this.config,!0)}),o=t?this.resourceObject[e].sitesPrefix+t:this.resourceObject[e].path;i.set(o,s,this.config),this.resourceObject[e].siteOverride[t]?delete this.resourceObject[e].siteOverride[t]:t||(this.setupResource(e),this.resourceObject[e].siteOverride={})}}updateConfigByPath(e,t){this.cache.debug.update[e]=this.cache.debug.update[e]?this.cache.debug.update[e]+1:1,i.set(e,t,this.config),this.resetCache(e)}getCacheKey(e="",t={}){const r=[e,t.mergeStrategy,t.orderStrategy];for(const e of t.resourceList)r.push(e.name,e.useSites?1:0,e.site||"-");return r.join("|")}getCache(e){return this.cache.debug.getter[e]=this.cache.debug.getter[e]?this.cache.debug.getter[e]+1:1,{isSet:e in this.cache.get,value:this.cache.get[e]}}setCache(e,t){this.cache.get[e]=t}resetCache(e){for(const t of Object.keys(this.cache.get))t.startsWith(`${e}|`)&&(this.cache.debug.resetCache[t]=this.cache.debug.resetCache[t]?this.cache.debug.resetCache[t]+1:1,this.log(`Deleting cache for key "${e}" ("${t}")`),delete this.cache.get[t])}calculateResourcePaths(e,t=this.fallbackSites){const r=e.sitesPrefix?t.map(t=>e.sitesPrefix+t):[];return r.push(e.path),r}resolveSiteAliases(e,t=[]){if(!e)return t;t.push(e);const r=this.getFallbackSite(e);return r&&this.resolveSiteAliases(r,t),t}getFallbackSite(e){return this.getPath(`customer.site_config_${e}.lab_fallback_site`,this.config)}getResource(e){let t=e.site?this.resourceObject[e.name].siteOverride[e.site]:this.resourceObject[e.name];return t&&t.resolved||(t=this.setupResource(e.name,e.site)),t}getPath(e,t,r=!1){return e?r?n.resolve(i.get(e,t,!0),e,{getCms:e=>i.get(e,this.config,!0)}):i.get(e,t,!0):t}getPaths(e,t,r=!1){const i=[],s=this.getResource(t),n=t.useSites?s.content:[s.content[s.content.length-1]];for(const s of n){const o=this.getPath(e,s.value,r);void 0!==o&&i.push({source:t.name,path:s.path,value:o,sourceIndex:n.indexOf(s)})}return i}getValueType(e){for(const t of e)if(null!==t.value)return Array.isArray(t.value)?"array":i.isObject(t.value)?"object":"other";return"other"}mergeResources(e,t,r){let s=t;const n=this.orderResources(e,r);if(!n.length)return{payload:null,paths:[],resetPaths:[]};const o=this.getValueType(n);if("default"===s&&(s="object"===o?"merge":"replace"),"replace"===s)return{payload:n[0].value,paths:[n[0].path],resetPaths:[]};n.reverse();const a=Array.isArray(n[0].value)?[]:{};let l=a;const d=[],h=[];for(const e of n){null===e.value&&(l=a,h.push(e.path));let r=i.merge;"merge"===t&&"array"===o&&(r=i.mergeArray),l=r(l,e.value),d.push(e.path)}return{payload:l,paths:d,resetPaths:h}}orderResources(e,t){if(1===e.length)return e[0].payload;let r=[];for(const t of e)r=r.concat(...t.payload);return"site"===t&&r.sort((e,t)=>e.sourceIndex-t.sourceIndex),r}prepareReturnValue(e){return e&&"object"==typeof e?i.clone(e,!0):e}getter(e,t=[],{mergeStrategy:r=null,orderStrategy:i=null,raw:n=!1,noCache:o=!1,interpolate:a=!0}){const l={mergeStrategy:s.stringRestricted(r,"default",["default","merge","replace"]),orderStrategy:s.stringRestricted(i,"site",["site","type"]),raw:s.false(n),noCache:s.false(o),resourceList:[]};for(const e of t)l.resourceList.push({name:e.name,useSites:!!e.useSites,site:s.stringOrNull(e.site)});const d=this.getCacheKey(e,l),h=this.getCache(d);if(!l.noCache&&h.isSet)return l.raw?{cached:!0,options:l,data:{raw:h.value.raw,merged:h.value.merged}}:this.prepareReturnValue(h.value.merged.payload);const g=l.resourceList.map(t=>({name:t.name,payload:this.getPaths(e,t,a)})),c=this.mergeResources(g,l.mergeStrategy,l.orderStrategy);return this.setCache(d,{raw:g,merged:c}),l.raw?{cached:!1,options:l,data:{raw:g,merged:c}}:this.prepareReturnValue(c.payload)}get(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null,orderStrategy:o=null}={}){return this.getter(e,[{name:"viewConfig",useSites:t,site:r},{name:"config",useSites:t,site:r}],{mergeStrategy:n,orderStrategy:o,raw:i,noCache:s})}getConfig(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"config",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s})}getCms(e,{raw:t=!1,noCache:r=!1}={}){return this.getter(e,[{name:"cmsConfig"}],{raw:t,noCache:r})}getView(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"viewConfig",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s})}getFeatureFlags(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"featureFlags",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s,interpolate:!1})}getContent(e,{raw:t=!1}={}){return this.getter(e,[{name:"content"}],{raw:t})}getLocal(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"localisation",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s,interpolate:!1})}getPathForSite(e,t,r=""){return e&&t&&this.resourceObject[e]&&this.resourceObject[e].sitesPrefix?this.resourceObject[e].sitesPrefix+t+(r?`.${r}`:""):null}getStorePathForSite(e,t,r=""){return e&&t&&this.resourceObject[e]&&this.resourceObject[e].sitesPrefix?this.resourceObject[e].storeSitesPrefix+t+(r?`.${r}`:""):null}debug(){return this.cache.debug}}class a{constructor(e,t,r=!1,i="",s=""){this.configReader=e,this.viewport=t,this.fragmentMode=r,this.pageType=i,this.simulatedMode=s,this.cache=new Map,this.isEditor="edit"===this.getAppMode(),this.pixelDensityFactor=this.isEditor?1:this.configReader.get("viewHelper.image.pixelDensityFactor"),this.pixelDensityFactors={}}resetCache(){this.cache.clear()}getViewport(){return this.viewport}getViewports(){const e="getViewports";return this.cache.has(e)||this.cache.set(e,Object.keys(this.configReader.get("viewports")||{})),this.cache.get(e)}getMainViewport(){const e="getMainViewport";return this.cache.has(e)||this.cache.set(e,this.configReader.getCms("mainViewport")),this.cache.get(e)}getPageType(){return this.pageType}getSimulatedMode(){return this.simulatedMode}isFragmentMode(){return!!this.fragmentMode}isMainViewport(){return this.viewport===this.getMainViewport()}isTouchDevice(e=this.viewport){return this.configReader.getCms("isTouchDevice")}getSubViewports(){const e="getSubViewports";if(!this.cache.has(e)){const t=this.getMainViewport();this.cache.set(e,this.getViewports().filter(e=>e!==t))}return this.cache.get(e)}isSubViewport(e=this.viewport){return e!==this.getMainViewport()}getEditableViewports(e=!1){const t=`getEditableViewports_${e}`;if(!this.cache.has(t)){const r=this.configReader.get("viewports"),i=e?{}:[];for(const t of Object.keys(r))r[t].noEdit||(e?i[t]=r[t]:i.push(t));this.cache.set(t,i)}return this.cache.get(t)}getViewportWidth(e=this.viewport){const t=this.configReader.get(`viewports.${e}.deviceWidth`);return t?parseInt(t,10):null}getEditViewportWidth(e=this.viewport){const t=this.configReader.get(`viewports.${e}.editSlotWidth`)||this.configReader.get(`viewports.${e}.deviceWidth`);return t?parseInt(t,10):null}getSite(e=null){const t={},r=`getSite_${e}`;if(!this.cache.has(r)){if(e){for(const t of this.configReader.getCms("sites"))if(t.alias===e)return this.cache.set(r,t),t;return this.cache.set(r,t),t}this.cache.set(r,this.configReader.getCms("site")||t)}return this.cache.get(r)}getSiteById(e){if(!e)return null;const t=`getSiteById_${e}`;if(!this.cache.has(t)){const r=parseInt(e,10);for(const e of this.configReader.getCms("sites"))if(e.id===r)return this.cache.set(t,e),e;return this.cache.set(t,null),null}return this.cache.get(t)}getSites(){const e="getSites";return this.cache.has(e)||this.cache.set(e,this.configReader.getCms("sites")||[]),this.cache.get(e)}getAppMode(){const e="getAppMode";return this.cache.has(e)||this.cache.set(e,this.configReader.getCms("app.mode")||"presentation"),this.cache.get(e)}isPresentationMode(){return!this.isEditor}isEditMode(){return this.isEditor}getPixelDensityFactor(e){return e?(this.pixelDensityFactors[e]||(this.pixelDensityFactors[e]=this.isEditor?1:this.configReader.get(`viewHelper.image.pixelDensity.${e}`)||this.configReader.get("viewHelper.image.pixelDensityFactor")),this.pixelDensityFactors[e]):this.pixelDensityFactor}getPreferredImageFormat(){return(this.configReader.get("imageUrlOptions.extension")||"").replace(".","")||null}}class l{constructor(e){this.debug=e&&"object"==typeof performance,this.logs={}}getLogs(){return this.logs}resetLogs(){this.logs={}}log(e,t){const r=e.pop();let i=this.logs;for(const t of e)i[t]||(i[t]={}),i=i[t];i[r]||(i[r]={count:0,time:0}),i=i[r],i.count++,i.time+=t}start(e){if(this.debug)return{paths:e,time:this.getTimestamp()}}end(e){this.debug&&this.log(e.paths,this.getTimestamp()-e.time)}getTimestamp(){return performance.now()}}class d{constructor({entries:e=[],behaviours:t={},debug:r=!1}={}){this.entries=e,this.behaviours=t,this.debug=r,this.events={},this.logs={},this.performanceLogger=new l(this.debug)}getLogs(){return this.performanceLogger.getLogs()}resetLogs(){this.performanceLogger.resetLogs()}on(e,t){return this.events[e]||(this.events[e]=[]),this.events[e].push(t),!0}off(e,t){return!(!this.events[e]||!this.events[e].includes(t))&&(this.events[e]=this.events[e].filter(e=>e!==t),!0)}emitEntry(e,...t){const r=this.performanceLogger.start(["entry",e]),i=this.callTargets(e,"entry",this.entries,...t);return this.performanceLogger.end(r),i}emitBehaviour(e,t,...r){const i=this.behaviours[t.getType()];if(!i||!i.length)return[];const s=this.performanceLogger.start(["behaviour",e,t.getType()]),n=this.callTargets(e,"behaviour",i,t,...r);return this.performanceLogger.end(s),n}emitCollectionBehaviour(e,t,...r){const i=this.behaviours[t.getType()];return i&&i.length?this.callTargets(e,"collection",i,t,...r):[]}emitEvent(e,...t){this.events[e]&&this.callEvents(e,this.events[e],...t)}requestEvent(e,...t){return this.events[e]?this.requestEvents(e,this.events[e],...t):[]}callEvents(e,t,...r){for(const i of t)try{i(...r)}catch(t){Sys.logger.error(`[Emitter] Failed to run method on listener for message "${e}"`),Sys.logger.debug(t.toString()),lab_api.v1.app.logError(t)}}requestEvents(e,t,...r){const i=[];for(const s of t)try{const e=s(...r);void 0!==e&&i.push(e)}catch(t){Sys.logger.error(`[Emitter] Failed to run method on listener for message "${e}"`),Sys.logger.debug(t.toString()),lab_api.v1.app.logError(t)}return i}callTargets(e,t,r,...i){const s=[];for(const n of r)try{if(n.isEnabled){const t=n.call(e,...i);null!=t&&s.push(t)}}catch(r){Sys.logger.error(`[Emitter] Call to method ${e} on '${n.name}' failed:`),console.error(r),lab_api.v1.app.logViewError(r,t)}return s}registerEntry(e){return!this.entries.includes(e)&&(this.entries.push(e),!0)}registerBehaviour(e,t){return this.behaviours[e]||(this.behaviours[e]=[]),!this.behaviours[e].includes(t)&&(this.behaviours[e].push(t),!0)}}class h{static build(e,t,r){let i;const s=[],n=r||"&",o=(e,t,r)=>{let i,s=t;const n=[];if(!0===s?s="1":!1===s&&(s="0"),null!=s){if("object"==typeof s){for(i in s)null!=s[i]&&n.push(o(`${e}[${i}]`,s[i],r));return n.join(r)}if("function"!=typeof s)return`${this.urlencode(e)}=${this.urlencode(s)}`;throw new Error("There was an error processing for http_build_query().")}return""};for(const r of Object.keys(e)){i=e[r];let a=r;t&&!Number.isNaN(a)&&(a=String(t)+a);const l=o(a,i,n);""!==l&&s.push(l)}return s.join(n)}static urlencode(e){return encodeURIComponent(`${e}`).replace(/!/g,"%21").replace(/'/g,"%27").replace(/\(/g,"%28").replace(/\)/g,"%29").replace(/\*/g,"%2A").replace(/%20/g,"+")}}class g extends d{constructor(e,t,r,i,s,n,o=!1){super({behaviours:s,debug:o}),this.properties=e,this.templates=t,this.configReader=r,this.propertyValidator=i,this.pathHelper=n,this.resolved={properties:new Map,templates:new Map,resourceMaps:new Map},this.appMode=r.getCms("app.mode"),this.pageTemplateName="default",this.resourceSettings=this.resolveResourceSettings(),this.viewportList=new Map,this.rootId=null,this.feedBaseUrl=`${this.configReader.getCms("front_api_url")}/feed/item`,this.isFragmentMode=!1,this.feedCounter={}}getPathInfo(e,t,r="stage"){const i=e.split("/"),s=i.pop();let n;return n=s.startsWith("page_")?`${s.replace("page_","page/")}/${this.pageTemplateName}`:`content/${s}`,{type:s,resourceType:n,area:r,modeList:this.getPrioritizedModes(),viewportList:this.getPrioritizedViewports(t),contextList:this.getPrioritizedContexts(`${i.join("/")}/`)}}resolveResourceSettings(){const e=s.object(this.configReader.get("resourceAllocation",{useSites:!1}),{resourceMaps:["_resources"]});"string"==typeof e.resourceMaps&&(e.resourceMaps=[e.resourceMaps]);const t=this.configReader.getCms("site.alias"),r=s.object(this.configReader.get("resourceAllocation",{site:t}));let i=[];if(Array.isArray(r.resourceMaps)&&i.push(...r.resourceMaps),!i.length||s.true(r.mergeMaps)){const t=[];for(const r of e.resourceMaps)i.includes(r)||t.includes(r)||t.push(r);t.length&&(i=[...t,...i])}return{names:i}}getResourceMap(e,t){if(this.resolved.resourceMaps.has(e.type))return this.resolved.resourceMaps.get(e.type);let r={labPaths:this.getEmptyPathObject()};for(const t of this.resourceSettings.names){const i=`${e.resourceType}/${t}.json`,s=this.getPropertyFile(i);s?(r.labPaths.maps.push(i),r=this.mergeObject(r,s)):Sys.logger.warn(`[ResourceManager] Cannot find resource-map for element "${e.type}". Tried "${i}".`)}if(t){const i=this.emitBehaviour("onResourceMap",t,{...r},{type:e.type,resourceType:e.resourceType});i.length&&(Sys.logger.warn(`[ResourceManager] Resource-map is overridden by a bahaviour for model "${t.getPositionedPath()}".`),r=i.pop())}return this.resolved.resourceMaps.set(e.type,r),r}getPaths(e,t,r){let i=[];for(const s of r.modeList){const n=this.getContextsForModeAndArea(e,s,r);if(n)for(const e of r.contextList){const o=this.getContexts(n,t,e);if(o.length)for(const e of o){const t=this.getPathForViewports(e.match,r);if(t)for(const r of Array.isArray(t.resources)?t.resources:[t.resources])i=i.filter(e=>e.path!==r),i.push(this.getPathDescription({path:r,context:e.context,viewport:t.viewport,mode:s}))}}}return i.length||Sys.logger.debug(`ResourceManager: Cannot get ${t} for ${r.type}. Context-list: ${r.contextList.join(", ")}, area: ${r.area}`),i}getPathForViewports(e,t){for(const r of t.viewportList)if(e[r])return{resources:e[r],viewport:r};return null}getPathLength(e=""){return this.trimPath(e).replace(/\/\//g,"/||/").split("/").map(e=>e?"||"===e?.2:"*"===e?.6:1:0).reduce((e,t)=>e+t)}sortContexts(e){const t=e.sort((e,t)=>this.getPathLength(e)-this.getPathLength(t)||e.localeCompare(t)),r=t.indexOf("lab-default");return r>0&&(t.splice(r,1),t.unshift("lab-default")),t}trimPath(e){let t=e;return t.startsWith("/")&&!t.startsWith("//")&&(t=t.substring(1)),t.endsWith("/")&&!t.endsWith("//")&&(t=t.substr(0,t.length-1)),t}getContexts(e,t,r){const i=this.sortContexts(Object.keys(e)),s=[];for(const n of i)if(e[n][t]){const i=this.pathHelper.pathMatch(n,r);i&&s.push({match:e[i][t],context:n})}return s}getContextsForModeAndArea(e,t,r){return i.get(`${t}.${r.area}`,e)||null}getPropertyFile(e){if(this.properties[e]){return{...this.properties[e]}}return null}getEmptyPathObject(){return{maps:[],properties:[],map:[]}}getPathDescription(e={}){return{path:e.path||null,context:e.context||null,viewport:e.viewport||null,mode:e.mode||null,requiredBy:e.requiredBy||null}}resolveInheritance(e,t){if(!e.includeFiles)return e;let r=e;for(const i of e.includeFiles)if(!r.labPaths.properties.includes(i)){const e=this.getPathDescription(t);e.requiredBy=e.path,e.path=i;const s=this.resolvePropertyFileWithDescription(e);s&&(r=this.mergeObject(s,r))}return r}getTemplateFile(e){return this.templates[e]||null}getPrioritizedViewports(e){if(!this.viewportList.get(e)){const t=e?[e]:[];this.configReader.get(`viewports.${e||"default "}.noFallback`)||t.push("default"),this.viewportList.set(e,t)}return this.viewportList.get(e)}getPrioritizedModes(){const e=[this.appMode];return"edit"===this.appMode&&e.unshift("presentation"),e}getPrioritizedContexts(e){return["lab-default",e]}mergeObject(e,t){const r=i.merge(e,t);return e.labPaths&&t.labPaths&&(r.labPaths.properties=e.labPaths.properties.concat(t.labPaths.properties),r.labPaths.map=e.labPaths.map.concat(t.labPaths.map)),r}getCacheKey(e,t,r){return`${e||"no-path"}-${t}-${r}`}rootModelReady(e){this.isFragmentMode=lab_api.v1.app.mode.isFragmentMode(),e&&(this.rootId=e.get("id"),e&&e.getType().startsWith("page_")&&this.setPageTemplateName(e.get("fields.page_template_alias")||"default"))}setPageTemplateName(e="default"){Sys.logger.debug(`[ResourceManager] Will use page-template "${e}".`),"undefined"===e?(Sys.logger.warn("[ResourceManager] Invalid page_template_alias detected. Will override template to 'default'."),this.pageTemplateName="default"):this.pageTemplateName=e}getAreaFromPath(e,t){return e&&e.includes("pasteboard/")?"pasteboard":"stage"}getPropertiesForPath(e,t,r,i=this.getAreaFromPath(e)){e||Sys.logger.warn('ResourceManager.getPropertiesForPath: Missing required param "path". Will return default properties.');const s=this.getCacheKey(e,r,i);if(this.resolved.properties.has(s))return this.resolved.properties.get(s);let n={labPaths:this.getEmptyPathObject()};const o=this.getPathInfo(e,r,i),a=this.getResourceMap(o,t),l=this.getPaths(a,"properties",o);for(const e of l){const t=this.resolvePropertyFileWithDescription(e);t&&(n=this.mergeObject(n,t))}return n.labPaths.maps=a.labPaths.maps,this.resolved.properties.set(s,this.propertyValidator(n)),this.resolved.properties.get(s)}resolvePropertyFile(e){return this.resolvePropertyFileWithDescription(this.getPathDescription({path:e}))}resolvePropertyFileWithDescription(e){const t=this.getPropertyFile(e.path);return t?(t.labPaths=this.getEmptyPathObject(),t.labPaths.properties.push(e.path),t.labPaths.map.push(e),this.resolveInheritance(n.resolve(t,e.path,this.configReader),e)):(Sys.logger.warn(`ResourceManager: Cannot find property-file for path: ${e.path}.`),null)}getTemplateForPath(e,t,r,i=this.getAreaFromPath(e)){const s=this.getCacheKey(e,r,i);if(this.resolved.templates.has(s))return this.resolved.templates.get(s);const n={paths:null,resource:null},o=this.getPathInfo(e,r,i),a=this.getResourceMap(o,t);return n.paths=this.getPaths(a,"template",o),n.paths.length&&(n.resource=this.getTemplateFile([...n.paths].pop().path)),n.resource||(Sys.logger.debug(`ResourceManager: Cannot find template for path: ${e}, viewport: ${r}, area: ${o.area}. Will assign default template.`),n.resource=this.getDefaultTemplate(e)),this.resolved.templates.set(s,n),n}getDefaultTemplate(e){return"edit"===this.appMode?"<div>{{{ children.all }}}</div>":"{{{ children.all }}}"}getPropertiesForModel(e,t,r){return this.getPropertiesForPath(e.getPath(),e,t.viewport,r)}getTemplateForModel(e,t,r){if("presentation"===this.appMode&&!this.isFragmentMode&&"1"===e.get("fields.isAutomatic"))return`<div data-lab-placeholder="include" src="${this.getFeedUrl(e,t)}" ></div>`;const i=this.getTemplateForPath(e.getPath(),e,t.viewport,r);return i.paths.length&&t.setTemplatePath([...i.paths].pop().path),i.resource}getFeedUrl(e,t){const r=e.get("fields.feedId"),i=e.get("fields.feedParams")||{};let s="";Object.keys(i).length&&(s=`?${h.build(i)}`),void 0===this.feedCounter[r]&&(this.feedCounter[r]=0);const n=this.feedCounter[r]++;return`${this.feedBaseUrl}/${r}/${this.rootId}/${n}${s}`}}class c{constructor(e,t,r){this.viewport=e,this.model=t,this.eventPipe=r,this.markup=null,this.markupString=null,this.template=null,this.templatePath=null,this.properties=null,this.data=null,this.size=this.getEmptySizeObject(),this.proxies={current:null,child:null,children:null,childMarkup:null,childrenMarkup:null,store:{get:null,set:null}},this.cache=new Map}static resolveConfig(e={}){return lab_api.v1.app.dbg.logger.add("LabView","resolveConfig"),{labPaths:e.labPaths||{maps:[],properties:[],map:[]},boxTitle:e.boxTitle||"",boxDescription:e.boxDescription||"",boxKeywords:e.boxKeywords||"",childLimit:e.childLimit||null,includeFiles:s.array(e.includeFiles,null),gridRules:e.gridRules||[],viewHelper:e.viewHelper||null,viewportMap:s.object(e.viewportMap),bodytextElements:s.array(e.bodytextElements),bodytextHeadingElements:s.array(e.bodytextHeadingElements),overrideImageSize:s.object(e.overrideImageSize),image:s.object(e.image,null,{defaultAspectRatio:null}),external:s.object(e.external,null,{url:null,type:"html",headers:null})}}getEmptySizeObject(){return{grid:null,pixelWidths:null,gridWidth:null,absGridWidths:null,absGridCss:null}}isPrepared(){return!1}setPreparedState(e){}setMarkupString(e){this.markupString=e}getMarkup(){return null}getMarkupString(){return this.markupString||""}setGrid(e){this.size.grid=e}getGrid(){return this.size.grid}setPixelWidths(e){this.size.pixelWidths=e}getPixelWidth(){return this.size.pixelWidths[this.viewport]}getPixelWidths(){return this.size.pixelWidths}setGridWidth(e){this.size.gridWidth=e}getGridWidth(){return this.size.gridWidth}getAbsoluteGridWidth(){return this.size.absGridWidths?this.size.absGridWidths[this.viewport]:null}setAbsoluteGridWidths(e){this.size.absGridWidths=e}getAbsoluteGridWidths(){return this.size.absGridWidths}getAbsGridCss(){return this.size.absGridCss}setAbsGridCss(e){this.size.absGridCss=e}getWidth(){return this.get("width")}setWidth(e,t=!1){this.set("width",e,t)}setData(e){this.data=e}getData(){return this.data}getProxy(){return this.proxies.current}setProxy(e){this.proxies.current=e}getChildrenProxy(){return this.proxies.children}setChildrenProxy(e){this.proxies.children=e}getChildProxy(){return this.proxies.child}setChildProxy(e){this.proxies.child=e}getChildMarkupProxy(){return this.proxies.childMarkup}setChildMarkupProxy(e){this.proxies.childMarkup=e}getChildrenMarkupProxy(){return this.proxies.childrenMarkup}setChildrenMarkupProxy(e){this.proxies.childrenMarkup=e}getStoreProxy(e){return this.proxies.store.set&&this.proxies.store.get?e?this.proxies.store.set:this.proxies.store.get:null}setStoreProxy({get:e,set:t}){this.proxies.store.get=e,this.proxies.store.set=t}setTemplate(e){this.template=e}getTemplate(){return this.template}setTemplatePath(e){this.templatePath=e}getTemplatePath(){return this.templatePath}setProperties(e,t=!1){this.properties=t?e:this.constructor.resolveConfig(e)}getProperties(){return this.properties}getProperty(e,t){return i.get(e,this.properties,t)}getViewport(){return this.viewport}getviewportOrder(e,t=null,r=this.viewport){return this.eventPipe.getViewportOrder(this,this.model.getPath(),e,t,r)}getCacheKey(e,t,r=!1){return`${e}|${r?1:0}|${t}`}get(e,t=!1,r=this.viewport){lab_api.v1.app.dbg.logger.add(this.constructor.name,"get",this.viewport);const i=this.getCacheKey(e,r,t);if(this.cache.has(i))return this.getCache(i);const s=this.model.buildQuery(e),n=this.getviewportOrder(s.path,s.attribute,r);if(!n.length){const e=this.model.get(s.key,null,t);return this.setCache(i,e)}for(const e of n){const t=this.model.get(s.key,e,!0);if(void 0!==t)return this.setCache(i,t)}return this.setCache(i,t?void 0:null)}set(e,t,r=!1){if(lab_api.v1.app.dbg.logger.add(this.constructor.name,"set",this.viewport),!e)return!1;const i=this.model.buildQuery(e),s=this.getviewportOrder(i.path,i.attribute);return this.model.set(i.key,t,{save:!r,viewport:s[0]})}setAll(e,t=!0){if(e&&"object"==typeof e&&!Array.isArray(e)){for(const t of Object.keys(e))this.set(t,e[t],!0);t&&lab_api.v1.app.save()}else Sys.logger.warn("[LabView] Method setAll expect an object containing key/value pars of data to store. Non-object given.")}setTransparent(e,t){const r=this.model.buildQuery(e),s=this.getviewportOrder(r.path,r.attribute),n=this.model.buildQuery(e,s[0]);let{path:o}=n;return n.attribute&&(o="fields"===n.type?`${n.path}.attributes.${n.attribute}`:`${n.path}.${n.attribute}`),i.get(o,i.set(n.fullPath,t,{}))}setCache(e,t){return this.cache.set(e,t),this.getCache(e)}getCache(e){const t=this.cache.get(e);return t&&"object"==typeof t?Array.isArray(t)?[...t]:{...t}:t}resetCache(e,t=this.getViewport()){const r=this.getCacheKey(e,t);this.cache.delete(r),this.cache.forEach((r,i,s)=>{i.startsWith(`${e}.`)&&i.endsWith(`|${t}`)&&this.cache.delete(i)})}}class p{static generateShapes(e,t){if(!e)return"";const r=JSON.parse(e);let i="";for(const e of r)i+=this.createShape(e,t);return i}static createShape(e,t){return`<div class="imageShape" style="${this.getStyle(e,t)}"></div>`}static getStyle(e,t){const r=this.getPosition(e,t),i=this.getSize(e,t);return`position: absolute;\n        width: ${i.w}%;\n        height: ${i.h}%;\n        top: ${r.y}%;\n        left: ${r.x}%;\n        border-width: ${e.borderwidth}px;\n        border-color: ${e.bordercolor};\n        border-style: ${e.borderstyle};\n        border-radius: ${"circle"===e.shape?"50%":"0"};\n        background: ${e.background||"transparent"};`}static getPosition(e,t){return{x:(e.x-t.x)*(100/t.cropw),y:(e.y-t.y)*(100/t.croph)}}static getSize(e,t){return{w:e.width*(100/t.cropw),h:e.height*(100/t.croph)}}}class u{constructor(e,t){this.api=e,this.isEditor=this.api.v1.app.mode.isEditor(),this.viewport=t.viewport,this.viewports=this.api.v1.config.get("viewHelper.image.viewports"),this.viewports.includes(this.viewport)||this.viewports.push(this.viewport),this.logger=t.logger,this.imageServer=this.api.v1.properties.get("image_server"),this.cropParamsFloat=["x","y","cropw","croph","panox","panoy","panow","panoh","heightx","heighty","heightw","heighth"],this.cropParamsString=["float","shapes"],this.privateCropParams=["bbRatio","whRatio","viewports_json","metadata_key"],this.allFields=[...this.cropParamsFloat,...this.cropParamsString,...this.privateCropParams],this.imageUrlOptions=this.api.v1.config.get("imageUrlOptions")||{},this.preferWebp=".webp"===this.api.v1.config.get("imageUrlOptions.extension"),this.maxDimension=3e3,this.pixelDensityFactors=this.readPixelDensity(),this.logger.debug(`Image-helper created. Will prepare image-data for viewports: ${this.viewports.join(", ")}.`)}static getImageProperties(e={}){const t=e.crop||{},r=t.pano||{},i=t.height||{};return{cropw:r.cropw||0,croph:r.croph||0,x:r.x||0,y:r.y||0,heightw:i.cropw||0,heighth:i.croph||0,heightx:i.x||0,heighty:i.y||0,imageCaption:e.imageCaption||""}}run(e,t){if(!e.hasNodeData())return this.logger.debug(`Image has no node-data, skipping. Path: "${e.getPositionedPath()}"`),void this.api.v1.model.noRender(e);const r=t.getProperty("image.defaultAspectRatio")||this.api.v1.config.get("image.defaultAspectRatio")||.5,i=t.getProperty("image.defaultBoundingBoxWidthRatio")||this.api.v1.config.get("image.defaultBoundingBoxWidthRatio")||1,s=t.getPixelWidths(),n=e.getData("instance_of"),o=e.get("fields.imageurl"),a=e.get("fields.forceImageUrl"),l={},d=[],h=this.imageUrlOptions.nameField?e.get(this.imageUrlOptions.nameField):null,g="_articlefeed"===e.get("fields.source"),c="1"===e.get("fields.isLabradorImageUrl"),u=this.preferWebp&&g?"webp":null,f=[];if((this.preferWebp||"webp"===u)&&f.push({format:"webp",type:"image/webp"}),f.push({format:"jpg",type:"image/jpeg"}),!o&&!n)return this.isEditor?e.setFiltered("image","/images/lab-head_1000.png"):e.setFiltered("image",`${this.api.v1.config.get("image.fallbackUrl")||"/404-image.png"}?noImageFound`),void(e.get("state.isUploading")?e.setFiltered("imageLoadingClass","lab-uploading-image labicon-cloud_up"):e.setFiltered("imageLoadingClass","lab-missing-image"));for(const e of this.viewports){const y={width:t.get("fields.width",!1,e)||t.getProperty("overrideImageSize.width"),height:t.get("fields.height",!1,e)||t.getProperty("overrideImageSize.height")},m=s[e],b={};for(const r of this.allFields){const i=t.get(`fields.${r}`,null,e);(i||"0"===i||0===i)&&(b[r]=i)}const w={imageId:g?void 0:n,format:u,bbRatio:t.get("filtered.bbRatio",null,e)||b.bbRatio||i,whRatio:t.get("filtered.whRatio",null,e)||b.whRatio||r},v={float:null,border:null,shapes:null};for(const e of this.cropParamsFloat)if(void 0!==b[e]){const t=parseFloat(b[e]||0);w[e]=t.toFixed(2)}for(const e of this.cropParamsString){const t=b[e]||null;t&&"null"!==t&&(v[e]=t)}w.width=t.get(`filtered.width.${e}`,null,e)||y.width||Math.ceil(m*w.bbRatio),w.height=t.get(`filtered.height.${e}`,null,e)||y.height||Math.ceil(w.width*w.whRatio);const P={width:w.width,height:w.height};w.width=Math.round(w.width*this.pixelDensityFactors[e]),w.height=Math.round(w.height*this.pixelDensityFactors[e]);if(w.width/w.height>1){if(w.width>this.maxDimension){const e=this.maxDimension/w.width;w.width=Math.floor(w.width*e),w.height=Math.floor(w.height*e)}}else if(w.height>this.maxDimension){const e=this.maxDimension/w.height;w.height=Math.floor(w.height*e),w.width=Math.floor(w.width*e)}const x=this.generateUrl(w,{imageurl:o,forceImageUrl:a,instanceOf:n,isLabradorImageUrl:c,imageUrlOptionsNameValue:h}),M=v.shapes?p.generateShapes(v.shapes,b):"";l[e]={viewport:e,url:x,formats:f,width:P.width,height:P.height,shapes:M,borderClass:"on"===v.border?"borderOn":""},d.push(l[e])}const y=l[this.viewport];e.setFiltered("viewport_list",l),e.setFiltered("viewport_array",d),e.setFiltered("image",y.url),e.setFiltered("imageWidth",y.width),e.setFiltered("imageHeight",y.height),e.setFiltered("imageCleanUrl",y.url.replace(/&(width|height)=\d+/g,"")),e.setFiltered("borderClass",y.borderClass),e.setFiltered("shapes",y.shapes),e.setFiltered("imageLoadingClass",n?"":o?"lab-content-busy":"lab-is-dummy-image")}generateUrl(e,t={}){const r=[],i={width:e.width||t.width||150,height:e.height||t.height||100},s={imageId:e.imageId||t.imageId,x:e.x,y:e.y,cropw:e.cropw,croph:e.croph,panox:e.panox,panoy:e.panoy,panow:e.panow,panoh:e.panoh,heightx:e.heightx,heighty:e.heighty,heightw:e.heightw,heighth:e.heighth,width:i.width,height:i.height,format:e.format||void 0};for(const e of Object.keys(s))void 0!==s[e]&&r.push(`${e}=${s[e]}`);let n=this.imageServer,o="?";return!t.imageurl||!t.forceImageUrl&&t.instanceOf?t.instanceOf?this.imageUrlOptions&&t.imageUrlOptionsNameValue&&(n+=`/${t.imageUrlOptionsNameValue}${t.format?`.${t.format}`:this.imageUrlOptions.extension}`):n="":(-1!==t.imageurl.indexOf(this.imageServer)||t.isLabradorImageUrl?n=t.imageurl:n+=`?imageUrl=${t.imageurl}`,o="&"),n&&(n+=o+r.join("&")),n}readPixelDensity(){const e={};for(const t of this.viewports)e[t]=this.api.v1.view.getPixelDensityFactor(t);return e}}const f={unique:(e=8)=>{const t=`0x${Math.pow(10,e-1)}`;return Math.floor((1+Math.random())*t).toString(16)},async digestString(e){const t=(new TextEncoder).encode(e),r=await crypto.subtle.digest("SHA-256",t);return Array.from(new Uint8Array(r)).map(e=>e.toString(16).padStart(2,"0")).join("")},trim(e,t){let r=(e||"").trim(),i=[];void 0===t?i.push(" "):"string"==typeof t?i.push(t):i=t;for(let e=0;e<i.length;e++)0===r.indexOf(i[e])&&(r=r.slice(i[e].length)),r.lastIndexOf(i[e])>-1&&r.lastIndexOf(i[e])===r.length-i[e].length&&(r=r.slice(0,r.length-i[e].length));return r.trim()},stripTags:(e="",t="")=>(e||"").replace(/<(?:.|\n)*?>/gm,t).trim(),stripLinks:(e="")=>(e||"").replace(/<a[^>]*>(.*?)<\/a>/gm,"$1"),sanitizeString:(e="")=>f.stripTags(f.unescapeEntities(e)).replace(/"/g,"'"),escapeForJavaScript:(e="")=>e?e.replace(/'/g,"\\'").replace(/"/g,'\\"').replace(/\n/g,"\\n").replace(/\u2028/g,"\\u2028").replace(/\u2029/g,"\\u2029"):"",unescapeEntities:(e="")=>(e||"").replace(/&nbsp;/gi," ").replace(/&amp;/gi,"&"),toFileName:(e="")=>e.replace(/\s+/gi,"-").replace(/[^a-zA-Z0-9\-._]/gi,""),ucFirst(e=""){const t=e||"";return t.charAt(0).toUpperCase()+t.slice(1)},parsePath(e=""){const t=this.trim(e,"/").split("/"),r=/\[([0-9]+)\]/;return t.map(e=>{const t={base:e,index:null,path:e},i=r.exec(e);return i&&(t.index=parseInt(i[1],10),t.base=e.replace(`[${t.index}]`,"")),t})},insertAtPosition:(e,t,r)=>[e.slice(0,t),r,e.slice(t)].join(""),labCtrlKey:()=>navigator.platform.toLowerCase().indexOf("mac")>=0?"⌘":"⊞",shiftKey:()=>"⇧",altKey:()=>navigator.platform.toLowerCase().indexOf("mac")>=0?"⌥":"alt",arrowUp:()=>"↑",arrowDown:()=>"↓",arrowLeft:()=>"←",arrowRight:()=>"→",keyMapper(e){if(!e)return"";switch(e){case" ":return"space";case"labCtrlKey":case"metaKey":return f.labCtrlKey();case"shiftKey":return f.shiftKey();case"altKey":return f.altKey();case"ArrowUp":return f.arrowUp();case"ArrowDown":return f.arrowDown();case"ArrowLeft":return f.arrowLeft();case"ArrowRight":return f.arrowRight();default:return f.ucFirst(e.replace("Key",""))}},hotkeyString(e={}){const t=(e.controlkeys||[]).map(e=>f.keyMapper(e));return[...t,f.keyMapper(e.key)].map(e=>`<span class="lab-label-hotkey">${e}</span>`).join("+")},niceNumber(e,t=" "){let r=`${e}`;const i=r.split(".");r=i.shift();let s="";for(;r.length>3;)s=`${t}${r.slice(-3)}${s}`,r=r.slice(0,-3);return(r+s).trim()+(i.length?".":"")+i.join(".")}};class y{static getLineData(e,t,r=!1){const i={};i.bodytext=this.getBodytext(e,t,r),i.tags=t.getProperty("bodytextElements")||["p"],i.headingTags=t.getProperty("bodytextHeadingElements")||["h1","h2","h3"],i.indexRegister=[];let s=0,n=0;y.analyze(i.bodytext).forEach(e=>{if(i.tags.indexOf(e.tag)>-1){const t={charIndex:e.index,bodytextIndex:s++};i.headingTags.indexOf(e.tag)>-1&&(t.bodytextHeadingIndex=n++),i.indexRegister.push(t)}}),i.indexRegister.reverse();for(const e of i.indexRegister)if("number"==typeof e.bodytextHeadingIndex){e.lastHeading=!0;break}return i}static getBodytext(e,t,r=!1){const i=e.get("fields.bodytext")||"";return!r||i?i:t.data.placeholder.bodytext||""}static analyze(e=""){const t=[],r=new RegExp("<([\\/a-zA-Z0-9\\-]*?)(?: .*?)?>","g"),i={tag:null,index:0,level:0};return e.replace(r,(e,r,s)=>{const n=r.indexOf("/"),o=n>-1?r.replace("/",""):r;i.tag?o===i.tag&&(n<0?i.level++:i.level>0?i.level--:(t.push({tag:i.tag,index:i.index,length:s+e.length-i.index}),i.tag=null)):(i.tag=o,i.index=s)}),t}}class m{constructor(e,t){this.api=e,this.viewport=t.viewport,this.allViewports=this.api.v1.viewport.getAll(),this.mainViewport=this.api.v1.viewport.getMain(),this.logger=t.logger,this.viewManager=t.viewManager,this.lineClassSelector="lab-bodytext-line",this.logger.debug(`Bodytext-helper created. Will prepare data for viewports: ${this.allViewports.join(", ")}.`)}run(e,t){this.insertContent(e,t)}insertContent(e,t){const r={bodyText:[],bodyTextHeading:[],lastBodyTextHeading:[]};let i=0;const s=y.getLineData(e,t,this.api.v1.app.mode.isEditor());for(const t of e.children){const e=this.viewManager.getView(t),i=e.get("metadata.bodyTextIndex"),n="number"==typeof i?i:null,o=e.get("metadata.bodyTextHeadingIndex");if(e.get("metadata.lastBodyTextHeading")||!1)r.lastBodyTextHeading.push(t);else if("number"==typeof o)r.bodyTextHeading[o]=r.bodyTextHeading[o]||[],r.bodyTextHeading[o].push(t);else if("number"==typeof n)r.bodyText[n]=r.bodyText[n]||[],r.bodyText[n].push(t);else{const e=s.indexRegister[0]?s.indexRegister[0].bodytextIndex+1:0;r.bodyText[e]=r.bodyText[e]||[],r.bodyText[e].push(t)}}let{bodytext:n}=s;for(const e of s.indexRegister){if(void 0!==r.bodyText[e.bodytextIndex]){const t=this.createMarkup(r.bodyText[e.bodytextIndex],e.charIndex,n);n=t.bodytext,i+=t.count}if(void 0!==e.bodytextHeadingIndex&&void 0!==r.bodyTextHeading[e.bodytextHeadingIndex]){const t=this.createMarkup(r.bodyTextHeading[e.bodytextHeadingIndex],e.charIndex,n);n=t.bodytext,i+=t.count}if(e.lastHeading&&r.lastBodyTextHeading.length){const t=this.createMarkup(r.lastBodyTextHeading,e.charIndex,n);n=t.bodytext,i+=t.count}}for(const e of Object.keys(r.bodyText)){const t=r.bodyText[e];if(t&&t.length)for(const e of t){const t=this.viewManager.getView(e);!0!==t.get("metadata.skipIfOutOfBounds")&&(n+=t.getMarkupString(),i++)}}for(const e of r.lastBodyTextHeading){const t=this.viewManager.getView(e);!0!==t.get("metadata.skipIfOutOfBounds")&&(n+=t.getMarkupString(),i++)}Sys.logger.debug(`Bodytext: Parsed bodytext. Inserted ${i} of ${e.children.length} structures. Tags: [${s.tags.join(", ")}]. Line-count: ${s.indexRegister.length}.`),e.setFiltered("lineData",s),e.setFiltered("bodytext",n)}createMarkup(e,t,r){let i=0,s="";for(;e.length;){const t=e.shift();s+=this.viewManager.getView(t).getMarkupString(),i++}return{count:i,bodytext:f.insertAtPosition(r,t,s)}}getIndexes(e,t){const{indexRegister:r}=y.getLineData(e,t,this.api.v1.app.mode.isEditor());return r.map(e=>e.bodytextIndex)}isBodytextLine(e,t){return e===t||(!!this.api.v1.util.dom.getParentByClass(e,t,this.lineClassSelector)||e.classList.contains(this.lineClassSelector))}getLineClassSelector(){return this.lineClassSelector}}class b{constructor(e,t){this.api=e,this.viewport=t.viewport,this.logger=t.logger,this.viewManager=t.viewManager,this.settings=t.settings,this.isEditor=t.isEditor,this.apiUrl=this.api.v1.properties.get("front_api_url")}prepare(e,t){if(this.isEditor&&e.isPseudo())return;const r=t.getProperty("external");r&&r.fetchInPrepare&&r.url?this.fetchExternalData(e,t,r):r&&r.url||this.logger.warning(`[External] Missing required config "external" or "external.url" for model ${e.getPositionedPath()}. No external content will be fetched.`)}run(e,t){if(this.isEditor&&e.isPseudo())return;const r=t.getProperty("external");r&&!r.fetchInPrepare&&r.url?this.fetchExternalData(e,t,r):r&&r.url||this.logger.warning(`[External] Missing required config "external" or "external.url" for model ${e.getPositionedPath()}. No external content will be fetched.`)}fetchExternalData(e,t,r){if(this.settings.fragmentMode){let t;const i=e.isNonPersistent();if(i){const r=this.api.v1.model.query.getRootModel(),i=e.getPositionedPath();r.get("fields.labExternalPath")===i&&(t=r.get("fields.labExternalData"),t&&(e.set("fields.isFragment","1",{notify:!1,registerModified:!1,save:!1,undoable:!1}),e.set("metadata.isFragment","1",{notify:!1,registerModified:!1,save:!1,undoable:!1})))}else t=e.get("fields.labExternalData");if(t){this.logger.debug(`[External] Data is available for ${i?"non-persistent":"persistent"} element ${e.getPositionedPath()}.`);let s=t;if(t&&this.isExternalData(r))try{s=JSON.parse(t)}catch(t){this.logger.warn(`[External] Cannot parse fetched external data for model ${e.getPositionedPath()}.`),s={}}return void e.set("external",s,{save:!1,undoable:!1})}}const i=this.getUrl(e,t,r,this.isEditor);if(i){if(this.isEditor){const s=e.get("state.requireExternal")||{},n=!0===s[t.getViewport()];return this.viewManager.getExternalContent(e,t,i,r,n),void(n&&(s[t.getViewport()]=!1,e.set("state.requireExternal",s,{save:!1,undoable:!1,notify:!1})))}t.setTemplate(`<div data-lab-placeholder="include" src="${i}" ></div>`)}}isExternalData(e){return"json"===e.type}getUrl(e,t,r,i){const s=this.viewManager.getDataForView(e,t),n=Mustache.render(r.url,s);if(!n)return this.logger.debug(`[External] Resolved empty url for model ${e.getPositionedPath()}`),null;lab_api.v1.app.dbg.extensiveLogging&&this.logger.debug(`[External] Resolved url for model ${e.getPositionedPath()}: "${n}"`);const o=encodeURIComponent(n),a=[`lab_viewport=${this.viewport}`];if(r.headers){const e={};for(const t of Object.keys(r.headers))e[t]=Mustache.render(r.headers[t],s);a.push(`headers=${encodeURIComponent(JSON.stringify(e))}`)}return this.buildUrl(e,o,i,a)}buildUrl(e,t,r,i){const s=i.length?i.join("&"):null;return r?`${this.api.v1.properties.get("proxy")}?query=${t}${s?`&${s}`:""}`:e.isNonPersistent()?`${this.apiUrl}/external/dynamic-data/${this.settings.contentId}/?path=${encodeURIComponent(e.getPositionedPath())}&url=${t}${s?`&${s}`:""}`:`${this.apiUrl}/external/node/${e.getId()}/${this.settings.contentId}/${t}${s?`?${s}`:""}`}}class w{constructor(e){this.description=e,this.startTime=this.getTime(),this.steps=[]}getTime(){return(new Date).getTime()}start(e="[default]"){return{time:this.getTime(),description:e,duration:0}}stop(e){return e.duration=this.getTime()-e.time,this.steps.push(e),e.duration}step(e="[default]"){const t={time:this.getTime(),description:e};return t.duration=this.steps.length>0?t.time-this.steps[this.steps.length-1].time:t.time-this.startTime,this.steps.push(t),t.duration}getMin(){let e=null,t=null;for(const r of this.steps)(null===e||r.duration<e)&&(e=r.duration,t=r);return{time:e,step:t}}getMax(){let e=0,t=null;for(const r of this.steps)(null===t||r.duration>e)&&(e=r.duration,t=r);return{time:e,step:t}}getSteps(){let e=0,t=0,r=null,i=null,s=null;for(const n of this.steps)e+=n.duration,(null===i||n.duration>t)&&(t=n.duration,i=n),(null===r||n.duration<r)&&(r=n.duration,s=n);return{description:this.description,totalTime:e,minTime:r,maxTime:t,meanTime:Math.round(e/this.steps.length),minTimeStep:s,maxTimeStep:i,steps:this.steps}}}const v={percentToGrid:(e,t=12)=>Math.round(e/100*t),gridToPercent:(e,t=12)=>v.floatPrecision(e/t*100),floatPrecision:e=>parseFloat(parseFloat(e).toFixed(2)),distributePercent:(e,t,r=12)=>v.distributeGrid(v.percentToGrid(e,r),t).map(e=>v.gridToPercent(e,r)),distributeGrid:(e,t)=>{let r=t;r>e&&(r=e,Sys.logger.warn(`grid.distributeGrid: Requested count ${t} is larger than gridSize ${e}. Will use count ${r}.`));const i=e/r;if(Number.isInteger(i))return Array(r).fill(i);let s=0,n=!0,o=[];for(let e=0;e<r;e++){const e=n?Math.ceil(i):Math.floor(i);o.push(e),s+=e,n=!n}let a=s-e;if(s!==e){const e=[];for(;a>0&&o.length;){let t=o.shift();t>1&&(t--,a-=1),e.push(t)}o=o.concat(e)}return o.length!==r&&Sys.logger.warn(`Utility-method grid.distributeGrid will return a faulty array. Excpected a count of ${r}, got ${o.length} ...`),o}},P={getData:(e,t,r,i,s,n)=>{const o=v.percentToGrid(e||100,i.span),a={};for(const e of Object.keys(t))t[e]&&(a[e]=v.percentToGrid(t[e],i.span));const l={width:o,css:"",vp:{},cssVp:{}},d=P.getMatchingRule(s,r,i.span);l.vp=P.applyRule(o,a,s.length,d.values,i,n);for(const e of Object.keys(i.prefix))l.cssVp[e]=i.prefix[e]+l.vp[e];return l.css=Object.values(l.cssVp).join(" "),l},applyRule:(e,t,r,i,s,n)=>{const o={};for(const a of Object.keys(s.prefix)){let s=null;t[a]?s=t[a]:i[a]&&(s=P.getMatchingRuleValue(i[a],n,r,e)),o[a]=s?parseInt(s,10):e}return o},getMatchingRuleValue:(e,t,r,i)=>{for(const s of Object.keys(e)){if("first-child"===s&&0===t)return e[s];if("last-child"===s&&t===r-1)return e[s];if("inherit"===s&&e[s])return i;if(P.getNthChild(s)===t+1)return e[s]}return e.default?e.default:null},getNthChild:e=>"nth-child("===e.substring(0,10)?parseInt(e.substring(0,e.length-1).substring(10),10):null,getMatchingRule:(e,t,r)=>{const i=e.length;for(let s=t.length-1;s>=0;s--){if("odd"===t[s].condition&&!P.isEven(i))return t[s];if("even"===t[s].condition&&P.isEven(i))return t[s];if("number"==typeof t[s].condition&&t[s].condition===i)return t[s];if(Array.isArray(t[s].condition)&&t[s].condition.length===i){const n=[];for(let t=0;t<i;t++)n.push(v.percentToGrid(e[t],r));if(P.hasArrayMatch(t[s].condition,n))return t[s]}}return{values:{}}},isEven:e=>!(e%2),hasArrayMatch:(e,t)=>{if(e.length!==t.length)return!1;for(let r=0;r<e.length;r++)if("*"!==e[r]&&e[r]!==t[r])return!1;return!0}};class x{constructor(e={}){this.viewportInfo=e,this.cache=new Map,this.buildtin={width:{viewport:{default:!0},fallback:{default:this.viewportInfo.main}},external:{viewport:{default:!0},fallback:{default:this.viewportInfo.main},attributes:{"*":{viewport:{default:!0},fallback:{default:this.viewportInfo.main}}}}}}resetCache(){this.cache.clear()}get(e,t,r,i=null,s){const n=this.getCacheKey(t,r,i,s);if(!this.cache.has(n)){let t=e.getProperty(`viewportMap.${r}`);!t&&this.buildtin[r]&&(t=this.buildtin[r]),"string"==typeof t&&(t=e.getProperty(`viewportMap.${t}`)),t&&i&&"string"==typeof t.attributes&&(t.attributes=e.getProperty(`viewportMap.${t.attributes}`)),this.cache.set(n,this.defineOrder(s,i,t))}return this.cache.get(n)}defineOrder(e,t,r){if(!r)return[];if(t&&(!r.attributes||!r.attributes[t]&&!r.attributes["*"]))return[];const i={viewport:{},fallback:{},...t?r.attributes[t]||r.attributes["*"]:r},s=this.parseMap(e,i);return s.length&&!1!==i.fallback.no_viewport&&s.push(null),s}parseMap(e,t,r=[]){if(!t)return r;if(!1===t.viewport[e])return r;if((!0===t.viewport[e]||t.viewport.default)&&(r.includes(e)||r.push(e)),t.fallback){if(t.fallback[e]&&t.fallback[e]!==e){const i=t.fallback[e];return t.fallback={...t.fallback},delete t.fallback[e],this.parseMap(i,t,r)}if(t.fallback.default&&t.fallback.default!==e){const e=t.fallback.default;return t.fallback={...t.fallback},delete t.fallback.default,this.parseMap(e,t,r)}}return r}getCacheKey(e,t,r,i){return[e,t,r,i].join("|")}}const M={functionMap:{},isValidFunction:e=>{if(void 0!==M.functionMap[e])return M.hasFunction(e);let t;try{t=eval.call(null,e)}catch(e){t=null}return M.functionMap[e]=t,M.hasFunction(e)},hasFunction:e=>typeof M.functionMap[e]==typeof Function,getFunction:e=>!!e&&(M.isValidFunction(e)?M.functionMap[e]:lab_api.v1.ns.get(e)||!1)};class C{constructor(){this.resolved={pathMatch:new Map}}static getPropertyTypeAndIndex(e,t=!1){const r=/(.+)\[(.*)\]/.exec(e);if(!r||r.length<3)return[t?e.split("|"):e,null,!1];let i=r[1];t&&(i=i.split("|"));const s=r[2]?parseInt(r[2].trim(),10):null;return[i,Number.isInteger(s)?s:null,""===r[2].trim()]}pathMatch(e,t){const r=`${e}||${t}`;if(this.resolved.pathMatch.has(r))return this.resolved.pathMatch.get(r);let i=null;return(this.exactMatch(t,e)||this.wildcardMatch(t,e))&&(i=e),this.resolved.pathMatch.set(r,i),i}exactMatch(e,t){return t.endsWith("//")?e.endsWith(t.slice(0,-1)):t.endsWith("/")?e.endsWith(t):e.endsWith(`${t}/`)}wildcardMatch(e,t){const r=f.trim(t,[" ","/"]).split("/").reverse(),i=f.trim(e,[" ","/"]).split("/").reverse();return this.arrayMatch(i,r)}arrayMatch(e,t,r){const i=e.shift(),s=t.shift();return i===s||"*"===s?!t.length||this.arrayMatch(e,t):""===s?(e.unshift(i),this.arrayMatch(e,t,!0)):!(!r||!e.length)&&(t.unshift(s),this.arrayMatch(e,t,!0))}static getViewForMenuItem(e){return C.getTarget(e.getModel(),e.getView(),{pathHelper:e.getConfig("pathHelper")}).view}static getTarget(e,t,r={}){const i={model:e,view:t};if(r.pathHelper&&r.pathHelper.type){const e=Array.isArray(r.pathHelper.type)?r.pathHelper.type:[r.pathHelper.type];for(const r of e){const e=this.getTargetForPath(i.model,r);if(e)return i.model=e,i.view=lab_api.v1.view.getView(i.model,t.getViewport()),i}return Sys.logger.warn(`[PathHelper] Cannot get target for source. Check config. Tried "${r.pathHelper.type}". Will return original result.`),i}if(r.source&&"model"!==r.source){const e=M.getFunction(r.source);if(!e)return Sys.logger.warn(`[PathHelper] Cannot get function for source. Check config. Tried "${r.source}". Will return original result.`),i;if(i.model=e(),!i.model)return Sys.logger.warn(`[PathHelper] Cannot get bound source from supplied function. Check config. Tried "${r.source}". Will return original result.`),i;i.view=i.model}return i}static getTargetForPath(e,t){const r=t.split(".");if(!["parent","child","root"].includes(r[0]))return Sys.logger.warn(`[PathHelper] Supplied path not valid. Check config. Tried "${t}". Will return original result.`),null;let i;if("parent"===r[0])i=e.getParent();else if("root"===r[0])i=lab_api.v1.model.query.getRootModel();else{const t=r[1],[s,n]=C.getPropertyTypeAndIndex(t);if(null===n)i=lab_api.v1.model.query.getChildOfType(e,s);else{i=lab_api.v1.model.query.getModelsByType(s,e.children)[n]||null}}return i}}class S{constructor(e){this.getView=e.getView,this.getMarkupForModels=e.getMarkupForModels,this.getMarkupString=e.getMarkupString,this.configReader=e.configReader,this.localisation=e.localisation,this.proxies={config:null,cmsConfig:null,root:null,selector:null,preload:null,localisation:null},this.parsedProps=new Map,this.isEditor=this.configReader.getCms("app.isEditMode")}parseProp(e){return this.parsedProps.has(e)||this.parsedProps.set(e,this.doParseProp(e)),this.parsedProps.get(e)}doParseProp(e){const t={prop:e,attr:void 0};if(!e.endsWith("]"))return t;const r=/(.+)\[(.*)\]/.exec(e);return!r||r.length<3?t:{prop:r[1],attr:r[2]}}getProxy(e,t=this.getView(e)){return t.getProxy()||t.setProxy(this.createProxy(e,t)),t.getProxy()}createProxy(e,t){const r=(e,r)=>{const i=this.parseProp(r);return i.attr?t.get(`${e}.${i.prop}.${i.attr}`):t.get(`${e}.${i.prop}`)},i=new Proxy({},{get:(e,t)=>r("fields",t),has:(e,t)=>!!r("fields",t)}),s=new Proxy({},{get:(e,r)=>t.get(`metadata.${r}`),has:(e,r)=>!!t.get(`metadata.${r}`)}),n=new Proxy({},{get:(e,r)=>t.get(`filtered.${r}`),has:(e,r)=>!!t.get(`filtered.${r}`)});return new Proxy({},{get:(e,r)=>"fields"===r?i:"metadata"===r?s:"filtered"===r?n:t.get(r),has:(e,r)=>!!t.get(r)})}getRootProxy(){return this.proxies.root||(lab_api.v1.model.query.getRootModel()?this.proxies.root=this.getProxy(lab_api.v1.model.query.getRootModel()):this.proxies.root={}),this.proxies.root}getParentProxy(e,t){return e.parent?this.isEditor?e.parent.isMarkedForDeletion()?null:(t.getParentProxy()||t.setParentProxy(new Proxy(this.getProxy(e.parent),{get:(t,r)=>(e.parent.addToRedrawDependencies(e),t[r]),has:(e,t)=>t in e})),t.getParentProxy()):this.getProxy(e.parent):null}getChildrenProxy(e,t){return t.getChildrenProxy()||t.setChildrenProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));const n="all"===i?e.children:lab_api.v1.model.query.getModelsByType(i,e.children,s);return this.getProxiesForModels(n,!0)},has:(e,t)=>!0})),t.getChildrenProxy()}getChildProxy(e,t){return t.getChildProxy()||t.setChildProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));const[n,o]=C.getPropertyTypeAndIndex(i,!0);if(null===o){const t=lab_api.v1.model.query.getChildOfType(e,n,s);return t?this.getProxiesForModels([t],!1):null}const a=lab_api.v1.model.query.getModelsByType(n,e.children,s);return a[o]?this.getProxiesForModels([a[o]],!1):null},has:(e,t)=>!0})),t.getChildProxy()}getStoreProxy(e,t,r=!1){if(!t.getStoreProxy(r)){const e={};t.setStoreProxy({get:new Proxy(e,{has:()=>!0,get:(e,t)=>t in e?e[t]:""}),set:new Proxy(e,{has:()=>!0,get:(e,t)=>()=>(r,i)=>(e[t]=i(r),"")})})}return t.getStoreProxy(r)}getPreloadProxy(e){return this.proxies.preload||(this.proxies.preload=this.createPreloadProxy(e)),this.proxies.preload}createPreloadProxy(e){return new Proxy({},{get:(t,r)=>e.getObject(r),has:(e,t)=>!0})}getChildrenMarkupProxy(e,t){return t.getChildrenMarkupProxy()||t.setChildrenMarkupProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));const[n,o,a]=C.getPropertyTypeAndIndex(i,!0),l="all"===n[0]?e.children:lab_api.v1.model.query.getModelsByType(n,e.children,s);return null===o?this.getMarkupForModels(l,a):this.getMarkupForModels(l[o]?[l[o]]:[],!1)},has:(e,t)=>!0})),t.getChildrenMarkupProxy()}getChildMarkupProxy(e,t){return t.getChildMarkupProxy()||t.setChildMarkupProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));const[n,o]=C.getPropertyTypeAndIndex(i,!0),a=lab_api.v1.model.query.getModelsByType(n,e.children,s);return a.length?null===o||0===o?this.getMarkupForModels([a[0]],!1):this.getMarkupForModels(a[o]?[a[o]]:[],!1):""},has:(e,t)=>!0})),t.getChildMarkupProxy()}getSelectorProxy(){if(!this.proxies.selector){const e={get:(e,t)=>{const r=lab_api.v1.model.query.getModelBySelector(t);return r?this.getMarkupString(r,this.getView(r)):""},has:(e,t)=>!0};this.proxies.selector=new Proxy({},e)}return this.proxies.selector}getConfigProxy(){if(!this.proxies.config){const e={get:(e,t)=>this.configReader.get(t),has:(e,t)=>!0};this.proxies.config=new Proxy({},e)}return this.proxies.config}getCmsConfigProxy(){if(!this.proxies.cmsConfig){const e={get:(e,t)=>this.configReader.getCms(t),has:(e,t)=>!0};this.proxies.cmsConfig=new Proxy({},e)}return this.proxies.cmsConfig}getLocalisationProxy(){return this.proxies.localisation||(this.proxies.localisation=()=>(e,t)=>this.localisation.get(e,{fallbackValue:""})),this.proxies.localisation}getProxiesForModels(e,t=!0){const r=e.map(e=>this.getProxy(e));return t?r:r[0]}}class T extends d{constructor(e){super({behaviours:e.behaviours,entries:e.entries,debug:e.settings.debug}),this.logger=e.logger,this.state={isEditor:!1},this.settings=e.settings,this.logger.debug(`Creating instance of ViewManager for viewport ${e.viewport}.`),this.resourceManager=e.resourceManager,this.configReader=e.configReader,this.configProcessor=e.configProcessor,this.viewMap=new Map,this.gridSettings=this.getGridSettings(),this.viewport={name:e.viewport,main:this.configProcessor.getMainViewport(),isMain:this.configProcessor.isMainViewport(),width:this.configProcessor.getViewportWidth()},this.styleManager=e.styleManager,this.preloadHandler=e.preloadHandler,this.localisation=e.localisation,this.viewportsSettings=this.configReader.get("viewports")||{},this.ViewHelpers={};const t=new x(this.viewport);this.viewEventPipe={getViewportOrder:t.get.bind(t)},this.rootModel=null,this.proxyManager=new S({configReader:this.configReader,localisation:this.localisation,getView:this.getView.bind(this),getMarkupForModels:this.getMarkupForModels.bind(this),getMarkupString:this.getMarkupString.bind(this)}),this.renderers={renderViewTemplate:this.renderViewTemplate.bind(this),renderViewPartial:this.renderViewPartial.bind(this),renderPartial:this.renderPartial.bind(this),renderPageElement:this.renderPageElement.bind(this)},this.renderHelpers={trim:()=>(e,t)=>t(e).replace(/\t|\r\n|\n|\r/gm," ").replace(/ +/gm," ").trim(),sanitizeString:()=>(e,t)=>f.sanitizeString(t(e)),stripTags:()=>(e,t)=>f.stripTags(t(e)),stripLinks:()=>(e,t)=>f.stripLinks(t(e)),encodeURIComponent:()=>(e,t)=>encodeURIComponent(t(e)),escapeForJavaScript:()=>(e,t)=>f.escapeForJavaScript(t(e)),cachebuster:()=>e=>{const t=e.split(","),r="cms"===t[0]?"cms":"view",i=this.configReader.getCms(`deployTimestamps.${r}`);if(!i)return"";return`${(t[1]||"?")+(t[2]||"v")}=${i}-L4`},toFixed:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r).toFixed(i)}}}apiReady(e){this.ViewHelpers={image:new u(e,this.getViewHelperParams()),bodytext:new m(e,this.getViewHelperParams()),external:this.getExternalViewHelper(e)}}getGridSettings(){const e=this.configProcessor.getViewport(),t={prefix:this.configReader.get("grid.grid_prefix"),absPrefix:this.configReader.get("grid.abs_grid_prefix"),span:this.configReader.get("grid.total_grid_spans")};return t.prefix[e]||(t.prefix[e]=""),t}getViewHelperParams(){return{viewport:this.viewport.name,logger:this.logger,viewManager:this,isEditor:this.state.isEditor,settings:this.settings}}getViewHelper(e){return e in this.ViewHelpers?this.ViewHelpers[e]:null}getExternalViewHelper(e){return new b(e,this.getViewHelperParams())}allowViewport(e){const t=e.get("metadata.viewportBlacklist");return!t||!Array.isArray(t)||!t.includes(this.viewport.name)}draw(e=[],t=null){this.emitEvent("render",this.viewport.name),this.logger.debug(`[ViewManager] Start rendering for viewport ${this.viewport.name}.`);const r=new w("ViewManager.draw");for(const t of e)this.drawModel(t);this.logger.debug(`[ViewManager] Rendering finished for viewport ${this.viewport.name}. Element-count: ${lab_api.v1.model.query.getModelsFromCache().length}. Duration ${r.step()} ms.`);let i=[];for(const t of e){const e=this.getView(t);i.push(e.getMarkupString())}const s=this.notifyFrontRendered(i);return s.length&&(this.logger.warn('[ViewManager] Listener for event "app-rendered" has modified markup returned from rendering engine.'),i=s.pop()),"function"==typeof t&&t(i),i}notifyFrontRendered(e){return this.requestEvent("rendered",e,this.viewport.name)}drawModel(e,t=!0){if(lab_api.v1.app.dbg.logger.add(this.constructor.name,"drawModel",this.viewport.name),!this.allowViewport(e))return void this.logger.debug(`[ViewManager] Element ${e.getPositionedPath()} is not allowed on viewport ${this.viewport.name}.`);const r=this.getView(e);if(this.prepareDrawing(e,r),t){const t=r.getProperty("childLimit");for(const r of e.children)this.allowChild(e,r,t)&&this.drawModel(r)}this.drawPrepared(e,r)}allowChild(e,t,r){return!(r&&e.children.indexOf(t)>=r)||(this.logger.warn(`[ViewManager] Child-limit (${r}) reached for "${e.getType()}". Child: "${t.getPositionedPath()}". Viewport "${this.viewport.name}".`),this.childLimitDetected(e,t,r))}childLimitDetected(e,t,r){const i=this.requestEvent("childLimitReached",e,t,this.viewport.name,r);return!!i.length&&!!i.pop()}prepareDrawing(e,t){const r=this.performanceLogger.start(["prepare",e.getType()]);this.prepareView(e,t),t.getGrid()||(this.getAndSetGridData(e,t),this.gridIsDefined(e,t)),this.proxyManager.getProxy(e,t),this.notifyOnPrepareViewHelper(e,t),this.prepareViewHelper(e,t),this.notifyOnReady(e,t),this.performanceLogger.end(r)}gridIsDefined(e,t){}drawPrepared(e,t){let r=this.performanceLogger.start(["assembleData",e.getType()]);const i=this.getDataForView(e,t);this.performanceLogger.end(r),this.runViewHelper(e,t),this.notifyBeforeElementDraw(e,t),r=this.performanceLogger.start(["template",e.getType()]),this.renderTemplate(e,t,i),this.performanceLogger.end(r),this.markupStringReady(e,t)}markupStringReady(e,t){this.notifyOnRendered(e,t)}notifyOnPrepareViewHelper(e,t){e.isPseudo()||this.emitBehaviour("onPrepareViewHelper",e,t)}notifyOnReady(e,t){e.isPseudo()||this.emitBehaviour("onReady",e,t)}notifyOnViewHelper(e,t){e.isPseudo()||this.emitBehaviour("onViewHelper",e,t)}notifyBeforeElementDraw(e,t){e.isPseudo()||(this.emitBehaviour("onRender",e,t),this.emitEntry("onRender",e,t))}notifyOnRendered(e,t){this.emitBehaviour("onRendered",e,t),this.emitEntry("onRendered",e,t)}getDataForView(e,t){return t.getData()||this.getAndSetViewData(e,t)}createView(e){const t=e.getGuid();return this.viewMap.get(t)||this.viewMap.set(t,this.newViewInstance(e)),this.viewMap.get(t)}newViewInstance(e){return new c(this.viewport.name,e,this.viewEventPipe)}getView(e){return this.viewMap.get(e.getGuid())||this.createView(e)}getViews(){return this.viewMap.values()}prepareView(e,t){t.isPrepared()||(lab_api.v1.app.dbg.logger.add(this.constructor.name,"prepareView",this.viewport.name),this.setTemplate(e,t),this.setProperties(e,t),this.viewIsResolved(e,t))}setTemplate(e,t){t.setTemplate(this.resourceManager.getTemplateForModel(e,t))}setProperties(e,t){t.setProperties(this.resourceManager.getPropertiesForModel(e,t),!0)}viewIsResolved(e,t){t.setPreparedState(!0)}prepareViewHelper(e,t){if(e.isPseudo())return;const r=t.getProperty("viewHelper");if(!r)return;const i=this.getViewHelper(r);if(i){if(i.prepare){const r=this.performanceLogger.start(["viewhelper-prepare",e.getType()]);i.prepare(e,t),this.performanceLogger.end(r)}}else this.logger.warning(`[ViewManager] Cannot find view-helper ${r} for model ${e.getPositionedPath()}.`)}runViewHelper(e,t){if(e.isPseudo())return;const r=t.getProperty("viewHelper");if(!r)return;const i=this.getViewHelper(r);if(i){this.notifyOnViewHelper(e,t);const r=this.performanceLogger.start(["viewhelper-run",e.getType()]);i.run(e,t),this.performanceLogger.end(r)}else this.logger.warning(`[ViewManager] Cannot find view-helper ${r} for model ${e.getPositionedPath()}.`)}renderTemplate(e,t,r){lab_api.v1.app.dbg.extensiveLogging&&this.logger.debug(`[ViewManager] Start renderTemplate for model ${e.getPositionedPath()}`),e.getNoRenderState()?this.logger.debug(`[ViewManager] Model-state disallows rendering model "${e.getPositionedPath()}".`):this.renderTemplateAndData(e,t,r)}getAndSetViewData(e,t){const r=this.getViewData(e,t);return t.setData(r),r}getGridData(e){const t=e.getGrid()||{};return{width:t.width,absWidth:e.getAbsoluteGridWidth(),css:t.css,absCss:e.getAbsGridCss(),vp:t.vp,absVp:e.getAbsoluteGridWidths(),cssVp:t.cssVp,percentage:v.gridToPercent(t.width)}}getViewData(e,t){const r=lab_api.v1.model.query.getRootModel()||e.getRootParent(),i=lab_api.v1.view.getView(r,t.getViewport());return{get:{current:this.proxyManager.getProxy(e,t),parent:this.proxyManager.getParentProxy(e,t),root:this.proxyManager.getRootProxy(),child:this.proxyManager.getChildProxy(e,t),children:this.proxyManager.getChildrenProxy(e,t),store:this.proxyManager.getStoreProxy(e,t)},set:{store:this.proxyManager.getStoreProxy(e,t,!0)},getPreload:this.proxyManager.getPreloadProxy(this.preloadHandler),child:this.proxyManager.getChildMarkupProxy(e,t),childByIndex:()=>(t,r)=>{const[i,s]=r(t).trim().split(" "),n=parseInt(i,10)||0,o=s?lab_api.v1.model.query.getChildrenOfType(e,s):e.getChildren();return o[n]?this.getMarkupString(o[n],this.getView(o[n])):null},children:this.proxyManager.getChildrenMarkupProxy(e,t),selector:this.proxyManager.getSelectorProxy(e,t),size:{grid:this.getGridData(t),pixelWidth:t.getPixelWidth(),pixelWidths:t.getPixelWidths()},style:{definition:()=>(r,i)=>this.styleManager.getStyleFromDefinition(e,t,i(r)),collection:()=>(r,i)=>this.styleManager.getStyle(e,t,i(r))},app:{viewport:{name:this.viewport.name,width:this.viewport.width,main:this.viewport.main,isMain:this.viewport.isMain},isEditor:this.state.isEditor,isFront:!this.state.isEditor},render:{template:this.renderers.renderViewTemplate,partial:this.renderers.renderViewPartial,sitePartial:this.renderers.renderPartial,pageElement:this.renderers.renderPageElement},helper:{trim:this.renderHelpers.trim,sanitizeString:this.renderHelpers.sanitizeString,stripTags:this.renderHelpers.stripTags,stripLinks:this.renderHelpers.stripLinks,encodeURIComponent:this.renderHelpers.encodeURIComponent,escapeForJavaScript:this.renderHelpers.escapeForJavaScript,cachebuster:this.renderHelpers.cachebuster,toFixed:this.renderHelpers.toFixed},calculator:{add:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)+parseFloat(i)},subtract:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)-parseFloat(i)},divide:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)/parseFloat(i)},multiply:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)*parseFloat(i)}},if:()=>(e,t)=>{const r={"=":(e,t)=>e==t,"!=":(e,t)=>e!=t,"<":(e,t)=>e<t,">":(e,t)=>e>t,"[]":(e,t)=>e.includes(t)};let i=0,s=null,n=[];for(;n.length<2&&i<Object.keys(r).length;)s=Object.keys(r)[i++],n=e.split(s);if(n.length>1){const[e,i]=n.map(e=>t(e).trim());if(r[s](e,i))return"1"}return""},getConfig:this.proxyManager.getConfigProxy(),getCmsConfig:this.proxyManager.getCmsConfigProxy(),image:{getFrontCropUrl:this.getFrontCropUrlHelper(r,i)},lang:this.proxyManager.getLocalisationProxy()}}getFrontCropUrlHelper(e,t){return()=>(t,r)=>{const i=e.get("frontCrop");if(i&&i.pano){const e=r(t).split(","),s=parseInt(e[0],10),n=parseInt(e[1],10),o=e[2]||void 0,a=this.getViewHelper("image").generateUrl(i.pano.fields,{instanceOf:i.pano.instance_of,imageUrlOptionsNameValue:i.pano.instance_of,imageId:i.pano.instance_of,width:s,height:n,format:o});if(a)return a}const s=(lab_api.v1.config.get("faviconList")||[]).pop();return s&&s.iconPath?s.iconPath.startsWith("http")?s.iconPath:lab_api.v1.properties.get("customer_front_url")+s.iconPath:""}}renderPageElement(){return(e,t)=>{const r=e.trim().split(" "),i=t(r.shift()),s=t(r.shift())||i,n=lab_api.v1.config.get(`pageElements.${i}`);if(!n)return this.renderViewPartial()(s,t);const o=this.getTemplate("widgets/structures/root");return o?t(this.renderPageElementRecursive(o,n)):(this.logger.warn('[ViewManager] Cannot find root-widget at "widgets/structures/root". Widget not rendered.'),"")}}getTemplate(e){return this.resourceManager.templates[e]}renderPageElementRecursive(e,t,r={value:1}){const{viewport:i,pageType:s,flag:n}=t.requirements||{};if((!i||i===this.viewport.name)&&(!s||s===this.configProcessor.getPageType())&&(!n||lab_api.v1.util.featureFlags.enabled(n,this.settings.contentId))){const i=r.value,s=t.settings||{},n=[];if(t.children)for(let e=0;e<t.children.length;e++){const i=t.children[e],s=this.getTemplate(`widgets/${i.type}`);if(s){r.value++;const e=this.renderPageElementRecursive(s,i,r);e&&n.push(e)}else this.logger.warn(`[ViewManager] Cannot find widget at "widgets/${i.type}". Widget not rendered.`)}const{tags:o}=Mustache;Mustache.tags=["[[","]]"];const a=Mustache.render(e,{children:n.join(""),settings:s,id:i});return Mustache.tags=o,a}return null}renderViewTemplate(){return(e,t)=>{const r=t(e.trim());return r&&this.getTemplate(r)?t(this.getTemplate(r)):(this.logger.debug(`Render template: Path is not valid: '${r}'`),"")}}renderViewPartial(){return(e,t)=>this.renderPartialWithFallback(e.trim(),t)}renderPartial(){return(e,t)=>this.renderPartialWithOutFallback(e.trim(),t)}renderPartialWithOutFallback(e,t){return this.renderViewTemplate()(`partial/${e}`,t)}renderPartialWithFallback(e,t,r=null,i=[]){const s=r||lab_api.v1.site.getSite().alias,n=this.renderViewTemplate(),o=n(`partial/site/${s}/${e}`,t);if(!o){i.push(s);const r=lab_api.v1.config.get("lab_fallback_site",s);return r&&!i.includes(r)?this.renderPartialWithFallback(e,t,r,i):n(`partial/${e}`,t)}return o}getPixelWidths(e,t){const r=t.getPixelWidths();if(r)return r;const i=t.getAbsoluteGridWidths(),s=i[this.viewport.main],n={};for(const e in this.viewportsSettings)if(this.viewportsSettings[e]){const t=i[e]?i[e]:s;n[e]=Math.ceil(t/this.gridSettings.span*this.viewportsSettings[e].deviceWidth)}return n}calculateGridData(e,t){const r=this.viewport.main,i=t.getWidth(),s=e.getViewportWidths();let n=[i],o=t.getProperty("gridRules")||[];if(Array.isArray(o)||(o=Object.values(o)),o.length){const t=e.parent?e.parent.getPersistentChildren():null;t&&(n=t.map(e=>e.getWidth(r)||e.getWidth()))}return P.getData(i,s,o,this.gridSettings,n,e.getModelIndex(!0))}calculateAbsoluteGridWidths(e,t){const r=t.getGrid().vp;r||this.logger.error("gridWidths do not exist. It should ...");let i={};if(e.parent){const t=this.getView(e.parent);i=this.getAbsoluteGridWidths(e.parent,t)||i}const s={};for(const e of Object.keys(r))s[e]=v.floatPrecision(r[e]/this.gridSettings.span*(i[e]||this.gridSettings.span));return s}getAbsoluteGridWidths(e,t){return t.getAbsoluteGridWidths()}getAbsoluteGridCss(e,t){if(!this.gridSettings.absPrefix)return"";const r=t.getAbsoluteGridWidths();return Object.keys(r).map(e=>this.gridSettings.absPrefix[e]?this.gridSettings.absPrefix[e]+r[e]:"").join(" ")}getAndSetGridData(e,t){const r=this.calculateGridData(e,t);t.setGrid(r),t.setGridWidth(r.vp[this.viewport.name]),t.setAbsoluteGridWidths(this.calculateAbsoluteGridWidths(e,t)),t.setAbsGridCss(this.getAbsoluteGridCss(e,t)),t.setPixelWidths(this.getPixelWidths(e,t))}renderTemplateAndData(e,t,r){t.setMarkupString(Mustache.render(t.getTemplate(),r,this.resourceManager.templates))}getMarkupForModels(e,t=!0){const r=e.map(e=>this.getMarkupString(e,this.getView(e)));return t?r:r.join("")}getMarkupString(e,t){return t.getMarkupString()}getPlaceholders(){return{}}getMarkup(e){return this.getView(e).getMarkup()}}const k={create(){if("undefined"!=typeof crypto&&crypto.randomUUID)return crypto.randomUUID();let e=(new Date).getTime();return"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,t=>{const r=(e+16*Math.random())%16|0;return e=Math.floor(e/16),("x"===t?r:7&r|8).toString(16)})}};class ${constructor(e,t={}){this.parent=null,this.children=[],this.path=e.path,this.data={type:e.type,metadata:e.metadata,contentdata:e.contentdata,width:$.validateInputWidth(e.width),guid:e.guid||k.create(),selector:e.selector},this.fallbackData=e.fallback,this.source={model:null,targets:[],keys:[]};const r=e.state||{};this.state={isNonPersistent:!!r.isNonPersistent,isPseudo:!!r.isPseudo,noRender:!1},this.cache={serialized:null,filtered:e.filtered||{},external:e.external||null,getter:new Map,path:null,positionedPath:{persistent:null,nonPersistent:null},childCount:{value:0}},this.eventPipe={keyModified:t.keyModified,childAdded:t.childAdded}}static validateInputWidth(e){const t=$.getEmptyDataObject();t.value="number"==typeof e?e:100;const r=s.object(e,t);return r.value||0!==Object.keys(r.vp).length||(r.value=100),r}static getEmptyDataObject(){return{value:null,vp:{}}}getNoRenderState(){return this.state.noRender}setNoRenderState(e){this.state.noRender=!!e;for(const t of this.children)t.setNoRenderState(e)}setDataProperty(e,t){this.data[e]=t}getId(){return this.data.contentdata&&this.data.contentdata.id||null}getGuid(){return this.data.guid}isNonPersistent(){return this.state.isNonPersistent||this.state.isPseudo}isPseudo(){return this.state.isPseudo}isDerived(){return!!this.source.model}hasNodeData(e=!1){if(this.data.contentdata)return!0;if(e)for(const t of this.children)if(t.hasNodeData(e))return!0;return!1}getSourceModel(){return this.source.model}setSourceModel(e,t){this.source.model=e,this.source.keys=t}addSourceTarget(e){this.source.targets.includes(e)||this.source.targets.push(e)}getSourceTargets(){return this.source.targets}hasSourceKey(e){if(!this.source.model)return!1;if(!this.source.keys.length)return!0;const t=e.split(".");for(;t.length;){if(this.source.keys.includes(t.join(".")))return!0;t.pop()}return!1}hasKeyInTarget(e){for(const t of this.source.targets)if(t.hasSourceKey(e))return!0;return!1}isSourceKey(e){return this.source.keys.includes(e)}setParent(e){this.parent=e}getParent(){return this.parent}getRootParent(){return this.parent?this.parent.getRootParent():this}getChildren(){return this.children}getPersistentChildren(){return this.children.filter(e=>!e.isNonPersistent())}getNonpersistentChildren(){return this.children.filter(e=>e.isNonPersistent())}getPersistentSiblings(){return this.parent?this.parent.getPersistentChildren():null}addChild(e,t,r=!1){this.addChildAtIndex(e,r?0:this.children.length,t)}addChildAtIndex(e,t,r=!0,i=!1){return e.setParent(this),this.children.length<=t?this.children.push(e):this.children.splice(t,0,e),e.resetPath(),!i&&this.eventPipe.childAdded&&this.eventPipe.childAdded(this,e,t),this.children}getPath(e=!1){return null===this.cache.path&&(this.cache.path=this.parent?`${this.parent.getPath()}/`:this.path),this.cache.path+(e?"":this.getType())}getArrayPath(e=!1){return this.getPath(e).split("/").filter(e=>!!e)}getPositionedPath(e=!1){return e?this.getPersistentPositionedPath():this.getNonPersistentPositionedPath()}getPersistentPositionedPath(){if(null===this.cache.positionedPath.persistent){let e=this.getModelIndexByType(!0);-1===e&&(e=0),this.cache.positionedPath.persistent=`${(this.parent?`${this.parent.getPersistentPositionedPath()}/`:this.path)+this.getType()}[${e}]`}return this.cache.positionedPath.persistent}getNonPersistentPositionedPath(){if(null===this.cache.positionedPath.nonPersistent){let e=this.getModelIndexByType(!1);-1===e&&(e=0),this.cache.positionedPath.nonPersistent=`${(this.parent?`${this.parent.getNonPersistentPositionedPath()}/`:this.path)+this.getType()}[${e}]`}return this.cache.positionedPath.nonPersistent}resetPath(){this.cache.path=null,this.cache.positionedPath={persistent:null,nonPersistent:null};for(const e of this.children)e.resetPath()}isStage(){return this.getRootParent().getType().startsWith("page_")}getModelIndex(e=!1){if(!this.parent)return-1;return(e?this.parent.getPersistentChildren():this.parent.children).indexOf(this)}getModelIndexByType(e=!1){if(!this.parent)return-1;const t=this.getType();let r=-1;for(const i of e?this.parent.getPersistentChildren():this.parent.getChildren())if(i.getType()===t&&(r++,i===this))return r;return r}getType(){return this.data.type}getWidth(e){return e?this.data.width.vp[e]||null:this.data.width.value||100}getViewportWidths(){return this.getRaw("width.vp")||{}}setSelector(e){this.data.selector=e}getSelector(){return this.data.selector}getData(e,t){return e?i.get(e,this.data.contentdata,t):this.data.contentdata}getDataObjectForKey(e,t=!1){if(!t&&this.hasSourceKey(e)){const t=this.source.model.getDataObjectForKey(e);return t.sourceModel=this.source.model,t}const r=e.split(".")[0];return"fields"===r?{base:r,data:this.data.contentdata,fallback:this.fallbackData?this.fallbackData.contentdata:void 0}:"filtered"===r||"external"===r||"childCount"===r?{base:r,data:this.cache,fallback:void 0}:"metadata"===r||"width"===r||"type"===r||"guid"===r?{base:r,data:this.data,fallback:this.fallbackData?this.fallbackData:void 0}:"state"===r?{base:r,data:this,fallback:void 0}:{base:"",data:this.data.contentdata,fallback:void 0}}getRaw(e,t){return e?i.get(e,this.data,t):this.data}setRaw(e,t,r){const s=this.buildQuery(e);if(!s.isVpObj)return void Sys.logger.warn(`LabModel: Cannot set raw value for key "${e}". Not supported.`);const n={...r};delete n.viewport;const o=this.getRaw(e);if(!o&&!t)return;const a=Object.keys(t&&t.vp||{}),l=Object.keys(o&&o.vp||{});for(const r of l)a.includes(r)&&t||this.set(e,void 0,{...n,viewport:r});for(const r of a)this.set(e,t.vp[r],{...n,viewport:r});this.set(e,t?t.value||null:void 0,{...n,predefinedQuery:s}),t||i.delete(e,this.data)}validateVpModelData(e){return!!e&&("object"==typeof e&&(void 0!==e.value||void 0!==e.vp))}buildQuery(e,t){const r=e.split("."),i={min:"width"===r[0]||"external"===r[0]||"childCount"===r[0]?1:2,max:"fields"===r[0]||"filtered"===r[0]?2:1},s="metadata"===r[0]||"fields"===r[0]||"width"===r[0]||"external"===r[0]||"childCount"===r[0],n="external"===r[0],o={path:r.slice(0,i.max).join("."),allowSource:!["childCount","filtered","metadata"].includes(r[0]),attribute:r.length>i.max?r[i.max]:null,key:r.slice(0,i.max+1).join("."),fullPath:e,raw:e,type:s?r[0]:null,isVpObj:s,isValidated:!(s&&!n)||r.length<=i.max+1&&r.length>=i.min};return n&&(o.attribute=r.slice(i.min).join("."),o.key=e),o.isVpObj&&(n?o.fullPath=t?`${r.slice(0,i.max).join(".")}.vp.${t}${o.attribute?`.${o.attribute}`:""}`:`${r.slice(0,i.max).join(".")}.value${o.attribute?`.${o.attribute}`:""}`:"fields"===o.type&&o.path.endsWith("_json")?(o.fullPath=`${o.path}.value${o.attribute?".":""}${r.slice(2).join(".")}`,o.isValidated=!0):(o.fullPath=o.attribute?`${o.path}.${"fields"===o.type?"attributes.":""}${o.attribute}`:o.path,o.fullPath+=t?`.vp.${t}`:".value")),o}get(e,t,r,s){lab_api.v1.app.dbg.logger.add(this.constructor.name,"get");const n=this.getCacheKey(e,t,r),o=r?void 0:null;if(this.cache.getter.has(n))return this.getCacheValue(n);const a=s||this.buildQuery(e,t);if(!a.isValidated)return Sys.logger.warn(`LabModel: Cannot get unvalid key: "${e}".`),this.cache.getter.set(n,o),o;const l=this.getDataObjectForKey(e,!a.allowSource);let d=i.get(a.fullPath,l.data,!0);return void 0===d&&l.fallback&&(d=i.get(a.fullPath,l.fallback,!0)),void 0===d?(this.cache.getter.set(n,o),o):(this.cache.getter.set(n,d),this.getCacheValue(n))}getCacheValue(e){const t=this.cache.getter.get(e);return t&&"object"==typeof t?Array.isArray(t)?[...t]:{...t}:t}getCacheKey(e,t="lab_main",r=!1){return`${e}-${r?1:0}-${t||"lab_main"}`}getAttributeObject(e){const t=this.buildQuery(e);if(!t.isVpObj)return null;const r=this.getDataObjectForKey(e,!0),s=i.get(t.path,r.data,!0);if(!s)return null;const n="fields"===t.type?s.attributes:s;return t.attribute&&!n[t.attribute]?null:t.attribute?{[t.attribute]:n[t.attribute]}:n}set(e,t,{viewport:r=null,notify:s=!0,checkDerived:n=!0,registerModified:o=!0,save:a=!0,predefinedQuery:l=null,undoable:d=!0}={}){if(lab_api.v1.app.dbg.logger.add(this.constructor.name,"set"),!e)return!1;let h=t;const g=l||this.buildQuery(e,r);if(!g.isValidated)return Sys.logger.warn(`LabModel: Cannot set value for key. Key not valid: ${e}.`),!1;const c=this.getDataObjectForKey(e,!g.allowSource);if(!c.data)return Sys.logger.warn(`LabModel: Trying to set data on a non-existing object. Skipping. Key: "${e}". Model-path: "${this.getPath()}".`),!1;const p=i.get(g.fullPath,c.data,!0);if(p===h)return!1;if(p&&void 0===h&&"fields"===g.type&&(h=null),g.isVpObj&&void 0===p&&void 0===i.get(g.path,c.data,!0)&&i.set(g.path,$.getEmptyDataObject(),c.data),s){if(!this.dataWillSet(g.key,h))return Sys.logger.debug(`Pre-set listener has cancelled setting data for path ${e} at model ${this.getPath()}.`),!1;d&&lab_api.v1.history&&lab_api.v1.history.getManager().add(lab_api.v1.history.getManager(),"modelSetter",[this.getGuid(),e,p,{viewport:r,notify:s,registerModified:o,save:!1,predefinedQuery:g,undoable:!1}])}return i.set(g.fullPath,h,c.data),this.keyModified(g.key,r),o&&(this.registerModified(e),c.sourceModel&&c.sourceModel.registerModified(e)),s&&this.dataIsSet(g.key,h,e,a,n),!0}keyModified(e,t){this.eventPipe.keyModified&&this.eventPipe.keyModified(this,e,t)}setFiltered(e,t){return this.set(`filtered.${e}`,t,{notify:!1,save:!1,registerModified:!1})}getSerializedCache(){return this.cache.serialized}setSerializedCache(e){this.cache.serialized=e}dataWillSet(e,t,r){return!0}dataIsSet(e,t,r){}registerModified(e){}}const R={internalToBackend(e,t=!0){const r={...e};r.type=e.type||null,r.id=e.id||null,r.tmpId=e.tmpId||null,r.instance_of=e.instance_of||null,r.parent=e.parent||null,e.status&&(r.status=e.status),r.site_id=e.site_id||null;const i={viewports_json:{}};for(const e of Object.keys(r.fields||{})){let t=r.fields[e];"object"==typeof t&&null!==t||(t={value:t}),this.internalFieldToBackend(e,t,i)}return r.fields=i,r},backendToInternal(e,t=[],r=!0){const i=this.backendToInternalStructure(e.structure,t);return e.contentdata&&(i.contentdata=this.backendToInternalNode(e.contentdata)),i},viewToInternal(e,t,r=lab_api.v1.viewport.getEditable()){let s=!0,n=e;Array.isArray(e)||(s=!1,n=[e]);const o=[],a=["contentdata","metadata","children","width"];for(const e of n){const s=t?i.merge(t,e):e,n={width:{value:null,vp:{}}};s.width&&("object"==typeof s.width?n.width.vp=s.width:(n.width.value=s.width,s.metadata&&"object"==typeof s.metadata.width&&(n.width.vp=s.metadata.width)));for(const e in s)a.includes(e)||(n[e]=s[e]);s.children&&(n.children=this.viewToInternal(s.children,t)),s.contentdata&&(n.contentdata=this.backendToInternalNode(s.contentdata)),s.metadata&&(n.metadata=this.backendToInternalStructureMeta(s.metadata,r)),o.push(n)}return s?o:o[0]},backendToView(e,t=!1){const r=e.fields?{fields:e.fields}:null;r&&(r.type=e.type||null,r.tags=e.tags||void 0,r.instance_of=e.instance_of||null,r.apiResult=e.apiResult,t||(r.id=e.id||void 0));const i=e.width&&"object"==typeof e.width?e.width.value:e.width||null;return{type:e.type||null,metadata:e.metadata||{},width:i,contentdata:r,children:(e.children||[]).map(e=>this.backendToView(e,t))}},apiToData(e,t,r){const i={},s={...t.field||{}},{viewports_json:n}=s;delete s["@attributes"],delete s.viewports_json;for(const e of Object.keys(s))t.field[e]&&("object"==typeof s[e]&&0===Object.keys(s[e]).length?i[e]="":i[e]=s[e]);if(n)try{i.viewports_json=JSON.parse(n)}catch(e){Sys.logger.error(`[serializer] Failed to parse viewports_json: ${e.toString()}`)}return{type:e,id:r&&r.removeId?void 0:t.attribute.id,instance_of:t.attribute?t.attribute.instanceof_id:null,fields:i}},apiToInternal(e,t,r){const i=this.backendToInternalNode(R.apiToData(e,t));return r&&r.removeId&&delete i.id,i},backendToInternalNode(e){const t={...e},r={};if(t.fields&&t.fields.viewports_json)for(const e of Object.keys(t.fields.viewports_json))for(const r of Object.keys(t.fields.viewports_json[e].fields||{}))void 0===t.fields[r]&&(t.fields[r]=null);if(t.fields)for(const e of Object.keys(t.fields||{}))if(e.endsWith("_style_json")){const r=e.replace("_style_json","");t.fields[r]||(t.fields[r]=null)}for(const e of Object.keys(t.fields||{}))if(!e.endsWith("_style_json")&&"viewports_json"!==e){r[e]={value:t.fields[e],vp:this.getViewportKey(e,t.fields),attributes:{}};for(const i in t.fields[`${e}_style_json`]||{})void 0!==t.fields[`${e}_style_json`][i]&&(r[e].attributes[i]={value:t.fields[`${e}_style_json`][i],vp:{}});for(const i in t.fields.viewports_json||{})if(t.fields.viewports_json[i].fields&&void 0!==t.fields.viewports_json[i].fields[`${e}_style_json`])for(const s in t.fields.viewports_json[i].fields[`${e}_style_json`])void 0!==t.fields.viewports_json[i].fields[`${e}_style_json`]&&(r[e].attributes[s]||(r[e].attributes[s]={value:null,vp:{}}),r[e].attributes[s].vp[i]=t.fields.viewports_json[i].fields[`${e}_style_json`][s])}return t.fields=r,t},backendToInternalStructure(e,t){const r=e.metadata?this.backendToInternalStructureMeta(e.metadata,t):{},i={guid:e.id||k.create(),selector:e.selector||null,metadata:r,type:e.type||null,width:{value:e.width?v.floatPrecision(e.width):100,vp:r.width?r.width.vp:{}},children:[]};return delete i.metadata.width,i},backendToInternalStructureMeta(e,t){const r={};for(const i of Object.keys(e))if(r[i]={value:null,vp:{}},"object"!=typeof e[i]||Array.isArray(e[i]))r[i].value=e[i];else for(const s of Object.keys(e[i]||{}))t.includes(s)?r[i].vp[s]=e[i][s]:(r[i].value||(r[i].value={}),r[i].value[s]=e[i][s]);return r},internalToBackendStructureMeta(e){const t={};for(const r of Object.keys(e)){const i=e[r];let s=!1;for(const e of Object.keys(i.vp||{}))s=!0,t[r]||(t[r]={}),t[r][e]=i.vp[e];s||void 0===i.value||(t[r]=i.value)}return t},getViewportKey(e,t){const r={};if(!t.viewports_json)return r;for(const i in t.viewports_json)t.viewports_json[i].fields&&void 0!==t.viewports_json[i].fields[e]&&(r[i]=t.viewports_json[i].fields[e]);return r},internalFieldToBackend(e,t,r){if(!t)return;const i=r;i[e]=t.value;for(const r of Object.keys(t.vp||{}))i.viewports_json||(i.viewports_json={}),i.viewports_json[r]||(i.viewports_json[r]={fields:{}}),i.viewports_json[r].fields[e]=t.vp[r];if(t.attributes){const r=`${e}_style_json`;for(const e of Object.keys(t.attributes)){void 0!==t.attributes[e].value&&(i[r]||(i[r]={}),i[r][e]=t.attributes[e].value);for(const s of Object.keys(t.attributes[e].vp||{}))i.viewports_json||(i.viewports_json={}),i.viewports_json[s]||(i.viewports_json[s]={fields:{}}),i.viewports_json[s].fields[r]||(i.viewports_json[s].fields[r]={}),i.viewports_json[s].fields[r][e]=t.attributes[e].vp[s]}}},filterModifiedContent(e,t){const r={fields:{}},s=e.getModifiedPaths(),n=e.data.contentdata.fields||{};for(const e of s)if(e.startsWith("fields.")){const t=e.replace("fields.",""),i=n[t];this.internalFieldToBackend(t,i,r.fields)}else e.startsWith("state.")||i.set(e,i.get(e,t),r);return r}};class j extends d{constructor(e,t,r,i,s=!1){super({entries:r,behaviours:i,debug:s}),this.configReader=e,this.resourceManager=t,this.models=[],this.cache={id:new Map,guid:new Map},this.eventPipe={keyModified:this.keyModified.bind(this),childAdded:this.childAdded.bind(this)},this.cacheHandler=null}static validateViewInput(e={},t=[],{useExisting:r=!1,intermediateUseExisting:i=!0}={}){for(const r of t)if(!e[r])return null;if(!e.data)return null;if(!e.data.type)return null;const n={...e};return n.options={...n.options||{}},n.options.front=!1!==n.options.front,n.options.editor=!1!==n.options.editor,n.options.frontpage=!0===n.options.frontpage,n.options.articlepage=!0===n.options.articlepage,n.options.template=n.options.template||null,n.options.useExisting=void 0===n.options.useExisting?r:n.options.useExisting,n.options.intermediate=n.options.intermediate||{},n.options.intermediate.useExisting=void 0===n.options.intermediate.useExisting?i:n.options.intermediate.useExisting,n.options.persistentTarget=!!n.options.persistentTarget,n.options.append&&(n.options.append=s.object(n.options.append,{match:"",index:0})),n.options.prepend&&(n.options.prepend=s.object(n.options.prepend,{match:"",index:0})),n}setCacheHandler(e){this.cacheHandler=e}getModelsFromCache(){return Array.from(this.cache.guid.values())}getChildModels(e){const t=[],r=e=>{for(const t of e.children)r(t);t.push(e)};return r(e),t}getModels(){return this.models}getModelById(e){return this.cache.id.get(e)||null}getModelByGuid(e){return this.cache.guid.get(e)||null}getModelBySelector(e){for(const t of this.getModelsFromCache())if(t.getSelector()===e)return t;return null}getModelTypes(e){return e?[...new Set(this.getChildModels(e).map(e=>e.getType()))]:[...new Set(this.getModelsFromCache().map(e=>e.getType()))]}recursiveGetModelByAttribute(e,t,r){}getRootModel(){return this.models[0]}getParentNodeId(e){if(e.parent)return e.parent.hasNodeData()?e.parent.getId():this.getParentNodeId(e.parent);const t=this.getRootModel();return t===e?null:t.getId()}getModelByType(e,t=this.getModelsAsArray()){for(const r of t)if(r.getType()===e)return r;return null}getChildOfType(e,t,r=!1){const i=Array.isArray(t)?t:[t];for(const t of e.children)if(i.includes(t.getType()))return t;if(!r)return null;for(const r of e.children){const e=this.getChildOfType(r,t,!0);if(e)return e}return null}getChildrenOfType(e,t,r=!1,i=!1){const s=[],n=Array.isArray(t)?t:[t];for(const t of e.children)!n.includes(t.getType())||t.isNonPersistent()&&i||s.push(t);if(!r)return s;for(const r of e.children){const e=this.getChildrenOfType(r,t,!0,i);e&&s.push(...e)}return s}getModelsByKeyAndValue(e,t,r=this.getModelsAsArray()){return r.filter(r=>r.get(e)==t)}getModelsByPath(e,t=!0,r=!1,i=null){let s=[];const n=f.trim(e,"/").split("/");let o=n.shift();const a=f.parsePath(o).shift(),l=null!==a.index;l&&(o=a.base);let d=i;i||(d="*"===o?this.models:this.getModelsByType(o,this.models));const h=[];for(let e=0;e<d.length;e++)"*"!==o&&d[e].getType()!==o||d[e].isNonPersistent()&&!r||d[e].getNoRenderState()&&!r||h.push(d[e]);if(l?h[a.index]?s.push(h[a.index]):!t&&h.length&&(a.index>=h.length?s.push(h[h.length-1]):s.push(h[0])):s=h,!s.length)return[];if(n.length){let e=[];for(let i=0;i<s.length;i++)s[i].children.length&&(e=e.concat(this.getModelsByPath(n.join("/"),t,r,s[i].children)));return e}return s}getModelByPath(e,t=!0,r=!1,i=null){const s=this.getModelsByPath(e,t,r,i);return s.length?s[0]:null}getModelsByQuery(e="",t=this.getModelsAsArray()){const r=e.trim().toLowerCase();return t.filter(e=>e.getType().toLowerCase().indexOf(r)>-1)}getModelsByType(e,t=this.models,r=!0){const i=[];return t.forEach(t=>{Array.isArray(e)?e.includes(t.getType())&&i.push(t):t.getType()===e&&i.push(t),r&&i.push(...this.getModelsByType(e,t.children,r))}),i}getNextContentModel(e){let t=this.getRightSibling(e);if(t){const e=this.getFirstContentModel(t);if(e)return e}return e.getParent()&&(t=this.getNextContentModel(e.getParent()),t)?t:null}getParentOfType(e,t,r=!0){const i=e.getParent();return i?i.getType()===t?i:r?this.getParentOfType(i,t,!0):null:null}getLeftSibling(e){if(!e.getParent())return null;const t=e.getModelIndex(!0);if(0===t)return null;return e.getParent().getPersistentChildren()[t-1]||null}getRightSibling(e){if(!e.getParent())return null;const t=e.getModelIndex(!0),r=e.getParent().getPersistentChildren();return r[t+1]?r[t+1]:null}hasChildOfType(e,t,r=!1){return!!this.getChildOfType(e,t,r)}hasChildOfTypes(e,t,r=!1){for(const i of t)if(this.getChildOfType(e,i,r))return!0;return!1}hasChild(e,t){if(!e.children.length)return!1;for(const r of e.children){if(this.is(r,t))return!0;if(this.hasChild(r,t))return!0}return!1}hasParentOfType(e,t,r=!1){return!!this.getParentOfType(e,t,r)}hasParentOfTypes(e,t,r=!1){if(!e||!Array.isArray(t))return!1;for(const i of t)if(this.getParentOfType(e,i,r))return!0;return!1}hasParent(e,t){return!!e.parent&&(!!this.is(e.parent,t)||this.hasParent(e.parent,t))}getModelsAsArray(e=null){let t=[];for(const r of e||this.models)t=t.concat(this.getChildModels(r));return t}getIndex(e,t=!1){return e?e.getModelIndex(t):null}getPath(e,t=!1){return e?e.getPath(t):null}getArrayPath(e,t=!1){return e?e.getArrayPath(t):[]}resetCache(){this.cache.id.clear(),this.cache.guid.clear()}addToCache(e,t=!0){if(e.isPseudo())return;t&&e.children.forEach(e=>this.addToCache(e)),this.cache.guid.set(e.getGuid(),e);const r=e.getId();r&&this.cache.id.set(r,e)}setData(e=[],t=!0){this.resetCache(),this.models=this.newModels(e,!1)}newModels(e=[],t=!0){const r=[];for(const t of e){const e=this.newModel(t);e&&r.push(e)}return r}newModelInstance(e){return new $(e,this.eventPipe)}modelCreated(e){this.addToCache(e)}modelsAdded(e){}newModel(e,t=!0){const r=this.modelData(e);if(!r)return Sys.logger.warn("ModelController: Data do not validate. Cannot create new instance of LabModel."),null;const i=this.newModelInstance(r);if(e.children)for(const r of e.children){const e=this.newModel(r,t);e&&i.addChild(e,t)}return this.modelCreated(i),i}modelData(e){if(!e.type)return Sys.logger.warn('ModelController: Required attribute "type" is missing. Cannot create data for new LabModel.'),null;const t=e;let r="";t.path&&(r=`${f.trim(t.path,["/"])}/`);const i=this.configReader.get(`data.elements.${t.type}.fallbackData`);return{uncreated:!1,type:t.type,path:r,width:"width"in t?t.width:null,metadata:"metadata"in t?{...t.metadata}:{},state:"state"in t?{...t.state}:{},contentdata:"contentdata"in t&&t.contentdata?{...t.contentdata}:null,filtered:"filtered"in t&&t.filtered?{...t.filtered}:null,selector:"selector"in t?t.selector:null,external:"external"in t?t.external:null,guid:"guid"in t?t.guid:null,fallback:i?R.viewToInternal(i):null}}insertAtPath(e){const t=j.validateViewInput(e,["path"],{useExisting:!1});if(!t)return Sys.logger.warn('ModelController: Cannot insert model at path. Missing required input "path", "data", or "data.type".'),null;Sys.logger.debug(`ModelController: Will insert model of type ${t.data.type} at path ${t.path}.`);const r=this.ensurePath(t.path,t.options.persistentTarget,t.options.intermediate.useExisting);if(!r)return Sys.logger.warn(`ModelController: No model inserted at path ${t.path}. Parent not found and could not be created.`),null;const i=this.insertAtParent(r,t.data,t.options);return Sys.logger.debug(`ModelController: Did insert model at path ${t.path}. Type: ${i.getType()}, path: ${i.getPositionedPath()}.`),i}insertBySelector(e){const t=j.validateViewInput(e,["selector"],{useExisting:!1});if(!t)return Sys.logger.warn('ModelController: Cannot insert model by selector. Missing required input "selector", "data", or "data.type".'),null;Sys.logger.debug(`ModelController: Will insert model of type ${t.data.type} at selector ${t.selector}.`);const r=this.getModelBySelector(t.selector);if(!r)return Sys.logger.warn(`ModelController: No model inserted at selector ${t.selector}. Model not found.`),null;const i=this.insertAtParent(r,t.data,t.options);return Sys.logger.debug(`ModelController: Did insert model at selector ${t.selector}. Type: ${i.getType()}, path: ${i.getPositionedPath()}.`),i}insertAtParent(e,t,r={}){const i={};t.state&&t.state.isNonPersistent&&(i.state={isNonPersistent:!0});const s=this.newModel(R.viewToInternal(t,i));if(e)if("number"==typeof r.index){let{index:t}=r;if(r.persistentTarget){const i=r.match?this.getModelsByType(r.match,e.children||[],!1):e.children||[],s=i.filter(e=>!e.isNonPersistent()&&!e.getNoRenderState());t=t<0?0:t>=s.length?s.length?this.getIndex(s[s.length-1])+1:this.getIndex(i[i.length-1])+1:this.getIndex(s[t])}e.addChildAtIndex(s,t)}else e.addChild(s,!0,r.prepend);else r.prepend?this.models.unshift(s):this.models.push(s);return this.modelsAdded([s],r.silent),s}addElement(e){const t={};e.data.state&&e.data.state.isNonPersistent&&(t.state={isNonPersistent:!0});const r=this.ensurePath(e.path,e.options.persistentTarget,e.options.intermediate.useExisting,t);return r&&e.options.useExisting&&(e.data.selector?this.getModelBySelector(e.data.selector):this.getChildOfType(r,e.data.type))?null:this.insertAtParent(r,e.data,e.options)}allowInsetion(e){const t={frontpage:()=>"page_front"===lab_api.v1.model.query.getRootModel().getType(),articlepage:()=>"page_article"===lab_api.v1.model.query.getRootModel().getType(),noticepage:()=>"page_notice"===lab_api.v1.model.query.getRootModel().getType(),gallerypage:()=>"page_gallery"===lab_api.v1.model.query.getRootModel().getType(),template:e=>lab_api.v1.model.query.getRootModel().get("fields.page_template_alias")===e,front:lab_api.v1.app.mode.isFront,editor:lab_api.v1.app.mode.isEditor},r=r=>{for(const i of r)if(e.options[i]&&t[i](e.options[i]))return!0;return!1};return!!r(["front","editor"])&&(!(e.options.template&&!r(["template"]))&&r(["frontpage","articlepage","noticepage","gallerypage"]))}ensurePath(e,t,r=!0,i=null){const s=r?this.getModelsByPath(e,!0,!t).shift():null;if(s)return s;let n="",o=null;const a=f.parsePath(e);for(;a.length;){const e=a.shift();if(!e.base)return o;const s=e.index||0;let l=0,d=!1;const h=`${n}${e.base}[${s}]`;for(;l<=s;){if(!r&&!a.length&&l===s||!this.getModelsByPath(h,!0,!t).length){const t=i?{...i}:{};t.type=e.base;const r=this.newModel(t,!1);o?null!==e.index?o.addChildAtIndex(r,e.index):o.addChild(r):this.models.push(r),this.modelsAdded([r]),l===s&&(o=r,d=!0),Sys.logger.debug(`ModelController: Inserted intermediate model type ${e.base} at path ${r.getPositionedPath()}.`)}l++}n+=`${e.path}/`,o=d?o:this.getModelsByPath(n,!0,!t).shift()}return o}keyModified(e,t,r,i=!0){if(i){if(e.hasKeyInTarget(t))for(const i of e.getSourceTargets())this.keyModified(i,t,r,!1);e.hasSourceKey(t)&&this.keyModified(e.getSourceModel(),t,r)}this.cacheHandler.resetKey(e,t,r),this.triggerRedrawByKey(e,t,r)}childAdded(){}triggerRedrawByKey(e,t,r){}noRender(e){e&&e.setNoRenderState(!0)}notifyOnAcceptContent(e=this.getRootModel(),t=!0){this.emitBehaviour("onAcceptContent",e),t&&e.children.forEach(e=>{this.notifyOnAcceptContent(e,t)})}}class O{constructor(e){this.totalGridSpans=e||12,this.backendNodes=new Map,this.nodeChildren={},this.activeNodes=[],this.offstageTypes=["pasteboard"],this.requireContentdata=["article"]}backendToInternal(e={},t={}){if(!e.data||!e.structure)return Sys.logger.debug("[DataTransformer] Unsupported input data. Require { data: {...}, structure: []"),[];const r=e.data,i=e.structure;this.registerBackendNodes(r);const s=lab_api.v1.viewport.getEditable(),n=R.backendToInternal({contentdata:this.backendNodes.get(r.id),structure:{type:`page_${r.type}`}},s,!1),o=[n];for(const e of i)if(t.skipOffstage&&this.offstageTypes.includes(e.type))Sys.logger.debug(`[DataTransformer] Skipping offstage-element "${e.type}".`);else{const r=this.createModelData(e,t.blacklist||[],t.blacklistOptions||{},s);r&&(this.offstageTypes.includes(e.type)?o.push(r):n.children.push(r))}return this.activeNodes.push(r.id),o}modelsToFragmentApi(e,{viewport:t=null,stringify:r=!1,recursive:i=!0}={}){const s=e.map(e=>this.modelToFragmentApi(e,i,t));return r?s.map(e=>JSON.stringify(e)):s}modelToFragmentApi(e,t,r){const i={nodedata:this.modelToBackend(e,t),isNonPersistent:e.isNonPersistent(),type:e.getType(),width:e.getWidth(r),id:e.getGuid(),node_id:e.getId(),guid:e.getGuid()};if(t){i.children=[];for(const t of e.children)i.children.push(this.modelToFragmentApi(t))}return i}modelToBackend(e,t=!1){let r;const i=e.getSerializedCache();if(i?(lab_api.v1.app.dbg.logger.add(e.constructor.name,"modelToBackend[cache]"),r=i):(lab_api.v1.app.dbg.logger.add(e.constructor.name,"modelToBackend"),r=e.data.contentdata?{...R.internalToBackend(e.data.contentdata)}:{},e.data.contentdata&&(r.parent=lab_api.v1.model.query.getParentNodeId(e)),r.guid=e.data.guid,r.metadata=R.internalToBackendStructureMeta(e.data.metadata),r.metadata.width=e.getViewportWidths(),r.width=e.getWidth(),e.data.selector&&(r.selector=e.data.selector),r.type=e.data.type.replace("page_",""),e.data.tmpId&&(r.tmpId=e.data.tmpId),e.setSerializedCache({...r})),t&&e.children.length){r.children=[];for(const t of e.children)t.isNonPersistent()||r.children.push(this.modelToBackend(t,!0))}return r}apiToInternal({type:e,data:t={},meta:r={},options:i={removeId:!1}}={}){const s=R.apiToInternal(e,t,i),{metadata:n,width:o}=R.viewToInternal({metadata:r,width:r.width});return{type:s.type,contentdata:s,width:o,metadata:n}}apiToView({type:e,data:t={},meta:r={},options:i={removeId:!1}}={}){const s=R.apiToData(e,t,i),n=R.internalToBackend(s);return{type:n.type,contentdata:n,width:r.width,metadata:r}}modelToInternal(e,t=!0,r=!1){const i=JSON.parse(JSON.stringify(e.data));if(r&&(i.contentdata&&delete i.contentdata.id,delete i.guid),i.children=[],!t)return i;for(const t of e.children)i.children.push(this.modelToInternal(t,!0,r));return i}modelToView(e,t=!0,r=!1){const i=this.modelToBackend(e,t);return R.backendToView(i,r)}modelsToView(e,t=!0){return e.map(e=>this.modelToView(e,t))}modifiedToBackend(e,t,r=!0,i=!1){const s=[];for(const e of t)e.getType().startsWith("page_")?s.push(...e.getPersistentChildren()):s.push(e);const n=this.removeFrontCrops(s);return{node:e.map(e=>this.modelNodeToBackend(e,r,i)),structure:n.map(e=>this.modelStructureToBackend(e))}}removeFrontCrops(e){return e.filter(e=>!e.get("fields.metadata_key"))}modelNodeToBackend(e,t=!1,r=!1){const s=this.modelToBackend(e,r);if(t&&!e.isDirty()){const t=R.filterModifiedContent(e,s),r=this.modelNodeBaseToBackend(e);return i.merge(r,t)}return delete s.metadata,delete s.width,s}modelNodeBaseToBackend(e){if(Array.isArray(e))return e.map(e=>this.modelNodeBaseToBackend(e));const t=this.modelToBackend(e),r={type:t.type||null,id:t.id||null,guid:t.guid||null,tmpId:t.tmpId||null,instance_of:t.instance_of||null,parent:t.parent||null,status:t.status||null,site_id:t.site_id||null};return t.primaryTags&&(r.primaryTags=t.primaryTags),t.tags&&(r.tags=t.tags),r}modelStructureToBackend(e,t=!1){const r=this.modelToBackend(e),i={type:r.type,width:r.width,metadata:r.metadata,id:r.guid,selector:r.selector,children:[]};return r.id&&(i.node_id=r.id),e.isNonPersistent()&&(i.isNonPersistent=!0),e.children.forEach(e=>{!t&&e.isNonPersistent()||i.children.push(this.modelStructureToBackend(e,t))}),i}registerBackendNodes(e){if(e.id&&this.backendNodes.set(e.id,this.prepareBackendNode(e)),e.children){this.nodeChildren[e.id]=[];for(const t of e.children)this.registerBackendNodes(t),t.id&&this.nodeChildren[e.id].push(t.id)}}prepareBackendNode(e){const t={};for(const r in e)"children"!==r&&(t[r]=e[r]);return t}createModelData(e,t,r,i,s={}){if(t.includes(e.type)){if(r[e.type]&&r[e.type].includeChildren&&e.children&&s.children){Sys.logger.warn(`[DataTransformer] Found blacklisted element "${e.type}". Skipping. Will include and move children to parent element.`);for(const n of e.children){const e=this.createModelData(n,t,r,i);e&&s.children.push(e)}}else Sys.logger.warn(`[DataTransformer] Found blacklisted element "${e.type}". Skipping.`);return null}const n=R.backendToInternal({contentdata:e.node_id?this.backendNodes.get(e.node_id):null,structure:e},i,!1);if(this.requireContentdata.includes(n.type)&&!n.contentdata)return Sys.logger.debug(`[DataTransformer] Found "${n.type}" without node-data. Skipping.`),null;n.contentdata&&this.activeNodes.push(n.contentdata.id);for(const t in n.width.vp)n.width.vp[t]?n.width.vp[t]&&n.width.vp[t]<=this.totalGridSpans&&Number.isInteger(parseFloat(n.width.vp[t],10))&&(Sys.logger.warn(`[DataTransformer] Will modify Lab3-width for element "${e.type}", viewport "${t}". Was: "${n.width.vp[t]}", New value: "${v.gridToPercent(n.width.vp[t],this.totalGridSpans)}"`),n.width.vp[t]=v.gridToPercent(n.width.vp[t],this.totalGridSpans)):delete n.width.vp[t];if(!e.children){if(!(n.contentdata&&n.contentdata.id&&this.nodeChildren[n.contentdata.id]))return n;e.children=[];for(const t of this.nodeChildren[n.contentdata.id])if(!this.activeNodes.includes(t)){const r=this.backendNodes.get(t);r&&(e.children.push({type:r.type,node_id:t}),Sys.logger.warn(`[DataTransformer] Adding structure-data for deprecated node-child. Type: ${r.type}, id: ${t}`))}}for(const s of e.children){const e=this.createModelData(s,t,r,i,n);e&&n.children.push(e)}return n}}class F{constructor(e,t,r){this.renderer=t,this.log=r,this.styles={definitions:new Map,collections:new Map},this.setupStyles(F.resolveConfig(e||{})),this.styleByKey={},this.defaultItemTemplate="{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"}static resolveConfig(e={}){const t={definitions:{},collections:[]};for(const r of Object.keys(e.definitions||{})){const i=F.resolveDefinition(e.definitions[r]);i&&(t.definitions[r]=i)}const r=Array.isArray(e.collections)?e.collections:Object.values(e.collections||{});for(const e of r){const r=F.resolveCollection(e);r&&t.collections.push(r)}return t}static resolveDefinition(e={}){if(!Array.isArray(e.items)||!e.items.length)return null;const t={requirePath:s.false(e.requirePath),path:s.string(e.path),template:s.stringOrNull(e.template),items:[]};for(const r of e.items){const e=F.resolveItem(r);e&&t.items.push(e)}return t}static resolveItem(e={}){const t=Array.isArray(e.fallback)?e.fallback:[];return"string"==typeof e.fallback&&t.push(e.fallback),{prefix:s.string(e.prefix),postfix:s.string(e.postfix),viewport:s.string(e.viewport),value:s.string(e.value),fallback:t,nullValue:s.stringOrUndefined(e.nullValue)}}static resolveCollection(e){const t=s.string(e.name),r=s.array(e.definitions),i=s.array(e.additions);if(!t||!r.length&&!i.length)return null;const n=[];for(const e of[...r,...i])if("string"==typeof e)n.includes(e)||n.push(e);else{const t=F.resolveDefinition(e);t&&n.push(t)}return{name:t,definitions:n}}setupStyles(e={}){for(const t of Object.keys(e.definitions))this.styles.definitions.set(t,e.definitions[t]);for(const t of e.collections)this.styles.collections.set(t.name,t.definitions);this.log.debug(`StyleManager: Set up and ready. Holds ${this.styles.definitions.size} definitions and ${this.styles.collections.size} collections.`)}getStyleFromDefinition(e,t,r="",i){if(!this.styles.definitions.size)return"";const{name:s,path:n,target:o,targetType:a,index:l}=this.getInputValues(r),d=this.getTargetModel(e,o,a,l);return d?this.getStyleFromDefinitionNamePath(d,s,n,null,i):""}getStyleFromDefinitionNamePath(e,t,r,i,s){const n=this.getDefinition(t);return n?this.parseDefinition(e,t,r,n,i,s):(this.log.warn(`StyleManager: Cannot find style-definition "${t}". Empty string returned.`),"")}getStyle(e,t,r="",i){if(!this.styles.collections.size)return"";const{name:s,path:n,target:o,targetType:a,index:l}=this.getInputValues(r),d=this.getTargetModel(e,o,a,l);if(!d)return this.log.warn(`StyleManager: Cannot find target-model "${o}". Empty string returned. Model: ${e.getPositionedPath()}`),"";const h=this.getCollection(s);if(!h)return this.log.warn(`StyleManager: Cannot find style-collection "${s}". Empty string returned.`),"";const g=[];for(const e of h){const t=this.parseDefinition(d,s,n,e,null,i);t&&g.push(t)}return g.join(" ").trim()}getCollection(e){return this.styles.collections.get(e)}getDefinition(e){return this.styles.definitions.get(e)}getTargetModel(e,t,r,i){if("current"===t)return e;if("parent"===t)return e.getParent();if("root"===t)return lab_api.v1.model.query.getRootModel();if("child"===t){if(null===i)return lab_api.v1.model.query.getChildOfType(e,r);return lab_api.v1.model.query.getModelsByType(r,e.children)[i]||null}return e}getInputValues(e=""){const t=(e||"").split(" ").map(e=>e.trim()).filter(e=>!!e),r=t.shift();let i=t.shift()||"",s="current",n=null,o=null;if(i.startsWith("parent."))s="parent",i=i.replace("parent.","");else if(i.startsWith("root."))s="root",i=i.replace("root.","");else if(i.startsWith("current."))i=i.replace("current.","");else if(i.startsWith("child.")){const e=i.split(".");s=e.shift();const t=e.shift();i=e.join("."),[o,n]=C.getPropertyTypeAndIndex(t)}return{name:r,path:i||null,target:s,targetType:o,index:n}}getItemsViewports(e){const t={};for(const r of e)if(r.viewport&&(t[r.viewport]=!0),r.fallback)for(const e of r.fallback)t[e]=!0;return Object.keys(t)}parseDefinition(e,t,r,i,s,n){let o=i;if("string"==typeof i&&(o=this.getDefinition(i),!o))return this.log.warn(`StyleManager: Cannot find style-definition "${i}". Empty string returned.`),"";const a=[];if(o.requirePath&&!r)return this.log.warn(`StyleManager: Missing required path for style "${t}".`),"";const l=o.requirePath?r:"";for(const t of o.items){const r=this.getItemValueWithFallback(e,o.path,t,l,o.items,s,n);null!=r&&""!==r&&a.push({...t,value:r})}if(!a.length)return"";return this.renderer(o.template||this.defaultItemTemplate,{items:a}).trim().split(" ").filter((e,t,r)=>r.indexOf(e)===t).join(" ")}getItemValueWithFallback(e,t,r,i,s,n,o){const a=i+(i&&t?".":"")+t,l=this.getItemValue(e,r,a,n,o);if(void 0!==l||"current_viewport"===r.viewport)return l;const d={...r};for(d.fallback=[...d.fallback];d.fallback.length;){const t=d.fallback.shift();d.viewport=t;const r=this.getItemValue(e,d,a,n,o);if(r)return r}}getItemValue(e,t,r,i,s){let n,{viewport:o}=t;if("no_viewport"===o?o="":"current_viewport"===o&&(o=s),i)if(o){n=(i.vp||{})[o]}else n=i.value;else n=e.get(r,o,!0);return null!==n&&""!==n&&!1!==n||void 0===t.nullValue?n&&t.value?t.value:n:t.nullValue}}class A{constructor(e){this.headers=e.Headers||{},this.queryString=e.queryString||"",this.params=this.parseQueryString(this.queryString)}parseQueryString(e){const t={},r=e.split("&");for(const e of r){const r=e.split("=");2===r.length&&(t[r[0]]=r[1])}return t}getHeaders(){return this.headers}getHeader(e){return this.headers[e]||null}getQueryString(){return this.queryString}getQueryParam(e){return this.params[e]}hasQueryParam(e){return void 0!==this.getQueryParam(e)}hasQueryValue(e,t){return(this.getQueryParam(e)||"").split(",").includes(t)}}class V{constructor(e,t){this.logger=t,this.siteAlias=e,this.log(`Site-alias: ${this.siteAlias}`),this.featureFlags=[],this.cache={}}prepareFlags(e){const t=[];return Array.isArray(e)&&e.forEach(e=>{if("group"===e.type){const r=e.enabled;e.flags.forEach(e=>{e.enabled=r&&e.enabled,t.push(e)})}else t.push(e)}),this.cache[this.siteAlias]=t,t}enabled(e,t=""){this.featureFlags=this.cache[this.siteAlias]||this.prepareFlags(lab_api.v1.config.getFeatureFlags().flags||[]);return this.featureFlags.filter(r=>{if(Array.isArray(t)){const i=t.map(String);return r.key===e&&(!r.nodeId||i.indexOf(r.nodeId)>-1)&&!0===r.enabled}return r.key===e&&(!r.nodeId||r.nodeId===t.toString())&&!0===r.enabled}).length>0}get(e,t=""){return this.featureFlags.filter(r=>r.key===e&&r.nodeId===t.toString())}log(e,t=null){this.logger&&(t?this.logger.debug(`FeatureFlags: ${e}`,[t]):this.logger.debug(`FeatureFlags: ${e}`))}}class _{static getWords(e){return e.replaceAll("."," ").replaceAll("!"," ").split(" ").filter(e=>""!==e)}static getSentences(e){return e.replaceAll("!",".").split(".").filter(e=>""!==e)}static getReadTime(e,t){const r=_.getWords(e).length/(t||250);return r<.5?.5:Math.round(r)}static lix(e){if(!e)return null;const t=_.getWords(e),r=_.getSentences(e),i=t.filter(e=>e.length>6);return t.length/r.length+100*i.length/t.length}}class I{constructor(){this.ns={}}create(e={}){return{app:{dbg:{logger:{add:()=>{}}},logError:(e={})=>{e&&e.toString&&Sys.logger.debug(`CMS-error: ${e.toString()}`)},logViewError:(e={},t)=>{e&&e.toString&&Sys.logger.debug(`View-error: ${e.toString()}`)},mode:{get:e.configProcessor.getAppMode.bind(e.configProcessor),getSimulatedMode:e.configProcessor.getSimulatedMode.bind(e.configProcessor),isEditor:e.configProcessor.isEditMode.bind(e.configProcessor),isFragmentMode:e.configProcessor.isFragmentMode.bind(e.configProcessor),isFront:e.configProcessor.isPresentationMode.bind(e.configProcessor)},off:e.appManager.off.bind(e.appManager),on:e.appManager.on.bind(e.appManager)},config:{debug:e.configReader.debug.bind(e.configReader),get:e.configReader.get.bind(e.configReader),getConfig:e.configReader.getConfig.bind(e.configReader),getContent:e.configReader.getContent.bind(e.configReader),getFeatureFlags:e.configReader.getFeatureFlags.bind(e.configReader),getPathForSite:e.configReader.getPathForSite.bind(e.configReader),getStorePathForSite:e.configReader.getStorePathForSite.bind(e.configReader),getView:e.configReader.getView.bind(e.configReader),reloadResourceBySite:e.configReader.reloadResourceBySite.bind(e.configReader)},grid:{gridToPercent:v.gridToPercent,percentToGrid:v.percentToGrid},image:{getPreferredImageFormat:e.configProcessor.getPreferredImageFormat.bind(e.configProcessor)},locale:{get:e.localisation.get.bind(e.localisation),off:e.localisation.off.bind(e.localisation),on:e.localisation.on.bind(e.localisation)},model:{getArrayPath:e.modelController.getArrayPath,getPageType:e.configProcessor.getPageType.bind(e.configProcessor),getPath:e.modelController.getPath,insert:{atPath:e.modelController.insertAtPath.bind(e.modelController),bySelector:e.modelController.insertBySelector.bind(e.modelController)},noRender:e.modelController.noRender,off:e.modelController.off.bind(e.modelController),on:e.modelController.on.bind(e.modelController),query:{getChildOfType:e.modelController.getChildOfType.bind(e.modelController),getChildrenOfType:e.modelController.getChildrenOfType.bind(e.modelController),getIndex:e.modelController.getIndex.bind(e.modelController),getModelByGuid:e.modelController.getModelByGuid.bind(e.modelController),getModelById:e.modelController.getModelById.bind(e.modelController),getModelByPath:e.modelController.getModelByPath.bind(e.modelController),getModelBySelector:e.modelController.getModelBySelector.bind(e.modelController),getModelByType:e.modelController.getModelByType.bind(e.modelController),getModels:e.modelController.getModels.bind(e.modelController),getModelsAsArray:e.modelController.getModelsAsArray.bind(e.modelController),getModelsByKeyAndValue:e.modelController.getModelsByKeyAndValue.bind(e.modelController),getModelsByPath:e.modelController.getModelsByPath.bind(e.modelController),getModelsByQuery:e.modelController.getModelsByQuery.bind(e.modelController),getModelsByType:e.modelController.getModelsByType.bind(e.modelController),getModelsFromCache:e.modelController.getModelsFromCache.bind(e.modelController),getModelTypes:e.modelController.getModelTypes.bind(e.modelController),getNextContentModel:e.modelController.getNextContentModel.bind(e.modelController),getParentNodeId:e.modelController.getParentNodeId.bind(e.modelController),getParentOfType:e.modelController.getParentOfType.bind(e.modelController),getRootModel:e.modelController.getRootModel.bind(e.modelController),getSiblingLeft:e.modelController.getLeftSibling.bind(e.modelController),getSiblingRight:e.modelController.getRightSibling.bind(e.modelController),hasChild:e.modelController.hasChild.bind(e.modelController),hasChildOfType:e.modelController.hasChildOfType.bind(e.modelController),hasChildOfTypes:e.modelController.hasChildOfTypes.bind(e.modelController),hasParent:e.modelController.hasParent.bind(e.modelController),hasParentOfType:e.modelController.hasParentOfType.bind(e.modelController),hasParentOfTypes:e.modelController.hasParentOfTypes.bind(e.modelController)},root:{getType:()=>e.modelController.getRootModel()?e.modelController.getRootModel().get("type"):""},serialize:{apiToInternal:e.dataTransformer.apiToInternal.bind(e.dataTransformer),apiToView:e.dataTransformer.apiToView.bind(e.dataTransformer),model:e.dataTransformer.modelToBackend.bind(e.dataTransformer),modelToInternal:e.dataTransformer.modelToInternal.bind(e.dataTransformer),modelToView:e.dataTransformer.modelToView.bind(e.dataTransformer)}},ns:{get:(e="")=>i.get(e,this.ns),set:(e,t)=>i.set(e,t,this.ns)},preload:{get:e.preloadHandler.get.bind(e.preloadHandler),getHeader:e.preloadHandler.getHeader.bind(e.preloadHandler)},properties:{get:e.configReader.getCms.bind(e.configReader),update:e.configReader.updateConfigByPath.bind(e.configReader)},templates:{get:e.resourceManager.getTemplateFile.bind(e.resourceManager)},site:{getSite:e.configProcessor.getSite.bind(e.configProcessor),getSiteById:e.configProcessor.getSiteById.bind(e.configProcessor),getSites:e.configProcessor.getSites.bind(e.configProcessor)},style:{getNamedStyle:e.styleManager.getStyleFromDefinitionNamePath.bind(e.styleManager),getStyle:e.styleManager.getStyleFromDefinition.bind(e.styleManager),getStyles:e.styleManager.getStyle.bind(e.styleManager)},util:{defaults:e.utils.defaults,featureFlags:{enabled:e.featureFlags.enabled.bind(e.featureFlags),get:e.featureFlags.get.bind(e.featureFlags)},functionHelper:{getFunction:e.utils.functionHelper.getFunction,isValidFunction:e.utils.functionHelper.isValidFunction},object:i,request:{getHeader:e.requestUtil.getHeader.bind(e.requestUtil),getHeaders:e.requestUtil.getHeaders.bind(e.requestUtil),getQueryParam:e.requestUtil.getQueryParam.bind(e.requestUtil),getQueryString:e.requestUtil.getQueryString.bind(e.requestUtil),hasQueryParam:e.requestUtil.hasQueryParam.bind(e.requestUtil),hasQueryValue:e.requestUtil.hasQueryValue.bind(e.requestUtil),parseQueryString:e.requestUtil.parseQueryString.bind(e.requestUtil)},string:e.utils.stringHelper},view:{getHelper:e.viewManager?e.viewManager.getViewHelper.bind(e.viewManager):()=>{},getPixelDensityFactor:e.configProcessor.getPixelDensityFactor.bind(e.configProcessor),getView:e.viewManager?e.viewManager.getView.bind(e.viewManager):null,off:e.viewManager?e.viewManager.off.bind(e.viewManager):null,on:e.viewManager?e.viewManager.on.bind(e.viewManager):null,render:({template:t,model:r,viewManager:i=e.viewManager}={})=>{const s=i.getView(r),n=i.getDataForView(r,s);return Mustache.render(t,n,e.resourceManager.templates)}},viewHeaders:{get:t=>e.viewHeaders.get?e.viewHeaders.get(t):"",getAll:()=>e.viewHeaders.getAll?e.viewHeaders.getAll():"",set:(t,r)=>{e.viewHeaders.set&&e.viewHeaders.set(t,r)}},viewport:{getActive:()=>[e.configProcessor.getViewport()],getAll:e.configProcessor.getViewports.bind(e.configProcessor),getEditable:e.configProcessor.getEditableViewports.bind(e.configProcessor),getMain:e.configProcessor.getMainViewport.bind(e.configProcessor),getName:e.configProcessor.getViewport.bind(e.configProcessor),getSubViewports:e.configProcessor.getSubViewports.bind(e.configProcessor),getWidth:e.configProcessor.getViewportWidth.bind(e.configProcessor),isMain:e.configProcessor.isMainViewport.bind(e.configProcessor),isSubViewport:e.configProcessor.isSubViewport.bind(e.configProcessor),isTouchDevice:e.configProcessor.isTouchDevice.bind(e.configProcessor)},text:{getWords:_.getWords,getSentences:_.getSentences,getReadTime:_.getReadTime,lix:_.lix}}}}class D{constructor(e=[]){this.viewManagers=e,Sys.logger.debug(`CacheHandler: Ready to support view-manager(s) for viewport(s): ${this.viewManagers.map(e=>e.viewport.name).join(", ")}`)}setViewManagers(e){this.viewManagers=e}resetKey(e,t,r){this.resetModelCacheForKey(e,t,r),this.resetViewCacheForKey(e,t)}resetModelCacheForKey(e,t,r){e.cache.getter.delete(e.getCacheKey(t,r)),e.cache.getter.delete(e.getCacheKey(t,r,!0)),e.cache.getter.forEach((i,s)=>{s.startsWith(`${t}.`)&&s.endsWith(`-${r||"lab_main"}`)&&e.cache.getter.delete(s)})}resetViewCacheForKey(e,t){for(const r of this.viewManagers)r.getView(e).resetCache(t)}}class E{constructor(e,t=null){this.isEnabled=!0,this.Implementation=e,this.instance=null,this.name=t}initialize(){this.instance=new this.Implementation}disable(){this.isEnabled=!1}enable(){this.isEnabled=!0}call(e,...t){if(this.isEnabled){if(!this.instance){if(!this.Implementation)return;this.initialize(),this.instance.name&&(this.name=this.instance.name)}if(e in this.instance)return this.instance[e](...t)||null}}}class W extends E{}class B extends E{initialize(){this.instance=new this.Implementation(lab_api)}}class H{constructor(e){this.data=e}get(e=""){const t=e.split("."),r=this.getObject(t.shift());return r?t.length?i.get(t.join("."),r):r:null}getObject(e){return e?this.data[e]||null:this.data}getHeader(e){if(e){const t=this.getObject(e);return t?t.responseHeaders:null}return null}}class L extends d{constructor({configReader:e,language:t,siteAlias:r,renderFn:s,configPrefix:n}){super(),this.configReader=e,this.language=t||this.configReader.get("contentLanguage")||"en-GB",this.secondaryLanguage=this.configReader.get("contentLanguageFallback")||this.language,this.siteAlias=r||this.configReader.siteAlias,this.fallbackLanguage="en-GB",this.renderFn=s,this.objectHelper=i,this.configPrefix=n||"int_",this.cache=new Map}overrideLanguage(e){e&&(this.secondaryLanguage===this.language&&(this.secondaryLanguage=e),this.language=e)}get(e,{language:t,siteAlias:r,data:i={},fallbackValue:s,noRender:n=!1}={}){const o=(e||"").trim(),a=i||{},l=t||this.language,d=`${o}_${l}_${r}_${JSON.stringify(a||{})}_${n?"1":"0"}`;return this.cache.has(d)||this.cache.set(d,this.getKey(o,l,r,a,n,s)),this.cache.get(d)}getKey(e,t,r,i,s,n){const o=this.readConfigObject(e,r,t);if(o)return this.returnValue(e,o,i,t,r,"config",s);const a=this.readConfig(e,t,r);return a?this.returnValue(e,a,i,t,r,"configObject",s):t!==this.fallbackLanguage&&t!==this.secondaryLanguage&&this.secondaryLanguage!==this.language?this.getKey(e,this.secondaryLanguage,r,i,s,n):t!==this.fallbackLanguage?this.getKey(e,this.fallbackLanguage,r,i,s,n):void 0===n?e:n}returnValue(e,t,r,i,s,n,o){const a={value:t,data:r},l=this.requestEvent("localisation",{key:e,value:t,data:r,language:i,siteAlias:s,type:n});if(l.length){const e=l.pop();"string"==typeof e.value&&(a.value=e.value,a.data=e.data)}return a.value?o?a.value:this.renderFn(a.value,a.data).trim():e}readConfig(e,t,r){const i=this.configReader.getConfig(`${this.configPrefix}${t}.${e}`,{site:r});return"string"==typeof i?i:void 0}readConfigObject(e,t,r){const i=t||this.siteAlias,s=r||this.language,n=this.configReader.getLocal(`lang.${i}.${s}.${e}`);return"string"==typeof n?n:void 0}}class N extends d{constructor({logger:e={},settings:{siteAlias:t="default",pageType:i="front",contentId:s=null,device:n="desktop",runtime:l={Request:!1},transform:d,fragmentMode:h=null,debug:p=!1,simulatedMode:u=""},resources:{config:f={},templates:y={view:{},editor:{}},properties:m={},data:b=null,preload:w={},viewHeaders:v={},views:P=[]},globals:x={},callbacks:M={},entries:S=[],behaviours:k={}}={}){super({entries:S.map(e=>new W(e)),behaviours:Object.keys(k).reduce((e,t)=>({...e,[t]:k[t].map(e=>new B(e,t))}),{}),debug:p}),this.settings={debug:p,fragmentMode:h,simulatedMode:u,pageType:i,contentId:s,siteAlias:t,device:n,request:l.Request,transform:void 0===d||!!d},this.resources={properties:m,data:b,templates:y?y.view:{},viewHeaders:v},this.logger=e,this.settings.fragmentMode&&this.logger.debug(`[Core] Running fragmentMode: "${h}"`),this.configReader=new o(o.resolveFullConfig(f,r),this.logger),this.configProcessor=new a(this.configReader,this.settings.device,this.settings.fragmentMode,this.settings.pageType,this.settings.simulatedMode),this.logger.debug("---------------------------------------------------------"),this.logger.debug("[Core] Labrador rendering engine"),this.logger.debug(`Version ${this.configReader.getCms("app.version")} - build ${this.configReader.getCms("buildInfo.version")} - views: ${P.join(", ")}`),this.logger.debug("(c) Labrador CMS AS. Use require a valid licence"),this.logger.debug("---------------------------------------------------------"),this.localisation=new L({configReader:this.configReader,renderFn:Mustache.render}),this.viewManager=null,this.pathHelper=new C,this.resourceManager=new g(this.resources.properties,this.resources.templates,this.configReader,c.resolveConfig,this.behaviours,this.pathHelper,this.settings.debug),this.dataTransformer=new O(this.configReader.get("grid.total_grid_spans")),this.modelController=new j(this.configReader,this.resourceManager,this.entries,this.behaviours),this.styleManager=new F(this.configReader.get("style"),Mustache.render,this.logger),this.preloadHandler=new H(w),this.viewManager=new T({resourceManager:this.resourceManager,configReader:this.configReader,configProcessor:this.configProcessor,logger:this.logger,viewport:this.settings.device,styleManager:this.styleManager,entries:this.entries,behaviours:this.behaviours,settings:this.settings,localisation:this.localisation,preloadHandler:this.preloadHandler}),this.api={v1:this.createApi()},x.lab_api=this.api,M.apiReady&&M.apiReady(this.api.v1),this.apiReady(this.api),this.resources.data&&this.setData(this.resources.data)}getApi(){return this.api}createApi(){this.logger.debug("Core: Creating api using CoreApi.");const e=new I,r={appManager:this,configReader:this.configReader,configProcessor:this.configProcessor,modelController:this.modelController,viewManager:this.viewManager,styleManager:this.styleManager,dataTransformer:this.dataTransformer,utils:t,requestUtil:new A(this.settings.request),featureFlags:new V(this.settings.siteAlias,this.logger),preloadHandler:this.preloadHandler,viewHeaders:this.resources.viewHeaders,localisation:this.localisation,resourceManager:this.resourceManager};return e.create(r)}getAllLogs(){return{front:this.getLogs(),view:this.viewManager.getLogs(),resource:this.resourceManager.getLogs(),model:this.modelController.getLogs()}}setSite(e){this.configReader.updateConfigByPath("site",e),this.configReader.getCms("site",{noCache:!0}),this.configProcessor.resetCache()}apiReady(e){this.logger.debug("Core: Api ready."),this.viewManager.apiReady(e),this.modelController.setCacheHandler(new D([this.viewManager])),this.onReady(e)}onReady(e){this.emitEntry("onReady",e)}setData(e){if(!e||!this.settings.transform&&!Array.isArray(e)||this.settings.transform&&!e.data)throw new Error("[Core] Cannot set data. Invalid input. "+(this.settings.transform?"Expecting property data, none given.":`Expecting an array, ${typeof e} given.`));this.viewManager.viewMap.clear();const t=this.settings.transform?this.dataTransformer.backendToInternal(e,{blacklist:this.configReader.get("data.blacklist")||[],skipOffstage:!0}):e;let r=null;const i=this.emitEntry("onDataReady",t);i.length&&(this.logger.warn("[Core] Entry-hook 'onDataReady' has modifyed input-data."),r=i.pop()),this.modelController.setData(r||t),this.resourceManager.rootModelReady(this.modelController.getRootModel()),this.localisation.overrideLanguage(this.modelController.getRootModel().get("fields.seolanguage")),this.modelController.notifyOnAcceptContent(),this.emitEntry("onAcceptContent"),this.emitEvent("acceptContent")}serializeView(e=this.modelController.models){return this.dataTransformer.modelsToView(e)}serializeForFragmentApi(e=this.modelController.models,{device:t=this.settings.device,stringify:r=!0,recursive:i=!0}={}){return this.dataTransformer.modelsToFragmentApi(e,{device:t,stringify:r,recursive:i})}render(e,{transform:t}={}){return new Promise((r,i)=>{void 0!==t&&(this.settings.transform=!!t),this.setData(e),r(this.draw())})}draw(e){return this.viewManager.draw(this.modelController.models,t=>{e&&e(t)})}getMarkup(e){if(!e)return this.logger.warn("Core: No model supplied. Will return empty string."),"";const t=this.viewManager.getView(e);return t?t.getMarkupString()||"":(this.logger.warn(`Core: Cannot get view for model ${e.getPositionedPath()}. Will return empty string.`),"")}}
+var e={d:(t,r)=>{for(var i in r)e.o(r,i)&&!e.o(t,i)&&Object.defineProperty(t,i,{enumerable:!0,get:r[i]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.r(t),e.d(t,{defaults:()=>s,functionHelper:()=>M,grid:()=>w,interpolation:()=>n,objectHelper:()=>i,stringHelper:()=>f,uuid:()=>k});const r={state:"",version:"4.2.19",build:{styleguide:4,releasenotes:"40218:9",userReleasenotes:"40218:35",browsers:{chrome:94},version:587}},i={get:(e,t,r)=>e.split(".").reduce((e,t)=>e&&void 0!==e[t]?e[t]:r?void 0:null,t),set:(e,t,r)=>(e.split(".").reduce((e,r,s,n)=>{if(s!==n.length-1)return i.isObject(e[r])?e[r]:e[r]={};e[r]=t},r),r),delete:(e,t)=>{e.split(".").reduce((e,t,r,s)=>{if(r!==s.length-1)return i.isObject(e[t])?e[t]:e[t]={};delete e[t]},t)},isObject:e=>e&&"object"==typeof e&&!Array.isArray(e),hasContent:e=>!!i.isObject(e)&&!!Object.keys(e).length,merge:(e,t)=>{if(Array.isArray(e)&&Array.isArray(t))return t;const r=Object.assign(Array.isArray(e)?[]:{},e);if(i.isObject(e)&&i.isObject(t))for(const s of Object.keys(t))i.isObject(t[s])?s in e&&i.isObject(e[s])?r[s]=i.merge(e[s],t[s]):Object.assign(r,{[s]:t[s]}):Object.assign(r,{[s]:t[s]});return r},mergeArray:(e,t,r=!0)=>{const i=[...e||[],...t||[]];return r?[...new Set(i)]:i},clone:(e,t)=>{if(!e)return e;let r;if(!t&&e instanceof Array)r=e.slice(0);else{r=e instanceof Array?[]:{};for(const s in e)Object.prototype.hasOwnProperty.call(e,s)&&(t&&"object"==typeof e[s]&&null!==e[s]?r[s]=i.clone(e[s],t):r[s]=e[s])}return r},serialize(e,t="=",r="&"){const i=[];for(const r of Object.keys(e))i.push(r+t+e[r]);return i.length?i.join(r):null}},s={true:e=>void 0===e||!!e,false:e=>!!e,string:(e,t="")=>"string"==typeof e?e:t,stringRestricted:(e,t="",r=[])=>"string"!=typeof e?t:r.includes(e)?e:t,pixelString:(e,t="")=>{if("number"==typeof e)return`${e}px`;if("string"!=typeof e)return t;const r=e.trim().split("px");return 2!==r.length||isNaN(r[0])?t:`${r[0]}px`},stringOrNull:e=>"string"==typeof e?e:null,stringOrUndefined:e=>"string"==typeof e?e:void 0,numberOrDefault:(e,t=0)=>"number"==typeof e?e:t,array:(e,t=[])=>Array.isArray(e)?e:t,arrayOrNull:e=>Array.isArray(e)?e:null,object:(e,t={},r=t)=>!e||"object"!=typeof e||Array.isArray(e)?t:{...r,...e},objectOrArray:(e,t={})=>Array.isArray(e)?e:s.object(e,t),notNullOrUndefined:(e,t)=>null==e?t:e,notUndefined:(e,t)=>void 0===e?t:e},n={resolve:(e,t,r)=>"object"==typeof e?n.resolveObject(e,t,r):"string"==typeof e?n.resolveString(e,t,r):e,resolveObject:(e,t,r)=>{for(const i in e)"object"==typeof e[i]?e[i]=n.resolveObject(e[i],t,r):"string"==typeof e[i]&&(e[i]=n.resolveString(e[i],t,r));return e},resolveString:(e,t,r)=>{if(-1===e.indexOf("${"))return e;return e.replace(/\${([^{}]*)}/g,(e,i)=>{const s=r.getCms(i.trim());return"string"==typeof s||"number"==typeof s?s:("undefined"!=typeof Sys&&Sys.logger.warn(`Cannot interpolate config value "${e}". Description: ${t}.`),e)})}};class o{constructor(e,t){this.logger=t,this.log("Setup"),this.config=e,this.siteAlias=this.config.site&&this.config.site.alias||null,this.fallbackSites=this.resolveSiteAliases(this.siteAlias),this.log(`Site-alias: ${this.siteAlias}`),this.log(`Will use site(s): ${this.fallbackSites}`),this.resources=[{name:"config",source:"config",path:"customer",sitesPrefix:"customer.site_config_",storeSitesPrefix:null,siteOverride:{},paths:[],content:[],resolved:!1},{name:"cmsConfig",source:"config",path:"",sitesPrefix:null,storeSitesPrefix:null,paths:[],content:[],resolved:!1},{name:"viewConfig",source:"configObject",path:"ConfigObject.viewConfig.config.customer",sitesPrefix:"ConfigObject.viewConfig.config.customer.site_config.",storeSitesPrefix:"config.customer.site_config.",siteOverride:{},paths:[],content:[],resolved:!1},{name:"featureFlags",source:"configObject",path:"ConfigObject.featureFlags",sitesPrefix:"ConfigObject.featureFlags.site.",storeSitesPrefix:"site.",siteOverride:{},paths:[],content:[],resolved:!1},{name:"content",source:"configObject",path:"ConfigObject.content",sitesPrefix:null,storeSitesPrefix:null,paths:[],content:[],resolved:!1},{name:"localisation",source:"configObject",path:"ConfigObject.localisation",sitesPrefix:null,storeSitesPrefix:null,paths:[],content:[],resolved:!1}],this.resourceObject={},this.cache={get:{},debug:{getter:{},reload:{},update:{},resetCache:{}}},this.setupResources()}static resolveFullConfig(e={},t={}){const r={ConfigObject:{},app:{mode:"presentation",version:"[unversioned cms]"},mainViewport:s.string(e.deviceMain,e.device||"desktop"),isTouchDevice:s.false(e.isTouchDevice),sites:s.array(e.sites),...e};return r.app.version=t.version||r.app.version,r.buildInfo=t.build||e.build,r.customer=o.resolveConfig(e.customer),r}static resolveConfig(e={}){const t={grid:{},...e};t.resourceAllocation=s.object(t.resourceAllocation,{resourceMaps:["_resources"],mergeMaps:!0});const r=t.viewHelper||{};return t.viewHelper={image:s.object(r.image,{viewports:["desktop"],pixelDensityFactor:1})},t.appMapper=s.objectOrArray(t.appMapper),t.view_name=s.string(t.view_name,"[unnamed view]"),t.view_version=s.string(t.view_version,"[unversioned view]"),t.grid.total_grid_spans=s.numberOrDefault(t.grid.total_grid_spans,12),t.grid.grid_prefix=s.object(t.grid.grid_prefix),t.grid.abs_grid_prefix=s.object(t.grid.abs_grid_prefix,null),t.preload=s.array(t.preload),t.preloadObject=s.object(t.preloadObject),t.viewports=s.object(t.viewports),t.viewport=s.string(t.viewport),t.touchEditingViewport=s.string(t.touchEditingViewport),t.style=s.object(t.style,{definitions:{},collections:[],presets:[],copyDefinitions:[]}),t.image=s.object(t.image,{defaultAspectRatio:.45,defaultBoundingBoxWidthRatio:1}),t.imageUrlOptions=s.object(t.imageUrlOptions),t.tags=s.object(t.tags,{},{section:[]}),t.elementList=s.object(t.elementList,{all:[],favourites:[]}),t.elementListAdditions=s.object(t.elementListAdditions,{all:[],favourites:[]}),t.elementListRemovals=s.object(t.elementListRemovals,{all:[],favourites:[]}),t.autoscroll=s.object(t.autoscroll,{scrollDistance:100,scrollBuffer:50,accelerator:{max:3,step:.2}}),t.markLockedPaths=s.true(t.markLockedPaths),t.minimap=s.object(t.minimap,{structure:null,pageType:[]}),t.exitWarning=s.stringOrNull(t.exitWarning),t.publish=s.object(t.publish,{retry:{count:4,delay:2e3},options:{article:{hidden:!0,defaultHidden:!1}}}),t.autolock=s.object(t.autolock,{timeout:18e5}),t.networkWarning=s.object(t.networkWarning,null,{offline:{alert:!0,lockPage:!0},online:{alert:!0}}),t.image_preview=s.object(t.image_preview,{width:1600,compression:50}),t.textTools=s.object(t.textTools,{characterBlacklists:{utf:[]},text_size:{min:{default:14},max:{default:150,mobile:80}}}),t.structure_map=s.object(t.structure_map),t.shapes=s.object(t.shapes),t.requiredElements=s.array(t.requiredElements),t.requiredElementsAdditions=s.array(t.requiredElementsAdditions),t.data=s.object(t.data,{elements:{},presets:{},presetBlacklist:{},blacklist:[],blacklistOptions:{}}),t.pageElements=s.object(t.pageElements),t.drawer=s.array(t.drawer),t.drawerAdditions=s.array(t.drawerAdditions),t.drawerRemovals=s.array(t.drawerRemovals),t.maxChildCount=s.numberOrDefault(t.maxChildCount,150),t}log(e,t=null){this.logger&&(t?this.logger.debug(`[ConfigReader] ${e}`,[t]):this.logger.debug(`[ConfigReader] ${e}`))}setupResources(){for(const e of this.resources)this.resourceObject[e.name]=e}setupResource(e,t=null){const r=!!t&&t!==this.siteAlias,i=this.resourceObject[e];this.log(`Settings up resource "${e}". Site: "${t||this.siteAlias}". Site-override: ${i.sitesPrefix?r:"n/a"}`),t&&!i.siteOverride[t]&&(i.siteOverride[t]={content:[],paths:[],resolved:!1});const s=t?i.siteOverride[t]:i,n=r?this.resolveSiteAliases(t):this.fallbackSites;for(const e of this.calculateResourcePaths(i,n)){s.paths.push(e);const t=this.getPath(e,this.config);s.content.push({path:e,value:t||{}})}return s.resolved=!0,s}reloadResourceBySite(e,t,r){if(e&&this.resourceObject[e]&&r){this.cache.debug.reload[`${e}|${t||"no-site"}`]=this.cache.debug.reload[`${e}|${t||"no-site"}`]?this.cache.debug.reload[`${e}|${t||"no-site"}`]+1:1;const s=n.resolve(r,"reload_resouce",{getCms:e=>i.get(e,this.config,!0)}),o=t?this.resourceObject[e].sitesPrefix+t:this.resourceObject[e].path;i.set(o,s,this.config),this.resourceObject[e].siteOverride[t]?delete this.resourceObject[e].siteOverride[t]:t||(this.setupResource(e),this.resourceObject[e].siteOverride={})}}updateConfigByPath(e,t){this.cache.debug.update[e]=this.cache.debug.update[e]?this.cache.debug.update[e]+1:1,i.set(e,t,this.config),this.resetCache(e)}getCacheKey(e="",t={}){const r=[e,t.mergeStrategy,t.orderStrategy];for(const e of t.resourceList)r.push(e.name,e.useSites?1:0,e.site||"-");return r.join("|")}getCache(e){return this.cache.debug.getter[e]=this.cache.debug.getter[e]?this.cache.debug.getter[e]+1:1,{isSet:e in this.cache.get,value:this.cache.get[e]}}setCache(e,t){this.cache.get[e]=t}resetCache(e){for(const t of Object.keys(this.cache.get))t.startsWith(`${e}|`)&&(this.cache.debug.resetCache[t]=this.cache.debug.resetCache[t]?this.cache.debug.resetCache[t]+1:1,this.log(`Deleting cache for key "${e}" ("${t}")`),delete this.cache.get[t])}calculateResourcePaths(e,t=this.fallbackSites){const r=e.sitesPrefix?t.map(t=>e.sitesPrefix+t):[];return r.push(e.path),r}resolveSiteAliases(e,t=[]){if(!e)return t;t.push(e);const r=this.getFallbackSite(e);return r&&this.resolveSiteAliases(r,t),t}getFallbackSite(e){return this.getPath(`customer.site_config_${e}.lab_fallback_site`,this.config)}getResource(e){let t=e.site?this.resourceObject[e.name].siteOverride[e.site]:this.resourceObject[e.name];return t&&t.resolved||(t=this.setupResource(e.name,e.site)),t}getPath(e,t,r=!1){return e?r?n.resolve(i.get(e,t,!0),e,{getCms:e=>i.get(e,this.config,!0)}):i.get(e,t,!0):t}getPaths(e,t,r=!1){const i=[],s=this.getResource(t),n=t.useSites?s.content:[s.content[s.content.length-1]];for(const s of n){const o=this.getPath(e,s.value,r);void 0!==o&&i.push({source:t.name,path:s.path,value:o,sourceIndex:n.indexOf(s)})}return i}getValueType(e){for(const t of e)if(null!==t.value)return Array.isArray(t.value)?"array":i.isObject(t.value)?"object":"other";return"other"}mergeResources(e,t,r){let s=t;const n=this.orderResources(e,r);if(!n.length)return{payload:null,paths:[],resetPaths:[]};const o=this.getValueType(n);if("default"===s&&(s="object"===o?"merge":"replace"),"replace"===s)return{payload:n[0].value,paths:[n[0].path],resetPaths:[]};n.reverse();const a=Array.isArray(n[0].value)?[]:{};let l=a;const d=[],h=[];for(const e of n){null===e.value&&(l=a,h.push(e.path));let r=i.merge;"merge"===t&&"array"===o&&(r=i.mergeArray),l=r(l,e.value),d.push(e.path)}return{payload:l,paths:d,resetPaths:h}}orderResources(e,t){if(1===e.length)return e[0].payload;let r=[];for(const t of e)r=r.concat(...t.payload);return"site"===t&&r.sort((e,t)=>e.sourceIndex-t.sourceIndex),r}prepareReturnValue(e){return e&&"object"==typeof e?i.clone(e,!0):e}getter(e,t=[],{mergeStrategy:r=null,orderStrategy:i=null,raw:n=!1,noCache:o=!1,interpolate:a=!0}){const l={mergeStrategy:s.stringRestricted(r,"default",["default","merge","replace"]),orderStrategy:s.stringRestricted(i,"site",["site","type"]),raw:s.false(n),noCache:s.false(o),resourceList:[]};for(const e of t)l.resourceList.push({name:e.name,useSites:!!e.useSites,site:s.stringOrNull(e.site)});const d=this.getCacheKey(e,l),h=this.getCache(d);if(!l.noCache&&h.isSet)return l.raw?{cached:!0,options:l,data:{raw:h.value.raw,merged:h.value.merged}}:this.prepareReturnValue(h.value.merged.payload);const g=l.resourceList.map(t=>({name:t.name,payload:this.getPaths(e,t,a)})),c=this.mergeResources(g,l.mergeStrategy,l.orderStrategy);return this.setCache(d,{raw:g,merged:c}),l.raw?{cached:!1,options:l,data:{raw:g,merged:c}}:this.prepareReturnValue(c.payload)}get(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null,orderStrategy:o=null}={}){return this.getter(e,[{name:"viewConfig",useSites:t,site:r},{name:"config",useSites:t,site:r}],{mergeStrategy:n,orderStrategy:o,raw:i,noCache:s})}getConfig(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"config",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s})}getCms(e,{raw:t=!1,noCache:r=!1}={}){return this.getter(e,[{name:"cmsConfig"}],{raw:t,noCache:r})}getView(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"viewConfig",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s})}getFeatureFlags(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"featureFlags",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s,interpolate:!1})}getContent(e,{raw:t=!1}={}){return this.getter(e,[{name:"content"}],{raw:t})}getLocal(e,{useSites:t=!0,site:r=null,raw:i=!1,noCache:s=!1,mergeStrategy:n=null}={}){return this.getter(e,[{name:"localisation",useSites:t,site:r}],{mergeStrategy:n,raw:i,noCache:s,interpolate:!1})}getPathForSite(e,t,r=""){return e&&t&&this.resourceObject[e]&&this.resourceObject[e].sitesPrefix?this.resourceObject[e].sitesPrefix+t+(r?`.${r}`:""):null}getStorePathForSite(e,t,r=""){return e&&t&&this.resourceObject[e]&&this.resourceObject[e].sitesPrefix?this.resourceObject[e].storeSitesPrefix+t+(r?`.${r}`:""):null}debug(){return this.cache.debug}}class a{constructor(e,t,r=!1,i="",s=""){this.configReader=e,this.viewport=t,this.fragmentMode=r,this.pageType=i,this.simulatedMode=s,this.cache=new Map,this.isEditor="edit"===this.getAppMode(),this.pixelDensityFactor=this.isEditor?1:this.configReader.get("viewHelper.image.pixelDensityFactor"),this.pixelDensityFactors={}}resetCache(){this.cache.clear()}getViewport(){return this.viewport}getViewports(){const e="getViewports";return this.cache.has(e)||this.cache.set(e,Object.keys(this.configReader.get("viewports")||{})),this.cache.get(e)}getMainViewport(){const e="getMainViewport";return this.cache.has(e)||this.cache.set(e,this.configReader.getCms("mainViewport")),this.cache.get(e)}getPageType(){return this.pageType}getSimulatedMode(){return this.simulatedMode}isFragmentMode(){return!!this.fragmentMode}isMainViewport(){return this.viewport===this.getMainViewport()}isTouchDevice(e=this.viewport){return this.configReader.getCms("isTouchDevice")}getSubViewports(){const e="getSubViewports";if(!this.cache.has(e)){const t=this.getMainViewport();this.cache.set(e,this.getViewports().filter(e=>e!==t))}return this.cache.get(e)}isSubViewport(e=this.viewport){return e!==this.getMainViewport()}getEditableViewports(e=!1){const t=`getEditableViewports_${e}`;if(!this.cache.has(t)){const r=this.configReader.get("viewports"),i=e?{}:[];for(const t of Object.keys(r))r[t].noEdit||(e?i[t]=r[t]:i.push(t));this.cache.set(t,i)}return this.cache.get(t)}getViewportWidth(e=this.viewport){const t=this.configReader.get(`viewports.${e}.deviceWidth`);return t?parseInt(t,10):null}getEditViewportWidth(e=this.viewport){const t=this.configReader.get(`viewports.${e}.editSlotWidth`)||this.configReader.get(`viewports.${e}.deviceWidth`);return t?parseInt(t,10):null}getSite(e=null){const t={},r=`getSite_${e}`;if(!this.cache.has(r)){if(e){for(const t of this.configReader.getCms("sites"))if(t.alias===e)return this.cache.set(r,t),t;return this.cache.set(r,t),t}this.cache.set(r,this.configReader.getCms("site")||t)}return this.cache.get(r)}getSiteById(e){if(!e)return null;const t=`getSiteById_${e}`;if(!this.cache.has(t)){const r=parseInt(e,10);for(const e of this.configReader.getCms("sites"))if(e.id===r)return this.cache.set(t,e),e;return this.cache.set(t,null),null}return this.cache.get(t)}getSites(){const e="getSites";return this.cache.has(e)||this.cache.set(e,this.configReader.getCms("sites")||[]),this.cache.get(e)}getAppMode(){const e="getAppMode";return this.cache.has(e)||this.cache.set(e,this.configReader.getCms("app.mode")||"presentation"),this.cache.get(e)}isPresentationMode(){return!this.isEditor}isEditMode(){return this.isEditor}getPixelDensityFactor(e){return e?(this.pixelDensityFactors[e]||(this.pixelDensityFactors[e]=this.isEditor?1:this.configReader.get(`viewHelper.image.pixelDensity.${e}`)||this.configReader.get("viewHelper.image.pixelDensityFactor")),this.pixelDensityFactors[e]):this.pixelDensityFactor}getPreferredImageFormat(){return(this.configReader.get("imageUrlOptions.extension")||"").replace(".","")||null}}class l{constructor(e){this.debug=e&&"object"==typeof performance,this.logs={}}getLogs(){return this.logs}resetLogs(){this.logs={}}log(e,t){const r=e.pop();let i=this.logs;for(const t of e)i[t]||(i[t]={}),i=i[t];i[r]||(i[r]={count:0,time:0}),i=i[r],i.count++,i.time+=t}start(e){if(this.debug)return{paths:e,time:this.getTimestamp()}}end(e){this.debug&&this.log(e.paths,this.getTimestamp()-e.time)}getTimestamp(){return performance.now()}}class d{constructor({entries:e=[],behaviours:t={},debug:r=!1}={}){this.entries=e,this.behaviours=t,this.debug=r,this.events={},this.logs={},this.performanceLogger=new l(this.debug)}getLogs(){return this.performanceLogger.getLogs()}resetLogs(){this.performanceLogger.resetLogs()}on(e,t){return this.events[e]||(this.events[e]=[]),this.events[e].push(t),!0}off(e,t){return!(!this.events[e]||!this.events[e].includes(t))&&(this.events[e]=this.events[e].filter(e=>e!==t),!0)}emitEntry(e,...t){const r=this.performanceLogger.start(["entry",e]),i=this.callTargets(e,"entry",this.entries,...t);return this.performanceLogger.end(r),i}emitBehaviour(e,t,...r){const i=this.behaviours[t.getType()];if(!i||!i.length)return[];const s=this.performanceLogger.start(["behaviour",e,t.getType()]),n=this.callTargets(e,"behaviour",i,t,...r);return this.performanceLogger.end(s),n}emitCollectionBehaviour(e,t,...r){const i=this.behaviours[t.getType()];return i&&i.length?this.callTargets(e,"collection",i,t,...r):[]}emitEvent(e,...t){this.events[e]&&this.callEvents(e,this.events[e],...t)}requestEvent(e,...t){return this.events[e]?this.requestEvents(e,this.events[e],...t):[]}callEvents(e,t,...r){for(const i of t)try{i(...r)}catch(t){Sys.logger.error(`[Emitter] Failed to run method on listener for message "${e}"`),Sys.logger.debug(t.toString()),lab_api.v1.app.logError(t)}}requestEvents(e,t,...r){const i=[];for(const s of t)try{const e=s(...r);void 0!==e&&i.push(e)}catch(t){Sys.logger.error(`[Emitter] Failed to run method on listener for message "${e}"`),Sys.logger.debug(t.toString()),lab_api.v1.app.logError(t)}return i}callTargets(e,t,r,...i){const s=[];for(const n of r)try{if(n.isEnabled){const t=n.call(e,...i);null!=t&&s.push(t)}}catch(r){Sys.logger.error(`[Emitter] Call to method ${e} on '${n.name}' failed:`),console.error(r),lab_api.v1.app.logViewError(r,t)}return s}registerEntry(e){return!this.entries.includes(e)&&(this.entries.push(e),!0)}registerBehaviour(e,t){return this.behaviours[e]||(this.behaviours[e]=[]),!this.behaviours[e].includes(t)&&(this.behaviours[e].push(t),!0)}}class h{static build(e,t,r){let i;const s=[],n=r||"&",o=(e,t,r)=>{let i,s=t;const n=[];if(!0===s?s="1":!1===s&&(s="0"),null!=s){if("object"==typeof s){for(i in s)null!=s[i]&&n.push(o(`${e}[${i}]`,s[i],r));return n.join(r)}if("function"!=typeof s)return`${this.urlencode(e)}=${this.urlencode(s)}`;throw new Error("There was an error processing for http_build_query().")}return""};for(const r of Object.keys(e)){i=e[r];let a=r;t&&!Number.isNaN(a)&&(a=String(t)+a);const l=o(a,i,n);""!==l&&s.push(l)}return s.join(n)}static urlencode(e){return encodeURIComponent(`${e}`).replace(/!/g,"%21").replace(/'/g,"%27").replace(/\(/g,"%28").replace(/\)/g,"%29").replace(/\*/g,"%2A").replace(/%20/g,"+")}}class g extends d{constructor(e,t,r,i,s,n,o=!1){super({behaviours:s,debug:o}),this.properties=e,this.templates=t,this.configReader=r,this.propertyValidator=i,this.pathHelper=n,this.resolved={properties:new Map,templates:new Map,resourceMaps:new Map},this.appMode=r.getCms("app.mode"),this.pageTemplateName="default",this.resourceSettings=this.resolveResourceSettings(),this.viewportList=new Map,this.rootId=null,this.feedBaseUrl=`${this.configReader.getCms("front_api_url")}/feed/item`,this.isFragmentMode=!1,this.feedCounter={}}getPathInfo(e,t,r="stage"){const i=e.split("/"),s=i.pop();let n;return n=s.startsWith("page_")?`${s.replace("page_","page/")}/${this.pageTemplateName}`:`content/${s}`,{type:s,resourceType:n,area:r,modeList:this.getPrioritizedModes(),viewportList:this.getPrioritizedViewports(t),contextList:this.getPrioritizedContexts(`${i.join("/")}/`)}}resolveResourceSettings(){const e=s.object(this.configReader.get("resourceAllocation",{useSites:!1}),{resourceMaps:["_resources"]});"string"==typeof e.resourceMaps&&(e.resourceMaps=[e.resourceMaps]);const t=this.configReader.getCms("site.alias"),r=s.object(this.configReader.get("resourceAllocation",{site:t}));let i=[];if(Array.isArray(r.resourceMaps)&&i.push(...r.resourceMaps),!i.length||s.true(r.mergeMaps)){const t=[];for(const r of e.resourceMaps)i.includes(r)||t.includes(r)||t.push(r);t.length&&(i=[...t,...i])}return{names:i}}getResourceMap(e,t){if(this.resolved.resourceMaps.has(e.type))return this.resolved.resourceMaps.get(e.type);let r={labPaths:this.getEmptyPathObject()};for(const t of this.resourceSettings.names){const i=`${e.resourceType}/${t}.json`,s=this.getPropertyFile(i);if(s&&(r.labPaths.maps.push(i),r=this.mergeObject(r,s)),!r.labPaths.maps.length){const t=this.resourceSettings.names.map(t=>`${e.resourceType}/${t}.json`).join('", "');Sys.logger.warn(`[ResourceManager] No resource-map found for element "${e.type}". Expecting "${t}". Will not be able to allocate resources for this element.`)}}if(t){const i=this.emitBehaviour("onResourceMap",t,{...r},{type:e.type,resourceType:e.resourceType});i.length&&(Sys.logger.warn(`[ResourceManager] Resource-map is overridden by a bahaviour for model "${t.getPositionedPath()}".`),r=i.pop())}return this.resolved.resourceMaps.set(e.type,r),r}getPaths(e,t,r){let i=[];for(const s of r.modeList){const n=this.getContextsForModeAndArea(e,s,r);if(n)for(const e of r.contextList){const o=this.getContexts(n,t,e);if(o.length)for(const e of o){const t=this.getPathForViewports(e.match,r);if(t)for(const r of Array.isArray(t.resources)?t.resources:[t.resources])i=i.filter(e=>e.path!==r),i.push(this.getPathDescription({path:r,context:e.context,viewport:t.viewport,mode:s}))}}}return i.length||Sys.logger.debug(`ResourceManager: Cannot get ${t} for ${r.type}. Context-list: ${r.contextList.join(", ")}, area: ${r.area}`),i}getPathForViewports(e,t){for(const r of t.viewportList)if(e[r])return{resources:e[r],viewport:r};return null}getPathLength(e=""){return this.trimPath(e).replace(/\/\//g,"/||/").split("/").map(e=>e?"||"===e?.2:"*"===e?.6:1:0).reduce((e,t)=>e+t)}sortContexts(e){const t=e.sort((e,t)=>this.getPathLength(e)-this.getPathLength(t)||e.localeCompare(t)),r=t.indexOf("lab-default");return r>0&&(t.splice(r,1),t.unshift("lab-default")),t}trimPath(e){let t=e;return t.startsWith("/")&&!t.startsWith("//")&&(t=t.substring(1)),t.endsWith("/")&&!t.endsWith("//")&&(t=t.substr(0,t.length-1)),t}getContexts(e,t,r){const i=this.sortContexts(Object.keys(e)),s=[];for(const n of i)if(e[n][t]){const i=this.pathHelper.pathMatch(n,r);i&&s.push({match:e[i][t],context:n})}return s}getContextsForModeAndArea(e,t,r){return i.get(`${t}.${r.area}`,e)||null}getPropertyFile(e){if(this.properties[e]){return{...this.properties[e]}}return null}getEmptyPathObject(){return{maps:[],properties:[],map:[]}}getPathDescription(e={}){return{path:e.path||null,context:e.context||null,viewport:e.viewport||null,mode:e.mode||null,requiredBy:e.requiredBy||null}}resolveInheritance(e,t){if(!e.includeFiles)return e;let r=e;for(const i of e.includeFiles)if(!r.labPaths.properties.includes(i)){const e=this.getPathDescription(t);e.requiredBy=e.path,e.path=i;const s=this.resolvePropertyFileWithDescription(e);s&&(r=this.mergeObject(s,r))}return r}getTemplateFile(e){return this.templates[e]||null}getPrioritizedViewports(e){if(!this.viewportList.get(e)){const t=e?[e]:[];this.configReader.get(`viewports.${e||"default "}.noFallback`)||t.push("default"),this.viewportList.set(e,t)}return this.viewportList.get(e)}getPrioritizedModes(){const e=[this.appMode];return"edit"===this.appMode&&e.unshift("presentation"),e}getPrioritizedContexts(e){return["lab-default",e]}mergeObject(e,t){const r=i.merge(e,t);return e.labPaths&&t.labPaths&&(r.labPaths.properties=e.labPaths.properties.concat(t.labPaths.properties),r.labPaths.map=e.labPaths.map.concat(t.labPaths.map)),r}getCacheKey(e,t,r){return`${e||"no-path"}-${t}-${r}`}rootModelReady(e){this.isFragmentMode=lab_api.v1.app.mode.isFragmentMode(),e&&(this.rootId=e.get("id"),e&&e.getType().startsWith("page_")&&this.setPageTemplateName(e.get("fields.page_template_alias")||"default"))}setPageTemplateName(e="default"){Sys.logger.debug(`[ResourceManager] Will use page-template "${e}".`),"undefined"===e?(Sys.logger.warn("[ResourceManager] Invalid page_template_alias detected. Will override template to 'default'."),this.pageTemplateName="default"):this.pageTemplateName=e}getAreaFromPath(e,t){return e&&e.includes("pasteboard/")?"pasteboard":"stage"}getPropertiesForPath(e,t,r,i=this.getAreaFromPath(e)){e||Sys.logger.warn('ResourceManager.getPropertiesForPath: Missing required param "path". Will return default properties.');const s=this.getCacheKey(e,r,i);if(this.resolved.properties.has(s))return this.resolved.properties.get(s);let n={labPaths:this.getEmptyPathObject()};const o=this.getPathInfo(e,r,i),a=this.getResourceMap(o,t),l=this.getPaths(a,"properties",o);for(const e of l){const t=this.resolvePropertyFileWithDescription(e);t&&(n=this.mergeObject(n,t))}return n.labPaths.maps=a.labPaths.maps,this.resolved.properties.set(s,this.propertyValidator(n)),this.resolved.properties.get(s)}resolvePropertyFile(e){return this.resolvePropertyFileWithDescription(this.getPathDescription({path:e}))}resolvePropertyFileWithDescription(e){const t=this.getPropertyFile(e.path);return t?(t.labPaths=this.getEmptyPathObject(),t.labPaths.properties.push(e.path),t.labPaths.map.push(e),this.resolveInheritance(n.resolve(t,e.path,this.configReader),e)):(Sys.logger.warn(`ResourceManager: Cannot find property-file for path: ${e.path}.`),null)}getTemplateForPath(e,t,r,i=this.getAreaFromPath(e)){const s=this.getCacheKey(e,r,i);if(this.resolved.templates.has(s))return this.resolved.templates.get(s);const n={paths:null,resource:null},o=this.getPathInfo(e,r,i),a=this.getResourceMap(o,t);return n.paths=this.getPaths(a,"template",o),n.paths.length&&(n.resource=this.getTemplateFile([...n.paths].pop().path)),n.resource||(Sys.logger.debug(`ResourceManager: Cannot find template for path: ${e}, viewport: ${r}, area: ${o.area}. Will assign default template.`),n.resource=this.getDefaultTemplate(e)),this.resolved.templates.set(s,n),n}getDefaultTemplate(e){return"edit"===this.appMode?"<div>{{{ children.all }}}</div>":"{{{ children.all }}}"}getPropertiesForModel(e,t,r){return this.getPropertiesForPath(e.getPath(),e,t.viewport,r)}getTemplateForModel(e,t,r){if("presentation"===this.appMode&&!this.isFragmentMode&&"1"===e.get("fields.isAutomatic"))return`<div data-lab-placeholder="include" src="${this.getFeedUrl(e,t)}" ></div>`;const i=this.getTemplateForPath(e.getPath(),e,t.viewport,r);return i.paths.length&&t.setTemplatePath([...i.paths].pop().path),i.resource}getFeedUrl(e,t){const r=e.get("fields.feedId"),i=e.get("fields.feedParams")||{};let s="";Object.keys(i).length&&(s=`?${h.build(i)}`),void 0===this.feedCounter[r]&&(this.feedCounter[r]=0);const n=this.feedCounter[r]++;return`${this.feedBaseUrl}/${r}/${this.rootId}/${n}${s}`}}class c{constructor(e,t,r){this.viewport=e,this.model=t,this.eventPipe=r,this.markup=null,this.markupString=null,this.template=null,this.templatePath=null,this.properties=null,this.data=null,this.size=this.getEmptySizeObject(),this.proxies={current:null,child:null,children:null,childMarkup:null,childrenMarkup:null,store:{get:null,set:null}},this.cache=new Map}static resolveConfig(e={}){return lab_api.v1.app.dbg.logger.add("LabView","resolveConfig"),{labPaths:e.labPaths||{maps:[],properties:[],map:[]},boxTitle:e.boxTitle||"",boxDescription:e.boxDescription||"",boxKeywords:e.boxKeywords||"",childLimit:e.childLimit||null,includeFiles:s.array(e.includeFiles,null),gridRules:e.gridRules||[],viewHelper:e.viewHelper||null,viewportMap:s.object(e.viewportMap),bodytextElements:s.array(e.bodytextElements),bodytextHeadingElements:s.array(e.bodytextHeadingElements),overrideImageSize:s.object(e.overrideImageSize),image:s.object(e.image,null,{defaultAspectRatio:null}),external:s.object(e.external,null,{url:null,type:"html",headers:null})}}getEmptySizeObject(){return{grid:null,pixelWidths:null,gridWidth:null,absGridWidths:null,absGridCss:null}}isPrepared(){return!1}setPreparedState(e){}setMarkupString(e){this.markupString=e}getMarkup(){return null}getMarkupString(){return this.markupString||""}setGrid(e){this.size.grid=e}getGrid(){return this.size.grid}setPixelWidths(e){this.size.pixelWidths=e}getPixelWidth(){if(this.size.pixelWidths)return this.size.pixelWidths[this.viewport]}getPixelWidths(){return this.size.pixelWidths}setGridWidth(e){this.size.gridWidth=e}getGridWidth(){return this.size.gridWidth}getAbsoluteGridWidth(){return this.size.absGridWidths?this.size.absGridWidths[this.viewport]:null}setAbsoluteGridWidths(e){this.size.absGridWidths=e}getAbsoluteGridWidths(){return this.size.absGridWidths}getAbsGridCss(){return this.size.absGridCss}setAbsGridCss(e){this.size.absGridCss=e}getWidth(){return this.get("width")}setWidth(e,t=!1){this.set("width",e,t)}setData(e){this.data=e}getData(){return this.data}getProxy(){return this.proxies.current}setProxy(e){this.proxies.current=e}getChildrenProxy(){return this.proxies.children}setChildrenProxy(e){this.proxies.children=e}getChildProxy(){return this.proxies.child}setChildProxy(e){this.proxies.child=e}getChildMarkupProxy(){return this.proxies.childMarkup}setChildMarkupProxy(e){this.proxies.childMarkup=e}getChildrenMarkupProxy(){return this.proxies.childrenMarkup}setChildrenMarkupProxy(e){this.proxies.childrenMarkup=e}getStoreProxy(e){return this.proxies.store.set&&this.proxies.store.get?e?this.proxies.store.set:this.proxies.store.get:null}setStoreProxy({get:e,set:t}){this.proxies.store.get=e,this.proxies.store.set=t}setTemplate(e){this.template=e}getTemplate(){return this.template}setTemplatePath(e){this.templatePath=e}getTemplatePath(){return this.templatePath}setProperties(e,t=!1){this.properties=t?e:this.constructor.resolveConfig(e)}getProperties(){return this.properties}getProperty(e,t){return i.get(e,this.properties,t)}getViewport(){return this.viewport}getviewportOrder(e,t=null,r=this.viewport){return this.eventPipe.getViewportOrder(this,this.model.getPath(),e,t,r)}getCacheKey(e,t,r=!1){return`${e}|${r?1:0}|${t}`}get(e,t=!1,r=this.viewport){lab_api.v1.app.dbg.logger.add(this.constructor.name,"get",this.viewport);const i=this.getCacheKey(e,r,t);if(this.cache.has(i))return this.getCache(i);const s=this.model.buildQuery(e),n=this.getviewportOrder(s.path,s.attribute,r);if(!n.length){const e=this.model.get(s.key,null,t);return this.setCache(i,e)}for(const e of n){const t=this.model.get(s.key,e,!0);if(void 0!==t)return this.setCache(i,t)}return this.setCache(i,t?void 0:null)}set(e,t,r=!1){if(lab_api.v1.app.dbg.logger.add(this.constructor.name,"set",this.viewport),!e)return!1;const i=this.model.buildQuery(e),s=this.getviewportOrder(i.path,i.attribute);return this.model.set(i.key,t,{save:!r,viewport:s[0]})}setAll(e,t=!0){if(e&&"object"==typeof e&&!Array.isArray(e)){for(const t of Object.keys(e))this.set(t,e[t],!0);t&&lab_api.v1.app.save()}else Sys.logger.warn("[LabView] Method setAll expect an object containing key/value pars of data to store. Non-object given.")}setTransparent(e,t){const r=this.model.buildQuery(e),s=this.getviewportOrder(r.path,r.attribute),n=this.model.buildQuery(e,s[0]);let{path:o}=n;return n.attribute&&(o="fields"===n.type?`${n.path}.attributes.${n.attribute}`:`${n.path}.${n.attribute}`),i.get(o,i.set(n.fullPath,t,{}))}setCache(e,t){return this.cache.set(e,t),this.getCache(e)}getCache(e){return this.cache.get(e)}resetCache(e,t=this.getViewport()){const r=this.getCacheKey(e,t);this.cache.delete(r),this.cache.forEach((r,i,s)=>{i.startsWith(`${e}.`)&&i.endsWith(`|${t}`)&&this.cache.delete(i)})}}class p{static generateShapes(e,t){if(!e)return"";const r=JSON.parse(e);let i="";for(const e of r)i+=this.createShape(e,t);return i}static createShape(e,t){return`<div class="imageShape" style="${this.getStyle(e,t)}"></div>`}static getStyle(e,t){const r=this.getPosition(e,t),i=this.getSize(e,t);return`position: absolute;\n        width: ${i.w}%;\n        height: ${i.h}%;\n        top: ${r.y}%;\n        left: ${r.x}%;\n        border-width: ${e.borderwidth}px;\n        border-color: ${e.bordercolor};\n        border-style: ${e.borderstyle};\n        border-radius: ${"circle"===e.shape?"50%":"0"};\n        background: ${e.background||"transparent"};`}static getPosition(e,t){return{x:(e.x-t.x)*(100/t.cropw),y:(e.y-t.y)*(100/t.croph)}}static getSize(e,t){return{w:e.width*(100/t.cropw),h:e.height*(100/t.croph)}}}class u{constructor(e,t){this.api=e,this.isEditor=this.api.v1.app.mode.isEditor(),this.viewport=t.viewport,this.viewports=this.api.v1.config.get("viewHelper.image.viewports"),this.viewports.includes(this.viewport)||this.viewports.push(this.viewport),this.logger=t.logger,this.imageServer=this.api.v1.properties.get("image_server"),this.cropParamsFloat=["x","y","cropw","croph","panox","panoy","panow","panoh","heightx","heighty","heightw","heighth"],this.cropParamsString=["float","shapes"],this.privateCropParams=["bbRatio","whRatio","viewports_json","metadata_key"],this.allFields=[...this.cropParamsFloat,...this.cropParamsString,...this.privateCropParams],this.imageUrlOptions=this.api.v1.config.get("imageUrlOptions")||{},this.preferWebp=".webp"===this.api.v1.config.get("imageUrlOptions.extension"),this.maxDimension=3e3,this.pixelDensityFactors=this.readPixelDensity(),this.logger.debug(`Image-helper created. Will prepare image-data for viewports: ${this.viewports.join(", ")}.`)}static getImageProperties(e={}){const t=e.crop||{},r=t.pano||{},i=t.height||{};return{cropw:r.cropw||0,croph:r.croph||0,x:r.x||0,y:r.y||0,heightw:i.cropw||0,heighth:i.croph||0,heightx:i.x||0,heighty:i.y||0,imageCaption:e.imageCaption||"",altText:e.altText||""}}run(e,t){if(!e.hasNodeData())return this.logger.debug(`Image has no node-data, skipping. Path: "${e.getPositionedPath()}"`),void this.api.v1.model.noRender(e);const r=t.getProperty("image.defaultAspectRatio")||this.api.v1.config.get("image.defaultAspectRatio")||.5,i=t.getProperty("image.defaultBoundingBoxWidthRatio")||this.api.v1.config.get("image.defaultBoundingBoxWidthRatio")||1,s=t.getPixelWidths(),n=e.getData("instance_of"),o=e.get("fields.imageurl"),a=e.get("fields.forceImageUrl"),l={},d=[],h=this.imageUrlOptions.nameField?e.get(this.imageUrlOptions.nameField):null,g="_articlefeed"===e.get("fields.source"),c="1"===e.get("fields.isLabradorImageUrl"),u=this.preferWebp&&g?"webp":null,f=[];if((this.preferWebp||"webp"===u)&&f.push({format:"webp",type:"image/webp"}),f.push({format:"jpg",type:"image/jpeg"}),!o&&!n)return this.isEditor?e.setFiltered("image","/images/lab-head_1000.png"):e.setFiltered("image",`${this.api.v1.config.get("image.fallbackUrl")||"/404-image.png"}?noImageFound`),void(e.get("state.isUploading")?e.setFiltered("imageLoadingClass","lab-uploading-image labicon-cloud_up"):e.setFiltered("imageLoadingClass","lab-missing-image"));for(const e of this.viewports){const y={width:t.get("fields.width",!1,e)||t.getProperty("overrideImageSize.width"),height:t.get("fields.height",!1,e)||t.getProperty("overrideImageSize.height")},m=s[e],b={};for(const r of this.allFields){const i=t.get(`fields.${r}`,null,e);(i||"0"===i||0===i)&&(b[r]=i)}const v={imageId:g?void 0:n,format:u,bbRatio:t.get("filtered.bbRatio",null,e)||b.bbRatio||i,whRatio:t.get("filtered.whRatio",null,e)||b.whRatio||r},w={float:null,border:null,shapes:null};for(const e of this.cropParamsFloat)if(void 0!==b[e]){const t=parseFloat(b[e]||0);v[e]=t.toFixed(2)}for(const e of this.cropParamsString){const t=b[e]||null;t&&"null"!==t&&(w[e]=t)}v.width=t.get(`filtered.width.${e}`,null,e)||y.width||Math.ceil(m*v.bbRatio),v.height=t.get(`filtered.height.${e}`,null,e)||y.height||Math.ceil(v.width*v.whRatio);const P={width:v.width,height:v.height};v.width=Math.round(v.width*this.pixelDensityFactors[e]),v.height=Math.round(v.height*this.pixelDensityFactors[e]);if(v.width/v.height>1){if(v.width>this.maxDimension){const e=this.maxDimension/v.width;v.width=Math.floor(v.width*e),v.height=Math.floor(v.height*e)}}else if(v.height>this.maxDimension){const e=this.maxDimension/v.height;v.height=Math.floor(v.height*e),v.width=Math.floor(v.width*e)}const x=this.generateUrl(v,{imageurl:o,forceImageUrl:a,instanceOf:n,isLabradorImageUrl:c,imageUrlOptionsNameValue:h}),M=w.shapes?p.generateShapes(w.shapes,b):"";l[e]={viewport:e,url:x,formats:f,width:P.width,height:P.height,shapes:M,borderClass:"on"===w.border?"borderOn":""},d.push(l[e])}const y=l[this.viewport];e.setFiltered("viewport_list",l),e.setFiltered("viewport_array",d),e.setFiltered("image",y.url),e.setFiltered("imageWidth",y.width),e.setFiltered("imageHeight",y.height),e.setFiltered("imageCleanUrl",y.url.replace(/&(width|height)=\d+/g,"")),e.setFiltered("borderClass",y.borderClass),e.setFiltered("shapes",y.shapes),e.setFiltered("imageLoadingClass",n?"":o?"lab-content-busy":"lab-is-dummy-image")}generateUrl(e,t={}){const r=[],i={width:e.width||t.width||150,height:e.height||t.height||100},s={imageId:e.imageId||t.imageId,x:e.x,y:e.y,cropw:e.cropw,croph:e.croph,panox:e.panox,panoy:e.panoy,panow:e.panow,panoh:e.panoh,heightx:e.heightx,heighty:e.heighty,heightw:e.heightw,heighth:e.heighth,width:i.width,height:i.height,format:e.format||void 0};for(const e of Object.keys(s))void 0!==s[e]&&r.push(`${e}=${s[e]}`);let n=this.imageServer,o="?";return!t.imageurl||!t.forceImageUrl&&t.instanceOf?t.instanceOf?this.imageUrlOptions&&t.imageUrlOptionsNameValue&&(n+=`/${t.imageUrlOptionsNameValue}${t.format?`.${t.format}`:this.imageUrlOptions.extension}`):n="":(-1!==t.imageurl.indexOf(this.imageServer)||t.isLabradorImageUrl?n=t.imageurl:n+=`?imageUrl=${t.imageurl}`,o="&"),n&&(n+=o+r.join("&")),n}readPixelDensity(){const e={};for(const t of this.viewports)e[t]=this.api.v1.view.getPixelDensityFactor(t);return e}}const f={unique:(e=8)=>{const t=`0x${Math.pow(10,e-1)}`;return Math.floor((1+Math.random())*t).toString(16)},async digestString(e){const t=(new TextEncoder).encode(e),r=await crypto.subtle.digest("SHA-256",t);return Array.from(new Uint8Array(r)).map(e=>e.toString(16).padStart(2,"0")).join("")},trim(e,t){let r=(e||"").trim(),i=[];void 0===t?i.push(" "):"string"==typeof t?i.push(t):i=t;for(let e=0;e<i.length;e++)0===r.indexOf(i[e])&&(r=r.slice(i[e].length)),r.lastIndexOf(i[e])>-1&&r.lastIndexOf(i[e])===r.length-i[e].length&&(r=r.slice(0,r.length-i[e].length));return r.trim()},stripTags:(e="",t="")=>(e||"").replace(/<(?:.|\n)*?>/gm,t).trim(),stripLinks:(e="")=>(e||"").replace(/<a[^>]*>(.*?)<\/a>/gm,"$1"),sanitizeString:(e="")=>f.stripTags(f.unescapeEntities(e)).replace(/"/g,"'"),escapeForJavaScript:(e="")=>e?e.replace(/'/g,"\\'").replace(/"/g,'\\"').replace(/\n/g,"\\n").replace(/\u2028/g,"\\u2028").replace(/\u2029/g,"\\u2029"):"",unescapeEntities:(e="")=>(e||"").replace(/&nbsp;/gi," ").replace(/&amp;/gi,"&"),toFileName:(e="")=>e.replace(/\s+/gi,"-").replace(/[^a-zA-Z0-9\-._]/gi,""),ucFirst(e=""){const t=e||"";return t.charAt(0).toUpperCase()+t.slice(1)},parsePath(e=""){const t=this.trim(e,"/").split("/"),r=/\[([0-9]+)\]/;return t.map(e=>{const t={base:e,index:null,path:e},i=r.exec(e);return i&&(t.index=parseInt(i[1],10),t.base=e.replace(`[${t.index}]`,"")),t})},insertAtPosition:(e,t,r)=>[e.slice(0,t),r,e.slice(t)].join(""),labCtrlKey:()=>navigator.platform.toLowerCase().indexOf("mac")>=0?"⌘":"⊞",shiftKey:()=>"⇧",altKey:()=>navigator.platform.toLowerCase().indexOf("mac")>=0?"⌥":"alt",arrowUp:()=>"↑",arrowDown:()=>"↓",arrowLeft:()=>"←",arrowRight:()=>"→",keyMapper(e){if(!e)return"";switch(e){case" ":return"space";case"labCtrlKey":case"metaKey":return f.labCtrlKey();case"shiftKey":return f.shiftKey();case"altKey":return f.altKey();case"ArrowUp":return f.arrowUp();case"ArrowDown":return f.arrowDown();case"ArrowLeft":return f.arrowLeft();case"ArrowRight":return f.arrowRight();default:return f.ucFirst(e.replace("Key",""))}},hotkeyString(e={}){const t=(e.controlkeys||[]).map(e=>f.keyMapper(e));return[...t,f.keyMapper(e.key)].map(e=>`<span class="lab-label-hotkey">${e}</span>`).join("+")},niceNumber(e,t=" "){let r=`${e}`;const i=r.split(".");r=i.shift();let s="";for(;r.length>3;)s=`${t}${r.slice(-3)}${s}`,r=r.slice(0,-3);return(r+s).trim()+(i.length?".":"")+i.join(".")},fallbackString:(e="")=>{const t=e.split("|||");for(const e of t){const t=e.trim();if(t.length>0)return t}return""}};class y{static getLineData(e,t,r=!1){const i={};i.bodytext=this.getBodytext(e,t,r),i.tags=t.getProperty("bodytextElements")||["p"],i.headingTags=t.getProperty("bodytextHeadingElements")||["h1","h2","h3"],i.indexRegister=[];let s=0,n=0;y.analyze(i.bodytext).forEach(e=>{if(i.tags.indexOf(e.tag)>-1){const t={charIndex:e.index,bodytextIndex:s++};i.headingTags.indexOf(e.tag)>-1&&(t.bodytextHeadingIndex=n++),i.indexRegister.push(t)}}),i.indexRegister.reverse();for(const e of i.indexRegister)if("number"==typeof e.bodytextHeadingIndex){e.lastHeading=!0;break}return i}static getBodytext(e,t,r=!1){const i=e.get("fields.bodytext")||"";return!r||i?i:t.data.placeholder.bodytext||""}static analyze(e=""){const t=[],r=new RegExp("<([\\/a-zA-Z0-9\\-]*?)(?: .*?)?>","g"),i={tag:null,index:0,level:0};return e.replace(r,(e,r,s)=>{const n=r.indexOf("/"),o=n>-1?r.replace("/",""):r;i.tag?o===i.tag&&(n<0?i.level++:i.level>0?i.level--:(t.push({tag:i.tag,index:i.index,length:s+e.length-i.index}),i.tag=null)):(i.tag=o,i.index=s)}),t}}class m{constructor(e,t){this.api=e,this.viewport=t.viewport,this.allViewports=this.api.v1.viewport.getAll(),this.mainViewport=this.api.v1.viewport.getMain(),this.logger=t.logger,this.viewManager=t.viewManager,this.lineClassSelector="lab-bodytext-line",this.logger.debug(`Bodytext-helper created. Will prepare data for viewports: ${this.allViewports.join(", ")}.`)}run(e,t){this.insertContent(e,t)}insertContent(e,t){const r={bodyText:[],bodyTextHeading:[],lastBodyTextHeading:[]};let i=0;const s=y.getLineData(e,t,this.api.v1.app.mode.isEditor());for(const t of e.children){const e=this.viewManager.getView(t),i=e.get("metadata.bodyTextIndex"),n="number"==typeof i?i:null,o=e.get("metadata.bodyTextHeadingIndex");if(e.get("metadata.lastBodyTextHeading")||!1)r.lastBodyTextHeading.push(t);else if("number"==typeof o)r.bodyTextHeading[o]=r.bodyTextHeading[o]||[],r.bodyTextHeading[o].push(t);else if("number"==typeof n)r.bodyText[n]=r.bodyText[n]||[],r.bodyText[n].push(t);else{const e=s.indexRegister[0]?s.indexRegister[0].bodytextIndex+1:0;r.bodyText[e]=r.bodyText[e]||[],r.bodyText[e].push(t)}}let{bodytext:n}=s;for(const e of s.indexRegister){if(void 0!==r.bodyText[e.bodytextIndex]){const t=this.createMarkup(r.bodyText[e.bodytextIndex],e.charIndex,n);n=t.bodytext,i+=t.count}if(void 0!==e.bodytextHeadingIndex&&void 0!==r.bodyTextHeading[e.bodytextHeadingIndex]){const t=this.createMarkup(r.bodyTextHeading[e.bodytextHeadingIndex],e.charIndex,n);n=t.bodytext,i+=t.count}if(e.lastHeading&&r.lastBodyTextHeading.length){const t=this.createMarkup(r.lastBodyTextHeading,e.charIndex,n);n=t.bodytext,i+=t.count}}for(const e of Object.keys(r.bodyText)){const t=r.bodyText[e];if(t&&t.length)for(const e of t){const t=this.viewManager.getView(e);!0!==t.get("metadata.skipIfOutOfBounds")&&(n+=t.getMarkupString(),i++)}}for(const e of r.lastBodyTextHeading){const t=this.viewManager.getView(e);!0!==t.get("metadata.skipIfOutOfBounds")&&(n+=t.getMarkupString(),i++)}Sys.logger.debug(`Bodytext: Parsed bodytext. Inserted ${i} of ${e.children.length} structures. Tags: [${s.tags.join(", ")}]. Line-count: ${s.indexRegister.length}.`),e.setFiltered("lineData",s),e.setFiltered("bodytext",n)}createMarkup(e,t,r){let i=0,s="";for(;e.length;){const t=e.shift();s+=this.viewManager.getView(t).getMarkupString(),i++}return{count:i,bodytext:f.insertAtPosition(r,t,s)}}getIndexes(e,t){const{indexRegister:r}=y.getLineData(e,t,this.api.v1.app.mode.isEditor());return r.map(e=>e.bodytextIndex)}isBodytextLine(e,t){return e===t||(!!this.api.v1.util.dom.getParentByClass(e,t,this.lineClassSelector)||e.classList.contains(this.lineClassSelector))}getLineClassSelector(){return this.lineClassSelector}}class b{constructor(e,t){this.api=e,this.viewport=t.viewport,this.logger=t.logger,this.viewManager=t.viewManager,this.settings=t.settings,this.isEditor=t.isEditor,this.apiUrl=this.api.v1.properties.get("front_api_url")}prepare(e,t){if(this.isEditor&&e.isPseudo())return;const r=t.getProperty("external");r&&r.fetchInPrepare&&r.url?this.fetchExternalData(e,t,r):r&&r.url||this.logger.warning(`[External] Missing required config "external" or "external.url" for model ${e.getPositionedPath()}. No external content will be fetched.`)}run(e,t){if(this.isEditor&&e.isPseudo())return;const r=t.getProperty("external");r&&!r.fetchInPrepare&&r.url?this.fetchExternalData(e,t,r):r&&r.url||this.logger.warning(`[External] Missing required config "external" or "external.url" for model ${e.getPositionedPath()}. No external content will be fetched.`)}fetchExternalData(e,t,r){if(this.settings.fragmentMode){let t;const i=e.isNonPersistent();if(i){const r=this.api.v1.model.query.getRootModel(),i=e.getPositionedPath();r.get("fields.labExternalPath")===i&&(t=r.get("fields.labExternalData"),t&&(e.set("fields.isFragment","1",{notify:!1,registerModified:!1,save:!1,undoable:!1}),e.set("metadata.isFragment","1",{notify:!1,registerModified:!1,save:!1,undoable:!1})))}else t=e.get("fields.labExternalData");if(t){this.logger.debug(`[External] Data is available for ${i?"non-persistent":"persistent"} element ${e.getPositionedPath()}.`);let s=t;if(t&&this.isExternalData(r))try{s=JSON.parse(t)}catch(t){this.logger.warn(`[External] Cannot parse fetched external data for model ${e.getPositionedPath()}.`),s={}}return void e.set("external",s,{save:!1,undoable:!1})}}const i=this.getUrl(e,t,r,this.isEditor);if(i){if(this.isEditor){const s=e.get("state.requireExternal")||{},n=!0===s[t.getViewport()];return this.viewManager.getExternalContent(e,t,i,r,n),void(n&&(s[t.getViewport()]=!1,e.set("state.requireExternal",s,{save:!1,undoable:!1,notify:!1})))}t.setTemplate(`<div data-lab-placeholder="include" src="${i}" ></div>`)}}isExternalData(e){return"json"===e.type}getUrl(e,t,r,i){const s=this.viewManager.getDataForView(e,t),n=Mustache.render(r.url,s);if(!n)return this.logger.debug(`[External] Resolved empty url for model ${e.getPositionedPath()}`),null;lab_api.v1.app.dbg.extensiveLogging&&this.logger.debug(`[External] Resolved url for model ${e.getPositionedPath()}: "${n}"`);const o=encodeURIComponent(n),a=[`lab_viewport=${this.viewport}`];if(r.headers){const e={};for(const t of Object.keys(r.headers))e[t]=Mustache.render(r.headers[t],s);a.push(`headers=${encodeURIComponent(JSON.stringify(e))}`)}return this.buildUrl(e,o,i,a)}buildUrl(e,t,r,i){const s=i.length?i.join("&"):null;return r?`${this.api.v1.properties.get("proxy")}?query=${t}${s?`&${s}`:""}`:e.isNonPersistent()?`${this.apiUrl}/external/dynamic-data/${this.settings.contentId}/?path=${encodeURIComponent(e.getPositionedPath())}&url=${t}${s?`&${s}`:""}`:`${this.apiUrl}/external/node/${e.getId()}/${this.settings.contentId}/${t}${s?`?${s}`:""}`}}class v{constructor(e){this.description=e,this.startTime=this.getTime(),this.steps=[]}getTime(){return(new Date).getTime()}start(e="[default]"){return{time:this.getTime(),description:e,duration:0}}stop(e){return e.duration=this.getTime()-e.time,this.steps.push(e),e.duration}step(e="[default]"){const t={time:this.getTime(),description:e};return t.duration=this.steps.length>0?t.time-this.steps[this.steps.length-1].time:t.time-this.startTime,this.steps.push(t),t.duration}getMin(){let e=null,t=null;for(const r of this.steps)(null===e||r.duration<e)&&(e=r.duration,t=r);return{time:e,step:t}}getMax(){let e=0,t=null;for(const r of this.steps)(null===t||r.duration>e)&&(e=r.duration,t=r);return{time:e,step:t}}getSteps(){let e=0,t=0,r=null,i=null,s=null;for(const n of this.steps)e+=n.duration,(null===i||n.duration>t)&&(t=n.duration,i=n),(null===r||n.duration<r)&&(r=n.duration,s=n);return{description:this.description,totalTime:e,minTime:r,maxTime:t,meanTime:Math.round(e/this.steps.length),minTimeStep:s,maxTimeStep:i,steps:this.steps}}}const w={percentToGrid:(e,t=12)=>Math.round(e/100*t),gridToPercent:(e,t=12)=>w.floatPrecision(e/t*100),floatPrecision:e=>parseFloat(parseFloat(e).toFixed(2)),distributePercent:(e,t,r=12)=>w.distributeGrid(w.percentToGrid(e,r),t).map(e=>w.gridToPercent(e,r)),distributeGrid:(e,t)=>{let r=t;r>e&&(r=e,Sys.logger.warn(`grid.distributeGrid: Requested count ${t} is larger than gridSize ${e}. Will use count ${r}.`));const i=e/r;if(Number.isInteger(i))return Array(r).fill(i);let s=0,n=!0,o=[];for(let e=0;e<r;e++){const e=n?Math.ceil(i):Math.floor(i);o.push(e),s+=e,n=!n}let a=s-e;if(s!==e){const e=[];for(;a>0&&o.length;){let t=o.shift();t>1&&(t--,a-=1),e.push(t)}o=o.concat(e)}return o.length!==r&&Sys.logger.warn(`Utility-method grid.distributeGrid will return a faulty array. Excpected a count of ${r}, got ${o.length} ...`),o}},P={getData:(e,t,r,i,s,n)=>{const o=w.percentToGrid(e||100,i.span),a={};for(const e of Object.keys(t))t[e]&&(a[e]=w.percentToGrid(t[e],i.span));const l={width:o,css:"",vp:{},cssVp:{}},d=P.getMatchingRule(s,r,i.span);l.vp=P.applyRule(o,a,s.length,d.values,i,n);for(const e of Object.keys(i.prefix))l.cssVp[e]=i.prefix[e]+l.vp[e];return l.css=Object.values(l.cssVp).join(" "),l},applyRule:(e,t,r,i,s,n)=>{const o={};for(const a of Object.keys(s.prefix)){let s=null;t[a]?s=t[a]:i[a]&&(s=P.getMatchingRuleValue(i[a],n,r,e)),o[a]=s?parseInt(s,10):e}return o},getMatchingRuleValue:(e,t,r,i)=>{for(const s of Object.keys(e)){if("first-child"===s&&0===t)return e[s];if("last-child"===s&&t===r-1)return e[s];if("inherit"===s&&e[s])return i;if(P.getNthChild(s)===t+1)return e[s]}return e.default?e.default:null},getNthChild:e=>"nth-child("===e.substring(0,10)?parseInt(e.substring(0,e.length-1).substring(10),10):null,getMatchingRule:(e,t,r)=>{const i=e.length;for(let s=t.length-1;s>=0;s--){if("odd"===t[s].condition&&!P.isEven(i))return t[s];if("even"===t[s].condition&&P.isEven(i))return t[s];if("number"==typeof t[s].condition&&t[s].condition===i)return t[s];if(Array.isArray(t[s].condition)&&t[s].condition.length===i){const n=[];for(let t=0;t<i;t++)n.push(w.percentToGrid(e[t],r));if(P.hasArrayMatch(t[s].condition,n))return t[s]}}return{values:{}}},isEven:e=>!(e%2),hasArrayMatch:(e,t)=>{if(e.length!==t.length)return!1;for(let r=0;r<e.length;r++)if("*"!==e[r]&&e[r]!==t[r])return!1;return!0}};class x{constructor(e={}){this.viewportInfo=e,this.cache=new Map,this.buildtin={width:{viewport:{default:!0},fallback:{default:this.viewportInfo.main}},external:{viewport:{default:!0},fallback:{default:this.viewportInfo.main},attributes:{"*":{viewport:{default:!0},fallback:{default:this.viewportInfo.main}}}}}}resetCache(){this.cache.clear()}get(e,t,r,i=null,s){const n=this.getCacheKey(t,r,i,s);if(!this.cache.has(n)){let t=e.getProperty(`viewportMap.${r}`);!t&&this.buildtin[r]&&(t=this.buildtin[r]),"string"==typeof t&&(t=e.getProperty(`viewportMap.${t}`)),t&&i&&"string"==typeof t.attributes&&(t.attributes=e.getProperty(`viewportMap.${t.attributes}`)),this.cache.set(n,this.defineOrder(s,i,t))}return this.cache.get(n)}defineOrder(e,t,r){if(!r)return[];if(t&&(!r.attributes||!r.attributes[t]&&!r.attributes["*"]))return[];const i={viewport:{},fallback:{},...t?r.attributes[t]||r.attributes["*"]:r},s=this.parseMap(e,i);return s.length&&!1!==i.fallback.no_viewport&&s.push(null),s}parseMap(e,t,r=[]){if(!t)return r;if(!1===t.viewport[e])return r;if((!0===t.viewport[e]||t.viewport.default)&&(r.includes(e)||r.push(e)),t.fallback){if(t.fallback[e]&&t.fallback[e]!==e){const i=t.fallback[e];return t.fallback={...t.fallback},delete t.fallback[e],this.parseMap(i,t,r)}if(t.fallback.default&&t.fallback.default!==e){const e=t.fallback.default;return t.fallback={...t.fallback},delete t.fallback.default,this.parseMap(e,t,r)}}return r}getCacheKey(e,t,r,i){return[e,t,r,i].join("|")}}const M={functionMap:{},isValidFunction:e=>{if(void 0!==M.functionMap[e])return M.hasFunction(e);let t;try{t=eval.call(null,e)}catch(e){t=null}return M.functionMap[e]=t,M.hasFunction(e)},hasFunction:e=>typeof M.functionMap[e]==typeof Function,getFunction:e=>!!e&&(M.isValidFunction(e)?M.functionMap[e]:lab_api.v1.ns.get(e)||!1)};class C{constructor(){this.resolved={pathMatch:new Map}}static getPropertyTypeAndIndex(e,t=!1){const r=/(.+)\[(.*)\]/.exec(e);if(!r||r.length<3)return[t?e.split("|"):e,null,!1];let i=r[1];t&&(i=i.split("|"));const s=r[2]?parseInt(r[2].trim(),10):null;return[i,Number.isInteger(s)?s:null,""===r[2].trim()]}pathMatch(e,t){const r=`${e}||${t}`;if(this.resolved.pathMatch.has(r))return this.resolved.pathMatch.get(r);let i=null;return(this.exactMatch(t,e)||this.wildcardMatch(t,e))&&(i=e),this.resolved.pathMatch.set(r,i),i}exactMatch(e,t){return t.endsWith("//")?e.endsWith(t.slice(0,-1)):t.endsWith("/")?e.endsWith(t):e.endsWith(`${t}/`)}wildcardMatch(e,t){const r=f.trim(t,[" ","/"]).split("/").reverse(),i=f.trim(e,[" ","/"]).split("/").reverse();return this.arrayMatch(i,r)}arrayMatch(e,t,r){const i=e.shift(),s=t.shift();return i===s||"*"===s?!t.length||this.arrayMatch(e,t):""===s?(e.unshift(i),this.arrayMatch(e,t,!0)):!(!r||!e.length)&&(t.unshift(s),this.arrayMatch(e,t,!0))}static getViewForMenuItem(e){return C.getTarget(e.getModel(),e.getView(),{pathHelper:e.getConfig("pathHelper")}).view}static getTarget(e,t,r={}){const i={model:e,view:t};if(r.pathHelper&&r.pathHelper.type){const e=Array.isArray(r.pathHelper.type)?r.pathHelper.type:[r.pathHelper.type];for(const r of e){const e=this.getTargetForPath(i.model,r);if(e)return i.model=e,i.view=lab_api.v1.view.getView(i.model,t.getViewport()),i}return Sys.logger.warn(`[PathHelper] Cannot get target for source. Check config. Tried "${r.pathHelper.type}". Will return original result.`),i}if(r.source&&"model"!==r.source){const e=M.getFunction(r.source);if(!e)return Sys.logger.warn(`[PathHelper] Cannot get function for source. Check config. Tried "${r.source}". Will return original result.`),i;if(i.model=e(),!i.model)return Sys.logger.warn(`[PathHelper] Cannot get bound source from supplied function. Check config. Tried "${r.source}". Will return original result.`),i;i.view=i.model}return i}static getTargetForPath(e,t){const r=t.split(".");if(!["parent","child","root"].includes(r[0]))return Sys.logger.warn(`[PathHelper] Supplied path not valid. Check config. Tried "${t}". Will return original result.`),null;let i;if("parent"===r[0])i=e.getParent();else if("root"===r[0])i=lab_api.v1.model.query.getRootModel();else{const t=r[1],[s,n]=C.getPropertyTypeAndIndex(t);if(null===n)i=lab_api.v1.model.query.getChildOfType(e,s);else{i=lab_api.v1.model.query.getModelsByType(s,e.children)[n]||null}}return i}}class S{constructor(e){this.getView=e.getView,this.getMarkupForModels=e.getMarkupForModels,this.getMarkupString=e.getMarkupString,this.configReader=e.configReader,this.localisation=e.localisation,this.proxies={config:null,cmsConfig:null,root:null,selector:null,preload:null,localisation:null,viewports:null},this.parsedProps=new Map,this.isEditor=this.configReader.getCms("app.isEditMode"),this.viewports=Object.keys(this.configReader.get("viewports")||{})}parseProp(e){return this.parsedProps.has(e)||this.parsedProps.set(e,this.doParseProp(e)),this.parsedProps.get(e)}doParseProp(e){const t={prop:e,attr:void 0};if(!e.endsWith("]"))return t;const r=/(.+)\[(.*)\]/.exec(e);return!r||r.length<3?t:{prop:r[1],attr:r[2]}}getProxy(e,t=this.getView(e)){return t.getProxy()||t.setProxy(this.createProxy(e,t)),t.getProxy()}createProxy(e,t){const r=(e,r)=>{const i=this.parseProp(r);return i.attr?t.get(`${e}.${i.prop}.${i.attr}`):t.get(`${e}.${i.prop}`)},i=new Proxy({},{get:(e,t)=>r("fields",t),has:(e,t)=>!!r("fields",t)}),s=new Proxy({},{get:(e,r)=>t.get(`metadata.${r}`),has:(e,r)=>!!t.get(`metadata.${r}`)}),n=new Proxy({},{get:(e,r)=>t.get(`filtered.${r}`),has:(e,r)=>!!t.get(`filtered.${r}`)});return new Proxy({},{get:(e,r)=>"fields"===r?i:"metadata"===r?s:"filtered"===r?n:t.get(r),has:(e,r)=>!!t.get(r)})}getRootProxy(){return this.proxies.root||(lab_api.v1.model.query.getRootModel()?this.proxies.root=this.getProxy(lab_api.v1.model.query.getRootModel()):this.proxies.root={}),this.proxies.root}getParentProxy(e,t){return e.parent?this.isEditor?e.parent.isMarkedForDeletion()?null:(t.getParentProxy()||t.setParentProxy(new Proxy(this.getProxy(e.parent),{get:(t,r)=>(e.parent.addToRedrawDependencies(e),t[r]),has:(e,t)=>t in e})),t.getParentProxy()):this.getProxy(e.parent):null}getChildrenProxy(e,t){return t.getChildrenProxy()||t.setChildrenProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));const n="all"===i?e.children:lab_api.v1.model.query.getModelsByType(i,e.children,s);return this.getProxiesForModels(n,!0)},has:(e,t)=>!0})),t.getChildrenProxy()}getChildProxy(e,t){return t.getChildProxy()||t.setChildProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));const[n,o]=C.getPropertyTypeAndIndex(i,!0);if(null===o){const t=lab_api.v1.model.query.getChildOfType(e,n,s);return t?this.getProxiesForModels([t],!1):null}const a=lab_api.v1.model.query.getModelsByType(n,e.children,s);return a[o]?this.getProxiesForModels([a[o]],!1):null},has:(e,t)=>!0})),t.getChildProxy()}getStoreProxy(e,t,r=!1){if(!t.getStoreProxy(r)){const e={};t.setStoreProxy({get:new Proxy(e,{has:()=>!0,get:(e,t)=>t in e?e[t]:""}),set:new Proxy(e,{has:()=>!0,get:(e,t)=>()=>(r,i)=>(e[t]=i(r),"")})})}return t.getStoreProxy(r)}getPreloadProxy(e){return this.proxies.preload||(this.proxies.preload=this.createPreloadProxy(e)),this.proxies.preload}createPreloadProxy(e){return new Proxy({},{get:(t,r)=>e.getObject(r),has:(e,t)=>!0})}getChildrenMarkupProxy(e,t){return t.getChildrenMarkupProxy()||t.setChildrenMarkupProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));const[n,o,a]=C.getPropertyTypeAndIndex(i,!0),l="all"===n[0]?e.children:lab_api.v1.model.query.getModelsByType(n,e.children,s);return null===o?this.getMarkupForModels(l,a):this.getMarkupForModels(l[o]?[l[o]]:[],!1)},has:(e,t)=>!0})),t.getChildrenMarkupProxy()}getChildMarkupProxy(e,t){return t.getChildMarkupProxy()||t.setChildMarkupProxy(new Proxy({},{get:(t,r)=>{let i=r,s=!1;i.endsWith("+")&&(s=!0,i=i.substring(0,i.length-1));const[n,o]=C.getPropertyTypeAndIndex(i,!0),a=lab_api.v1.model.query.getModelsByType(n,e.children,s);return a.length?null===o||0===o?this.getMarkupForModels([a[0]],!1):this.getMarkupForModels(a[o]?[a[o]]:[],!1):""},has:(e,t)=>!0})),t.getChildMarkupProxy()}getSelectorProxy(){if(!this.proxies.selector){const e={get:(e,t)=>{const r=lab_api.v1.model.query.getModelBySelector(t);return r?this.getMarkupString(r,this.getView(r)):""},has:(e,t)=>!0};this.proxies.selector=new Proxy({},e)}return this.proxies.selector}getConfigProxy(){if(!this.proxies.config){const e={get:(e,t)=>this.configReader.get(t),has:(e,t)=>!0};this.proxies.config=new Proxy({},e)}return this.proxies.config}getCmsConfigProxy(){if(!this.proxies.cmsConfig){const e={get:(e,t)=>this.configReader.getCms(t),has:(e,t)=>!0};this.proxies.cmsConfig=new Proxy({},e)}return this.proxies.cmsConfig}getLocalisationProxy(){return this.proxies.localisation||(this.proxies.localisation=()=>(e,t)=>this.localisation.get(e,{fallbackValue:""})),this.proxies.localisation}getViewportProxy(e){return this.proxies.viewports||(this.proxies.viewports={},this.viewports.forEach(t=>{this.proxies.viewports[`is${t.charAt(0).toUpperCase()+t.slice(1)}`]=t===e})),this.proxies.viewports}getProxiesForModels(e,t=!0){const r=e.map(e=>this.getProxy(e));return t?r:r[0]}}class T extends d{constructor(e){super({behaviours:e.behaviours,entries:e.entries,debug:e.settings.debug}),this.logger=e.logger,this.state={isEditor:!1},this.settings=e.settings,this.logger.debug(`Creating instance of ViewManager for viewport ${e.viewport}.`),this.resourceManager=e.resourceManager,this.configReader=e.configReader,this.configProcessor=e.configProcessor,this.viewMap=new Map,this.gridSettings=this.getGridSettings(),this.viewport={name:e.viewport,main:this.configProcessor.getMainViewport(),isMain:this.configProcessor.isMainViewport(),width:this.configProcessor.getViewportWidth()},this.styleManager=e.styleManager,this.preloadHandler=e.preloadHandler,this.localisation=e.localisation,this.viewportsSettings=this.configReader.get("viewports")||{},this.ViewHelpers={};const t=new x(this.viewport);this.viewEventPipe={getViewportOrder:t.get.bind(t)},this.rootModel=null,this.proxyManager=new S({configReader:this.configReader,localisation:this.localisation,getView:this.getView.bind(this),getMarkupForModels:this.getMarkupForModels.bind(this),getMarkupString:this.getMarkupString.bind(this)}),this.renderers={renderViewTemplate:this.renderViewTemplate.bind(this),renderViewPartial:this.renderViewPartial.bind(this),renderPartial:this.renderPartial.bind(this),renderPageElement:this.renderPageElement.bind(this)},this.renderHelpers={trim:()=>(e,t)=>t(e).replace(/\t|\r\n|\n|\r/gm," ").replace(/ +/gm," ").trim(),sanitizeString:()=>(e,t)=>f.sanitizeString(t(e)),stripTags:()=>(e,t)=>f.stripTags(t(e)),stripLinks:()=>(e,t)=>f.stripLinks(t(e)),encodeURIComponent:()=>(e,t)=>encodeURIComponent(t(e)),escapeForJavaScript:()=>(e,t)=>f.escapeForJavaScript(t(e)),cachebuster:()=>e=>{const t=e.split(","),r="cms"===t[0]?"cms":"view",i=this.configReader.getCms(`deployTimestamps.${r}`);if(!i)return"";return`${(t[1]||"?")+(t[2]||"v")}=${i}-L4`},toFixed:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r).toFixed(i)},fallbackString:()=>(e,t)=>f.fallbackString(t(e))}}apiReady(e){this.ViewHelpers={image:new u(e,this.getViewHelperParams()),bodytext:new m(e,this.getViewHelperParams()),external:this.getExternalViewHelper(e)}}getGridSettings(){const e=this.configProcessor.getViewport(),t={prefix:this.configReader.get("grid.grid_prefix"),absPrefix:this.configReader.get("grid.abs_grid_prefix"),span:this.configReader.get("grid.total_grid_spans")};return t.prefix[e]||(t.prefix[e]=""),t}getViewHelperParams(){return{viewport:this.viewport.name,logger:this.logger,viewManager:this,isEditor:this.state.isEditor,settings:this.settings}}getViewHelper(e){return e in this.ViewHelpers?this.ViewHelpers[e]:null}getExternalViewHelper(e){return new b(e,this.getViewHelperParams())}allowViewport(e){const t=e.get("metadata.viewportBlacklist");return!t||!Array.isArray(t)||!t.includes(this.viewport.name)}draw(e=[],t=null){this.emitEvent("render",this.viewport.name),this.logger.debug(`[ViewManager] Start rendering for viewport ${this.viewport.name}.`);const r=new v("ViewManager.draw");for(const t of e)this.drawModel(t);this.logger.debug(`[ViewManager] Rendering finished for viewport ${this.viewport.name}. Element-count: ${lab_api.v1.model.query.getModelsFromCache().length}. Duration ${r.step()} ms.`);let i=[];for(const t of e){const e=this.getView(t);i.push(e.getMarkupString())}const s=this.notifyFrontRendered(i);return s.length&&(this.logger.warn('[ViewManager] Listener for event "app-rendered" has modified markup returned from rendering engine.'),i=s.pop()),"function"==typeof t&&t(i),i}notifyFrontRendered(e){return this.requestEvent("rendered",e,this.viewport.name)}drawModel(e,t=!0){if(lab_api.v1.app.dbg.logger.add(this.constructor.name,"drawModel",this.viewport.name),!this.allowViewport(e))return void this.logger.debug(`[ViewManager] Element ${e.getPositionedPath()} is not allowed on viewport ${this.viewport.name}.`);const r=this.getView(e);if(this.prepareDrawing(e,r),t){const t=r.getProperty("childLimit");for(const r of e.children)this.allowChild(e,r,t)&&this.drawModel(r)}this.drawPrepared(e,r)}allowChild(e,t,r){return!(r&&e.children.indexOf(t)>=r)||(this.logger.warn(`[ViewManager] Child-limit (${r}) reached for "${e.getType()}". Child: "${t.getPositionedPath()}". Viewport "${this.viewport.name}".`),this.childLimitDetected(e,t,r))}childLimitDetected(e,t,r){const i=this.requestEvent("childLimitReached",e,t,this.viewport.name,r);return!!i.length&&!!i.pop()}prepareDrawing(e,t){const r=this.performanceLogger.start(["prepare",e.getType()]);this.prepareView(e,t),t.getGrid()||(this.getAndSetGridData(e,t),this.gridIsDefined(e,t)),this.proxyManager.getProxy(e,t),this.notifyOnPrepareViewHelper(e,t),this.prepareViewHelper(e,t),this.notifyOnReady(e,t),this.performanceLogger.end(r)}gridIsDefined(e,t){}drawPrepared(e,t){let r=this.performanceLogger.start(["assembleData",e.getType()]);const i=this.getDataForView(e,t);this.performanceLogger.end(r),this.runViewHelper(e,t),this.notifyBeforeElementDraw(e,t),r=this.performanceLogger.start(["template",e.getType()]),this.renderTemplate(e,t,i),this.performanceLogger.end(r),this.markupStringReady(e,t)}markupStringReady(e,t){this.notifyOnRendered(e,t)}notifyOnPrepareViewHelper(e,t){e.isPseudo()||this.emitBehaviour("onPrepareViewHelper",e,t)}notifyOnReady(e,t){e.isPseudo()||this.emitBehaviour("onReady",e,t)}notifyOnViewHelper(e,t){e.isPseudo()||this.emitBehaviour("onViewHelper",e,t)}notifyBeforeElementDraw(e,t){e.isPseudo()||(this.emitBehaviour("onRender",e,t),this.emitEntry("onRender",e,t))}notifyOnRendered(e,t){this.emitBehaviour("onRendered",e,t),this.emitEntry("onRendered",e,t)}getDataForView(e,t){return t.getData()||this.getAndSetViewData(e,t)}createView(e){const t=e.getGuid();return this.viewMap.get(t)||this.viewMap.set(t,this.newViewInstance(e)),this.viewMap.get(t)}newViewInstance(e){return new c(this.viewport.name,e,this.viewEventPipe)}getView(e){return this.viewMap.get(e.getGuid())||this.createView(e)}getViews(){return this.viewMap.values()}prepareView(e,t){t.isPrepared()||(lab_api.v1.app.dbg.logger.add(this.constructor.name,"prepareView",this.viewport.name),this.setTemplate(e,t),this.setProperties(e,t),this.viewIsResolved(e,t))}setTemplate(e,t){t.setTemplate(this.resourceManager.getTemplateForModel(e,t))}setProperties(e,t){t.setProperties(this.resourceManager.getPropertiesForModel(e,t),!0)}viewIsResolved(e,t){t.setPreparedState(!0)}prepareViewHelper(e,t){if(e.isPseudo())return;const r=t.getProperty("viewHelper");if(!r)return;const i=this.getViewHelper(r);if(i){if(i.prepare){const r=this.performanceLogger.start(["viewhelper-prepare",e.getType()]);i.prepare(e,t),this.performanceLogger.end(r)}}else this.logger.warning(`[ViewManager] Cannot find view-helper ${r} for model ${e.getPositionedPath()}.`)}runViewHelper(e,t){if(e.isPseudo())return;const r=t.getProperty("viewHelper");if(!r)return;const i=this.getViewHelper(r);if(i){this.notifyOnViewHelper(e,t);const r=this.performanceLogger.start(["viewhelper-run",e.getType()]);i.run(e,t),this.performanceLogger.end(r)}else this.logger.warning(`[ViewManager] Cannot find view-helper ${r} for model ${e.getPositionedPath()}.`)}renderTemplate(e,t,r){lab_api.v1.app.dbg.extensiveLogging&&this.logger.debug(`[ViewManager] Start renderTemplate for model ${e.getPositionedPath()}`),e.getNoRenderState()?this.logger.debug(`[ViewManager] Model-state disallows rendering model "${e.getPositionedPath()}".`):this.renderTemplateAndData(e,t,r)}getAndSetViewData(e,t){const r=this.getViewData(e,t);return t.setData(r),r}getGridData(e){const t=e.getGrid()||{};return{width:t.width,absWidth:e.getAbsoluteGridWidth(),css:t.css,absCss:e.getAbsGridCss(),vp:t.vp,absVp:e.getAbsoluteGridWidths(),cssVp:t.cssVp,percentage:w.gridToPercent(t.width)}}getViewData(e,t){const r=lab_api.v1.model.query.getRootModel()||e.getRootParent(),i=lab_api.v1.view.getView(r,t.getViewport());return{get:{current:this.proxyManager.getProxy(e,t),parent:this.proxyManager.getParentProxy(e,t),root:this.proxyManager.getRootProxy(),child:this.proxyManager.getChildProxy(e,t),children:this.proxyManager.getChildrenProxy(e,t),store:this.proxyManager.getStoreProxy(e,t)},set:{store:this.proxyManager.getStoreProxy(e,t,!0)},getPreload:this.proxyManager.getPreloadProxy(this.preloadHandler),child:this.proxyManager.getChildMarkupProxy(e,t),childByIndex:()=>(t,r)=>{const[i,s]=r(t).trim().split(" "),n=parseInt(i,10)||0,o=s?lab_api.v1.model.query.getChildrenOfType(e,s):e.getChildren();return o[n]?this.getMarkupString(o[n],this.getView(o[n])):null},children:this.proxyManager.getChildrenMarkupProxy(e,t),selector:this.proxyManager.getSelectorProxy(e,t),size:{grid:this.getGridData(t),pixelWidth:t.getPixelWidth(),pixelWidths:t.getPixelWidths()},style:{definition:()=>(r,i)=>this.styleManager.getStyleFromDefinition(e,t,i(r)),collection:()=>(r,i)=>this.styleManager.getStyle(e,t,i(r))},app:{viewport:{name:this.viewport.name,width:this.viewport.width,main:this.viewport.main,isMain:this.viewport.isMain,...this.proxyManager.getViewportProxy(this.viewport.name)},isEditor:this.state.isEditor,isFront:!this.state.isEditor},render:{template:this.renderers.renderViewTemplate,partial:this.renderers.renderViewPartial,sitePartial:this.renderers.renderPartial,pageElement:this.renderers.renderPageElement},helper:{trim:this.renderHelpers.trim,sanitizeString:this.renderHelpers.sanitizeString,stripTags:this.renderHelpers.stripTags,stripLinks:this.renderHelpers.stripLinks,encodeURIComponent:this.renderHelpers.encodeURIComponent,escapeForJavaScript:this.renderHelpers.escapeForJavaScript,cachebuster:this.renderHelpers.cachebuster,toFixed:this.renderHelpers.toFixed,fallbackString:this.renderHelpers.fallbackString},calculator:{add:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)+parseFloat(i)},subtract:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)-parseFloat(i)},divide:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)/parseFloat(i)},multiply:()=>(e,t)=>{const[r,i]=t(e).trim().split(" ");return parseFloat(r)*parseFloat(i)}},if:()=>(e,t)=>{const r={"=":(e,t)=>e==t,"!=":(e,t)=>e!=t,"<":(e,t)=>e<t,">":(e,t)=>e>t,"[]":(e,t)=>e.includes(t)};let i=0,s=null,n=[];for(;n.length<2&&i<Object.keys(r).length;)s=Object.keys(r)[i++],n=e.split(s);if(n.length>1){const[e,i]=n.map(e=>t(e).trim());if(r[s](e,i))return"1"}return""},getConfig:this.proxyManager.getConfigProxy(),getCmsConfig:this.proxyManager.getCmsConfigProxy(),image:{getFrontCropUrl:this.getFrontCropUrlHelper(r,i)},lang:this.proxyManager.getLocalisationProxy()}}getFrontCropUrlHelper(e,t){return()=>(t,r)=>{const i=e.get("frontCrop");if(i&&i.pano){const e=r(t).split(","),s=parseInt(e[0],10),n=parseInt(e[1],10),o=e[2]||void 0,a=this.getViewHelper("image").generateUrl(i.pano.fields,{instanceOf:i.pano.instance_of,imageUrlOptionsNameValue:i.pano.instance_of,imageId:i.pano.instance_of,width:s,height:n,format:o});if(a)return a}const s=(lab_api.v1.config.get("faviconList")||[]).pop();return s&&s.iconPath?s.iconPath.startsWith("http")?s.iconPath:lab_api.v1.properties.get("customer_front_url")+s.iconPath:""}}renderPageElement(){return(e,t)=>{const r=e.trim().split(" "),i=t(r.shift()),s=t(r.shift())||i,n=lab_api.v1.config.get(`pageElements.${i}`);if(!n)return this.renderViewPartial()(s,t);const o=this.getTemplate("widgets/structures/root");return o?t(this.renderPageElementRecursive(o,n)):(this.logger.warn('[ViewManager] Cannot find root-widget at "widgets/structures/root". Widget not rendered.'),"")}}getTemplate(e){return this.resourceManager.templates[e]}renderPageElementRecursive(e,t,r={value:1}){const{viewport:i,pageType:s,flag:n}=t.requirements||{};if((!i||i===this.viewport.name)&&(!s||s===this.configProcessor.getPageType())&&(!n||lab_api.v1.util.featureFlags.enabled(n,this.settings.contentId))){const i=r.value,s=t.settings||{},n=[];if(t.children)for(let e=0;e<t.children.length;e++){const i=t.children[e],s=this.getTemplate(`widgets/${i.type}`);if(s){r.value++;const e=this.renderPageElementRecursive(s,i,r);e&&n.push(e)}else this.logger.warn(`[ViewManager] Cannot find widget at "widgets/${i.type}". Widget not rendered.`)}const{tags:o}=Mustache;Mustache.tags=["[[","]]"];const a=Mustache.render(e,{children:n.join(""),settings:s,id:i});return Mustache.tags=o,a}return null}renderViewTemplate(){return(e,t)=>{const r=t(e.trim());return r&&this.getTemplate(r)?t(this.getTemplate(r)):(this.logger.debug(`Render template: Path is not valid: '${r}'`),"")}}renderViewPartial(){return(e,t)=>this.renderPartialWithFallback(e.trim(),t)}renderPartial(){return(e,t)=>this.renderPartialWithOutFallback(e.trim(),t)}renderPartialWithOutFallback(e,t){return this.renderViewTemplate()(`partial/${e}`,t)}renderPartialWithFallback(e,t,r=null,i=[]){const s=r||lab_api.v1.site.getSite().alias,n=this.renderViewTemplate(),o=n(`partial/site/${s}/${e}`,t);if(!o){i.push(s);const r=lab_api.v1.config.get("lab_fallback_site",s);return r&&!i.includes(r)?this.renderPartialWithFallback(e,t,r,i):n(`partial/${e}`,t)}return o}getPixelWidths(e,t){const r=t.getPixelWidths();if(r)return r;const i=t.getAbsoluteGridWidths(),s=i[this.viewport.main],n={};for(const e in this.viewportsSettings)if(this.viewportsSettings[e]){const t=i[e]?i[e]:s;n[e]=Math.ceil(t/this.gridSettings.span*this.viewportsSettings[e].deviceWidth)}return n}calculateGridData(e,t){const r=this.viewport.main,i=t.getWidth(),s=e.getViewportWidths();let n=[i],o=t.getProperty("gridRules")||[];if(Array.isArray(o)||(o=Object.values(o)),o.length){const t=e.parent?e.parent.getPersistentChildren():null;t&&(n=t.map(e=>e.getWidth(r)||e.getWidth()))}return P.getData(i,s,o,this.gridSettings,n,e.getModelIndex(!0))}calculateAbsoluteGridWidths(e,t){const r=t.getGrid().vp;r||this.logger.error("gridWidths do not exist. It should ...");let i={};if(e.parent){const t=this.getView(e.parent);i=this.getAbsoluteGridWidths(e.parent,t)||i}const s={};for(const e of Object.keys(r))s[e]=w.floatPrecision(r[e]/this.gridSettings.span*(i[e]||this.gridSettings.span));return s}getAbsoluteGridWidths(e,t){return t.getAbsoluteGridWidths()}getAbsoluteGridCss(e,t){if(!this.gridSettings.absPrefix)return"";const r=t.getAbsoluteGridWidths();return Object.keys(r).map(e=>this.gridSettings.absPrefix[e]?this.gridSettings.absPrefix[e]+r[e]:"").join(" ")}getAndSetGridData(e,t){const r=this.calculateGridData(e,t);t.setGrid(r),t.setGridWidth(r.vp[this.viewport.name]),t.setAbsoluteGridWidths(this.calculateAbsoluteGridWidths(e,t)),t.setAbsGridCss(this.getAbsoluteGridCss(e,t)),t.setPixelWidths(this.getPixelWidths(e,t))}renderTemplateAndData(e,t,r){t.setMarkupString(Mustache.render(t.getTemplate(),r,this.resourceManager.templates))}getMarkupForModels(e,t=!0){const r=e.map(e=>this.getMarkupString(e,this.getView(e)));return t?r:r.join("")}getMarkupString(e,t){return t.getMarkupString()}getPlaceholders(){return{}}getMarkup(e){return this.getView(e).getMarkup()}}const k={create(){if("undefined"!=typeof crypto&&crypto.randomUUID)return crypto.randomUUID();let e=(new Date).getTime();return"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,t=>{const r=(e+16*Math.random())%16|0;return e=Math.floor(e/16),("x"===t?r:7&r|8).toString(16)})}},$=new Map;class R{constructor(e,t={}){this.parent=null,this.children=[],this.path=e.path,this.data={type:e.type,metadata:e.metadata,contentdata:e.contentdata,width:R.validateInputWidth(e.width),guid:e.guid||k.create(),selector:e.selector},this.fallbackData=e.fallback,this.source={model:null,targets:[],keys:[]};const r=e.state||{};this.state={isNonPersistent:!!r.isNonPersistent,isPseudo:!!r.isPseudo,noRender:!1},this.cache={serialized:null,filtered:e.filtered||{},external:e.external||null,getter:new Map,path:null,positionedPath:{persistent:null,nonPersistent:null},childCount:{value:0}},this.eventPipe={keyModified:t.keyModified,childAdded:t.childAdded}}static validateInputWidth(e){const t=R.getEmptyDataObject();t.value="number"==typeof e?e:100;const r=s.object(e,t);return r.value||0!==Object.keys(r.vp).length||(r.value=100),r}static getEmptyDataObject(){return{value:null,vp:{}}}getNoRenderState(){return this.state.noRender}setNoRenderState(e){this.state.noRender=!!e;for(const t of this.children)t.setNoRenderState(e)}setDataProperty(e,t){this.data[e]=t}getId(){return this.data.contentdata&&this.data.contentdata.id||null}getGuid(){return this.data.guid}isNonPersistent(){return this.state.isNonPersistent||this.state.isPseudo}isPseudo(){return this.state.isPseudo}isDerived(){return!!this.source.model}hasNodeData(e=!1){if(this.data.contentdata)return!0;if(e)for(const t of this.children)if(t.hasNodeData(e))return!0;return!1}getSourceModel(){return this.source.model}setSourceModel(e,t){this.source.model=e,this.source.keys=t}addSourceTarget(e){this.source.targets.includes(e)||this.source.targets.push(e)}getSourceTargets(){return this.source.targets}hasSourceKey(e){if(!this.source.model)return!1;if(!this.source.keys.length)return!0;const t=e.split(".");for(;t.length;){if(this.source.keys.includes(t.join(".")))return!0;t.pop()}return!1}hasKeyInTarget(e){for(const t of this.source.targets)if(t.hasSourceKey(e))return!0;return!1}isSourceKey(e){return this.source.keys.includes(e)}setParent(e){this.parent=e}getParent(){return this.parent}getRootParent(){return this.parent?this.parent.getRootParent():this}getChildren(){return this.children}getPersistentChildren(){return this.children.filter(e=>!e.isNonPersistent())}getNonpersistentChildren(){return this.children.filter(e=>e.isNonPersistent())}getPersistentSiblings(){return this.parent?this.parent.getPersistentChildren():null}addChild(e,t,r=!1){this.addChildAtIndex(e,r?0:this.children.length,t)}addChildAtIndex(e,t,r=!0,i=!1){return e.setParent(this),this.children.length<=t?this.children.push(e):this.children.splice(t,0,e),e.resetPath(),!i&&this.eventPipe.childAdded&&this.eventPipe.childAdded(this,e,t),this.children}getPath(e=!1){return null===this.cache.path&&(this.cache.path=this.parent?`${this.parent.getPath()}/`:this.path),this.cache.path+(e?"":this.getType())}getArrayPath(e=!1){return this.getPath(e).split("/").filter(e=>!!e)}getPositionedPath(e=!1){return e?this.getPersistentPositionedPath():this.getNonPersistentPositionedPath()}getPersistentPositionedPath(){if(null===this.cache.positionedPath.persistent){let e=this.getModelIndexByType(!0);-1===e&&(e=0),this.cache.positionedPath.persistent=`${(this.parent?`${this.parent.getPersistentPositionedPath()}/`:this.path)+this.getType()}[${e}]`}return this.cache.positionedPath.persistent}getNonPersistentPositionedPath(){if(null===this.cache.positionedPath.nonPersistent){let e=this.getModelIndexByType(!1);-1===e&&(e=0),this.cache.positionedPath.nonPersistent=`${(this.parent?`${this.parent.getNonPersistentPositionedPath()}/`:this.path)+this.getType()}[${e}]`}return this.cache.positionedPath.nonPersistent}resetPath(){this.cache.path=null,this.cache.positionedPath={persistent:null,nonPersistent:null};for(const e of this.children)e.resetPath()}isStage(){return this.getRootParent().getType().startsWith("page_")}getModelIndex(e=!1){if(!this.parent)return-1;return(e?this.parent.getPersistentChildren():this.parent.children).indexOf(this)}getModelIndexByType(e=!1){if(!this.parent)return-1;const t=this.getType();let r=-1;for(const i of e?this.parent.getPersistentChildren():this.parent.getChildren())if(i.getType()===t&&(r++,i===this))return r;return r}getType(){return this.data.type}getWidth(e){return e?this.data.width.vp[e]||null:this.data.width.value||100}getViewportWidths(){return this.getRaw("width.vp")||{}}setSelector(e){this.data.selector=e}getSelector(){return this.data.selector}getData(e,t){return e?i.get(e,this.data.contentdata,t):this.data.contentdata}getDataObjectForKey(e,t=!1){if(!t&&this.hasSourceKey(e)){const t=this.source.model.getDataObjectForKey(e);return t.sourceModel=this.source.model,t}const r=e.split(".")[0];return"fields"===r?{base:r,data:this.data.contentdata,fallback:this.fallbackData?this.fallbackData.contentdata:void 0}:"filtered"===r||"external"===r||"childCount"===r?{base:r,data:this.cache,fallback:void 0}:"metadata"===r||"width"===r||"type"===r||"guid"===r?{base:r,data:this.data,fallback:this.fallbackData?this.fallbackData:void 0}:"state"===r?{base:r,data:this,fallback:void 0}:{base:"",data:this.data.contentdata,fallback:void 0}}getRaw(e,t){return e?i.get(e,this.data,t):this.data}setRaw(e,t,r){const s=this.buildQuery(e);if(!s.isVpObj)return void Sys.logger.warn(`LabModel: Cannot set raw value for key "${e}". Not supported.`);const n={...r};delete n.viewport;const o=this.getRaw(e);if(!o&&!t)return;const a=Object.keys(t&&t.vp||{}),l=Object.keys(o&&o.vp||{});for(const r of l)a.includes(r)&&t||this.set(e,void 0,{...n,viewport:r});for(const r of a)this.set(e,t.vp[r],{...n,viewport:r});this.set(e,t?t.value||null:void 0,{...n,predefinedQuery:s}),t||i.delete(e,this.data)}validateVpModelData(e){return!!e&&("object"==typeof e&&(void 0!==e.value||void 0!==e.vp))}buildQuery(e,t){const r=t?`${e}|${t}`:e,i=$.get(r);if(i)return i;const s=e.split("."),n={min:"width"===s[0]||"external"===s[0]||"childCount"===s[0]?1:2,max:"fields"===s[0]||"filtered"===s[0]?2:1},o="metadata"===s[0]||"fields"===s[0]||"width"===s[0]||"external"===s[0]||"childCount"===s[0],a="external"===s[0],l={path:s.slice(0,n.max).join("."),allowSource:!["childCount","filtered","metadata","guid"].includes(s[0]),attribute:s.length>n.max?s[n.max]:null,key:s.slice(0,n.max+1).join("."),fullPath:e,raw:e,type:o?s[0]:null,isVpObj:o,isValidated:!(o&&!a)||s.length<=n.max+1&&s.length>=n.min};return a&&(l.attribute=s.slice(n.min).join("."),l.key=e),l.isVpObj&&(a?l.fullPath=t?`${s.slice(0,n.max).join(".")}.vp.${t}${l.attribute?`.${l.attribute}`:""}`:`${s.slice(0,n.max).join(".")}.value${l.attribute?`.${l.attribute}`:""}`:"fields"===l.type&&l.path.endsWith("_json")?(l.fullPath=`${l.path}.value${l.attribute?".":""}${s.slice(2).join(".")}`,l.isValidated=!0):(l.fullPath=l.attribute?`${l.path}.${"fields"===l.type?"attributes.":""}${l.attribute}`:l.path,l.fullPath+=t?`.vp.${t}`:".value")),$.set(r,l),l}get(e,t,r,s){lab_api.v1.app.dbg.logger.add(this.constructor.name,"get");const n=this.getCacheKey(e,t,r),o=r?void 0:null;if(this.cache.getter.has(n))return this.getCacheValue(n);const a=s||this.buildQuery(e,t);if(!a.isValidated)return Sys.logger.warn(`LabModel: Cannot get unvalid key: "${e}".`),this.cache.getter.set(n,o),o;const l=this.getDataObjectForKey(e,!a.allowSource);let d=i.get(a.fullPath,l.data,!0);return void 0===d&&l.fallback&&(d=i.get(a.fullPath,l.fallback,!0)),void 0===d?(this.cache.getter.set(n,o),o):(this.cache.getter.set(n,d),this.getCacheValue(n))}getCacheValue(e){const t=this.cache.getter.get(e);return t&&"object"==typeof t?Array.isArray(t)?[...t]:{...t}:t}getCacheKey(e,t="lab_main",r=!1){return`${e}-${r?1:0}-${t||"lab_main"}`}getAttributeObject(e){const t=this.buildQuery(e);if(!t.isVpObj)return null;const r=this.getDataObjectForKey(e,!0),s=i.get(t.path,r.data,!0);if(!s)return null;const n="fields"===t.type?s.attributes:s;return t.attribute&&!n[t.attribute]?null:t.attribute?{[t.attribute]:n[t.attribute]}:n}set(e,t,{viewport:r=null,notify:s=!0,checkDerived:n=!0,registerModified:o=!0,save:a=!0,predefinedQuery:l=null,undoable:d=!0,resetCache:h=!0}={}){if(lab_api.v1.app.dbg.logger.add(this.constructor.name,"set"),!e)return!1;let g=t;const c=l||this.buildQuery(e,r);if(!c.isValidated)return Sys.logger.warn(`LabModel: Cannot set value for key. Key not valid: ${e}.`),!1;const p=this.getDataObjectForKey(e,!c.allowSource);if(!p.data)return Sys.logger.warn(`LabModel: Trying to set data on a non-existing object. Skipping. Key: "${e}". Model-path: "${this.getPath()}".`),!1;const u=i.get(c.fullPath,p.data,!0);if(u===g)return!1;if(u&&void 0===g&&"fields"===c.type&&(g=null),c.isVpObj&&void 0===u&&void 0===i.get(c.path,p.data,!0)&&i.set(c.path,R.getEmptyDataObject(),p.data),s){if(!this.dataWillSet(c.key,g))return Sys.logger.debug(`Pre-set listener has cancelled setting data for path ${e} at model ${this.getPath()}.`),!1;d&&lab_api.v1.history&&lab_api.v1.history.getManager().add(lab_api.v1.history.getManager(),"modelSetter",[this.getGuid(),e,u,{viewport:r,notify:s,registerModified:o,save:!1,predefinedQuery:c,undoable:!1}])}return i.set(c.fullPath,g,p.data),h&&this.keyModified(c.key,r),o&&(this.registerModified(e),p.sourceModel&&p.sourceModel.registerModified(e)),s&&this.dataIsSet(c.key,g,e,a,n),!0}keyModified(e,t){this.eventPipe.keyModified&&this.eventPipe.keyModified(this,e,t)}setFiltered(e,t){return this.set(`filtered.${e}`,t,{notify:!1,save:!1,registerModified:!1,resetCache:!1})}getSerializedCache(){return this.cache.serialized}setSerializedCache(e){this.cache.serialized=e}dataWillSet(e,t,r){return!0}dataIsSet(e,t,r){}registerModified(e){}}const j={internalToBackend(e,t=!0){const r={...e};r.type=e.type||null,r.id=e.id||null,r.tmpId=e.tmpId||null,r.instance_of=e.instance_of||null,r.parent=e.parent||null,e.status&&(r.status=e.status),r.site_id=e.site_id||null;const i={viewports_json:{}};for(const e of Object.keys(r.fields||{})){let t=r.fields[e];"object"==typeof t&&null!==t||(t={value:t}),this.internalFieldToBackend(e,t,i)}return r.fields=i,r},backendToInternal(e,t=[],r=!0){const i=this.backendToInternalStructure(e.structure,t);return e.contentdata&&(i.contentdata=this.backendToInternalNode(e.contentdata)),i},appendDefaultData(e,t){if(!t)return e;let r=!0,s=e;Array.isArray(e)||(r=!1,s=[e]);const n=[];for(const e of s){const r=t?i.merge(t,e):e;r.children&&(r.children=this.appendDefaultData(r.children,t)),n.push(r)}return r?n:n[0]},viewToInternal(e,t,r=lab_api.v1.viewport.getEditable()){let s=!0,n=e;Array.isArray(e)||(s=!1,n=[e]);const o=[],a=["contentdata","metadata","children","width"];for(const e of n){const s=t?i.merge(t,e):e,n={width:{value:null,vp:{}}};s.width&&("object"==typeof s.width?n.width.vp=s.width:(n.width.value=s.width,s.metadata&&"object"==typeof s.metadata.width&&(n.width.vp=s.metadata.width)));for(const e in s)a.includes(e)||(n[e]=s[e]);s.children&&(n.children=this.viewToInternal(s.children,t)),s.contentdata&&(n.contentdata=this.backendToInternalNode(s.contentdata)),s.metadata&&(n.metadata=this.backendToInternalStructureMeta(s.metadata,r)),o.push(n)}return s?o:o[0]},backendToView(e,t=!1){const r=e.fields?{fields:e.fields}:null;r&&(r.type=e.type||null,r.tags=e.tags||void 0,r.instance_of=e.instance_of||null,r.apiResult=e.apiResult,t||(r.id=e.id||void 0));const i=e.width&&"object"==typeof e.width?e.width.value:e.width||null;return{type:e.type||null,metadata:e.metadata||{},width:i,contentdata:r,children:(e.children||[]).map(e=>this.backendToView(e,t))}},apiToData(e,t,r){const i={},s={...t.field||{}},{viewports_json:n}=s;delete s["@attributes"],delete s.viewports_json;for(const e of Object.keys(s))t.field[e]&&("object"==typeof s[e]&&0===Object.keys(s[e]).length?i[e]="":i[e]=s[e]);if(n)try{i.viewports_json=JSON.parse(n)}catch(e){Sys.logger.error(`[serializer] Failed to parse viewports_json: ${e.toString()}`)}return{type:e,id:r&&r.removeId?void 0:t.attribute.id,instance_of:t.attribute?t.attribute.instanceof_id:null,fields:i}},apiToInternal(e,t,r){const i=this.backendToInternalNode(j.apiToData(e,t));return r&&r.removeId&&delete i.id,i},backendToInternalNode(e){const t={...e},r={};if(t.fields&&t.fields.viewports_json)for(const e of Object.keys(t.fields.viewports_json))for(const r of Object.keys(t.fields.viewports_json[e].fields||{}))void 0===t.fields[r]&&(t.fields[r]=null);if(t.fields)for(const e of Object.keys(t.fields||{}))if(e.endsWith("_style_json")){const r=e.replace("_style_json","");t.fields[r]||(t.fields[r]=null)}for(const e of Object.keys(t.fields||{}))if(!e.endsWith("_style_json")&&"viewports_json"!==e){r[e]={value:t.fields[e],vp:this.getViewportKey(e,t.fields),attributes:{}};for(const i in t.fields[`${e}_style_json`]||{})void 0!==t.fields[`${e}_style_json`][i]&&(r[e].attributes[i]={value:t.fields[`${e}_style_json`][i],vp:{}});for(const i in t.fields.viewports_json||{})if(t.fields.viewports_json[i].fields&&void 0!==t.fields.viewports_json[i].fields[`${e}_style_json`])for(const s in t.fields.viewports_json[i].fields[`${e}_style_json`])void 0!==t.fields.viewports_json[i].fields[`${e}_style_json`]&&(r[e].attributes[s]||(r[e].attributes[s]={value:null,vp:{}}),r[e].attributes[s].vp[i]=t.fields.viewports_json[i].fields[`${e}_style_json`][s])}return t.fields=r,t},backendToInternalStructure(e,t){const r=e.metadata?this.backendToInternalStructureMeta(e.metadata,t):{},i={guid:e.id||k.create(),selector:e.selector||null,metadata:r,type:e.type||null,width:{value:e.width?w.floatPrecision(e.width):100,vp:r.width?r.width.vp:{}},children:[]};return delete i.metadata.width,i},backendToInternalStructureMeta(e,t){const r={};for(const i of Object.keys(e))if(r[i]={value:null,vp:{}},"object"!=typeof e[i]||Array.isArray(e[i]))r[i].value=e[i];else for(const s of Object.keys(e[i]||{}))t.includes(s)?r[i].vp[s]=e[i][s]:(r[i].value||(r[i].value={}),r[i].value[s]=e[i][s]);return r},internalToBackendStructureMeta(e){const t={};for(const r of Object.keys(e)){const i=e[r];let s=!1;for(const e of Object.keys(i.vp||{}))s=!0,t[r]||(t[r]={}),t[r][e]=i.vp[e];s||void 0===i.value||(t[r]=i.value)}return t},getViewportKey(e,t){const r={};if(!t.viewports_json)return r;for(const i in t.viewports_json)t.viewports_json[i].fields&&void 0!==t.viewports_json[i].fields[e]&&(r[i]=t.viewports_json[i].fields[e]);return r},internalFieldToBackend(e,t,r){if(!t)return;const i=r;i[e]=t.value;for(const r of Object.keys(t.vp||{}))i.viewports_json||(i.viewports_json={}),i.viewports_json[r]||(i.viewports_json[r]={fields:{}}),i.viewports_json[r].fields[e]=t.vp[r];if(t.attributes){const r=`${e}_style_json`;for(const e of Object.keys(t.attributes)){void 0!==t.attributes[e].value&&(i[r]||(i[r]={}),i[r][e]=t.attributes[e].value);for(const s of Object.keys(t.attributes[e].vp||{}))i.viewports_json||(i.viewports_json={}),i.viewports_json[s]||(i.viewports_json[s]={fields:{}}),i.viewports_json[s].fields[r]||(i.viewports_json[s].fields[r]={}),i.viewports_json[s].fields[r][e]=t.attributes[e].vp[s]}}},filterModifiedContent(e,t){const r={fields:{}},s=e.getModifiedPaths(),n=e.data.contentdata.fields||{};for(const e of s)if(e.startsWith("fields.")){const t=e.replace("fields.",""),i=n[t];this.internalFieldToBackend(t,i,r.fields)}else e.startsWith("state.")||i.set(e,i.get(e,t),r);return r}};class O extends d{constructor(e,t,r,i,s=!1){super({entries:r,behaviours:i,debug:s}),this.configReader=e,this.resourceManager=t,this.models=[],this.cache={id:new Map,guid:new Map},this.eventPipe={keyModified:this.keyModified.bind(this),childAdded:this.childAdded.bind(this)},this.cacheHandler=null}static validateViewInput(e={},t=[],{useExisting:r=!1,intermediateUseExisting:i=!0}={}){for(const r of t)if(!e[r])return null;if(!e.data)return null;if(!e.data.type)return null;const n={...e};return n.options={...n.options||{}},n.options.front=!1!==n.options.front,n.options.editor=!1!==n.options.editor,n.options.frontpage=!0===n.options.frontpage,n.options.articlepage=!0===n.options.articlepage,n.options.template=n.options.template||null,n.options.useExisting=void 0===n.options.useExisting?r:n.options.useExisting,n.options.intermediate=n.options.intermediate||{},n.options.intermediate.useExisting=void 0===n.options.intermediate.useExisting?i:n.options.intermediate.useExisting,n.options.persistentTarget=!!n.options.persistentTarget,n.options.internalFormat=!!n.options.internalFormat,n.options.append&&(n.options.append=s.object(n.options.append,{match:"",index:0})),n.options.prepend&&(n.options.prepend=s.object(n.options.prepend,{match:"",index:0})),n}setCacheHandler(e){this.cacheHandler=e}getModelsFromCache(){return Array.from(this.cache.guid.values())}getChildModels(e){const t=[],r=e=>{for(const t of e.children)r(t);t.push(e)};return r(e),t}getModels(){return this.models}getModelById(e){return this.cache.id.get(e)||null}getModelByGuid(e){return this.cache.guid.get(e)||null}getModelBySelector(e){for(const t of this.getModelsFromCache())if(t.getSelector()===e)return t;return null}getModelTypes(e){return e?[...new Set(this.getChildModels(e).map(e=>e.getType()))]:[...new Set(this.getModelsFromCache().map(e=>e.getType()))]}recursiveGetModelByAttribute(e,t,r){}getRootModel(){return this.models[0]}getParentNodeId(e){if(e.parent)return e.parent.hasNodeData()?e.parent.getId():this.getParentNodeId(e.parent);const t=this.getRootModel();return t===e?null:t.getId()}getModelByType(e,t=this.getModelsAsArray()){for(const r of t)if(r.getType()===e)return r;return null}getChildOfType(e,t,r=!1){const i=Array.isArray(t)?t:[t];for(const t of e.children)if(i.includes(t.getType()))return t;if(!r)return null;for(const r of e.children){const e=this.getChildOfType(r,t,!0);if(e)return e}return null}getChildrenOfType(e,t,r=!1,i=!1){const s=[],n=Array.isArray(t)?t:[t];for(const t of e.children)!n.includes(t.getType())||t.isNonPersistent()&&i||s.push(t);if(!r)return s;for(const r of e.children){const e=this.getChildrenOfType(r,t,!0,i);e&&s.push(...e)}return s}getModelsByKeyAndValue(e,t,r=this.getModelsAsArray()){return r.filter(r=>r.get(e)==t)}getModelsByPath(e,t=!0,r=!1,i=null){let s=[];const n=f.trim(e,"/").split("/");let o=n.shift();const a=f.parsePath(o).shift(),l=null!==a.index;l&&(o=a.base);let d=i;i||(d="*"===o?this.models:this.getModelsByType(o,this.models));const h=[];for(let e=0;e<d.length;e++)"*"!==o&&d[e].getType()!==o||d[e].isNonPersistent()&&!r||d[e].getNoRenderState()&&!r||h.push(d[e]);if(l?h[a.index]?s.push(h[a.index]):!t&&h.length&&(a.index>=h.length?s.push(h[h.length-1]):s.push(h[0])):s=h,!s.length)return[];if(n.length){let e=[];for(let i=0;i<s.length;i++)s[i].children.length&&(e=e.concat(this.getModelsByPath(n.join("/"),t,r,s[i].children)));return e}return s}getModelByPath(e,t=!0,r=!1,i=null){const s=this.getModelsByPath(e,t,r,i);return s.length?s[0]:null}getModelsByQuery(e="",t=this.getModelsAsArray()){const r=e.trim().toLowerCase();return t.filter(e=>e.getType().toLowerCase().indexOf(r)>-1)}getModelsByType(e,t=this.models,r=!0){const i=[];return t.forEach(t=>{Array.isArray(e)?e.includes(t.getType())&&i.push(t):t.getType()===e&&i.push(t),r&&i.push(...this.getModelsByType(e,t.children,r))}),i}getNextContentModel(e){let t=this.getRightSibling(e);if(t){const e=this.getFirstContentModel(t);if(e)return e}return e.getParent()&&(t=this.getNextContentModel(e.getParent()),t)?t:null}getParentOfType(e,t,r=!0){const i=e.getParent();return i?i.getType()===t?i:r?this.getParentOfType(i,t,!0):null:null}getLeftSibling(e){if(!e.getParent())return null;const t=e.getModelIndex(!0);if(0===t)return null;return e.getParent().getPersistentChildren()[t-1]||null}getRightSibling(e){if(!e.getParent())return null;const t=e.getModelIndex(!0),r=e.getParent().getPersistentChildren();return r[t+1]?r[t+1]:null}hasChildOfType(e,t,r=!1){return!!this.getChildOfType(e,t,r)}hasChildOfTypes(e,t,r=!1){for(const i of t)if(this.getChildOfType(e,i,r))return!0;return!1}hasChild(e,t){if(!e.children.length)return!1;for(const r of e.children){if(this.is(r,t))return!0;if(this.hasChild(r,t))return!0}return!1}hasParentOfType(e,t,r=!1){return!!this.getParentOfType(e,t,r)}hasParentOfTypes(e,t,r=!1){if(!e||!Array.isArray(t))return!1;for(const i of t)if(this.getParentOfType(e,i,r))return!0;return!1}hasParent(e,t){return!!e.parent&&(!!this.is(e.parent,t)||this.hasParent(e.parent,t))}getModelsAsArray(e=null){let t=[];for(const r of e||this.models)t=t.concat(this.getChildModels(r));return t}getIndex(e,t=!1){return e?e.getModelIndex(t):null}getPath(e,t=!1){return e?e.getPath(t):null}getArrayPath(e,t=!1){return e?e.getArrayPath(t):[]}resetCache(){this.cache.id.clear(),this.cache.guid.clear()}addToCache(e,t=!0){if(e.isPseudo())return;t&&e.children.forEach(e=>this.addToCache(e)),this.cache.guid.set(e.getGuid(),e);const r=e.getId();r&&this.cache.id.set(r,e)}setData(e=[],t=!0){this.resetCache(),this.models=this.newModels(e,!1)}newModels(e=[],t=!0){const r=[];for(const t of e){const e=this.newModel(t);e&&r.push(e)}return r}newModelInstance(e){return new R(e,this.eventPipe)}modelCreated(e){this.addToCache(e)}modelsAdded(e){}newModel(e,t=!0){const r=this.modelData(e);if(!r)return Sys.logger.warn("ModelController: Data do not validate. Cannot create new instance of LabModel."),null;const i=this.newModelInstance(r);if(e.children)for(const r of e.children){const e=this.newModel(r,t);e&&i.addChild(e,t)}return this.modelCreated(i),i}modelData(e){if(!e.type)return Sys.logger.warn('ModelController: Required attribute "type" is missing. Cannot create data for new LabModel.'),null;const t=e;let r="";t.path&&(r=`${f.trim(t.path,["/"])}/`);const i=this.configReader.get(`data.elements.${t.type}.fallbackData`);return{uncreated:!1,type:t.type,path:r,width:"width"in t?t.width:null,metadata:"metadata"in t?{...t.metadata}:{},state:"state"in t?{...t.state}:{},contentdata:"contentdata"in t&&t.contentdata?{...t.contentdata}:null,filtered:"filtered"in t&&t.filtered?{...t.filtered}:null,selector:"selector"in t?t.selector:null,external:"external"in t?t.external:null,guid:"guid"in t?t.guid:null,fallback:i?j.viewToInternal(i):null}}insertAtPath(e){const t=O.validateViewInput(e,["path"],{useExisting:!1});if(!t)return Sys.logger.warn('ModelController: Cannot insert model at path. Missing required input "path", "data", or "data.type".'),null;Sys.logger.debug(`ModelController: Will insert model of type ${t.data.type} at path ${t.path}.`);const r=this.ensurePath(t.path,t.options.persistentTarget,t.options.intermediate.useExisting);if(!r)return Sys.logger.warn(`ModelController: No model inserted at path ${t.path}. Parent not found and could not be created.`),null;const i=this.insertAtParent(r,t.data,t.options);return Sys.logger.debug(`ModelController: Did insert model at path ${t.path}. Type: ${i.getType()}, path: ${i.getPositionedPath()}.`),i}insertBySelector(e){const t=O.validateViewInput(e,["selector"],{useExisting:!1});if(!t)return Sys.logger.warn('ModelController: Cannot insert model by selector. Missing required input "selector", "data", or "data.type".'),null;Sys.logger.debug(`ModelController: Will insert model of type ${t.data.type} at selector ${t.selector}.`);const r=this.getModelBySelector(t.selector);if(!r)return Sys.logger.warn(`ModelController: No model inserted at selector ${t.selector}. Model not found.`),null;const i=this.insertAtParent(r,t.data,t.options);return Sys.logger.debug(`ModelController: Did insert model at selector ${t.selector}. Type: ${i.getType()}, path: ${i.getPositionedPath()}.`),i}insertAtParent(e,t,r={}){const i={};t.state&&t.state.isNonPersistent&&(i.state={isNonPersistent:!0});const s=this.newModel(r.internalFormat?j.appendDefaultData(t,i):j.viewToInternal(t,i));if(e)if("number"==typeof r.index){let{index:t}=r;if(r.persistentTarget){const i=r.match?this.getModelsByType(r.match,e.children||[],!1):e.children||[],s=i.filter(e=>!e.isNonPersistent()&&!e.getNoRenderState());t=t<0?0:t>=s.length?s.length?this.getIndex(s[s.length-1])+1:this.getIndex(i[i.length-1])+1:this.getIndex(s[t])}e.addChildAtIndex(s,t)}else e.addChild(s,!0,r.prepend);else r.prepend?this.models.unshift(s):this.models.push(s);return this.modelsAdded([s],r.silent),s}addElement(e){const t={};e.data.state&&e.data.state.isNonPersistent&&(t.state={isNonPersistent:!0});const r=this.ensurePath(e.path,e.options.persistentTarget,e.options.intermediate.useExisting,t);return r&&e.options.useExisting&&(e.data.selector?this.getModelBySelector(e.data.selector):this.getChildOfType(r,e.data.type))?null:this.insertAtParent(r,e.data,e.options)}allowInsetion(e){const t={frontpage:()=>"page_front"===lab_api.v1.model.query.getRootModel().getType(),articlepage:()=>"page_article"===lab_api.v1.model.query.getRootModel().getType(),noticepage:()=>"page_notice"===lab_api.v1.model.query.getRootModel().getType(),gallerypage:()=>"page_gallery"===lab_api.v1.model.query.getRootModel().getType(),template:e=>lab_api.v1.model.query.getRootModel().get("fields.page_template_alias")===e,front:lab_api.v1.app.mode.isFront,editor:lab_api.v1.app.mode.isEditor},r=r=>{for(const i of r)if(e.options[i]&&t[i](e.options[i]))return!0;return!1};return!!r(["front","editor"])&&(!(e.options.template&&!r(["template"]))&&r(["frontpage","articlepage","noticepage","gallerypage"]))}ensurePath(e,t,r=!0,i=null){const s=r?this.getModelsByPath(e,!0,!t).shift():null;if(s)return s;let n="",o=null;const a=f.parsePath(e);for(;a.length;){const e=a.shift();if(!e.base)return o;const s=e.index||0;let l=0,d=!1;const h=`${n}${e.base}[${s}]`;for(;l<=s;){if(!r&&!a.length&&l===s||!this.getModelsByPath(h,!0,!t).length){const t=i?{...i}:{};t.type=e.base;const r=this.newModel(t,!1);o?null!==e.index?o.addChildAtIndex(r,e.index):o.addChild(r):this.models.push(r),this.modelsAdded([r]),l===s&&(o=r,d=!0),Sys.logger.debug(`ModelController: Inserted intermediate model type ${e.base} at path ${r.getPositionedPath()}.`)}l++}n+=`${e.path}/`,o=d?o:this.getModelsByPath(n,!0,!t).shift()}return o}keyModified(e,t,r,i=!0){if(i){if(e.hasKeyInTarget(t))for(const i of e.getSourceTargets())this.keyModified(i,t,r,!1);e.hasSourceKey(t)&&this.keyModified(e.getSourceModel(),t,r)}this.cacheHandler.resetKey(e,t,r),this.triggerRedrawByKey(e,t,r)}childAdded(){}triggerRedrawByKey(e,t,r){}noRender(e){e&&e.setNoRenderState(!0)}notifyOnAcceptContent(e=this.getRootModel(),t=!0){this.emitBehaviour("onAcceptContent",e),t&&e.children.forEach(e=>{this.notifyOnAcceptContent(e,t)})}}class F{constructor(e){this.totalGridSpans=e||12,this.backendNodes=new Map,this.nodeChildren={},this.activeNodes=[],this.offstageTypes=["pasteboard"],this.requireContentdata=["article"]}backendToInternal(e={},t={}){if(!e.data||!e.structure)return Sys.logger.debug("[DataTransformer] Unsupported input data. Require { data: {...}, structure: []"),[];const r=e.data,i=e.structure;this.registerBackendNodes(r);const s=lab_api.v1.viewport.getEditable(),n=j.backendToInternal({contentdata:this.backendNodes.get(r.id),structure:{type:`page_${r.type}`}},s,!1),o=[n];for(const e of i)if(t.skipOffstage&&this.offstageTypes.includes(e.type))Sys.logger.debug(`[DataTransformer] Skipping offstage-element "${e.type}".`);else{const r=this.createModelData(e,t.blacklist||[],t.blacklistOptions||{},s);r&&(this.offstageTypes.includes(e.type)?o.push(r):n.children.push(r))}return this.activeNodes.push(r.id),o}modelsToFragmentApi(e,{viewport:t=null,stringify:r=!1,recursive:i=!0}={}){const s=e.map(e=>this.modelToFragmentApi(e,i,t));return r?s.map(e=>JSON.stringify(e)):s}modelToFragmentApi(e,t,r){const i={nodedata:this.modelToBackend(e,t),isNonPersistent:e.isNonPersistent(),type:e.getType(),width:e.getWidth(r),id:e.getGuid(),node_id:e.getId(),guid:e.getGuid()};if(t){i.children=[];for(const t of e.children)i.children.push(this.modelToFragmentApi(t))}return i}modelToBackend(e,t=!1){let r;const i=e.getSerializedCache();if(i?(lab_api.v1.app.dbg.logger.add(e.constructor.name,"modelToBackend[cache]"),r=i):(lab_api.v1.app.dbg.logger.add(e.constructor.name,"modelToBackend"),r=e.data.contentdata?{...j.internalToBackend(e.data.contentdata)}:{},e.data.contentdata&&(r.parent=lab_api.v1.model.query.getParentNodeId(e)),r.guid=e.data.guid,r.metadata=j.internalToBackendStructureMeta(e.data.metadata),r.metadata.width=e.getViewportWidths(),r.width=e.getWidth(),e.data.selector&&(r.selector=e.data.selector),r.type=e.data.type.replace("page_",""),e.data.tmpId&&(r.tmpId=e.data.tmpId),e.setSerializedCache({...r})),t&&e.children.length){r.children=[];for(const t of e.children)t.isNonPersistent()||r.children.push(this.modelToBackend(t,!0))}return r}apiToInternal({type:e,data:t={},meta:r={},options:i={removeId:!1}}={}){const s=j.apiToInternal(e,t,i),{metadata:n,width:o}=j.viewToInternal({metadata:r,width:r.width});return{type:s.type,contentdata:s,width:o,metadata:n}}apiToView({type:e,data:t={},meta:r={},options:i={removeId:!1}}={}){const s=j.apiToData(e,t,i),n=j.internalToBackend(s);return{type:n.type,contentdata:n,width:r.width,metadata:r}}modelToInternal(e,t=!0,r=!1){const i=JSON.parse(JSON.stringify(e.data));if(r&&(i.contentdata&&delete i.contentdata.id,delete i.guid),i.children=[],!t)return i;for(const t of e.children)i.children.push(this.modelToInternal(t,!0,r));return i}modelToView(e,t=!0,r=!1){const i=this.modelToBackend(e,t);return j.backendToView(i,r)}modelsToView(e,t=!0){return e.map(e=>this.modelToView(e,t))}modifiedToBackend(e,t,r=!0,i=!1){const s=[];for(const e of t)e.getType().startsWith("page_")?s.push(...e.getPersistentChildren()):s.push(e);const n=this.removeFrontCrops(s);return{node:e.map(e=>this.modelNodeToBackend(e,r,i)),structure:n.map(e=>this.modelStructureToBackend(e))}}removeFrontCrops(e){return e.filter(e=>!e.get("fields.metadata_key"))}modelNodeToBackend(e,t=!1,r=!1){const s=this.modelToBackend(e,r);if(t&&!e.isDirty()){const t=j.filterModifiedContent(e,s),r=this.modelNodeBaseToBackend(e);return i.merge(r,t)}return delete s.metadata,delete s.width,s}modelNodeBaseToBackend(e){if(Array.isArray(e))return e.map(e=>this.modelNodeBaseToBackend(e));const t=this.modelToBackend(e),r={type:t.type||null,id:t.id||null,guid:t.guid||null,tmpId:t.tmpId||null,instance_of:t.instance_of||null,parent:t.parent||null,status:t.status||null,site_id:t.site_id||null};return t.primaryTags&&(r.primaryTags=t.primaryTags),t.tags&&(r.tags=t.tags),r}modelStructureToBackend(e,t=!1){const r=this.modelToBackend(e),i={type:r.type,width:r.width,metadata:r.metadata,id:r.guid,selector:r.selector,children:[]};return r.id&&(i.node_id=r.id),e.isNonPersistent()&&(i.isNonPersistent=!0),e.children.forEach(e=>{!t&&e.isNonPersistent()||i.children.push(this.modelStructureToBackend(e,t))}),i}registerBackendNodes(e){if(e.id&&this.backendNodes.set(e.id,this.prepareBackendNode(e)),e.children){this.nodeChildren[e.id]=[];for(const t of e.children)this.registerBackendNodes(t),t.id&&this.nodeChildren[e.id].push(t.id)}}prepareBackendNode(e){const t={};for(const r in e)"children"!==r&&(t[r]=e[r]);return t}createModelData(e,t,r,i,s={}){if(t.includes(e.type)){if(r[e.type]&&r[e.type].includeChildren&&e.children&&s.children){Sys.logger.warn(`[DataTransformer] Found blacklisted element "${e.type}". Skipping. Will include and move children to parent element.`);for(const n of e.children){const e=this.createModelData(n,t,r,i);e&&s.children.push(e)}}else Sys.logger.warn(`[DataTransformer] Found blacklisted element "${e.type}". Skipping.`);return null}const n=j.backendToInternal({contentdata:e.node_id?this.backendNodes.get(e.node_id):null,structure:e},i,!1);if(this.requireContentdata.includes(n.type)&&!n.contentdata)return Sys.logger.debug(`[DataTransformer] Found "${n.type}" without node-data. Skipping.`),null;n.contentdata&&this.activeNodes.push(n.contentdata.id);for(const t in n.width.vp)n.width.vp[t]?n.width.vp[t]&&n.width.vp[t]<=this.totalGridSpans&&Number.isInteger(parseFloat(n.width.vp[t],10))&&(Sys.logger.warn(`[DataTransformer] Will modify Lab3-width for element "${e.type}", viewport "${t}". Was: "${n.width.vp[t]}", New value: "${w.gridToPercent(n.width.vp[t],this.totalGridSpans)}"`),n.width.vp[t]=w.gridToPercent(n.width.vp[t],this.totalGridSpans)):delete n.width.vp[t];if(!e.children){if(!(n.contentdata&&n.contentdata.id&&this.nodeChildren[n.contentdata.id]))return n;e.children=[];for(const t of this.nodeChildren[n.contentdata.id])if(!this.activeNodes.includes(t)){const r=this.backendNodes.get(t);r&&(e.children.push({type:r.type,node_id:t}),Sys.logger.warn(`[DataTransformer] Adding structure-data for deprecated node-child. Type: ${r.type}, id: ${t}`))}}for(const s of e.children){const e=this.createModelData(s,t,r,i,n);e&&n.children.push(e)}return n}}class V{constructor(e,t,r){this.renderer=t,this.log=r,this.styles={definitions:new Map,collections:new Map},this.setupStyles(V.resolveConfig(e||{})),this.styleByKey={},this.defaultItemTemplate="{{ #items }}{{ prefix }}{{ value }}{{ postfix }} {{ /items }}"}static resolveConfig(e={}){const t={definitions:{},collections:[]};for(const r of Object.keys(e.definitions||{})){const i=V.resolveDefinition(e.definitions[r]);i&&(t.definitions[r]=i)}const r=Array.isArray(e.collections)?e.collections:Object.values(e.collections||{});for(const e of r){const r=V.resolveCollection(e);r&&t.collections.push(r)}return t}static resolveDefinition(e={}){if(!Array.isArray(e.items)||!e.items.length)return null;const t={requirePath:s.false(e.requirePath),path:s.string(e.path),template:s.stringOrNull(e.template),items:[]};for(const r of e.items){const e=V.resolveItem(r);e&&t.items.push(e)}return t}static resolveItem(e={}){const t=Array.isArray(e.fallback)?e.fallback:[];return"string"==typeof e.fallback&&t.push(e.fallback),{prefix:s.string(e.prefix),postfix:s.string(e.postfix),viewport:s.string(e.viewport),value:s.string(e.value),fallback:t,nullValue:s.stringOrUndefined(e.nullValue)}}static resolveCollection(e){const t=s.string(e.name),r=s.array(e.definitions),i=s.array(e.additions);if(!t||!r.length&&!i.length)return null;const n=[];for(const e of[...r,...i])if("string"==typeof e)n.includes(e)||n.push(e);else{const t=V.resolveDefinition(e);t&&n.push(t)}return{name:t,definitions:n}}setupStyles(e={}){for(const t of Object.keys(e.definitions))this.styles.definitions.set(t,e.definitions[t]);for(const t of e.collections)this.styles.collections.set(t.name,t.definitions);this.log.debug(`StyleManager: Set up and ready. Holds ${this.styles.definitions.size} definitions and ${this.styles.collections.size} collections.`)}getStyleFromDefinition(e,t,r="",i){if(!this.styles.definitions.size)return"";const{name:s,path:n,target:o,targetType:a,index:l}=this.getInputValues(r),d=this.getTargetModel(e,o,a,l);return d?this.getStyleFromDefinitionNamePath(d,s,n,null,i):""}getStyleFromDefinitionNamePath(e,t,r,i,s){const n=this.getDefinition(t);return n?this.parseDefinition(e,t,r,n,i,s):(this.log.warn(`StyleManager: Cannot find style-definition "${t}". Empty string returned.`),"")}getStyle(e,t,r="",i){if(!this.styles.collections.size)return"";const{name:s,path:n,target:o,targetType:a,index:l}=this.getInputValues(r),d=this.getTargetModel(e,o,a,l);if(!d)return this.log.warn(`StyleManager: Cannot find target-model "${o}". Empty string returned. Model: ${e.getPositionedPath()}`),"";const h=this.getCollection(s);if(!h)return this.log.warn(`StyleManager: Cannot find style-collection "${s}". Empty string returned.`),"";const g=[];for(const e of h){const t=this.parseDefinition(d,s,n,e,null,i);t&&g.push(t)}return g.join(" ").trim()}getCollection(e){return this.styles.collections.get(e)}getDefinition(e){return this.styles.definitions.get(e)}getTargetModel(e,t,r,i){if("current"===t)return e;if("parent"===t)return e.getParent();if("root"===t)return lab_api.v1.model.query.getRootModel();if("child"===t){if(null===i)return lab_api.v1.model.query.getChildOfType(e,r);return lab_api.v1.model.query.getModelsByType(r,e.children)[i]||null}return e}getInputValues(e=""){const t=(e||"").split(" ").map(e=>e.trim()).filter(e=>!!e),r=t.shift();let i=t.shift()||"",s="current",n=null,o=null;if(i.startsWith("parent."))s="parent",i=i.replace("parent.","");else if(i.startsWith("root."))s="root",i=i.replace("root.","");else if(i.startsWith("current."))i=i.replace("current.","");else if(i.startsWith("child.")){const e=i.split(".");s=e.shift();const t=e.shift();i=e.join("."),[o,n]=C.getPropertyTypeAndIndex(t)}return{name:r,path:i||null,target:s,targetType:o,index:n}}getItemsViewports(e){const t={};for(const r of e)if(r.viewport&&(t[r.viewport]=!0),r.fallback)for(const e of r.fallback)t[e]=!0;return Object.keys(t)}parseDefinition(e,t,r,i,s,n){let o=i;if("string"==typeof i&&(o=this.getDefinition(i),!o))return this.log.warn(`StyleManager: Cannot find style-definition "${i}". Empty string returned.`),"";const a=[];if(o.requirePath&&!r)return this.log.warn(`StyleManager: Missing required path for style "${t}".`),"";const l=o.requirePath?r:"";for(const t of o.items){const r=this.getItemValueWithFallback(e,o.path,t,l,o.items,s,n);null!=r&&""!==r&&a.push({...t,value:r})}if(!a.length)return"";return this.renderer(o.template||this.defaultItemTemplate,{items:a}).trim().split(" ").filter((e,t,r)=>r.indexOf(e)===t).join(" ")}getItemValueWithFallback(e,t,r,i,s,n,o){const a=i+(i&&t?".":"")+t,l=this.getItemValue(e,r,a,n,o);if(void 0!==l||"current_viewport"===r.viewport)return l;const d={...r};for(d.fallback=[...d.fallback];d.fallback.length;){const t=d.fallback.shift();d.viewport=t;const r=this.getItemValue(e,d,a,n,o);if(r)return r}}getItemValue(e,t,r,i,s){let n,{viewport:o}=t;if("no_viewport"===o?o="":"current_viewport"===o&&(o=s),i)if(o){n=(i.vp||{})[o]}else n=i.value;else n=e.get(r,o,!0);return null!==n&&""!==n&&!1!==n||void 0===t.nullValue?n&&t.value?t.value:n:t.nullValue}}class A{constructor(e){this.headers=e.Headers||{},this.queryString=e.queryString||"",this.params=this.parseQueryString(this.queryString)}parseQueryString(e){const t={},r=e.split("&");for(const e of r){const r=e.split("=");2===r.length&&(t[r[0]]=r[1])}return t}getHeaders(){return this.headers}getHeader(e){return this.headers[e]||null}getQueryString(){return this.queryString}getQueryParam(e){if("lab_opts"===e){const t=this.params[e];return void 0!==t?t:this.getHeader("X-Ua-Lab-Opts")||void 0}return this.params[e]}hasQueryParam(e){return void 0!==this.getQueryParam(e)}hasQueryValue(e,t){return(this.getQueryParam(e)||"").split(",").includes(t)}}class _{constructor(e,t){this.logger=t,this.siteAlias=e,this.log(`Site-alias: ${this.siteAlias}`),this.featureFlags=[],this.cache={}}prepareFlags(e){const t=[];return Array.isArray(e)&&e.forEach(e=>{if("group"===e.type){const r=e.enabled;e.flags.forEach(e=>{e.enabled=r&&e.enabled,t.push(e)})}else t.push(e)}),this.cache[this.siteAlias]=t,t}enabled(e,t=""){this.featureFlags=this.cache[this.siteAlias]||this.prepareFlags(lab_api.v1.config.getFeatureFlags().flags||[]);return this.featureFlags.filter(r=>{if(Array.isArray(t)){const i=t.map(String);return r.key===e&&(!r.nodeId||i.indexOf(r.nodeId)>-1)&&!0===r.enabled}return r.key===e&&(!r.nodeId||r.nodeId===t.toString())&&!0===r.enabled}).length>0}get(e,t=""){return this.featureFlags.filter(r=>r.key===e&&r.nodeId===t.toString())}log(e,t=null){this.logger&&(t?this.logger.debug(`FeatureFlags: ${e}`,[t]):this.logger.debug(`FeatureFlags: ${e}`))}}class I{static getWords(e){return e.replaceAll("."," ").replaceAll("!"," ").split(" ").filter(e=>""!==e)}static getSentences(e){return e.replaceAll("!",".").split(".").filter(e=>""!==e)}static getReadTime(e,t){const r=I.getWords(e).length/(t||250);return r<.5?.5:Math.round(r)}static lix(e){if(!e)return null;const t=I.getWords(e),r=I.getSentences(e),i=t.filter(e=>e.length>6);return t.length/r.length+100*i.length/t.length}}class E{constructor(){this.ns={},this.customEvents=new d}create(e={}){return{customEvents:{off:this.customEvents.off.bind(this.customEvents),on:this.customEvents.on.bind(this.customEvents),emitEvent:this.customEvents.emitEvent.bind(this.customEvents)},app:{dbg:{logger:{add:()=>{}}},logError:(e={})=>{e&&e.toString&&Sys.logger.debug(`CMS-error: ${e.toString()}`)},logViewError:(e={},t)=>{e&&e.toString&&Sys.logger.debug(`View-error: ${e.toString()}`)},mode:{get:e.configProcessor.getAppMode.bind(e.configProcessor),getSimulatedMode:e.configProcessor.getSimulatedMode.bind(e.configProcessor),isEditor:e.configProcessor.isEditMode.bind(e.configProcessor),isFragmentMode:e.configProcessor.isFragmentMode.bind(e.configProcessor),isFront:e.configProcessor.isPresentationMode.bind(e.configProcessor)},off:e.appManager.off.bind(e.appManager),on:e.appManager.on.bind(e.appManager)},config:{debug:e.configReader.debug.bind(e.configReader),get:e.configReader.get.bind(e.configReader),getConfig:e.configReader.getConfig.bind(e.configReader),getContent:e.configReader.getContent.bind(e.configReader),getFeatureFlags:e.configReader.getFeatureFlags.bind(e.configReader),getPathForSite:e.configReader.getPathForSite.bind(e.configReader),getStorePathForSite:e.configReader.getStorePathForSite.bind(e.configReader),getView:e.configReader.getView.bind(e.configReader),reloadResourceBySite:e.configReader.reloadResourceBySite.bind(e.configReader)},grid:{gridToPercent:w.gridToPercent,percentToGrid:w.percentToGrid},image:{getPreferredImageFormat:e.configProcessor.getPreferredImageFormat.bind(e.configProcessor)},locale:{get:e.localisation.get.bind(e.localisation),off:e.localisation.off.bind(e.localisation),on:e.localisation.on.bind(e.localisation)},model:{getArrayPath:e.modelController.getArrayPath,getPageType:e.configProcessor.getPageType.bind(e.configProcessor),getPath:e.modelController.getPath,insert:{atPath:e.modelController.insertAtPath.bind(e.modelController),bySelector:e.modelController.insertBySelector.bind(e.modelController)},noRender:e.modelController.noRender,off:e.modelController.off.bind(e.modelController),on:e.modelController.on.bind(e.modelController),query:{getChildOfType:e.modelController.getChildOfType.bind(e.modelController),getChildrenOfType:e.modelController.getChildrenOfType.bind(e.modelController),getIndex:e.modelController.getIndex.bind(e.modelController),getModelByGuid:e.modelController.getModelByGuid.bind(e.modelController),getModelById:e.modelController.getModelById.bind(e.modelController),getModelByPath:e.modelController.getModelByPath.bind(e.modelController),getModelBySelector:e.modelController.getModelBySelector.bind(e.modelController),getModelByType:e.modelController.getModelByType.bind(e.modelController),getModels:e.modelController.getModels.bind(e.modelController),getModelsAsArray:e.modelController.getModelsAsArray.bind(e.modelController),getModelsByKeyAndValue:e.modelController.getModelsByKeyAndValue.bind(e.modelController),getModelsByPath:e.modelController.getModelsByPath.bind(e.modelController),getModelsByQuery:e.modelController.getModelsByQuery.bind(e.modelController),getModelsByType:e.modelController.getModelsByType.bind(e.modelController),getModelsFromCache:e.modelController.getModelsFromCache.bind(e.modelController),getModelTypes:e.modelController.getModelTypes.bind(e.modelController),getNextContentModel:e.modelController.getNextContentModel.bind(e.modelController),getParentNodeId:e.modelController.getParentNodeId.bind(e.modelController),getParentOfType:e.modelController.getParentOfType.bind(e.modelController),getRootModel:e.modelController.getRootModel.bind(e.modelController),getSiblingLeft:e.modelController.getLeftSibling.bind(e.modelController),getSiblingRight:e.modelController.getRightSibling.bind(e.modelController),hasChild:e.modelController.hasChild.bind(e.modelController),hasChildOfType:e.modelController.hasChildOfType.bind(e.modelController),hasChildOfTypes:e.modelController.hasChildOfTypes.bind(e.modelController),hasParent:e.modelController.hasParent.bind(e.modelController),hasParentOfType:e.modelController.hasParentOfType.bind(e.modelController),hasParentOfTypes:e.modelController.hasParentOfTypes.bind(e.modelController)},root:{getType:()=>e.modelController.getRootModel()?e.modelController.getRootModel().get("type"):""},serialize:{apiToInternal:e.dataTransformer.apiToInternal.bind(e.dataTransformer),apiToView:e.dataTransformer.apiToView.bind(e.dataTransformer),model:e.dataTransformer.modelToBackend.bind(e.dataTransformer),modelToInternal:e.dataTransformer.modelToInternal.bind(e.dataTransformer),modelToView:e.dataTransformer.modelToView.bind(e.dataTransformer)}},ns:{get:(e="")=>i.get(e,this.ns),set:(e,t)=>i.set(e,t,this.ns)},preload:{get:e.preloadHandler.get.bind(e.preloadHandler),getHeader:e.preloadHandler.getHeader.bind(e.preloadHandler)},properties:{get:e.configReader.getCms.bind(e.configReader),update:e.configReader.updateConfigByPath.bind(e.configReader)},templates:{get:e.resourceManager.getTemplateFile.bind(e.resourceManager)},site:{getSite:e.configProcessor.getSite.bind(e.configProcessor),getSiteById:e.configProcessor.getSiteById.bind(e.configProcessor),getSites:e.configProcessor.getSites.bind(e.configProcessor)},style:{getNamedStyle:e.styleManager.getStyleFromDefinitionNamePath.bind(e.styleManager),getStyle:e.styleManager.getStyleFromDefinition.bind(e.styleManager),getStyles:e.styleManager.getStyle.bind(e.styleManager)},util:{defaults:e.utils.defaults,featureFlags:{enabled:e.featureFlags.enabled.bind(e.featureFlags),get:e.featureFlags.get.bind(e.featureFlags)},functionHelper:{getFunction:e.utils.functionHelper.getFunction,isValidFunction:e.utils.functionHelper.isValidFunction},object:i,request:{getHeader:e.requestUtil.getHeader.bind(e.requestUtil),getHeaders:e.requestUtil.getHeaders.bind(e.requestUtil),getQueryParam:e.requestUtil.getQueryParam.bind(e.requestUtil),getQueryString:e.requestUtil.getQueryString.bind(e.requestUtil),hasQueryParam:e.requestUtil.hasQueryParam.bind(e.requestUtil),hasQueryValue:e.requestUtil.hasQueryValue.bind(e.requestUtil),parseQueryString:e.requestUtil.parseQueryString.bind(e.requestUtil)},string:e.utils.stringHelper},view:{getHelper:e.viewManager?e.viewManager.getViewHelper.bind(e.viewManager):()=>{},getPixelDensityFactor:e.configProcessor.getPixelDensityFactor.bind(e.configProcessor),getView:e.viewManager?e.viewManager.getView.bind(e.viewManager):null,off:e.viewManager?e.viewManager.off.bind(e.viewManager):null,on:e.viewManager?e.viewManager.on.bind(e.viewManager):null,render:({template:t,model:r,viewManager:i=e.viewManager}={})=>{const s=i.getView(r),n=i.getDataForView(r,s);return Mustache.render(t,n,e.resourceManager.templates)}},viewHeaders:{get:t=>e.viewHeaders.get?e.viewHeaders.get(t):"",getAll:()=>e.viewHeaders.getAll?e.viewHeaders.getAll():"",set:(t,r)=>{e.viewHeaders.set&&e.viewHeaders.set(t,r)}},viewport:{getActive:()=>[e.configProcessor.getViewport()],getAll:e.configProcessor.getViewports.bind(e.configProcessor),getEditable:e.configProcessor.getEditableViewports.bind(e.configProcessor),getMain:e.configProcessor.getMainViewport.bind(e.configProcessor),getName:e.configProcessor.getViewport.bind(e.configProcessor),getSubViewports:e.configProcessor.getSubViewports.bind(e.configProcessor),getWidth:e.configProcessor.getViewportWidth.bind(e.configProcessor),isMain:e.configProcessor.isMainViewport.bind(e.configProcessor),isSubViewport:e.configProcessor.isSubViewport.bind(e.configProcessor),isTouchDevice:e.configProcessor.isTouchDevice.bind(e.configProcessor)},text:{getWords:I.getWords,getSentences:I.getSentences,getReadTime:I.getReadTime,lix:I.lix}}}}class D{constructor(e=[]){this.viewManagers=e,Sys.logger.debug(`CacheHandler: Ready to support view-manager(s) for viewport(s): ${this.viewManagers.map(e=>e.viewport.name).join(", ")}`)}setViewManagers(e){this.viewManagers=e}resetKey(e,t,r){this.resetModelCacheForKey(e,t,r),this.resetViewCacheForKey(e,t)}resetModelCacheForKey(e,t,r){e.cache.getter.delete(e.getCacheKey(t,r)),e.cache.getter.delete(e.getCacheKey(t,r,!0)),e.cache.getter.forEach((i,s)=>{s.startsWith(`${t}.`)&&s.endsWith(`-${r||"lab_main"}`)&&e.cache.getter.delete(s)})}resetViewCacheForKey(e,t){for(const r of this.viewManagers)r.getView(e).resetCache(t)}}class W{constructor(e,t=null){this.isEnabled=!0,this.Implementation=e,this.instance=null,this.name=t}initialize(){this.instance=new this.Implementation}disable(){this.isEnabled=!1}enable(){this.isEnabled=!0}call(e,...t){if(this.isEnabled){if(!this.instance){if(!this.Implementation)return;this.initialize(),this.instance.name&&(this.name=this.instance.name)}if(e in this.instance)return this.instance[e](...t)||null}}}class B extends W{}class H extends W{initialize(){this.instance=new this.Implementation(lab_api)}}class L{constructor(e){this.data=e}get(e=""){const t=e.split("."),r=this.getObject(t.shift());return r?t.length?i.get(t.join("."),r):r:null}getObject(e){return e?this.data[e]||null:this.data}getHeader(e){if(e){const t=this.getObject(e);return t?t.responseHeaders:null}return null}}class N extends d{constructor({configReader:e,language:t,siteAlias:r,renderFn:s,configPrefix:n}){super(),this.configReader=e,this.language=t||this.configReader.get("contentLanguage")||"en-GB",this.secondaryLanguage=this.configReader.get("contentLanguageFallback")||this.language,this.siteAlias=r||this.configReader.siteAlias,this.fallbackLanguage="en-GB",this.renderFn=s,this.objectHelper=i,this.configPrefix=n||"int_",this.cache=new Map}overrideLanguage(e){e&&(this.secondaryLanguage===this.language&&(this.secondaryLanguage=e),this.language=e)}get(e,{language:t,siteAlias:r,data:i={},fallbackValue:s,noRender:n=!1}={}){const o=(e||"").trim(),a=i||{},l=t||this.language,d=`${o}_${l}_${r}_${JSON.stringify(a||{})}_${n?"1":"0"}`;return this.cache.has(d)||this.cache.set(d,this.getKey(o,l,r,a,n,s)),this.cache.get(d)}getKey(e,t,r,i,s,n){const o=this.readConfigObject(e,r,t);if(o)return this.returnValue(e,o,i,t,r,"config",s);const a=this.readConfig(e,t,r);return a?this.returnValue(e,a,i,t,r,"configObject",s):t!==this.fallbackLanguage&&t!==this.secondaryLanguage&&this.secondaryLanguage!==this.language?this.getKey(e,this.secondaryLanguage,r,i,s,n):t!==this.fallbackLanguage?this.getKey(e,this.fallbackLanguage,r,i,s,n):void 0===n?e:n}returnValue(e,t,r,i,s,n,o){const a={value:t,data:r},l=this.requestEvent("localisation",{key:e,value:t,data:r,language:i,siteAlias:s,type:n});if(l.length){const e=l.pop();"string"==typeof e.value&&(a.value=e.value,a.data=e.data)}return a.value?o?a.value:this.renderFn(a.value,a.data).trim():e}readConfig(e,t,r){const i=this.configReader.getConfig(`${this.configPrefix}${t}.${e}`,{site:r});return"string"==typeof i?i:void 0}readConfigObject(e,t,r){const i=t||this.siteAlias,s=r||this.language,n=this.configReader.getLocal(`lang.${i}.${s}.${e}`);return"string"==typeof n?n:void 0}}class q extends d{constructor({logger:e={},settings:{siteAlias:t="default",pageType:i="front",contentId:s=null,device:n="desktop",runtime:l={Request:!1},transform:d,fragmentMode:h=null,debug:p=!1,simulatedMode:u=""},resources:{config:f={},templates:y={view:{},editor:{}},properties:m={},data:b=null,preload:v={},viewHeaders:w={},views:P=[]},globals:x={},callbacks:M={},entries:S=[],behaviours:k={}}={}){super({entries:S.map(e=>new B(e)),behaviours:Object.keys(k).reduce((e,t)=>({...e,[t]:k[t].map(e=>new H(e,t))}),{}),debug:p}),this.settings={debug:p,fragmentMode:h,simulatedMode:u,pageType:i,contentId:s,siteAlias:t,device:n,request:l.Request,transform:void 0===d||!!d},this.resources={properties:m,data:b,templates:y?y.view:{},viewHeaders:w},this.logger=e,this.settings.fragmentMode&&this.logger.debug(`[Core] Running fragmentMode: "${h}"`),this.configReader=new o(o.resolveFullConfig(f,r),this.logger),this.configProcessor=new a(this.configReader,this.settings.device,this.settings.fragmentMode,this.settings.pageType,this.settings.simulatedMode),this.logger.debug("---------------------------------------------------------"),this.logger.debug("[Core] Labrador rendering engine"),this.logger.debug(`Version ${this.configReader.getCms("app.version")} - build ${this.configReader.getCms("buildInfo.version")} - views: ${P.join(", ")}`),this.logger.debug("(c) Labrador CMS AS. Use require a valid licence"),this.logger.debug("---------------------------------------------------------"),this.localisation=new N({configReader:this.configReader,renderFn:Mustache.render}),this.viewManager=null,this.pathHelper=new C,this.resourceManager=new g(this.resources.properties,this.resources.templates,this.configReader,c.resolveConfig,this.behaviours,this.pathHelper,this.settings.debug),this.dataTransformer=new F(this.configReader.get("grid.total_grid_spans")),this.modelController=new O(this.configReader,this.resourceManager,this.entries,this.behaviours),this.styleManager=new V(this.configReader.get("style"),Mustache.render,this.logger),this.preloadHandler=new L(v),this.viewManager=new T({resourceManager:this.resourceManager,configReader:this.configReader,configProcessor:this.configProcessor,logger:this.logger,viewport:this.settings.device,styleManager:this.styleManager,entries:this.entries,behaviours:this.behaviours,settings:this.settings,localisation:this.localisation,preloadHandler:this.preloadHandler}),this.api={v1:this.createApi()},x.lab_api=this.api,M.apiReady&&M.apiReady(this.api.v1),this.apiReady(this.api),this.resources.data&&this.setData(this.resources.data)}getApi(){return this.api}createApi(){this.logger.debug("Core: Creating api using CoreApi.");const e=new E,r={appManager:this,configReader:this.configReader,configProcessor:this.configProcessor,modelController:this.modelController,viewManager:this.viewManager,styleManager:this.styleManager,dataTransformer:this.dataTransformer,utils:t,requestUtil:new A(this.settings.request),featureFlags:new _(this.settings.siteAlias,this.logger),preloadHandler:this.preloadHandler,viewHeaders:this.resources.viewHeaders,localisation:this.localisation,resourceManager:this.resourceManager};return e.create(r)}getAllLogs(){return{front:this.getLogs(),view:this.viewManager.getLogs(),resource:this.resourceManager.getLogs(),model:this.modelController.getLogs()}}setSite(e){this.configReader.updateConfigByPath("site",e),this.configReader.getCms("site",{noCache:!0}),this.configProcessor.resetCache()}apiReady(e){this.logger.debug("Core: Api ready."),this.viewManager.apiReady(e),this.modelController.setCacheHandler(new D([this.viewManager])),this.onReady(e)}onReady(e){this.emitEntry("onReady",e)}setData(e){if(!e||!this.settings.transform&&!Array.isArray(e)||this.settings.transform&&!e.data)throw new Error("[Core] Cannot set data. Invalid input. "+(this.settings.transform?"Expecting property data, none given.":`Expecting an array, ${typeof e} given.`));this.viewManager.viewMap.clear();const t=this.settings.transform?this.dataTransformer.backendToInternal(e,{blacklist:this.configReader.get("data.blacklist")||[],skipOffstage:!0}):e;let r=null;const i=this.emitEntry("onDataReady",t);i.length&&(this.logger.warn("[Core] Entry-hook 'onDataReady' has modifyed input-data."),r=i.pop()),this.modelController.setData(r||t),this.resourceManager.rootModelReady(this.modelController.getRootModel()),this.localisation.overrideLanguage(this.modelController.getRootModel().get("fields.seolanguage")),this.modelController.notifyOnAcceptContent(),this.emitEntry("onAcceptContent"),this.emitEvent("acceptContent")}serializeView(e=this.modelController.models){return this.dataTransformer.modelsToView(e)}serializeForFragmentApi(e=this.modelController.models,{device:t=this.settings.device,stringify:r=!0,recursive:i=!0}={}){return this.dataTransformer.modelsToFragmentApi(e,{device:t,stringify:r,recursive:i})}render(e,{transform:t}={}){return new Promise((r,i)=>{void 0!==t&&(this.settings.transform=!!t),this.setData(e),r(this.draw())})}draw(e){return this.viewManager.draw(this.modelController.models,t=>{e&&e(t)})}getMarkup(e){if(!e)return this.logger.warn("Core: No model supplied. Will return empty string."),"";const t=this.viewManager.getView(e);return t?t.getMarkupString()||"":(this.logger.warn(`Core: Cannot get view for model ${e.getPositionedPath()}. Will return empty string.`),"")}}
 //# sourceMappingURL=Core.js.map
 
 /***/ }),
@@ -36478,7 +40388,7 @@ class DachserJson {
         return {
             type: 'image',
             contentdata: {
-                fields: {},
+                fields: data.altText ? { altText: { value: data.altText } } : {},
                 instance_of: data.id,
                 metadata: {}
             }

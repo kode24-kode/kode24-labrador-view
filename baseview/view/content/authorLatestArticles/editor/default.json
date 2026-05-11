@@ -1,0 +1,49 @@
+{
+    "viewHelper": "external",
+    "external": {
+        "url": "{{{ getCmsConfig.front_api_url }}}/article?query={{{ get.current.filtered.query }}}&limit={{ get.current.filtered.limit }}&site_id={{ get.current.filtered.site_id }}&orderBy=published",
+        "type": "json"
+    },
+    "editors": [
+        {
+            "selector": "h3",
+            "fn": "EditRich",
+            "key": "fields.title",
+            "menu": "rich_text",
+            "placeholder": "Click to add title"
+        }
+    ],
+    "toolMenus": {
+        "rich_text": {
+            "inheritPath": "menu/tool/rich_text.json"
+        }
+    },
+    "contentMenus": {
+        "default": {
+            "items": {
+                "style": {
+                    "inheritPath": "menu/buttons/styles.json",
+                    "group": "g4"
+                },
+                "edit-settings": {
+                    "group": "g5_5",
+                    "icon": "labicon-edit",
+                    "callback": "displaySettingsPanel",
+                    "title": "Settings (,)",
+                    "hotkeys": [{
+                        "key": ","
+                    }],
+                    "params": {
+                        "settingsPanelOptions": "settingsPanels.admin"
+                    }
+                }
+            }
+        }
+    },
+    "settingsPanels": {
+        "admin": {
+            "template": "content/authorLatestArticles/template/settings",
+            "title": "Author Latest Articles - Settings"
+        }
+    }
+}

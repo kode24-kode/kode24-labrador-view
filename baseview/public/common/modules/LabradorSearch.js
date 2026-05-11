@@ -86,7 +86,9 @@ export class LabradorSearch {
                         },
                         hideSiteName: this.settings.hideSiteName,
                         hidePublishedDate: this.settings.hidePublishedDate,
-                        hideSection: this.settings.hideSection
+                        hideSection: this.settings.hideSection,
+						hideSubtitle: this.settings.hideSubtitle,
+						showAuthor: this.settings.showAuthor
                     },
                     image: {
                         width: {

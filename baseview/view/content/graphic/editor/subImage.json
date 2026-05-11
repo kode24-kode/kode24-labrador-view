@@ -4,8 +4,27 @@
             "items": {
                 "color_bg": null,
                 "settings": null,
-                "style": null
+                "style": null,
+                "editSettings": {
+                    "group": "g5",
+                    "icon": "labicon-edit",
+                    "callback": "displaySettingsPanel",
+                    "title": "Settings (,)",
+                    "hotkeys": [
+                        {
+                            "key": ","
+                        }
+                    ],
+                    "params": {
+                        "settingsPanelOptions": "settingsPanels.subimage"
+                    }
+                }
             }
+        }
+    },
+    "settingsPanels": {
+        "subimage": {
+            "template": "content/graphic/template/settings/subimage"
         }
     },
     "draggable": {

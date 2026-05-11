@@ -94,8 +94,8 @@
         },
         "header": {
             "logo_link_text": "Siirry etusivulle",
-			"menuScrollerLeftButton": "Vieritä vasemmalle",
-			"menuScrollerRightButton": "Vieritä oikealle"
+            "menuScrollerLeftButton": "Vieritä vasemmalle",
+            "menuScrollerRightButton": "Vieritä oikealle"
         },
         "slack_notifier": {
             "publish": {
@@ -144,6 +144,9 @@
             "labelMostRead": "Useimmat luetut",
             "titleMostRead": "Useimmat luetut artikkelit"
         },
+        "authorLatestArticles": {
+            "noBylines": "Artikkelissa ei löydy bylineja"
+        },
         "infiniteScroll": {
             "readMore": "Jatka lukemista"
         },
@@ -159,13 +162,17 @@
                 "talandeWebb": "Avaa Talande Webb -valintapaneeli",
                 "bluesky": "Jaa Blueskyssä",
                 "reddit": "Jaa Redditissä",
-                "whatsapp": "Jaa WhatsAppissa"
+                "whatsapp": "Jaa WhatsAppissa",
+                "print": "Tulosta sivu",
+                "googlenews": "Avaa Google News -sivu"
             }
         },
         "gallery": {
             "label": "Galleria",
             "seeAllImages": "Katso kaikki kuvat",
-            "navigateToOriginal": "Siirry alkuperäiselle sivulle"
+            "navigateToOriginal": "Siirry alkuperäiselle sivulle",
+            "imageCountText": "kuvaa",
+            "autoDescription": "{{ n }} kuvaa kohteesta \"{{ title }}\""
         },
         "weather": {
             "failedToFetch": "Säätietoja ei voitu hakea",
@@ -185,6 +192,20 @@
                 "wind": "Tuulinen",
                 "unknown": "Tuntematon"
             }
+        },
+        "recipe": {
+            "prepTimeLabel": "Valmistusaika:",
+            "cookTimeLabel": "Kypsennysaika:",
+            "totalTimeLabel": "Kokonaisaika:",
+            "recipeYieldLabel": "Annokset:",
+            "keywordsLabel": "Avainsanat:",
+            "caloriesLabel": "Kalorit:",
+            "dishLabel": "Ruokalaji:",
+            "cuisineLabel": "Keittiö:",
+            "printButton": "Tulosta",
+            "publishedDate": "Julkaisupäivä:",
+            "ingredientsTitle": "Ainekset",
+            "instructionsTitle": "Ohjeet"
         }
     }
 }

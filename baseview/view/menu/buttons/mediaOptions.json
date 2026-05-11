@@ -149,6 +149,22 @@
                 ]
             }
         },
+        "graphic": {
+            "icon": "labicon-edit",
+            "callback": "displaySettingsPanel",
+            "text": "Graphic settings",
+            "group": "sg1",
+            "params": {
+                "settingsPanelOptions": "settingsPanels.no_column",
+                "modelType": "graphic",
+                "target": "childOfType"
+            },
+            "require": {
+                "childType": [
+                    "graphic"
+                ]
+            }
+        },
         "gridSettings": {
             "icon": "labicon-edit",
             "callback": "displaySettingsPanel",

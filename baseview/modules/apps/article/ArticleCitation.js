@@ -1,15 +1,16 @@
 export class ArticleCitation {
 
-    constructor(api, menuItem, aiOptions = { model: 'gpt-4o' }) {
+    constructor(api, menuItem, aiOptions = { model: 'gpt-4o' }, updatedEditor = false) {
 
         this.api = api;
         this.rootModel = this.api.v1.model.query.getRootModel();
         this.menuItem = menuItem;
-        this.bodytext = this.setupBodytext();
+        this.bodytext = this.setupBodytext(updatedEditor);
 
         this.enabled = false;
         this.modal = null;
         this.aiOptions = aiOptions;
+        this.updatedEditor = updatedEditor;
 
         this.template = `
             <div class="lab-modal-form lab-grid">
@@ -41,16 +42,25 @@ export class ArticleCitation {
         `;
         this.display();
         this.generatedContent = '';
-        this.temporaryContent = '<span class="temporaryGeneratedString"> </span>';
+
+        if (updatedEditor === false) {
+            // Instead of adding temporary content add it editor directly.
+            this.temporaryContent = '<span class="temporaryGeneratedString"> </span>';
+        } else {
+            // Pausing blur event for the editor.
+            this.api.v1.editor.suspend();
+        }
+
         this.contentRemove = '';
         this.contentUpdate = '';
 
     }
 
-    setupBodytext() {
-        this.menuItem.menu.tool.insertMarkup('<span class="temporaryGeneratedString"> </span>');
+    setupBodytext(updatedEditor) {
+        if (!updatedEditor) {
+            this.menuItem.menu.tool.insertMarkup('<span class="temporaryGeneratedString"> </span>');
+        }
         return this.rootModel.get('fields.bodytext');
-
     }
 
     getMarkup() {
@@ -174,14 +184,40 @@ export class ArticleCitation {
                     btnOverwrite.addEventListener('click', (event) => {
                         this.contentUpdate = generatedText.textContent;
                         this.contentRemove = this.bodytext;
+
+                        // Insert for new text editor.
+                        if (this.updatedEditor) {
+                            // Remove all bodytext.
+                            this.api.v1.editor.bodytext.clear();
+
+                            // insert text at start.
+                            this.api.v1.editor.bodytext.insert(this.contentUpdate);
+
+                            // Set focus back to editor.
+                            this.api.v1.editor.focus();
+                        }
+
                         modal.close();
                     });
 
                     // Insert into bodytext
                     const btnInsert = modalMarkup.querySelector(`#suggest-btn-insert-content`);
                     btnInsert.addEventListener('click', (event) => {
-                        this.contentUpdate = generatedText.textContent;
+
+                        // Insert for new text editor.
+                        if (this.updatedEditor) {
+
+                            // insert text at cursor.
+                            this.api.v1.editor.selection.insert(generatedText.textContent);
+                            // Set focus back to editor.
+                            this.api.v1.editor.focus();
+                        } else {
+                            // Insert for old text editor.
+                            this.contentUpdate = generatedText.textContent;
+                        }
+
                         this.contentRemove = this.temporaryContent;
+
                         modal.close();
                     });
 
@@ -214,7 +250,6 @@ export class ArticleCitation {
 
                     // Update bodytext
                     this.rootModel.set('fields.bodytext', this.contentUpdate);
-
                 }
             }
 

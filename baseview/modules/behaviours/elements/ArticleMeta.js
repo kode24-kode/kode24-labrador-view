@@ -93,10 +93,10 @@ export default class ArticleMeta {
             formatted: ''
         };
 
-        // Unified: Display modified-date if exist. If not: Use publish-date
+        // Unified: Display modified date if it exists. If not: Use published date. Article setting for hiding dates should also apply to this field.
         const displayUnifiedDate = this.api.v1.config.get('contentbox_settings.articleMeta.displayUnifiedDate') || this.api.v1.config.get('articleMetaSettings.displayUnifiedDate');
         const unified = { hide: true };
-        if (displayUnifiedDate) {
+        if (displayUnifiedDate && !model.get('fields.hidePublishedDate')) {
             unified.hide = false;
             unified.isoDate = (modifiedDate || publishedDate).toISOString();
             unified.timestamp = modifiedTimestamp || articleTimestamp;

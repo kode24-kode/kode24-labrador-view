@@ -1,4 +1,5 @@
 import contentLanguages from './ContentLanguages.js';
+import AiModels from './AiModels.js';
 
 /**
  * Add retry-method for generating content ()
@@ -20,6 +21,8 @@ export class LabradorAi {
         this.rootModel = rootModel;
         this.promptInstructions = this.api.v1.config.get('promptInstructions');
         this.siteInfo = this.getSiteInfo();
+        this.aiModels = new AiModels();
+        this.aiModelsReady = this.aiModels.ensureInitialized();
     }
 
     getSiteInfo(sitealias = null) {
@@ -184,24 +187,53 @@ export class LabradorAi {
          * Get the AI settings for the current feature, as defined in admin page Labrador AI for the current site.
          * Passed on to backend AI integration for generation of content
          * Default to provider/model set in 'prompt instructions'-config
+         * Handles deprecated model fallback automatically
          * @param {Object} promptConfig - The prompt configuration to get the AI settings for
          */
 
+        let selectedProviderId = null;
+
+        // Get global default from customer config for use as fallback
+        const labradorAiConfig = this.api.v1.config.get('labradorAi', { site: this.siteAlias });
+        const globalSettings = labradorAiConfig?.globalSettings;
+        const customerGlobalDefault = globalSettings?.defaultTextModel;
+
         // Use customer defined provider, if set in promptConfig
-        if (promptConfig?.aiProvider && this.promptInstructions?.aiProvider && this.promptInstructions.aiProvider[promptConfig.aiProvider]) {
-            return this.promptInstructions.aiProvider[promptConfig.aiProvider];
+        if (promptConfig?.aiProvider && promptConfig.aiProvider !== 'default') {
+            selectedProviderId = promptConfig.aiProvider;
         }
-
+        // If "default" is selected or not set, use global default from config
+        else if (!promptConfig?.aiProvider || promptConfig?.aiProvider === 'default') {
+            selectedProviderId = customerGlobalDefault || this.aiModels.getDefaultModel('text');
+        }
         // Fallback to default provider, as set in "prompt instructions"
-        if (this.promptInstructionsFeature?.providerDefault && this.promptInstructions.aiProvider[this.promptInstructionsFeature.providerDefault]) {
-            return this.promptInstructions.aiProvider[this.promptInstructionsFeature.providerDefault];
+        else if (this.promptInstructionsFeature?.providerDefault) {
+            selectedProviderId = this.promptInstructionsFeature.providerDefault;
+        }
+        // Final fallback to default text model
+        else {
+            selectedProviderId = this.aiModels.getDefaultModel('text');
         }
 
-        const defaultAiProvider = 'openAi-gpt4o';
+        // Resolve model (handles deprecated models with fallback)
+        // Pass customer's global default as preferred fallback so deprecated models use it instead of system default
+        const featureName = params.featureName || '';
+        const resolved = this.aiModels.resolveModel(selectedProviderId, 'text', customerGlobalDefault);
 
-        const aiProvider = this.promptInstructions.aiProvider[defaultAiProvider];
+        // Get provider config from centralized models
+        let aiProvider;
+        if (resolved.model) {
+            aiProvider = this.aiModels.getProviderConfig(resolved.modelId);
+        }
+
+        if (!aiProvider) {
+            // Ultimate fallback - use default text model from config
+            const defaultId = this.aiModels.getDefaultModel('text');
+            aiProvider = this.aiModels.getProviderConfig(defaultId);
+        }
+
         aiProvider.searchForKeywords = promptConfig.searchForKeywords || [];
-        aiProvider.featureName = params.featureName || '';
+        aiProvider.featureName = featureName;
         return aiProvider;
     }
 
@@ -325,6 +357,9 @@ export class LabradorAi {
         if (fields && config.originalContent) {
             unRenderedPrompt += config.originalContent;
         }
+
+        // Add strict JSON formatting instruction at the end to ensure models return valid JSONs
+        unRenderedPrompt += '\n\nCRITICAL: You must respond with valid JSON only. No explanations, no preamble, no markdown code blocks. Your entire response must be parseable by JSON.parse(). Do not add any text before or after the JSON object.';
 
         const prompt = this.api.v1.util.dom.renderTemplate(unRenderedPrompt, { params: config });
         return prompt;
@@ -462,6 +497,31 @@ export class LabradorAi {
             promptConfig.model = templateConfigItems.model.defaultValue;
         }
             */
+
+        // Populate aiProvider options dynamically from centralized models
+        if (templateConfigItems.aiProvider) {
+            const models = this.aiModels.getModelsByCapability('text');
+
+            // Add "Default" option first
+            const aiProviderOptions = [
+                { label: 'Default (uses global setting)', value: 'default' }
+            ];
+
+            // Add all available models
+            for (const [modelId, model] of Object.entries(models)) {
+                aiProviderOptions.push({
+                    label: model.label,
+                    value: modelId
+                });
+            }
+
+            templateConfigItems.aiProvider.options = aiProviderOptions;
+
+            // Set default value if not already set
+            if (!templateConfigItems.aiProvider.defaultValue) {
+                templateConfigItems.aiProvider.defaultValue = 'default';
+            }
+        }
 
         // option for language, fetch language list set that to "options"
         if (templateConfigItems.languageContent) {
@@ -711,13 +771,20 @@ export class LabradorAi {
         }
         for (const field of Object.keys(modelFields)) {
             if (setToRootModel === true) {
+                // Remove editor-structure from root model.
+                this.cleanStructureFromModelOrView(this.rootModel, field);
                 this.rootModel.set(`fields.${ field }`, modelFields[field]);
             }
             if (setToViewAiField === true) {
                 for (const parentView of parentViews) {
+                    // Remove editor-structure from view.
+                    this.cleanStructureFromModelOrView(parentView, field);
                     parentView.set(`fields.${ field }`, modelFields[field]);
                 }
             }
+
+            // Remove editor-structure from model.
+            this.cleanStructureFromModelOrView(model, field);
             model.set(`fields.${ field }`, modelFields[field]);
         }
 
@@ -824,6 +891,19 @@ export class LabradorAi {
 
         jsonString = jsonString.trim();
         return jsonString;
+    }
+
+    /**
+     * Clean the editor-structure from the given model or view
+     *
+     * @param {object} modelOrView - The Labrador element-model or view to clean the editor-structure from
+     * @param {string} field - The field to clean the editor-structure from
+     */
+    cleanStructureFromModelOrView(modelOrView, field) {
+        // Check for editor-structure in attributes and remove if present.
+        if (modelOrView.get(`fields.${ field }.editor-structure`)) {
+            modelOrView.set(`fields.${ field }.editor-structure`, null);
+        }
     }
 
     appendLocalizedString(model, fieldPath, localizationPath) {

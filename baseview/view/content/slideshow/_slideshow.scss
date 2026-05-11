@@ -238,6 +238,26 @@ body article.column .content.hasContentPadding .slideshowcontainer figure {
     }
 }
 
+.main {
+	&:not(.gallery) {
+		.slideshowcontainer {
+			&.lab-hide-slideshow-top-image {
+				.scroll-container {
+					display: none;
+				}
+			}
+
+			&.lab-hide-slideshow-navigation-arrows {
+				nav {
+					.arrow {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+}
+
 .slideshowcontainer {
     position: relative;
 
@@ -641,6 +661,14 @@ body.gallery .main.gallery {
                 background-color: var(--gallery-page-background-color);
                 z-index: 100;
                 max-height: 92vh;
+
+				&::before {
+					padding-top: 65% !important;
+				}
+
+				.caption {
+					padding-top: 25px;
+				}
             }
 
             @include mobile {
@@ -773,6 +801,55 @@ body.gallery.gallery-all {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
+
+        .slideshow-box .slideshowcontainer.mobile-vertical {
+            .scroll-container {
+                flex-direction: column;
+                overflow-y: auto;
+                scroll-snap-type: none;
+                // max-height: 100vh;
+
+                .scroll-item {
+                    // flex: 1 1 auto;
+                    flex: 1 0 auto;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    background-color: var(--gallery-page-background-color);
+
+                    &:has(.placeholder_ad ) {
+                        background-color: transparent;
+                        flex: 1 0 70vh;
+                    }
+
+                    .caption {
+                        height: auto;
+                        padding: 16px;
+
+                        figcaption.expanded {
+                            position: relative;
+                            bottom: auto;
+                            padding: 0;
+                        }
+                    }
+                }
+            }
+            nav .arrow {
+                display: none;
+            }
+            .sticky-gallery-ad {
+                position: fixed;
+            }
+            figure {
+                .img {
+                    position: relative;
+                }
+                &:before {
+                    display: none !important;
+                }
+            }
+        }
     }
 }
 
@@ -783,6 +860,11 @@ body.gallery.gallery-all {
     .scroll-item {
         a {
             color: inherit;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
         }
     }
 
@@ -792,10 +874,31 @@ body.gallery.gallery-all {
         align-items: center;
         flex-wrap: nowrap;
 
+		> a {
+			flex: 1 0 50%;
+			max-width: 240px;
+			color: inherit;
+			text-decoration: none;
+
+			&:hover {
+				.slideshow-text {
+					> * {
+						text-decoration: underline;
+					}
+
+				}
+			}
+		}
+
         .slideshow-text {
-            flex: 1 0 50%;
-            flex-direction: column;
-            max-width: 240px;
+			flex-direction: column;
+			flex: 1 0 50%;
+			max-width: 240px;
+
+			.lab-gallery-image-count {
+				white-space: nowrap;
+				padding-right: 1rem;
+			}
 
             h2 {
                 font-size: 1.4rem;
@@ -816,8 +919,20 @@ body.gallery.gallery-all {
             display: flex;
             flex-wrap: nowrap;
 
+			a {
+				width: 100%;  // Safari needs this to render images
+				flex: 0 0 120px;  // But constrain to 120px width for horizontal scroll
+
+				&.gallery-link {
+					width: initial;
+					flex: initial; 
+				}
+			}
+
             figure {
+                min-width: 0;  // Safari flexbox fix for nested image rendering
                 margin: 0;
+
                 &.selected {
                     border: none;
                 }
@@ -834,6 +949,7 @@ body.gallery.gallery-all {
             }
 
             .gallery-link {
+				display: none;
                 position: absolute;
                 right: 0;
                 bottom: 0;
@@ -860,6 +976,11 @@ body.gallery.gallery-all {
 
         .slideshow-preview {
             flex-direction: column;
+
+			> a {
+				max-width: 100%;
+				width: 100%;
+			}
 
             .slideshow-text {
                 flex-direction: column;

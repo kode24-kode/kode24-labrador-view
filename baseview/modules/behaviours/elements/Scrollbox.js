@@ -10,28 +10,7 @@ export default class Scrollbox {
         if (child.getType() !== 'article') {
             return;
         }
-        // {
-        //     "metadata": {
-        //         "floatingTitle": true,
-        //         ...
-        //     },
-        //     "contentdata": {
-        //         "fields.displayByline": false
-        //     },
-        //     "children": {
-        //         "image": {
-        //             "contentdata": {
-        //                 "fields.whRatio": {
-        //                     "value": "1.2",
-        //                     "vp": {
-        //                         "mobile": "0.8"
-        //                     }
-        //                 },
-        //                 "fields.bbRatio": "0.4"
-        //             }
-        //         }
-        //     }
-        // }
+
         const setValues = (m, obj, fieldPrefix) => {
             if (!obj) { return; }
             for (const key of Object.keys(obj)) {
@@ -44,6 +23,7 @@ export default class Scrollbox {
                 }
             }
         };
+
         setValues(child, this.api.v1.config.get('contentbox_settings.scrollbox.dataForAddedChild.article.metadata'), 'metadata.');
         setValues(child, this.api.v1.config.get('contentbox_settings.scrollbox.dataForAddedChild.article.contentdata'));
         if (child.children.length && child.children[0].getType() === 'image') {

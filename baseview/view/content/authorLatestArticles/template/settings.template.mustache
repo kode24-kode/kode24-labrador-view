@@ -1,0 +1,46 @@
+<div class="lab-modal-form lab-grid">
+    <div class="lab-formgroup lab-grid lab-grid-gap lab-valign-top">
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap">
+            <label for="id-metadata.articleCount">Number of articles</label>
+            <input id="id-metadata.articleCount" type="number" min="1" max="20" value="{{ get.current.metadata.articleCount }}" name="metadata.articleCount" placeholder="3">
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap">
+            <label for="id-metadata.daysAgo">Number of days</label>
+            <input id="id-metadata.daysAgo" type="number" min="1" value="{{ get.current.metadata.daysAgo }}" name="metadata.daysAgo" placeholder="365">
+        </div>
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Article options</h3>
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="id-metadata.hideImage">Hide image</label>
+            <input id="id-metadata.hideImage" type="checkbox" value="1" name="metadata.hideImage" {{ #get.current.metadata.hideImage }}checked{{ /get.current.metadata.hideImage }}>
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="id-metadata.hideKicker">Hide kicker</label>
+            <input id="id-metadata.hideKicker" type="checkbox" value="1" name="metadata.hideKicker" {{ #get.current.metadata.hideKicker }}checked{{ /get.current.metadata.hideKicker }}>
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="id-metadata.showSubtitle">Show subtitle</label>
+            <input id="id-metadata.showSubtitle" type="checkbox" value="1" name="metadata.showSubtitle" {{ #get.current.metadata.showSubtitle }}checked{{ /get.current.metadata.showSubtitle }}>
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="id-metadata.hideDate">Hide date</label>
+            <input id="id-metadata.hideDate" type="checkbox" value="1" name="metadata.hideDate" {{ #get.current.metadata.hideDate }}checked{{ /get.current.metadata.hideDate }}>
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="id-metadata.hideDateIcon">Hide date icon</label>
+            <input id="id-metadata.hideDateIcon" type="checkbox" value="1" name="metadata.hideDateIcon" {{ #get.current.metadata.hideDateIcon }}checked{{ /get.current.metadata.hideDateIcon }}>
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="id-metadata.niceDates">Show date as X days ago</label>
+            <input id="id-metadata.niceDates" type="checkbox" value="1" name="metadata.niceDates" {{ #get.current.metadata.niceDates }}checked{{ /get.current.metadata.niceDates }}>
+        </div>
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Layout options</h3>
+        <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="id-metadata.showDivider">Border between articles</label>
+            <input id="id-metadata.showDivider" type="checkbox" value="1" name="metadata.showDivider" {{ #get.current.metadata.showDivider }}checked{{ /get.current.metadata.showDivider }}>
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="id-metadata.imageOnlyFirst">Image on first article only</label>
+            <input id="id-metadata.imageOnlyFirst" type="checkbox" value="1" name="metadata.imageOnlyFirst" {{ #get.current.metadata.imageOnlyFirst }}checked{{ /get.current.metadata.imageOnlyFirst }}>
+        </div>
+    </div>
+</div>

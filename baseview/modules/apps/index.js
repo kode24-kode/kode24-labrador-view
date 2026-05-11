@@ -40,12 +40,12 @@ import { BylineEditor } from './BylineEditor.js';
 import { TeaserEditor } from './TeaserEditor.js';
 import { FrontContentSupport } from './FrontContentSupport.js';
 import { ParallaxSupport } from './ParallaxSupport.js';
-import { AddComment } from './AddComment.js';
 
 import { TopicSummary } from './article/TopicSummary.js';
 import { ImageColors } from './ImageColors.js';
 
 import { FieldVersion } from './fieldversion/index.js';
+import { NTBExport } from './article/NTBExport.js';
 
 export default {
     SettingsFront,
@@ -84,5 +84,5 @@ export default {
     FieldVersion,
     NoticeSettings,
     NoticeGeneralSettings,
-    AddComment
+    NTBExport
 };

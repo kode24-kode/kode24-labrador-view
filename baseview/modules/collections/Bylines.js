@@ -20,7 +20,8 @@ export default class {
     }
 
     getDefaultBylineId() {
-        return parseInt(lab_api.v1.user.getField('defaultByline'), 10);
+        const defaultByline = lab_api.v1.user.getField('defaultByline');
+        return defaultByline ? parseInt(defaultByline, 10) : null;
     }
 
     getFavouriteBylineIds() {
@@ -55,11 +56,13 @@ export default class {
     }
 
     // If no search is defined:
-    // Display default byline + recently used bylines
+    // Display favourite bylines
     onGetUrl(uiInterface, options) {
         const defaultBylineId = this.getDefaultBylineId();
         const query = uiInterface.getProperty('query');
+
         if (!query.firstname && !query.lastname && !query.bylineId) {
+            // Get favourite byline IDs and default byline
             const ids = [...this.getFavouriteBylineIds().filter((id) => id !== defaultBylineId)];
             if (defaultBylineId) {
                 ids.unshift(defaultBylineId);
@@ -71,11 +74,17 @@ export default class {
 
     onMapData(uiInterface, data, options) {
         const result = data.data.map((item) => {
+            // Extract created_by and modified_by from fields
+            const createdBy = item.fields && item.fields.created_by ? item.fields.created_by : null;
+            const modifiedBy = item.fields && item.fields.modified_by ? item.fields.modified_by : null;
+
             const bylineData = {
                 type: item.type ? item.type : 'byline',
                 contentdata: {
                     instance_of: item.id ? item.id : null,
-                    fields: item.fields
+                    fields: item.fields,
+                    created_by: createdBy,
+                    modified_by: modifiedBy
                 },
                 filtered: {
                     name: `${ item.fields.firstname } ${ item.fields.lastname }`,
@@ -136,13 +145,33 @@ export default class {
         uiInterface.setProperty('contentList', contentList);
         const permissions = uiInterface.getProperty('permissions');
         const defaultByline = this.getDefaultBylineId();
+        const currentUserId = this.api.v1.user.getUserId();
 
-        // Add edit-button. Todo: Check permissions
+        // Add edit-button based on modified_by/created_by ownership or defaultByline
         for (const item of contentList) {
             const id = item.model.get('instance_of');
             if (id) {
-                if (permissions.all || (id === defaultByline && permissions.mine)) {
+                // Access created_by and modified_by from model (stored in contentdata)
+                const createdByValue = item.model.get('created_by');
+                const modifiedByValue = item.model.get('modified_by');
+
+                const createdBy = createdByValue ? parseInt(createdByValue, 10) : null;
+                const modifiedBy = modifiedByValue ? parseInt(modifiedByValue, 10) : null;
+
+                // Users with byline_edit_all can edit anything
+                if (permissions.all) {
                     this.addEditLink(uiInterface, id, item.element);
+                }
+                // Users with byline_edit_mine can edit if:
+                // 1. It's their default byline OR
+                // 2. modified_by (custom field) matches current user OR
+                // 3. created_by (custom field) matches current user
+                else if (permissions.mine) {
+                    if (id === defaultByline ||
+                        (modifiedBy && modifiedBy === currentUserId) ||
+                        (createdBy && createdBy === currentUserId)) {
+                        this.addEditLink(uiInterface, id, item.element);
+                    }
                 }
             }
         }

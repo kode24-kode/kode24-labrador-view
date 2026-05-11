@@ -10,3 +10,22 @@
         <div class="text bodytext">{{{ get.current.filtered.bodytext }}}</div>
     </div>
 </div>
+{{ #getConfig.noticeStructuredData.active }}<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": "#notice{{ get.current.id }}",
+  "headline": "{{{ get.current.fields.title }}}",
+  "articleBody": "{{{ get.current.fields.bodytext }}}",
+  "datePublished": "{{ get.current.filtered.isoDate }}"{{ #get.current.fields.modified }},
+  "dateModified": "{{ get.current.filtered.isoModifiedDate }}"{{ /get.current.fields.modified }},
+  {{ #get.current.fields.userName }}"author": {
+    "@type": "Person",
+    "name": "{{{ get.current.fields.userName }}}"
+  },
+  {{ /get.current.fields.userName }}"isPartOf": {
+    "@type": "LiveBlogPosting",
+    "@id": "#liveblogposting"
+  }
+}
+</script>{{ /getConfig.noticeStructuredData.active }}

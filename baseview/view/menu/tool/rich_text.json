@@ -262,6 +262,24 @@
                             "value": "<span class=\"fi-volume\"> </span>",
                             "text": "Audio",
 							"icon": "fi-volume"
+                        },
+                        {
+                            "callback": "insertRawMarkup",
+                            "value": "<span class=\"fi-blockquote-left\"> </span>",
+                            "text": "Blockquote (left)",
+                            "icon": "fi-blockquote-left"
+                        },
+                        {
+                            "callback": "insertRawMarkup",
+                            "value": "<span class=\"fi-blockquote-right\"> </span>",
+                            "text": "Blockquote (right)",
+                            "icon": "fi-blockquote-right"
+                        },
+                        {
+                            "callback": "insertRawMarkup",
+                            "value": "<span class=\"fi-play\"> </span>",
+                            "text": "Play",
+                            "icon": "fi-play"
                         }
                     ]
                 },
@@ -471,8 +489,8 @@
             "group": "g5",
             "title": "More options",
             "submenuDirection": "lab-align-right",
-            "items": [
-                {
+            "items": {
+                "textSizeDown": {
                     "icon": "labicon-textSizeDown",
                     "group": "g1",
                     "text": "Smaller text",
@@ -487,7 +505,7 @@
                     "autocloseSubmenuAfterAction": false,
                     "title": "Decrease font size (Scroll down or Cmd -)"
                 },
-                {
+                "textSizeUp": {
                     "icon": "labicon-textSizeUp",
                     "group": "g1",
                     "text": "Larger text",
@@ -502,7 +520,7 @@
                     "autocloseSubmenuAfterAction": false,
                     "title": "Increase font size (Scroll up or Cmd +)"
                 },
-                {
+                "underline": {
                     "icon": "labicon-text_underline",
                     "group": "g2",
                     "text": "Underline",
@@ -524,7 +542,7 @@
                     "offValue": false,
                     "bindToSelection": "underline"
                 },
-                {
+                "strikethrough": {
                     "icon": "labicon-text_strikethrough",
                     "group": "g2",
                     "text": "Strikethrough",
@@ -546,7 +564,7 @@
                     "offValue": false,
                     "bindToSelection": "strikethrough"
                 },
-                {
+                "uppercase": {
                     "icon": " ",
                     "iconContent": "A",
                     "group": "g2",
@@ -562,7 +580,7 @@
                     "offValue": false,
                     "bindToSelection": "texttransform"
                 },
-                {
+                "lowercase": {
                     "icon": " ",
                     "iconContent": "a",
                     "group": "g2",
@@ -578,15 +596,15 @@
                     "offValue": false,
                     "bindToSelection": "texttransform"
                 },
-                {
+                "superscript": {
                     "group": "g2",
                     "inheritPath": "menu/buttons/superscript.json"
                 },
-                {
+                "subscript": {
                     "group": "g2",
                     "inheritPath": "menu/buttons/subscript.json"
                 },
-                {
+                "animations": {
                     "group": "g2-2",
                     "text": "Animations",
                     "icon": "labicon-animation",
@@ -683,7 +701,7 @@
                         }
                     ]
                 },
-                {
+                "textShadow": {
                     "group": "g2-2",
                     "icon": "labicon-blur",
                     "text": "Text shadow",
@@ -704,7 +722,7 @@
                         }
                     }
                 },
-                {
+                "insertQuotes": {
                     "callback": "insertMarkupAround",
                     "group": "g3",
                     "title": "Insert quotes",
@@ -723,7 +741,7 @@
                     }],
                     "displayHotkeys": true
                 }
-            ]
+            }
         },
         "reset": {
             "icon": "labicon-reset_style",

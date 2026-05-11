@@ -1,0 +1,42 @@
+<div data-element-guid="{{ get.current.guid }}" class="column lab-ala-container {{ #helper.trim }}
+    {{ #style.collection }}box_decoration{{ /style.collection }}
+    {{ ^get.current.metadata.isBodytext }}
+    {{ size.grid.css }}
+    {{ size.grid.absCss }}
+    {{ /get.current.metadata.isBodytext }}
+    {{ get.current.metadata.css }}
+    {{ #get.current.metadata.showDivider }}lab-ala-divider{{ /get.current.metadata.showDivider }}
+    {{ #get.current.metadata.imageOnlyFirst }}lab-ala-image-first-only{{ /get.current.metadata.imageOnlyFirst }}
+    {{ /helper.trim }}">
+    {{{ get.current.filtered.styleSheets }}}
+    <div class="content {{ #style.collection }}content_decoration{{ /style.collection }}" style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
+        {{ #app.isEditor }}
+            <h3 itemprop="headline" class="{{ #style.collection }}text_decoration fields.title{{ /style.collection }} lab-ala-headline" style="{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</h3>
+        {{ /app.isEditor }}
+        {{ #app.isFront }}
+            {{ #get.current.fields.title }}
+                <h3 itemprop="headline" class="{{ #style.collection }}text_decoration fields.title{{ /style.collection }} lab-ala-headline" style="{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</h3>
+            {{ /get.current.fields.title }}
+        {{ /app.isFront }}
+        {{ ^get.current.filtered.hasBylines }}
+            <p class="noContent lab-defaultTextValue">{{ #lang }}authorLatestArticles.noBylines{{ /lang }}</p>
+        {{ /get.current.filtered.hasBylines }}
+        {{ #get.current.filtered.hasBylines }}
+            {{ #get.current.filtered.templateData.length }}
+                <ul class="lab-ala-list">{{ #get.current.filtered.templateData }}
+                    <li class="lab-ala-item">
+                        <a href="{{{published_url}}}">
+                            {{ #app.isFront }}{{ ^get.current.filtered.displayOptions.hideImage }}{{ #frontCropUrl }}<img src="{{{ get.current.filtered.imageServer }}}/{{{ frontCropUrl }}}&{{{ get.current.filtered.imgArgs }}}"{{ #get.current.filtered.lazyloadImages }} loading="lazy"{{ /get.current.filtered.lazyloadImages }}>{{ /frontCropUrl }}{{ /get.current.filtered.displayOptions.hideImage }}{{ /app.isFront }}
+                            <div class="lab-ala-text-container">
+                                {{ ^get.current.filtered.displayOptions.hideKicker }}{{ #kicker }}<p class="lab-ala-kicker">{{{ kicker }}}</p>{{ /kicker }}{{ /get.current.filtered.displayOptions.hideKicker }}
+                                <p class="lab-ala-title">{{{ title }}}</p>
+                                {{ #get.current.filtered.displayOptions.showSubtitle }}{{ #subtitle }}<p class="lab-ala-subtitle">{{{ subtitle }}}</p>{{ /subtitle }}{{ /get.current.filtered.displayOptions.showSubtitle }}
+                                {{ ^get.current.filtered.displayOptions.hideDate }}{{ #formatted }}<time datetime="{{{ formatted }}}" class="lab-ala-date {{ ^get.current.filtered.displayOptions.hideDateIcon }}fi-clock{{ /get.current.filtered.displayOptions.hideDateIcon }}">{{{ formatted }}}</time>{{ /formatted }}{{ /get.current.filtered.displayOptions.hideDate }}
+                            </div>
+                        </a>
+                    </li>
+                {{ /get.current.filtered.templateData }}</ul>
+            {{ /get.current.filtered.templateData.length }}
+        {{ /get.current.filtered.hasBylines }}
+    </div>
+</div>

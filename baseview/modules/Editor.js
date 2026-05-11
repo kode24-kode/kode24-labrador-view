@@ -46,6 +46,9 @@ export default class extends Front {
     }
 
     updateBodytextAds(model) {
+        if (this.api.v1.collabrador.isActive()) {
+            return;
+        }
         // Remove non-persistent elements from model
         const children = [...model.getChildren()];
         for (const child of children) {

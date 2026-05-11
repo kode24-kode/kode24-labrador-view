@@ -94,8 +94,8 @@
         },
         "header": {
             "logo_link_text": "Ga naar de startpagina",
-			"menuScrollerLeftButton": "Scroll naar links",
-			"menuScrollerRightButton": "Scroll naar rechts"
+            "menuScrollerLeftButton": "Scroll naar links",
+            "menuScrollerRightButton": "Scroll naar rechts"
         },
         "slack_notifier": {
             "publish": {
@@ -144,6 +144,9 @@
             "labelMostRead": "Meest gelezen",
             "titleMostRead": "Meest gelezen artikelen"
         },
+        "authorLatestArticles": {
+            "noBylines": "Geen bylines gevonden in artikel"
+        },
         "infiniteScroll": {
             "readMore": "Lees verder"
         },
@@ -159,13 +162,17 @@
                 "talandeWebb": "Open het Talande Webb-optiepaneel",
                 "bluesky": "Delen op Bluesky",
                 "reddit": "Delen op Reddit",
-                "whatsapp": "Delen op WhatsApp"
+                "whatsapp": "Delen op WhatsApp",
+                "print": "Pagina afdrukken",
+                "googlenews": "Open Google News-pagina"
             }
         },
         "gallery": {
             "label": "Galerij",
             "seeAllImages": "Bekijk alle afbeeldingen",
-            "navigateToOriginal": "Ga naar de originele pagina"
+            "navigateToOriginal": "Ga naar de originele pagina",
+            "imageCountText": "afbeeldingen",
+            "autoDescription": "{{ n }} afbeeldingen uit \"{{ title }}\""
         },
         "weather": {
             "failedToFetch": "Kon weergegevens niet ophalen",
@@ -185,6 +192,20 @@
                 "wind": "Winderig",
                 "unknown": "Onbekend"
             }
+        },
+        "recipe": {
+            "prepTimeLabel": "Voorbereidingstijd:",
+            "cookTimeLabel": "Bereidingstijd:",
+            "totalTimeLabel": "Totale tijd:",
+            "recipeYieldLabel": "Porties:",
+            "keywordsLabel": "Trefwoorden:",
+            "caloriesLabel": "Calorieën:",
+            "dishLabel": "Gerecht:",
+            "cuisineLabel": "Keuken:",
+            "printButton": "Afdrukken",
+            "publishedDate": "Publicatiedatum:",
+            "ingredientsTitle": "Ingrediënten",
+            "instructionsTitle": "Instructies"
         }
     }
 }

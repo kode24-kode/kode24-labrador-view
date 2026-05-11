@@ -23,15 +23,20 @@ export default class GoogleAd {
             bidding: adEnv.bidding,
             hideOnTabletWidth: adEnv.hideOnTabletWidth || 1316,
             fetchMarginPercent: adEnv.fetchMarginPercent || 150,
-            renderMarginPercent: adEnv.renderMarginPercent || 150
+            renderMarginPercent: adEnv.renderMarginPercent || 150,
+            mobileScaling: adEnv.mobileScaling || 2.0
         };
         model.setFiltered('googleAds', googleAds);
+
+        // Set flag for OptiDigital provider
+        const isOptiDigital = googleAds.bidding && googleAds.bidding.provider && googleAds.bidding.provider.name === 'optidigital';
+        model.setFiltered('isOptiDigital', isOptiDigital);
 
         const format = getFormat(key, formatConfig);
         format.key = model.get('metadata.key') || 'row';
 
         // Livewrapped special case
-        if (googleAds.bidding && googleAds.bidding.enabled && googleAds.bidding.provider && googleAds.bidding.provider.name) {
+        if (googleAds.bidding && googleAds.bidding && googleAds.bidding.provider && googleAds.bidding.provider.name) {
             if (googleAds.bidding.provider.name === 'livewrapped') {
                 const guidGenerator = () => {
                     const S4 = () => (((1 + Math.random()) * 0x10000) || 0).toString(16).substring(1);

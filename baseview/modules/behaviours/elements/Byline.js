@@ -60,6 +60,7 @@ export default class Byline {
             public_phone: view.get('fields.public_phone'),
             firstname: view.get('fields.firstname'),
             lastname: view.get('fields.lastname'),
+            job_title: view.get('fields.job_title'),
             description: view.get('fields.description'),
             description2: view.get('fields.description2'),
             slug: view.get('fields.slug')
@@ -110,7 +111,8 @@ export default class Byline {
                     element.parts.push({
                         key: part,
                         value,
-                        title
+                        title,
+                        isJobTitle: part === 'job_title'
                     });
                 }
             });
@@ -152,7 +154,7 @@ export default class Byline {
      * and whether the current author meets the criteria for having an author page link.
      * The author page link is used instead of a manually defined email or URL if:
      *  - The `authorPagesConfig.enabled` flag is true
-     *  - The author has a public or internal email defined
+     *  - The author has a slug, or a public/internal email defined
      *  - Either all authors are allowed (`enableForAll`), or this specific author ID is whitelisted
      *
      * @param {Object} fields - The author field values from the view.
@@ -161,7 +163,7 @@ export default class Byline {
      * @returns {boolean} Returns `true` if the author page URL should be used for the byline link; otherwise `false`.
      */
     shouldUseAuthorPageUrl(fields, model) {
-        if (this.authorPagesConfig.enabled && (fields.public_email || fields.email) && model.get('instance_of')) {
+        if (this.authorPagesConfig.enabled && (fields.public_email || fields.email || fields.slug) && model.get('instance_of')) {
             if (this.authorPagesConfig.enableForAll) {
                 return true;
             }

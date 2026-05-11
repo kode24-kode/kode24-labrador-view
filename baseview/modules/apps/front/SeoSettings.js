@@ -1,5 +1,16 @@
 import contentLanguages from '../../lib/helpers/ContentLanguages.js';
 
+const schemaTypes = [
+    { value: 'NewsArticle', label: 'News Article' },
+    { value: 'Article', label: 'Article' },
+    { value: 'OpinionNewsArticle', label: 'Opinion Article' },
+    { value: 'LiveBlogPosting', label: 'Liveblog' },
+    { value: 'Recipe', label: 'Recipe' },
+    { value: 'VideoObject', label: 'Video' },
+    { value: 'BroadcastEvent', label: 'Broadcast Event (Live Video)' },
+    { value: 'ImageGallery', label: 'Image Gallery' }
+];
+
 export class SeoSettings {
 
     constructor(api, params) {
@@ -21,6 +32,16 @@ export class SeoSettings {
                     <label for="seo-seodescription">SEO description</label>
                     <textarea data-sugegstion-name="seo_content" name="fields.seodescription" id="seo-seodescription" placeholder="Search engine description ...">{{ fields.seodescription }}</textarea>
                 </div>
+
+                ${ !this.isFrontPage ? `<div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                    <label for="seo-schematype">Schema Type</label>
+                    <select name="fields.seoschematype" id="seo-schematype">
+                        <option value="">Select schema type</option>
+                        {{ #schemaTypes }}
+                        <option value="{{ value }}"{{ #selected }} selected{{ /selected }}>{{ label }}</option>
+                        {{ /schemaTypes }}
+                    </select>
+                </div>` : '' }
 
                 <div class="lab-formgroup-item lab-grid-large-12 lab-inline lab-grid-gap">
                     <label for="norobots">Hide from Google</label>
@@ -87,6 +108,9 @@ export class SeoSettings {
             'fields.norobots': {
                 node: 'fields.norobots', boolean: true
             },
+            'fields.seoschematype': {
+                node: 'fields.seoschematype'
+            },
             'fields.sometitle': {
                 node: 'fields.sometitle'
             },
@@ -105,6 +129,9 @@ export class SeoSettings {
         const selectedLanguage = seolanguage || defaultLanguage;
         const languages = contentLanguages.map((language) => ({ name: language.name, code: language.code, selected: language.code === selectedLanguage }));
 
+        const selectedSchemaType = this.rootModel.get('fields.seoschematype') || 'NewsArticle';
+        const mappedSchemaTypes = schemaTypes.map((type) => ({ value: type.value, label: type.label, selected: type.value === selectedSchemaType }));
+
         if (this.rootModel.getType() === 'page_front') {
             const frontMarkup = this.api.v1.util.dom.renderTemplate(this.template, {
                 fields: {
@@ -118,6 +145,7 @@ export class SeoSettings {
                 },
                 images_url: this.api.v1.properties.get('image_server'),
                 languages,
+                schemaTypes: mappedSchemaTypes,
                 defaultLanguage
             }, true);
 
@@ -146,6 +174,7 @@ export class SeoSettings {
         const markup = this.api.v1.util.dom.renderTemplate(this.template, {
             buttons,
             languages,
+            schemaTypes: mappedSchemaTypes,
             defaultLanguage,
             fields: {
                 seotitle: this.rootModel.get('fields.seotitle'),
@@ -171,8 +200,17 @@ export class SeoSettings {
                 const inputEls = [...markup.querySelectorAll(`[data-sugegstion-name="${ name }"]`)];
                 this.toggleSuggestUI(false, btn, inputEls);
                 lab_api.v1.ns.get('textAssistant.fetchByName')(name).then((result) => {
-                    if (result) {
+                    if (result && Object.keys(result).length > 0) {
                         this.setSuggestionValue(result, inputEls);
+                    } else {
+                        this.api.v1.ui.modal.dialog({
+                            container: { state: { error: true } },
+                            content: {
+                                title: 'Missing content',
+                                description: 'The article needs body text before generating suggestions.'
+                            },
+                            footer: { buttons: [{ type: 'submit', value: 'Close', highlight: true }] }
+                        });
                     }
                     this.toggleSuggestUI(true, btn, inputEls);
                 }).catch((error) => {

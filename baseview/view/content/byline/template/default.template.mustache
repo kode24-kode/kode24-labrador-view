@@ -4,14 +4,14 @@
         {{ #get.current.filtered.data.imageAbove }}
             {{{ child.image }}}
         {{ /get.current.filtered.data.imageAbove }}
-        <address class="name">
+        <address class="name lab-name-flex">
+        <span class="lab-hidden-byline-name" itemprop="name">{{{ get.current.fields.firstname }}} {{{ get.current.fields.lastname}}}</span>
         {{ #get.current.filtered.data.items }}
             {{ #url }}
                 <a rel="author" itemprop="url" href="{{#app.isFront}}{{ url }}{{/app.isFront}}">{{ /url }}
-                <span class="lab-hidden-byline-name" itemprop="name">{{{ get.current.fields.firstname }}} {{{ get.current.fields.lastname}}}</span>
-                {{ #parts }}
-                    <span class="{{ key }} {{ #style.collection }}text_decoration fields.{{ key }}{{ /style.collection }}">{{ #url }}{{ #helper.stripLinks }}{{{ value }}}{{ /helper.stripLinks }}{{ /url }}{{ ^url }}{{{ value }}}{{ /url }}</span>
-                {{ /parts }}{{ #url }}
+            {{ #parts }}
+                <span class="{{ #isJobTitle }}lab-job-title{{ /isJobTitle }}{{ ^isJobTitle }}{{ key }} {{ #style.collection }}text_decoration fields.{{ key }}{{ /style.collection }}{{ /isJobTitle }}"{{ #isJobTitle }} itemprop="jobTitle"{{ /isJobTitle }}>{{ #url }}{{ #helper.stripLinks }}{{{ value }}}{{ /helper.stripLinks }}{{ /url }}{{ ^url }}{{{ value }}}{{ /url }}</span>
+            {{ /parts }}{{ #url }}
                 </a>
             {{ /url }}
         {{ /get.current.filtered.data.items }}

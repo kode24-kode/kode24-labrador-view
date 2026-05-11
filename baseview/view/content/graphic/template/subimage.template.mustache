@@ -1,8 +1,18 @@
-<div class="graphic type_{{ get.current.fields.fileType }}">
+<div class="graphic type_{{ get.current.fields.fileType }}"
+    style="{{ #helper.trim }}
+        {{ #get.current.fields.graphicWidthDesktop }}
+            --graphicWidthDesktop: {{ get.current.fields.graphicWidthDesktop }}px;
+        {{ /get.current.fields.graphicWidthDesktop }}
+        {{ #get.current.fields.graphicWidthMobile }}
+            --graphicWidthMobile: {{ get.current.fields.graphicWidthMobile }}px;
+        {{ /get.current.fields.graphicWidthMobile }}
+        {{ /helper.trim }}">
     <div class="img">
-        <img src="{{ get.current.fields.url }}" alt="{{ get.current.fields.alt }}" />
+        <img src="{{ get.current.fields.url }}" alt="{{ get.current.fields.imageAltText }}"
+            {{ #get.current.fields.graphicWidthDesktop }}width="{{ get.current.fields.graphicWidthDesktop }}"{{ /get.current.fields.graphicWidthDesktop }}
+        />
     </div>
     {{ #get.current.fields.displayCaption }}
-    {{ > content/image/template/partials/caption_links }}
+        {{ > content/image/template/partials/caption_links }}
     {{ /get.current.fields.displayCaption }}
 </div>

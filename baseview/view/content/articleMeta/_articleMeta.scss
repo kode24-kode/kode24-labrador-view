@@ -42,13 +42,10 @@ article .meta {
         align-items: center;
         justify-content: center;
         
-        .fi-social-copyLink {
-            &:hover {
-                cursor: pointer;
-            }
-        }
-
-        .fi-social-talandeWebb {
+		.fi-social-google-news,
+        .fi-social-copyLink,
+        .fi-social-talandeWebb,
+        .fi-print {
             &:hover {
                 cursor: pointer;
             }
@@ -86,6 +83,12 @@ article .meta {
                 height: 1px;
                 width: 1px;
                 overflow: hidden;
+            }
+
+            &.fi-print {
+                padding-top: 0;
+                padding-left: 0;
+                padding-right: 0;
             }
         }
     }
@@ -179,7 +182,8 @@ body.custom-font-color {
         opacity: 0.7;
         color: inherit;
 
-        *, .dates * {
+        *, 
+        .dates * {
             color: inherit;
         }
 

@@ -1,0 +1,31 @@
+{
+    "presentation": {
+        "stage": {
+            "lab-default": {
+                "properties": {
+                    "default": [
+                        "content_settings/front/vp_data.json",
+                        "content/recipeInstructions/front/default.json"
+                    ]
+                },
+                "template": {
+                    "default": "content/recipeInstructions/template/default"
+                }
+            }
+        }
+    },
+    "edit": {
+        "stage": {
+            "lab-default": {
+                "properties": {
+                    "default": [
+                        "content_settings/front/vp_data.json",
+                        "content_settings/editor/lock/default.json",
+                        "content_settings/editor/default.json",
+                        "content/recipeInstructions/editor/default.json"
+                    ]
+                }
+            }
+        }
+    }
+}

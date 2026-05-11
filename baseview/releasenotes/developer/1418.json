@@ -1,0 +1,18 @@
+{
+    "releasenotes": {
+        "version": {
+            "int": 1418,
+            "str": "1.4.18"
+        },
+        "items": [
+            {
+                "date": "20260427",
+                "title": "Playwright base URL configuration",
+                "description": "End-to-end tests can now target different servers by setting the BASE_URL environment variable, making it easier for developers to run tests against their own test environments.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1622",
+                "isImprovement": true
+            }
+        ]
+    }
+}

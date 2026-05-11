@@ -9,7 +9,7 @@
     &.speech-bubble-oval,
     &.speech-bubble-square {
         .content {
-            filter: drop-shadow(-1px -1px 2px rgba(black, .10)) drop-shadow(1px 2px 2px rgba(black, .15));
+            filter: drop-shadow(-1px -1px 2px rgba(black, 0.10)) drop-shadow(1px 2px 2px rgba(black, 0.15));
             position: relative;
             color: var(--text-color);
             background-color: var(--bg-color);
@@ -58,33 +58,33 @@
 
     &.speech-bubble-dream {
         .content {
-            border-radius:30px;
+            border-radius: 30px;
             margin-right: 0.5rem;
 
             &::before,
             &::after {
-                content:"";
-                border-radius:50%;
-                display:block;
-                position:absolute;
-                z-index:-1;
+                content: "";
+                border-radius: 50%;
+                display: block;
+                position: absolute;
+                z-index: -1;
             }
 
             &::before {
-                width:44px;
-                height:44px;
-                top:-12px;
-                left:28px;
+                width: 44px;
+                height: 44px;
+                top: -12px;
+                left: 28px;
                 border-right: inherit;
-                box-shadow:-50px 30px 0 -12px var(--bg-color);
+                box-shadow: -50px 30px 0 -12px var(--bg-color);
             }
 
             &::after {
-                bottom:-10px;
-                right:26px;
-                width:30px;
-                height:30px;
-                box-shadow:40px -34px 0 0 var(--bg-color),
+                bottom: -10px;
+                right: 26px;
+                width: 30px;
+                height: 30px;
+                box-shadow: 40px -34px 0 0 var(--bg-color),
                     -28px -6px 0 -2px var(--bg-color),
                     -24px 17px 0 -6px var(--bg-color),
                     -5px 25px 0 -10px var(--bg-color);
@@ -148,6 +148,7 @@
         figure {
             margin-bottom: 0.3em;
         }
+
         figure.floatRight {
             // Top-margin = top of left line (h3:after)
             margin: 0.3em 0 0.2em 0.5em;
@@ -164,4 +165,3 @@
         }
     }
 }
-

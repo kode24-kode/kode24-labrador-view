@@ -71,7 +71,7 @@ export class AutoFontSize {
             });
         } else {
             const titleWithSpaces = this.removeHTMLTags(title);
-            const titleLines = this.splitSentence(titleWithSpaces, config, 'default');
+            const titleLines = this.splitSentence(titleWithSpaces, rules, 'default');
             element.innerHTML = '';  // eslint-disable-line no-param-reassign
             for (const line of titleLines) {
                 element.innerHTML += `<span class="auto-font-size-line">${ line } </span>`;  // eslint-disable-line no-param-reassign
@@ -185,7 +185,7 @@ export class AutoFontSize {
         const rangeToUse = this.findNumberOfLines(rulesToUse.ranges, length) || 1;
         const maxWordLength = rulesToUse.maxWordLength || null;
         const minLineLength = rulesToUse.minLineLength || null;
-        const regex = rules.reges || {};
+        const regex = rules.regex || {};
         const lines = this.splitTextEvenly(sentence, rangeToUse, maxWordLength, minLineLength, regex) || [];
         return lines;
     }

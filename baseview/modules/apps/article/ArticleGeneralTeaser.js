@@ -1,3 +1,5 @@
+import { TermHelper } from '../../lib/helpers/TermHelper.js';
+
 export class ArticleGeneralTeaser {
 
     constructor(api, params) {
@@ -16,13 +18,16 @@ export class ArticleGeneralTeaser {
             tagHandlerContainer: null,
             tagHandler: null,
             sectionElement: null,
+            sectionLabel: null,
+            subsectionElement: null,
+            subsectionLabel: null,
             focusTagInput: false
         };
         this.models = {
             pano: null,
             height: null
         };
-        const ar = this.api.v1.config.get('image.defaultAspectRatio') || 0.5;
+        const ar = 0.45;
         this.cropContainer = {
             panow: 270,
             panoh: Math.round(ar * 270),
@@ -91,6 +96,20 @@ export class ArticleGeneralTeaser {
                 </div>
             </div>
 
+            <div class="lab-formgroup lab-grid lab-space-below-large" id="subsection-container">
+                <div class="lab-formgroup-item lab-grid-large-12">
+                    <h2 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-none">Subsection</h2>
+                    <select name="fields.subsection" id="subsection">
+                        <option value="">Select subsection</option>
+                        {{ #subsectionOptions }}
+                        <option value="{{ value }}"{{ #selected }} selected{{ /selected }}>{{ value }}</option>
+                        {{ /subsectionOptions }}
+                    </select>
+                    <p class="lab-info">Select a tag to set as subsection for this article</p>
+                    <p id="subsection-label">{{ #subsection }}Selected subsection: <strong>{{ subsection }}</strong>{{ /subsection }}{{ ^subsection }}No subsection selected{{ /subsection }}</p>
+                </div>
+            </div>
+
             <div class="lab-formgroup lab-grid lab-space-below-large">
                 <br><br><br><br>
                 <!-- space to allow tag-suggestions ... -->
@@ -133,6 +152,9 @@ export class ArticleGeneralTeaser {
                     const v = value.trim();
                     return v === this.rootModel.get('fields.title') ? '' : v;
                 }
+            },
+            'fields.subsection': {
+                node: 'fields.subsection'
             }
         };
     }
@@ -143,6 +165,11 @@ export class ArticleGeneralTeaser {
 
     onMarkup() {
         const section = (this.rootModel.get('primaryTags.section') || '').toLowerCase();
+        const subsection = this.rootModel.get('fields.subsection') || '';
+        const tags = this.rootModel.get('tags') || [];
+        const tagsAsTerms = lab_api.v1.properties.get('tags_as_terms');
+        const enableSubsectionPicker = tagsAsTerms || !!this.api.v1.config.get('enableSubsectionPicker');
+
         const markup = this.api.v1.util.dom.renderTemplate(this.template, {
             fields: {
                 teaserKicker: this.api.v1.util.string.stripTags(this.rootModel.get('fields.teaserKicker') || this.rootModel.get('fields.kicker')),
@@ -151,7 +178,10 @@ export class ArticleGeneralTeaser {
             },
             sections: (this.api.v1.config.get('tags.section') || []).map((name) => ({ name: name.toLowerCase(), selected: name.toLowerCase() === section })),
             section,
-            tags: this.rootModel.get('tags')
+            tags,
+            subsection,
+            subsectionOptions: tagsAsTerms ? [] : tags.map((tag) => ({ value: tag, selected: tag === subsection })),
+            tagsAsTerms
         }, true);
         this.dom.crops = markup.querySelector('[data-placeholder="lab-frontcrops"]');
 
@@ -251,16 +281,28 @@ export class ArticleGeneralTeaser {
         const tagHandlerContainer = markup.querySelector('[data-handler="tagHandler"]');
         const sectionElement = markup.querySelector('[name="primaryTags.section"]');
         const sectionLabel = markup.querySelector('#section-label');
+        const subsectionElement = markup.querySelector('[name="fields.subsection"]');
+        const subsectionLabel = markup.querySelector('#subsection-label');
+        const subsectionContainer = markup.querySelector('#subsection-container');
+
+        if (!enableSubsectionPicker && subsectionContainer) {
+            subsectionContainer.style.display = 'none';
+        }
 
         if (this.dom.tagHandlerContainer) { this.dom.tagHandlerContainer.replaceWith(tagHandlerContainer); }
         if (this.dom.sectionElement) { this.dom.sectionElement.replaceWith(sectionElement); }
         if (this.dom.sectionLabel) { this.dom.sectionLabel.replaceWith(sectionLabel); }
+        if (this.dom.subsectionElement && subsectionElement) { this.dom.subsectionElement.replaceWith(subsectionElement); }
+        if (this.dom.subsectionLabel && subsectionLabel) { this.dom.subsectionLabel.replaceWith(subsectionLabel); }
 
         this.dom.tagHandlerContainer = tagHandlerContainer;
         this.dom.sectionElement = sectionElement;
         this.dom.sectionLabel = sectionLabel;
+        if (subsectionElement) this.dom.subsectionElement = subsectionElement;
+        if (subsectionLabel) this.dom.subsectionLabel = subsectionLabel;
 
         this.setupSections();
+        this.setupSubsection();
         this.setupTags();
 
         return markup;
@@ -364,6 +406,73 @@ export class ArticleGeneralTeaser {
                 path: 'primaryTags.section'
             });
         }, false);
+    }
+
+    setupSubsection() {
+        if (!this.dom.subsectionElement) { return; }
+
+        const tagsAsTerms = lab_api.v1.properties.get('tags_as_terms');
+
+        this.dom.subsectionElement.addEventListener('change', (event) => {
+            const previousSubsection = this.rootModel.get('fields.subsection') || '';
+            const value = this.dom.subsectionElement.value;
+            this.rootModel.set('fields.subsection', value);
+
+            if (tagsAsTerms) {
+                if (previousSubsection) { this.api.v1.util.tags.remove(previousSubsection); }
+                if (value) { this.api.v1.util.tags.add(value); }
+            }
+
+            // Update the label immediately
+            if (this.dom.subsectionLabel) {
+                if (value) {
+                    // Use DOM methods to avoid XSS (value comes from user input)
+                    this.dom.subsectionLabel.textContent = 'Selected subsection: ';
+                    const strong = document.createElement('strong');
+                    strong.textContent = value;
+                    this.dom.subsectionLabel.appendChild(strong);
+                } else {
+                    this.dom.subsectionLabel.textContent = 'No subsection selected';
+                }
+            }
+
+            this.log({
+                type: 'data',
+                app: this.constructor.name,
+                path: 'fields.subsection'
+            });
+        }, false);
+
+        if (tagsAsTerms) {
+            // Populate subsection options from the terms API, filtered by current section
+            const section = (this.rootModel.get('primaryTags.section') || '').toLowerCase();
+            const currentSubsection = this.rootModel.get('fields.subsection') || '';
+
+            TermHelper.fetchTerms('section').then((terms) => {
+                const parentTerm = TermHelper.findTermByName(terms, section);
+                const children = parentTerm ? TermHelper.getChildTerms(terms, parentTerm.id) : [];
+
+                // Clear existing options (keep the empty default)
+                this.dom.subsectionElement.innerHTML = '<option value="">Select subsection</option>';
+                children.forEach((term) => {
+                    const option = document.createElement('option');
+                    option.value = term.name;
+                    option.textContent = term.displayName;
+                    if (term.name === currentSubsection) { option.selected = true; }
+                    this.dom.subsectionElement.appendChild(option);
+                });
+            }).catch(() => {
+                // Silently fail — subsection picker stays empty
+            });
+        } else {
+            // Tag-based: validate subsection is still in current tags
+            // (if tag was removed, clear the subsection to maintain consistency)
+            const currentSubsection = this.rootModel.get('fields.subsection') || '';
+            const tags = this.rootModel.get('tags') || [];
+            if (currentSubsection && !tags.includes(currentSubsection)) {
+                this.rootModel.set('fields.subsection', '');
+            }
+        }
     }
 
     updateDisabledState(field, forceClean = false, compareField = null) {
@@ -567,11 +676,13 @@ export class ArticleGeneralTeaser {
 
     async setFrontCropFromModel(model, instance_of) {
         this.dom.crops.classList.add('lab-busy');
+        const altText = model ? (model.get('fields.altText') || '') : '';
         const panoData = this.api.v1.util.object.merge(this.defaultCropData(), {
             contentdata: {
                 instance_of: instance_of || model.get('instance_of'),
                 fields: {
-                    metadata_key: 'fcp'
+                    metadata_key: 'fcp',
+                    ...(altText && { altText })
                 }
             }
         });
@@ -579,7 +690,8 @@ export class ArticleGeneralTeaser {
             contentdata: {
                 instance_of: instance_of || model.get('instance_of'),
                 fields: {
-                    metadata_key: 'fch'
+                    metadata_key: 'fch',
+                    ...(altText && { altText })
                 }
             },
             type: 'image'

@@ -1,0 +1,7 @@
+{{ ^get.root.filtered.isAMP }}
+<script>
+    var optidigitalQueue = optidigitalQueue || {};
+    optidigitalQueue.cmd = optidigitalQueue.cmd || [];
+</script>
+<script type="text/javascript" id="optidigital-ad-init" async data-config='{"adUnit": "{{{ get.current.filtered.googleAds.bidding.provider.id }}}/{{ #helper.fallbackString}}{{{ get.current.filtered.section }}}|||{{{ get.current.filtered.tagPrimarySection }}}|||home{{ /helper.fallbackString}}"{{# get.current.filtered.is_tagpage }}, "pageTargeting": {{=<% %>=}}{<%={{ }}=%>"categoria":"{{ #helper.fallbackString}}{{{ get.current.filtered.tagDisplayName }}}|||{{ get.current.fields.subsection }}|||{{ get.current.filtered.tagSubSection }}|||{{ get.current.filtered.section }}{{ /helper.fallbackString}}"}{{/ get.current.filtered.is_tagpage }}{{# get.current.filtered.is_article }}, "pageTargeting": {{=<% %>=}}{<%={{ }}=%>"single":"post","categoria":"{{ #helper.fallbackString}}{{{ get.current.filtered.termSectionDisplayName }}}|||{{ get.current.filtered.tagSubSection }}|||{{ get.current.filtered.section }}{{ /helper.fallbackString}}"}{{/ get.current.filtered.is_article }}}' src="//scripts.opti-digital.com/tags/?site={{{ get.root.filtered.siteAlias }}}"></script>
+{{ /get.root.filtered.isAMP }}

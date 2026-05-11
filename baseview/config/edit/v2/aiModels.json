@@ -1,0 +1,192 @@
+{
+    "defaults": {
+        "text": "openAi-gpt-5-4",
+        "image": "openAi-gpt-5-4-mini"
+    },
+    "models": {
+        "text": {
+            "openAi-gpt-5-4": {
+                "label": "Gpt-5.4 [OpenAI - ChatGPT]: Advanced, Multimodal, Improved",
+                "description": "Most Advanced, Multimodal, Improved",
+                "provider": "openAi",
+                "model": "gpt-5.4",
+                "integration": "openAi",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "openAi-gpt-5-4-mini": {
+                "label": "Gpt-5.4 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick",
+                "description": "Lightweight, Efficient, Quick",
+                "provider": "openAi",
+                "model": "gpt-5.4-mini",
+                "integration": "openAi",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "openAi-gpt-5-4-nano": {
+                "label": "Gpt-5.4 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact",
+                "description": "Ultra-Fast, Cost-Effective, Compact",
+                "provider": "openAi",
+                "model": "gpt-5.4-nano",
+                "integration": "openAi",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "anthropic-claude-sonnet-4-6": {
+                "label": "Claude Sonnet 4.6 [Anthropic]: Balanced Performance, Efficient, Intelligent",
+                "description": "Balanced Performance, Efficient, Intelligent",
+                "provider": "anthropic",
+                "model": "claude-sonnet-4-6",
+                "integration": "anthropic",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "anthropic-claude-haiku-4-5": {
+                "label": "Claude Haiku 4.5 [Anthropic]: Fastest, Cost-Effective, Compact",
+                "description": "Fastest, Cost-Effective, Compact",
+                "provider": "anthropic",
+                "model": "claude-haiku-4-5-20251001",
+                "integration": "anthropic",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "vertexAi-gemini-2.5-pro": {
+                "label": "Gemini 2.5 Pro [Google - VertexAI]: Most Capable, Reasoning, Multimodal",
+                "description": "Most Capable, Reasoning, Multimodal",
+                "provider": "vertexAi",
+                "model": "gemini-2.5-pro",
+                "integration": "vertexAi",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "vertexAi-gemini-2.5-flash": {
+                "label": "Gemini 2.5 Flash [Google - VertexAI]: Balanced, Fast, Efficient",
+                "description": "Balanced, Fast, Efficient",
+                "provider": "vertexAi",
+                "model": "gemini-2.5-flash",
+                "integration": "vertexAi",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "mistral-large-latest": {
+                "label": "Mistral Large [Mistral AI]: Powerful, Flagship, Advanced",
+                "description": "Powerful, Flagship, Advanced",
+                "provider": "mistral",
+                "model": "mistral-large-latest",
+                "integration": "mistral",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "mistral-medium-latest": {
+                "label": "Mistral Medium [Mistral AI]: Balanced, Versatile, Efficient",
+                "description": "Balanced, Versatile, Efficient",
+                "provider": "mistral",
+                "model": "mistral-medium-latest",
+                "integration": "mistral",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "mistral-small-latest": {
+                "label": "Mistral Small [Mistral AI]: Fast, Cost-Effective, Compact",
+                "description": "Fast, Cost-Effective, Compact",
+                "provider": "mistral",
+                "model": "mistral-small-latest",
+                "integration": "mistral",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            }
+        },
+        "image": {
+            "openAi-gpt-5-4-mini": {
+                "label": "Gpt-5.4 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick",
+                "description": "Lightweight, Efficient, Quick",
+                "provider": "openAi",
+                "model": "gpt-5.4-mini",
+                "integration": "openAi",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "openAi-gpt-5-4": {
+                "label": "Gpt-5.4 [OpenAI - ChatGPT]: Advanced, Multimodal, Improved",
+                "description": "Most Advanced, Multimodal, Improved",
+                "provider": "openAi",
+                "model": "gpt-5.4",
+                "integration": "openAi",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "openAi-gpt-5-4-nano": {
+                "label": "Gpt-5.4 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact",
+                "description": "Ultra-Fast, Cost-Effective, Compact",
+                "provider": "openAi",
+                "model": "gpt-5.4-nano",
+                "integration": "openAi",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "anthropic-claude-sonnet-4-6": {
+                "label": "Claude Sonnet 4.6 [Anthropic]: Balanced Performance, Efficient, Intelligent",
+                "description": "Balanced Performance, Efficient, Intelligent",
+                "provider": "anthropic",
+                "model": "claude-sonnet-4-6",
+                "integration": "anthropic",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "anthropic-claude-haiku-4-5": {
+                "label": "Claude Haiku 4.5 [Anthropic]: Fastest, Cost-Effective, Compact",
+                "description": "Fastest, Cost-Effective, Compact",
+                "provider": "anthropic",
+                "model": "claude-haiku-4-5-20251001",
+                "integration": "anthropic",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "vertexAi-gemini-2.5-pro": {
+                "label": "Gemini 2.5 Pro [Google - VertexAI]: Most Capable, Reasoning, Multimodal",
+                "description": "Most Capable, Reasoning, Multimodal",
+                "provider": "vertexAi",
+                "model": "gemini-2.5-pro",
+                "integration": "vertexAi",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "vertexAi-gemini-2.5-flash": {
+                "label": "Gemini 2.5 Flash [Google - VertexAI]: Balanced, Fast, Efficient",
+                "description": "Balanced, Fast, Efficient",
+                "provider": "vertexAi",
+                "model": "gemini-2.5-flash",
+                "integration": "vertexAi",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "mistral-large-latest": {
+                "label": "Mistral Large [Mistral AI]: Powerful, Flagship, Advanced",
+                "description": "Powerful, Flagship, Advanced",
+                "provider": "mistral",
+                "model": "mistral-large-latest",
+                "integration": "mistral",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "mistral-medium-latest": {
+                "label": "Mistral Medium [Mistral AI]: Balanced, Versatile, Efficient",
+                "description": "Balanced, Versatile, Efficient",
+                "provider": "mistral",
+                "model": "mistral-medium-latest",
+                "integration": "mistral",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            },
+            "mistral-small-latest": {
+                "label": "Mistral Small [Mistral AI]: Fast, Cost-Effective, Compact",
+                "description": "Fast, Cost-Effective, Compact",
+                "provider": "mistral",
+                "model": "mistral-small-latest",
+                "integration": "mistral",
+                "serviceType": "chatCompletions",
+                "capabilities": ["text", "image"]
+            }
+        }
+    }
+}

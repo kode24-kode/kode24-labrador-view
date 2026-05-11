@@ -1,1 +1,6 @@
-<h2 itemprop="headline" class="headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</h2>
+{{ ^get.current.fields.useParagraphs }}
+	<h2 itemprop="headline" class="headline lab-scrollbox-headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</h2>
+{{ /get.current.fields.useParagraphs }}
+{{ #get.current.fields.useParagraphs }}
+	<p itemprop="headline" class="headline lab-scrollbox-headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</p>
+{{ /get.current.fields.useParagraphs }}

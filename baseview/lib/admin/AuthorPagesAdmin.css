@@ -1,0 +1,63 @@
+/* Hide the raw textarea only when the JS picker has initialized (class added by AuthorPagesAdmin.js) */
+.author-pages-initialized [data-path="enabledAuthorIds"] {
+    display: none;
+}
+
+.author-pages-picker table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85em;
+    margin: 1rem 0;
+    table-layout: fixed;
+}
+
+.author-pages-picker table th,
+.author-pages-picker table td {
+    padding: 0.5em 0.8em;
+    border: 1px solid #dedede;
+    text-align: left;
+}
+
+.author-pages-picker table th:first-child,
+.author-pages-picker table td:first-child {
+    width: 50%;
+}
+
+.author-pages-picker table th:nth-child(2),
+.author-pages-picker table td:nth-child(2) {
+    width: 25%;
+}
+
+.author-pages-picker table th:last-child,
+.author-pages-picker table td:last-child {
+    width: 25%;
+}
+
+.author-pages-picker table th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #929292;
+    font-size: 0.85em;
+}
+
+.author-pages-picker table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.author-pages-picker button {
+    font-size: 0.85em;
+    padding: 0.4em 0.8em;
+    min-width: auto;
+}
+
+.author-pages-picker .author-pages-search-input {
+    flex: 1;
+    min-width: 0;
+}
+
+.author-pages-picker .author-pages-added {
+    font-size: 0.85em;
+    color: #929292;
+}

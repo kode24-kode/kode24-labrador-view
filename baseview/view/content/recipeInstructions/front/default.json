@@ -1,0 +1,11 @@
+{
+    "boxTitle": "Recipe Instructions",
+    "boxDescription": "A recipe instruction",
+    "bodytextElements": ["p", "h2", "h3", "h4", "ul", "ol", "li"],
+    "viewHelper" : "bodytext",
+    "viewportMap": {
+        "fields": {
+            "bodytext": "presets.vp_content_attributes"
+        }
+    }
+}

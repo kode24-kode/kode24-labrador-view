@@ -43,6 +43,27 @@
             display: none;
         }
 
+        .lab-job-title {
+            text-transform: uppercase;
+            font-size: 0.78em;
+            letter-spacing: 0.05em;
+        }
+
+        .name.lab-name-flex {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.25em;
+
+            .lab-job-title {
+                display: inline-block;
+            }
+
+            .description {
+                flex-basis: 100%;
+            }
+        }
+
         .description {
             display: block;
             text-transform: uppercase;
@@ -94,36 +115,118 @@
 }
 
 // Byline in article-box
-article.column .bylines {
-    border-bottom: 0;
-    border-top: 1px solid #cecece;
-    margin-top: 0.5em;
-    font-size: 0.9em;
-    flex-wrap: wrap;
+article.column {
+    @include tablet_up {
+        .content.align-center {
+            margin-left: 0;
 
-    .content {
-        display: flex;
-    }
+            .bylines {
+                .byline {
+                    .content:has(figure) {
+                        justify-content: center;
 
-    .byline {
-        padding: 0.3em 0 0;
-        margin-right: 0.7em;
-        flex-basis: auto;
-
-        figure {
-            width: 30px;
-            height: 30px;
-            border-radius: 100%;
-            overflow: hidden;
-            margin: 0 0.4em 0 0;
-            flex: 0 0 30px;
+                        .name {
+                            flex: unset;
+                        }
+                    }
+                }
+            }
         }
 
-        .name {
-            margin-top: 0.3em;
-            flex: 1 1 100%;
+        .content.align-right {
+            margin-left: 0;
+
+            .bylines {
+                .byline {
+                    .content:has(figure) {
+                        justify-content: flex-end;
+
+                        .name {
+                            flex: unset;
+                        }
+                    }
+                }
+            }
         }
     }
+
+    @include mobile {
+        .content.mobile_text_align_align-center {
+            margin-left: 0;
+
+            .bylines {
+                .byline {
+                    .content:has(figure) {
+                        justify-content: center;
+
+                        .name {
+                            flex: unset;
+                        }
+                    }
+                }
+            }
+        }
+        
+        .content.mobile_text_align_align-right {
+            margin-left: 0;
+
+            .bylines {
+                .byline {
+                    .content:has(figure) {
+                        justify-content: flex-end;
+
+                        .name {
+                            flex: unset;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .bylines {
+        border-bottom: 0;
+        border-top: 1px solid #cecece;
+        margin-top: 0.5em;
+        font-size: 0.9em;
+        flex-wrap: wrap;
+
+        &.floating {
+            border-top: none;
+
+            .content {
+                margin-left: 0.7rem;
+            }
+        }
+
+        &.aboveTitle {
+            border-top: none;
+        }
+
+        .content {
+            display: flex;
+        }
+
+        .byline {
+            padding: 0.3em 0 0;
+            margin-right: 0.7em;
+            flex-basis: auto;
+
+            figure {
+                width: 30px;
+                height: 30px;
+                border-radius: 100%;
+                overflow: hidden;
+                margin: 0 0.4em 0 0;
+                flex: 0 0 30px;
+            }
+
+            .name {
+                margin-top: 0.3em;
+                flex: 1 1 100%;
+            }
+        }
+    } 
 }
 
 @include mobile {
@@ -144,6 +247,18 @@ article.column .bylines {
     .bylines .byline figure {
         float: none;
         display: inline-block;
+    }
+
+    .bylines,
+    .bylines .byline,
+    .bylines .byline .content,
+    .bylines .byline .name.lab-name-flex {
+        justify-content: center;
+    }
+
+    // Symmetric padding so text-align:center visually centers
+    .bylines .byline {
+        padding-inline: 0.6em;
     }
 }
 

@@ -189,7 +189,10 @@
                     "contentdata": {
                         "fields": {
                             "days": "7",
-                            "layout": "vertical"
+                            "layout": "vertical",
+                            "title_style_json": {
+                                "text_background_color": "bg-black"
+                            }
                         }
                     }
                 }

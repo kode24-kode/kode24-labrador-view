@@ -46,6 +46,7 @@
         {{ get.current.filtered.pageCommentsDisplay }}
 
         {{ /helper.trim }}"
+        {{ #get.current.filtered.tagsString }}data-tag="{{{ get.current.filtered.tagsString }}}"{{ /get.current.filtered.tagsString }}
         {{ #get.current.fields.createdByImport }}data-lab-imported="true"{{ /get.current.fields.createdByImport }}
         {{ #get.current.fields.pageBackgroundColorStyle }} style="background-color:{{ get.current.fields.pageBackgroundColorStyle }};{{ #get.current.fields.pageBackgroundColorStyleDark }}color:#fff;{{ /get.current.fields.pageBackgroundColorStyleDark }}"{{ /get.current.fields.pageBackgroundColorStyle }}
         {{ #render.partial }}page_body_tag_inside{{ /render.partial }}>
@@ -147,6 +148,11 @@
                     {{ /get.current.filtered.displayComments }}
                     {{ #get.current.filtered.widgets.strossle }}<div class="column large-12 small-12">{{ > widgets/strossle }}</div>{{ /get.current.filtered.widgets.strossle }}
                 </article>
+                {{ #getConfig.commercial_settings.outbrainWidget }}
+                <section class="outbrain">
+                    {{> partial/outbrain }}
+                </section>
+                {{ /getConfig.commercial_settings.outbrainWidget }}
                 <section class="related desktop-fullWidth mobile-fullWidth fullwidthTarget">
                 {{{ child.dropZone }}}
                 </section>
@@ -182,18 +188,18 @@
 
         <script>
             {{ ^app.isEditor }}
-                (function(){
+                (function() {
                     const audioPlayers = document.querySelectorAll('.dacInlineAudio');
                     for (const audioPlayer of audioPlayers) {
                         window.dachserData.push('audioInline', audioPlayer);
                     }
 
-                    window.onload = function() {
+                    window.addEventListener('load', function() {
                         if (window.Dac && window.Dac.Definition) {
                             const definition = new Dac.Definition();
                             definition.setup();   
                         }
-                    };
+                    });
                 })();
             {{ /app.isEditor }}
         </script>

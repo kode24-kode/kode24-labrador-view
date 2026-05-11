@@ -22,8 +22,7 @@ export default class Bodytext {
             isInternal: this.provider === 'internal' && this.internal.active,
 
             active: this.isFront && (this.provider === 'internal' ? this.internal.active : !!Number(model.get('fields.paywall'))),
-            access: this.provider === 'internal' && this.internal.active ? this.internal.hasAccess : false,
-
+            access: (this.provider === 'internal' && this.internal.active) || this.provider === 'tulo' ? this.internal.hasAccess : false,
             provider: this.provider,
             intro: this.provider !== 'internal' ? Paywall.filterBodytext(model, view) : undefined,
             bodytext: this.provider !== 'internal' ? model.get('filtered.bodytext') : undefined
@@ -31,10 +30,10 @@ export default class Bodytext {
 
         if (paywall.active && !paywall.access && !isNewzwareEnabled) {
             if (this.provider === 'internal') {
-                model.setFiltered('bodytext', Paywall.filterBodytext(model, view));
+                model.setFiltered('bodytext', Paywall.filterBodytext(model, view), true);
             } else {
                 // Original bodytext, inside article
-                model.setFiltered('bodytext', '');
+                model.setFiltered('bodytext', '', true);
             }
         }
 
@@ -45,10 +44,10 @@ export default class Bodytext {
             // Standard sesamy - empty bodytext inside article if protected
             if (this.internal.isProtected === true && sesamyConfig.enabled === true) {
                 // Original bodytext, not positioned inside sesamy container
-                model.setFiltered('bodytext', '');
+                model.setFiltered('bodytext', '', true);
             } else if (sesamyConfig.enabled === false) {
                 // Restore original bodytext if sesamy is disabled
-                model.setFiltered('bodytext', model.get('fields.bodytext'));
+                model.setFiltered('bodytext', model.get('fields.bodytext'), true);
             }
 
             // Proxy lock - remove bodytext from paywall container if protected

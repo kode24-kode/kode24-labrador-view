@@ -39,6 +39,9 @@ export default class AutoInsert {
                 for (const item of data[pageType]) {
                     const index = data[pageType].indexOf(item);
                     const container = document.querySelector(`.lab-item-container[data-path="${ pageType }.[${ index }]"]`);
+                    if (item.hideFromAdmin) {
+                        container.style.display = 'none';
+                    }
                     const optionalElements = container ? container.querySelectorAll('[data-require],[data-require-placement]') : [];
                     for (const el of optionalElements) {
                         const requiredType = el.getAttribute('data-require') ? el.getAttribute('data-require').split('|') : [];

@@ -1,0 +1,34 @@
+{
+    "releasenotes": {
+        "version": {
+            "int": 1414,
+            "str": "1.4.14"
+        },
+        "items": [
+            {
+                "date": "20260127",
+                "title": "Schema markup update",
+                "description": "Updated schema markup to use 'inLanguage' instead of 'availableLanguage' for NewsArticle, eliminating Google schema warnings and improving SEO compatibility.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1499",
+                "isImprovement": true
+            },
+            {
+                "date": "20260127",
+                "title": "AI panel request optimization",
+                "description": "Fixed a bug that caused too many AI requests when clicking 'Generate suggestions' in the AI panel. Unnecessary requests for other features are now properly filtered out.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1478",
+                "isBug": true
+            },
+        {
+                "date": "20260123",
+                "title": "Gallery ad template update",
+                "description": "Image gallery ads now use the same provider logic as other ad placements. Ad wrapper templates are organized into provider-specific folders for better maintainability. **Note:** Custom ad wrappers must be moved to a folder matching the ad wrapper name.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1485",
+                "isImprovement": true
+            }
+        ]
+    }
+}

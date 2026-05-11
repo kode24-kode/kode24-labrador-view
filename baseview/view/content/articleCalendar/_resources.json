@@ -28,6 +28,13 @@
                         "content/articleCalendar/editor/default.json"
                     ]
                 }
+            },
+            "bodytext": {
+                "properties": {
+                    "default": [
+                        "content/articleCalendar/editor/bodytext.json"
+                    ]
+                }
             }
         }
     }

@@ -1,0 +1,3 @@
+{
+    "preDrawHandlers": ["FeedFormatterAP.filterExternalData"]
+}

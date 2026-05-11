@@ -84,7 +84,6 @@ $border-sides: ("left", "right", "top", "bottom");
             // and rows should have padding on the side of the border
             padding-#{$side}: $bg_text_padding !important;
 
-            &[class*="bg-"],
             &.hasContentPadding {
                 &:not(.row) {
                     padding-left: 1rem !important;

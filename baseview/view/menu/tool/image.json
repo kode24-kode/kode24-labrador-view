@@ -26,6 +26,69 @@
             "group": "g5",
             "callback": "displaySettings"
         },
+        "aspectRatio": {
+            "icon": "labicon-image_fullscreen",
+            "title": "Apply aspect ratio",
+            "group": "g6",
+            "submenuDirection": "lab-align-left",
+            "items": {
+                "ratio_16_9": {
+                    "text": "16:9",
+                    "title": "16:9 — widescreen",
+                    "callback": "dispatchToolMethod",
+                    "params": {
+                        "function": "applyAspectRatio",
+                        "ratio": 1.7778
+                    },
+                    "hotkeys": [{ "key": "1" }],
+                    "displayHotkeys": true
+                },
+                "ratio_3_2": {
+                    "text": "3:2",
+                    "title": "3:2 — classic photo",
+                    "callback": "dispatchToolMethod",
+                    "params": {
+                        "function": "applyAspectRatio",
+                        "ratio": 1.5
+                    },
+                    "hotkeys": [{ "key": "2" }],
+                    "displayHotkeys": true
+                },
+                "ratio_4_3": {
+                    "text": "4:3",
+                    "title": "4:3 — standard",
+                    "callback": "dispatchToolMethod",
+                    "params": {
+                        "function": "applyAspectRatio",
+                        "ratio": 1.3333
+                    },
+                    "hotkeys": [{ "key": "3" }],
+                    "displayHotkeys": true
+                },
+                "ratio_1_1": {
+                    "text": "1:1",
+                    "title": "1:1 — square",
+                    "callback": "dispatchToolMethod",
+                    "params": {
+                        "function": "applyAspectRatio",
+                        "ratio": 1.0
+                    },
+                    "hotkeys": [{ "key": "4" }],
+                    "displayHotkeys": true
+                },
+                "ratio_9_16": {
+                    "text": "9:16",
+                    "title": "9:16 — portrait",
+                    "callback": "dispatchToolMethod",
+                    "params": {
+                        "function": "applyAspectRatio",
+                        "ratio": 0.5625
+                    },
+                    "hotkeys": [{ "key": "5" }],
+                    "displayHotkeys": true
+                }
+            }
+        },
         "alignLeft": {
             "title": "Toggle image-alignment left",
             "icon": "labicon-align_content_left",

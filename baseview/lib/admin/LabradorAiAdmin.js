@@ -1,4 +1,5 @@
 import { LabradorAi } from '../../modules/lib/helpers/LabradorAi.js';
+import AiModels from '../../modules/lib/helpers/AiModels.js';
 
 export default class LabradorAiAdmin {
 
@@ -10,9 +11,19 @@ export default class LabradorAiAdmin {
         this.promptInstructions = lab_api.v1.config.get('promptInstructions');
         this.features = this.promptInstructions.feature ? Object.keys(this.promptInstructions.feature) : {};
         this.labradorAi = new LabradorAi(lab_api);
+        this.aiModels = new AiModels();
         this.currentLanguage = null;
         this.globalSiteName = null;
         this.initialisePreview();
+        // Wait for both AI models and viewConfig to be ready before populating dropdowns
+        this.initializeDropdowns();
+    }
+
+    async initializeDropdowns() {
+        // Ensure AI models are loaded first
+        await this.aiModels.ensureInitialized();
+        // Then update the dropdowns after viewConfig is ready
+        await this.updateAiProviderDropdowns();
     }
 
     // Method called by ConfigObjectEditor.
@@ -381,6 +392,42 @@ export default class LabradorAiAdmin {
 
     }
 
+    populateGlobalDefaultSelectors() {
+        // Get saved values from params.data
+        const savedDefaultTextModel = this.params.data?.globalSettings?.defaultTextModel;
+        const savedDefaultImageModel = this.params.data?.globalSettings?.defaultImageModel;
+
+        // Populate default text model dropdown
+        const defaultTextModelSelect = document.querySelector('select#input-globalSettings\\.defaultTextModel');
+        if (defaultTextModelSelect && defaultTextModelSelect.dataset.labradorPopulated !== 'true') {
+            const textModels = this.aiModels.getModelsByCapability('text');
+            const currentValue = savedDefaultTextModel || defaultTextModelSelect.value || 'openAi-gpt-5-4';
+
+            const options = Object.entries(textModels).map(([key, model]) => {
+                const selected = key === currentValue ? ' selected' : '';
+                return `<option value="${key}"${selected}>${model.label}</option>`;
+            });
+
+            defaultTextModelSelect.innerHTML = options.join('');
+            defaultTextModelSelect.dataset.labradorPopulated = 'true';
+        }
+
+        // Populate default image model dropdown
+        const defaultImageModelSelect = document.querySelector('select#input-globalSettings\\.defaultImageModel');
+        if (defaultImageModelSelect && defaultImageModelSelect.dataset.labradorPopulated !== 'true') {
+            const imageModels = this.aiModels.getModelsByCapability('image');
+            const currentValue = savedDefaultImageModel || defaultImageModelSelect.value || 'openAi-gpt-5-4';
+
+            const options = Object.entries(imageModels).map(([key, model]) => {
+                const selected = key === currentValue ? ' selected' : '';
+                return `<option value="${key}"${selected}>${model.label}</option>`;
+            });
+
+            defaultImageModelSelect.innerHTML = options.join('');
+            defaultImageModelSelect.dataset.labradorPopulated = 'true';
+        }
+    }
+
     updateLanguageSelector(feature, selectLang) {
         /**
          * Update the language selector for a feature
@@ -402,6 +449,141 @@ export default class LabradorAiAdmin {
             this.currentLanguage = languageElement.value;
             this.updateLanguageSelector(feature, this.currentLanguage);
         });
+    }
+
+    waitForElement(selector, timeout = 8000) {
+        /**
+         * Wait for an element to appear in the DOM
+         * @param {string} selector - CSS selector for the element to wait for
+         * @param {number} timeout - Maximum time to wait in milliseconds (default: 8000)
+         * @returns {Promise<Element|null>} Promise that resolves with the element or null if timeout
+         */
+        return new Promise((resolve) => {
+            // Check if element already exists
+            const existing = document.querySelector(selector);
+            if (existing) {
+                return resolve(existing);
+            }
+
+            // Create observer to watch for the element
+            const observer = new MutationObserver(() => {
+                const el = document.querySelector(selector);
+                if (el) {
+                    observer.disconnect();
+                    resolve(el);
+                }
+            });
+
+            // Start observing
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+
+            // Set up timeout
+            setTimeout(() => {
+                observer.disconnect();
+                resolve(null);
+            }, timeout);
+        });
+    }
+
+    waitForViewConfigLoad() {
+        /**
+         * Wait for the specific /api/v2/config-object/viewConfig request to complete
+         * and for the DOM elements to be ready
+         * Uses PerformanceObserver to detect the network request, then waits for DOM elements
+         * @returns {Promise<void>} Promise that resolves when the API call completes and DOM is ready
+         */
+        return new Promise((resolve) => {
+            // Check if request already completed
+            const existingEntries = performance.getEntriesByType('resource');
+            const viewConfigEntry = existingEntries.find(entry =>
+                entry.name.includes('/api/v2/config-object/viewConfig')
+            );
+
+            if (viewConfigEntry) {
+                // Already loaded, wait for DOM element to be ready
+                this.waitForElement('select#input-globalSettings\\.defaultTextModel').then(() => resolve());
+                return;
+            }
+
+            // Create observer for new network requests
+            const observer = new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                    if (entry.name.includes('/api/v2/config-object/viewConfig')) {
+                        observer.disconnect();
+                        // Wait for DOM element to be ready after API response
+                        this.waitForElement('select#input-globalSettings\\.defaultTextModel').then(() => resolve());
+                        return;
+                    }
+                }
+            });
+
+            try {
+                observer.observe({ entryTypes: ['resource'] });
+            } catch (e) {
+                setTimeout(resolve, 2000);
+                return;
+            }
+
+            // Timeout after 10 seconds
+            setTimeout(() => {
+                observer.disconnect();
+                resolve();
+            }, 10000);
+        });
+    }
+
+    async updateAiProviderDropdowns() {
+        // Dynamically update AI provider dropdowns from aiModels.json
+        // Note: ensureInitialized() is called in initializeDropdowns() before this method
+        const adminConfigFeatures = lab_api.v1.config.getConfig(`pages.labradorAi.data.items`);
+        if (!adminConfigFeatures) {
+            return;
+        }
+
+        const featureNames = Object.keys(adminConfigFeatures).filter(name => name !== 'globalSettings');
+
+        // Wait for the viewConfig API call to complete and DOM to update
+        await this.waitForViewConfigLoad();
+
+        // Populate global selectors first
+        this.populateGlobalDefaultSelectors();
+
+        // Populate feature selectors
+        for (const feature of featureNames) {
+            const featureConfig = adminConfigFeatures[feature];
+            if (!featureConfig?.items?.aiProvider) {
+                continue;
+            }
+
+            const providerSelect = document.querySelector(`select#input-${feature}\\.aiProvider`);
+            if (!providerSelect) {
+                continue;
+            }
+
+            // Prevent overwriting or re-initializing
+            if (providerSelect.dataset.labradorPopulated === 'true') {
+                continue;
+            }
+            providerSelect.dataset.labradorPopulated = 'true';
+
+            const capability = featureConfig.imageModels === true ? 'image' : 'text';
+            const savedValue = this.params.data?.[feature]?.aiProvider;
+            const currentValue = savedValue || providerSelect.value || 'default';
+            const models = this.aiModels.getModelsByCapability(capability);
+
+            const isDefaultSelected = currentValue === 'default' || !currentValue ? ' selected' : '';
+            const options = [`<option value="default"${isDefaultSelected}>Default (uses global setting)</option>`];
+
+            options.push(...Object.entries(models).map(([key, model]) => {
+                const selected = key === currentValue ? ' selected' : '';
+                return `<option value="${key}"${selected}>${model.label}</option>`;
+            }));
+
+            providerSelect.innerHTML = options.join('');
+        }
     }
 
 }

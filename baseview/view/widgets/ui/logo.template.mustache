@@ -1,13 +1,34 @@
-{{ #get.current.filtered.logo }}
-<figure class="logo[[ #settings.classes ]] [[.]][[ /settings.classes ]]">
+{{ #get.current.filtered.logo_mobile }}
+<figure class="logo logo--mobile[[ #settings.classes ]] [[.]][[ /settings.classes ]]"{{ #size.height }} style="--logo-height:{{size.height}}px"{{ /size.height }}>
     {{ #href }}
-    <a href=" {{{href}}}" aria-label="{{ #lang }}header.logo_link_text{{ /lang }}">
+    <a href="{{{href}}}" aria-label="{{ #lang }}header.logo_link_text{{ /lang }}">
     {{ /href }}
     {{ ^href }}
     <span class="logo">
     {{ /href }}
         <img src="{{{src}}}"
-            {{ #title }}alt="{{ #lang }}header.logo_link_text{{ /lang }}. Logo, {{title}}"{{ /title }}
+            {{ #altText }}alt="{{altText}}"{{ /altText }}{{ ^altText }}{{ #title }}alt="{{ #lang }}header.logo_link_text{{ /lang }}. Logo, {{title}}"{{ /title }}{{ /altText }}
+            {{ #size.width }}width="{{size.width}}"{{ /size.width }}
+            {{ #size.height }}height="{{size.height}}"{{ /size.height }}>
+    {{ #href }}
+    </a>
+    {{ /href }}
+    {{ ^href }}
+    </span>
+    {{ /href }}
+</figure>
+{{ /get.current.filtered.logo_mobile }}
+
+{{ #get.current.filtered.logo }}
+<figure class="logo logo--primary[[ #settings.classes ]] [[.]][[ /settings.classes ]]"{{ #size.height }} style="--logo-height:{{size.height}}px"{{ /size.height }}>
+    {{ #href }}
+    <a href="{{{href}}}" aria-label="{{ #lang }}header.logo_link_text{{ /lang }}">
+    {{ /href }}
+    {{ ^href }}
+    <span class="logo">
+    {{ /href }}
+        <img src="{{{src}}}"
+            {{ #altText }}alt="{{altText}}"{{ /altText }}{{ ^altText }}{{ #title }}alt="{{ #lang }}header.logo_link_text{{ /lang }}. Logo, {{title}}"{{ /title }}{{ /altText }}
             {{ #size.width }}width="{{size.width}}"{{ /size.width }}
             {{ #size.height }}height="{{size.height}}"{{ /size.height }}>
     {{ #href }}
@@ -18,3 +39,24 @@
     {{ /href }}
 </figure>
 {{ /get.current.filtered.logo }}
+
+{{ #get.current.filtered.logo_secondary }}
+<figure class="logo logo--secondary[[ #settings.classes ]] [[.]][[ /settings.classes ]]"{{ #size.height }} style="--logo-height:{{size.height}}px"{{ /size.height }}>
+    {{ #href }}
+    <a href="{{{href}}}" aria-label="{{ #lang }}header.logo_link_text{{ /lang }}">
+    {{ /href }}
+    {{ ^href }}
+    <span class="logo">
+    {{ /href }}
+        <img src="{{{src}}}"
+            {{ #altText }}alt="{{altText}}"{{ /altText }}{{ ^altText }}{{ #title }}alt="{{ #lang }}header.logo_link_text{{ /lang }}. Logo, {{title}}"{{ /title }}{{ /altText }}
+            {{ #size.width }}width="{{size.width}}"{{ /size.width }}
+            {{ #size.height }}height="{{size.height}}"{{ /size.height }}>
+    {{ #href }}
+    </a>
+    {{ /href }}
+    {{ ^href }}
+    </span>
+    {{ /href }}
+</figure>
+{{ /get.current.filtered.logo_secondary }}
