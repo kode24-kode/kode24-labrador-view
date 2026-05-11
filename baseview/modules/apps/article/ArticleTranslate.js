@@ -127,6 +127,15 @@ export class ArticleTranslate {
             const articleId = this.rootModel.get('id');
             const languageName = this.getLanguageName(this.selectedLanguage);
 
+            // Clear editor structure to avoid showing old content in the editor.
+            if (this.rootModel && this.api.v1.editor.hasBeenUsed(this.rootModel, 'bodytext')) {
+                try {
+                    this.api.v1.editor.structure.clear(this.rootModel, 'fields.bodytext');
+                } catch (error) {
+                    Sys.logger.warn('[ArticleTranslate] - Failed to clear editor structure:', error);
+                }
+            }
+
             // Get new copy data - getNodeAndData
             this.getNodeAndData(articleId).then((nodeData) => {
             // Translate content - translateContent
@@ -161,7 +170,6 @@ export class ArticleTranslate {
 
                                 // Force an editor reload to see changes:
                                 window.location.href = `/edit/article/id/${ articleId }`;
-
                             });
                     });
             });

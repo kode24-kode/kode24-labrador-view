@@ -1,0 +1,10 @@
+{
+    "boxTitle": "Tag Page Title",
+    "boxKeywords": "tag title tagpage header",
+    "boxDescription": "Display the primary tag title for tag pages. Text is automatically populated and can be styled but not edited.",
+    "viewportMap": {
+        "fields": {
+            "tagTitle": "presets.vp_content_attributes"
+        }
+    }
+}

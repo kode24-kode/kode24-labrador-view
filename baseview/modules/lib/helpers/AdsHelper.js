@@ -53,6 +53,7 @@ export class AdsHelper {
             spacingTop: api.v1.config.get('contentbox_settings.adnuntiusAd.spacingTop') || 120,
             fetchMarginPercent: adEnv.fetchMarginPercent || 150,
             renderMarginPercent: adEnv.renderMarginPercent || 150,
+            mobileScaling: adEnv.mobileScaling || 2.0,
             bidding: {
                 enabled: adnuntiusBiddingEnabled
             },
@@ -121,6 +122,7 @@ export class AdsHelper {
             spacingTop: api.v1.config.get('contentbox_settings.googleAd.spacingTop') || 120,
             fetchMarginPercent: adEnv.fetchMarginPercent || 150,
             renderMarginPercent: adEnv.renderMarginPercent || 150,
+            mobileScaling: adEnv.mobileScaling || 2.0,
             adUnits: visibleUnits,
             anchor,
             dfpid: adEnv.dfpid || false,

@@ -1,7 +1,7 @@
 {
     "editors": {
         "title": {
-            "selector": "h2",
+            "selector": ".lab-scrollbox-headline",
             "fn": "EditRich",
             "key": "fields.title",
             "menu": "rich_text",

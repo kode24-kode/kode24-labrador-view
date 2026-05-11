@@ -9,15 +9,41 @@
 }
 
 .metadata-preview {
-    text-align: center;
+    text-align: left;
     border-top: 1px solid #D9D9D9;
     background-color: #f7f7f7;
     color: rgb(32 153 17);
     margin: 2rem -2rem -2rem -2rem;
     padding: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-.metadata-preview:before {
-    content: "Preview: ";
+.metadata-preview:hover {
+    background-color: #eeeeee;
+}
+
+.metadata-preview-label {
     color: #000;
+    margin: 0 2rem 0.5rem 2rem;
+    text-align: center;
+}
+
+.metadata-preview-label.collapsed {
+    font-weight: normal;
+    font-style: italic;
+}
+
+.metadata-preview-label.expanded {
+    font-weight: bold;
+    font-style: normal;
+}
+
+.metadata-preview-content {
+    display: block;
+    margin: 0 10rem;
+}
+
+.metadata-preview-content.collapsed {
+    display: none;
 }

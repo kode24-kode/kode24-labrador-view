@@ -1,0 +1,22 @@
+
+{{ ^app.isEditor }}
+    <script async defer src="https://proxy.beyondwords.io/npm/@beyondwords/player@latest/dist/umd.js" onload="new BeyondWords.Player({
+        target: this,
+        projectId: {{ getConfig.audio_settings.texttospeech.provider.id }},
+        sourceId: '{{ get.root.id }}',
+        clientSideEnabled: true,
+        video: {{ #get.current.fields.video }}{{ get.current.fields.video }}{{ /get.current.fields.video }}{{ ^get.current.fields.video }}false{{ /get.current.fields.video }}
+    })"></script>
+{{ /app.isEditor }}
+
+{{ #app.isEditor }}
+    <div class="lab-placeholder">
+        <p>BeyondWords Player</p>
+        <p>
+            Video:
+            {{ #get.current.fields.video }}Enabled{{ /get.current.fields.video}}
+            {{ ^get.current.fields.video }}Disabled{{ /get.current.fields.video }}
+        </p>
+        <p>Enable/Disable: Article Settings -> Audio -> Text-to-Speech enabled</p>
+    </div>
+{{ /app.isEditor }}

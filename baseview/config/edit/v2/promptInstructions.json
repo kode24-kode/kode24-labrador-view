@@ -1,5 +1,4 @@
 {
-
     "promptInstructions": {
         "general": {
             "originalContent": "\n- Use 'sentence case' in your response. \n{{ #params.original_bodytext }}- For context, this is the original article content: \n- The original bodytext: {{{ params.original_bodytext }}}{{ /params.original_bodytext }}{{ #params.original_title }} \n- The original article title: {{{ params.original_title }}}{{ /params.original_title }}{{ #params.original_subtitle }} \n- The original subtitle/lead text: {{{ params.original_subtitle }}}{{ /params.original_subtitle }}{{ #params.original_created }} \n- The article was created: {{{ params.original_created }}}{{ /params.original_created }}{{ #params.original_published }} \n- The article was initially publised: {{{ params.original_published }}}{{ /params.original_published }}{{ #params.original_modified }} \n- The article republished with modifications: {{{ params.original_modified }}}{{ /params.original_modified }}",
@@ -232,92 +231,6 @@
                     "translateArticle": "The 'promptSite' will be used to extend a feature where AI is used to translate an article. The 'promptSite' should describe how the site normally uses translations in articles.",
                     "paywallSalesPitch": "The 'promptSite' will be used to extend a feature where AI is used to create a sales pitch. The 'promptSite' should describe how the site normally uses sales pitches to convince readers to buy access to paywalled articles."
                 }
-            }
-        },
-        "aiProvider": {
-            "openAi-gpt4o": {
-                "label": "Gpt-4o [OpenAI - ChatGPT]",
-                "provider": "openAi",
-                "model": "gpt-4o",
-                "integration": "openAi",
-                "serviceType": "chatCompletions"
-            },
-            "openAi-gpt-5-1": {
-                "label": "Gpt-5.1 [OpenAI - ChatGPT]",
-                "provider": "openAi",
-                "model": "gpt-5.1",
-                "integration": "openAi",
-                "serviceType": "chatCompletions"
-            },
-            "openAi-gpt-5-mini": {
-                "label": "Gpt-5 Mini [OpenAI - ChatGPT]",
-                "provider": "openAi",
-                "model": "gpt-5-mini",
-                "integration": "openAi",
-                "serviceType": "chatCompletions"
-            },
-            "openAi-gpt-5-nano": {
-                "label": "Gpt-5 Nano [OpenAI - ChatGPT]",
-                "provider": "openAi",
-                "model": "gpt-5-nano",
-                "integration": "openAi",
-                "serviceType": "chatCompletions"
-            },
-            "openAi-gpt-5": {
-                "label": "Gpt-5 [OpenAI - ChatGPT]",
-                "provider": "openAi",
-                "model": "gpt-5",
-                "integration": "openAi",
-                "serviceType": "chatCompletions"
-            },
-            "openAi-gpt4o-mini": {
-                "label": "Gpt-4o-mini [OpenAI - ChatGPT]",
-                "provider": "openAi",
-                "model": "gpt-4o-mini",
-                "integration": "openAi",
-                "serviceType": "chatCompletions"
-            },
-            "vertexAi-gemini-15": { 
-                "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]",
-                "provider": "vertexAi",
-                "model": "gemini-1.5-pro-001",
-                "integration": "googleCloud",
-                "serviceType": "chatCompletions"
-            },
-            "vertexAi-gemini-20-flash": {
-                "label": "Gemini 2.0 Flash [Google Cloud - VertexAi]",
-                "provider": "vertexAi",
-                "model": "gemini-2.0-flash-001",
-                "integration": "googleCloud",
-                "serviceType": "chatCompletions"
-            },
-            "anthropic-claude-sonnet-3-7": {
-                "label": "Claude 3.7 Sonnet [Anthropic]",
-                "provider": "anthropic",
-                "model": "claude-3-7-sonnet-latest",
-                "integration": "anthropic",
-                "serviceType": "chatCompletions"
-            },
-            "anthropic-claude-sonnet-3-5": {
-                "label": "Claude 3.5 Sonnet v2 [Anthropic]",
-                "provider": "anthropic",
-                "model": "claude-3-5-sonnet-latest",
-                "integration": "anthropic",
-                "serviceType": "chatCompletions"
-            },
-            "anthropic-claude-3-opus": {
-                "label": "Claude 3 Opus [Anthropic]",
-                "provider": "anthropic",
-                "model": "claude-3-opus-latest",
-                "integration": "anthropic",
-                "serviceType": "chatCompletions"
-            },
-            "anthropic-claude-haiku-3-5": {
-                "label": "Claude 3.5 Haiku [Anthropic]",
-                "provider": "anthropic",
-                "model": "claude-3-5-haiku-latest",
-                "integration": "anthropic",
-                "serviceType": "chatCompletions"
             }
         }
     }

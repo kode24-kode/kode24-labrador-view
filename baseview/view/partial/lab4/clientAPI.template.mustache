@@ -27,4 +27,5 @@
         },
         debug: {{ #get.current.filtered.isDebug }}true{{ /get.current.filtered.isDebug }}{{ ^get.current.filtered.isDebug }}false{{ /get.current.filtered.isDebug }}
     });
+    document.dispatchEvent(new Event('labClientAPIReady'));
 </script>

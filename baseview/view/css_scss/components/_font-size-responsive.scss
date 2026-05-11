@@ -14,9 +14,11 @@ $mobileVpGutter: 2.95;
             .headline {
                 font-size: vw(27);
             }
+
             .subtitle {
                 font-size: vw(16);
             }
+
             .kicker {
                 font-size: vw(19);
             }
@@ -28,9 +30,11 @@ $mobileVpGutter: 2.95;
                     figure {
                         width: 8vw;
                         height: 8vw;
+                        flex: 0 0 8vw;
                     }
                 }
             }
+
             ul.relatedArticles li.column figure {
                 width: 21vw;
             }
@@ -44,6 +48,7 @@ $mobileVpGutter: 2.95;
             .subtitle {
                 font-size: vw(18);
             }
+
             .kicker {
                 font-size: vw(21);
             }
@@ -65,9 +70,11 @@ $mobileVpGutter: 2.95;
             h3 {
                 font-size: vw(17);
             }
+
             h4 {
                 font-size: vw(20);
             }
+            
             ul li a img {
                 width: 26.5vw;
                 max-height: 26.5vw;
@@ -82,6 +89,7 @@ $mobileVpGutter: 2.95;
             h3 {
                 font-size: vw(25);
             }
+
             p {
                 font-size: vw(17);
             }

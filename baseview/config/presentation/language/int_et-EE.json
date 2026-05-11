@@ -106,8 +106,8 @@
         },
         "header": {
             "logo_link_text": "Avalehele",
-			"menuScrollerLeftButton": "Keri vasakule",
-			"menuScrollerRightButton": "Keri paremale"
+            "menuScrollerLeftButton": "Keri vasakule",
+            "menuScrollerRightButton": "Keri paremale"
         },
         "slack_notifier": {
             "publish": {
@@ -156,6 +156,9 @@
             "labelMostRead": "Enim loetud",
             "titleMostRead": "Kõige loetumad artiklid"
         },
+        "authorLatestArticles": {
+            "noBylines": "Artiklis ei leitud byline'i"
+        },
         "infiniteScroll": {
             "readMore": "Loe edasi"
         },
@@ -171,13 +174,17 @@
                 "talandeWebb": "Avage Talande Webb valikute paneel",
                 "bluesky": "Jaga Bluesky's",
                 "reddit": "Jaga Redditis",
-                "whatsapp": "Jaga WhatsAppis"
+                "whatsapp": "Jaga WhatsAppis",
+                "print": "Prindi leht",
+                "googlenews": "Ava Google News leht"
             }
         },
         "gallery": {
             "label": "Galerii",
             "seeAllImages": "Vaata kõiki pilte",
-            "navigateToOriginal": "Mine originaallehele"
+            "navigateToOriginal": "Mine originaallehele",
+            "imageCountText": "pilti",
+            "autoDescription": "{{ n }} pilti teosest „{{ title }}“"
         },
         "weather": {
             "failedToFetch": "Ilmaandmeid ei õnnestunud laadida",
@@ -197,7 +204,20 @@
                 "wind": "Tuuline",
                 "unknown": "Tundmatu"
             }
+        },
+        "recipe": {
+            "prepTimeLabel": "Ettevalmistusaeg:",
+            "cookTimeLabel": "Keetmisaeg:",
+            "totalTimeLabel": "Koguaeg:",
+            "recipeYieldLabel": "Portsjonid:",
+            "keywordsLabel": "Märksõnad:",
+            "caloriesLabel": "Kalorid:",
+            "dishLabel": "Roog:",
+            "cuisineLabel": "Köök:",
+            "printButton": "Prindi",
+            "publishedDate": "Avaldamise kuupäev:",
+            "ingredientsTitle": "Koostisosad",
+            "instructionsTitle": "Valmistusõpetus"
         }
     }
 }
-  

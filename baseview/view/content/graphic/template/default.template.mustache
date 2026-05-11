@@ -1,11 +1,19 @@
-<div class="{{ #helper.trim }}
+<div data-element-guid="{{ get.current.guid }}" class="{{ #helper.trim }}
     column graphic type_{{ get.current.fields.fileType }}
     {{ #style.collection }}box_decoration{{ /style.collection }}
     {{ #style.collection }}box_fullWidth{{ /style.collection }}
     {{ size.grid.css }}
     {{ size.grid.absCss }}
-{{ /helper.trim }}" data-element-guid="{{ get.current.guid }}">
-{{{ get.current.filtered.styleSheets }}}
+    {{ /helper.trim }}" 
+    style="{{ #helper.trim }}
+        {{ #get.current.fields.graphicWidthDesktop }}
+            --graphicWidthDesktop: {{ get.current.fields.graphicWidthDesktop }}px;
+        {{ /get.current.fields.graphicWidthDesktop }}
+        {{ #get.current.fields.graphicWidthMobile }}
+            --graphicWidthMobile: {{ get.current.fields.graphicWidthMobile }}px;
+        {{ /get.current.fields.graphicWidthMobile }}
+    {{ /helper.trim }}">
+    {{{ get.current.filtered.styleSheets }}}
     <div class="content fullwidthTarget {{ #style.collection }}content_decoration{{ /style.collection }}">
         {{ #get.current.fields.linkUrl }}
         <a href="{{ get.current.fields.linkUrl }}" 
@@ -13,8 +21,13 @@
         {{ #get.current.fields.openInNewWindow }}target="_blank"{{ /get.current.fields.openInNewWindow }} rel="{{ #get.current.fields.addRelNoFollow }}nofollow{{ /get.current.fields.addRelNoFollow }}{{ #get.current.fields.openInNewWindow }} noopener{{ /get.current.fields.openInNewWindow }}{{ #get.current.fields.sponsored }} sponsored{{ /get.current.fields.sponsored }}"
         >
         {{ /get.current.fields.linkUrl }}
-        <div class="img">
-            <img src="{{ get.current.fields.url }}" alt="{{ get.current.fields.alt }}" {{ #get.current.filtered.lazyloadImages }}loading="lazy"{{ /get.current.filtered.lazyloadImages }}/>
+        <div class="img{{ #get.current.fields.centerGraphic}} centered{{ /get.current.fields.centerGraphic}}">
+            <img src="{{ get.current.fields.url }}" 
+				alt="{{ get.current.fields.imageAltText }}" 
+                {{ #get.current.filtered.lazyloadImages }}loading="lazy"{{ /get.current.filtered.lazyloadImages }}{{ ^get.current.filtered.lazyloadImages }}fetchpriority="high"{{ /get.current.filtered.lazyloadImages }}
+                {{ #get.current.fields.graphicWidthDesktop }}width="{{ get.current.fields.graphicWidthDesktop }}"{{ /get.current.fields.graphicWidthDesktop }}
+                {{ #get.current.fields.graphicWidthMobile }}style="--graphicWidthMobile: {{ get.current.fields.graphicWidthMobile }}px;"{{ /get.current.fields.graphicWidthMobile }}
+            />
         </div>
         {{ #get.current.fields.linkUrl }}
         </a>

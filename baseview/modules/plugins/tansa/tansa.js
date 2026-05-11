@@ -101,13 +101,25 @@ export const tansa = {
         for (const item of targets) {
             const domElement = tansa.getDomElement(item);
             if (domElement && !domElement.classList.contains('lab-defaultTextValue')) {
-                item.value = domElement.innerHTML;
+                const clone = domElement.cloneNode(true);
+                clone.querySelectorAll('[data-lab-content]').forEach((el) => el.remove());
+                item.value = clone.innerHTML;
             }
         }
+
         for (const item of targets) {
             tansa.saveTarget(item);
         }
         lab_api.v1.app.save();
+    },
+
+    hasNewTexteditor: (item) => {
+        const view = lab_api.v1.view.getView(item.model);
+        const editorConfig = view.getProperty('editors') || [];
+        // editorConfig may now be an array or an object. If object, only use values:
+        const editorConfigArray = Array.isArray(editorConfig) ? editorConfig : Object.values(editorConfig);
+        // Iterate editorConfig objects and check if 'fn' property is 'EditBodyText' for object where 'key' is equal to item.path:
+        return editorConfigArray.some((editor) => editor.key === item.path && editor.fn === 'EditBodyText');
     },
 
     saveTarget: (item) => {
@@ -117,15 +129,51 @@ export const tansa = {
             view.set(item.path, item.value, true);
         } else {
             setTimeout(() => {
-                // Dispatch click and blur events to trigger the model update through connected text tool.
-                // This ensures that logic for removing DOM of child elements etc. (bodytext) are run.
+
                 const domElement = tansa.getDomElement(item);
                 if (!domElement) { return; }
-                domElement.innerHTML = item.value;
-                domElement.dispatchEvent(new Event('click'));
-                setTimeout(() => {
-                    domElement.dispatchEvent(new Event('blur'));
-                }, 100);
+
+                // Check if Prosemirror has been used for the field. If we need to clear
+                // the structure for the item.path. and handle update through click i
+                // a different way to ensure child position.
+                if (tansa.hasNewTexteditor(item) && lab_api.v1.editor.hasBeenUsed(item.model, item.path)) {
+
+                    // Add to fields.
+                    item.model.set(item.path, item.value);
+
+                    // Prosemirror editor clear structure for item[path].
+                    lab_api.v1.editor.structure.clear(item.model, item.path);
+
+                    // Activate.
+                    domElement.dispatchEvent(new Event('click'));
+
+                    setTimeout(() => {
+                    // Poll until editor is available and valid
+                        const waitForEditor = () => {
+                            // Check if editor exists and is still valid
+                            if (lab_api.v1.editor.isAvailable()) {
+                                try {
+                                    lab_api.v1.editor.blur();
+                                } catch (error) {
+                                    Sys.logger.warn('[Tansa] Error blurring editor, retrying...', error);
+                                    setTimeout(waitForEditor, 50);
+                                }
+                            } else {
+                                setTimeout(waitForEditor, 50);
+                            }
+                        };
+                        waitForEditor();
+                    }, 50);
+                } else {
+                    // Dispatch click and blur events to trigger the model update through connected text tool.
+                    // This ensures that logic for removing DOM of child elements etc. (bodytext) are run.
+                    domElement.innerHTML = item.value;
+                    domElement.dispatchEvent(new Event('click'));
+                    setTimeout(() => {
+                        domElement.dispatchEvent(new Event('blur'));
+                    }, 100);
+                }
+
             }, 200);
         }
     }

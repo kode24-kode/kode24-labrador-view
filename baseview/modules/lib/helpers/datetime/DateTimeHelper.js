@@ -7,6 +7,7 @@ export class DateTimeHelper {
         this.language = language || fallbackLanguage;
         this.words = words;
         this.timezone = this.getTimezone();
+        this.ianaTimezone = lab_api.v1.config.get('iana_timezone') || null;
     }
 
     // (int) Get GMT timezone. Defaults to Western Europe (1)
@@ -133,12 +134,45 @@ export class DateTimeHelper {
         return format;
     }
 
+    // Returns the UTC offset in minutes for an IANA timezone at a given instant.
+    // Uses Intl.DateTimeFormat.formatToParts() as a bridge until Temporal is available
+    // in all browsers. See: labrador2/docs/design/locale/timezones/topic--js-timezone-apis.md
+    getUtcOffsetMinutes(timeZone, date) {
+        // Truncate to minute boundary - formatToParts drops seconds,
+        // so the input must also drop them for the diff to be exact
+        const d = new Date(Math.floor(date.getTime() / 60000) * 60000);
+
+        // Format in the target zone, reconstruct as UTC, compare to original
+        const inZone = new Intl.DateTimeFormat('en-US', {
+            timeZone,
+            year: 'numeric', month: 'numeric', day: 'numeric',
+            hour: 'numeric', minute: 'numeric', hour12: false, hourCycle: 'h23',
+        }).formatToParts(d);
+
+        const parts = Object.fromEntries(inZone.map(p => [p.type, parseInt(p.value)]));
+        const localDate = new Date(Date.UTC(
+            parts.year, parts.month - 1, parts.day,
+            parts.hour, parts.minute
+        ));
+        const diff = localDate.getTime() - d.getTime();
+        return Math.round(diff / 60000);
+    }
+
+    // Returns the UTC offset in hours for the given date, using the site's IANA timezone
+    // if configured, or falling back to the integer offset + European DST rules.
+    getEffectiveOffset(date) {
+        if (this.ianaTimezone && typeof Intl !== 'undefined') {
+            return this.getUtcOffsetMinutes(this.ianaTimezone, date) / 60;
+        }
+        return this.isSummerTime(date) ? this.timezone + 1 : this.timezone;
+    }
+
     correctDate(date) {
-        return this.manipulateTime(date, this.isSummerTime(date) ? this.timezone + 1 : this.timezone);
+        return this.manipulateTime(date, this.getEffectiveOffset(date));
     }
 
     utcDate(date) {
-        return this.unmanipulateTime(date, this.isSummerTime(date) ? this.timezone + 1 : this.timezone);
+        return this.unmanipulateTime(date, this.getEffectiveOffset(date));
     }
 
     timestampToDate(timestamp) {

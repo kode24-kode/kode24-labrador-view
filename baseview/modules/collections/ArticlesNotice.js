@@ -155,7 +155,9 @@ export default class {
 
         if (this.updateContents && this.updateContents.footer && this.updateContents.footer === true) {
             const updateContentCallback = uiInterface.getProperty('updateContentCallback');
-            return updateContentCallback(form, { type: 'footer' });
+            if (updateContentCallback) {
+                return updateContentCallback(form, { type: 'footer' });
+            }
         }
 
         return form;
@@ -384,11 +386,13 @@ export default class {
 
                 if (this.updateContents && this.updateContents.markExisting) {
                     const updateContentCallback = uiInterface.getProperty('updateContentCallback');
-                    const params = {
-                        type: 'markExisting',
-                        id
-                    };
-                    item = updateContentCallback(item, params);
+                    if (updateContentCallback) {
+                        const params = {
+                            type: 'markExisting',
+                            id
+                        };
+                        item = updateContentCallback(item, params);
+                    }
                 }
             }
         }

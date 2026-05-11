@@ -29,6 +29,11 @@ export class BylineEditor {
         }
     }
 
+    canDelete() {
+        // Only users with node_delete_all permission can delete
+        return this.data.id && this.api.v1.user.hasPermission('node_delete_all');
+    }
+
     display() {
         this.modal = this.api.v1.ui.modal.dialog({
             defaultButtons: false,
@@ -64,6 +69,12 @@ export class BylineEditor {
                 callback: (theModal, event) => {
                     theModal.close();
                 }
+            }, {
+                selector: '#byline-delete',
+                event: 'click',
+                callback: (theModal, event) => {
+                    this.deleteByline(theModal);
+                }
             }],
             keyValidation: [{
                 key: 'firstname',
@@ -85,6 +96,11 @@ export class BylineEditor {
                         highlight: false,
                         id: 'byline-cancel'
                     },
+                    ...(this.canDelete() ? [{
+                        value: 'Delete',
+                        highlight: false,
+                        id: 'byline-delete'
+                    }] : []),
                     {
                         value: this.data.id ? 'Update byline' : 'Create byline',
                         type: 'submit',
@@ -274,6 +290,111 @@ export class BylineEditor {
         }
     }
 
+    deleteByline(modal) {
+        if (!this.data.id) {
+            console.log('Cannot delete byline without ID');
+            return;
+        }
+
+        lab_api.v1.ui.modal.dialog({
+            content: {
+                title: 'Confirm deletion',
+                description: 'Are you sure you want to delete this byline? This action cannot be undone.'
+            },
+            footer: {
+                buttons: [
+                    {
+                        value: 'Cancel',
+                        highlight: false,
+                        id: 'delete-cancel'
+                    },
+                    {
+                        value: 'Delete',
+                        highlight: true,
+                        id: 'delete-confirm'
+                    }
+                ]
+            },
+            eventHandlers: [
+                {
+                    selector: '#delete-cancel',
+                    event: 'click',
+                    callback: (confirmModal) => {
+                        confirmModal.close();
+                    }
+                },
+                {
+                    selector: '#delete-confirm',
+                    event: 'click',
+                    callback: (confirmModal) => {
+                        confirmModal.close();
+
+                        const formData = new FormData();
+                        formData.append('id', this.data.id);
+
+                        this.api.v1.util.httpClient.request('/ajax/byline/delete', {
+                            body: formData,
+                            method: 'POST'
+                        })
+                        .then((resp) => {
+                            if (resp.success) {
+                                modal.close();
+                                if (this.endcallback) {
+                                    this.endcallback(null);
+                                }
+                            } else {
+                                Sys.logger.warn(`[Byline] Error deleting byline:`, (resp.error || 'Unknown error'));
+                                lab_api.v1.ui.modal.dialog({
+                                    container: {
+                                        state: {
+                                            error: true
+                                        }
+                                    },
+                                    content: {
+                                        title: 'Error: Delete byline',
+                                        description: `An error has occurred: ${ resp.error || 'Unknown error' }`
+                                    },
+                                    footer: {
+                                        buttons: [
+                                            {
+                                                type: 'submit',
+                                                value: 'Close',
+                                                highlight: true
+                                            }
+                                        ]
+                                    }
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            Sys.logger.warn(`[Byline] Error deleting byline:`, error);
+                            lab_api.v1.ui.modal.dialog({
+                                container: {
+                                    state: {
+                                        error: true
+                                    }
+                                },
+                                content: {
+                                    title: 'Error: Delete byline',
+                                    description: `An error has occurred: ${ error }`
+                                },
+                                footer: {
+                                    buttons: [
+                                        {
+                                            type: 'submit',
+                                            value: 'Close',
+                                            highlight: true
+                                        }
+                                    ]
+                                }
+                            });
+                        });
+                    }
+                }
+            ]
+        });
+    }
+
     saveByline(newId) {
         const formData = new FormData();
         const payload = [{ type: 'byline', id: this.data.id, fields: this.data.fields }];
@@ -295,9 +416,20 @@ export class BylineEditor {
             if (this.endcallback) {
                 this.endcallback(newId);
             }
+            this.publishByline(newId || this.data.id);
         }).catch((error) => {
             console.log('error: ', error);
         });
+    }
+
+    publishByline(id) {
+        const formData = new FormData();
+        formData.append('id', id);
+        this.api.v1.util.httpClient.request('/ajax/publish/save-article', { body: formData, method: 'POST' }).then((resp) => {
+            console.log('Byline published successfully');
+        }).catch((error) => {
+            console.log('error: ', error);
+        });        
     }
 
     deleteNewlyCreatedImage() {

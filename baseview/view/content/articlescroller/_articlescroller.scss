@@ -169,7 +169,11 @@
                 height: 1rem;
                 display: block;
                 margin: 1.2rem;
-                transform: translateX(0.2rem) rotate(45deg);
+                transform: translateX(0.1rem) rotate(45deg);
+
+				@include desktop {
+					transform: translateX(0.2rem) rotate(45deg);
+				}
             }
 
             &.right {
@@ -177,7 +181,11 @@
                 right: 10px;
 
                 span {
-                    transform: translateX(-0.2rem) rotate(-135deg);
+                    transform: translateX(-0.15rem) rotate(-135deg);
+
+					@include desktop {
+						transform: translateX(-0.25rem) rotate(-135deg);
+					}
                 }
             }
 
@@ -233,6 +241,28 @@
         }
     }
 
+    &.lab-arrows-reversed {
+        nav .arrow {
+            background-color: rgba(255, 255, 255, 0.9);
+
+            &:hover {
+                border-color: #000;
+            }
+
+            span {
+                border-bottom-color: #000;
+                border-left-color: #000;
+            }
+        }
+    }
+
+    &.lab-arrows-on-image {
+        nav .arrow {
+            top: var(--lab-arrow-top, 50%);
+            transform: translateY(-50%);
+        }
+    }
+
     @include desktop_down {
         nav .arrow {
             top: 10%;
@@ -247,6 +277,10 @@
             &.right {
                 right: 0;
             }
+        }
+
+        &.lab-arrows-on-image nav .arrow {
+            top: var(--lab-arrow-top, 10%);
         }
     }
 }

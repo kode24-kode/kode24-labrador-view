@@ -106,8 +106,8 @@
         },
         "header": {
             "logo_link_text": "Zur Startseite gehen",
-			"menuScrollerLeftButton": "Nach links scrollen",
-			"menuScrollerRightButton": "Nach rechts scrollen"
+            "menuScrollerLeftButton": "Nach links scrollen",
+            "menuScrollerRightButton": "Nach rechts scrollen"
         },
         "slack_notifier": {
             "publish": {
@@ -151,7 +151,8 @@
                 "shareByMailBody": "Sie können diesen Paywall-Artikel lesen, indem Sie auf diesen Link klicken",
                 "shareByFacebook": "Facebook",
                 "shareByCopy": "Link kopieren",
-                "sharedByCopy": "Link kopiert"
+                "sharedByCopy": "Link kopiert",
+                "print": "Seite drucken"
             }
         },
         "emptyState": {
@@ -172,6 +173,9 @@
             "labelMostRead": "Meistgelesene",
             "titleMostRead": "Meistgelesene Artikel"
         },
+        "authorLatestArticles": {
+            "noBylines": "Keine Bylines im Artikel gefunden"
+        },
         "infiniteScroll": {
             "readMore": "Lesen Sie weiter"
         },
@@ -187,13 +191,16 @@
                 "talandeWebb": "Öffnen Sie das Talande Webb-Optionsfeld",
                 "bluesky": "Auf Bluesky teilen",
                 "reddit": "Auf Reddit teilen",
-                "whatsapp": "Auf WhatsApp teilen"
+                "whatsapp": "Auf WhatsApp teilen",
+                "googlenews": "Google News-Seite öffnen"
             }
         },
         "gallery": {
             "label": "Galerie",
             "seeAllImages": "Alle Bilder anzeigen",
-            "navigateToOriginal": "Zur Originalseite gehen"
+            "navigateToOriginal": "Zur Originalseite gehen",
+            "imageCountText": "Bilder",
+            "autoDescription": "{{ n }} Bilder aus „{{ title }}“"
         },
         "weather": {
             "failedToFetch": "Wetterdaten konnten nicht abgerufen werden",
@@ -213,6 +220,20 @@
                 "wind": "Windig",
                 "unknown": "Unbekannt"
             }
+        },
+        "recipe": {
+            "prepTimeLabel": "Vorbereitungszeit:",
+            "cookTimeLabel": "Kochzeit:",
+            "totalTimeLabel": "Gesamtzeit:",
+            "recipeYieldLabel": "Portionen:",
+            "keywordsLabel": "Stichwörter:",
+            "caloriesLabel": "Kalorien:",
+            "dishLabel": "Gericht:",
+            "cuisineLabel": "Küche:",
+            "printButton": "Drucken",
+            "publishedDate": "Veröffentlichungsdatum:",
+            "ingredientsTitle": "Zutaten",
+            "instructionsTitle": "Zubereitung"
         }
     }
 }

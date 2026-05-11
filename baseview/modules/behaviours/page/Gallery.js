@@ -1,5 +1,6 @@
 import { PageAPI } from '../../lib/api/PageAPI.js';
 import { PageData } from '../../lib/PageData.js';
+import { GallerySeoHelper } from '../../lib/helpers/GallerySeoHelper.js';
 
 export default class Gallery {
 
@@ -7,6 +8,7 @@ export default class Gallery {
         this.api = api;
         this.pageData = new PageData(this.api, new PageAPI(this.api));
         this.isFront = this.api.v1.app.mode.isFront();
+        const isMobile = this.api.v1.viewport.getName() === 'mobile';
 
         const galleryConfig = this.api.v1.config.get('page_settings.gallery') || {};
         this.gallerySettings = {
@@ -14,7 +16,8 @@ export default class Gallery {
             displayFooter: this.api.v1.util.defaults.true(galleryConfig.displayFooter),
             pageBackgroundColor: galleryConfig.pageBackgroundColor || '#000000',
             pageTextColor: galleryConfig.pageTextColor || '#ffffff',
-            logImageView: this.api.v1.util.defaults.false(galleryConfig.logImageView)
+            logImageView: this.api.v1.util.defaults.false(galleryConfig.logImageView),
+            mobileVertical: this.api.v1.util.defaults.false(isMobile && galleryConfig.mobileVertical)
         };
     }
 
@@ -38,6 +41,64 @@ export default class Gallery {
         // Add fields.published_url to generate url's for social media sharing:
         model.set('fields.published_url', `/gallery/${ model.getId() }/${ slideshow.getId() }`);
 
+        // Compose SEO + SoMe title/description before pageData.set so
+        // SEOHelper.getStructuredData picks up the filtered values when it
+        // assembles the jsonld.
+        const parentNodeTitle    = model.get('fields.parent_node_title');
+        const parentSeoTitle     = model.get('fields.parent_node_seotitle');
+        const articleTitleForSeo = parentSeoTitle || parentNodeTitle;
+        const slideshowTitle     = slideshow.get('fields.title');
+        const slideshowDesc      = slideshow.get('fields.description');
+        const galleryLabel       = this.api.v1.locale.get('gallery.label');
+        const siteName           = this.api.v1.properties.get('site.display_name') || '';
+        const locale             = this.api.v1.locale;
+        const imageCount         = (this.api.v1.model.query.getChildrenOfType(slideshow, 'image', true) || []).length;
+
+        const seoTitle = GallerySeoHelper.composeTitle({
+            articleTitle:   articleTitleForSeo,
+            slideshowTitle, galleryLabel, siteName
+        });
+
+        const seoDescription = GallerySeoHelper.composeDescription({
+            slideshowDescription: slideshowDesc,
+            parentSeoDescription: model.get('fields.parent_node_seodescription'),
+            parentSubtitle:       model.get('fields.parent_node_subtitle'),
+            imageCount,
+            articleTitle:         articleTitleForSeo,
+            locale
+        });
+
+        const someTitle = GallerySeoHelper.composeSomeTitle({
+            slideshowTitle,
+            parentSomeTitle: model.get('fields.parent_node_sometitle'),
+            parentTitle:     parentNodeTitle,
+            galleryLabel, siteName
+        });
+
+        const someDescription = GallerySeoHelper.composeSomeDescription({
+            slideshowDescription:  slideshowDesc,
+            parentSomeDescription: model.get('fields.parent_node_somedescription'),
+            parentSeoDescription:  model.get('fields.parent_node_seodescription'),
+            parentSubtitle:        model.get('fields.parent_node_subtitle'),
+            imageCount,
+            articleTitle:          articleTitleForSeo,
+            locale
+        });
+
+        model.set('filtered.title',          slideshowTitle || galleryLabel);
+        model.set('filtered.seotitle',       seoTitle);
+        model.set('filtered.sometitle',      someTitle);
+        model.set('filtered.seodescription', seoDescription);
+        model.set('filtered.somedescription', someDescription);
+        model.set('filtered.gallerySettings', this.gallerySettings);
+        model.set('filtered.imageCount',      imageCount);
+
+        // Get parent article title if this gallery is accessed from an article
+        const showArticleTitle = slideshow.get('fields.gallery_show_article_title');
+        if (parentNodeTitle && showArticleTitle) {
+            model.set('filtered.parentArticleTitle', parentNodeTitle);
+        }
+
         this.pageData.set(model, view);
 
         // Disable gallery mode for slideshow
@@ -60,17 +121,6 @@ export default class Gallery {
         } else {
             slideshowView.set('fields.aspectRatio', 0.75);
         }
-
-        // Update filtered values for title and description used for meta tags and analytics:
-        const title = `${ this.api.v1.locale.get('gallery.label') } - ${ slideshow.get('fields.title') || slideshow.getId() }`;
-        const description = `${ slideshow.get('fields.description') || '[description]' }`;
-        model.set('filtered.title', slideshow.get('fields.title') || this.api.v1.locale.get('gallery.label'));
-        model.set('filtered.seotitle', title);
-        model.set('filtered.sometitle', title);
-        model.set('filtered.seodescription', description);
-        model.set('filtered.somedescription', description);
-        model.set('filtered.gallerySettings', this.gallerySettings);
-        model.set('filtered.imageCount', slideshow.children.length);
     }
 
 }

@@ -4,6 +4,8 @@ export default class ArticleHeader {
 
     constructor(api) {
         this.api = api;
+        this.rootModel = this.api.v1.model.query.getRootModel();
+        this.tagsAsTermsConfig = this.api.v1.properties.get('tags_as_terms');
     }
 
     onInserted(model) {
@@ -13,6 +15,58 @@ export default class ArticleHeader {
         }
     }
 
+    onReady(model, view) {
+        const tagsAsTerms = this.tagsAsTermsConfig;
+        const showSubsection = model.get('metadata.showSubsection');
+        if (showSubsection) {
+            const subsectionField = this.rootModel.get('fields.subsection');
+            let subsectionTerm;
+            const terms = this.rootModel.get('term');
+            if (subsectionField && tagsAsTerms && terms) {
+                if (terms.section) {
+                    const sectionTerm = terms.section.find((term) => term.name === subsectionField || term.name === subsectionField.replace(' ', '-'));
+                    if (sectionTerm) {
+                        subsectionTerm = sectionTerm.displayName;
+                    }
+                }
+                if (!subsectionTerm && terms.keyword) {
+                    const keywordTerm = terms.keyword.find((term) => term.name === subsectionField || term.name === subsectionField.replace(' ', '-'));
+                    if (keywordTerm) {
+                        subsectionTerm = keywordTerm.displayName;
+                    }
+                }
+            }
+            model.setFiltered('subsection', subsectionTerm || subsectionField || '');
+
+            const subsectionLabelHasLink = model.get('metadata.subsectionLabelHasLink');
+            if (subsectionLabelHasLink) {
+                const siteDomain = this.api.v1.site.getSite().domain;
+                const sectionName = this.rootModel.get('primaryTags.section');
+                const subsectionTagPageLink = `${ siteDomain }/${ sectionName }/${ subsectionField }`;
+                model.setFiltered('subsectionLink', subsectionTagPageLink);
+            }
+        }
+
+        const showSection = model.get('metadata.showSection');
+        if (showSection) {
+            const sectionInDateline = model.get('metadata.sectionInDateline');
+            if (sectionInDateline) {
+                const sectionLabelHasLink = model.get('metadata.sectionLabelHasLink');
+                if (sectionLabelHasLink) {
+                    const tagPath = this.api.v1.config.get('tagPagePath') || '/tag/';
+                    const siteDomain = this.api.v1.site.getSite().domain;
+                    const sectionName = this.rootModel.get('primaryTags.section');
+                    const sectionTagPageLink = `${ siteDomain }${ tagPath }${ sectionName }`;
+                    model.setFiltered('sectionLink', sectionTagPageLink);
+                }
+            }
+        }
+
+        const mainterm = this.rootModel.get('mainterm');
+        const sectionDisplayName = tagsAsTerms && mainterm && mainterm.section && mainterm.section.displayName ? mainterm.section.displayName : this.rootModel.get('primaryTags.section');
+        model.setFiltered('sectionDisplayName', sectionDisplayName);
+    }
+ 
     onRender(model, view) {
         const layout = LayoutHelper.textElements(view, this.api.v1.app.mode.isEditor());
         model.setFiltered('layout', layout);
@@ -30,7 +84,7 @@ export default class ArticleHeader {
         if (sectionLabelHasLink) {
             const tagPath = this.api.v1.config.get('tagPagePath') || '/tag/';
             const siteDomain = this.api.v1.site.getSite().domain;
-            const sectionName = this.api.v1.model.query.getRootModel().get('primaryTags.section');
+            const sectionName = this.rootModel.get('primaryTags.section');
             const sectionTagPageLink = `${ siteDomain }${ tagPath }${ sectionName }`;
             model.setFiltered('sectionLink', sectionTagPageLink);
         }
@@ -51,11 +105,11 @@ export default class ArticleHeader {
             if (cropData) { return; }
             const instanceOfId = childModel.get('instance_of');
             if (instanceOfId) {
-                this.setFrontCrop(instanceOfId);
+                this.setFrontCrop(instanceOfId, childModel);
             } else {
                 // If image is being downloaded, wait for it to finish and then set the front crop.
                 this.api.v1.model.bindings.bind(childModel, 'instance_of', (image, path, value) => {
-                    this.setFrontCrop(value);
+                    this.setFrontCrop(value, childModel);
                 });
             }
         }).catch((err) => {
@@ -63,7 +117,8 @@ export default class ArticleHeader {
         });
     }
 
-    setFrontCrop(instanceOfId) {
+    setFrontCrop(instanceOfId, imageModel) {
+        const altText = imageModel ? (imageModel.get('fields.altText') || '') : '';
         const data = {
             type: 'image',
             contentdata: {
@@ -72,7 +127,8 @@ export default class ArticleHeader {
                     croph: 100,
                     cropw: 100,
                     x: 0,
-                    y: 0
+                    y: 0,
+                    ...(altText && { altText })
                 }
             }
         };

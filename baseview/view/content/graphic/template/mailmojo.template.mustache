@@ -2,7 +2,7 @@
     <tr>
         <td class="padding-bottom" align="center" valign="top" style="padding-bottom: 10px;">
             {{ #get.parent.filtered.published_url }}<a href="{{{ get.parent.filtered.published_url }}}" style="color: #000;">{{ /get.parent.filtered.published_url }}
-                <img editable="true" src="{{ get.current.fields.url }}" width="{{ #calculator.subtract }}{{size.pixelWidth}} 20{{ /calculator.subtract }}" alt="{{ get.current.fields.alt }}" class="responsive-img" style="display: block; border: 0;" />
+                <img editable="true" src="{{ get.current.fields.url }}" width="{{ #calculator.subtract }}{{size.pixelWidth}} 20{{ /calculator.subtract }}" alt="{{ get.current.fields.imageAltText }}" class="responsive-img" style="display: block; border: 0;" />
             {{ #get.parent.filtered.published_url }}</a>{{ /get.parent.filtered.published_url }}
         </td>
     </tr>

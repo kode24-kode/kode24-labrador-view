@@ -5,6 +5,7 @@ export class ArticleAudio {
         this.rootModel = params.rootModel;
         this.setter = params.setter;
         this.log = params.log;
+        this.helpers = params.helpers;
         this.enabled = true;
         this.dom = {
             audioFields: {
@@ -13,7 +14,9 @@ export class ArticleAudio {
                 playTime: null,
                 fileType: null,
                 disableField: null
-            }
+            },
+            texttospeechEnabled: null,
+            hidePlacementInEditor: null,
         };
         this.bindingsHandler = this.onMarkup.bind(this);
         this.hasAudioCollection = this.api.v1.config.get('drawerAdditions').some((item) => item.collection === 'Audio');
@@ -38,7 +41,24 @@ export class ArticleAudio {
                     {{ /hasAudioCollection }}
                  </div>
             </div>
- 
+
+            {{ #hasTextToSpeech }}
+            <div class="lab-formgroup lab-grid">
+                <h3 class="lab-grid-large-12">Text-to-Speech Settings</h3>
+                <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+                    <p class="lab-info">Override global settings (enabled: {{ globalConfig.texttospeechEnabled }})</p>
+                </div>
+                <div class="lab-formgroup-item lab-grid-large-12 lab-inline">
+                    <label for="texttospeechEnabled">Text-to-Speech enabled</label>
+                    <input type="checkbox" name="fields.texttospeechEnabled" id="texttospeechEnabled" value="1" {{ #fields.texttospeechEnabled }}checked{{ /fields.texttospeechEnabled }}>
+                </div>
+                <div class="lab-formgroup-item lab-grid-large-12 lab-inline">
+                    <label for="hidePlacementInEditor">Hide placement in editor</label>
+                    <input type="checkbox" name="fields.hidePlacementInEditor" id="hidePlacementInEditor" value="1" {{ #fields.hidePlacementInEditor }}checked{{ /fields.hidePlacementInEditor }}>
+                </div>
+            </div>
+            {{ /hasTextToSpeech }}
+
         </div>`;
     }
 
@@ -50,21 +70,49 @@ export class ArticleAudio {
     }
 
     onPaths() {
-        return {};
+        return {
+            'fields.texttospeechEnabled': { node: 'fields.texttospeechEnabled', boolean: true },
+            'fields.hidePlacementInEditor': { node: 'fields.hidePlacementInEditor', boolean: true }
+        };
     }
 
     onMarkup() {
+        // Get global Text-to-Speech settings
+        const audioSettings = this.api.v1.config.get('audio_settings') ?? {};
+        const globalTexttospeechEnabled = audioSettings.texttospeech?.enabledGlobally ?? false;
+        const globalhidePlacementInEditor = audioSettings.texttospeech?.hidePlacementInEditor ?? false;
+
+        // Get article-specific values, default to global config if not set
+        const articleTexttospeechEnabled = this.rootModel.get('fields.texttospeechEnabled');
+        const articlehidePlacementInEditor = this.rootModel.get('fields.hidePlacementInEditor');
+
+        // Use article value if explicitly set, otherwise use global config
+        const effectiveTexttospeechEnabled = articleTexttospeechEnabled !== undefined && articleTexttospeechEnabled !== null
+            ? this.helpers.toBoolean(articleTexttospeechEnabled)
+            : globalTexttospeechEnabled;
+
+        const effectivehidePlacementInEditor = articlehidePlacementInEditor !== undefined && articlehidePlacementInEditor !== null
+            ? this.helpers.toBoolean(articlehidePlacementInEditor)
+            : globalhidePlacementInEditor;
+
         const markup = this.api.v1.util.dom.renderTemplate(this.template, {
             fields: {
-                teaserAudio: this.rootModel.get('fields.teaserAudio')
+                teaserAudio: this.rootModel.get('fields.teaserAudio'),
+                texttospeechEnabled: effectiveTexttospeechEnabled,
+                hidePlacementInEditor: effectivehidePlacementInEditor
             },
             hasAudioCollection: this.hasAudioCollection,
+            hasTextToSpeech: this.api.v1.config.get('audio_settings.texttospeech.enable') === true,
             audio: {
                 disableField: this.rootModel.get('fields.teaserAudio.urlFieldDisabled') || Boolean(this.rootModel.get('fields.teaserAudio')),
                 title: this.rootModel.get('fields.teaserAudio.title'),
                 playTime: this.rootModel.get('fields.teaserAudio.playTime'),
                 fileType: this.rootModel.get('fields.teaserAudio.fileType'),
                 url: this.rootModel.get('fields.teaserAudio')
+            },
+            globalConfig: {
+                texttospeechEnabled: globalTexttospeechEnabled,
+                hidePlacementInEditor: globalhidePlacementInEditor
             }
         }, true);
 
@@ -104,6 +152,10 @@ export class ArticleAudio {
             }, false);
 
         }
+
+        // Handle Text-to-Speech settings checkboxes
+        this.dom.texttospeechEnabled = markup.querySelector('#texttospeechEnabled');
+        this.dom.hidePlacementInEditor = markup.querySelector('#hidePlacementInEditor');
 
         return markup;
     }

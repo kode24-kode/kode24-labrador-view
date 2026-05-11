@@ -1,10 +1,16 @@
 <div class="{{ #helper.trim }}
     slideshowcontainer {{ ^get.root.filtered.is_gallery }}{{ #get.current.fields.gallery_active }}gallery-mode{{ /get.current.fields.gallery_active }}{{ /get.root.filtered.is_gallery }}
+    {{ #get.root.filtered.is_gallery }}
+        {{ #get.root.filtered.gallerySettings.mobileVertical }} mobile-vertical{{ /get.root.filtered.gallerySettings.mobileVertical }}
+    {{ /get.root.filtered.is_gallery }}
     fullwidthTarget
     {{ #get.current.fields.hideCaptions }}hideCaptions{{ /get.current.fields.hideCaptions }}
     {{ #get.current.fields.hideBylines }}hideBylines{{ /get.current.fields.hideBylines }}
-    {{ #get.current.fields.containImages }}contain{{ /get.current.fields.containImages }}
+    {{ ^get.root.filtered.is_gallery }}{{ #get.current.fields.containImages }}contain{{ /get.current.fields.containImages }}{{ /get.root.filtered.is_gallery }}
+    {{ #get.root.filtered.is_gallery }}{{ #get.current.fields.containGalleryImages }}contain{{ /get.current.fields.containGalleryImages }}{{ /get.root.filtered.is_gallery }}
     {{ #get.current.fields.containerBg }}background-{{ get.current.fields.containerBg }}{{ /get.current.fields.containerBg }}
+	{{ #get.current.metadata.hideNavigationArrows }}lab-hide-slideshow-navigation-arrows{{ /get.current.metadata.hideNavigationArrows }}
+	{{ #get.current.metadata.hideTopImage }}lab-hide-slideshow-top-image{{ /get.current.metadata.hideTopImage }}
     {{ /helper.trim }}" id="slideshow-{{ get.current.id }}">
     <style>
         #slideshow-{{ get.current.id }} .scroll-container figure::before {
@@ -38,7 +44,23 @@
         {{ #get.current.metadata.displayNavigation }}<ul>{{ #children.image[] }}<li></li>{{ /children.image[] }}</ul>{{ /get.current.metadata.displayNavigation }}
         {{ #get.current.metadata.displayPreview }}<div class="slideshow-preview">
             {{ #get.current.fields.gallery_active }}{{ #get.current.filtered.hasText}}
-            <div class="slideshow-text">{{ #get.current.fields.gallery_display_title }}<h2 class="headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}">{{ get.current.fields.title }}</h2>{{ /get.current.fields.gallery_display_title }}{{ #get.current.fields.gallery_display_description }}<p class="subtitle {{ #style.collection }}text_decoration fields.description{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.description{{ /style.collection }}">{{ get.current.fields.description }}</p>{{ /get.current.fields.gallery_display_description }}</div>
+			{{ ^app.isEditor }}
+				<a href="/gallery/{{ get.root.id }}/{{ get.current.id }}" class="lab-gallery-link">
+			{{ /app.isEditor }}
+					<div class="slideshow-text">
+						{{ #get.current.fields.gallery_display_title }}
+							<h2 class="headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}">{{ get.current.fields.title }}</h2>
+						{{ /get.current.fields.gallery_display_title }}
+						{{ #get.current.fields.gallery_display_description }}
+							<p class="subtitle {{ #style.collection }}text_decoration fields.description{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.description{{ /style.collection }}">{{ get.current.fields.description }}</p>
+						{{ /get.current.fields.gallery_display_description }}
+						{{ #get.current.fields.gallery_display_total_images }}
+							<p class="lab-gallery-image-count">{{ get.current.fields.imageCount }} {{ #lang }}gallery.imageCountText{{ /lang }}</p>
+						{{ /get.current.fields.gallery_display_total_images }}
+					</div>
+			{{ ^app.isEditor }}
+				</a>
+			{{ /app.isEditor }}
             {{ /get.current.filtered.hasText}}{{ /get.current.fields.gallery_active }}
             <div class="slideshow-images">
             {{ #get.current.filtered.imageList }}{{ #isImage }}
@@ -60,11 +82,10 @@
     window.dachserData.push('swipehelper', {
         selector: '#slideshow-{{ get.current.id }}',
         navItemsSelector: 'nav ul',
-        previewItemsSelector: 'nav div.slideshow-images',
-        itemsContainerSelector: '.scroll-container',
+        itemsContainerSelector: '{{ #get.root.filtered.gallerySettings.mobileVertical }}body{{ /get.root.filtered.gallerySettings.mobileVertical }}{{ ^get.root.filtered.gallerySettings.mobileVertical }}.scroll-container{{ /get.root.filtered.gallerySettings.mobileVertical }}',
         itemsSelector: '.scroll-item',
         noIndexItemsSelector: '.scroll-item:has(.placeholder_ad)',
-        isHorizontal: true,
+        isHorizontal: {{ #get.root.filtered.gallerySettings.mobileVertical }}false{{ /get.root.filtered.gallerySettings.mobileVertical }}{{ ^get.root.filtered.gallerySettings.mobileVertical }}true{{ /get.root.filtered.gallerySettings.mobileVertical }},
         navItems: {
             forwardSelector: 'nav .arrow.right',
             backwardSelector: 'nav .arrow.left',

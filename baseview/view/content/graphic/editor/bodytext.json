@@ -57,12 +57,7 @@
                 }
             }
         },
-        "image_edit": {
-            "items": {
-                "alignLeft": null,
-                "alignRight": null
-            }
-        }
+        "image_edit": null
     },
     "resetPaths": ["metadata.hasFullWidth"]
 }

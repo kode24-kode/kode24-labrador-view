@@ -1,0 +1,49 @@
+{
+    "contentMenus": {
+        "default": {
+            "inheritPath": "menu/content/basemenu.json",
+            "items": {
+                "delete": {
+                    "displayCondition": "hasNoData",
+                    "params": {
+                        "key": "metadata.autoInserted"
+                    }
+                },
+                "color_bg": {
+                    "displayCondition": "hasNoData",
+                    "params": {
+                        "key": "metadata.autoInserted"
+                    }
+                },
+                "gridOverride": {
+                    "inheritPath": "menu/buttons/gridOverride.json",
+                    "displayCondition": "hasNoData",
+                    "params": {
+                        "key": "metadata.autoInserted"
+                    },
+                    "items": {
+                        "left_tiny": null,
+                        "right_tiny": null
+                    }
+                },
+                "editSettings": {
+                    "group": "g5",
+                    "icon": "labicon-edit",
+                    "callback": "displaySettingsPanel",
+                    "title": "Text-to-Speech settings",
+                    "params": {
+                        "settingsPanelOptions": "settingsPanels.admin"
+                    }
+                }
+            }
+        }
+    },
+    "settingsPanels": {
+        "admin": {
+            "template": "content/texttospeech/template/settings"
+        }
+    },
+    "draggable": {
+        "active": true
+    }
+}

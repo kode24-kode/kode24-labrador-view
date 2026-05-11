@@ -103,7 +103,7 @@
             "callback": "Dashboard.searchExternal",
             "description": "Search external news agency articles",
             "tags": "Search find article external",
-            "permission": "dashboard_search",
+            "permission": "dashboard_search_external",
             "menu": {
                 "appMenu": {
                     "title": "Search news agency articles",

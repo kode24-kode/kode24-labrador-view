@@ -7,6 +7,7 @@
             "articleList",
             "articlesByTag",
             "articlescroller",
+            "authorLatestArticles",
             "buttonlink",
             "changelog",
             "factbox",
@@ -23,9 +24,12 @@
             "parallax",
             "paywallPreview",
             "quotebox",
+            "recipe",
             "scrollbox",
             "tablebox",
             "tagboard",
+            "tagPageTitle",
+            "termsPageHeader",
             "text_multiline",
             "text_singleline",
             "tips_box",
@@ -36,7 +40,8 @@
             "timeline",
             "livefeed",
             "chart",
-            "audio"
+            "audio",
+            "instagram"
         ],
         "favourites": [
             "articlesByTag",

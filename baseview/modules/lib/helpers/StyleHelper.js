@@ -115,6 +115,10 @@ export class StyleHelper {
                     if (subrule.value !== 'default') {
                         ruleString += `${ subrule.key }: ${ subrule.value }; `;
                     }
+                }  else if (subrule.key === 'text-transform') {
+                    if (subrule.value !== 'default') {
+                        ruleString += `${ subrule.key }: ${ subrule.value }; `;
+                    }
                 }  else if (subrule.key === 'text-decoration') {
                     if (subrule.value !== 'default') {
                         ruleString += `${ subrule.key }: ${ subrule.value }; `;

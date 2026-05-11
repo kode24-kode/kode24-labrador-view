@@ -9,22 +9,24 @@
 
     {{{ children.adZone }}}
 
-    {{ ^get.current.filtered.sectionPlacement.underImage }}
-        {{ #get.current.metadata.showSection }}
-            {{ #get.current.metadata.sectionLabelHasLink }}
-                <a href="{{{ get.current.filtered.sectionLink }}}" class="lab-article-section-link">
-            {{ /get.current.metadata.sectionLabelHasLink }}
-            <p style="{{ #style.collection }}text_decoration_inline_style fields.section{{ /style.collection }}" class="{{ #style.collection }}text_decoration fields.section{{ /style.collection }} lab-article-section lab-article-section-top {{ #get.current.metadata.sectionKickerAligned }}lab-article-section-aligned-kicker{{ /get.current.metadata.sectionKickerAligned }}">
-                {{ get.root.primaryTags.section }}
-                {{ #app.isEditor }}
-                    {{ ^get.root.primaryTags.section }}Section{{ /get.root.primaryTags.section }}
-                {{ /app.isEditor }}
-            </p>
-            {{ #get.current.metadata.sectionLabelHasLink }}
-                </a>
-            {{ /get.current.metadata.sectionLabelHasLink }}
-        {{ /get.current.metadata.showSection }}
-    {{ /get.current.filtered.sectionPlacement.underImage }}
+    {{ #get.current.metadata.showSection }}
+        {{ ^get.current.filtered.sectionPlacement.underImage }}
+            {{ ^get.current.metadata.sectionInDateline }}
+                {{ #get.current.metadata.sectionLabelHasLink }}
+                    <a href="{{{ get.current.filtered.sectionLink }}}" class="lab-article-section-link">
+                {{ /get.current.metadata.sectionLabelHasLink }}
+                <p style="{{ #style.collection }}text_decoration_inline_style fields.section{{ /style.collection }}" class="{{ #style.collection }}text_decoration fields.section{{ /style.collection }} lab-article-section lab-article-section-top {{ #get.current.metadata.sectionKickerAligned }}lab-article-section-aligned-kicker{{ /get.current.metadata.sectionKickerAligned }}">
+                    {{ get.current.filtered.sectionDisplayName }}
+                    {{ #app.isEditor }}
+                        {{ ^get.current.filtered.sectionDisplayName }}Section{{ /get.current.filtered.sectionDisplayName }}
+                    {{ /app.isEditor }}
+                </p>
+                {{ #get.current.metadata.sectionLabelHasLink }}
+                    </a>
+                {{ /get.current.metadata.sectionLabelHasLink }}
+            {{ /get.current.metadata.sectionInDateline }}
+        {{ /get.current.filtered.sectionPlacement.underImage }}
+    {{ /get.current.metadata.showSection }}
 
     {{ #get.current.filtered.layout.top }}
     {{ #render.template }}content/articleHeader/template/partials/{{ . }}{{ /render.template }}
@@ -65,22 +67,22 @@
         {{ /get.current.metadata.showPaywallLabel }}
     {{ /get.parent.fields.paywall }}
 
-    {{ #get.current.filtered.sectionPlacement.underImage }}
-        {{ #get.current.metadata.showSection }}
+    {{ #get.current.metadata.showSection }}
+        {{ #get.current.filtered.sectionPlacement.underImage }}
             {{ #get.current.metadata.sectionLabelHasLink }}
                 <a href="{{{ get.current.filtered.sectionLink }}}" class="lab-article-section-link">
             {{ /get.current.metadata.sectionLabelHasLink }}
             <p style="{{ #style.collection }}text_decoration_inline_style fields.section{{ /style.collection }}" class="{{ #style.collection }}text_decoration fields.section{{ /style.collection }} lab-article-section lab-article-section-below {{ #get.current.metadata.sectionKickerAligned }}lab-article-section-aligned-kicker{{ /get.current.metadata.sectionKickerAligned }}">
-                {{ get.root.primaryTags.section }}
+                {{ get.current.filtered.sectionDisplayName }}
                 {{ #app.isEditor }}
-                    {{ ^get.root.primaryTags.section }}Section{{ /get.root.primaryTags.section }}
+                    {{ ^get.current.filtered.sectionDisplayName }}Section{{ /get.current.filtered.sectionDisplayName }}
                 {{ /app.isEditor }}
             </p>
             {{ #get.current.metadata.sectionLabelHasLink }}
                 </a>
             {{ /get.current.metadata.sectionLabelHasLink }}
-        {{ /get.current.metadata.showSection }}
-    {{ /get.current.filtered.sectionPlacement.underImage }}
+        {{ /get.current.filtered.sectionPlacement.underImage }}
+    {{ /get.current.metadata.showSection }}
 
     {{ #get.current.filtered.layout.bottom }}
     {{ #render.template }}content/articleHeader/template/partials/{{ . }}{{ /render.template }}

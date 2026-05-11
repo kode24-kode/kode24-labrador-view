@@ -9,5 +9,9 @@
             <label for="input-fields.hide_title">Display title</label>
             <input type="checkbox" data-lab-reverse="1" name="fields.hide_title" value="1" id="input-fields.hide_title" {{ ^get.current.fields.hide_title }}checked{{ /get.current.fields.hide_title }}>
         </div>
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="input-fields.useParagraphs">Use paragraphs instead of heading on titles</label>
+            <input type="checkbox" name="fields.useParagraphs" value="1" id="input-fields.useParagraphs" {{ #get.current.fields.useParagraphs }}checked{{ /get.current.fields.useParagraphs }}>
+        </div>
     </div>
 </form>

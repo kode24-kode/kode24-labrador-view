@@ -65,7 +65,7 @@
             "placeholder": "Click to add title"
         },
         {
-            "selector": "h2.subtitle",
+            "selector": "p.subtitle",
             "fn": "EditRich",
             "menu": "rich_text_ai",
             "key": "fields.subtitle",
@@ -155,23 +155,14 @@
                         }
                     }
                 },
-                "section": {
-                    "group": "g2",
+                "sections": {
                     "icon": "labicon-tag",
-                    "onValue": true,
-                    "offValue": false,
-                    "bindings": [
-                        {
-                            "path": "metadata.showSection",
-                            "attribute": "value"
-                        }
-                    ],
-                    "items": {
+                    "group": "g2",
+                    "items":  {               
                         "section": {
-                            "text": "Display section",
+                            "group": "g2",
                             "icon": "labicon-tag",
-                            "callback": "toggleKeyAndValue",
-                            "key": "metadata.showSection",
+                            "text": "Section",
                             "onValue": true,
                             "offValue": false,
                             "bindings": [
@@ -179,49 +170,131 @@
                                     "path": "metadata.showSection",
                                     "attribute": "value"
                                 }
-                            ]
+                            ],
+                            "items": {
+                                "section": {
+                                    "text": "Display section",
+                                    "icon": "labicon-tag",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.showSection",
+                                    "onValue": true,
+                                    "offValue": false,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.showSection",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                },
+                                "alignedKicker": {
+                                    "group": "g3",
+                                    "text": "Align with kicker",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.sectionKickerAligned",
+                                    "onValue": true,
+                                    "offValue": false,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.sectionKickerAligned",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                },
+                                "underImage": {
+                                    "group": "g3",
+                                    "text": "Below image",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.sectionPlacement",
+                                    "onValue": "underImage",
+                                    "offValue": false,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.sectionPlacement",
+                                            "attribute": "value"
+                                        },
+                                        {
+                                            "path": "metadata.sectionInDateline",
+                                            "attribute": "disabled",
+                                            "valueTransformer": "toBoolean"
+                                        }
+                                    ]
+                                },
+                                "inDateline": {
+                                    "group": "g3",
+                                    "text": "In dateline",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.sectionInDateline",
+                                    "onValue": true,
+                                    "offValue": false,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.sectionInDateline",
+                                            "attribute": "value"
+                                        },
+                                        {
+                                            "path": "metadata.sectionPlacement",
+                                            "attribute": "disabled"
+                                        }
+                                    ]
+                                },
+                                "isLinkToTagPage": {
+                                    "group": "g3",
+                                    "text": "Set as link to tag page",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.sectionLabelHasLink",
+                                    "onValue": true,
+                                    "offValue": false,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.sectionLabelHasLink",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                }
+                            }
                         },
-                        "alignedKicker": {
-                            "group": "g3",
-                            "text": "Align with kicker",
-                            "callback": "toggleKeyAndValue",
-                            "key": "metadata.sectionKickerAligned",
+                        "subsection": {
+                            "group": "g2",
+                            "icon": "labicon-tag",
+                            "text": "Subsection",
                             "onValue": true,
                             "offValue": false,
                             "bindings": [
                                 {
-                                    "path": "metadata.sectionKickerAligned",
+                                    "path": "metadata.showSubsection",
                                     "attribute": "value"
                                 }
-                            ]
-                        },
-                        "underImage": {
-                            "group": "g3",
-                            "text": "Below image",
-                            "callback": "toggleKeyAndValue",
-                            "key": "metadata.sectionPlacement",
-                            "onValue": "underImage",
-                            "offValue": false,
-                            "bindings": [
-                                {
-                                    "path": "metadata.sectionPlacement",
-                                    "attribute": "value"
+                            ],
+                            "items": {
+                                "subsection": {
+                                    "text": "Display subsection",
+                                    "icon": "labicon-tag",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.showSubsection",
+                                    "onValue": true,
+                                    "offValue": false,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.showSubsection",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                },
+                                "isLinkToSubsectionPage": {
+                                    "group": "g3",
+                                    "text": "Set as link to subsection page",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.subsectionLabelHasLink",
+                                    "onValue": true,
+                                    "offValue": false,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.subsectionLabelHasLink",
+                                            "attribute": "value"
+                                        }
+                                    ]
                                 }
-                            ]
-                        },
-                        "isLinkToTagPage": {
-                            "group": "g3",
-                            "text": "Set as link to tag page",
-                            "callback": "toggleKeyAndValue",
-                            "key": "metadata.sectionLabelHasLink",
-                            "onValue": true,
-                            "offValue": false,
-                            "bindings": [
-                                {
-                                    "path": "metadata.sectionLabelHasLink",
-                                    "attribute": "value"
-                                }
-                            ]
+                            }
                         }
                     }
                 },

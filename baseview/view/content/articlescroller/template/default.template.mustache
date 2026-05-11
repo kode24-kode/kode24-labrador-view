@@ -8,6 +8,8 @@
         {{ size.grid.css }}
         {{ #style.collection }}box_decoration{{ /style.collection }}
         {{ #style.collection }}content_decoration{{ /style.collection }}
+        {{ #get.current.fields.arrowsOnImage }}lab-arrows-on-image{{ /get.current.fields.arrowsOnImage }}
+        {{ #get.current.fields.reverseArrowColor }}lab-arrows-reversed{{ /get.current.fields.reverseArrowColor }}
     {{/helper.trim}}" style="{{ #style.collection }}content_inline_style{{ /style.collection }}" id="article_list_{{ get.current.id }}">
     {{{ get.current.filtered.styleSheets }}}
     <div class="inner content fullwidthTarget">
@@ -25,7 +27,7 @@
                                 {{ #paywall }}
                                 {{ #get.current.filtered.paywallLabel }}{{> partial/elements/paywallLabel }}{{ /get.current.filtered.paywallLabel }}
                                 {{ /paywall }}
-                                <img src="{{{ image }}}" width="{{ get.current.filtered.width }}" height="{{ get.current.filtered.height }}"{{ #get.current.filtered.lazyloadImages }} loading="lazy"{{ /get.current.filtered.lazyloadImages }} alt="">
+                                <img src="{{{ image }}}" width="{{ get.current.filtered.width }}" height="{{ get.current.filtered.height }}"{{ #get.current.filtered.lazyloadImages }} loading="lazy"{{ /get.current.filtered.lazyloadImages }} alt="{{ imageAlt }}">
                                 {{ #autodata.labels }}
                                     <div class="labels">
                                         <div class="label" data-label-key="{{ key }}" data-label-value="{{ value }}"><span class="label-value">{{ value }}</span></div>
@@ -91,6 +93,38 @@
             window.dachserData.reflow('swipehelper', 'selector', '#article_list_{{ get.current.id }}');
             {{ /app.isEditor }}
         }());
+        {{ #get.current.filtered.useNavigation }}
+			{{ #get.current.fields.arrowsOnImage }}
+				(function () {
+					var container = document.querySelector('#article_list_{{ get.current.id }}');
+					var inner = container.querySelector('.inner');
+					function updateNavPosition() {
+						var fig = container.querySelector('figure');
+
+						if (!fig) {
+							return;
+						}
+
+						var innerRect = inner.getBoundingClientRect();
+						var figRect = fig.getBoundingClientRect();
+						inner.style.setProperty('--lab-arrow-top', (figRect.top - innerRect.top + figRect.height / 2) + 'px');
+					}
+
+					var img = container.querySelector('figure img');
+
+					if (img) {
+						if (img.complete) {
+							updateNavPosition();
+						}
+						else {
+							img.addEventListener('load', updateNavPosition);
+						}
+					}
+
+					window.addEventListener('resize', updateNavPosition);
+				}());
+			{{ /get.current.fields.arrowsOnImage }}
+		{{ /get.current.filtered.useNavigation }}
         </script>
     {{ /get.current.id }}
 </div>

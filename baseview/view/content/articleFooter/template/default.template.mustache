@@ -1,8 +1,16 @@
-
 <div data-element-guid="{{ get.current.guid }}" class="column articleFooter">
     {{ #get.root.filtered.page_settings.showTags }}
-    <span class="tags">{{ #get.current.filtered.tags }}
-        <a href="{{{ get.current.filtered.tagPagePath }}}{{ #helper.encodeURIComponent }}{{{.}}}{{ /helper.encodeURIComponent }}">{{{.}}}</a>{{ /get.current.filtered.tags }}
+    <span class="tags">
+        {{! Use termData when available (tags_as_terms enabled) }}
+        {{ #get.current.filtered.termData }}
+        <a href="{{{ get.current.filtered.tagPagePath }}}{{ #helper.encodeURIComponent }}{{ uriName }}{{ /helper.encodeURIComponent }}" data-tag="{{ uriName }}">{{ #helper.sanitizeString }}{{ displayName }}{{ /helper.sanitizeString }}</a>
+        {{ /get.current.filtered.termData }}
+        {{! Fall back to simple tags (backward compatible) }}
+        {{ ^get.current.filtered.termData }}
+        {{ #get.current.filtered.tags }}
+            <a href="{{{ get.current.filtered.tagPagePath }}}{{ #helper.encodeURIComponent }}{{{.}}}{{ /helper.encodeURIComponent }}" data-tag="{{{ . }}}">{{{.}}}</a>
+        {{ /get.current.filtered.tags }}
+        {{ /get.current.filtered.termData }}
     </span>
     {{ /get.root.filtered.page_settings.showTags }}
     {{{ children.all }}}

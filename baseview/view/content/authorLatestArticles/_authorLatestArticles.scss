@@ -1,0 +1,75 @@
+
+/* Style for contentbox authorLatestArticles */
+
+.lab-ala-container {
+	--lab-ala-color-border: #e0e0e0;
+
+	.lab-ala-headline {
+		border-bottom: 1px solid var(--lab-ala-color-border);
+		padding-bottom: 1rem;
+		margin-bottom: 0;
+	}
+
+    .lab-ala-list {
+		padding-top: 1rem;
+
+        .lab-ala-item {
+			margin-bottom: 1rem;
+			padding-bottom: 0.4rem;
+
+            a {
+                color: #000;
+                text-decoration: none;
+
+				img {
+					padding-bottom: 0.4rem;
+				}
+
+				.lab-ala-text-container {
+					line-height: 1.4;
+
+					.lab-ala-kicker {
+						font-size: 0.8rem;
+					}
+
+					.lab-ala-title {
+						font-size: 1rem;
+						font-weight: 500;
+					}
+
+					.lab-ala-subtitle {
+						font-size: 0.9rem;
+					}
+
+					.lab-ala-date {
+						display: flex;
+						align-items: center;
+						font-size: 0.8rem;
+
+						&::before {
+							margin-right: 0.2rem;
+						}
+					}
+				}
+            }
+        }
+    }
+
+    &.lab-ala-divider {
+        .lab-ala-list {
+            .lab-ala-item:not(:last-child) {
+                border-bottom: 1px solid var(--lab-ala-color-border);
+            }
+        }
+    }
+
+    &.lab-ala-image-first-only {
+        .lab-ala-list {
+            .lab-ala-item:not(:first-child) {
+                img {
+                    display: none;
+                }
+            }
+        }
+    }
+}

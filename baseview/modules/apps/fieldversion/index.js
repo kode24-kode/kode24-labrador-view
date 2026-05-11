@@ -4,10 +4,11 @@ import Template from './template.js';
 export class FieldVersion {
 
     constructor(api, {
-        field = null, model = null, limit = 400, callbacks = {}, selector = ''
+        field = null, resetFields = [], model = null, limit = 400, callbacks = {}, selector = ''
     } = {}) {
         this.api = api;
         this.field = field;
+        this.resetFields = resetFields;
         this.model = model;
         this.limit = limit;
         this.callbacks = callbacks;
@@ -231,6 +232,9 @@ export class FieldVersion {
             return;
         }
         this.model.set(`fields.${ this.field }`, this.state.data[this.state.index].value);
+        for (const field of this.resetFields) {
+            this.model.set(`fields.${ field }`, null);
+        }
         this.end();
         this.api.v1.model.highlight.message(this.model, 'Revision inserted');
     }

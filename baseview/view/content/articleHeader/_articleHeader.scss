@@ -1,6 +1,7 @@
 /* Style for contentbox articleHeader */
 @use "../../css_scss/components/font-size" as *;
 @use "../../css_scss/components/vars" as *;
+@use "../../css_scss/mixins/content-animations" as *;
 
 .articleHeader {
     padding-top: 1em;
@@ -19,11 +20,16 @@
         margin: 0;
         padding: 0;
         @include font-size(44);
+        @include text-animation-styles;
     }
 
     .subtitle {
         @include font-size(21);
         margin: 12px 0;
+        padding: 0.2em 0;
+        line-height: 1.2em;
+        font-weight: 200;
+        @include text-animation-styles;
     }
 
     .kicker {
@@ -167,10 +173,22 @@
         width: fit-content;
         display: block;
 
+        &.dateline {
+            display: inline-block;
+        }
+
         &:hover {
             > * {
                 text-decoration: underline;
             }
+        }
+
+        &:has(p.align-center) {
+            margin: auto;
+        }
+
+        &:has(p.align-right) {
+            margin-left: auto;
         }
     }
 
@@ -180,6 +198,16 @@
             &[class*="bg-"] {
                 display: inline-block;
             }
+        }
+
+        .lab-article-section-link {
+            margin: auto;
+        }
+    }
+
+    &.align-right {
+        .lab-article-section-link {
+            margin-left: auto;
         }
     }
 
@@ -358,6 +386,7 @@
             }
         }
     }
+
     &.articleHeader-image-bodytext-width {
         .articleHeader {
             .media {
@@ -378,6 +407,10 @@
         &[class*="bg-"] {
             display: inline-block;
         }
+    }
+
+    .lab-article-section-link {
+        margin: auto;
     }
 
     figure .caption {

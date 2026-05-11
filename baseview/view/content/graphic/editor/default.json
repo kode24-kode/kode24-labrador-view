@@ -74,19 +74,24 @@
                     "icon": "labicon-edit",
                     "callback": "displaySettingsPanel",
                     "title": "Settings (,)",
-                    "hotkeys": [{
-                        "key": ","
-                    }],
+                    "hotkeys": [
+                        {
+                            "key": ","
+                        }
+                    ],
                     "params": {
-                        "settingsPanelOptions": "settingsPanels.admin"
+                        "settingsPanelOptions": "settingsPanels.default"
                     }
                 }
             }
         }
     },
     "settingsPanels": {
-        "admin": {
-            "template": "content/graphic/template/settings"
+        "default": {
+            "template": "content/graphic/template/settings/default"
+        },
+        "no_column": {
+            "template": "content/graphic/template/settings/no_column"
         }
     },
     "toolMenus": {

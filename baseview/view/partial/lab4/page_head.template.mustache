@@ -1,6 +1,6 @@
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         {{ #get.current.filtered.consent.cookieconsent }}{{ #render.partial }}lab4/cookieconsent{{ /render.partial }}{{ /get.current.filtered.consent.cookieconsent }}
         {{ > partial/lab4/clientAPI }}
-
         {{! Add Piano Adblock Detection Script }}
         {{ #getConfig.piano }}
             {{ > partial/lab4/paywall/piano/adBlockerDetection }}
@@ -9,8 +9,8 @@
         <title>{{ #helper.stripTags }}{{{ get.current.filtered.seotitle }}}{{ /helper.stripTags }}</title>
         <meta name="title" content="{{ #helper.sanitizeString }}{{{ get.current.filtered.seotitle }}}{{ /helper.sanitizeString }}">
         <meta name="description" content="{{ #helper.sanitizeString }}{{{ get.current.filtered.seodescription }}}{{ /helper.sanitizeString }}">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         {{ #get.current.filtered.shouldRenderCanonical }}<link rel="canonical" href="{{{get.current.filtered.specificUrl}}}">{{ /get.current.filtered.shouldRenderCanonical }}
+        {{ #get.current.filtered.ampSettings.enableAMP }}<link rel="amphtml" href="{{{ get.current.filtered.specificUrl }}}?lab_viewport=amp">{{ /get.current.filtered.ampSettings.enableAMP }}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {{ #get.current.filtered.norobots }}<meta name="robots" content="noindex">{{ /get.current.filtered.norobots }}
         {{ #get.current.filtered.facebook.appId}}
@@ -19,6 +19,12 @@
         <meta property="og:type" content="{{ #get.current.filtered.is_article }}article{{ /get.current.filtered.is_article }}{{ #get.current.filtered.is_notice }}notice{{ /get.current.filtered.is_notice }}{{ #get.current.filtered.is_front }}frontpage{{ /get.current.filtered.is_front }}{{ #get.current.filtered.is_gallery }}gallery{{ /get.current.filtered.is_gallery }}">
         <meta property="og:title" content="{{ #get.current.filtered.paywall.enabled }}{{ ^getConfig.paywall.labels.hidePlusInMetaTags }}(+) {{ /getConfig.paywall.labels.hidePlusInMetaTags }}{{ /get.current.filtered.paywall.enabled }}{{ #helper.sanitizeString }}{{{ get.current.filtered.sometitle }}}{{ /helper.sanitizeString }}">
         <meta property="og:description" content="{{ #helper.sanitizeString }}{{{ get.current.filtered.somedescription }}}{{ /helper.sanitizeString }}">
+        {{ #get.current.filtered.seolanguage }}
+        <meta property="og:locale" content="{{ #helper.sanitizeString }}{{{ get.current.filtered.seolanguage }}}{{ /helper.sanitizeString }}">
+        {{ /get.current.filtered.seolanguage }}
+        {{ #getCmsConfig.site.display_name }}
+        <meta property="og:site_name" content="{{{ getCmsConfig.site.display_name }}}">
+        {{ /getCmsConfig.site.display_name }}
         {{ #get.current.filtered.is_notice }}
         {{ #get.child.image+.instance_of }}
         <meta property="og:image" content="{{{ get.current.filtered.image_server }}}/{{ get.child.image+.instance_of }}.jpg?width=1200&height={{ #helper.toFixed }}{{ #calculator.multiply }}1200 {{ getConfig.image.socialAspectRatio }}{{ /calculator.multiply }}{{ /helper.toFixed }}">
@@ -72,6 +78,7 @@
         {{ #get.current.filtered.customTags.script.head_top }}{{{ . }}}{{ /get.current.filtered.customTags.script.head_top }}
         {{ #get.current.filtered.customTags.style.head_top }}{{{ . }}}{{ /get.current.filtered.customTags.style.head_top }}
         {{ #get.current.filtered.customTags.link.head_top }}{{{ . }}}{{ /get.current.filtered.customTags.link.head_top }}
+        {{ #get.current.filtered.customTags.noscript.head_top }}{{{ . }}}{{ /get.current.filtered.customTags.noscript.head_top }}
         {{ #get.current.filtered.is_front }}
         {{ #get.current.filtered.someimage }}
         <meta property="og:image" content="{{{ get.current.filtered.someimage }}}">
@@ -163,13 +170,13 @@
             {{ /get.current.filtered.adnuntius.connectLoading }}
         {{ /get.current.filtered.adnuntius.enabled }}
         {{ #get.current.filtered.googleAds.dfpid }}
-            {{ #get.current.filtered.googleAds.bidding.enabled }}
+            {{ #get.current.filtered.googleAds.bidding }}
                 {{ > content/googleAd/template/bidding }}
-            {{ /get.current.filtered.googleAds.bidding.enabled }}
-            {{ ^get.current.filtered.googleAds.bidding.enabled }}
+            {{ /get.current.filtered.googleAds.bidding }}
+            {{ ^get.current.filtered.googleAds.bidding }}
                 <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
                 {{ > content/googleAd/template/multirequest }}
-            {{ /get.current.filtered.googleAds.bidding.enabled }}
+            {{ /get.current.filtered.googleAds.bidding }}
         {{ /get.current.filtered.googleAds.dfpid }}
         {{ #get.current.filtered.style_definitions.fontface }}
         {{ #link }}
@@ -201,6 +208,7 @@
         {{ #get.current.filtered.customTags.script.head_bottom }}{{{ . }}}{{ /get.current.filtered.customTags.script.head_bottom }}
         {{ #get.current.filtered.customTags.link.head_bottom }}{{{ . }}}{{ /get.current.filtered.customTags.link.head_bottom }}
         {{ #get.current.filtered.customTags.style.head_bottom }}{{{ . }}}{{ /get.current.filtered.customTags.style.head_bottom }}
+        {{ #get.current.filtered.customTags.noscript.head_bottom }}{{{ . }}}{{ /get.current.filtered.customTags.noscript.head_bottom }}
         {{ #app.isFront }}
         {{#getConfig.sesamy}}
             {{#enabled}}
@@ -215,6 +223,12 @@
         {{ #getConfig.iteras }}
             {{ > partial/lab4/paywall/iteras/head }}
         {{ /getConfig.iteras }}
+
+        {{! Add Tulo Paywall script if Tulo is set }}
+        {{ #getConfig.tulo }}
+            <script src="https://payway-cdn-stage.adeprimo.se/js/lite/1.4/paywall.js"></script>
+            <link rel="stylesheet" href="https://payway-cdn-stage.adeprimo.se/css/lite/1.4/paywall.css">
+        {{ /getConfig.tulo }}
 
         {{! Add Piano Paywall script if Piano is set }}
         {{ #getConfig.piano }}

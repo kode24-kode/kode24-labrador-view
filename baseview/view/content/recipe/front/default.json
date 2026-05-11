@@ -1,0 +1,30 @@
+{
+    "boxTitle": "Recipe",
+    "boxDescription": "Element to showcase a recipe",
+    "boxKeywords": "content recipe food dish ingredients instructions",
+    "viewportMap": {
+        "fields": {
+            "name": "presets.vp_content_attributes",
+            "description": "presets.vp_content_attributes",
+            "author": "presets.vp_content_attributes",
+            "prepTimeLabel": "presets.vp_content_attributes",
+            "prepTime": "presets.vp_content_attributes",
+            "cookTimeLabel": "presets.vp_content_attributes",
+            "cookTime": "presets.vp_content_attributes",
+            "totalTimeLabel": "presets.vp_content_attributes",
+            "totalTime": "presets.vp_content_attributes",
+            "recipeYieldLabel": "presets.vp_content_attributes",
+            "recipeYield": "presets.vp_content_attributes",
+            "datePublishedLabel": "presets.vp_content_attributes",
+            "datePublished": "presets.vp_content_attributes",
+            "keywordsLabel": "presets.vp_content_attributes",
+            "keywords": "presets.vp_content_attributes",
+            "caloriesLabel": "presets.vp_content_attributes",
+            "calories": "presets.vp_content_attributes",
+            "dishLabel": "presets.vp_content_attributes",
+            "dish": "presets.vp_content_attributes",
+            "cuisineLabel": "presets.vp_content_attributes",
+            "recipeCuisine": "presets.vp_content_attributes"
+        }
+    }
+}

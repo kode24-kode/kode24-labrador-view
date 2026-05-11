@@ -10,8 +10,16 @@
     [[ ^settings.buttonHidden ]]
         <button class="search-button[[ ^settings.visible ]] search-expander[[ /settings.visible ]]" aria-label="{{ #lang }}search.label{{ /lang }}" [[ ^settings.visible ]] aria-expanded="false" aria-controls="search-input-[[ id ]]" [[ /settings.visible ]]>
             [[ ^settings.useTextButton ]]
+                [[ #settings.textBeforeIcon ]]
+                    <span class="textBeforeIcon openText">{{ #lang }}search.openText{{ /lang }}</span>
+                    <span class="textBeforeIcon closeText">{{ #lang }}search.closeText{{ /lang }}</span>
+                [[ /settings.textBeforeIcon ]]
                 <i class="open [[ ^settings.icon_open ]]fi-magnifying-glass[[ /settings.icon_open ]][[ settings.icon_open ]]"></i>
                 <i class="close [[ ^settings.icon_close ]]fi-x[[ /settings.icon_close ]][[ settings.icon_close ]]"></i>
+                [[ #settings.textAfterIcon ]]
+                    <span class="textAfterIcon openText">{{ #lang }}search.openText{{ /lang }}</span>
+                    <span class="textAfterIcon closeText">{{ #lang }}search.closeText{{ /lang }}</span>
+                [[ /settings.textAfterIcon ]]
             [[ /settings.useTextButton ]]
             [[ #settings.useTextButton ]]
                 <span class="openText">{{ #lang }}search.openText{{ /lang }}</span>

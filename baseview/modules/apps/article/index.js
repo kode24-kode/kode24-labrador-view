@@ -35,7 +35,8 @@ export class ArticleSettings {
             'RoxenExport',
             'AptomaExport',
             'WoodwingExport',
-            'ArticleChangelog'
+            'ArticleChangelog',
+            'NTBExport'
         ].concat(additions).filter((app) => !removals.includes(app));
         this.apps = {};
 

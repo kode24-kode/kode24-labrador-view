@@ -1,9 +1,24 @@
-<div class="graphic type_{{ get.current.fields.fileType }}">
+<div class="{{ #helper.trim }}
+    graphic type_{{ get.current.fields.fileType }} 
+    {{ #get.current.fields.graphicAlignmentDesktop }}desktop-float{{{ get.current.fields.graphicAlignmentDesktop }}}{{ /get.current.fields.graphicAlignmentDesktop }}
+    {{ #get.current.fields.graphicAlignmentMobile }}mobile-float{{{ get.current.fields.graphicAlignmentMobile }}}{{ /get.current.fields.graphicAlignmentMobile }}
+    {{ /helper.trim }}"
+    style="{{ #helper.trim }}
+    {{ #get.current.fields.graphicWidthDesktop }}
+        --graphicWidthDesktop: {{ get.current.fields.graphicWidthDesktop }}px;
+    {{ /get.current.fields.graphicWidthDesktop }}
+    {{ #get.current.fields.graphicWidthMobile }}
+        --graphicWidthMobile: {{ get.current.fields.graphicWidthMobile }}px;
+    {{ /get.current.fields.graphicWidthMobile }}
+    {{ /helper.trim }}">
     <div class="img fullwidthTarget">
-        <img src="{{ get.current.fields.url }}" {{ #get.current.filtered.lazyloadImages }}loading="lazy" {{ /get.current.filtered.lazyloadImages }}alt="{{ get.current.fields.alt }}" />
+        <img src="{{ get.current.fields.url }}" 
+            {{ #get.current.filtered.lazyloadImages }}loading="lazy"{{ /get.current.filtered.lazyloadImages }}{{ ^get.current.filtered.lazyloadImages }}fetchpriority="high"{{ /get.current.filtered.lazyloadImages }}
+            alt="{{ get.current.fields.imageAltText }}"
+            {{ #get.current.fields.graphicWidthDesktop }}width="{{ get.current.fields.graphicWidthDesktop }}"{{ /get.current.fields.graphicWidthDesktop }}        />
     </div>
     {{ #get.current.fields.displayCaption }}
-    {{ > content/image/template/partials/caption_links }}
+        {{ > content/image/template/partials/caption_links }}
     {{ /get.current.fields.displayCaption }}
     {{ > content/image/template/partials/child }}
 </div>

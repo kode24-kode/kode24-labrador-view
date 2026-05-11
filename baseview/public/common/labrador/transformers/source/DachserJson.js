@@ -87,7 +87,7 @@ export class DachserJson {
         return {
             type: 'image',
             contentdata: {
-                fields: {},
+                fields: data.altText ? { altText: { value: data.altText } } : {},
                 instance_of: data.id,
                 metadata: {}
             }

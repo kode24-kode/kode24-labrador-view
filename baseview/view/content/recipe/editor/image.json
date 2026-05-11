@@ -1,0 +1,10 @@
+{
+    "toolMenus": {
+        "image_edit": {
+            "items": {
+                "alignLeft": null,
+                "alignRight": null
+            }
+        }
+    }
+}

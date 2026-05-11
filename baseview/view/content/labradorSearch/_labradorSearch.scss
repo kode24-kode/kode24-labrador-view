@@ -149,7 +149,7 @@
             }
 
             h2 {
-                font-size: 1.4rem !important;
+                font-size: 1.4rem;
                 margin-bottom: 0.4rem;
             }
 
@@ -158,7 +158,25 @@
                 
             }
 
+			.info {
+				> * {
+					font-size: 16px;
+					font-weight: 500;
+					line-height: 1.4;
+					color: #333;
+				}
+
+				.sitealias.label {
+					font-size: 11px;
+					color: #fff;
+				}
+			}
+
             .section_tag {
+                margin-left: 0.5rem;
+            }
+
+            .lab-search-author {
                 margin-left: 0.5rem;
             }
 
@@ -252,7 +270,7 @@
 
     @include mobile_up {
         article.column .content figure.desktop-floatLeft {
-            margin-right: 1.5rem;
+            margin-right: 1.5rem !important;
         }
     }
 

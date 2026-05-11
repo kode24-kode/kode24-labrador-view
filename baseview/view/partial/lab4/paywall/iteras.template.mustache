@@ -69,13 +69,31 @@
     alreadySubscribed.style.display = 'none';
   }
 
+  var accessDenied = false;
+
+  function emitClientAPI(event, data) {
+      if (window.labClientAPI) {
+          window.labClientAPI.emit(event, data);
+      } else {
+          document.addEventListener('labClientAPIReady', function() {
+              window.labClientAPI.emit(event, data);
+          }, { once: true });
+      }
+  }
+
   Iteras.wall({
     paywallid: ["{{get.current.filtered.paywall.iteras.id}}"],
     unauthorized: () => {
+        accessDenied = true;
         intro.style.display = "block";
         content.style.display = "none";
         content.remove();
         offers.style.display = "flex";
+        emitClientAPI('accessDenied', { provider: 'iteras' });
     }
   });
+
+  if (!accessDenied && signedIn) {
+      emitClientAPI('accessGranted', { provider: 'iteras' });
+  }
 </script>

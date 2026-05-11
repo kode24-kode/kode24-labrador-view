@@ -421,6 +421,7 @@ export default class ArticleScroller {
                 kicker: article.kicker || article.teaserKicker || '',
                 subtitle: article.teaserSubtitle ? article.teaserSubtitle : article.description,
                 image: !settings.hideImages && article.images && article.images.length ? (`${ article.images[0].url }${ article.images[0].url.includes('?') ? '&' : '?' }${ imgArgs.join('&') }`) : false,
+                imageAlt: article.images && article.images.length ? (article.images[0].altText || '') : '',
                 autodata: autodata || '',
                 section: article.section || '',
                 paywall: !!article.paywall,

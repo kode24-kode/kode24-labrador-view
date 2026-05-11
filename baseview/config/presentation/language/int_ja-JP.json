@@ -106,8 +106,8 @@
         },
         "header": {
             "logo_link_text": "トップページへ",
-			"menuScrollerLeftButton": "左にスクロール",
-			"menuScrollerRightButton": "右にスクロール"
+            "menuScrollerLeftButton": "左にスクロール",
+            "menuScrollerRightButton": "右にスクロール"
         },
         "slack_notifier": {
             "publish": {
@@ -173,6 +173,9 @@
             "labelMostRead": "よく読まれている",
             "titleMostRead": "よく読まれている記事"
         },
+        "authorLatestArticles": {
+            "noBylines": "記事にバイラインが見つかりません"
+        },
         "infiniteScroll": {
             "readMore": "続きを読む"
         },
@@ -188,13 +191,17 @@
                 "talandeWebb": "Talande Webb オプション パネルを開く",
                 "bluesky": "Blueskyでシェア",
                 "reddit": "Redditでシェア",
-                "whatsapp": "WhatsAppでシェア"
+                "whatsapp": "WhatsAppでシェア",
+                "print": "ページを印刷",
+                "googlenews": "Google ニュースページを開く"
             }
         },
         "gallery": {
             "label": "ギャラリー",
             "seeAllImages": "すべての画像を見る",
-            "navigateToOriginal": "元のページに移動"
+            "navigateToOriginal": "元のページに移動",
+            "imageCountText": "画像",
+            "autoDescription": "「{{ title }}」から{{ n }}枚の画像"
         },
         "weather": {
             "failedToFetch": "天気データを取得できませんでした",
@@ -214,6 +221,20 @@
                 "wind": "風が強い",
                 "unknown": "不明"
             }
+        },
+        "recipe": {
+            "prepTimeLabel": "準備時間:",
+            "cookTimeLabel": "調理時間:",
+            "totalTimeLabel": "合計時間:",
+            "recipeYieldLabel": "人分:",
+            "keywordsLabel": "キーワード:",
+            "caloriesLabel": "カロリー:",
+            "dishLabel": "料理名:",
+            "cuisineLabel": "料理スタイル:",
+            "printButton": "印刷",
+            "publishedDate": "公開日:",
+            "ingredientsTitle": "材料",
+            "instructionsTitle": "作り方"
         }
     }
 }

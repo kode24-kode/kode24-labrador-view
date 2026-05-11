@@ -82,6 +82,22 @@
                 }
             }
         },
+        "job_title": {
+            "selector": ".lab-job-title",
+            "fn": "EditClean",
+            "key": "fields.job_title",
+            "placeholder": "Click to add job title",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "attributes": {
+                "text_size": {
+                    "displaySize": false
+                }
+            }
+        },
         "description": {
             "selector": ".description",
             "fn": "EditRich",

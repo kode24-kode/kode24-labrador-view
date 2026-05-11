@@ -21,7 +21,7 @@ const contentLanguages = [
     { name: 'Chinese (Traditional) - 中文（繁體）', code: 'zh-TW' },
     { name: 'Corsican', code: 'co' },
     { name: 'Croatian - hrvatski', code: 'hr' },
-    { name: 'Czech - čeština', code: 'cs' },
+    { name: 'Czech - čeština', code: 'cs-CZ' },
     { name: 'Danish - dansk', code: 'da-DK' },
     { name: 'Dutch - Nederlands', code: 'nl-NL' },
     { name: 'Dutch - Belgium', code: 'nl-BE' },

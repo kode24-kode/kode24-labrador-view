@@ -136,7 +136,7 @@ export class TestManagerBase {
         if (this.ui.displayTestData) {
             this.ui.endTestNowButton = this.ui.container.querySelector('.end-test-now-btn');
             this.ui.endTestNowButton.addEventListener('click', (event) => {
-                if (this.test && this.test.isRunning()) {
+                if (this.test && this.test.id && !this.test.isFinished()) {
                     this.deleteTest();
                 }
             });
@@ -659,10 +659,16 @@ export class TestManagerBase {
                 }
             }
         }
-        if (!this.test && this.ui.displayTestData) {
-            this.test = new AbTest({ placeId: this.instanceOfId, url: this.getFrontUrl(), testMethod: this.default_test_method });
-            this.testInstanceCreated();
-            if (this.collection.test_id) {
+        if (this.ui.displayTestData) {
+            if (!this.test) {
+                this.test = new AbTest({ placeId: this.instanceOfId, url: this.getFrontUrl(), testMethod: this.default_test_method });
+                this.testInstanceCreated();
+            }
+            // Fetch (or re-fetch) test data when:
+            // - we don't have a test ID yet (first load), OR
+            // - the test is still running and may have finished since last check.
+            // Skipping re-fetch for already-finished tests avoids unnecessary API calls.
+            if (this.collection.test_id && (!this.test.id || this.test.isRunning())) {
                 Sys.logger.debug(`[TestManagerBase] Found A/B test. ID: ${ this.collection.test_id }`);
                 const test_data = await this.api.v1.abtest.test.get(this.collection.test_id);
                 if (!test_data.success) {
@@ -844,14 +850,15 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
 
                 const promises = [];
                 if (this.test.id) {
-                    promises.push(this.api.v1.abtest.test.update(this.test.id, this.test.serialize(this.preparedVariants)));
+                    promises.push(this.api.v1.abtest.test.update(this.test.id, this.test.serialize(this.preparedVariants, this.model.get('fields.title'), this.model.get('fields.published_url'), this.getModelData(this.model))));
                 } else {
                     promises.push(
                         this.api.v1.abtest.test.create(
                             this.test.serialize(
                                 this.preparedVariants,
                                 this.model.get('fields.title'),
-                                this.model.get('fields.published_url')
+                                this.model.get('fields.published_url'),
+                                this.getModelData(this.model)
                             )
                         )
                     );
@@ -1031,9 +1038,24 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
             }
             this.api.v1.abtest.collection.list(referenceId).then((data) => {
                 if (data && data.result && data.result.length) {
-                    this.api.v1.abtest.collection.load(data.result[0]).then((collection) => {
-                        resolve(collection);
-                    });
+                    // Try each result ID in order. The Elasticsearch index may contain stale
+                    // entries for collection nodes that have since been deleted from the DB
+                    // (e.g. after replacing the article on a plug). If load() fails for an ID
+                    // we move on to the next rather than leaving the Promise unsettled, which
+                    // would permanently hang the AB-test editor.
+                    const tryLoad = (index) => {
+                        if (index >= data.result.length) {
+                            reject(new Error(`No loadable collection found for reference id "${ referenceId }". All ${ data.result.length } index entries failed to load.`));
+                            return;
+                        }
+                        this.api.v1.abtest.collection.load(data.result[index])
+                            .then((collection) => resolve(collection))
+                            .catch(() => {
+                                Sys.logger.warn(`[TestManagerBase] Collection id "${ data.result[index] }" is indexed but its node data is missing. Trying next entry.`);
+                                tryLoad(index + 1);
+                            });
+                    };
+                    tryLoad(0);
                 } else {
                     reject(new Error(`No collection for reference id "${ referenceId }".`));
                 }
@@ -1247,6 +1269,15 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
                     const el = view.setExtraElement('abElement', this.getCustomIcon(this.model, view, this));
                     view.getMarkup().appendChild(el);
                 }
+                // Immediately sync icon CSS state from in-memory test status.
+                // This ensures the icon turns green (is_active) right after publishing,
+                // and updates to is_completed when a test finishes — without relying
+                // on the async Kilkaya check in checkRunningAbTestState().
+                const iconEl = view.getExtraElement('abElement');
+                if (iconEl) {
+                    iconEl.classList.toggle('is_active', this.test.isRunning());
+                    iconEl.classList.toggle('is_completed', this.test.isFinished());
+                }
             }
         } else {
             this.removeTestBtn();
@@ -1274,7 +1305,7 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
         this.ui.minVariantDifferenceField.disabled = !!this.test.published;
         this.ui.resetTestButton.disabled = (this.collection.test_id === null && this.test && this.test.id);
         this.ui.startTestNowButton.disabled = (this.test && this.test.isFinished()) || this.preparedVariants.size === 0;
-        this.ui.endTestNowButton.disabled = !this.test || (this.test && !this.test.isRunning());
+        this.ui.endTestNowButton.disabled = !this.test || !this.test.id || this.test.isFinished();
         this.ui.suggestBtn.disabled = this.test && this.test.isRunning();
         if (this.ui.navTestResultsContainer) {
             this.ui.navTestResultsContainer.disabled = !(this.test && this.test.results.statistics);
@@ -1477,6 +1508,34 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
             });
     }
 
+    /**
+     * Publish images belonging to variants to the front server.
+     * Variant models are non-persistent, so their image children are not picked up
+     * by the normal publish flow. We explicitly POST each image to save-article here,
+     * before publishing the collection, so they are available when the front renders variants.
+     */
+    publishVariantImages() {
+        const imageIds = new Set();
+        for (const [, obj] of this.preparedVariants) {
+            const image = this.api.v1.model.query.getChildOfType(obj.model, 'image');
+            if (image) {
+                const instanceOf = image.get('instance_of');
+                if (instanceOf) {
+                    imageIds.add(instanceOf);
+                }
+            }
+        }
+        return Promise.all([...imageIds].map((id) => {
+            const formData = new FormData();
+            formData.append('id', id);
+            formData.append('lockId', id);
+            return fetch('/ajax/publish/save-article', { method: 'POST', body: formData })
+                .catch((err) => {
+                    Sys.logger.warn(`[TestManagerBase] Failed to publish variant image ${ id }: ${ err }`);
+                });
+        }));
+    }
+
     publish() {
         if (this.collection) {
             if (!this.validateVariants(this.preparedVariants)) {
@@ -1510,9 +1569,20 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
             this.collection.pageId = this.api.v1.model.query.getRootModel().get('id');
 
             this.saveOrUpdateTest()
+                .then(() => this.publishVariantImages())
                 .then(() => this.api.v1.abtest.collection.publish(this.collection))
                 .then(() => {
                     this.updatePublishStatus();
+                    // Signal the collection ID to PublishUpdater so it can include it in the
+                    // preload config even if the Elasticsearch index hasn't updated yet (race condition).
+                    const rootModel = this.api.v1.model.query.getRootModel();
+                    const collectionId = this.collection.getId();
+                    if (collectionId) {
+                        const pending = rootModel.get('state._abtestPendingCollectionIds') || [];
+                        if (!pending.includes(collectionId)) {
+                            rootModel.set('state._abtestPendingCollectionIds', [...pending, collectionId], { notify: false, registerModified: false });
+                        }
+                    }
                     this.api.v1.app.publish();
                     this.ui.container.classList.remove('lab-busy');
                     this.toggleBusyState(false);
@@ -1587,18 +1657,12 @@ If this issue persists, contact your A/B test provider (${ ab_settings.provider 
 
     deleteTest() {
         if (this.test && this.test.id) {
-            // First, unpublish the test, then delete it.
-            this.unpublishTest().then(() => {
-                this.api.v1.abtest.test.delete(this.test.id).then((result) => {
-                    this.doResetTest();
-                    this.save();
-                    console.log(`[TestManager] Test deleted`);
-                }).catch((error) => {
-                    console.error(`[TestManager] Error deleting test: `, error);
-                });
-                this.test = null;
+            this.api.v1.abtest.test.delete(this.test.id).then((result) => {
+                this.doResetTest();
+                this.save();
+                console.log(`[TestManager] Test deleted`);
             }).catch((error) => {
-                console.error(`[TestManager] Error unpublishing test: `, error);
+                console.error(`[TestManager] Error deleting test: `, error);
             });
         } else {
             console.warn('[TestManager] No test to delete ...');

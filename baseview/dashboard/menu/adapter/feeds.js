@@ -54,6 +54,19 @@ Lab.Menu.Adapter.feeds = function(properties) {
             }
         });
 
+        contentData.push({
+            type: "apnews",
+            parentStructureType: "contentboxes",
+            boxname: "apnews",
+            fields: {
+                boxTitle: "AP News",
+                boxDescription: "Articles from Associated Press",
+                title: "Articles from Associated Press",
+                source: "APNews",
+                page: 0
+            }
+        });
+
         return contentData;
     };
 

@@ -237,10 +237,41 @@ export default class Article {
             const headerImage = this.api.v1.model.query.getChildOfType(model, 'image');
             const imageId = headerImage.get('instance_of');
             if (this.imageServer && headerImage && imageId) {
-                const headerImageUrl = `${ this.imageServer }?imageId=${ imageId }&format=webp&width=500`;
+                const headerImageUrl = `${ this.imageServer }?imageId=${ imageId }&format=webp&width=1200`;
                 model.setFiltered('headerImageUrl', headerImageUrl);
             }
         }
+
+        // Hover effects on the image
+        const hoverClasses = [];
+        const hoverStyles = [];
+
+        const hoverScale = model.get('metadata.imageHoverScale');
+        if (hoverScale) {
+            hoverClasses.push('lab-has-hover-scale');
+            const scaleValue = hoverScale === 'scale-up-subtle' ? '1.05' : '1.1';
+            hoverStyles.push(`--hover-scale: ${ scaleValue }`);
+        }
+
+        const hoverFilter = model.get('metadata.imageHoverFilter');
+        if (hoverFilter) {
+            const filterType = hoverFilter.replace('filter-', '');
+            hoverClasses.push(`lab-has-hover-filter-${ filterType }`);
+
+            // Set filter value based on type
+            let filterValue;
+            if (filterType === 'brighten') {
+                filterValue = '1.2';
+            } else if (filterType === 'darken') {
+                filterValue = '0.8';
+            } else if (filterType === 'grayscale') {
+                filterValue = '0.8';
+            }
+            hoverStyles.push(`--hover-filter-${ filterType }: ${ filterValue }`);
+        }
+
+        model.setFiltered('hoverEffectClasses', hoverClasses.join(' '));
+        model.setFiltered('hoverEffectStyles', hoverStyles.join('; '));
     }
 
     onRendered(model, view) {

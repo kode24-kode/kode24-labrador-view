@@ -5,30 +5,58 @@
     <div class="bylines">
         {{ #app.isEditor }}
             {{ ^children.byline[0] }}
-            <div>Drop bylines here ...</div>
+                <div>Drop bylines here ...</div>
             {{ /children.byline[0] }}
         {{ /app.isEditor }}        
         {{ ^getConfig.paywall.article.hideBylines }}{{{ children.byline }}}{{ /getConfig.paywall.article.hideBylines }}
         {{ #getConfig.paywall.article.hideBylines }}{{ #get.root.filtered.paywall.hasAccess }}{{{ children.byline }}}{{ /get.root.filtered.paywall.hasAccess }}{{ /getConfig.paywall.article.hideBylines }}
     </div>
+
+    {{ #get.parent.metadata.showSection }}
+        {{ #get.parent.metadata.sectionInDateline }}
+            {{ #get.parent.metadata.sectionLabelHasLink }}
+                <a href="{{{ get.parent.filtered.sectionLink }}}" class="lab-article-section-link dateline">
+            {{ /get.parent.metadata.sectionLabelHasLink }}
+            <span style="{{ #style.collection }}text_decoration_inline_style fields.section{{ /style.collection }}" class="{{ #style.collection }}text_decoration fields.section{{ /style.collection }} lab-article-section">
+                {{ get.parent.filtered.sectionDisplayName }}
+                {{ #app.isEditor }}
+                    {{ ^get.parent.filtered.sectionDisplayName }}Section{{ /get.parent.filtered.sectionDisplayName }}
+                {{ /app.isEditor }}
+            </span>
+            {{ #get.parent.metadata.sectionLabelHasLink }}
+                </a>
+            {{ /get.parent.metadata.sectionLabelHasLink }}
+        {{ /get.parent.metadata.sectionInDateline }}
+    {{ /get.parent.metadata.showSection }}
+
+    {{ #get.parent.metadata.showSubsection }}
+        {{ #get.parent.metadata.subsectionLabelHasLink }}
+            <a href="{{{ get.parent.filtered.subsectionLink }}}" class="lab-article-subsection-link">
+        {{ /get.parent.metadata.subsectionLabelHasLink }}
+        <span class="lab-article-subsection">
+            {{ get.parent.filtered.subsection }}
+        </span>
+        {{ #get.parent.metadata.subsectionLabelHasLink }}
+            </a>
+        {{ /get.parent.metadata.subsectionLabelHasLink }}
+    {{ /get.parent.metadata.showSubsection }}
     
     <div class="dates">
-    
         {{ ^get.current.filtered.date.unified.hide }}
         <span class="dateGroup dateUnified">
             <span class="dateLabel">{{{ get.current.filtered.date.unified.label }}}</span>
-            <time datetime="{{{ get.current.filtered.date.unified.isoDate }}}" title="{{{ get.current.filtered.date.unified.label }}} {{{ get.current.filtered.date.unified.formatted }}}">{{{ get.current.filtered.date.unified.formatted }}}</time>
+            <time datetime="{{{ get.current.filtered.date.unified.isoDate }}}">{{{ get.current.filtered.date.unified.formatted }}}</time>
         </span>
         {{ /get.current.filtered.date.unified.hide }}
         {{ ^get.current.filtered.date.published.hide }}
         <span class="dateGroup datePublished">
          {{ #get.current.filtered.unpublished }}
             <span class="dateLabel">{{ #lang }}metadata.unpublishedLabel{{ /lang }}</span>
-            <time datetime="{{{ get.current.filtered.date.published.isoDate }}}" title="{{ #lang }}metadata.unpublishedLabel{{ /lang }} {{{ get.current.filtered.date.published.formatted }}}">{{{ get.current.filtered.date.published.formatted }}}</time>
+            <time datetime="{{{ get.current.filtered.date.published.isoDate }}}">{{{ get.current.filtered.date.published.formatted }}}</time>
          {{ /get.current.filtered.unpublished }}
          {{ ^get.current.filtered.unpublished }}
             {{ ^getConfig.articleMetaSettings.hidePublishedDateLabel }}<span class="dateLabel">{{ #lang }}metadata.publishedLabel{{ /lang }}</span>{{ /getConfig.articleMetaSettings.hidePublishedDateLabel }}
-            <time datetime="{{{ get.current.filtered.date.published.isoDate }}}" title="{{ #lang }}metadata.publishedLabel{{ /lang }} {{{ get.current.filtered.date.published.formatted }}}">{{{ get.current.filtered.date.published.formatted }}}</time>
+            <time datetime="{{{ get.current.filtered.date.published.isoDate }}}">{{{ get.current.filtered.date.published.formatted }}}</time>
          {{ /get.current.filtered.unpublished }}
         </span>
         {{ /get.current.filtered.date.published.hide }}
@@ -37,7 +65,7 @@
         {{ #get.current.filtered.date.modified.formatted }}
             <span class="dateGroup dateModified">
                 {{ ^getConfig.articleMetaSettings.hideModifiedDateLabel }}<span class="dateLabel">{{ #lang }}metadata.modifiedLabel{{ /lang }}</span>{{ /getConfig.articleMetaSettings.hideModifiedDateLabel }}
-                <time datetime="{{{ get.current.filtered.date.modified.isoDate }}}" title="{{ #lang }}metadata.modifiedLabel{{ /lang }} {{{ get.current.filtered.date.modified.formatted }}}">{{{ get.current.filtered.date.modified.formatted }}}</time>
+                <time datetime="{{{ get.current.filtered.date.modified.isoDate }}}">{{{ get.current.filtered.date.modified.formatted }}}</time>
             </span>
         {{ /get.current.filtered.date.modified.formatted }}
         {{ /getConfig.articleMetaSettings.hideModifiedDate }}

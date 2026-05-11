@@ -1,0 +1,169 @@
+
+<div 
+	class="{{ #helper.trim }}
+    column lab-recipe
+    {{ #style.collection }}box_decoration{{ /style.collection }}
+    {{ size.grid.css }}
+    {{ size.grid.absCss }}
+    {{ get.current.filtered.options.cssString }}
+    {{ get.current.metadata.layout }}
+    {{ /helper.trim }}"
+    data-element-guid="{{ get.current.guid }}">
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Recipe",
+            "@id": "{{{ get.root.filtered.specificUrl }}}#recipe-{{{ get.current.guid }}}",
+            "name": "{{{ get.current.fields.name }}}",
+            "description": "{{{ get.current.fields.description }}}",
+            "author": {{{ get.current.filtered.author }}},
+            "image": "{{{ get.current.filtered.imageUrl }}}",
+            "datePublished": "{{{ get.current.fields.datePublished }}}",
+            "recipeIngredient": {{{ get.current.filtered.recipeIngredients }}},
+            "recipeInstructions": {{{ get.current.filtered.recipeInstructions }}},
+            "prepTime": "{{{ get.current.filtered.isoTime.prepTime }}}",
+            "cookTime": "{{{ get.current.filtered.isoTime.cookTime }}}",
+            "totalTime": "{{{ get.current.filtered.isoTime.totalTime }}}",
+            "recipeYield": "{{{ get.current.fields.recipeYield }}}",
+            "keywords": {{{ get.current.filtered.keywords }}}
+        }
+    </script>
+	<div class="content {{ #style.collection }}content_decoration{{ /style.collection }}" style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
+		<div class="lab-recipe-spec">
+			<div class="lab-recipe-header {{ #get.current.metadata.imagePosition }}mobile-{{ get.current.metadata.imagePosition }} desktop-{{ get.current.metadata.imagePosition }}{{ /get.current.metadata.imagePosition }}">
+				<div class="lab-recipe-header-info">
+					{{ ^get.current.metadata.hideName }}
+						<h3 class="lab-recipe-name{{ ^app.isEditor }}{{ ^get.current.fields.name }} lab-recipe-meta-item-empty{{ /get.current.fields.name }}{{ /app.isEditor }} {{ #style.collection }}text_decoration fields.name{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.name{{ /style.collection }}">{{{ get.current.fields.name }}}</h3>
+					{{ /get.current.metadata.hideName }}
+
+					{{ ^get.current.metadata.hideDescription }}
+						<p class="lab-recipe-description{{ ^app.isEditor }}{{ ^get.current.fields.description }} lab-recipe-meta-item-empty{{ /get.current.fields.description }}{{ /app.isEditor }} {{ #style.collection }}text_decoration fields.description{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.description{{ /style.collection }}">{{{ get.current.fields.description }}}</p>
+					{{ /get.current.metadata.hideDescription }}
+
+					{{ ^get.current.metadata.hideAuthor }}
+						<p class="lab-recipe-author{{ ^app.isEditor }}{{ ^get.current.fields.author }} lab-recipe-meta-item-empty{{ /get.current.fields.author }}{{ /app.isEditor }} {{ #style.collection }}text_decoration fields.author{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.author{{ /style.collection }}">{{{ get.current.fields.author }}}</p>
+					{{ /get.current.metadata.hideAuthor }}
+				</div>
+
+				{{ ^get.current.metadata.hideImage }}
+					{{ #children.image }}
+						<div class="lab-recipe-image">
+							{{{ children.image }}}
+						</div>
+					{{ /children.image }}
+					{{ ^children.image }}{{ #placeholder.no_media }}
+						<div class="lab-recipe-image">
+							{{{ placeholder.no_media }}}
+						</div>
+					{{ /placeholder.no_media }}{{ /children.image }}
+				{{ /get.current.metadata.hideImage }}
+			</div>
+
+
+			<div class="lab-recipe-meta">
+				{{ ^get.current.metadata.hidePrepTime }}
+					<div class="lab-recipe-meta-item{{ ^app.isEditor }}{{ ^get.current.fields.prepTime }} lab-recipe-meta-item-empty{{ /get.current.fields.prepTime }}{{ /app.isEditor }}">
+						<p class="lab-recipe-prep-time-label {{ #style.collection }}text_decoration fields.prepTimeLabel{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.prepTimeLabel{{ /style.collection }}">{{ #lang }}recipe.prepTimeLabel{{ /lang }}</p>
+						<p class="lab-recipe-prep-time-value {{ #style.collection }}text_decoration fields.prepTime{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.prepTime{{ /style.collection }}">{{{ get.current.fields.prepTime }}}</p>
+					</div>
+				{{ /get.current.metadata.hidePrepTime }}
+
+				{{ ^get.current.metadata.hideCookTime }}
+					<div class="lab-recipe-meta-item{{ ^app.isEditor }}{{ ^get.current.fields.cookTime }} lab-recipe-meta-item-empty{{ /get.current.fields.cookTime }}{{ /app.isEditor }}">
+						<p class="lab-recipe-cook-time-label {{ #style.collection }}text_decoration fields.cookTimeLabel{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.cookTimeLabel{{ /style.collection }}">{{ #lang }}recipe.cookTimeLabel{{ /lang }}</p>
+						<p class="lab-recipe-cook-time-value {{ #style.collection }}text_decoration fields.cookTime{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.cookTime{{ /style.collection }}">{{{ get.current.fields.cookTime }}}</p>
+					</div>
+				{{ /get.current.metadata.hideCookTime }}
+
+				{{ ^get.current.metadata.hideTotalTime }}
+					<div class="lab-recipe-meta-item{{ ^app.isEditor }}{{ ^get.current.fields.totalTime }} lab-recipe-meta-item-empty{{ /get.current.fields.totalTime }}{{ /app.isEditor }}">
+						<p class="lab-recipe-total-time-label {{ #style.collection }}text_decoration fields.totalTimeLabel{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.totalTimeLabel{{ /style.collection }}">{{ #lang }}recipe.totalTimeLabel{{ /lang }}</p>
+						<p class="lab-recipe-total-time-value {{ #style.collection }}text_decoration fields.totalTime{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.totalTime{{ /style.collection }}">{{{ get.current.fields.totalTime }}}</p>
+					</div>
+				{{ /get.current.metadata.hideTotalTime }}
+
+				{{ ^get.current.metadata.hideDish }}
+					<div class="lab-recipe-meta-item{{ ^app.isEditor }}{{ ^get.current.fields.dish }} lab-recipe-meta-item-empty{{ /get.current.fields.dish }}{{ /app.isEditor }}">
+						<p class="lab-recipe-dish-label {{ #style.collection }}text_decoration fields.dishLabel{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.dishLabel{{ /style.collection }}">{{ #lang }}recipe.dishLabel{{ /lang }}</p>
+						<p class="lab-recipe-dish-value {{ #style.collection }}text_decoration fields.dish{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.dish{{ /style.collection }}">{{{ get.current.fields.dish }}}</p>
+					</div>
+				{{ /get.current.metadata.hideDish }}
+
+				{{ ^get.current.metadata.hideRecipeCuisine }}
+					<div class="lab-recipe-meta-item{{ ^app.isEditor }}{{ ^get.current.fields.recipeCuisine }} lab-recipe-meta-item-empty{{ /get.current.fields.recipeCuisine }}{{ /app.isEditor }}">
+						<p class="lab-recipe-recipe-cuisine-label {{ #style.collection }}text_decoration fields.cuisineLabel{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.cuisineLabel{{ /style.collection }}">{{ #lang }}recipe.cuisineLabel{{ /lang }}</p>
+						<p class="lab-recipe-recipe-cuisine-value {{ #style.collection }}text_decoration fields.recipeCuisine{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.recipeCuisine{{ /style.collection }}">{{{ get.current.fields.recipeCuisine }}}</p>
+					</div>
+				{{ /get.current.metadata.hideRecipeCuisine }}
+
+				{{ ^get.current.metadata.hideRecipeYield }}
+					<div class="lab-recipe-meta-item{{ ^app.isEditor }}{{ ^get.current.fields.recipeYield }} lab-recipe-meta-item-empty{{ /get.current.fields.recipeYield }}{{ /app.isEditor }}">
+						<p class="lab-recipe-recipe-yield-label {{ #style.collection }}text_decoration fields.recipeYieldLabel{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.recipeYieldLabel{{ /style.collection }}">{{ #lang }}recipe.recipeYieldLabel{{ /lang }}</p>
+						<p class="lab-recipe-recipe-yield-value {{ #style.collection }}text_decoration fields.recipeYield{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.recipeYield{{ /style.collection }}">{{{ get.current.fields.recipeYield }}}</p>
+					</div>
+				{{ /get.current.metadata.hideRecipeYield }}
+
+				{{ ^get.current.metadata.hideCalories }}
+					<div class="lab-recipe-meta-item{{ ^app.isEditor }}{{ ^get.current.fields.calories }} lab-recipe-meta-item-empty{{ /get.current.fields.calories }}{{ /app.isEditor }}">
+						<p class="lab-recipe-calories-label {{ #style.collection }}text_decoration fields.caloriesLabel{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.caloriesLabel{{ /style.collection }}">{{ #lang }}recipe.caloriesLabel{{ /lang }}</p>
+						<p class="lab-recipe-calories-value {{ #style.collection }}text_decoration fields.calories{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.calories{{ /style.collection }}">{{{ get.current.fields.calories }}}</p>
+					</div>
+				{{ /get.current.metadata.hideCalories }}
+			</div>
+
+			{{ #get.current.metadata.showDatePublished }}
+				<div class="lab-recipe-date-published-item{{ ^app.isEditor }}{{ ^get.current.fields.datePublished }} lab-recipe-meta-item-empty{{ /get.current.fields.datePublished }}{{ /app.isEditor }}">
+					<p class="lab-recipe-date-published-label {{ #style.collection }}text_decoration fields.datePublishedLabel{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.datePublishedLabel{{ /style.collection }}">{{ #lang }}recipe.publishedDate{{ /lang }}</p>
+					<p class="lab-recipe-date-published-value {{ #style.collection }}text_decoration fields.datePublished{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.datePublished{{ /style.collection }}">{{{ get.current.fields.datePublished }}}</p>
+				</div>
+			{{ /get.current.metadata.showDatePublished }}
+
+		</div>
+
+		<div class="lab-recipe-inserted-content {{ #get.current.metadata.columnLayout }}lab-recipe-column-layout{{ /get.current.metadata.columnLayout }}">
+			<div class="lab-recipe-ingredients-container">
+				{{{ children.recipeIngredients }}}
+			</div>
+			<div class="lab-recipe-instructions-container">
+				{{{ children.recipeInstructions }}}
+			</div>
+		</div>
+
+		{{ #get.current.metadata.showKeywords }}
+			<div class="lab-recipe-keywords-container">
+				<p class="lab-recipe-keywords-label {{ #style.collection }}text_decoration fields.keywordsLabel{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.keywordsLabel{{ /style.collection }}">{{ #lang }}recipe.keywordsLabel{{ /lang }}</p>
+				<p class="lab-recipe-keywords-value {{ #style.collection }}text_decoration fields.keywords{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.keywords{{ /style.collection }}">{{{ get.current.fields.keywords }}}</p>
+			</div>
+		{{ /get.current.metadata.showKeywords }}
+
+		<button onclick="
+			{{ ^get.current.metadata.printFullPage }}
+				var recipeEl = this.closest('.lab-recipe');
+				var hiddenEls = [];
+				var el = recipeEl;
+				while (el.parentElement) {
+					var parent = el.parentElement;
+					var siblings = parent.children;
+					for (var i = 0; i < siblings.length; i++) {
+						if (siblings[i] !== el) {
+							siblings[i].setAttribute('data-print-hide', '1');
+							hiddenEls.push(siblings[i]);
+						}
+					}
+					if (parent === document.body) break;
+					el = parent;
+				}
+				recipeEl.classList.add('printing-active-recipe');
+				var cleanup = function() {
+					recipeEl.classList.remove('printing-active-recipe');
+					hiddenEls.forEach(function(h) { h.removeAttribute('data-print-hide'); });
+					window.removeEventListener('afterprint', cleanup);
+				};
+				window.addEventListener('afterprint', cleanup);
+			{{ /get.current.metadata.printFullPage }}
+			window.print();"
+		class="lab-recipe-print-button"{{ #get.current.metadata.printButtonColor }} style="background-color: {{ get.current.metadata.printButtonColor }}"{{ /get.current.metadata.printButtonColor }}>
+			{{ #lang }}recipe.printButton{{ /lang }}
+		</button>
+	</div>
+</div>

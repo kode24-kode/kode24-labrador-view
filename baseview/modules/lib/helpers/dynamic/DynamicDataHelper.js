@@ -86,9 +86,12 @@ export class DynamicDataHelper {
             // insertDynamicAdditions ignores viewport
             const contentAdditionsPath = `insertDynamicAdditions.${ this.pageType }`;
             const defaultValue = this.api.v1.config.get(contentPath) || [];
+            Sys.logger.debug(`[DynamicDataHelper]: Found ${ defaultValue.length } items from ${ contentPath }.`);
             const additionsValue = this.validateConditions(this.api.v1.config.get(contentAdditionsPath) || []).reverse();
             hasAdditions = additionsValue.length > 0;
+            Sys.logger.debug(`[DynamicDataHelper]: Found ${ additionsValue.length } additions from ${ contentAdditionsPath }.`);
             const mergedValue = [...defaultValue, ...additionsValue];
+            Sys.logger.debug(`[DynamicDataHelper]: Merged content has ${ mergedValue.length } items.`);
             const content = (this.isEditor ? mergedValue.filter((item) => (!item.dynamicDataSettings || !item.dynamicDataSettings.hideInEditMode)) : mergedValue).filter((item) => {
                 if (item.placement && item.placement.key && clientSidePlacements[item.placement.key]) {
                     const clientSideItem = { ...item, placementData: clientSidePlacements[item.placement.key] };
@@ -97,6 +100,7 @@ export class DynamicDataHelper {
                 }
                 return true;
             });
+            Sys.logger.debug(`[DynamicDataHelper]: Filtered content has ${ content.length } items. ${ returnValue.clientSidePlacements.length } items are client-side placements.`);
             this.cache.set(contentPath, content);
         }
 

@@ -106,8 +106,8 @@
         },
         "header": {
             "logo_link_text": "Go to frontpage",
-			"menuScrollerLeftButton": "Scroll left",
-			"menuScrollerRightButton": "Scroll right"
+            "menuScrollerLeftButton": "Scroll left",
+            "menuScrollerRightButton": "Scroll right"
         },
         "slack_notifier": {
             "publish": {
@@ -178,6 +178,9 @@
             "labelMostRead": "Most read",
             "titleMostRead": "Most read articles"
         },
+        "authorLatestArticles": {
+            "noBylines": "No bylines found in article"
+        },
         "infiniteScroll": {
             "readMore": "Continue reading"
         },
@@ -193,13 +196,17 @@
                 "talandeWebb": "Open Talande Webb option panel",
                 "bluesky": "Share on Bluesky",
                 "reddit": "Share on Reddit",
-                "whatsapp": "Share on WhatsApp"
+                "whatsapp": "Share on WhatsApp",
+                "print": "Print page",
+                "googlenews": "Open Google News Page"
             }
         },
         "gallery": {
             "label": "Gallery",
             "seeAllImages": "See all images",
-            "navigateToOriginal": "Navigate to original page"
+            "navigateToOriginal": "Navigate to original page",
+            "imageCountText": "images",
+            "autoDescription": "{{ n }} images from \"{{ title }}\""
         },
         "weather": {
             "failedToFetch": "Couldn't fetch weather data",
@@ -219,6 +226,20 @@
                 "wind": "Windy",
                 "unknown": "Unknown"
             }
+        },
+        "recipe": {
+            "prepTimeLabel": "Preparation time:",
+            "cookTimeLabel": "Cooking time:",
+            "totalTimeLabel": "Total time:",
+            "recipeYieldLabel": "Servings:",
+            "keywordsLabel": "Keywords:",
+            "caloriesLabel": "Calories:",
+            "dishLabel": "Dish:",
+            "cuisineLabel": "Cuisine:",
+            "printButton": "Print",
+            "publishedDate": "Published date:",
+            "ingredientsTitle": "Ingredients",
+            "instructionsTitle": "Instructions"
         }
     }
 }

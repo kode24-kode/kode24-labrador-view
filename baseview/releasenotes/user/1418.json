@@ -1,0 +1,120 @@
+{
+    "releasenotes": {
+        "version": {
+            "int": 1418,
+            "str": "1.4.18"
+        },
+        "items": [
+            {
+                "date": "20260429",
+                "title": "Mistral AI models support",
+                "description": "Added three Mistral AI models (Large, Medium, and Small) as new AI provider options in the editor. You can now use these European-based models for text generation and image metadata analysis as an alternative to American AI services.",
+                "links": [
+                    "/settings/cp?page=labradorAi"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1662",
+                "isFeature": true
+            },
+            {
+                "date": "20260428",
+                "title": "Gallery image fallback",
+                "description": "Articles without a header image now use the front crop image in JSON-LD structured data, ensuring proper image representation in search results and social media sharing.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1663",
+                "isImprovement": true
+            },
+            {
+                "date": "20260427",
+                "title": "Image aspect ratio presets",
+                "description": "Added a toolbar button in the image editor with five aspect ratio presets (16:9, 3:2, 4:3, 1:1, 9:16) and keyboard shortcuts (1-5) for quickly applying standard proportions to images. Editors can now resize images while maintaining correct aspect ratios, improving layout consistency.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1612",
+                "isFeature": true
+            },
+            {
+                "date": "20260427",
+                "title": "Calendar date input fix",
+                "description": "Fixed an error that occurred when partially entering dates in the article settings calendar fields. The editor now handles incomplete dates gracefully without logging errors.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1654",
+                "isBug": true
+            },
+            {
+                "date": "20260427",
+                "title": "Gallery page SEO improvements",
+                "description": "Gallery pages now render correct meta titles and descriptions with proper fallback chains across all 16 supported languages. Added valid ImageGallery structured data with image arrays, publisher information, and article relationships. Fixed placeholder text and broken JSON-LD that previously appeared on gallery pages.",
+                "links": [
+                    "/settings/cp?page=localisation"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1656",
+                "isFeature": true
+            },
+            {
+                "date": "20260427",
+                "title": "Multiple logo support",
+                "description": "Administrators can now upload and configure primary, secondary, mobile, and newsletter logos from the image options in admin. Each logo supports custom width, height, clickable links, and alt text. The secondary logo is hidden by default and its display depends on the site's design. If no mobile logo is set, the primary logo is used. Settings in admin override config file values.",
+                "links": [
+                    "/settings/cp?page=images"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1586",
+                "isFeature": true
+            },
+            {
+                "date": "20260424",
+                "title": "Byline and date placement fix",
+                "description": "Fixed an issue where bylines and published dates appeared to the left of floated images instead of below the title and subtitle when vertical centering was active on article teasers. Elements now correctly stack in the text column and center-align when text alignment is set to center.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1616",
+                "isBug": true
+            },
+            {
+                "date": "20260424",
+                "title": "Text animations in more places",
+                "description": "The scroll, flash, and breaking-dot animations now work on adjustable font size text elements and row titles. Previously, these animation options were visible in the editor but had no visual effect. All animation styles are now defined in a shared mixin for easier maintenance.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1609",
+                "isImprovement": true
+            },
+            {
+                "date": "20260424",
+                "title": "Hamburger menu accessibility",
+                "description": "Added focus trap to the hamburger menu so keyboard navigation with Tab and Shift+Tab works correctly. Focus cycles between the menu button and menu items when the menu is open, and pressing Escape closes the menu and returns focus to the button.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1650",
+                "isImprovement": true
+            },
+            {
+                "date": "20260424",
+                "title": "Config Object tool removal",
+                "description": "Removed the deprecated Config Object admin tool, which was previously replaced by Config Manager. The tool no longer appears in the admin settings menu.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1607",
+                "isImprovement": true
+            },
+            {
+                "date": "20260424",
+                "title": "Subtitle hover underline fix",
+                "description": "Removed unintended underline decoration that appeared when hovering over subtitle elements in articles.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1657",
+                "isBug": true
+            },
+            {
+                "date": "20260423",
+                "title": "AI model updates",
+                "description": "Updated available AI models by removing deprecated versions and adding the latest models including GPT-5.4, Claude Sonnet 4.6, and Gemini 2.5. Added global default settings for text and image models in the admin panel. AI model configuration is now centralized for easier maintenance, and deprecated models automatically fall back to current defaults. Improved JSON formatting instructions for AI responses.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1621",
+                "isImprovement": true
+            },
+            {
+                "date": "20260422",
+                "title": "Byline name alignment fix",
+                "description": "Fixed center alignment for byline names that use the flexible name layout, ensuring names display centered when that alignment is selected.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1652",
+                "isBug": true
+            }
+        ]
+    }
+}

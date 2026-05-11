@@ -38,9 +38,25 @@ $text_color: #222222;
         flex: 0 1 auto;
         height: 100%;
         padding: 0.5rem 0 0.5rem 1rem;
+        align-content: center;
         margin-right: 1rem;
-        display: flex;
         align-items: center;
+        
+        &.logo--mobile {
+            @include tablet_up {
+                display: none !important;
+            }
+        }
+
+        &.logo--primary {
+            @include mobile {
+                display: none !important;
+            }
+        }
+
+        &.logo--secondary {
+            display: none !important;
+        }
 
         a {
             flex: 0 1 auto;
@@ -49,7 +65,7 @@ $text_color: #222222;
 
             img {
                 display: block;
-                height: 100%;
+                height: var(--logo-height, 100%);
                 object-fit: contain;
             }
         }
@@ -62,6 +78,16 @@ $text_color: #222222;
         &.expandable.toggleChildren {
             flex: unset;
         }
+
+        ul {
+            li {
+                a {
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
     }
 
     a, 
@@ -72,6 +98,7 @@ $text_color: #222222;
 
     %expandedButton {
         background-color: $focus_color;
+
         .open {
             display: none;
         }
@@ -185,6 +212,21 @@ $text_color: #222222;
             .closeText {
                 display: none;
             }
+
+            .textBeforeIcon,
+            .textAfterIcon {
+                font-size: 1rem;
+                line-height: 1;
+                color: inherit;
+            }
+
+            .textBeforeIcon {
+                margin-right: 0.5rem;
+            }
+
+            .textAfterIcon {
+                margin-left: 0.5rem;
+            }
         }
 
         .search-container {
@@ -221,7 +263,7 @@ $text_color: #222222;
 
             .visuallyhidden {
                 border: 0;
-                clip: rect(0 0 0 0);
+                clip-path: rect(0, 0, 0, 0);
                 height: 1px;
                 margin: -1px;
                 overflow: hidden;
@@ -350,7 +392,6 @@ $text_color: #222222;
                         }
                     }
                 }
-
             }
 
             .fab-menu-wrapper {
@@ -398,7 +439,6 @@ $text_color: #222222;
             }
         }
     }
-
 
     .hamburger {
         .positionRelative {
@@ -513,7 +553,6 @@ $text_color: #222222;
         }
     }
 }
-
 
 @include desktop_down {
     .pageHeader {

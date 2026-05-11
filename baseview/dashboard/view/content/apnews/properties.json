@@ -1,0 +1,15 @@
+{
+    "boxTitle": "AP feed",
+    "boxDescription": "Display a list of AP-articles",
+    "external": {
+        "data_url": "/api/v2/feed/apnews?amount={{ data.limit }}&siteId={{ data.siteId}}&page_url={{ data.pageUrl }}&urgency={{ data.urgency }}&category={{ data.category }}",
+        "data": {
+            "limit": "this.filtered.limit",
+            "siteId": "this.filtered.siteId",
+            "pageUrl": "this.filtered.pageUrl",
+            "urgency": "this.filtered.urgency",
+            "category": "this.filtered.category"
+        },
+        "skipProxy": true
+    }
+}
