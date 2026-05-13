@@ -12,7 +12,7 @@
         content
         {{ #style.collection }}content_decoration{{ /style.collection }}
         {{ /helper.trim }}"
-        style="--bg-color: var(--{{ get.current.metadata.background_color }}); --text-color: var(--{{ get.current.metadata.text_color }}); {{ #style.collection }}content_inline_style{{ /style.collection }}" 
+        style="{{ #get.current.metadata.background_color }}--bg-color: var(--{{ get.current.metadata.background_color }}); {{ /get.current.metadata.background_color }}{{ #get.current.metadata.text_color }}--text-color: var(--{{ get.current.metadata.text_color }}); {{ /get.current.metadata.text_color }}{{ #style.collection }}content_inline_style{{ /style.collection }}" 
         >
         {{{ children.image }}}
         <h3 class="{{ #helper.trim }}
@@ -24,10 +24,10 @@
             {{ /helper.trim }}"
             style="{{ #helper.trim }}
             {{ #style.collection }}text_decoration_inline_style fields.quote{{ /style.collection }}
-            {{ #get.current.metadata.quotationMarkColor }}{{ ^get.current.metadata.customQuotationMarkColor }}--quotation-mark-color: var(--{{ get.current.metadata.quotationMarkColor }});{{ /get.current.metadata.customQuotationMarkColor }}{{ /get.current.metadata.quotationMarkColor }}
-            {{ #get.current.metadata.customQuotationMarkColor }}--quotation-mark-color: {{ get.current.metadata.customQuotationMarkColor }};{{ /get.current.metadata.customQuotationMarkColor }}
-            {{ #get.current.metadata.blockLineColor }}{{ ^get.current.metadata.customBlockLineColor }} --block-line-color: var(--{{ get.current.metadata.blockLineColor }});{{ /get.current.metadata.customBlockLineColor }}{{ /get.current.metadata.blockLineColor }}
-            {{ #get.current.metadata.customBlockLineColor }} --block-line-color: {{ get.current.metadata.customBlockLineColor }};{{ /get.current.metadata.customBlockLineColor }}
+            {{ #get.current.metadata.quotationMarkColor }}{{ ^get.current.metadata.customQuotationMarkColor }}--quotation-mark-color: var(--{{ get.current.metadata.quotationMarkColor }}); {{ /get.current.metadata.customQuotationMarkColor }}{{ /get.current.metadata.quotationMarkColor }}
+            {{ #get.current.metadata.customQuotationMarkColor }}--quotation-mark-color: {{ get.current.metadata.customQuotationMarkColor }}; {{ /get.current.metadata.customQuotationMarkColor }}
+            {{ #get.current.metadata.blockLineColor }}{{ ^get.current.metadata.customBlockLineColor }}--block-line-color: var(--{{ get.current.metadata.blockLineColor }}); {{ /get.current.metadata.customBlockLineColor }}{{ /get.current.metadata.blockLineColor }}
+            {{ #get.current.metadata.customBlockLineColor }}--block-line-color: {{ get.current.metadata.customBlockLineColor }};{{ /get.current.metadata.customBlockLineColor }}
             {{ /helper.trim }}"
         >
             {{{ get.current.fields.quote }}}

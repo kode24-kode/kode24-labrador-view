@@ -61,7 +61,7 @@ export class ArticleStyling {
                 </div>
 
                 <div class="lab-formgroup-item lab-grid-large-6 lab-inline">
-                    <label for="hidePublishedDate">Hide published date</label>
+                    <label for="hidePublishedDate">Hide published/modified date</label>
                     <input type="checkbox" value="1" name="fields.hidePublishedDate" id="hidePublishedDate" {{ #fields.hidePublishedDate }}checked{{ /fields.hidePublishedDate }}>
                 </div>
 

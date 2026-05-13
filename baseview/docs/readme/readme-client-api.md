@@ -133,7 +133,7 @@ These dom elements can be used client side to display a refreshed ad. Either by 
 ### Logic
 Partials are used for each supported vendor and service.
 The Gallery feature listens to the `pageChanged` event emitted by the Gallery feature via the client API to update ads.
-See the file `view/partial/lab4/ads/google/api_consumer.template.mustache` for an example.
+See the file `content/googleAd/template/gallery.template.mustache` for an example.
 
 The page template for the gallery (`view/page/gallery/default/template/default.template.mustache`) checks for active services and includes partials accordingly.
 
@@ -154,7 +154,7 @@ Example for ad template:
 </script>
 ```
 
-The api_consumer-template can then read out this data:
+The gallery-ad template can then read out this data:
 ```
 <script type="module">
 window.labClientAPI.on('pageChanged', ({ event, data, pageData }) => {

@@ -175,13 +175,15 @@ export class PageExport {
         if (imageModel) {
             const url = imageModel.get('filtered.image');
             if (url) {
+                const altText = imageModel.get('fields.altText') || '';
                 result.images.push({
                     url,
                     jpg: `${ url }&format=jpg`,
                     webp: `${ url }&format=webp`,
                     url_size: url,
                     default: '1',
-                    id: imageModel.get('instance_of')
+                    id: imageModel.get('instance_of'),
+                    altText
                 });
             }
         }

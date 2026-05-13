@@ -251,12 +251,7 @@ export default class Image {
         }
         const expandable = hasPath(parentView, view, `fields.expandableCaption`);
         const truncate = hasPath(parentView, view, `fields.truncateCaption`);
-        let title = model.get('fields.imageCaption');
-        if (model.parent && (!view.getProperty('image.useCaptionForTitle') || !title)) {
-            title = model.parent.get('fields.title') || '';
-        }
         const captionOptions = {
-            title,
             display,
             displayDefault,
             truncate,

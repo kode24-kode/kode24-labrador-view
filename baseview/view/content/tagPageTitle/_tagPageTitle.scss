@@ -1,0 +1,15 @@
+// Styles for tagPageTitle element
+
+.lab-tag-page-title-container {
+    .lab-tag-page-title {
+        // Always capitalize the tag title text
+        text-transform: uppercase;
+    }
+
+    // Add padding when content has background color (indicated by hasContentPadding class)
+    .lab-content.hasContentPadding {
+        .lab-tag-page-title {
+            padding-inline: 0.7rem;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+<div data-element-guid="{{ get.current.guid }}" class="{{ #helper.trim }}
+    column lab-tag-page-title-container
+    {{ #style.collection }}box_decoration{{ /style.collection }}
+    {{ size.grid.css }}
+    {{ size.grid.absCss }}
+    {{ /helper.trim }}">
+    {{{ get.current.filtered.styleSheets }}}
+    <div class="{{ #helper.trim }}
+        lab-content
+        {{ #style.collection }}content_decoration{{ /style.collection }}
+        {{ /helper.trim }}" style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
+        <h2 style="{{ #style.collection }}text_decoration_inline_style fields.tagTitle{{ /style.collection }}"
+            class="{{ #style.collection }}text_decoration fields.tagTitle{{ /style.collection }} lab-tag-page-title">
+            {{ #app.isEditor }}
+                Tag Title
+            {{ /app.isEditor }}
+            {{ ^app.isEditor }}
+                {{{ get.current.filtered.tagTitle }}}
+            {{ /app.isEditor }}
+        </h2>
+    </div>
+</div>

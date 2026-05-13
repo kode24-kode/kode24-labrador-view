@@ -16,6 +16,13 @@ export class LazyloadHelper {
         if (row && !this.isFragmentMode && row.getModelIndex() < 5) {
             return false;
         }
+        const slideshow = lab_api.v1.model.query.getParentOfType(model, 'slideshow');
+        if (slideshow) {
+            const articleHeader = lab_api.v1.model.query.getParentOfType(slideshow, 'articleHeader');
+            if (articleHeader && model.getModelIndex() < 1) {
+                return false;
+            }
+        }
         return true;
     }
 

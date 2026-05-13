@@ -104,9 +104,10 @@ export class ArticleDates {
     dateTransformer(pathInfo, toTimestamp = true) {
         const dateTime = this.dom[pathInfo.node].dateTime.value;
         if (toTimestamp) {
-            return this.getTimestamp(dateTime);
+            const result = dateTime ? this.getTimestamp(dateTime) : null;
+            return result ? result : null;
         }
-        return `${ new Date(dateTime).toISOString().split('.')[0] }Z`;
+        return dateTime ? `${ new Date(dateTime).toISOString().split('.')[0] }Z` : null;
     }
 
     onMarkup() {
@@ -156,6 +157,9 @@ export class ArticleDates {
     }
 
     getTimestamp(dateTime) {
+        if (!dateTime) {
+            return null;
+        }
         const d = new Date(`${ dateTime }Z`);
         const localDate = new Date(d.valueOf() + d.getTimezoneOffset() * 60000);
         return localDate.getTime() / 1000;

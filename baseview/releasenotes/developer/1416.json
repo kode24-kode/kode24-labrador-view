@@ -1,0 +1,26 @@
+{
+    "releasenotes": {
+        "version": {
+            "int": 1416,
+            "str": "1.4.16"
+        },
+        "items": [
+            {
+                "date": "20260220",
+                "title": "Fixed websocket error handling",
+                "description": "Improved Collabrador websocket connection to properly handle non-JSON welcome messages and initialize correctly on first page load. Note: Collabrador is still in development and not yet available for production use.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1532",
+                "isBug": true
+            },
+            {
+                "date": "20260220",
+                "title": "Enhanced Collabrador initialization",
+                "description": "Improved Collabrador websocket initialization to work correctly on first page load when no tokens are stored. Enhanced callback handling to avoid unnecessary data fetches on authentication responses. Note: Collabrador is still in development and not yet available for production use.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1530",
+                "isImprovement": true
+            }
+        ]
+    }
+}

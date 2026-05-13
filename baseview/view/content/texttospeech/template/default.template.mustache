@@ -1,0 +1,26 @@
+<div class="{{ #helper.trim }}
+    column lab-texttospeech
+    {{ ^app.isEditor }}lab-tts--pending{{ /app.isEditor }}
+    {{ #style.collection }}box_decoration{{ /style.collection }}
+    {{ size.grid.css }}
+    {{ size.grid.absCss }}
+    {{ get.current.filtered.options.cssString }}
+    {{ /helper.trim }}"
+    data-element-guid="{{ get.current.guid }}">
+
+    <div class="content {{ #style.collection }}content_decoration{{ /style.collection }}"
+         style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
+        
+        {{ #getConfig.audio_settings.texttospeech.provider.name }}
+            {{ #render.template }}
+                content/texttospeech/template/partial/{{ getConfig.audio_settings.texttospeech.provider.name }}
+            {{ /render.template }}
+        {{ /getConfig.audio_settings.texttospeech.provider.name }}
+
+        {{ ^getConfig.audio_settings.texttospeech.provider.name }}
+            {{ #render.template }}
+                content/texttospeech/template/partial/default
+            {{ /render.template }}
+        {{ /getConfig.audio_settings.texttospeech.provider.name }}
+    </div>
+</div>

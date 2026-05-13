@@ -468,6 +468,10 @@ figure .imageChildren,
     $subimgPadding: $columns_gutter;
 
     @include tablet_up {
+        &:has(.graphic) {
+            width: fit-content;
+        }
+
         &.size-xl {
             width: 40%;
         }
@@ -502,6 +506,10 @@ figure .imageChildren,
     }
 
     @include mobile {
+        &:has(.graphic[style*="--graphicWidthMobile"]) {
+            width: fit-content;
+        }
+
         &.mobile-size-xl {
             width: 40%;
         }

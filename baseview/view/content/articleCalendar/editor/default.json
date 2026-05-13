@@ -27,9 +27,11 @@
                     "icon": "labicon-edit",
                     "title": "Settings (,)",
                     "callback": "displaySettingsPanel",
-                    "hotkeys": [{
-                        "key": ","
-                    }],
+                    "hotkeys": [
+                        {
+                            "key": ","
+                        }
+                    ],
                     "params": {
                         "settingsPanelOptions": "settingsPanels.settings"
                     }

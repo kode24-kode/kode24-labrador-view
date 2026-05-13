@@ -8,7 +8,7 @@
         {{ #get.current.filtered.googleAds }}
         {{ #anchor.enabled }}
         {{ #bidding.provider.name }}
-        {{ #render.template }}content/googleAd/template/anchor/{{ bidding.provider.name }}.init{{ /render.template }}
+        {{ #render.template }}content/googleAd/template/{{ bidding.provider.name }}/anchor{{ /render.template }}
         {{ /bidding.provider.name }}
         {{ ^bidding.provider.name }}
         var anchor = googletag.defineOutOfPageSlot('/{{ dfpid }}/{{{ anchor.code }}}', googletag.enums.OutOfPageFormat.{{ anchor.type }});
@@ -46,12 +46,12 @@
         googletag.pubads().setTargeting("is_tagpage", "true");
         {{ /get.current.filtered.is_tagpage }}
 
-        var useLadyLoading = {{ get.current.filtered.googleAds.lazyload }} || false;
-        if (useLadyLoading) {
+        var useLazyLoading = {{ get.current.filtered.googleAds.lazyload }} || false;
+        if (useLazyLoading) {
             googletag.pubads().enableLazyLoad({
                 fetchMarginPercent: {{ get.current.filtered.googleAds.fetchMarginPercent }} || 150, // Fetch ad content when it is within 1.5 viewports of the visible area
                 renderMarginPercent: {{ get.current.filtered.googleAds.renderMarginPercent }} || 150,  // Render ads when they are within 1.5 viewports of the visible area
-                mobileScaling: 2.0
+                mobileScaling: {{ get.current.filtered.googleAds.mobileScaling }} || 2.0 // Scale the above values by 2.0 on mobile devices to account for slower connections and rendering times
             });
         }
         

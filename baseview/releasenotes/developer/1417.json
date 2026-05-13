@@ -1,0 +1,42 @@
+{
+    "releasenotes": {
+        "version": {
+            "int": 1417,
+            "str": "1.4.17"
+        },
+        "items": [
+            {
+                "date": "20260407",
+                "title": "E2E test reliability improvements",
+                "description": "Improved end-to-end test stability by adding better wait conditions for CMS loading states, handling authentication redirects more gracefully, and preventing race conditions during navigation. Tests now provide clearer error messages when authentication fails.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1614",
+                "isImprovement": true
+            },
+            {
+                "date": "20260311",
+                "title": "Build helper files removed",
+                "description": "Removed unused build helper files that were not merged into the development branch, cleaning up the codebase.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1563",
+                "isImprovement": true
+            },
+            {
+                "date": "20260310",
+                "title": "Playwright testing implemented",
+                "description": "Replaced Cypress with Playwright for end-to-end and visual regression testing. Tests now run in Docker containers for consistency, with separate workflows for unit tests, e2e tests, and visual tests. Visual tests use screenshot comparison to catch UI changes.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1561",
+                "isImprovement": true
+            },
+            {
+                "date": "20260306",
+                "title": "AI feature tracking improved",
+                "description": "AI feature names are now consistently included in monitoring logs, reducing 'Other' entries in the AI usage overview and improving usage analytics.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1553",
+                "isBug": true
+            }
+        ]
+    }
+}

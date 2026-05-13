@@ -1,11 +1,11 @@
 {
-    "view_version": "1.4.14",
+    "view_version": "1.4.18",
     "view_name": "Baseview",
     "view_build": {
         "baseview": {
-            "releasenotes": "1414:3",
-            "userReleasenotes": "1414:22",
-            "version": 454
+            "releasenotes": "1418:1",
+            "userReleasenotes": "1418:13",
+            "version": 533
         }
     }
 }

@@ -58,18 +58,19 @@
 {{ /get.current.filtered.gallerySettings.logImageView }}
 
 {{ ! Gallery Ads }}
-{{ #get.current.filtered.adEnvironment.is_google }}
-    {{ #get.current.filtered.adEnvironment.is_provider_none }}
-        {{ > partial/lab4/ads/google/api_consumer }}
-    {{ /get.current.filtered.adEnvironment.is_provider_none }}
-    
-    {{ ! Other providers: check is_provider_pubmatic etc and include partial: partial/lab4/ads/google/api_consumer_pubmatic }}
-
-{{ /get.current.filtered.adEnvironment.is_google }}
-
-{{ #get.current.filtered.adEnvironment.is_adnuntius }}
-    {{ > partial/lab4/ads/adnuntius/api_consumer }}
-{{ /get.current.filtered.adEnvironment.is_adnuntius }}
+{{ #get.current.filtered.adnuntius }}
+    {{ > content/adnuntius/template/gallery }}
+{{ /get.current.filtered.adnuntius }}
+{{ #get.current.filtered.googleAds }}
+    {{ ^get.current.filtered.googleAds.bidding }}
+        {{ > content/googleAd/template/gallery }}
+    {{ /get.current.filtered.googleAds.bidding }}
+    {{ #get.current.filtered.googleAds.bidding }}
+        {{ #get.current.filtered.googleAds.bidding.provider.name}}
+            {{ #render.template }}content/googleAd/template/{{ get.current.filtered.googleAds.bidding.provider.name}}/gallery{{ /render.template }}
+        {{ /get.current.filtered.googleAds.bidding.provider.name}}
+    {{ /get.current.filtered.googleAds.bidding }}
+{{ /get.current.filtered.googleAds }}
 
 {{ ! Gallery business logic }}
 {{ > page/gallery/default/template/partials/script }}

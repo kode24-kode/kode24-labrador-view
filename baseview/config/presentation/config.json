@@ -133,6 +133,8 @@
                 "keys": ["firstname", "lastname"],
                 "url": "public_email"
             }, {
+                "keys": ["job_title"]
+            }, {
                 "keys": ["description"]
             }],
             "imageAbove": true,
@@ -284,7 +286,20 @@
                     "whatsapp": {
                         "display": false,
                         "icon": "fi-social-whatsapp"
-                    }
+                    },
+                    "telegram": {
+                        "display": false,
+                        "icon": "fi-social-telegram"
+                    },
+                    "print": {
+                        "display": false,
+                        "icon": "fi-print",
+                        "isButton": true
+                    },
+					"googlenews": {
+						"display": false,
+						"icon": "fi-social-google-news"
+					}
                 }
             },
             "showTags": true

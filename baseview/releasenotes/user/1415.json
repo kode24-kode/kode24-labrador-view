@@ -1,0 +1,98 @@
+{
+    "releasenotes": {
+        "version": {
+            "int": 1415,
+            "str": "1.4.15"
+        },
+        "items": [
+            {
+                "date": "20260129",
+                "title": "Front crop aspect ratio",
+                "description": "Fixed the front crop aspect ratio in article settings to maintain consistent sizing at 0.45, ensuring the crop preview matches the actual editing dimensions regardless of custom configuration changes.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1505",
+                "isImprovement": true
+            },
+            {
+                "date": "20260129",
+                "title": "Toplist counter display",
+                "description": "Fixed a display issue where toplist counters were not appearing correctly when enabled with background colors, ensuring proper padding and counter positioning.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1491",
+                "isBug": true
+            },
+            {
+                "date": "20260128",
+                "title": "Gallery article title option",
+                "description": "Added the ability to display the parent article title as the gallery title when a gallery is viewed within an article context, providing better content continuity and navigation context for readers.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1501",
+                "isFeature": true
+            },
+            {
+                "date": "20260127",
+                "title": "Custom tags description field",
+                "description": "Added description field to custom tags in the admin interface. Descriptions are visible only on the admin page, and all previews are collapsed by default for easier navigation and debugging.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1471",
+                "isFeature": true
+            },
+            {
+                "date": "20260127",
+                "title": "Parallax space option",
+                "description": "Added '20% of viewport' option for space below in Parallax settings, providing more flexibility in creating visual layouts.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1480",
+                "isFeature": true
+            },
+            {
+                "date": "20260127",
+                "title": "Enhanced byline management",
+                "description": "You can now edit bylines you've created and delete bylines with appropriate permissions (requires 'node_delete_all' permission). Your own bylines are displayed by default for easier access. Deleted bylines remain functional on published pages and author pages.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1496",
+                "isFeature": true
+            },
+            {
+                "date": "20260126",
+                "title": "Article list callback check",
+                "description": "Fixed an error in article lists and notice lists where callback functions were called without checking if they existed, improving stability when rendering content.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1465",
+                "isBug": true
+            },
+            {
+                "date": "20260122",
+                "title": "Schema markup cleanup",
+                "description": "Removed 'itemtype' and 'itemscope' attributes from article lists and subarticles to improve SEO performance and eliminate redundant schema markup.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1495",
+                "isImprovement": true
+            },
+            {
+                "date": "20260120",
+                "title": "Gallery enhancements",
+                "description": "Added options to display image count, hide top images, and hide navigation arrows in galleries. Description text is now clickable as a link. Includes Czech translation file and 'images' translation for all supported languages.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1490",
+                "isFeature": true
+            },
+            {
+                "date": "20260120",
+                "title": "Quote style fixes",
+                "description": "Corrected style definitions for quote boxes that were missing from the style configuration, ensuring consistent appearance across the platform.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1484",
+                "isBug": true
+            },
+            {
+                "date": "20260119",
+                "title": "Section link alignment",
+                "description": "Fixed text alignment (center and right) for section links in article headers. Section links now properly respect the chosen alignment settings.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1489",
+                "isBug": true
+            }
+        ]
+    }
+}

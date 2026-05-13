@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <label>Display articles from site(s)</label>
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Display articles from site(s)</h3>
         <ul class="lab-list">
             {{ #get.current.filtered.adminView.domains }}
             <li class="lab-grid-rows">
@@ -28,14 +28,13 @@
                         {{ #selected }}checked{{ /selected }}/>
                         {{ name }}
                     </label>
-
                 </div>
             </li>
             {{ /get.current.filtered.adminView.domains }}
         </ul>
 
         <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Toplist layout</h3>
-        <div class="lab-grid lab-grid-gap lab-space-below-none">
+        <div class="lab-formgroup lab-grid lab-grid-gap lab-space-below-none">
             <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
                 <label for="placeholder">Text to display if no items exist</label>
                 <input id="placeholder" type="text" name="fields.placeholder" value="{{ get.current.filtered.placeholder }}">

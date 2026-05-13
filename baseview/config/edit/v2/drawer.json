@@ -128,6 +128,24 @@
             ]
         },
         {
+            "label": "Collabrador",
+            "hotkeyLabel": "⇧C",
+            "collection": "Collabrador",
+            "identifier": "collabrador",
+            "displayCondition": "hasConfig",
+            "params": {
+              "configKey": "collabrador.active"
+            },
+            "items": [
+                {
+                    "collection": "Collabrador",
+                    "identifier": "comments-view",
+                    "label": "Comments",
+                    "hotkeyLabel": "⇧C"
+                }
+            ]
+        },
+        {
             "label": "Settings",
             "hotkeyLabel": "⇧S",
             "pageType": "article",

@@ -24,6 +24,41 @@
 		}
     }
 
+    // because articlesByTag element also has class toplist but needs different styling
+    &.toplist {
+        .content[class*=" bg-"],
+        .content.hasContentPadding {
+            h3 {
+                margin-inline: 0;
+            }
+
+            ul li {
+                padding-left: 1rem;
+            }
+        }
+
+        &.lab-articlesByTag-counter {
+            .content[class*=" bg-"],
+            .content.hasContentPadding {
+                ul li {
+                    padding-left: 2rem;
+                }
+            }
+        }
+
+        ul li {
+            border-bottom: 1px solid #dadada;
+
+            &.hide-inner-border {
+                border-bottom: none;
+            }
+
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+    }
+
     p.tags {
         font-size: 0.9em;
         padding: 0 1rem;
@@ -56,7 +91,7 @@
         font-size: .9rem;
         font-style: italic;
 
-        &:before {
+        &::before {
             margin-right: 3px;
         }
     }
@@ -71,6 +106,7 @@
             gap: 5px;
             flex-grow: 1;
         }
+
         a {
             display: flex;
             flex-direction: row;
@@ -87,7 +123,8 @@
                 font-size: 0.8rem;
             }
 
-            h4, p {
+            h4, 
+            p {
                 margin: 0;
                 padding: 0;
             }
@@ -105,6 +142,7 @@
             padding: 0.5rem 1rem;
             margin: 0 0 0.5rem;
         }
+
         .content {
             border: 1px solid #dadada;
             padding: 0;
@@ -113,7 +151,12 @@
             &[class*= "mobile_border-side"] {
                 border: 0;
             }
+
+            &.hide-outer-border {
+                border: none;
+            }
         }
+
         ul {
             li {
                 a {
@@ -123,10 +166,12 @@
                         width: 100px;
                     }
                 }
+
                 h4 {
                     display: inline;
                 }
-                &:after {
+
+                &::after {
                     content: "";
                     display: block;
                     clear: both;

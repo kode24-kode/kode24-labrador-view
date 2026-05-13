@@ -1,7 +1,7 @@
 {
     "droppable": {
         "active": true,
-        "accept": ["image", "graphic", "text_singleline", "text_multiline", "youtube", "markup", "audio"],
+        "accept": ["image", "graphic", "text_singleline", "text_multiline", "youtube", "markup", "audio", "articlesByTag", "toplist"],
         "drop": "replace"
     },
     "draggable": {

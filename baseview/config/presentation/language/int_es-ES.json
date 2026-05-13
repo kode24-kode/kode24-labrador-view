@@ -106,8 +106,8 @@
         },
         "header": {
             "logo_link_text": "Ir a la portada",
-			"menuScrollerLeftButton": "Desplazar a la izquierda",
-			"menuScrollerRightButton": "Desplazar a la derecha"
+            "menuScrollerLeftButton": "Desplazar a la izquierda",
+            "menuScrollerRightButton": "Desplazar a la derecha"
         },
         "slack_notifier": {
             "publish": {
@@ -156,6 +156,9 @@
             "labelMostRead": "Más leídos",
             "titleMostRead": "Artículos más leídos"
         },
+        "authorLatestArticles": {
+            "noBylines": "No se encontraron bylines en el artículo"
+        },
         "infiniteScroll": {
             "readMore": "Continuar leyendo"
         },
@@ -171,13 +174,31 @@
                 "talandeWebb": "Abrir el panel de opciones de Talande Webb",
                 "bluesky": "Compartir en Bluesky",
                 "reddit": "Compartir en Reddit",
-                "whatsapp": "Compartir en WhatsApp"
+                "whatsapp": "Compartir en WhatsApp",
+                "print": "Imprimir página",
+                "googlenews": "Abrir la página de Google News"
             }
         },
         "gallery": {
             "label": "Galería",
             "seeAllImages": "Ver todas las imágenes",
-            "navigateToOriginal": "Ir a la página original"
+            "navigateToOriginal": "Ir a la página original",
+            "imageCountText": "imagenes",
+            "autoDescription": "{{ n }} imágenes de «{{ title }}»"
+        },
+        "recipe": {
+            "prepTimeLabel": "Tiempo de preparación:",
+            "cookTimeLabel": "Tiempo de cocción:",
+            "totalTimeLabel": "Tiempo total:",
+            "recipeYieldLabel": "Porciones:",
+            "keywordsLabel": "Palabras clave:",
+            "caloriesLabel": "Calorías:",
+            "dishLabel": "Plato:",
+            "cuisineLabel": "Cocina:",
+            "printButton": "Imprimir",
+            "publishedDate": "Fecha de publicación:",
+            "ingredientsTitle": "Ingredientes",
+            "instructionsTitle": "Instrucciones"
         }
     }
 }

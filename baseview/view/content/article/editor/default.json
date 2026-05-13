@@ -11,7 +11,7 @@
             "textInfoPlacement": "menu"
         },
         "title": {
-            "selector": "h2",
+            "selector": ".headline",
             "fn": "EditRich",
             "menu": "rich_text_auto_font_size",
             "key": "fields.title",
@@ -112,7 +112,7 @@
     },
 
     "redrawPaths": {
-        "current": ["metadata.subarticles", "metadata.hasFullWidth", "metadata.hideimage", "fields.displayCaption"]
+        "current": ["metadata.subarticles", "metadata.hasFullWidth", "metadata.hideimage", "fields.displayCaption", "metadata.imageHoverScale", "metadata.imageHoverFilter", "fields.videoOverlayPosition"]
     },
 
     "editorSelectors": {

@@ -1,0 +1,270 @@
+.lab-hide {
+    display: none !important;
+}
+
+.lab-recipe-meta-item-empty {
+    display: none;
+}
+
+.lab-recipe {
+	> * {
+		&.mobile-hasTextPadding {
+			margin-left: 0.7rem;
+		}
+	}
+
+	// When parent has background, prevent children from inheriting unless they have their own
+	&[class*=" bg-"],
+	&.hasContentPadding {
+		.lab-recipe-ingredients:not([class*=" bg-"]):not(.hasContentPadding),
+		.lab-recipe-instructions:not([class*=" bg-"]):not(.hasContentPadding) {
+			background-color: transparent;
+			padding: 0;
+		}
+	}
+
+	// When parent has border, prevent children from inheriting unless they have their own
+	&[class*=" border-"],
+	&.hasBorder {
+		.lab-recipe-ingredients:not([class*=" border-"]):not(.hasBorder),
+		.lab-recipe-instructions:not([class*=" border-"]):not(.hasBorder) {
+			border: none;
+		}
+	}
+
+	// Mobile viewport overrides
+	@media (max-width: 767px) {
+		&.mobile-hasContentPadding {
+			.lab-recipe-ingredients:not(.mobile-hasContentPadding),
+			.lab-recipe-instructions:not(.mobile-hasContentPadding) {
+				padding: 0;
+			}
+		}
+
+		&.mobile-hasBorder {
+			.lab-recipe-ingredients:not(.mobile-hasBorder),
+			.lab-recipe-instructions:not(.mobile-hasBorder) {
+				border: none;
+			}
+		}
+	}
+
+	.lab-recipe-spec {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 1rem;
+
+		.lab-recipe-header {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+			align-items: flex-start;
+			margin-bottom: 2rem;
+
+			.lab-recipe-image {
+				padding: 1rem;
+			}
+
+			&.mobile-imageOnTop {
+				.lab-recipe-header-info {
+					order: 2;
+				}
+				.lab-recipe-image {
+					order: 1;
+				}
+			}
+
+			&.mobile-imageBelow {
+				flex-direction: column;
+
+				.lab-recipe-header-info {
+					order: 1;
+				}
+				.lab-recipe-image {
+					order: 2;
+				}
+			}
+
+			.lab-recipe-header-info {
+				flex: 1;
+				width: 100%;
+
+				.lab-recipe-name {
+					margin-bottom: 1rem;
+				}
+			}
+
+			.lab-recipe-image {
+				flex: 1;
+				width: 100%;
+			}
+		}
+    }
+
+	.lab-recipe-inserted-content {
+		display: flex;
+		flex-direction: column;
+
+		.lab-recipe-ingredients,
+		.lab-recipe-instructions {
+			margin-top: 1rem;
+		}
+
+		.lab-recipe-ingredients-container,
+		.lab-recipe-instructions-container {
+			flex: 1;
+		}
+
+		.lab-recipe-ingredients .lab-recipe-list-ingredients,
+		.lab-recipe-instructions .lab-recipe-list-instructions {
+			ol, 
+			ul {
+				margin-block: 1em;
+				padding-left: 0;
+			}
+
+			ol {
+				li {
+					list-style-type: decimal;
+				}
+			}
+
+			ul {
+				li {
+					list-style-type: disc;
+				}
+			}
+		}
+	}
+
+	.lab-recipe-keywords-container {
+		padding-block: 1rem;
+	}
+
+	.lab-recipe-print-button {
+		width: fit-content;
+		border: none;
+		padding: 0.4rem 0.6rem;
+		border-radius: 6px;
+		margin-block: 1rem;
+		background-color: #0787d6;
+		border: 2px solid transparent;
+		cursor: pointer;
+
+		&:hover {
+			border-color: currentColor;
+		}
+	}
+}
+
+@include desktop {
+	.lab-recipe {
+		.lab-recipe-spec {
+			justify-content: center;
+			margin-bottom: 1rem;
+
+			.lab-recipe-header {
+				flex-direction: row;
+
+				&.desktop-imageOnTop {
+					flex-direction: column;
+
+					.lab-recipe-header-info {
+						order: 2;
+					}
+					.lab-recipe-image {
+						order: 1;
+					}
+				}
+
+				&.desktop-imageBeside {
+					flex-direction: row;
+				}
+
+				&.desktop-imageBelow {
+					flex-direction: column;
+
+					.lab-recipe-header-info {
+						order: 1;
+					}
+					.lab-recipe-image {
+						order: 2;
+					}
+				}
+			}
+		}
+
+		.lab-recipe-inserted-content {
+			&.lab-recipe-column-layout {
+				flex-direction: row;
+				gap: 2rem;
+			}
+		}
+	}
+}
+
+@media print {
+	// Always hide print button when printing
+	.lab-recipe-print-button {
+		display: none !important;
+	}
+
+	// Force single column layout for printing (for all recipes)
+	.lab-recipe {
+		> * {
+			&.hasTextPadding {
+				padding-left: 0.7rem;
+			}
+		}
+
+		// Remove borders and backgrounds for print (save ink)
+		.content {
+			border: none !important;
+			background: none !important;
+		}
+
+		// Force all text to black, default font sizes, no backgrounds for readability/ink saving
+		color: #000 !important;
+
+		* {
+			color: #000 !important;
+			font-size: revert !important;
+			background-color: transparent !important;
+		}
+
+		.lab-recipe-spec {
+			.lab-recipe-header {
+				flex-direction: column !important;
+			}
+		}
+
+		.lab-recipe-inserted-content {
+			flex-direction: column !important;
+		}
+
+		// Remove borders and backgrounds from child elements too
+		.lab-recipe-ingredients,
+		.lab-recipe-instructions {
+			.content {
+				border: none !important;
+				background: none !important;
+			}
+		}
+	}
+
+	// Print only recipe content - hide all non-recipe elements
+	[data-print-hide] {
+		display: none !important;
+	}
+
+	// Position recipe at top of page
+	.printing-active-recipe {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 99% !important;
+		max-width: 99% !important;
+		margin: 0 !important;
+		padding: 20px !important;
+	}
+}

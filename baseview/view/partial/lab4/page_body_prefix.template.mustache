@@ -1,7 +1,7 @@
 {{ #get.current.filtered.googleAds }}
 {{ #anchor.enabled }}
 {{ #bidding.provider.name }}
-{{ #render.template }}content/googleAd/template/anchor/{{ bidding.provider.name }}{{ /render.template }}
+{{ #render.template }}content/googleAd/template/{{ bidding.provider.name }}/anchor{{ /render.template }}
 {{ /bidding.provider.name }}
 {{ /anchor.enabled }}
 {{ /get.current.filtered.googleAds }}
@@ -9,6 +9,7 @@
 {{ #get.current.filtered.analytics.google_gtm }}{{ > partial/lab4/analytics/google/gtm_noscript }}{{ /get.current.filtered.analytics.google_gtm }}
 {{ #get.current.filtered.analytics.comscore }}{{ > partial/lab4/analytics/comscore_noscript }}{{ /get.current.filtered.analytics.comscore }}
 {{ #get.current.filtered.customTags.script.body_top }}{{{ . }}}{{ /get.current.filtered.customTags.script.body_top }}
+{{ #get.current.filtered.customTags.noscript.body_top }}{{{ . }}}{{ /get.current.filtered.customTags.noscript.body_top }}
 {{ ^app.isEditor }}
 <script>
 document.addEventListener("DOMContentLoaded", (event) => {

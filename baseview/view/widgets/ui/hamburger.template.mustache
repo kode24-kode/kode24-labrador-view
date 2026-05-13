@@ -56,6 +56,7 @@
     (function(){
         const burgerButton = document.querySelector('[data-id="pageElements-[[ id ]]"] .burger-btn');
         const dropdownCloseSection = document.querySelector('[data-id="pageElements-[[ id ]]"] .dropdown-close-section');
+        const hamburgerContainer = document.querySelector('[data-id="pageElements-[[ id ]]"] .hamburger-container');
 
         function toggleDropdown() {
             // Toggle the expanded class and aria-expanded attribute
@@ -67,14 +68,44 @@
             document.body.classList.toggle('hamburger-expanded');
         }
 
-        // Called via the eventlistener - if the key is Escape, toggle the dropdown and remove the eventlistener
-        function closeDropdown(e) {
-            if(e.key === 'Escape') {
+        function getFocusableElements() {
+            if (!hamburgerContainer) return [];
+            return Array.from(hamburgerContainer.querySelectorAll(
+                'a[href], button:not([disabled]), input:not([disabled]), ' +
+                'select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            )).filter(function(el) {
+                if (el.closest('[hidden]')) return false;
+                if (getComputedStyle(el).visibility === 'hidden') return false;
+                const rect = el.getBoundingClientRect();
+                return rect.width > 0 || rect.height > 0;
+            });
+        }
+
+        // Called via the event listener - handles Escape (close menu, restore focus) and
+        // Tab (trap focus within the open menu)
+        function handleKeydown(e) {
+            if (e.key === 'Escape') {
                 toggleDropdown();
                 // Set the focus back on the button when clicking escape, so the user can continue tabbing down
                 // the page in a natural flow
-                document.querySelector('[data-id="pageElements-[[ id ]]"] .burger-btn').focus();
-                window.removeEventListener('keydown', closeDropdown);
+                burgerButton.focus();
+                window.removeEventListener('keydown', handleKeydown);
+                return;
+            }
+
+            if (e.key === 'Tab') {
+                const focusable = getFocusableElements();
+                if (focusable.length === 0) return;
+
+                if (!e.shiftKey && document.activeElement === focusable[focusable.length - 1]) {
+                    // Tab past last item → burger button
+                    e.preventDefault();
+                    burgerButton.focus();
+                } else if (e.shiftKey && document.activeElement === burgerButton) {
+                    // Shift+Tab from burger button → last item
+                    e.preventDefault();
+                    focusable[focusable.length - 1].focus();
+                }
             }
         }
 
@@ -83,12 +114,12 @@
                 e.preventDefault();
                 toggleDropdown();
 
-                // If the menu gets expanded, add the eventlistener that will close it on pressing Escape
-                // else, remove the eventlistener otherwise it will continue to listen for escape even if the menu is closed.
-                if(document.querySelector('[data-id="pageElements-[[ id ]]"] .burger-btn').getAttribute('aria-expanded') === 'true') {
-                    window.addEventListener('keydown', closeDropdown);
+                // If the menu gets expanded, add the event listener that will close it on pressing Escape
+                // else, remove the event listener otherwise it will continue to listen for escape even if the menu is closed.
+                if(burgerButton.getAttribute('aria-expanded') === 'true') {
+                    window.addEventListener('keydown', handleKeydown);
                 } else {
-                    window.removeEventListener('keydown', closeDropdown);
+                    window.removeEventListener('keydown', handleKeydown);
                 }
             })
         }

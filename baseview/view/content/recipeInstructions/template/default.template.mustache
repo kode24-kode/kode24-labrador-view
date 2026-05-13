@@ -1,0 +1,4 @@
+<div data-element-guid="{{ get.current.guid }}" class="content lab-recipe-instructions {{ #style.collection }}content_decoration{{ /style.collection }}" style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
+    <h2 class="lab-recipe-instructions-title {{ #style.collection }}text_decoration fields.title{{ /style.collection }}">{{ #get.current.fields.title }}{{{ get.current.fields.title }}}{{ /get.current.fields.title }}{{ ^get.current.fields.title }}{{ #lang }}recipe.instructionsTitle{{ /lang }}{{ /get.current.fields.title }}</h2>
+    <div class="lab-recipe-list lab-recipe-list-instructions {{ #style.collection }}text_decoration fields.bodytext{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.bodytext{{ /style.collection }}">{{{ get.current.fields.bodytext }}}</div>
+</div>

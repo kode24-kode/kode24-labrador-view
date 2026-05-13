@@ -1,0 +1,24 @@
+{
+    "editors": [
+        {
+            "selector": "h2.lab-tag-page-title",
+            "allowNbsp": true,
+            "fn": "EditRich",
+            "menu": "rich_text_section",
+            "key": "fields.tagTitle",
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "disabled": true
+        }
+    ],
+    "toolMenus": {
+        "rich_text_section": {
+            "inheritPath": "menu/tool/rich_text.json",
+            "items": {
+                "insert": null,
+                "more": null
+            }
+        }
+    }
+}

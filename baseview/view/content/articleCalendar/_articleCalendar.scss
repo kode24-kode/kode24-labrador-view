@@ -1,17 +1,17 @@
 /* Style for contentbox articlescroller */
-@use "../../css_scss/components/vars" as *;
-
+@use '../../css_scss/components/vars' as *;
 
 .articleCalendar { 
     h2 {
         font-size: 1.4em;
         margin-bottom: 12px;
     }
+
     .description {
         margin-top: 0.5em;
     }
-    ul.articles {
 
+    ul.articles {
         display: grid;
         grid-template-columns: 1fr;
         grid-column-gap: $columns_gutter;
@@ -25,6 +25,7 @@
             a {
                 color: inherit;
                 text-decoration: none;
+
                 &:hover {
                     text-decoration: underline;
                 }
@@ -35,8 +36,10 @@
                 font-weight: bold;
                 padding-top: 0;
             }
+
             figure {
                 margin-bottom: 0.5em;
+
                 img {
                     width: 100%;
                 }
@@ -61,8 +64,15 @@
         }
     }
 
-}
+    .content.hasContentPadding:has(h2.hasTextPadding) {
+        padding-top: 0;
 
+        h2.hasTextPadding {
+            margin-inline: -1rem;
+            padding-left: 1rem;
+        }
+    }
+}
 
 @include mobile {
     .articleCalendar[class*=" large-abs-"] {
@@ -71,69 +81,3 @@
         }
     }
 }
-
-// .articleCalendar {
-//     border: 1px solid red;
- 
-    
-//     ul.articles {
-
-//         display: flex;
-//         flex-direction: row;
-//         flex-wrap: wrap;
-//         justify-content: space-between;
-
-//         li {
-//             border: 1px solid green;
-//             width: 100%;
-//             box-sizing: border-box;
-
-//             img {
-//                 width: 100%;
-//             }
-//         }
-//     }
-
-//     &.large-abs-12,
-//     &.large-abs-11 {
-//         ul.articles {
-//             li {
-//                 width: 23.5%;
-//             }
-//         }
-//     }
-
-//     &.large-abs-10,
-//     &.large-abs-9, 
-//     &.large-abs-8 {
-//         ul.articles {
-//             li {
-//                 width: 32%;
-//             }
-//         }
-//     }
-
-//     &.large-abs-7, 
-//     &.large-abs-6 {
-//         ul.articles {
-//             li {
-//                 width: 50%;
-//             }
-//         }
-//     }
-
-// }
-
-
-// @include mobile {
-//     .articleCalendar[class*=" large-abs-"] {
-//         ul.articles {
-//             li {
-//                 width: 100%;
-//             }
-//         }
-//     }
-// }
-
-
-

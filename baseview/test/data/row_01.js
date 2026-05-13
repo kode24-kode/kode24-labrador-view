@@ -85,7 +85,7 @@ export default {
                                 attributes: {}
                             },
                             title: {
-                                value: '<span data-lab-text_size_desktop="103" class="t103">Demo</span>­artikkel #1',
+                                value: '<span data-lab-text_size_desktop="103" class="t103">Demo</span>­artikkel #123456789',
                                 vp: {},
                                 attributes: {
                                     text_size: {

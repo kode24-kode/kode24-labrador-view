@@ -19,13 +19,13 @@
     </div>
     {{ /app.isEditor }}
     {{ ^app.isEditor }}
-    {{ #get.current.filtered.googleAds.bidding.enabled }}
+    {{ #get.current.filtered.googleAds.bidding }}
         {{ #get.current.filtered.googleAds.bidding.provider.name }}
             <span class="ad-label">{{ get.current.filtered.label }}</span>
-            {{ #render.template }}content/googleAd/template/{{ get.current.filtered.googleAds.bidding.provider.name}}{{ /render.template }}
+            {{ #render.template }}content/googleAd/template/{{ get.current.filtered.googleAds.bidding.provider.name}}/placement{{ /render.template }}
         {{ /get.current.filtered.googleAds.bidding.provider.name }}
-    {{ /get.current.filtered.googleAds.bidding.enabled }}
-    {{ ^get.current.filtered.googleAds.bidding.enabled }}
+    {{ /get.current.filtered.googleAds.bidding }}
+    {{ ^get.current.filtered.googleAds.bidding }}
         <span class="ad-label">{{ get.current.filtered.label }}</span>
         <div class="adunit" id="{{{ get.current.filtered.adData.code }}}" {{ #get.current.metadata.defaultHeight }}style="min-height:{{ get.current.metadata.defaultHeight }}px;"{{ /get.current.metadata.defaultHeight }}></div>
         <script>
@@ -46,7 +46,7 @@
             labClientAPI.set('adData', data);
         </script>
         {{ /get.current.metadata.options.refresh }}
-    {{ /get.current.filtered.googleAds.bidding.enabled }}
+    {{ /get.current.filtered.googleAds.bidding }}
     {{ /app.isEditor }}
 </div>
 {{ /get.current.filtered.hideOnTablet }}

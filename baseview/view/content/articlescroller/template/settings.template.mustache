@@ -73,21 +73,29 @@
 
     <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
         <label for="hideTextAbove">Display title</label>
-        <input id="hideTextAbove" type="checkbox" data-lab-reverse="1" name="fields.hideTextAbove" {{^get.current.fields.hideTextAbove}}checked{{/get.current.fields.hideTextAbove}}>
+        <input id="hideTextAbove" type="checkbox" data-lab-reverse="1" name="fields.hideTextAbove" {{ ^get.current.fields.hideTextAbove }}checked{{ /get.current.fields.hideTextAbove }}>
     </div>
 
     <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
         <label for="hideTextBeneath">Display footer</label>
-        <input id="hideTextBeneath" type="checkbox" data-lab-reverse="1" name="fields.hideTextBeneath" {{^get.current.fields.hideTextBeneath}}checked{{/get.current.fields.hideTextBeneath}}>
+        <input id="hideTextBeneath" type="checkbox" data-lab-reverse="1" name="fields.hideTextBeneath" {{ ^get.current.fields.hideTextBeneath }}checked{{ /get.current.fields.hideTextBeneath }}>
     </div>
 
     <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
         <label for="skipAutoscroll">Autoscroll</label>
-        <input id="skipAutoscroll" type="checkbox" data-lab-reverse="1" name="fields.skipAutoscroll" {{^get.current.fields.skipAutoscroll}}checked{{/get.current.fields.skipAutoscroll}}>
+        <input id="skipAutoscroll" type="checkbox" data-lab-reverse="1" name="fields.skipAutoscroll" {{ ^get.current.fields.skipAutoscroll }}checked{{ /get.current.fields.skipAutoscroll }}>
     </div>
     <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
         <label for="hideNavigation">Display navigation</label>
-        <input id="hideNavigation" type="checkbox" data-lab-reverse="1" name="fields.hideNavigation" {{^get.current.fields.hideNavigation}}checked{{/get.current.fields.hideNavigation}}>
+        <input id="hideNavigation" type="checkbox" data-lab-reverse="1" name="fields.hideNavigation" {{ ^get.current.fields.hideNavigation }}checked{{ /get.current.fields.hideNavigation }}>
+    </div>
+    <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+        <label for="arrowsOnImage">Center nav on image</label>
+        <input id="arrowsOnImage" type="checkbox" name="fields.arrowsOnImage" {{ #get.current.fields.arrowsOnImage }}checked{{ /get.current.fields.arrowsOnImage }}>
+    </div>
+    <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+        <label for="reverseArrowColor">Reverse arrow color</label>
+        <input id="reverseArrowColor" type="checkbox" name="fields.reverseArrowColor" {{ #get.current.fields.reverseArrowColor }}checked{{ /get.current.fields.reverseArrowColor }}>
     </div>
     <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
         <label for="openInNewTab">Open articles in new tab</label>
@@ -99,23 +107,23 @@
     <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Article options</h3>
     <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
         <label for="displaySection">Display section</label>
-        <input id="displaySection" type="checkbox" name="fields.displaySection" {{#get.current.fields.displaySection}}checked{{/get.current.fields.displaySection}}>
+        <input id="displaySection" type="checkbox" name="fields.displaySection" {{ #get.current.fields.displaySection }}checked{{ /get.current.fields.displaySection }}>
     </div>
     <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
         <label for="displayKicker">Display kicker</label>
-        <input id="displayKicker" type="checkbox" name="fields.displayKicker" {{#get.current.fields.displayKicker}}checked{{/get.current.fields.displayKicker}}>
+        <input id="displayKicker" type="checkbox" name="fields.displayKicker" {{ #get.current.fields.displayKicker }}checked{{ /get.current.fields.displayKicker }}>
     </div>
     <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
         <label for="hideTitle">Display title</label>
-        <input id="hideTitle" type="checkbox" data-lab-reverse="1" name="fields.hideTitle" {{^get.current.fields.hideTitle}}checked{{/get.current.fields.hideTitle}}>
+        <input id="hideTitle" type="checkbox" data-lab-reverse="1" name="fields.hideTitle" {{ ^get.current.fields.hideTitle }}checked{{ /get.current.fields.hideTitle }}>
     </div>
     <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
         <label for="skipLeadText">Display subtitle</label>
-        <input id="skipLeadText" type="checkbox" data-lab-reverse="1" name="fields.skipLeadText" {{^get.current.fields.skipLeadText}}checked{{/get.current.fields.skipLeadText}}>
+        <input id="skipLeadText" type="checkbox" data-lab-reverse="1" name="fields.skipLeadText" {{ ^get.current.fields.skipLeadText }}checked{{ /get.current.fields.skipLeadText }}>
     </div>
     <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
         <label for="showAuthor">Display byline</label>
-        <input id="showAuthor" type="checkbox" name="fields.showAuthor" {{#get.current.fields.showAuthor}}checked{{/get.current.fields.showAuthor}}>
+        <input id="showAuthor" type="checkbox" name="fields.showAuthor" {{ #get.current.fields.showAuthor }}checked{{ /get.current.fields.showAuthor }}>
     </div>
     <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
         <label for="showPublishedDate">Display published date</label>
@@ -125,7 +133,7 @@
     <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Image options</h3>
     <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
         <label for="hideImages">Display images</label>
-        <input id="hideImages" type="checkbox" data-lab-reverse="1" name="fields.hideImages" {{^get.current.fields.hideImages}}checked{{/get.current.fields.hideImages}}>
+        <input id="hideImages" type="checkbox" data-lab-reverse="1" name="fields.hideImages" {{ ^get.current.fields.hideImages }}checked{{ /get.current.fields.hideImages }}>
     </div>
     <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap">
         <label for="aspectRatio">Image aspect ratio</label>

@@ -16,7 +16,7 @@ export default class AuthorBox {
             const imageChildren = this.api.v1.model.query.getChildrenOfType(model, 'image');
 
             // Get imageurl in the authordata.children image
-            if (authordata && authordata.children.image) {
+            if (authordata && authordata.children && authordata.children.image) {
                 const image = authordata.children.image[0];
 
                 // Get instance_of from imageurl

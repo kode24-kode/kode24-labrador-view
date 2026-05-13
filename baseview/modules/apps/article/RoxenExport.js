@@ -35,6 +35,22 @@ export class RoxenExport {
             <div class="lab-formgroup lab-grid lab-space-above-none">
                 <p class="lab-para lab-grid-large-12" id="messageArea"></p>
             </div>
+            <div class="lab-formgroup lab-grid lab-space-above-none" id="exportHistoryContainer" style="display:none;">
+                <h3 class="lab-title lab-grid-large-12 lab-space-below-small lab-space-above-none">Export history</h3>
+                <div class="lab-grid-large-12">
+                    <table class="lab-table lab-table-tight" id="exportHistoryTable" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Publication</th>
+                                <th>Edition date</th>
+                                <th>Exported</th>
+                                <th>User</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
         </div>`;
     }
 
@@ -129,7 +145,10 @@ export class RoxenExport {
 
         this.dom.exportDate = markup.querySelector('[data-name=export-date]');
         this.dom.messageArea = markup.querySelector('#messageArea');
+        this.dom.exportHistoryContainer = markup.querySelector('#exportHistoryContainer');
+        this.dom.exportHistoryTableBody = markup.querySelector('#exportHistoryTable tbody');
         this.updateExportDate();
+        this.renderExportHistory();
         this.setupSubmit(markup);
         return markup;
     }
@@ -156,6 +175,7 @@ export class RoxenExport {
                     const publication = `lab-${ site.id }`;
                     const publicationsSelect = markup.querySelector('#lab-roxen-publication-select');
                     const publicationFromSelect = publicationsSelect.value;
+                    const selectedPublications = Array.from(publicationsSelect.selectedOptions).map((o) => ({ value: o.value, name: o.text }));
                     data.data.fields.print_publication = (publicationFromSelect || publication);
                     data.data.fields.print_edition_date = editionDate;
                     if (this.multiPublicationEnabled) {
@@ -183,8 +203,12 @@ export class RoxenExport {
                                 this.rootModel.set('fields.print_publication', (publicationFromSelect || publication));
                                 this.rootModel.set('fields.print_edition_date', editionDate);
                                 this.rootModel.set('fields.print_id', validItems.map((item) => item.object_id).join(','));
+                                selectedPublications.forEach((pub) => {
+                                    this.addExportHistoryEntry(pub.value, editionDate, pub.name);
+                                });
                                 this.displayMessage(`The article was successfully exported to ${ validItems.length } publication(s) in Roxen`);
                                 this.updateExportDate();
+                                this.renderExportHistory();
                             } else {
                                 // Some items were missing object_id or array was empty
                                 this.displayMessage('There was a problem sending the article');
@@ -196,8 +220,10 @@ export class RoxenExport {
                             this.rootModel.set('fields.print_publication', (publicationFromSelect || publication));
                             this.rootModel.set('fields.print_edition_date', editionDate);
                             this.rootModel.set('fields.print_id', resp.object_id);
+                            this.addExportHistoryEntry((publicationFromSelect || publication), editionDate, selectedPublications.length ? selectedPublications[0].name : '');
                             this.displayMessage('The article was successfully exported to Roxen');
                             this.updateExportDate();
+                            this.renderExportHistory();
                         } else {
                             this.displayMessage('There was a problem sending the article');
                             console.log(resp);
@@ -226,6 +252,84 @@ export class RoxenExport {
             formattedDate = this.dateTimeHelper.timestampToNiceDate(lastExport);
         }
         this.dom.exportDate.innerHTML = formattedDate;
+    }
+
+    /**
+     * Returns the parsed export history array from the model.
+     * @returns {Array<Object>} The export history entries.
+     */
+    getExportHistory() {
+        const historyRaw = this.rootModel.get('fields.roxen_export_history_json') || [];
+        
+        if (typeof historyRaw === 'string') {
+            try {
+                const parsed = JSON.parse(historyRaw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                console.warn('Failed to parse fields.roxen_export_history_json in RoxenExport.getExportHistory()', e);
+                return [];
+            }
+        }
+        
+        if (Array.isArray(historyRaw)) {
+            return [...historyRaw];
+        }
+        
+        return [];
+    }
+
+    /**
+     * Renders the export history table from stored history entries.
+     * Hides the table if no history exists.
+     */
+    renderExportHistory() {
+        const history = this.getExportHistory();
+
+        if (!history.length) {
+            this.dom.exportHistoryContainer.style.display = 'none';
+            return;
+        }
+
+        this.dom.exportHistoryContainer.style.display = '';
+        this.dom.exportHistoryTableBody.innerHTML = '';
+        history.forEach((entry) => {
+            const row = document.createElement('tr');
+            const pubCell = document.createElement('td');
+            pubCell.textContent = entry.publicationName || entry.publication || '';
+            const editionCell = document.createElement('td');
+            if (entry.editionDate) {
+                const [y, m, d] = entry.editionDate.split('-');
+                editionCell.textContent = this.dateTimeHelper.format(new Date(y, m - 1, d), '{{ DD }}.{{ MM }}.{{ YYYY }}');
+            }
+            const exportedCell = document.createElement('td');
+            exportedCell.textContent = entry.timestamp ? this.dateTimeHelper.format(this.dateTimeHelper.timestampToDate(entry.timestamp), '{{ DD }}.{{ MM }}.{{ YYYY }} {{ HH }}:{{ mm }}') : '';
+            const userCell = document.createElement('td');
+            userCell.textContent = entry.userName || '';
+            row.append(pubCell, editionCell, exportedCell, userCell);
+            this.dom.exportHistoryTableBody.appendChild(row);
+        });
+    }
+
+    /**
+     * Adds a new entry to the export history stored on the model.
+     * @param {string} publication - The publication identifier (e.g. "lab-123").
+     * @param {string} editionDate - The selected print edition date.
+     * @param {string} publicationName - The human-readable publication name.
+     */
+    addExportHistoryEntry(publication, editionDate, publicationName) {
+        const history = this.getExportHistory();
+        const userName = this.api.v1.user.getUserName();
+
+        history.unshift({
+            publication,
+            publicationName,
+            editionDate,
+            timestamp: Math.floor(Date.now() / 1000),
+            userId: this.api.v1.user.getUserId(),
+            userName
+        });
+
+        this.rootModel.set('fields.roxen_export_history_json', history);
     }
 
 }

@@ -69,12 +69,16 @@
 
         &:has(.adunit > div:empty),
         &:has(.adunit:empty) {
+			margin-bottom: 0;
+
             .ad-label {
                 display: none;
             }
         }
 
         &:has(.adunit[style="display: none;"]) {
+			margin-bottom: 0;
+
             .ad-label {
                 display: none;
             }
@@ -83,7 +87,9 @@
         &:has(.ad-label) {
             .adunit {
                 &::before {
-                    content: none;
+                    @supports not (font: -apple-system-body) { 
+                        content: none;
+                    }
                 }
             }
         }
@@ -129,10 +135,16 @@
     }
 }
 
-.adZone-top
+.adZone-top,
 .placement-top { 
     .column.google-ad.display-label .adunit:before {
         top: -18px;
+    }
+
+    .column.google-ad {
+        &:not(.display-label) {
+            margin-top: 20px;
+        }
     }
 }
 
@@ -266,5 +278,25 @@ body.l4 .column.google-ad.adZone-parallax {
 body.article.l4 .column.google-ad.adZone-parallax {
     @include desktop {
         left: calc(-1*((100vw - var(--lab-scrollbar-width)) - var(--page-width, 68rem)) / 2);
+    }
+}
+
+// OptiDigital ads styling
+.optidigital-ad-center {
+    text-align: center;
+}
+
+.optidigital-ad-center-sticky {
+    text-align: center;
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+.column.google-ad.display-label:has(.optidigital-ad-center),
+.column.google-ad.display-label:has(.optidigital-ad-center-sticky) {
+    .ad-label {
+        margin-top: 0px;
     }
 }

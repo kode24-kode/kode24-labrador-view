@@ -13,7 +13,21 @@ export class ImageUploadProcessor {
             modified: callbacks.modified || null
         };
         this.lastEditId = null;
-        this.selectedLanguage = this.api.v1.config.get('contentLanguage') || 'en';
+
+        // Determine initial language based on languageSiteSetting
+        const site = this.api.v1.site.getSite();
+        const siteAlias = site && site.alias;
+        const labradorAiConfig = this.api.v1.config.get('labradorAi', { site: siteAlias });
+        const languageSiteSetting = labradorAiConfig?.imageMetadata?.languageSiteSetting;
+
+        if (languageSiteSetting === 'seoLanguage') {
+            const rootModel = this.api.v1.model.query.getModelByType('article') || this.api.v1.model.query.getModelByType('bodytext');
+            const seoLanguage = rootModel?.get('fields.seolanguage');
+            this.selectedLanguage = seoLanguage || this.api.v1.config.get('contentLanguage') || 'en';
+        } else {
+            // Default to siteLanguage
+            this.selectedLanguage = this.api.v1.config.get('contentLanguage') || 'en';
+        }
         this.template = `<div class="lab-fileuploader" data-lab-content="1">
             <div class="lab-formgroup">
                 <div style="display: flex; align-items: center; gap: 12px; padding: 12px; border-bottom: 1px solid black; border-top: 1px solid black;">
@@ -210,8 +224,8 @@ export class ImageUploadProcessor {
 
     async regenerateAIMetadata(imageId) {
         const site = lab_api.v1.site.getSite();
-        const defaultLanguage = lab_api.v1.config.get('contentLanguage') || 'en';
-        const languageToUse = this.selectedLanguage || defaultLanguage;
+        const siteAlias = site && site.alias;
+        const languageToUse = this.selectedLanguage || 'en';
 
         // Find the button and disable it during generation
         const button = this.modal.markup.querySelector(`button.lab-generate[data-id="${ imageId }"]`);
@@ -259,7 +273,9 @@ export class ImageUploadProcessor {
                 prompt: 'Make sure to generate caption and alt text that are different from the current context'
             };
 
-            const plainBodyText = this.api.v1.bodytext.getText(this.api.v1.model.query.getModelByType('bodytext'));
+            const bodytextModel = this.api.v1.model.query.getModelByType('bodytext');
+            const plainBodyText = bodytextModel && this.api.v1.bodytext.getText(bodytextModel);
+
             if (plainBodyText) {
                 // Append the bodytext context to the prompt
                 payload.prompt = `
@@ -292,6 +308,26 @@ export class ImageUploadProcessor {
                 const caption = response.metadata.caption || '';
                 const altText = response.metadata.alt_text || '';
                 const tags = response.tags || [];
+
+                // Log to UI-Log
+                if (this.api.v1.eventmonitor.writer.log) {
+                    const paths = [`imageId_${ imageId }`];
+                    if (caption) {
+                        paths.push('caption');
+                    }
+                    if (altText) {
+                        paths.push('altText');
+                    }
+                    if (tags && tags.length) {
+                        paths.push('tags');
+                    }
+                    this.api.v1.eventmonitor.writer.log({
+                        action: 'labradorAI',
+                        ...{
+                            type: 'image', subtype: 'metadata', provider: response.provider, model: response.model, feature: 'upload_regenerate', paths
+                        }
+                    });
+                }
 
                 // Save the metadata to backend
                 const fields = {

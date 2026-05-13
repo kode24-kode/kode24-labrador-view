@@ -1,0 +1,108 @@
+{
+    "editors": [
+        {
+            "selector": "div.bodytext",
+            "fn": "EditBodyText",
+            "viewports": {
+                "mobile": {
+                    "prefix": "m"
+                },
+                "desktop": {}
+            },
+            "key": "fields.bodytext",
+            "classes": "bodytext large-12 small-12 medium-12 lab-content-min-height",
+            "menu": "rich_text",
+            "modal": false,
+            "placeholder": "",
+            "contentReplacement": null,
+            "textInfoPlacement": "top",
+            "allowRichTextPasting": false,
+            "allowedPastedTags": {
+                "a": {
+                    "attributes": ["href", "target"]
+                },
+                "p": { "attributes": [] },
+                "h2": { "attributes": [] },
+                "h3": { "attributes": [] },
+                "ul": { "attributes": [] },
+                "ol": { "attributes": [] },
+                "li": { "attributes": [] }
+            },
+            "allowNbsp": true,
+            "allowedEmptyTags": {
+                "span": {
+                    "attributes": ["class"]
+                },
+                "br": {
+                    "attributes": []
+                }
+            },
+            "displayLix": true,
+            "displayReadtime": true
+        },
+        {
+            "selector": ".fullscreen-btx",
+            "fn": "EditFull",
+            "key": "fields.bodytext",
+            "menu": "rich_text_fullscreen",
+            "modal": false,
+            "contentReplacement": null,
+            "textInfoPlacement": "bottom",
+            "markSelectedElements": true,
+            "allowRichTextPasting": false,
+            "allowedPastedTags": {
+                "a": {
+                    "attributes": ["href", "target"]
+                },
+                "p": { "attributes": [] },
+                "h2": { "attributes": [] },
+                "h3": { "attributes": [] },
+                "ul": { "attributes": [] },
+                "ol": { "attributes": [] },
+                "li": { "attributes": [] }
+            },
+            "allowNbsp": true,
+            "allowedEmptyTags": {
+                "span": {
+                    "attributes": ["class"]
+                }
+            },
+            "placeholder": "<p>Click to add bodytext ...</p>",
+            "fullscreen": true
+        },
+        {
+            "fn": "EditClean",
+            "key": "fields.title",
+            "selector": ".fullscreen-tt",
+            "placeholder": "Click to add title ...",
+            "fullscreen": true,
+            "markSelectedElements": true
+        },
+        {
+            "fn": "EditClean",
+            "key": "fields.subtitle",
+            "selector": ".fullscreen-sub",
+            "placeholder": "Click to add subtitle ...",
+            "fullscreen": true,
+            "markSelectedElements": true
+        }
+    ],
+
+    "editorSelectors": {
+        "edit": ["lab-content-min-height"]
+    },
+
+    "toolMenus": {
+        "rich_text": {
+            "inheritPath": "menu/tool/rich_text_bodytext_editor.json"
+        },
+        "rich_text_fullscreen": {
+            "inheritPath": "menu/tool/rich_text_bodytext_editor.json"
+        }
+    },
+    "contentMenus": {
+        "default": {
+            "inheritPath": "menu/content/bodytext_no_fullscreen.json"
+        }
+    }
+}

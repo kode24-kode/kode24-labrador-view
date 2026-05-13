@@ -1,0 +1,100 @@
+<form method="post">
+    <h2 class="lab-title lab-space-below-medium">Recipe settings</h2>
+
+    <div class="lab-formgroup lab-grid lab-grid-gap lab-valign-top">
+
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap">Display</h3>
+
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.hideName">Hide name</label>
+            <input type="checkbox" id="input-metadata.hideName" name="metadata.hideName" value="1" {{ #get.current.metadata.hideName }}checked="checked"{{ /get.current.metadata.hideName }}>
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.hideAuthor">Hide author</label>
+            <input type="checkbox" id="input-metadata.hideAuthor" name="metadata.hideAuthor" value="1" {{ #get.current.metadata.hideAuthor }}checked="checked"{{ /get.current.metadata.hideAuthor }}>
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.hideDescription">Hide description</label>
+            <input type="checkbox" id="input-metadata.hideDescription" name="metadata.hideDescription" value="1" {{ #get.current.metadata.hideDescription }}checked="checked"{{ /get.current.metadata.hideDescription }}>
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.hideImage">Hide image</label>
+            <input type="checkbox" id="input-metadata.hideImage" name="metadata.hideImage" value="1" {{ #get.current.metadata.hideImage }}checked="checked"{{ /get.current.metadata.hideImage }}>
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.hidePrepTime">Hide prep time</label>
+            <input type="checkbox" id="input-metadata.hidePrepTime" name="metadata.hidePrepTime" value="1" {{ #get.current.metadata.hidePrepTime }}checked="checked"{{ /get.current.metadata.hidePrepTime }}>
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.hideCookTime">Hide cook time</label>
+            <input type="checkbox" id="input-metadata.hideCookTime" name="metadata.hideCookTime" value="1" {{ #get.current.metadata.hideCookTime }}checked="checked"{{ /get.current.metadata.hideCookTime }}>
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.hideTotalTime">Hide total time</label>
+            <input type="checkbox" id="input-metadata.hideTotalTime" name="metadata.hideTotalTime" value="1" {{ #get.current.metadata.hideTotalTime }}checked="checked"{{ /get.current.metadata.hideTotalTime }}>
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.hideRecipeYield">Hide servings</label>
+            <input type="checkbox" id="input-metadata.hideRecipeYield" name="metadata.hideRecipeYield" value="1" {{ #get.current.metadata.hideRecipeYield }}checked="checked"{{ /get.current.metadata.hideRecipeYield }}>
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.hideCalories">Hide calories</label>
+            <input type="checkbox" id="input-metadata.hideCalories" name="metadata.hideCalories" value="1" {{ #get.current.metadata.hideCalories }}checked="checked"{{ /get.current.metadata.hideCalories }}>
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.hideDish">Hide dish type</label>
+            <input type="checkbox" id="input-metadata.hideDish" name="metadata.hideDish" value="1" {{ #get.current.metadata.hideDish }}checked="checked"{{ /get.current.metadata.hideDish }}>
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.hideRecipeCuisine">Hide cuisine</label>
+            <input type="checkbox" id="input-metadata.hideRecipeCuisine" name="metadata.hideRecipeCuisine" value="1" {{ #get.current.metadata.hideRecipeCuisine }}checked="checked"{{ /get.current.metadata.hideRecipeCuisine }}>
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.showDatePublished">Show date published</label>
+            <input type="checkbox" id="input-metadata.showDatePublished" name="metadata.showDatePublished" value="1" {{ #get.current.metadata.showDatePublished }}checked="checked"{{ /get.current.metadata.showDatePublished }}>
+        </div>
+
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Keywords</h3>
+
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap">
+            <label for="input-fields.keywords">Keywords (comma-separated)</label>
+            <input type="text" id="input-fields.keywords" name="fields.keywords" value="{{ get.current.fields.keywords }}" placeholder="e.g., pasta, italian, dinner">
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.showKeywords">Show keywords in recipe</label>
+            <input type="checkbox" id="input-metadata.showKeywords" name="metadata.showKeywords" value="1" {{ #get.current.metadata.showKeywords }}checked="checked"{{ /get.current.metadata.showKeywords }}>
+        </div>
+
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Layout</h3>
+
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.columnLayout">Display ingredients and instructions in a row (desktop)</label>
+            <input type="checkbox" id="input-metadata.columnLayout" name="metadata.columnLayout" value="1" {{ #get.current.metadata.columnLayout }}checked="checked"{{ /get.current.metadata.columnLayout }}>
+        </div>
+
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Print</h3>
+
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+            <label for="input-metadata.printFullPage">Print entire page (instead of recipe only)</label>
+            <input type="checkbox" id="input-metadata.printFullPage" name="metadata.printFullPage" value="1" {{ #get.current.metadata.printFullPage }}checked="checked"{{ /get.current.metadata.printFullPage }}>
+        </div>
+
+        <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap">
+            <label for="input-metadata.printButtonColor">Print button color (hex)</label>
+            <input type="text" id="input-metadata.printButtonColor" name="metadata.printButtonColor" value="{{ get.current.metadata.printButtonColor }}" placeholder="#0787d6">
+        </div>
+
+    </div>
+</form>

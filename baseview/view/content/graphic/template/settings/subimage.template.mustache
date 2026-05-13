@@ -1,0 +1,13 @@
+<form method="post">
+    <h2 class="lab-title lab-space-below-medium">Graphic settings</h2>
+    <div class="lab-formgroup lab-grid lab-grid-gap ">
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Layout options</h3>
+        <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap">
+            <label for="fields.graphicWidthDesktop">Width desktop (px)</label>
+            <input id="fields.graphicWidthDesktop" type="number" name="fields.graphicWidthDesktop" value="{{ get.current.fields.graphicWidthDesktop }}" min="0">
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap">
+            <label for="fields.graphicWidthMobile">Width mobile (px)</label>
+            <input id="fields.graphicWidthMobile" type="number" name="fields.graphicWidthMobile" value="{{ get.current.fields.graphicWidthMobile }}" min="0">
+        </div>
+</form>

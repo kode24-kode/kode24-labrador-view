@@ -1,0 +1,87 @@
+<article {{ #helper.trim }}
+    data-element-guid="{{ get.current.guid }}"
+    class="column
+        {{ #style.collection }}box_decoration{{ /style.collection }}
+        {{ #get.current.filtered.paywall }}paywall{{ /get.current.filtered.paywall }}
+        {{ size.grid.css }}
+        {{ size.grid.absCss }}
+        {{ get.current.filtered.autodata_css }}"
+    {{ #get.current.filtered.autodata_attributes }} {{ key }}="{{ value }}"{{ /get.current.filtered.autodata_attributes }} 
+    data-site-alias="{{ get.current.filtered.site_alias }}" 
+    data-section="{{ get.current.filtered.section }}" 
+    data-instance="{{ get.current.instance_of }}{{ ^get.current.instance_of }}{{ get.current.id }}{{ /get.current.instance_of }}" 
+    {{ #get.child.image.fields.float }}data-image-float="{{ get.child.image.fields.float }}"{{ /get.child.image.fields.float }}
+    itemscope
+    {{ /helper.trim }}>
+    {{{ get.current.filtered.styleSheets }}}
+    <div class="{{ #helper.trim }}
+        content
+        {{ #style.collection }}content_decoration{{ /style.collection }}
+        {{ #get.current.metadata.image_gradient_direction }}image-gradient-{{ get.current.metadata.image_gradient_direction }}{{ /get.current.metadata.image_gradient_direction }}
+        {{ get.current.filtered.hoverEffectClasses }}
+        {{ #style.collection }}box_fullWidth{{ /style.collection }}
+        {{ /helper.trim }}" style="{{ #style.collection }}content_inline_style{{ /style.collection }}{{ #get.current.filtered.hoverEffectStyles }} {{ get.current.filtered.hoverEffectStyles }}{{ /get.current.filtered.hoverEffectStyles }}">
+        
+        {{#get.current.fields.published_url}}
+			<a itemprop="url"{{ #get.current.fields.open_in_new_window }} target="_blank"{{ /get.current.fields.open_in_new_window }} class="" href="{{{ get.current.fields.published_url }}}" data-k5a-url="{{{ get.current.filtered.canonical_url }}}" rel="{{ #get.current.filtered.addRelUgc }}ugc {{ /get.current.filtered.addRelUgc }}{{ #get.current.filtered.addRelSponsored }}sponsored {{ /get.current.filtered.addRelSponsored }}{{ #get.current.filtered.addRelNoFollow }}nofollow{{ /get.current.filtered.addRelNoFollow }}">
+		{{/get.current.fields.published_url}}
+
+        {{ #get.current.filtered.layout.top }}
+            {{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}
+        {{ /get.current.filtered.layout.top }}
+
+        <div class="media{{ #get.current.metadata.floatingTextSubset }} floatingTextSubset{{ /get.current.metadata.floatingTextSubset }} {{ #style.definition }}imageAlign child.image.fields.float{{ /style.definition }}{{ #get.current.fields.displayVideoArticleOverlay }} video-overlay{{ #get.current.fields.videoOverlayPosition }} video-overlay-pos-{{ get.current.fields.videoOverlayPosition }}{{ /get.current.fields.videoOverlayPosition }}{{ /get.current.fields.displayVideoArticleOverlay }}">
+            {{^get.current.metadata.hideimage}}
+                {{{ placeholder.no_media }}}
+
+                {{{ child.image }}}
+                {{{ child.graphic }}}
+                {{{ child.slideshow }}}
+                {{{ child.youtube }}}
+                {{{ child.simplestream }}}
+                {{{ child.markup }}}
+                {{{ child.parallax }}}
+                {{{ child.grid }}}
+            
+            {{/get.current.metadata.hideimage}}
+
+            <div class="floatingText">
+                {{ #get.current.filtered.layout.floating }}
+					{{ #get.parent.fields.useParagraphs }}
+						<p itemprop="headline" 
+							class="headline {{ #style.collection }}text_decoration fields.title{{ /style.collection }}"
+							style="{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}"
+							{{ #get.current.fields.title[animate] }}data-content="{{ #helper.sanitizeString }}{{{ get.current.filtered.title }}}{{ /helper.sanitizeString }}"{{ /get.current.fields.title[animate] }}>{{{ get.current.filtered.title }}}
+						</p>
+					{{ /get.parent.fields.useParagraphs }}
+
+					{{ ^get.parent.fields.useParagraphs }}
+                		{{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}
+					{{ /get.parent.fields.useParagraphs }}
+                {{ /get.current.filtered.layout.floating }}
+            </div>
+
+            {{ #get.current.metadata.enableAudio }}
+				{{ #render.template }}content/article/template/partials/audio{{ /render.template }}
+			{{ /get.current.metadata.enableAudio }}
+
+            {{ #get.current.filtered.paywallLabel }}
+				{{> partial/elements/paywallLabel }}
+			{{ /get.current.filtered.paywallLabel }}
+
+        </div>
+
+		{{ #get.current.filtered.layout.bottom }}
+			{{ #render.template }}content/article/template/partials/{{ . }}{{ /render.template }}
+		{{ /get.current.filtered.layout.bottom }}
+
+
+		{{ #get.current.filtered.paywallLabel }}
+			{{> partial/elements/paywallLabel }}
+		{{ /get.current.filtered.paywallLabel }}
+
+        {{#get.current.fields.published_url}}
+			</a>
+		{{/get.current.fields.published_url}}
+    </div>
+</article>

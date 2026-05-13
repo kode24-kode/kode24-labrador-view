@@ -30,6 +30,11 @@
                 "template": {
                     "default": "content/article/template/articleList"
                 }
+            },
+            "scrollbox": {
+                "template": {
+                    "default": "content/article/template/scrollbox"
+                }
             }
         }
     },

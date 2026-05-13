@@ -234,6 +234,13 @@
                     ]
                 }
             },
+            "recipe": {
+                "properties": {
+                    "default": [
+                        "content/recipe/editor/image.json"
+                    ]
+                }
+            },
             "text_multiline": {
                 "properties": {
                     "default": [

@@ -1,4 +1,5 @@
 import { DateTimeHelper } from '../../lib/helpers/datetime/DateTimeHelper.js';
+import { TermHelper } from '../../lib/helpers/TermHelper.js';
 
 export default class ArticlesByTag {
 
@@ -22,7 +23,7 @@ export default class ArticlesByTag {
             title: true,
             subtitle: true,
             published: false,
-			counter: false
+            counter: false
         };
         const editDisplayOptions = [];
         const selectedDisplayOptions = model.get('fields.displayOptions_json') || {};
@@ -53,7 +54,7 @@ export default class ArticlesByTag {
         model.setFiltered('tagPagePath', lab_api.v1.config.get('tagPagePath') || '/tag/');
         model.setFiltered('limit', query_json.limit || 10);
 
-        const setQuery = (m, tags, mode) => {
+        const setQuery = (m, tags, mode, useSection = false) => {
             const sanitizedTags = [];
 
             if (Array.isArray(tags)) {
@@ -67,7 +68,13 @@ export default class ArticlesByTag {
 
             const id = this.rootModel.get('id');
             let queryString;
-            if (m.get('fields.useApiQuery') && m.get('fields.apiQuery')) {
+            if (useSection) {
+                const section = this.rootModel.get('primaryTags.section') || this.rootModel.get('fields.defaultsection');
+                if (section) {
+                    const sanitizedSection = section.replace(/([\(\)\s+])/g, '\\$1').toLowerCase();
+                    queryString = `section:"${ sanitizedSection }" AND published:[* TO NOW] AND NOT id:${ id }`;
+                }
+            } else if (m.get('fields.useApiQuery') && m.get('fields.apiQuery')) {
 
                 const query = m.get('fields.apiQuery')
                     .replace(/\b(AND|OR|NOT)\b/g, '__$1__')
@@ -97,11 +104,13 @@ export default class ArticlesByTag {
         if (!this.isEditor) {
             model.setFiltered('lazyloadImages', lab_api.v1.config.get('imageLoading.lazy') || false);
 
-            const section = this.rootModel.get('primaryTags.section');
+            const section = this.rootModel.get('primaryTags.section') || this.rootModel.get('fields.defaultsection');
             let tags = [];
             tags = (this.rootModel.get('tags') || []).filter((tag) => tag !== section);
 
-            if (model.get('fields.usePageTags')) {
+            if (model.get('fields.usePageSection')) {
+                setQuery(model, [], 'published', true);
+            } else if (model.get('fields.usePageTags')) {
                 setQuery(model, tags, 'published');
             } else if (model.get('fields.useApiQuery') && model.get('fields.apiQuery')) {
                 setQuery(model, '', 'published');
@@ -134,8 +143,13 @@ export default class ArticlesByTag {
             model.setFiltered('siteOptions', siteOptions);
             model.setFiltered('editDisplayOptions', editDisplayOptions);
 
+            const tagsAsTerms = lab_api.v1.properties.get('tags_as_terms');
+            const termCollection = lab_api.v1.properties.get('tag_term_collection') || 'keyword';
+
             const updateTags = () => {
-                if (model.get('fields.useApiQuery')) {
+                if (model.get('fields.usePageSection')) {
+                    setQuery(model, [], 'edit', true);
+                } else if (model.get('fields.useApiQuery')) {
                     setQuery(model, '', 'edit');
                 } else {
                     let tags = [];
@@ -152,12 +166,19 @@ export default class ArticlesByTag {
                         });
                     }
                     setQuery(model, tags, 'edit');
+
+                    if (tagsAsTerms && tags.length > 0) {
+                        TermHelper.fetchTermsByNames(`section,${termCollection}`, tags).then((terms) => {
+                            model.set('fields.selectedTerms_json', terms, { save: false });
+                        }).catch(() => {});
+                    }
                 }
             };
 
-            // Unset fields.usePageTags when editing tags-field:
+            // Unset fields.usePageTags and fields.usePageSection when editing tags-field:
             const updateTagsString = () => {
                 model.set('fields.usePageTags', false);
+                model.set('fields.usePageSection', false);
                 updateTags();
             };
 
@@ -165,8 +186,9 @@ export default class ArticlesByTag {
             if (!this.boundIds[guid]) {
                 this.boundIds[guid] = true;
                 this.api.v1.model.bindings.bind(this.rootModel, 'tags', updateTags);
+                this.api.v1.model.bindings.bind(this.rootModel, 'primaryTags.section', updateTags);
                 this.api.v1.model.bindings.bind(model, 'fields.usePageTags', updateTags);
-                this.api.v1.model.bindings.bind(model, 'fields.usePageTags', updateTags);
+                this.api.v1.model.bindings.bind(model, 'fields.usePageSection', updateTags);
                 this.api.v1.model.bindings.bind(model, 'fields.tagsString', updateTagsString);
             }
 

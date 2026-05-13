@@ -106,8 +106,8 @@
         },
         "header": {
             "logo_link_text": "Gå til forside",
-			"menuScrollerLeftButton": "Rul til venstre",
-			"menuScrollerRightButton": "Rul til højre"
+            "menuScrollerLeftButton": "Rul til venstre",
+            "menuScrollerRightButton": "Rul til højre"
         },
         "slack_notifier": {
             "publish": {
@@ -156,6 +156,9 @@
             "labelMostRead": "Mest læste",
             "titleMostRead": "Mest læste artikler"
         },
+        "authorLatestArticles": {
+            "noBylines": "Ingen bylines fundet i artiklen"
+        },
         "infiniteScroll": {
             "readMore": "Fortsæt med at læse"
         },
@@ -171,13 +174,17 @@
                 "talandeWebb": "Åbn Talande Webb-indstillingspanelet",
                 "bluesky": "Del på Bluesky",
                 "reddit": "Del på Reddit",
-                "whatsapp": "Del på WhatsApp"
+                "whatsapp": "Del på WhatsApp",
+                "print": "Udskriv side",
+                "googlenews": "Åbn Google News-siden"
             }
         },
         "gallery": {
             "label": "Galleri",
             "seeAllImages": "Se alle billeder",
-            "navigateToOriginal": "Gå til originalside"
+            "navigateToOriginal": "Gå til originalside",
+            "imageCountText": "billeder",
+            "autoDescription": "{{ n }} billeder fra \"{{ title }}\""
         },
         "weather": {
             "failedToFetch": "Kunne ikke hente vejroplysninger",
@@ -197,6 +204,20 @@
                 "wind": "Blæst",
                 "unknown": "Ukendt"
             }
+        },
+        "recipe": {
+            "prepTimeLabel": "Forberedelsestid:",
+            "cookTimeLabel": "Kogetid:",
+            "totalTimeLabel": "Samlet tid:",
+            "recipeYieldLabel": "Portioner:",
+            "keywordsLabel": "Nøgleord:",
+            "caloriesLabel": "Kalorier:",
+            "dishLabel": "Ret:",
+            "cuisineLabel": "Køkken:",
+            "printButton": "Udskriv",
+            "publishedDate": "Udgivelsesdato:",
+            "ingredientsTitle": "Ingredienser",
+            "instructionsTitle": "Fremgangsmåde"
         }
     }
 }

@@ -995,27 +995,35 @@
             },
             "compactDisplay": {
                 "path": "metadata.compactDisplay",
-                "items": [{
-                    "value": "compactDisplay"
-                }]
+                "items": [
+                    {
+                        "value": "compactDisplay"
+                    }
+                ]
             },
             "horizontalSubArticles": {
                 "path": "metadata.horizontalSubArticles",
-                "items": [{
-                    "value": "horizontalSubArticles"
-                }]
+                "items": [
+                    {
+                        "value": "horizontalSubArticles"
+                    }
+                ]
             },
             "subArticlesNextToFloatingImage": {
                 "path": "metadata.subArticlesNextToFloatingImage",
-                "items": [{
-                    "value": "subArticlesNextToFloatingImage"
-                }]
+                "items": [
+                    {
+                        "value": "subArticlesNextToFloatingImage"
+                    }
+                ]
             },
             "subArticlesShowBulletIcons": {
                 "path": "metadata.subArticlesShowBulletIcons",
-                "items": [{
-                    "value": "subArticlesShowBulletIcons"
-                }]
+                "items": [
+                    {
+                        "value": "subArticlesShowBulletIcons"
+                    }
+                ]
             },
             "subimagePlacement": {
                 "requirePath": false,
@@ -1128,6 +1136,178 @@
                         "value": "mobile-hasBorder"
                     }
                 ]
+            },
+            "hideQuotationMark": {
+                "path": "metadata.hideQuotationMark",
+                "items": [
+                    {
+                        "value": "hideQuotationMark"
+                    }
+                ]
+            },
+            "hideBlockLine": {
+                "path": "metadata.hideBlockLine",
+                "items": [
+                    {
+                        "value": "hideBlockLine"
+                    }
+                ]
+            },
+            "quotationMarkColor": {
+                "path": "metadata.quotationMarkColor",
+                "items": [
+                    {
+                        "value": "quotationMarkColor"
+                    }
+                ]
+            },
+            "customQuotationMarkColor": {
+                "path": "metadata.customQuotationMarkColor",
+                "items": [
+                    {
+                        "value": "customQuotationMarkColor"
+                    }
+                ]
+            },
+            "blockLineColor": {
+                "path": "metadata.blockLineColor",
+                "items": [
+                    {
+                        "value": "blockLineColor"
+                    }
+                ]
+            },
+            "customblockLineColor": {
+                "path": "metadata.customblockLineColor",
+                "items": [
+                    {
+                        "value": "customblockLineColor"
+                    }
+                ]
+            },
+            "hasTextColor": {
+                "requirePath": true,
+                "path": "text_color",
+                "items": [
+                    {
+                        "viewport": "desktop",
+                        "fallback": ["mobile", "no_viewport"],
+                        "value": "hasTextColor"
+                    },
+                    {
+                        "viewport": "mobile",
+                        "fallback": ["desktop", "no_viewport"],
+                        "value": "hasTextColorMobile"
+                    }
+                ]
+            },
+            "hasCustomTextColor": {
+                "requirePath": true,
+                "path": "custom_text_color",
+                "items": [
+                    {
+                        "value": "hasTextColor"
+                    },
+                    {
+                        "value": "hasTextColorMobile"
+                    }
+                ]
+            },
+            "activeTabBackgroundColor": {
+                "path": "metadata.activeTabBackgroundColor",
+                "items": [
+                    {
+                        "value": "activeTabBackgroundColor"
+                    }
+                ]
+            },
+            "customActiveTabBackgroundColor": {
+                "path": "metadata.customActiveTabBackgroundColor",
+                "items": [
+                    {
+                        "value": "customActiveTabBackgroundColor"
+                    }
+                ]
+            },
+            "activeTabTextColor": {
+                "path": "metadata.activeTabTextColor",
+                "items": [
+                    {
+                        "value": "activeTabTextColor"
+                    }
+                ]
+            },
+            "inactiveTabHoverBackgroundColor": {
+                "path": "metadata.inactiveTabHoverBackgroundColor",
+                "items": [
+                    {
+                        "value": "inactiveTabHoverBackgroundColor"
+                    }
+                ]
+            },
+            "customInactiveTabHoverBackgroundColor": {
+                "path": "metadata.customInactiveTabHoverBackgroundColor",
+                "items": [
+                    {
+                        "value": "customInactiveTabHoverBackgroundColor"
+                    }
+                ]
+            },
+            "inactiveTabHoverTextColor": {
+                "path": "metadata.inactiveTabHoverTextColor",
+                "items": [
+                    {
+                        "value": "inactiveTabHoverTextColor"
+                    }
+                ]
+            },
+            "listBorderColor": {
+                "path": "metadata.listBorderColor",
+                "items": [
+                    {
+                        "value": "listBorderColor"
+                    }
+                ]
+            },
+            "customListBorderColor": {
+                "path": "metadata.customListBorderColor",
+                "items": [
+                    {
+                        "value": "customListBorderColor"
+                    }
+                ]
+            },
+            "siteNameBackgroundColor": {
+                "path": "metadata.siteNameBackgroundColor",
+                "items": [
+                    {
+                        "value": "siteNameBackgroundColor"
+                    }
+                ]
+            },
+            "customSiteNameBackgroundColor": {
+                "path": "metadata.customSiteNameBackgroundColor",
+                "items": [
+                    {
+                        "value": "customSiteNameBackgroundColor"
+                    }
+                ]
+            },
+            "tagBackgroundColor": {
+                "path": "metadata.tagBackgroundColor",
+                "items": [
+                    {
+                        "value": "tagBackgroundColor"
+                    }
+                ]
+            },
+            "customTagBackgroundColor": {
+                "path": "metadata.customTagBackgroundColor",
+                "items": [
+                    {
+                        "value": "customTagBackgroundColor"
+                    }
+                ]
             }
         },
         "collections": {
@@ -1150,7 +1330,9 @@
                     "animate",
                     "dacBtn",
                     "hasTextPadding",
-                    "hasTextPaddingCustom"
+                    "hasTextPaddingCustom",
+                    "hasTextColor",
+                    "hasCustomTextColor"
                 ]
             },
             "text_decoration_inline_style": {
@@ -1270,6 +1452,9 @@
                         "path": "fields.author"
                     },
                     {
+                        "path": "fields.name"
+                    },
+                    {
                         "path": "fields.quote"
                     },
                     {
@@ -1308,6 +1493,9 @@
                         "path": "fields.author"
                     },
                     {
+                        "path": "fields.name"
+                    },
+                    {
                         "path": "fields.quote"
                     },
                     {
@@ -1344,6 +1532,9 @@
                     },
                     {
                         "path": "fields.author"
+                    },
+                    {
+                        "path": "fields.name"
                     },
                     {
                         "path": "fields.quote"
@@ -1392,6 +1583,9 @@
                         "path": "fields.author"
                     },
                     {
+                        "path": "fields.name"
+                    },
+                    {
                         "path": "fields.quote"
                     },
                     {
@@ -1428,6 +1622,9 @@
                     },
                     {
                         "path": "fields.author"
+                    },
+                    {
+                        "path": "fields.name"
                     },
                     {
                         "path": "fields.quote"
@@ -1468,6 +1665,9 @@
                         "path": "fields.author"
                     },
                     {
+                        "path": "fields.name"
+                    },
+                    {
                         "path": "fields.quote"
                     },
                     {
@@ -1504,6 +1704,9 @@
                     },
                     {
                         "path": "fields.author"
+                    },
+                    {
+                        "path": "fields.name"
                     },
                     {
                         "path": "fields.quote"
@@ -1544,6 +1747,9 @@
                         "path": "fields.author"
                     },
                     {
+                        "path": "fields.name"
+                    },
+                    {
                         "path": "fields.quote"
                     },
                     {
@@ -1580,6 +1786,9 @@
                     },
                     {
                         "path": "fields.author"
+                    },
+                    {
+                        "path": "fields.name"
                     },
                     {
                         "path": "fields.quote"
@@ -1620,6 +1829,9 @@
                         "path": "fields.author"
                     },
                     {
+                        "path": "fields.name"
+                    },
+                    {
                         "path": "fields.quote"
                     },
                     {
@@ -1653,6 +1865,9 @@
                     },
                     {
                         "path": "fields.author"
+                    },
+                    {
+                        "path": "fields.name"
                     },
                     {
                         "path": "fields.quote"
@@ -1690,6 +1905,9 @@
                         "path": "fields.author"
                     },
                     {
+                        "path": "fields.name"
+                    },
+                    {
                         "path": "fields.quote"
                     },
                     {
@@ -1723,6 +1941,9 @@
                     },
                     {
                         "path": "fields.author"
+                    },
+                    {
+                        "path": "fields.name"
                     },
                     {
                         "path": "fields.quote"
@@ -1760,6 +1981,9 @@
                         "path": "fields.author"
                     },
                     {
+                        "path": "fields.name"
+                    },
+                    {
                         "path": "fields.quote"
                     },
                     {
@@ -1793,6 +2017,9 @@
                     },
                     {
                         "path": "fields.author"
+                    },
+                    {
+                        "path": "fields.name"
                     },
                     {
                         "path": "fields.quote"
@@ -2176,6 +2403,14 @@
                         }
                     },
                     {
+                        "path": "metadata.subtitleAboveImage",
+                        "values": {
+                            "no_viewport": null,
+                            "desktop": null,
+                            "mobile": null
+                        }
+                    },
+                    {
                         "path": "metadata.floatingSubtitle",
                         "values": {
                             "no_viewport": null,
@@ -2239,6 +2474,12 @@
                     },
                     {
                         "path": "metadata.sub_hideSubtitle"
+                    },
+                    {
+                        "path": "metadata.imageHoverScale"
+                    },
+                    {
+                        "path": "metadata.imageHoverFilter"
                     }
                 ]
             },
@@ -2337,6 +2578,144 @@
             },
             {
                 "definition": "hasBorder"
+            },
+            {
+                "definition": "hideQuotationMark"
+            },
+            {
+                "definition": "hideBlockLine"
+            },
+            {
+                "definition": "quotationMarkColor"
+            },
+            {
+                "definition": "customQuotationMarkColor"
+            },
+            {
+                "definition": "blockLineColor"
+            },
+            {
+                "definition": "customBlockLineColor"
+            },
+            {
+                "definition": "hasTextColor",
+                "data": [
+                    {
+                        "path": "fields.title"
+                    },
+                    {
+                        "path": "fields.subtitle"
+                    },
+                    {
+                        "path": "fields.kicker"
+                    },
+                    {
+                        "path": "fields.text"
+                    }
+                ]
+            },
+            {
+                "definition": "hasCustomTextColor",
+                "data": [
+                    {
+                        "path": "fields.title"
+                    },
+                    {
+                        "path": "fields.subtitle"
+                    },
+                    {
+                        "path": "fields.kicker"
+                    },
+                    {
+                        "path": "fields.text"
+                    }
+                ]
+            },
+            {
+                "targets": ["recipe"],
+                "data": [
+                    {
+                        "path": "metadata.imagePosition",
+                        "values": {
+                            "no_viewport": null,
+                            "desktop": null,
+                            "mobile": null
+                        }
+                    },
+                    {
+                        "path": "metadata.hideName"
+                    },
+                    {
+                        "path": "metadata.hideDescription"
+                    },
+                    {
+                        "path": "metadata.hideAuthor"
+                    },
+                    {
+                        "path": "metadata.hideImage"
+                    },
+                    {
+                        "path": "metadata.hidePrepTime"
+                    },
+                    {
+                        "path": "metadata.hideCookTime"
+                    },
+                    {
+                        "path": "metadata.hideTotalTime"
+                    },
+                    {
+                        "path": "metadata.hideRecipeYield"
+                    },
+                    {
+                        "path": "metadata.showDatePublished"
+                    },
+                    {
+                        "path": "metadata.showKeywords"
+                    }
+                ]
+            },
+            {
+                "definition": "activeTabBackgroundColor"
+            },
+            {
+                "definition": "customActiveTabBackgroundColor"
+            },
+            {
+                "definition": "activeTabTextColor"
+            },
+            {
+                "definition": "inactiveTabHoverBackgroundColor"
+            },
+            {
+                "definition": "customInactiveTabHoverBackgroundColor"
+            },
+            {
+                "definition": "inactiveTabHoverTextColor"
+            },
+            {
+                "definition": "listBorderColor"
+            },
+            {
+                "definition": "customListBorderColor"
+            },
+            {
+                "definition": "siteNameBackgroundColor"
+            },
+            {
+                "definition": "customSiteNameBackgroundColor"
+            },
+            {
+                "definition": "tagBackgroundColor"
+            },
+            {
+                "definition": "customTagBackgroundColor"
+            },
+            {
+                "data": [
+                    {
+                        "path": "metadata.elementClass"
+                    }
+                ]
             }
         ],
         "presets": {}

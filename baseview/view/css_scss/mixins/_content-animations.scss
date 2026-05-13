@@ -1,0 +1,183 @@
+///
+/// Text content animation styles.
+/// @include text-animation-styles from within a text element selector to apply
+/// scroll, flash, and breaking-dot animations via CSS classes.
+///
+
+@keyframes dac-text-slider {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes dac-text-flash {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0;
+        transform: scale(15);
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+        box-shadow:
+            0 0 0 1px var(--pulse-color, rgba(255, 0, 0, 1)),
+            0 0 0 2px var(--pulse-color, rgba(255, 0, 0, 0.7)),
+            0 0 0 3px var(--pulse-color, rgba(255, 0, 0, 0.5));
+    }
+
+    50% {
+        transform: translateY(-50%) scale(1.1);
+        opacity: 0.5;
+        box-shadow:
+            0 0 0 2px var(--pulse-color, rgba(255, 0, 0, 0.5)),
+            0 0 0 3px var(--pulse-color, rgba(255, 0, 0, 0.3)),
+            0 0 0 4px var(--pulse-color, rgba(255, 0, 0, 0.1));
+    }
+
+    100% {
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+        box-shadow:
+            0 0 0 1px var(--pulse-color, rgba(255, 0, 0, 1)),
+            0 0 0 2px var(--pulse-color, rgba(255, 0, 0, 0.7)),
+            0 0 0 3px var(--pulse-color, rgba(255, 0, 0, 0.5));
+    }
+}
+
+/// Outputs animation CSS classes for a text element.
+/// Call this from within the selector of the element that receives the animation class,
+/// e.g. `.headline { @include text-animation-styles; }` will generate `.headline.animate`,
+/// `.headline.flash`, `.headline.breaking-white`, etc.
+@mixin text-animation-styles {
+    &.animate {
+        position: relative;
+        animation: dac-text-slider 4s infinite linear;
+
+        &:before,
+        &:after {
+            content: attr(data-content);
+            position: absolute;
+            left: -100%;
+            background-color: inherit;
+            width: 100%;
+            padding: inherit;
+            top: 0;
+        }
+
+        &:after {
+            left: 100%;
+        }
+    }
+
+    &.flash {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+
+        &:before {
+            content: "";
+            background-color: #0093c8;
+            border-radius: 100%;
+            animation-duration: 3s;
+            animation-name: dac-text-flash;
+            animation-timing-function: ease-out;
+            animation-iteration-count: infinite;
+            animation-fill-mode: forwards;
+            height: 1em;
+            left: 0;
+            position: absolute;
+            top: 50%;
+            width: 1em;
+            z-index: 1;
+            margin-top: -0.5em;
+        }
+
+        &.align-center:before {
+            left: 50%;
+            margin-left: -0.5em;
+        }
+
+        &.align-right:before {
+            left: auto;
+            right: 0;
+        }
+    }
+
+    &.breaking-white,
+    &.breaking-red {
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding-left: max(35px, 0.5em) !important;
+
+        &::before {
+            content: '';
+            width: 0.3em;
+            height: 0.3em;
+            position: absolute;
+            top: 50%;
+            left: 12px;
+            border-radius: 50%;
+            border: 0.05em solid white;
+            transform: translateY(-50%);
+        }
+    }
+
+    &.breaking-white {
+        --pulse-color: rgba(255, 255, 255, 0.2);
+
+        &::before {
+            background-color: white;
+            border: 0.05em solid black;
+            box-shadow: 0 0 0 3px black;
+            animation: pulse 1s infinite;
+        }
+    }
+
+    &.breaking-red {
+        --pulse-color: rgba(255, 0, 0, 0.2);
+
+        &::before {
+            background-color: red;
+            box-shadow:
+                0 0 0 1px var(--pulse-color),
+                0 0 0 2px var(--pulse-color),
+                0 0 0 3px var(--pulse-color);
+            animation: pulse 1s infinite;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &.flash,
+        &.animate,
+        &.breaking-red,
+        &.breaking-white {
+            animation: none !important;
+
+            &::before,
+            &::after {
+                animation: none !important;
+            }
+        }
+
+        &.flash::before {
+            content: none;
+        }
+    }
+}

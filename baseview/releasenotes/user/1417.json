@@ -1,0 +1,446 @@
+{
+    "releasenotes": {
+        "version": {
+            "int": 1417,
+            "str": "1.4.17"
+        },
+        "items": [
+            {
+                "date": "20260420",
+                "title": "Layout positions restored in scrollbox",
+                "description": "Re-added top and bottom layout positions in scrollbox templates. This fixes an issue where custom styles could prevent elements like kickers from displaying properly when articles appear in scrollboxes.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1645",
+                "isBug": true
+            },
+            {
+                "date": "20260420",
+                "title": "Definition popup positioning fixed",
+                "description": "Fixed an issue where definition popups only worked on some articles due to page loading problems. Also prevented popups from overflowing on mobile devices by improving positioning logic.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1643",
+                "isBug": true
+            },
+            {
+                "date": "20260420",
+                "title": "Priority loading for images",
+                "description": "Added fetchpriority attribute to important images and graphics. When images appear high on the page and lazy loading is disabled, browsers now prioritize loading them first, improving First Contentful Paint performance.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1638",
+                "isImprovement": true
+            },
+            {
+                "date": "20260417",
+                "title": "Article subtitle HTML improved",
+                "description": "Changed article subtitles from H2 to paragraph tags for better semantics. This improves both accessibility and SEO, as H2 tags should denote major page sections, not subtitles. All styling is preserved with the .subtitle class.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1598",
+                "isImprovement": true
+            },
+            {
+                "date": "20260417",
+                "title": "Published hidden status in analytics",
+                "description": "Articles marked as \"published hidden\" now correctly reflect this status in Kilkaya analytics tracking. This ensures accurate reporting of article visibility and pageview statistics.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1551",
+                "isBug": true
+            },
+            {
+                "date": "20260417",
+                "title": "Alt text on article images",
+                "description": "Alternative text (alt text) from article images now appears when articles are displayed on front pages, in tag feeds, and when dragged to front pages. This improves accessibility and SEO across your entire site.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1640",
+                "isFeature": true
+            },
+            {
+                "date": "20260417",
+                "title": "Charset meta tag repositioned",
+                "description": "Moved the charset meta tag to the very top of page headers, within the first 1024 bytes. This prevents browsers from stopping and re-rendering with new encoding, improving both performance and security.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1592",
+                "isImprovement": true
+            },
+            {
+                "date": "20260417",
+                "title": "Custom tags hide option",
+                "description": "Added \"Hide on front\" option in Custom Tags admin. Useful for debugging when scripts cause issues, or for keeping special scripts/styles that you want to preserve but not currently use on your live site.",
+                "links": [
+                    "/settings/cp?page=customtags"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1635",
+                "isFeature": true
+            },
+            {
+                "date": "20260416",
+                "title": "Vimond video aspect ratio fixed",
+                "description": "Changed Vimond video aspect ratio from 45% to 56.25% (16:9). This ensures videos display with the correct proportions instead of appearing stretched or with incorrect dimensions in article embeds.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1629",
+                "isBug": true
+            },
+            {
+                "date": "20260416",
+                "title": "Video author attribution improved",
+                "description": "Updated byline property to use videoAuthor field from video metadata. This ensures video creators are properly credited in VP video embeds across your site.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1637",
+                "isImprovement": true
+            },
+            {
+                "date": "20260415",
+                "title": "JSON editing for more admin pages",
+                "description": "Added \"Edit JSON\" button to Font Style Editor, Font Editor, Custom Tags, and Ads admin pages. This gives advanced users direct access to configuration data when needed for troubleshooting or bulk changes.",
+                "links": [
+                    "/settings/cp?page=font_style_editor"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1557",
+                "isFeature": true
+            },
+            {
+                "date": "20260414",
+                "title": "Language switcher opens in new tab",
+                "description": "Added option in Multi Language settings to open translated pages in new tabs. When enabled, clicking a language in the switcher opens that version in a new tab, making it easier to compare content across languages.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1633",
+                "isFeature": true
+            },
+            {
+                "date": "20260413",
+                "title": "Text editor tanza integration fix",
+                "description": "Fixed the integration between the new text editor and Tanza proofreading service. The text editor now properly triggers Tanza activation and saves corrected content back to articles, ensuring the same proofreading workflow as the previous editor.",
+                "links": [
+                    "/settings/cp?page=tansa"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1610",
+                "isBug": true
+            },
+            {
+                "date": "20260410",
+                "title": "Border visibility options for article lists",
+                "description": "Added settings to hide borders in the 'articles by tag' module. You can now remove the outer border around the entire box and the inner borders between individual articles for a cleaner, more integrated look.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1620",
+                "isFeature": true
+            },
+            {
+                "date": "20260410",
+                "title": "Byline placement options in teasers",
+                "description": "Added flexible byline placement options for article teasers. You can now position bylines above the article title or floating above the teaser image. A new option to hide byline images is also available, particularly useful for floating layouts.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1627",
+                "isFeature": true
+            },
+            {
+                "date": "20260410",
+                "title": "Custom graphic sizing and alignment",
+                "description": "Graphics in teasers and images now support custom width settings for desktop and mobile devices, with alignment options including left, right, and center. This gives you precise control over how graphics appear across different screen sizes.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1529",
+                "isFeature": true
+            },
+            {
+                "date": "20260409",
+                "title": "Enhanced tag page data",
+                "description": "Improved tag and section information available on tag pages. The system now correctly identifies subsection tag pages and provides proper term data for scripts and integrations, including fallback to primary tags when needed.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1602",
+                "isImprovement": true
+            },
+            {
+                "date": "20260409",
+                "title": "Gallery and video player fixes",
+                "description": "Fixed video player captions and bylines to properly display video titles and author information. Added separate contain settings for slideshow images in gallery pages, and fixed a template typo in scrollbox.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1624",
+                "isBug": true
+            },
+            {
+                "date": "20260408",
+                "title": "Sitemap image quality improvement",
+                "description": "Increased sitemap image size from 500px to 1200px for better quality in search engine results and social media previews. Also fixed a minor template typo in scrollbox content.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1618",
+                "isImprovement": true
+            },
+            {
+                "date": "20260408",
+                "title": "A/B testing improvements",
+                "description": "Fixed multiple issues with A/B testing including: variant images now publish correctly to the front server, test status indicators update in real-time without requiring page refresh, the system handles race conditions when publishing tests immediately after creation, and the end test button is now available when appropriate. Variant names and images are sent correctly to the analytics provider, and stale test data is handled gracefully.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1606",
+                "isBug": true
+            },
+            {
+                "date": "20260408",
+                "title": "Section and subsection display options",
+                "description": "Added the ability to display article subsections in the header next to the published date, with optional linking to subsection tag pages. Also added a new placement option to show sections within the dateline instead of only above or below images. Section labels can now use term display names when configured.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1594",
+                "isFeature": true
+            },
+            {
+                "date": "20260407",
+                "title": "Hide comment button when Collabrador inactive",
+                "description": "The 'Add comment' button in the rich text toolbar now correctly hides when the Collabrador collaboration feature is not active, matching the behavior of comment buttons elsewhere in the editor. Note: Collabrador is still in development and not yet available for production use.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1613",
+                "isImprovement": true
+            },
+            {
+                "date": "20260407",
+                "title": "Hide published and modified dates",
+                "description": "The 'Hide published date' setting in Article Settings now also hides the modified date when enabled, ensuring both dates are controlled by a single setting. The setting has been renamed to 'Hide published/modified date' for clarity.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1603",
+                "isBug": true
+            },
+            {
+                "date": "20260407",
+                "title": "Enhanced timezone support",
+                "description": "Sites can now configure IANA timezone identifiers (e.g., 'Asia/Seoul', 'America/New_York') in their config to display article timestamps correctly for any timezone, regardless of daylight saving time rules. This fixes incorrect date displays for regions that don't observe DST or follow different DST schedules than Europe.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1597",
+                "isFeature": true
+            },
+            {
+                "date": "20260330",
+                "title": "Improved byline selection interface",
+                "description": "The Author Pages admin interface now features a searchable byline picker instead of a manual ID input field. Admins can search for authors by name and add them with a click, making it much easier to enable author pages without needing to look up byline IDs.",
+                "links": [
+                    "/settings/cp?page=authorPages"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1604",
+                "isImprovement": true
+            },
+            {
+                "date": "20260326",
+                "title": "NTB export feature",
+                "description": "Added NTB Export functionality to article settings, allowing articles to be exported to NTB news service. Includes an export button with timestamp tracking for the last export date. This feature requires a subscription from NTB.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1593",
+                "isFeature": true
+            },
+            {
+                "date": "20260326",
+                "title": "Enhanced search styling options",
+                "description": "The search element now supports displaying text alongside the search icon by adding 'textBeforeIcon' or 'textAfterIcon' options in the config. Text labels can appear before or after the icon for improved usability.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1600",
+                "isFeature": true
+            },
+            {
+                "date": "20260326",
+                "title": "Google News page link option",
+                "description": "Added an option to display a link to your publication's Google News page in the social media share row. The link can be configured with a custom URL from the Google News Publisher Center.",
+                "links": [
+                    "/settings/cp?page=articleSettings"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1595",
+                "isFeature": true
+            },
+            {
+                "date": "20260325",
+                "title": "Alt text support for graphics",
+                "description": "Graphics now support custom alt text for accessibility. Editors can add descriptive alt text via the graphic element settings modal to improve screen reader compatibility.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1587",
+                "isFeature": true
+            },
+            {
+                "date": "20260323",
+                "title": "Fixed text transform styling",
+                "description": "Corrected an issue where the 'text-transform' CSS property was not applying correctly when set to 'default' value. Text transformation styles now work as expected in all cases.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1581",
+                "isBug": true
+            },
+            {
+                "date": "20260320",
+                "title": "Opti Digital ad unit support",
+                "description": "Added support for custom ID field in Opti Digital ad placements, which is required for their ad units to function properly.",
+                "links": [
+                    "/settings/cp?page=ads"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1585",
+                "isImprovement": true
+            },
+            {
+                "date": "20260318",
+                "title": "Scrollbox paragraph option",
+                "description": "Scrollboxes can now use paragraph tags instead of heading tags for titles, providing better semantic HTML structure when appropriate. This option applies to both the scrollbox title and article titles within the scrollbox.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1584",
+                "isFeature": true
+            },
+            {
+                "date": "20260318",
+                "title": "Vertical gallery scrolling",
+                "description": "Gallery pages now support vertical scrolling mode on mobile devices when enabled in admin settings. Images display in a vertical stack instead of horizontal swipe, providing a more natural mobile browsing experience.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1577",
+                "isFeature": true
+            },
+            {
+                "date": "20260318",
+                "title": "Author latest articles element",
+                "description": "Added a new 'Author Latest Articles' element that automatically displays recent articles from the same author(s) as the current article. Configurable options include article count, date range, image display, kickers, dates, and subtitles. Perfect for keeping readers engaged with more content from authors they're interested in.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1569",
+                "isFeature": true
+            },
+            {
+                "date": "20260317",
+                "title": "Enhanced toplist styling",
+                "description": "Toplists now have comprehensive color customization options including active tab background and text colors, inactive tab hover states, list border colors, site name background colors, and tag/section background colors. This gives full control over toplist appearance to match your brand design.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1572",
+                "isFeature": true
+            },
+            {
+                "date": "20260317",
+                "title": "Additional timeline font styles",
+                "description": "Added styling options for timeline element components including title, item time, item title, and item text. This provides better control over timeline appearance and typography.",
+                "links": [
+                    "/settings/cp?page=font_style_editor"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1573",
+                "isImprovement": true
+            },
+            {
+                "date": "20260317",
+                "title": "Fixed mobile byline image scaling",
+                "description": "Corrected an issue where byline images on mobile were being cropped improperly. Images now scale correctly at 8vw width instead of being fixed at 30px.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1579",
+                "isBug": true
+            },
+            {
+                "date": "20260317",
+                "title": "Custom CSS classes for elements",
+                "description": "Editors can now add custom CSS classes to any element via the contextual menu. This provides better targeting for custom styling without needing developer intervention. Classes are saved to the element and applied consistently on both editor and published pages.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1566",
+                "isFeature": true
+            },
+            {
+                "date": "20260316",
+                "title": "Outbrain integration added",
+                "description": "Added Outbrain widget integration. A new admin setting allows configuring the Outbrain widget ID, and the widget is displayed on article pages when configured.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1576",
+                "isFeature": true
+            },
+            {
+                "date": "20260313",
+                "title": "Gallery content support expanded",
+                "description": "Galleries can now include front page content blocks in addition to images and ads. Debugging information has been added to help track dynamic content insertion.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1575",
+                "isImprovement": true
+            },
+            {
+                "date": "20260313",
+                "title": "Gallery navigation events fixed",
+                "description": "Fixed an issue where gallery navigation events were sometimes triggered multiple times when the gallery loaded. Navigation tracking is now more accurate.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1570",
+                "isBug": true
+            },
+            {
+                "date": "20260312",
+                "title": "Generic HTML element template",
+                "description": "Added a flexible generic HTML element template that allows creating custom elements through configuration. You can specify tag type, classes, attributes, and content without needing custom templates.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1565",
+                "isFeature": true
+            },
+            {
+                "date": "20260312",
+                "title": "Tag attributes for styling",
+                "description": "Article tags now include data attributes on both article pages and within articles, making it easier to apply tag-specific styling and targeting.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1549",
+                "isImprovement": true
+            },
+            {
+                "date": "20260312",
+                "title": "Grid element support expanded",
+                "description": "Grid layouts can now contain articles-by-tag and toplist elements, providing more flexibility in page design and content organization.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1556",
+                "isImprovement": true
+            },
+            {
+                "date": "20260311",
+                "title": "AMP viewport support",
+                "description": "Full support for Accelerated Mobile Pages (AMP) has been added. Articles can now be rendered in AMP format for faster mobile loading and better SEO. The implementation includes AMP-compatible templates, social sharing, analytics integration (Google Analytics, comScore, Marfeel, GfK Sensic), and ad support. AMP can be enabled per site with customizable CSS and settings.",
+                "links": [
+                    "/settings/cp?page=ampSettings"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1524",
+                "isFeature": true
+            },
+            {
+                "date": "20260310",
+                "title": "Auto-insert admin hiding",
+                "description": "Configuration items with 'hideFromAdmin' set to true are now hidden in the admin interface, preventing complex manual configurations from appearing in the UI.",
+                "links": [
+                    "/settings/cp?page=autoInsert"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1552",
+                "isImprovement": true
+            },
+            {
+                "date": "20260309",
+                "title": "Text-to-speech index control",
+                "description": "Added an 'index' setting to text-to-speech configuration, allowing precise placement when multiple elements share the same bodytext position. Also hides text-to-speech settings in Article Settings when the feature is disabled globally.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1555",
+                "isImprovement": true
+            },
+            {
+                "date": "20260306",
+                "title": "Text-to-speech player added",
+                "description": "Articles can now include automated text-to-speech audio players. The feature supports BeyondWords integration with configurable video player options. Text-to-speech can be enabled globally and overridden per article, with options to hide the player in the editor.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1533",
+                "isFeature": true
+            },
+            {
+                "date": "20260306",
+                "title": "AP News urgency filtering",
+                "description": "AP News feeds can now be filtered by urgency level (1-8) and category. Settings are configurable in the admin panel for each feed.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1554",
+                "isImprovement": true
+            },
+            {
+                "date": "20260305",
+                "title": "News agency search restricted",
+                "description": "Searching external news agency articles now requires the 'dashboard_search_external' permission, providing better access control for this feature.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1474",
+                "isImprovement": true
+            },
+            {
+                "date": "20260305",
+                "title": "AP News integration added",
+                "description": "Added full integration with Associated Press (AP News) feed. Editors can browse AP articles with images and metadata, filter by category and urgency, navigate pages, and import articles directly into the CMS. The feed displays publication dates and existing article status.",
+                "links": [],
+                "pr": "https://github.com/publishlab/baseview/pull/1543",
+                "isFeature": true
+            },
+            {
+                "date": "20260305",
+                "title": "Print sharing option added",
+                "description": "Articles now include a print button in the social sharing options, allowing readers to easily print pages. The button can be enabled in article settings.",
+                "links": [
+                    "/settings/cp?page=articleSettings"
+                ],
+                "pr": "https://github.com/publishlab/baseview/pull/1550",
+                "isFeature": true
+            }
+        ]
+    }
+}

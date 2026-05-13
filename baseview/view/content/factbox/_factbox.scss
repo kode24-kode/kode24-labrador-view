@@ -2,12 +2,17 @@
 /* Style for contentbox factbox */
 // See view/content/factbox/filter.js for more info
 @use "../../css_scss/components/vars" as *;
+@use "../../css_scss/mixins/content-animations" as *;
 
 // $border-color: rgb(206, 206, 206);
 
 .factbox {
     .content {
         padding: $bg_text_padding;
+    }
+
+    .content > h2 {
+        @include text-animation-styles;
     }
 
     .content > h2 a {

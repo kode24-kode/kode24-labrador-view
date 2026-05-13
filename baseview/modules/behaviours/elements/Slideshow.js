@@ -15,7 +15,7 @@ export default class Slideshow {
         const imageList = [];
         let counter = 0;
         for (const child of model.getChildren()) {
-            if (child.getType() === 'image' || child.getType() === 'placeholder_ad') {
+            if (child.getType() === 'image' || child.getType() === 'placeholder_ad' || child.getType() === 'frontContent') {
                 const childView = this.api.v1.view.getView(child, view.getViewport());
                 const markup = childView.getMarkupString(); // Ensure the view is rendered to get any dynamic changes (e.g. lazy loading)
                 imageList.push({
@@ -29,8 +29,10 @@ export default class Slideshow {
                 }
             }
         }
+
+		model.set('fields.imageCount', imageList.length);
         model.setFiltered('imageList', imageList);
-        model.setFiltered('hasText', this.isEditor || (!!(model.get('fields.title') || model.get('fields.description'))));
+        model.setFiltered('hasText', this.isEditor || (!!(model.get('fields.title') || model.get('fields.description') || model.get('fields.gallery_display_total_images'))));
 
     }
 

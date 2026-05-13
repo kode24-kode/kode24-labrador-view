@@ -464,7 +464,8 @@
                 "controlkeys": [
                     "shiftKey"
                 ]
-            }
+            },
+            "validator": "collabrador.canRun"
         }
     }
 }

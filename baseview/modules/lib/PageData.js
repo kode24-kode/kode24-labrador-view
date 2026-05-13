@@ -52,6 +52,7 @@ export class PageData {
         exports.is_notice = PAGE_TYPE === 'notice';
         exports.is_front = PAGE_TYPE === 'front';
         exports.is_gallery = PAGE_TYPE === 'gallery';
+        exports.is_index = view.get('fields.hostpath') === 'index';
         exports.is_infiniteArticle = view.get('fields.page_template_alias') === 'infinitescroll';
         exports.section = view.get('primaryTags.section') || view.get('fields.defaultsection');
         exports.device = this.api.v1.viewport.getName();
@@ -65,15 +66,20 @@ export class PageData {
         exports.staticUrl = this.getStaticUrl(model, PAGE_TYPE, PAGE_ID, CUSTOMER_FRONT_URL);
         exports.customMetatags = this.getCustomMetatags();
         exports.footerSettings = this.api.v1.config.get('page_settings.footer');
+        exports.ampSettings = this.api.v1.config.get('page_settings.amp');
         exports.rssDescriptionPrefix = this.api.v1.config.get('viewports.rss.descriptionPrefix');
         exports.is_tagpage = IS_TAGPAGE;
         exports.contentLanguage = lab_api.v1.config.get('contentLanguage');
+        // if the publishhidden field is set to "1" then true otherwise false.
+        exports.publishhidden = view.get('fields.publishhidden') === '1';
 
         // Media.
         const logo = this.page.media.getLogo(view.getViewport());
         exports.logo = logo.current;
         exports.logo_sm = logo.sm;
         exports.logo_mm = logo.mm;
+        exports.logo_secondary = logo.secondary;
+        exports.logo_mobile = logo.mobile;
 
         // Note: Is this still used?
         exports.misc = this.api.v1.config.get('misc');
@@ -97,11 +103,47 @@ export class PageData {
             publishedUrl: URL
         });
 
+        // Set term of section and subsection
+        const mainterm = view.get('mainterm');
+        const term = view.get('term');
+        if (IS_TAGPAGE || (mainterm && mainterm.section)) {
+            const publishedUrl = view.get('fields.published_url') || '';
+
+            // tagSubSection: use mainterm section name if exists, otherwise empty
+            const tagSubSection = mainterm && mainterm.section && mainterm.section.name ? mainterm.section.name : '';
+            let tagPrimarySection = '';
+            let tagDisplayName = '';
+
+            if (mainterm && mainterm.section && mainterm.section.uriRootPath) {
+                // Find uriRootPath inside term if using terms instead of tags
+                tagPrimarySection = mainterm.section.uriRootPath.replace(/^\//, '').split('/')[0];
+            } else {
+                // Fallback: extract from published_url for regular pages
+                const urlSegments = publishedUrl.replace(/^\//, '').split('/').filter(seg => seg.length > 0);
+                tagPrimarySection = urlSegments.length > 0 ? urlSegments[0] : '';
+            }
+
+            if (mainterm && mainterm.section && mainterm.section.displayName) {
+                tagDisplayName = mainterm.section.displayName;
+            }
+
+            exports.tagDisplayName = tagDisplayName;
+            exports.tagSubSection = tagSubSection;
+            exports.tagPrimarySection = tagPrimarySection;
+
+            // Get subsection displayName
+            if (term && term.section && Array.isArray(term.section) && term.section.length > 0 && term.section[0].displayName) {
+                exports.termSectionDisplayName = term.section[0].displayName;
+            }
+        }
+
         // Set JSON-LD json string.
         const site_jsonld = seoHelper.generateSiteData(model);
         const jsonld = seoHelper.getStructuredData(model);
 
-        exports.jsonld = JSON.stringify([site_jsonld, jsonld]);
+        // jsonld can be a single object or an array (e.g., when ImageGallery returns [Article, Gallery])
+        const jsonldArray = Array.isArray(jsonld) ? jsonld : [jsonld];
+        exports.jsonld = JSON.stringify([site_jsonld, ...jsonldArray]);
 
         // Set SEO Data (title and description).
         const seoData = seoHelper.getSEOData(model);
@@ -176,7 +218,10 @@ export class PageData {
             talandeWebb: `ReachDeck.panel.toggleBar();`,
             bluesky: `https://bsky.app/intent/compose?text=${ encodeURIComponent(`${ exports.sometitle }\n`) }${ URL_ENCODED }`,
             reddit: `https://www.reddit.com/submit?url=${ URL_ENCODED }&title=${ encodeURIComponent(exports.sometitle) }`,
-            whatsapp: `https://api.whatsapp.com/send?text=${ encodeURIComponent(`${ exports.sometitle }\n${ URL }`) }`
+            whatsapp: `https://api.whatsapp.com/send?text=${ encodeURIComponent(`${ exports.sometitle }\n${ URL }`) }`,
+            telegram: `https://t.me/share/url?url=${ URL_ENCODED }&text=${ encodeURIComponent(exports.sometitle) }`,
+            print: 'window.print();',
+			googlenews: this.api.v1.config.get('page_settings.article.social.items.googlenews.url') || ''
         };
 
         // Set article tags and byline as comma separated string
@@ -286,14 +331,6 @@ export class PageData {
                     Sys.logger.warn(`[PageData] Failed to prepare Google ads: ${ error.toString() }`);
                 }
             }
-
-            // Let template know which ad environment and provider used.
-            exports.adEnvironment = { ...adEnv };
-            exports.adEnvironment[`is_${ adEnv.name }`] = true;
-            const providerName = adEnv.name === 'google' && adEnv.bidding && adEnv.bidding.provider && adEnv.bidding.provider.name
-                ? adEnv.bidding.provider.name
-                : 'none';
-            exports.adEnvironment[`is_provider_${ providerName }`] = true;
         }
 
         if (this.api.v1.util.request.hasQueryParam('fontpreview')) {

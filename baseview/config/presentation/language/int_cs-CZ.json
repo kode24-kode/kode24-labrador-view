@@ -1,0 +1,245 @@
+{
+    "int_cs-CZ": {
+        "dates": {
+            "sunday": "neděle",
+            "monday": "pondělí",
+            "tuesday": "úterý",
+            "wednesday": "středa",
+            "thursday": "čtvrtek",
+            "friday": "pátek",
+            "saturday": "sobota",
+            "january": "leden",
+            "february": "únor",
+            "march": "březen",
+            "april": "duben",
+            "may": "květen",
+            "june": "červen",
+            "july": "červenec",
+            "august": "srpen",
+            "september": "září",
+            "october": "říjen",
+            "november": "listopad",
+            "december": "prosinec",
+            "ago": "před",
+            "now": "nyní",
+            "minute": "minuta",
+            "min": "min",
+            "minutes": "minuty",
+            "hour": "hodina",
+            "hours": "hodiny",
+            "day": "den",
+            "days": "dny",
+            "durationSince": "před {{count}} {{period}}",
+            "monthdayyear": "{{D}}. {{MMMM}} {{YYYY}}",
+            "hourminute": "{{HH}}:{{mm}}",
+            "dateTime": "{{D}}. {{MMMM}} {{YYYY}} – {{HH}}:{{mm}}",
+            "articleScrollerPublishedDatePrefix": "",
+            "articleScrollerPublishedFormat": "{{DD}}.{{MM}} – {{HH}}:{{mm}}"
+        },
+        "newsletter": {
+            "generic": {
+                "signup": "Přihlásit se k odběru newsletteru",
+                "hiddenValue": "Registrace z webu",
+                "yourEmail": "Zadejte svůj e-mail",
+                "subscribeButton": "Odebírat"
+            },
+            "mailmojo": {
+                "title": "Newsletter",
+                "notice": "Tento e-mail dostáváte, protože jste přihlášeni k odběru.",
+                "preferences": "Vaše nastavení",
+                "unsubscribe": "Odhlásit odběr",
+                "view": "Otevřít v prohlížeči",
+                "date": "d. MMMM Y"
+            }
+        },
+        "embed": {
+            "embed_label": "Vložit",
+            "heading": "Vložit článek",
+            "description": "Zkopírujte a vložte níže uvedený HTML kód na stránku, kde chcete článek zobrazit.",
+            "label_teaser": "Náhled",
+            "label_full": "Celý článek",
+            "label_copy": "Kopírovat kód",
+            "title_customize": "Přizpůsobit vložený obsah",
+            "label_content_title": "Zobrazit titulek",
+            "label_content_subtitle": "Zobrazit podtitulek",
+            "label_content_image": "Zobrazit hlavní obrázek",
+            "label_content_padding": "Odsazení",
+            "label_content_sitelink": "Zobrazit odkaz na web",
+            "label_content_sitelinkLogo": "Zobrazit logo v odkazu na web",
+            "label_content_poweredby": "Zobrazit odkaz „Powered by“",
+            "text_code_copied": "Zkopírováno!",
+            "close": "Zavřít",
+            "page_sitelink_prefix": "Číst více",
+            "page_sitelink_postfix": ""
+        },
+        "ai": {
+            "factbox_disclaimer": "Tento faktografický box byl vygenerován pomocí Labrador AI a zkontrolován novinářem."
+        },
+        "tags": {
+            "title_text": "{{tagPath}}: {{ tag }}"
+        },
+        "search": {
+            "placeholder": "Hledat…",
+            "label": "Hledat",
+            "openText": "Hledat",
+            "closeText": "Zavřít",
+            "expandedLabel": "Zavřít vyhledávání",
+            "collapsedLabel": "Otevřít vyhledávání",
+            "labradorSearch": {
+                "submitLabel": "Hledat",
+                "navLabel": "Zobrazit více",
+                "nohitsLabel": "Žádné výsledky. Zkuste upravit hledání.",
+                "searchPlaceholder": "Zadejte hledaný výraz…",
+                "advancedOpenText": "Otevřít filtr",
+                "advancedCloseText": "Zavřít filtr",
+                "fromDateLabel": "Od data",
+                "toDateLabel": "Do data",
+                "tagLabel": "Štítek",
+                "authorLabel": "Autor",
+                "allSitesLabel": "Všechny weby"
+            }
+        },
+        "hamburger": {
+            "expandedLabel": "Zavřít menu",
+            "collapsedLabel": "Otevřít menu",
+            "buttonText": "Menu"
+        },
+        "header": {
+            "logo_link_text": "Přejít na úvodní stránku",
+            "menuScrollerLeftButton": "Posunout doleva",
+            "menuScrollerRightButton": "Posunout doprava"
+        },
+        "slack_notifier": {
+            "publish": {
+                "article": "*Článek publikován*\n*Název*: {{{title}}}\n*ID stránky*: {{id}}\n{{#modified}}*Datum*: {{modified}}\n{{/modified}}{{#published_ahead}}*Poznámka: Publikováno dopředu*\n{{/published_ahead}}{{#hidden}}*Publikováno skrytě*\n{{/hidden}}*Uživatel*: {{user}}\n*<{{{url_front}}}|Zobrazit stránku>* – *<{{{url_editor}}}|Upravit stránku>*",
+                "front": "*Úvodní stránka publikována*\n*Název*: {{{title}}}\n*ID stránky*: {{id}}\n*Datum*: {{modified}}\n{{#published_ahead}}*Poznámka: Publikováno dopředu*\n{{/published_ahead}}{{#hidden}}*Publikováno skrytě*\n{{/hidden}}*Uživatel*: {{user}}\n*<{{{url_front}}}|Zobrazit stránku>* – *<{{{url_editor}}}|Upravit stránku>*",
+                "notice": "*Oznámení publikováno*\n*Název*: {{{title}}}\n*ID stránky*: {{id}}\n*Datum*: {{modified}}{{#hidden}}*Publikováno skrytě*\n{{/hidden}}*Uživatel*: {{user}}\n*<{{{url_front}}}|Zobrazit stránku>* – *<{{{url_editor}}}|Upravit stránku>*"
+            },
+            "error": {
+                "all": "*{{ #isCmsError }}Chyba CMS{{ /isCmsError }}{{ ^isCmsError }}Chyba zobrazení{{ /isCmsError }}*: {{{message}}}\n*Stack trace*: ```{{{stackTrace}}}```\n*Uživatel*: {{user}}\n*<{{{url_editor}}}|Upravit stránku>* – *<{{{url_monitor}}}|Vývojářský monitor>*"
+            }
+        },
+        "contentboxes": {
+            "articleScrollerLeftButton": "Posunout doleva",
+            "articleScrollerRightButton": "Posunout doprava"
+        },
+        "metadata": {
+            "publishedLabel": "Publikováno",
+            "modifiedLabel": "Upraveno",
+            "unpublishedLabel": "Nepublikováno",
+            "readTimeLabel": "Doba čtení"
+        },
+        "notice": {
+            "relatedContent": {
+                "header": "Související obsah"
+            },
+            "pinnedLabel": "Připnuto"
+        },
+        "changelog": {
+            "changelogLabel": "Seznam změn"
+        },
+        "paywall": {
+            "shareableArticle": {
+                "shareArticleButton": "Sdílet článek",
+                "trySubscriptionButton": "Vyzkoušet předplatné",
+                "trySubscriptionLink": "-",
+                "messageTitle": "Děkujeme za sdílení článku",
+                "messageBeforeSharing": "Váš přítel si bude moci přečíst celý článek",
+                "messageAfterSharing": "Váš přítel si nyní může přečíst celý článek",
+                "bannerGuestReader": "Máte přístup k článku, protože jej s vámi sdílel přítel",
+                "shareByMail": "E-mail",
+                "shareByMailSubject": "Chci s tebou sdílet tento článek",
+                "shareByMailBody": "Tento placený článek si můžeš přečíst kliknutím na tento odkaz",
+                "shareByFacebook": "Facebook",
+                "shareByCopy": "Kopírovat odkaz",
+                "sharedByCopy": "Odkaz zkopírován"
+            },
+            "piano": {
+                "login": "Přihlásit se",
+                "logout": "Odhlásit se",
+                "myAccount": "Můj účet"
+            }
+        },
+        "emptyState": {
+            "noContentText": "Žádný obsah"
+        },
+        "image": {
+            "caption": {
+                "showCaptionLabel": "Zobrazit popisek",
+                "hideCaptionLabel": "Skrýt popisek",
+                "showMoreLabel": "Zobrazit více",
+                "showLessLabel": "Zobrazit méně"
+            },
+            "videoOverlayLabel": "Video článek"
+        },
+        "mostRead": {
+            "labelLatest": "Nejnovější",
+            "titleLatest": "Nejnovější články",
+            "labelMostRead": "Nejčtenější",
+            "titleMostRead": "Nejčtenější články"
+        },
+        "authorLatestArticles": {
+            "noBylines": "V článku nebyly nalezeny žádné byline"
+        },
+        "infiniteScroll": {
+            "readMore": "Pokračovat ve čtení"
+        },
+        "socialMedia": {
+            "shareText": {
+                "facebook": "Sdílet na Facebooku",
+                "twitter": "Sdílet na X (Twitter)",
+                "linkedin": "Sdílet na LinkedIn",
+                "mail": "Sdílet e-mailem",
+                "threads": "Sdílet na Threads",
+                "copyLink": "Kopírovat odkaz",
+                "glimta": "Odemknout pomocí Glimta",
+                "talandeWebb": "Otevřít panel Talande Webb",
+                "bluesky": "Sdílet na Bluesky",
+                "reddit": "Sdílet na Redditu",
+                "whatsapp": "Sdílet na WhatsApp",
+                "print": "Vytisknout stránku",
+                "googlenews": "Otevřít stránku Google News"
+            }
+        },
+        "weather": {
+            "failedToFetch": "Nepodařilo se načíst data o počasí",
+            "updated": "Aktualizováno",
+            "fetchingData": "Načítání dat o počasí",
+            "types": {
+                "clearsky": "Jasno",
+                "fair": "Hezky",
+                "partlycloudy": "Polojasno",
+                "cloudy": "Zataženo",
+                "rainshowers": "Přeháňky",
+                "rain": "Déšť",
+                "snow": "Sníh",
+                "sleet": "Déšť se sněhem",
+                "thunder": "Bouřka",
+                "fog": "Mlha",
+                "wind": "Vítr",
+                "unknown": "Neznámé"
+            }
+        },
+        "gallery": {
+            "label": "Galerie",
+            "seeAllImages": "Zobrazit všechny obrázky",
+            "navigateToOriginal": "Přejít na původní stránku",
+            "imageCountText": "obrázků",
+            "autoDescription": "{{ n }} obrázků z „{{ title }}“"
+        },
+        "recipe": {
+            "prepTimeLabel": "Čas přípravy:",
+            "cookTimeLabel": "Čas vaření:",
+            "totalTimeLabel": "Celkový čas:",
+            "recipeYieldLabel": "Porce:",
+            "keywordsLabel": "Klíčová slova:",
+            "caloriesLabel": "Kalorie:",
+            "dishLabel": "Pokrm:",
+            "cuisineLabel": "Kuchyně:",
+            "printButton": "Tisk",
+            "publishedDate": "Datum zveřejnění:",
+            "ingredientsTitle": "Ingredience",
+            "instructionsTitle": "Postup"
+        }
+    }
+}

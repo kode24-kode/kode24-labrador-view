@@ -1,0 +1,775 @@
+{
+    "editors": {
+        "name": {
+            "selector": ".lab-recipe-name",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.name",
+            "placeholder": "Name",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "description": {
+            "selector": ".lab-recipe-description",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.description",
+            "placeholder": "Description",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "author": {
+            "selector": ".lab-recipe-author",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.author",
+            "placeholder": "Author",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "prepTime": {
+            "selector": ".lab-recipe-prep-time-value",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.prepTime",
+            "placeholder": "Prep time",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "cookTime": {
+            "selector": ".lab-recipe-cook-time-value",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.cookTime",
+            "placeholder": "Cook time",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "totalTime": {
+            "selector": ".lab-recipe-total-time-value",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.totalTime",
+            "placeholder": "Total time",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "dish": {
+            "selector": ".lab-recipe-dish-value",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.dish",
+            "placeholder": "Dish type",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "recipeCuisine": {
+            "selector": ".lab-recipe-recipe-cuisine-value",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.recipeCuisine",
+            "placeholder": "Cuisine",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "recipeYield": {
+            "selector": ".lab-recipe-recipe-yield-value",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.recipeYield",
+            "placeholder": "4 people",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "calories": {
+            "selector": ".lab-recipe-calories-value",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.calories",
+            "placeholder": "Calories",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "prepTimeLabel": {
+            "selector": ".lab-recipe-prep-time-label",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.prepTimeLabel",
+            "placeholder": "Preparation time:",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "disabled": true,
+            "useTabNavigation": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "cookTimeLabel": {
+            "selector": ".lab-recipe-cook-time-label",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.cookTimeLabel",
+            "placeholder": "Cooking time:",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "disabled": true,
+            "useTabNavigation": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "totalTimeLabel": {
+            "selector": ".lab-recipe-total-time-label",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.totalTimeLabel",
+            "placeholder": "Total time:",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "disabled": true,
+            "useTabNavigation": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "dishLabel": {
+            "selector": ".lab-recipe-dish-label",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.dishLabel",
+            "placeholder": "Dish:",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "disabled": true,
+            "useTabNavigation": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "cuisineLabel": {
+            "selector": ".lab-recipe-recipe-cuisine-label",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.cuisineLabel",
+            "placeholder": "Cuisine:",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "disabled": true,
+            "useTabNavigation": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "recipeYieldLabel": {
+            "selector": ".lab-recipe-recipe-yield-label",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.recipeYieldLabel",
+            "placeholder": "Servings:",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "disabled": true,
+            "useTabNavigation": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "keywordsLabel": {
+            "selector": ".lab-recipe-keywords-label",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.keywordsLabel",
+            "placeholder": "Keywords:",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "disabled": true,
+            "useTabNavigation": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "datePublishedLabel": {
+            "selector": ".lab-recipe-date-published-label",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.datePublishedLabel",
+            "placeholder": "Published date:",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "disabled": true,
+            "useTabNavigation": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "datePublishedValue": {
+            "selector": ".lab-recipe-date-published-value",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.datePublished",
+            "placeholder": "Date published",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        },
+        "caloriesLabel": {
+            "selector": ".lab-recipe-calories-label",
+            "fn": "EditRich",
+            "menu": "rich_text",
+            "key": "fields.caloriesLabel",
+            "placeholder": "Calories:",
+            "modal": false,
+            "allowReverting": true,
+            "displayCharCount": false,
+            "displaySelectionLength": false,
+            "displayWordCount": false,
+            "disabled": true,
+            "useTabNavigation": false,
+            "attributes": {
+                "text_size": {
+                    "active": true
+                },
+                "font_weight": {
+                    "active": true
+                },
+                "text_color": {
+                    "active": true
+                },
+                "text_background_color": {
+                    "active": true
+                },
+                "text_align": {
+                    "active": true
+                },
+                "fontface": {
+                    "active": true
+                }
+            }
+        }
+    },
+    "toolMenus": {
+        "rich_text": {
+            "inheritPath": "menu/tool/rich_text.json"
+        }
+    },
+    "contentMenus": {
+        "default": {
+            "inheritPath": "menu/content/basemenu.json",
+            "items": {
+                "style": {
+                    "inheritPath": "menu/buttons/styles.json",
+                    "group": "g4"
+                },
+                "imagePosition": {
+                    "inheritPath": "content/recipe/menu/recipeImagePosition.json",
+                    "group": "g2",
+                    "title": "Image position"
+                },
+                "editSettings": {
+                    "group": "g5",
+                    "icon": "labicon-edit",
+                    "callback": "displaySettingsPanel",
+                    "title": "Recipe settings (,)",
+                    "hotkeys": [
+                        {
+                            "key": ","
+                        }
+                    ],
+                    "params": {
+                        "settingsPanelOptions": "settingsPanels.admin"
+                    }
+                },
+                "addRecipe": {
+                    "text": "Add",
+                    "group": "g5",
+                    "items": {
+                        "addRecipeIngredients": {
+                            "title": "Add recipe ingredients",
+                            "text": "Ingredients",
+                            "callbacks": [
+                                "dispatch"
+                            ],
+                            "params": {
+                                "function": "recipe.insertIngredients"
+                            }
+                        },
+                        "addRecipeInstructions": {
+                            "title": "Add recipe instructions",
+                            "text": "Instructions",
+                            "callbacks": [
+                                "dispatch"
+                            ],
+                            "params": {
+                                "function": "recipe.insertInstructions"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "settingsPanels": {
+        "admin": {
+            "template": "content/recipe/template/settings"
+        }
+    },
+    "droppable": {
+        "active": true,
+        "accept": "*",
+        "drop": {
+            "sourceType": {
+                "image": "replaceChild",
+                "graphic": "replaceChild"
+            },
+            "default": "default"
+        },
+        "filedrop": "replaceChild"
+    },
+    "draggable": {
+        "active": true
+    },
+    "redrawPaths": {
+        "current": ["fields.author"]
+    },
+    "placeholders": [
+        {
+            "name": "no_media",
+            "conditions": [
+                {
+                    "fn": "noChildOfTypes",
+                    "params": {
+                        "modelTypes": [
+                            "image",
+                            "graphic"
+                        ]
+                    }
+                }
+            ],
+            "templatePath": "content/image/template/placeholder",
+            "handlers": [
+                {
+                    "selector": ".addImageBtn",
+                    "trigger": [
+                        "click"
+                    ],
+                    "fn": "lab_api.v1.collection.display",
+                    "param": {
+                        "name": "MediaImages"
+                    }
+                }
+            ]
+        }
+    ]
+}

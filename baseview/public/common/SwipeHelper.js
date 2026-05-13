@@ -34,7 +34,7 @@ Dac.SwipeHelper = class {
                 forward: container.querySelector(options.navItems.forwardSelector),
                 backward: container.querySelector(options.navItems.backwardSelector)
             },
-            itemsContainer: container.querySelector(options.itemsContainerSelector),
+            itemsContainer: this.settings.isHorizontal ? container.querySelector(options.itemsContainerSelector) : document.querySelector(options.itemsContainerSelector),
             items: container.querySelectorAll(this.settings.itemsSelector),
             navItems: navItems ? [...navItems.children] : null,
             previewItems: previewItems ? [...previewItems.children] : null
@@ -132,7 +132,7 @@ Dac.SwipeHelper = class {
     }
 
     startAutoScroll() {
-        if (this.isAutoscrolling) {
+        if (this.isAutoscrolling || !this.settings.isHorizontal) {
             return;
         }
         this.isAutoscrolling = true;
@@ -244,11 +244,19 @@ Dac.SwipeHelper = class {
                 behavior
             });
         } else {
-            this.elements.itemsContainer.scrollTo({
-                top: item.element.offsetTop,
-                left: 0,
-                behavior
-            });
+            if (this.elements.itemsContainer === document.body) {
+                window.scrollTo({
+                    top: item.element.offsetTop,
+                    left: 0,
+                    behavior
+                });
+            } else {
+                this.elements.itemsContainer.scrollTo({
+                    top: item.element.offsetTop,
+                    left: 0,
+                    behavior
+                });
+            }
         }
     }
 
@@ -284,7 +292,7 @@ Dac.SwipeHelper = class {
     observeElements(root, items) {
         this.log(`Will register IntersectionObserver for ${ items.length } items`);
         const options = {
-            root,
+            root: this.settings.isHorizontal ? root : null,
             rootMargin: '0px',
             threshold: this.settings.intersectionObserver.threshold
         };

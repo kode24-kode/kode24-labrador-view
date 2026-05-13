@@ -94,8 +94,8 @@
         },
         "header": {
             "logo_link_text": "Quppernermut siullermut ingerlagit",
-			"menuScrollerLeftButton": "Venstremut ingerlagit",
-			"menuScrollerRightButton": "Talerperlikkut ingerlagit"
+            "menuScrollerLeftButton": "Venstremut ingerlagit",
+            "menuScrollerRightButton": "Talerperlikkut ingerlagit"
         },
         "slack_notifier": {
             "publish": {
@@ -144,6 +144,9 @@
             "labelMostRead": "Amerlanerpaat atuartarpaat",
             "titleMostRead": "Allaaserisat atuarneqartartut amerlanersaat"
         },
+        "authorLatestArticles": {
+            "noBylines": "No bylines found in article"
+        },
         "infiniteScroll": {
             "readMore": "Atuarneq ingerlateqqiguk"
         },
@@ -159,13 +162,17 @@
                 "talandeWebb": "Talande Webb-ip toqqagassaanik paneli ammaruk",
                 "bluesky": "Bluesky-mi avitseqatigiuk",
                 "reddit": "Redditimi avitseqatigiissutigiuk",
-                "whatsapp": "WhatsApp-imi avitseqatigiissutigiuk"
+                "whatsapp": "WhatsApp-imi avitseqatigiissutigiuk",
+                "print": "Qupperneq anisiguk",
+                "googlenews": "Google News-p nalunaarusiaminnik atoruk"
             }
         },
         "gallery": {
             "label": "Katersugaasivik",
             "seeAllImages": "Tamanna pissarsigit",
-            "navigateToOriginal": "Aqutsisutut qassiussaq"
+            "navigateToOriginal": "Aqutsisutut qassiussaq",
+            "imageCountText": "assit",
+            "autoDescription": "{{ n }} assit: \"{{ title }}\""
         },
         "weather": {
             "failedToFetch": "Sila pillugu paasissutissat pissarsiarineqarsinnaanngillat",
@@ -185,6 +192,20 @@
                 "wind": "Anorersuartoq",
                 "unknown": "Nalunaatsumik sila"
             }
+        },
+        "recipe": {
+            "prepTimeLabel": "Preparation time:",
+            "cookTimeLabel": "Cooking time:",
+            "totalTimeLabel": "Total time:",
+            "recipeYieldLabel": "Servings:",
+            "keywordsLabel": "Keywords:",
+            "caloriesLabel": "Calories:",
+            "dishLabel": "Dish:",
+            "cuisineLabel": "Cuisine:",
+            "printButton": "Print",
+            "publishedDate": "Oqaatigineqartoq ullua:",
+            "ingredientsTitle": "Ingredients",
+            "instructionsTitle": "Instructions"
         }
     }
 }

@@ -7,3 +7,4 @@ export { default as abtest } from './abtest/index.js';
 export { default as slack_notifier } from './slack_notifier/index.js';
 export { default as paywall } from './paywall/index.js';
 export { default as pushnotification } from './pushnotification/index.js';
+export { default as collabrador } from './collabrador/index.js';

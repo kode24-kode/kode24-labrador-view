@@ -1,0 +1,14 @@
+{
+    "boxTitle": "Author latest articles",
+    "boxDescription": "Shows the latest articles from the author(s) of the current article page.",
+    "viewHelper": "external",
+    "external": {
+        "url": "{{{ getCmsConfig.front_api_url }}}/article?query={{{ get.current.filtered.query }}}&limit={{ get.current.filtered.limit }}&site_id={{ get.current.filtered.site_id }}&orderBy=published",
+        "type": "json"
+    },
+    "viewportMap": {
+        "fields": {
+            "title": "presets.vp_content_attributes"
+        }
+    }
+}

@@ -12,24 +12,58 @@ export class PageAPI {
             // (object) { current, sm }
             getLogo: (viewport = this.api.v1.viewport.getName()) => {
                 const logo = this.api.v1.config.get('logo') || {};
-                const activeLogo = logo.uploadedFileUrl ? {
-                    src: logo.uploadedFileUrl, href: logo.default.href, type: 'img', size: { width: logo.logoWidth }, title: logo.default.title, isCustom: true
-                } : logo[viewport] || logo.default || null;
-                if (activeLogo) {
-                    if (activeLogo.type === 'img') {
-                        activeLogo.is_img = true;
-                    } else if (activeLogo.type === 'svg') {
-                        activeLogo.is_svg = true;
-                    }
-                }
+                const logoDefault = logo.default || {};
+                const logoMobile = logo.mobile || logo.default || {};
+                // Support both new nested paths (logo.mainLogo.*) and old flat paths (logo.*) for backwards compatibility
+                const logoMain = logo.mainLogo || {};
+                const logoSecondary = logo.secondaryLogo || {};
+                const logoMobileGroup = logo.mobileLogo || {};
+                const logoMailmojo = logo.mailmojoLogo || {};
 
-                const logo_sm = logo.uploadedFileUrl ? { src: logo.uploadedFileUrl, href: logo.default.href, size: { width: logo.logoWidth }, title: logo.default.title, isCustom: true } : logo.standalone || logo.mailmojo || null;
-                const logo_mm = logo.uploadedMailmojoFileUrl ? { src: logo.uploadedMailmojoFileUrl, href: logo.default.href, size: { width: logo.mailmojoLogoWidth }, title: logo.default.title, isCustom: true } : logo.mailmojo || logo.standalone || null;
+                const [activeLogo, activeSecondaryLogo, activeMobileLogo] = [
+                    { data: logoMain, legacy: logo, uploadedKey: 'uploadedFileUrl', widthKey: 'logoWidth', heightKey: 'logoHeight', hrefKey: 'logoHref', altTextKey: 'logoAltText', defaultObj: logoDefault },
+                    { data: logoSecondary, legacy: logo, uploadedKey: 'uploadedSecondaryFileUrl', widthKey: 'secondaryLogoWidth', heightKey: 'secondaryLogoHeight', hrefKey: 'secondaryLogoHref', altTextKey: 'secondaryLogoAltText', defaultObj: logoDefault },
+                    { data: logoMobileGroup, legacy: logo, uploadedKey: 'uploadedMobileFileUrl', widthKey: 'mobileLogoWidth', heightKey: 'mobileLogoHeight', hrefKey: 'mobileLogoHref', altTextKey: 'mobileLogoAltText', defaultObj: logoMobile }
+                ].map(({ data, legacy, uploadedKey, widthKey, heightKey, hrefKey, altTextKey, defaultObj }) => {
+                    const src = data[uploadedKey] || legacy[uploadedKey] || data.src;
+                    const configObj = logo[viewport] || logo.default || {};
+                    const configSize = configObj.size || {};
+                    const adminWidth = data[widthKey] || legacy[widthKey] || (data.size && data.size.width);
+                    const adminHeight = data[heightKey] || legacy[heightKey] || (data.size && data.size.height);
+                    const hasAdminSize = adminWidth || adminHeight;
+                    const size = hasAdminSize ? { width: adminWidth, height: adminHeight } : { width: configSize.width, height: configSize.height };
+                    let result;
+                    if (src) {
+                        result = {
+                            src, href: data[hrefKey] || legacy[hrefKey] || data.href || defaultObj.href, type: 'img',
+                            size: size,
+                            title: data[altTextKey] || legacy[altTextKey] || data.title || defaultObj.title,
+                            altText: data[altTextKey] || legacy[altTextKey] || data.altText || null, isCustom: true
+                        };
+                    } else {
+                        result = configObj.src ? configObj : null;
+                        if (result && hasAdminSize) {
+                            result = { src: result.src, href: result.href, type: result.type, size: size, title: result.title, altText: result.altText || null };
+                        }
+                    }
+                    if (result) {
+                        if (result.type === 'img') { result.is_img = true; }
+                        else if (result.type === 'svg') { result.is_svg = true; }
+                    }
+                    return result;
+                });
+
+                const mainSrc = logoMain.uploadedFileUrl || logo.uploadedFileUrl || logoMain.src;
+                const logo_sm = mainSrc ? { src: mainSrc, href: logoMain.logoHref || logo.logoHref || logoDefault.href, size: { width: logoMain.logoWidth || logo.logoWidth, height: logoMain.logoHeight || logo.logoHeight }, title: logoMain.logoAltText || logo.logoAltText || logoDefault.title, isCustom: true } : logo.standalone || logo.mailmojo || null;
+                const mmSrc = logoMailmojo.uploadedMailmojoFileUrl || logo.uploadedMailmojoFileUrl || logoMailmojo.src;
+                const logo_mm = mmSrc ? { src: mmSrc, href: logoMailmojo.mailmojoLogoHref || logo.mailmojoLogoHref || logoDefault.href, size: { width: logoMailmojo.mailmojoLogoWidth || logo.mailmojoLogoWidth, height: logoMailmojo.mailmojoLogoHeight || logo.mailmojoLogoHeight }, title: logoMailmojo.mailmojoLogoAltText || logo.mailmojoLogoAltText || logoDefault.title, isCustom: true } : logo.mailmojo || logo.standalone || null;
 
                 return {
-                    current: activeLogo,
+                    current: activeLogo,    
                     sm: logo_sm,
-                    mm: logo_mm
+                    mm: logo_mm,
+                    secondary: activeSecondaryLogo,
+                    mobile: activeMobileLogo || activeLogo
                 };
             }
         };
@@ -220,13 +254,34 @@ export class PageAPI {
 
                 const socialItemsConfig = this.api.v1.config.get(`page_settings.${ params.pageType }.social.items`) || {};
                 const showTagsSetting = this.api.v1.config.get(`page_settings.${ params.pageType }.showTags`);
-                const socialItems = Object.keys(socialItemsConfig).filter((key) => !!socialItemsConfig[key].display).map((key) => ({
-                    name: key,
-                    icon: socialItemsConfig[key].icon || '',
-                    url: params.socialLinks[key] || '',
-                    shareText: this.api.v1.locale.get(`socialMedia.shareText.${ key }`, { noRender: true, fallbackValue: '' }),
-                    isButton: socialItemsConfig[key].isButton || false
-                }));
+
+                // Map icon classes to AMP social share types
+                const iconToAmpType = {
+                    'fi-social-facebook': 'facebook',
+                    'fi-social-twitter': 'twitter',
+                    'fi-social-linkedin': 'linkedin',
+                    'fi-social-whatsapp': 'whatsapp',
+                    'fi-mail': 'email',
+                    'fi-social-telegram': 'telegram',
+                    'fi-social-copyLink': 'system'
+                };
+
+                const socialItems = Object.keys(socialItemsConfig).filter((key) => !!socialItemsConfig[key].display).map((key) => {
+                    const icon = socialItemsConfig[key].icon || '';
+                    return {
+                        name: key,
+                        icon,
+                        url: params.socialLinks[key] || '',
+                        shareText: this.api.v1.locale.get(`socialMedia.shareText.${ key }`, { noRender: true, fallbackValue: '' }),
+                        isButton: socialItemsConfig[key].isButton || false,
+                        ampType: iconToAmpType[icon] || '',
+                        // Add boolean flags for conditional rendering in templates
+                        telegram: key === 'telegram',
+                        twitter: key === 'twitter',
+                        whatsapp: key === 'whatsapp',
+                        email: key === 'email'
+                    };
+                });
                 return {
                     page_type: params.pageType,
                     social: {

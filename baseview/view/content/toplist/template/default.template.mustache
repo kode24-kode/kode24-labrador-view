@@ -7,15 +7,27 @@
         {{ size.grid.css }}
         {{ size.grid.absCss }}
         {{ /helper.trim }}">
-
     {{{ get.current.filtered.styleSheets }}}
-    
     <div class="{{ #helper.trim }}
         content 
         {{ #style.collection }}content_decoration{{ /style.collection }}
         {{ #get.current.fields.hideBorder }}hide-border{{ /get.current.fields.hideBorder }}
         {{ /helper.trim }}" 
-        style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
+        style="{{ #helper.trim }}
+            {{ #style.collection }}content_inline_style{{ /style.collection }}
+            {{ #get.current.metadata.activeTabBackgroundColor }}{{ ^get.current.metadata.customActiveTabBackgroundColor }}--active-tab-background-color: var(--{{ get.current.metadata.activeTabBackgroundColor }}); {{ /get.current.metadata.customActiveTabBackgroundColor }}{{ /get.current.metadata.activeTabBackgroundColor }}
+            {{ #get.current.metadata.customActiveTabBackgroundColor }}--active-tab-background-color: {{ get.current.metadata.customActiveTabBackgroundColor }}; {{ /get.current.metadata.customActiveTabBackgroundColor }}
+            {{ #get.current.metadata.activeTabTextColor }}--active-tab-text-color: var(--{{ get.current.metadata.activeTabTextColor }}); {{ /get.current.metadata.activeTabTextColor }}
+            {{ #get.current.metadata.inactiveTabHoverBackgroundColor }}{{ ^get.current.metadata.customInactiveTabHoverBackgroundColor }}--inactive-tab-hover-background-color: var(--{{ get.current.metadata.inactiveTabHoverBackgroundColor }}); {{ /get.current.metadata.customInactiveTabHoverBackgroundColor }}{{ /get.current.metadata.inactiveTabHoverBackgroundColor }}
+            {{ #get.current.metadata.customInactiveTabHoverBackgroundColor }}--inactive-tab-hover-background-color: {{ get.current.metadata.customInactiveTabHoverBackgroundColor }}; {{ /get.current.metadata.customInactiveTabHoverBackgroundColor }}           
+            {{ #get.current.metadata.inactiveTabHoverTextColor }}--inactive-tab-hover-text-color: var(--{{ get.current.metadata.inactiveTabHoverTextColor }}); {{ /get.current.metadata.inactiveTabHoverTextColor }}            
+            {{ #get.current.metadata.listBorderColor }}{{ ^get.current.metadata.customListBorderColor }}--list-border-color: var(--{{ get.current.metadata.listBorderColor }}); {{ /get.current.metadata.customListBorderColor }}{{ /get.current.metadata.listBorderColor }}
+            {{ #get.current.metadata.customListBorderColor }}--list-border-color: {{ get.current.metadata.customListBorderColor }};{{ /get.current.metadata.customListBorderColor }}
+            {{ #get.current.metadata.siteNameBackgroundColor }}{{ ^get.current.metadata.customSiteNameBackgroundColor }}--site-name-background-color: var(--{{ get.current.metadata.siteNameBackgroundColor }}); {{ /get.current.metadata.customSiteNameBackgroundColor }}{{ /get.current.metadata.siteNameBackgroundColor }}
+            {{ #get.current.metadata.customSiteNameBackgroundColor }}--site-name-background-color: {{ get.current.metadata.customSiteNameBackgroundColor }}; {{ /get.current.metadata.customSiteNameBackgroundColor }}
+            {{ #get.current.metadata.tagBackgroundColor }}{{ ^get.current.metadata.customTagBackgroundColor }}--tag-background-color: var(--{{ get.current.metadata.tagBackgroundColor }}); {{ /get.current.metadata.customTagBackgroundColor }}{{ /get.current.metadata.tagBackgroundColor }}
+            {{ #get.current.metadata.customTagBackgroundColor }}--tag-background-color: {{ get.current.metadata.customTagBackgroundColor }}; {{ /get.current.metadata.customTagBackgroundColor }}
+        {{ /helper.trim }}">
 
         {{!-- Title Section --}}
         {{ ^get.current.fields.hideTitle }}
@@ -38,11 +50,13 @@
         {{ /get.current.fields.hideTitle }}
 
         {{!-- Tab Navigation --}}
-        <nav class="tab-navigation{{ #get.current.filtered.multi }} visibleTabs{{ /get.current.filtered.multi }}">
-            {{ #get.current.filtered.tabData }}
-                <a href="#" class="tab" data-tab="{{ name }}" data-domain="{{ domain }}">{{{ value }}}</a>
-            {{ /get.current.filtered.tabData }}
-        </nav>
+        {{ #get.current.filtered.multi }}
+            <nav class="tab-navigation">
+                {{ #get.current.filtered.tabData }}
+                    <a href="#" class="tab" data-tab="{{ name }}" data-domain="{{ domain }}">{{{ value }}}</a>
+                {{ /get.current.filtered.tabData }}
+            </nav>
+        {{ /get.current.filtered.multi }}
 
         {{!-- No Results Message --}}
         {{ ^get.current.filtered.result.length }}
@@ -104,7 +118,7 @@
                             {{ #niceDate }}<time class="fi-clock" datetime="{{{ published }}}">{{{ niceDate }}}</time>{{ /niceDate }}
                         </a>
                         <p>
-                            {{#get.current.fields.displaySite}}
+                            {{ #get.current.fields.displaySite }}
                                 <span class="siteName">{{ name }}</span>
                             {{ /get.current.fields.displaySite }}
                             {{ #get.current.fields.displaySection }}

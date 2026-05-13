@@ -1,0 +1,11 @@
+@use '../../css_scss/mixins/content-animations' as *;
+
+.text_singleline {
+    &:has(.singleline.animate) {
+        overflow: hidden;
+    }
+
+    .singleline {
+        @include text-animation-styles;
+    }
+}

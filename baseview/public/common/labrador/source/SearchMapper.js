@@ -39,12 +39,15 @@ export class SearchMapper {
                     image.contentdata.fields.whRatio = { vp: this.layout.image.whRatio };
                     item.children = [image];
                 }
-                item.contentdata.fields.subtitle.value = this.trimBodytext(item.contentdata.fields.subtitle.value, item);
+
+                item.contentdata.fields.subtitle.value = !this.layout.article.hideSubtitle ? this.trimBodytext(item.contentdata.fields.subtitle.value, item) : '';
                 const siteName = !this.layout.article.hideSiteName ? `<span class="sitealias label">${ this.siteIdToDisplayName(item.contentdata.fields.site_id.value) }</span>` : '';
                 const publishedDate = !this.layout.article.hidePublishedDate ? `<span class="date fi-clock"> ${ this.dateToAge(item.contentdata.fields.published.value) }</span>` : '';
                 const section = !this.layout.article.hideSection ? `<span class="section_tag fi-price-tag"> ${ item.contentdata.primaryTags.section }</span>` : '';
-                if (siteName || publishedDate || section) {
-                    item.contentdata.fields.subtitle.value += `<span class="info">${ siteName }${ publishedDate }${ section }</span>`;
+				const author = this.layout.article.showAuthor && item.contentdata.fields.byline?.value ? `<span class="lab-search-author fi-torso"> ${ item.contentdata.fields.byline.value }</span>`: '';
+
+                if (siteName || publishedDate || section || author) {
+                    item.contentdata.fields.subtitle.value += `<span class="info">${ siteName }${ publishedDate }${ section }${ author }</span>`;
                 }
                 item.width = { vp: this.layout.article.width };
                 return item;

@@ -13,7 +13,7 @@
     <div class="content {{ #style.collection }}content_decoration{{ /style.collection }}" style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
         {{ #get.current.filtered.options.kicker_editable }}<p class="kicker {{ #style.collection }}text_decoration fields.kicker{{ /style.collection }}">{{{ get.current.fields.kicker }}}</p>{{ /get.current.filtered.options.kicker_editable }}
         {{ #get.current.filtered.options.kicker }}<div class="desc">{{{ get.current.filtered.options.kicker }}}</div>{{ /get.current.filtered.options.kicker }}
-        <h2 class="{{ #style.collection }}text_decoration fields.title{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}">{{{ get.current.fields.title }}}</h2>
+        <h2 class="{{ #style.collection }}text_decoration fields.title{{ /style.collection }}" style="{{ #style.collection }}text_decoration_inline_style fields.title{{ /style.collection }}"{{ #get.current.fields.title[animate] }} data-content="{{ #helper.sanitizeString }}{{{ get.current.fields.title }}}{{ /helper.sanitizeString }}"{{ /get.current.fields.title[animate] }}>{{{ get.current.fields.title }}}</h2>
         <div class="fact collapsableContent {{ #style.collection }}text_decoration fields.bodytext{{ /style.collection }}">{{{ get.current.filtered.bodytext }}}</div>
         <div class="toggle"></div>
     </div>

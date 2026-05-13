@@ -232,7 +232,8 @@
                 "placements": ""
             },
             "editor": {
-                "type": "LabUtils.Tools.ViewEditor.AdsEditor"
+                "type": "LabUtils.Tools.ViewEditor.AdsEditor",
+                "editRaw": true
             },
             "view": {
                 "title": "Ads",
@@ -244,6 +245,7 @@
                     "/lib-js/Lab/Util/Store.js",
                     "/js/cms/LabUtils/Tools/ViewEditor/Main.js",
                     "/js/cms/LabUtils/Tools/ViewEditor/Store.js",
+                    "/js/cms/LabUtils/Tools/ViewEditor/EditRawMixin.js",
                     "/js/cms/LabUtils/Tools/ViewEditor/AdsEditor/AdsEditor.js",
                     "/js/cms/LabUtils/Tools/ViewEditor/AdsEditor/Controllers/AdnuntiusController.js",
                     "/js/cms/LabUtils/Tools/ViewEditor/AdsEditor/Controllers/GoogleController.js",
@@ -580,6 +582,40 @@
                                                                 "contentType": "checkbox"
                                                             }
                                                         }
+                                                    },
+                                                    "telegram": {
+                                                        "items": {
+                                                            "display": {
+                                                                "label": "Telegram",
+                                                                "fallbackToConfig": true,
+                                                                "contentType": "checkbox"
+                                                            }
+                                                        }
+                                                    },
+                                                    "print": {
+                                                        "items": {
+                                                            "display": {
+                                                                "label": "Print",
+                                                                "fallbackToConfig": true,
+                                                                "contentType": "checkbox"
+                                                            }
+                                                        }
+                                                    },
+                                                    "googlenews": {
+                                                        "items": {
+                                                            "display": {
+                                                                "label": "Google News",
+                                                                "fallbackToConfig": true,
+                                                                "contentType": "checkbox"
+                                                            },
+															"url": {
+																"label": "Google News page URL",
+																"fallbackToConfig": true,
+																"contentType": "url",
+																"placeholder": "https://news.google.com/publications/...",
+																"description": "Link to your publication's Google News page. Found in Google News Publisher Center"
+															}
+                                                        }
                                                     }
                                                 }
                                             }
@@ -602,8 +638,14 @@
                                 "contentType": "checkbox",
                                 "defaultValue": false,
                                 "description": "Enable paying customers to share paywalled articles to non-paying customers. Must be activated in article settings for the article."
+                            },
+                            "outbrainWidget": {
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "label": "Outbrain widget ID",
+                                "contentType": "text",
+                                "defaultValue": ""
                             }
-
                         }
                     },
                     "articleApprovalStatus": {
@@ -804,11 +846,325 @@
                         "label": "Log image views",
                         "contentType": "checkbox",
                         "defaultValue": false
+                    },
+                    "mobileVertical": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Enable mobile vertical layout",
+                        "contentType": "checkbox",
+                        "defaultValue": false
                     }
                 }
             },
             "view": {
                 "title": "Gallery settings",
+                "cssFiles": [
+                    "/css/cms/tools/ViewEditor.css"
+                ],
+                "jsFiles": [
+                    "/js/cms/LabUtils/Tools/ViewEditor/Store.js",
+                    "/js/cms/LabUtils/Tools/ViewEditor/ConfigObjectEditor.js"
+                ],
+                "cssClass": "common_editor view_editor"
+            }
+        },
+        "ampSettings": {
+            "menuItem": {
+                "title": "AMP Settings",
+                "cssClass": "admin-lightning"
+            },
+            "editor": {
+                "type": "LabUtils.Tools.ViewEditor.ConfigObjectEditor"
+            },
+            "data": {
+                "configObjectName": "viewConfig",
+                "path": "config.customer.page_settings.amp",
+                "allowSites": true,
+                "fallbackToConfig": true,
+                "label": "AMP (Accelerated Mobile Pages)",
+                "description": "Configure custom styling for AMP pages. Custom CSS will be injected into the amp-custom style tag.",
+                "items": {
+                    "enableAMP": {
+                        "label": "Enable AMP Linking",
+                        "description": "Enable AMP (Accelerated Mobile Pages) for improved mobile performance. Do not enable for clientside paywalls",
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "contentType": "checkbox",
+                        "defaultValue": false
+                    },
+                    "enableScript": {
+                        "label": "Enable AMP Script",
+                        "description": "Enable amp-script for custom JavaScript in AMP pages.",
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "contentType": "checkbox",
+                        "defaultValue": false
+                    },
+                    "enableConsent": {
+                        "label": "Enable AMP Consent",
+                        "description": "Enable amp-consent for GDPR compliance in AMP pages.",
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "contentType": "checkbox",
+                        "defaultValue": false
+                    },
+                    "enableWebPush": {
+                        "label": "Enable AMP Web Push",
+                        "description": "Enable amp-web-push for push notifications in AMP pages.",
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "contentType": "checkbox",
+                        "defaultValue": false
+                    },
+                    "showSocial": {
+                        "label": "Show Social Sharing",
+                        "description": "Enable social sharing buttons on AMP sidebar (hamburger menu).",
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "contentType": "checkbox",
+                        "defaultValue": false
+                    },
+                    "customCss": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Custom CSS",
+                        "description": "Add custom CSS for AMP pages.",
+                        "contentType": "textarea",
+                        "defaultValue": "",
+                        "attributes": {
+                            "style": "min-height: 500px;"
+                        }
+                    },
+                    "buttonText": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Button Text",
+                        "description": "Customize the text for the footer button.",
+                        "contentType": "text"
+                    },
+                    "ampGtm": {
+                        "deletable": true,
+                        "contentType": "text",
+                        "defaultValue": "",
+                        "label": "AMP Google Tag Manager (GTM) ID",
+                        "placeholder": "GTM-XXXX"
+                    },
+                    "didomi": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Didomi Consent Management",
+                        "description": "Configure Didomi consent management platform for GDPR compliance.",
+                        "contentType": "object",
+                        "items": {
+                            "enabled": {
+                                "label": "Enable Didomi",
+                                "description": "Enable Didomi consent management platform.",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "checkbox",
+                                "defaultValue": false
+                            },
+                            "promptUISrc": {
+                                "label": "Prompt UI Source URL",
+                                "description": "URL to the Didomi consent prompt UI.",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "text"
+                            },
+                            "apiKey": {
+                                "label": "API Key",
+                                "description": "Didomi API key for your website.",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "text"
+                            },
+                            "noticeId": {
+                                "label": "Notice ID",
+                                "description": "Didomi notice identifier.",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "text"
+                            }
+                        }
+                    },
+                    "comScore": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "comScore Analytics",
+                        "description": "Configure comScore analytics for AMP pages",
+                        "contentType": "object",
+                        "items": {
+                            "enabled": {
+                                "label": "Enable comScore",
+                                "description": "Enable comScore analytics tracking.",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "checkbox",
+                                "defaultValue": false
+                            },
+                            "c2": {
+                                "label": "Client ID (c2)",
+                                "description": "comScore client identifier (c2 parameter). Example: 39366704",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "text",
+                                "placeholder": "123456789"
+                            }
+                        }
+                    },
+                    "marfeel": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Marfeel Analytics & Recommendations",
+                        "description": "Configure Marfeel analytics and Flowcards recommendation module",
+                        "contentType": "object",
+                        "items": {
+                            "enabled": {
+                                "label": "Enable Marfeel Analytics",
+                                "description": "Enable Marfeel analytics tracking.",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "checkbox",
+                                "defaultValue": false
+                            },
+                            "accountId": {
+                                "label": "Account ID",
+                                "description": "Marfeel account identifier. Example: 3100",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "text",
+                                "placeholder": "1234"
+                            },
+                            "flowcards": {
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "label": "Flowcards Module",
+                                "description": "Mobile content recommendation cards",
+                                "contentType": "object",
+                                "items": {
+                                    "enabled": {
+                                        "label": "Enable Flowcards",
+                                        "description": "Enable Marfeel Flowcards mobile recommendation module (only visible on mobile).",
+                                        "fallbackToConfig": true,
+                                        "deletable": false,
+                                        "contentType": "checkbox",
+                                        "defaultValue": false
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "webPush": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Web Push Notifications",
+                        "description": "Configure AMP web push notifications",
+                        "contentType": "object",
+                        "items": {
+                            "enabled": {
+                                "label": "Enable Web Push",
+                                "description": "Enable web push notifications for AMP pages.",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "checkbox",
+                                "defaultValue": false
+                            },
+                            "helperIframeUrl": {
+                                "label": "Helper iframe URL",
+                                "description": "URL to the web push helper iframe.",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "text",
+                                "placeholder": "https://example.com/amp-push-helper.html"
+                            },
+                            "permissionDialogUrl": {
+                                "label": "Permission Dialog URL",
+                                "description": "URL to the permission request dialog.",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "text",
+                                "placeholder": "https://example.com/amp-push-permission.html"
+                            },
+                            "serviceWorkerUrl": {
+                                "label": "Service Worker URL",
+                                "description": "URL to the service worker script.",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "text",
+                                "placeholder": "https://example.com/service-worker.js"
+                            }
+                        }
+                    },
+                    "outbrain": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "Outbrain",
+                        "description": "Configure Outbrain recommendations",
+                        "contentType": "object",
+                        "items": {
+                            "enabled": {
+                                "label": "Enable Outbrain",
+                                "description": "Enable Outbrain recommendations.",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "checkbox",
+                                "defaultValue": false
+                            },
+                            "widgetId": {
+                                "label": "Widget ID",
+                                "description": "Outbrain widget identifier.",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "text",
+                                "placeholder": "YourWidgetID"
+                            }
+                        }
+                    },
+                    "gfkSensic": {
+                        "fallbackToConfig": true,
+                        "deletable": false,
+                        "label": "GfK Sensic Analytics",
+                        "description": "Configure GfK Sensic analytics",
+                        "contentType": "object",
+                        "items": {
+                            "enabled": {
+                                "label": "Enable GfK Sensic",
+                                "description": "Enable GfK Sensic analytics tracking.",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "checkbox",
+                                "defaultValue": false
+                            },
+                            "isProduction": {
+                                "label": "Production Environment",
+                                "description": "Set to true for production environment, false for pre-production.",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "checkbox",
+                                "defaultValue": false
+                            },
+                            "regionID": {
+                                "label": "Region ID",
+                                "description": "GfK Sensic region identifier. Example: NO",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "text",
+                                "placeholder": "NO"
+                            },
+                            "mediaID": {
+                                "label": "Media ID",
+                                "description": "GfK Sensic media identifier. Example: siteAMP",
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "contentType": "text",
+                                "placeholder": "siteAMP"
+                            }
+                        }
+                    }
+                }
+            },
+            "view": {
+                "title": "AMP settings",
                 "cssFiles": [
                     "/css/cms/tools/ViewEditor.css"
                 ],
@@ -1295,7 +1651,56 @@
                             },
                             "navigateToOriginal": {
                                 "label": "Label for 'navigate to original page' button"
-                            }
+                            },
+							"imageCountText": {
+								"label": "Label for image count"
+							},
+							"autoDescription": {
+								"label": "Auto-generated gallery description",
+								"description": "Used as the gallery page's meta description when no slideshow description and no parent-article description is available. {{ n }} is replaced with the image count, {{ title }} with the parent article title."
+							}
+                        }
+                    },
+                    "recipe": {
+                        "label": "Recipe",
+                        "description": "Recipe",
+                        "items": {
+                            "prepTimeLabel": {
+                                "label": "Preparation time label"
+                            },
+                            "cookTimeLabel": {
+                                "label": "Cooking time label"
+                            },
+                            "totalTimeLabel": {
+                                "label": "Total time label"
+                            },
+							"recipeYieldLabel": {
+								"label": "Recipe yield label"
+							},
+							"keywordsLabel": {
+								"label": "Keywords label"
+							},
+							"caloriesLabel": {
+								"label": "Calories label"
+							},
+							"dishLabel": {
+								"label": "Dish label"
+							},
+							"cuisineLabel": {
+								"label": "Cuisine label"
+							},
+							"printButton": {
+								"label": "Print button text"
+							},
+							"publishedDate": {
+								"label": "Published date label"
+							},
+							"ingredientsTitle": {
+								"label": "Ingredients title"
+							},
+							"instructionsTitle": {
+								"label": "Instructions title"
+							}
                         }
                     },
                     "weather": {
@@ -1327,7 +1732,16 @@
                                 }
                             }
                         }
-                    }
+                    },
+					"authorLatestArticles": {
+						"label": "Author latest articles",
+						"description": "List of latest articles from author",
+						"items": {
+							"noBylines": {
+								"label": "No bylines found"
+							}
+						}
+					}
                 }
             },
             "view": {
@@ -1372,6 +1786,18 @@
                                 "label": "Site description",
                                 "description": "Add a description for the site to help the AI understand the context of the content",
                                 "contentType": "text"
+                            },
+                            "defaultTextModel": {
+                                "label": "Default Text Model",
+                                "contentType": "select",
+                                "options": [],
+                                "defaultValue": "openAi-gpt-5-4"
+                            },
+                            "defaultImageModel": {
+                                "label": "Default Image Model",
+                                "contentType": "select",
+                                "options": [],
+                                "defaultValue": "openAi-gpt-5-4-mini"
                             },
                             "hideDisclaimer": {
                                 "label": "No Disclaimer",
@@ -1423,48 +1849,7 @@
                             "aiProvider": {
                                 "label": "Provider",
                                 "contentType": "select",
-                                "options": [
-                                    {
-                                        "value": "openAi-gpt4o",
-                                        "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
-                                    }, 
-                                    {
-                                        "value": "openAi-gpt-5-1",
-                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5",
-                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-mini",
-                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-nano",
-                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
-                                    },
-                                    {
-                                        "value": "vertexAi-gemini-15",
-                                        "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]: Balanced, Capable, Versatile"
-                                    },
-                                    {
-                                        "value": "vertexAi-gemini-20-flash",
-                                        "label": "Gemini 2.0 Flash [Google Cloud - VertexAi]: Quick, Efficient, Concise"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-sonnet-3-7",
-                                        "label": "Claude 3.7 Sonnet [Anthropic]: Balanced, Reliable, Smart"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-sonnet-3-5",
-                                        "label": "Claude 3.5 Sonnet v2 [Anthropic]: Improved, Balanced, Reliable"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-haiku-3-5",
-                                        "label": "Claude 3.5 Haiku [Anthropic]: Fastest, Compact, Responsive"
-                                    }
-                                ],
+                                "options": [],
                                 "advanced": true
                             },
                             "languageSiteSetting": {
@@ -1493,32 +1878,7 @@
                             "aiProvider": {
                                 "label": "Provider",
                                 "contentType": "select",
-                                "options": [
-                                    {
-                                        "value": "openAi-gpt4o",
-                                        "label": "Gpt-4o [OpenAI - ChatGPT]"
-                                    }, 
-                                    {
-                                        "value": "openAi-gpt-5-1",
-                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5",
-                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-mini",
-                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-nano",
-                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
-                                    },
-                                    {
-                                        "value": "vertexAi-gemini-15",
-                                        "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]"
-                                    }
-                                ],
+                                "options": [],
                                 "advanced": true
                             },
                             "languageSiteSetting": {
@@ -1547,48 +1907,7 @@
                             "aiProvider": {
                                 "label": "Provider",
                                 "contentType": "select",
-                                "options": [
-                                    {
-                                        "value": "openAi-gpt4o",
-                                        "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
-                                    }, 
-                                    {
-                                        "value": "openAi-gpt-5-1",
-                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5",
-                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-mini",
-                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-nano",
-                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
-                                    },
-                                    {
-                                        "value": "vertexAi-gemini-15",
-                                        "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]: Balanced, Capable, Versatile"
-                                    },
-                                    {
-                                        "value": "vertexAi-gemini-20-flash",
-                                        "label": "Gemini 2.0 Flash [Google Cloud - VertexAi]: Quick, Efficient, Concise"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-sonnet-3-7",
-                                        "label": "Claude 3.7 Sonnet [Anthropic]: Balanced, Reliable, Smart"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-sonnet-3-5",
-                                        "label": "Claude 3.5 Sonnet v2 [Anthropic]: Improved, Balanced, Reliable"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-haiku-3-5",
-                                        "label": "Claude 3.5 Haiku [Anthropic]: Fastest, Compact, Responsive"
-                                    }
-                                ],
+                                "options": [],
                                 "advanced": true
                             },
                             "languageSiteSetting": {
@@ -1617,48 +1936,7 @@
                             "aiProvider": {
                                 "label": "Provider",
                                 "contentType": "select",
-                                "options": [
-                                    {
-                                        "value": "openAi-gpt4o",
-                                        "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
-                                    }, 
-                                    {
-                                        "value": "openAi-gpt-5-1",
-                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5",
-                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-mini",
-                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-nano",
-                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
-                                    },
-                                    {
-                                        "value": "vertexAi-gemini-15",
-                                        "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]: Balanced, Capable, Versatile"
-                                    },
-                                    {
-                                        "value": "vertexAi-gemini-20-flash",
-                                        "label": "Gemini 2.0 Flash [Google Cloud - VertexAi]: Quick, Efficient, Concise"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-sonnet-3-7",
-                                        "label": "Claude 3.7 Sonnet [Anthropic]: Balanced, Reliable, Smart"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-sonnet-3-5",
-                                        "label": "Claude 3.5 Sonnet v2 [Anthropic]: Improved, Balanced, Reliable"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-haiku-3-5",
-                                        "label": "Claude 3.5 Haiku [Anthropic]: Fastest, Compact, Responsive"
-                                    }
-                                ],
+                                "options": [],
                                 "advanced": true
                             },
                             "languageSiteSetting": {
@@ -1687,48 +1965,7 @@
                             "aiProvider": {
                                 "label": "Provider",
                                 "contentType": "select",
-                                "options": [
-                                    {
-                                        "value": "openAi-gpt4o",
-                                        "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-1",
-                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5",
-                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-mini",
-                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-nano",
-                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
-                                    },
-                                    {
-                                        "value": "vertexAi-gemini-15",
-                                        "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]: Balanced, Capable, Versatile"
-                                    },
-                                    {
-                                        "value": "vertexAi-gemini-20-flash",
-                                        "label": "Gemini 2.0 Flash [Google Cloud - VertexAi]: Quick, Efficient, Concise"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-sonnet-3-7",
-                                        "label": "Claude 3.7 Sonnet [Anthropic]: Balanced, Reliable, Smart"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-sonnet-3-5",
-                                        "label": "Claude 3.5 Sonnet v2 [Anthropic]: Improved, Balanced, Reliable"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-haiku-3-5",
-                                        "label": "Claude 3.5 Haiku [Anthropic]: Fastest, Compact, Responsive"
-                                    }
-                                ],
+                                "options": [],
                                 "advanced": true
                             },
                             "languageSiteSetting": {
@@ -1757,48 +1994,7 @@
                             "aiProvider": {
                                 "label": "Provider",
                                 "contentType": "select",
-                                "options": [
-                                    {
-                                        "value": "openAi-gpt4o",
-                                        "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
-                                    }, 
-                                    {
-                                        "value": "openAi-gpt-5-1",
-                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5",
-                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-mini",
-                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-nano",
-                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
-                                    },
-                                    {
-                                        "value": "vertexAi-gemini-15",
-                                        "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]: Balanced, Capable, Versatile"
-                                    },
-                                    {
-                                        "value": "vertexAi-gemini-20-flash",
-                                        "label": "Gemini 2.0 Flash [Google Cloud - VertexAi]: Quick, Efficient, Concise"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-sonnet-3-7",
-                                        "label": "Claude 3.7 Sonnet [Anthropic]: Balanced, Reliable, Smart"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-sonnet-3-5",
-                                        "label": "Claude 3.5 Sonnet v2 [Anthropic]: Improved, Balanced, Reliable"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-haiku-3-5",
-                                        "label": "Claude 3.5 Haiku [Anthropic]: Fastest, Compact, Responsive"
-                                    }
-                                ],
+                                "options": [],
                                 "advanced": true
                             },
                             "languageSiteSetting": {
@@ -1827,50 +2023,8 @@
                             "aiProvider": {
                                 "label": "Provider",
                                 "contentType": "select",
-                                "options": [
-                                    {
-                                        "value": "openAi-gpt4o",
-                                        "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
-                                    }, 
-                                    {
-                                        "value": "openAi-gpt-5-1",
-                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5",
-                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-mini",
-                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-nano",
-                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
-                                    },
-                                    {
-                                        "value": "vertexAi-gemini-15",
-                                        "label": "Gemini Pro 1.5 [Google Cloud - VertexAi]: Balanced, Capable, Versatile"
-                                    },
-                                    {
-                                        "value": "vertexAi-gemini-20-flash",
-                                        "label": "Gemini 2.0 Flash [Google Cloud - VertexAi]: Quick, Efficient, Concise"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-sonnet-3-7",
-                                        "label": "Claude 3.7 Sonnet [Anthropic]: Balanced, Reliable, Smart"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-sonnet-3-5",
-                                        "label": "Claude 3.5 Sonnet v2 [Anthropic]: Improved, Balanced, Reliable"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-haiku-3-5",
-                                        "label": "Claude 3.5 Haiku [Anthropic]: Fastest, Compact, Responsive"
-                                    }
-                                ],
+                                "options": [],
                                 "advanced": true
-                                
                             }
                         }
                     },
@@ -1887,36 +2041,15 @@
                             "aiProvider": {
                                 "label": "Provider",
                                 "contentType": "select",
-                                "options": [
-                                    {
-                                        "value": "openAi-gpt4o",
-                                        "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-1",
-                                        "label": "Gpt-5.1 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Improved"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5",
-                                        "label": "Gpt-5 [OpenAI - ChatGPT]: Most Advanced, Multimodal, Accurate"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-mini",
-                                        "label": "Gpt-5 Mini [OpenAI - ChatGPT]: Lightweight, Efficient, Quick"
-                                    },
-                                    {
-                                        "value": "openAi-gpt-5-nano",
-                                        "label": "Gpt-5 Nano [OpenAI - ChatGPT]: Ultra-Fast, Cost-Effective, Compact"
-                                    }
-                                ],
+                                "options": [],
                                 "advanced": true
-
                             }
                         }
                     },
                     "imageMetadata": {
                         "label": "Image metadata",
                         "description": "Generate AI metadata for images",
+                        "imageModels": true,
                         "items": {
                             "promptSite": {
                                 "label": "AI instructions",
@@ -1933,28 +2066,7 @@
                             "aiProvider": {
                                 "label": "Provider",
                                 "contentType": "select",
-                                "options": [
-                                    {
-                                        "value": "openAi-gpt4o",
-                                        "label": "Gpt-4o [OpenAI - ChatGPT]: Advanced, Creative, Fast"
-                                    },
-                                    {
-                                        "value": "openAi-gpt4o-mini",
-                                        "label": "Gpt-4o-mini [OpenAI - ChatGPT]: Fastest, Efficient, Lightweight"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-sonnet-3-7",
-                                        "label": "Claude 3.7 Sonnet [Anthropic]: Balanced, Reliable, Smart"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-sonnet-3-5",
-                                        "label": "Claude 3.5 Sonnet v2 [Anthropic]: Improved, Balanced, Reliable"
-                                    },
-                                    {
-                                        "value": "anthropic-claude-haiku-3-5",
-                                        "label": "Claude 3.5 Haiku [Anthropic]: Fastest, Compact, Responsive"
-                                    }
-                                ],
+                                "options": [],
                                 "advanced": true
                             },
                             "languageSiteSetting": {
@@ -1964,6 +2076,10 @@
                                     {
                                         "value": "siteLanguage",
                                         "label": "Use default site language"
+                                    },
+                                    {
+                                        "value": "seoLanguage",
+                                        "label": "Use article language"
                                     }
                                 ],
                                 "advanced": true
@@ -2011,6 +2127,32 @@
                                 "fallbackToConfig": true,
                                 "deletable": false,
                                 "label": "Defer font loading",
+                                "contentType": "checkbox",
+                                "defaultValue": false
+                            }
+                        }
+                    },
+                    "extendedSeoSchema": {
+                        "label": "JSON-LD: Extended article schema",
+                        "description": "Enables extended JSON-LD structured data for articles, including articleBody, wordCount, timeRequired, and editor details.",
+                        "items": {
+                            "active": {
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "label": "Enable extended article schema",
+                                "contentType": "checkbox",
+                                "defaultValue": false
+                            }
+                        }
+                    },
+                    "noticeStructuredData": {
+                        "label": "JSON-LD: Add structured data to notices",
+                        "description": "Adds BlogPosting JSON-LD structured data to individual notices when they are part of a LiveBlogPosting article. This allows search engines to index each notice as a separate blog entry within the live blog.",
+                        "items": {
+                            "active": {
+                                "fallbackToConfig": true,
+                                "deletable": false,
+                                "label": "Enable structured data for notices",
                                 "contentType": "checkbox",
                                 "defaultValue": false
                             }
@@ -2722,28 +2864,6 @@
                 "cssClass": "common_editor view_editor"
             }
         },
-        "configeditor": {
-            "permission": "admin_batchoperations",
-            "menuItem": {
-                "title": "ConfigObject",
-                "cssClass": "lab-icon-data"
-            },
-            "editor": {
-                "type": "LabUtils.Tools.ViewEditor.ConfigObjectEditor"
-            },
-            "data": {},
-            "view": {
-                "title": "This tool is deprecated, use <a style=\"text-decoration:underline;\" href=\"/settings/configmanager\">Configmanager</a>)",
-                "cssFiles": [
-                    "/css/cms/tools/ViewEditor.css"
-                ],
-                "jsFiles": [
-                    "/js/cms/LabUtils/Tools/ViewEditor/Store.js",
-                    "/js/cms/LabUtils/Tools/ViewEditor/ConfigObjectEditor.js"
-                ],
-                "cssClass": "common_editor view_editor"
-            }
-        },
         "menus": {
             "menuItem": {
                 "title": "Menus",
@@ -2806,6 +2926,10 @@
                                     {
                                         "label": "Custom menu 4",
                                         "value": "customMenu4"
+                                    },
+                                    {
+                                        "label": "AMP menu",
+                                        "value": "ampMenu"
                                     }
                                 ]
                             },
@@ -3978,7 +4102,8 @@
                 "cssClass": "lab-icon-fontIcon"
             },
             "editor": {
-                "type": "LabUtils.Tools.ViewEditor.FontEditor"
+                "type": "LabUtils.Tools.ViewEditor.FontEditor",
+                "editRaw": true
             },
             "view": {
                 "title": "Font Editor",
@@ -3989,6 +4114,7 @@
                     "/lib-js/Lab/Util/Store.js",
                     "/js/cms/LabUtils/Tools/ViewEditor/Store.js",
                     "/js/cms/LabUtils/Tools/ViewEditor/Main.js",
+                    "/js/cms/LabUtils/Tools/ViewEditor/EditRawMixin.js",
                     "/js/cms/LabUtils/Tools/ViewEditor/Common.js",
                     "/js/cms/LabUtils/Tools/ViewEditor/FontEditor.js"
                 ],
@@ -4003,6 +4129,7 @@
             "editor": {
                 "type": "LabUtils.Tools.ViewEditor.FontStyleEditor",
                 "fontEditorLink": "/settings/cp?page=font_editor",
+                "editRaw": true,
                 "selectors": [
                     {
                         "label": "---------- General ----------",
@@ -4209,16 +4336,24 @@
                         "value": ".articleHeader .lab-article-section"
                     },
                     {
+                        "label": "Article subsection",
+                        "value": "article .meta .lab-article-subsection"
+                    },
+                    {
                         "label": "Article bylines",
                         "value": ".byline .name, .byline .name a"
                     },
                     {
                         "label": "Article bylines description",
-                        "value": ".byline .name .description"
+                        "value": ".byline .name .description, .byline .name .description a"
                     },
                     {
                         "label": "Article bylines extended description",
-                        "value": ".byline .extended_description"
+                        "value": ".byline .extended_description, .byline .extended_description a"
+                    },
+                    {
+                        "label": "Article bylines job title",
+                        "value": ".byline .lab-job-title"
                     },
                     {
                         "label": "Article dates",
@@ -4405,6 +4540,26 @@
                         "value": ".articlesByTag.toplist ul li a .publishedTime"
                     },
                     {
+                        "label": "Author latest articles title",
+                        "value": ".authorLatestArticles .lab-ala-headline"
+                    },
+                    {
+                        "label": "Author latest articles kicker",
+                        "value": ".authorLatestArticles .lab-ala-list .lab-ala-item a .lab-ala-text-container .lab-ala-kicker"
+                    },
+                    {
+                        "label": "Author latest articles article title",
+                        "value": ".authorLatestArticles .lab-ala-list .lab-ala-item a .lab-ala-text-container .lab-ala-title"
+                    },
+                    {
+                        "label": "Author latest articles subtitle",
+                        "value": ".authorLatestArticles .lab-ala-list .lab-ala-item a .lab-ala-text-container .lab-ala-subtitle"
+                    },
+                    {
+                        "label": "Author latest articles date",
+                        "value": ".authorLatestArticles .lab-ala-list .lab-ala-item a .lab-ala-text-container .lab-ala-date"
+                    },
+                    {
                         "label": "Article scroller title",
                         "value": ".articlescroller .articlescroller-header"
                     },
@@ -4453,6 +4608,14 @@
                         "value": ".articleList ul li a .al-kicker"
                     },
                     {
+                        "label": "Scrollbox headline",
+                        "value": ".scrollbox .lab-scrollbox-headline"
+                    },
+                    {
+                        "label": "Scrollbox article title",
+                        "value": ".scrollbox .content .scroll-item article .content .floatingText .headline"
+                    },
+                    {
                         "label": "Toplist headline",
                         "value": ".toplist h3.headline"
                     },
@@ -4475,6 +4638,10 @@
                     {
                         "label": "Toplist tab navigation",
                         "value": ".toplist .tab-navigation a.tab"
+                    },
+                    {
+                        "label": "Toplist article site",
+                        "value": ".toplist ul li .text .siteName"
                     },
                     {
                         "label": "Inline quote",
@@ -4549,6 +4716,150 @@
                         "value": ".labradorSearch .nextBtn"
                     },
                     {
+                        "label": "Search (Labrador) result article title",
+                        "value": ".labradorSearch article.column .content .headline"
+                    },
+                    {
+                        "label": "Search (Labrador) result subtitle",
+                        "value": ".labradorSearch article.column .content .subtitle"
+                    },
+                    {
+                        "label": "Search (Labrador) result site name",
+                        "value": ".labradorSearch article.column .content .info .sitealias.label"
+                    },
+                    {
+                        "label": "Search (Labrador) result published date",
+                        "value": ".labradorSearch article.column .content .info .date"
+                    },
+                    {
+                        "label": "Search (Labrador) result section",
+                        "value": ".labradorSearch article.column .content .info .section_tag"
+                    },
+                    {
+                        "label": "Search (Labrador) result authors",
+                        "value": ".labradorSearch article.column .content .lab-search-author"
+                    },
+                    {
+                        "label": "Tag page title",
+                        "value": ".lab-tag-page-title-container .lab-content .lab-tag-page-title"
+                    },
+                    {
+                        "label": "Timeline title",
+                        "value": ".timeline h2"
+                    },
+                    {
+                        "label": "Timeline item time",
+                        "value": ".timeline time.timelineItm"
+                    },
+                    {
+                        "label": "Timeline item title",
+                        "value": ".timeline h3.timelineItm"
+                    },
+                    {
+                        "label": "Timeline item text",
+                        "value": ".timeline .timelineItm.bodytext"
+                    },
+                    {
+                        "label": "Tag page term title",
+                        "value": ".lab-terms-page-header h2.lab-terms-page-header__title"
+                    },
+                    {
+                        "label": "Tag page term description",
+                        "value": ".lab-terms-page-header p.lab-terms-page-header__description"
+                    },
+                    {
+                        "label": "Tag page term description links",
+                        "value": ".lab-terms-page-header p.lab-terms-page-header__description a"
+                    },
+                    {
+                        "label": "Latest / most read tab title",
+                        "value": ".topcomments li.lab-latest-most-read-tab"
+                    },
+                    {
+                        "label": "Latest / most read title",
+                        "value": ".topcomments .tabs .lab-latest-most-read-title"
+                    },
+                    {
+                        "label": "Latest / most read article title",
+                        "value": ".topcomments .tabs .tab article .text .lab-latest-most-read-article-title a"
+                    },
+                    {
+                        "label": "Latest / most read article published time",
+                        "value": ".topcomments .tabs .tab article .text .lab-latest-most-read-article-time"
+                    },
+                    {
+                        "label": "Ad label",
+                        "value": ".column.adnuntius-ad.display-label .adnuntius-ad-content .ad-label, .column.google-ad.display-label .ad-label"
+                    },
+                    {
+                        "label": "---------- Slideshow/Gallery ----------",
+                        "value": ""
+                    },
+                    {
+                        "label": "Slideshow title",
+                        "value": ".slideshowcontainer.gallery-mode .slideshow-preview .slideshow-text .headline"
+                    },
+                    {
+                        "label": "Slideshow description",
+                        "value": ".slideshowcontainer.gallery-mode .slideshow-preview .slideshow-text .subtitle"
+                    },
+                    {
+                        "label": "Slideshow image count text",
+                        "value": ".slideshowcontainer.gallery-mode .slideshow-preview .slideshow-text .lab-gallery-image-count"
+                    },
+                    {
+                        "label": "Gallery header title",
+                        "value": "body.gallery .main.gallery .gallery-header h1"
+                    },
+                    {
+                        "label": "---------- Recipe Element ----------",
+                        "value": ""
+                    },
+                    {
+                        "label": "Recipe name",
+                        "value": ".lab-recipe .lab-recipe-name"
+                    },
+                    {
+                        "label": "Recipe description",
+                        "value": ".lab-recipe .lab-recipe-description"
+                    },
+                    {
+                        "label": "Recipe author",
+                        "value": ".lab-recipe .lab-recipe-author"
+                    },
+                    {
+                        "label": "Recipe information labels",
+                        "value": ".lab-recipe .lab-recipe-prep-time-label, .lab-recipe .lab-recipe-cook-time-label, .lab-recipe .lab-recipe-total-time-label, .lab-recipe .lab-recipe-recipe-yield-label, .lab-recipe .lab-recipe-date-published-label, .lab-recipe .lab-recipe-calories-label, .lab-recipe .lab-recipe-dish-label, .lab-recipe .lab-recipe-recipe-cuisine-label"
+                    },
+                    {
+                        "label": "Recipe information values",
+                        "value": ".lab-recipe .lab-recipe-prep-time-value, .lab-recipe .lab-recipe-cook-time-value, .lab-recipe .lab-recipe-total-time-value, .lab-recipe .lab-recipe-recipe-yield-value, .lab-recipe .lab-recipe-date-published-value, .lab-recipe .lab-recipe-calories-value, .lab-recipe .lab-recipe-dish-value, .lab-recipe .lab-recipe-recipe-cuisine-value"
+                    },
+                    {
+                        "label": "Recipe keywords",
+                        "value": ".lab-recipe .lab-recipe-keywords-label, .lab-recipe .lab-recipe-keywords-value"
+                    },
+                    {
+                        "label": "Recipe ingredients title",
+                        "value": ".lab-recipe .lab-recipe-ingredients .lab-recipe-ingredients-title"
+                    },
+                    {
+                        "label": "Recipe ingredients content",
+                        "value": ".lab-recipe .lab-recipe-ingredients .lab-recipe-list-ingredients"
+                    },
+                    {
+                        "label": "Recipe instructions title",
+                        "value": ".lab-recipe .lab-recipe-instructions .lab-recipe-instructions-title"
+                    },
+                    {
+                        "label": "Recipe instructions content",
+                        "value": ".lab-recipe .lab-recipe-instructions .lab-recipe-list-instructions"
+                    },
+                    {
+                        "label": "Recipe print button",
+                        "value": ".lab-recipe .content .lab-recipe-print-button"
+                    },
+                    {
                         "label": "---------- Page footer ----------",
                         "value": ""
                     },
@@ -4572,6 +4883,7 @@
                 ],
                 "jsFiles": [
                     "/js/cms/LabUtils/Tools/ViewEditor/Store.js",
+                    "/js/cms/LabUtils/Tools/ViewEditor/EditRawMixin.js",
                     "/js/cms/LabUtils/Tools/ViewEditor/Common.js",
                     "/js/cms/LabUtils/Tools/ViewEditor/FontStyleEditor.js"
                 ],
@@ -4631,6 +4943,14 @@
                         "label": "Show hidden tags in article",
                         "placeholder": "",
                         "description": "Check to show hidden tags in articles."
+                    },
+                    "preserveTagsWhenGenerating": {
+                        "deletable": false,
+                        "contentType": "checkbox",
+                        "defaultValue": false,
+                        "label": "Preserve tags",
+                        "placeholder": "",
+                        "description": "Check to preserve tags when generating tags using Labrador AI."
                     }
                 }
             },
@@ -4791,6 +5111,7 @@
                 "listener": {
                     "import": "/view-resources/lib/admin/CustomTagsPreview.js"
                 },
+                "editRaw": true,
                 "allowSites": true,
                 "description": "Add custom meta tags, scripts and links in the head section of your pages. Custom scripts can also be added to other parts of your pages.",
                 "addable": true,
@@ -4801,6 +5122,11 @@
                         "deletable": true,
                         "deleteBtnText": "Delete tag",
                         "items": {
+                            "description": {
+                                "contentType": "textarea",
+                                "label": "Description",
+                                "placeholder": "Describe what this custom tag is used for..."
+                            },
                             "tag": {
                                 "contentType": "select",
                                 "label": "Tag",
@@ -4826,6 +5152,10 @@
                                     {
                                         "value": "script",
                                         "label": "Script (JS-file)"
+                                    },
+                                    {
+                                        "value": "noscript",
+                                        "label": "Noscript"
                                     }
                                 ]
                             },
@@ -4880,6 +5210,11 @@
                                 "contentType": "checkbox",
                                 "label": "Hide in editor",
                                 "defaultValue": true
+                            },
+                            "skipFront": {
+                                "contentType": "checkbox",
+                                "label": "Hide on front",
+                                "defaultValue": false
                             },
                             "value": {
                                 "contentType": "textarea",
@@ -5083,11 +5418,6 @@
                                 "contentType": "text",
                                 "label": "Byline prefix",
                                 "description": "Add a prefix to the byline of images, displayed in the caption. Example: 'Photo: '<br>If used, the prefix will be applied to all your photo bylines. To remove the prefix, delete the text in this field."
-                            },
-                            "showBylineAsTitle": {
-                                "contentType": "checkbox",
-                                "label": "Use byline as hover text",
-                                "description": "Use the byline as the hover text (title) of the image. If unchecked, the image caption will be used."
                             }
                         }
                     },
@@ -5096,52 +5426,226 @@
                         "fallbackToConfig": true,
                         "deletable": true,
                         "label": "Logo",
+                        "listener": {
+                            "import": "/view-resources/baseview/lib/admin/LogoConfigMigration.js"
+                        },
+                        "description": "Set up logos for different parts of your site. Each logo can have an image, a set height and width, a clickable link, and an alt text description.<br><br>Note: Any values you enter here will override settings configured in your config file. If you leave a url field blank it will default back to original logo. If a width or height field is left blank it will default to 0 and use values from your config file.<br><br>The secondary logo can be used to display an additional or alternative logo on your site, such as a partner brand or a different version of your main logo. It is hidden by default, and where it appears depends on your site's design.",
                         "items": {
-                            "uploadedFileUrl": {
-                                "contentType": "text",
-                                "label": "URL for uploaded main logo",
-                                "placeholder": "https://",
-                                "validator": "lab_api.v1.util.validator.containsValue",
-                                "validatorArgs": [{
-                                    "allowEmpty": true,
-                                    "values": [".png", ".svg"]
-                                }],
-                                "description": "Add URL to an uploaded logo on either external server or uploaded in Labrador's file upload. Must be an .SVG or .PNG file."
+                            "mainLogo": {
+                                "collapsable": true,
+                                "collapsed": true,
+                                "label": "Main logo",
+                                "items": {
+                                    "uploadedFileUrl": {
+                                        "contentType": "text",
+                                        "label": "URL for uploaded main logo",
+                                        "placeholder": "https://",
+                                        "validator": "lab_api.v1.util.validator.containsValue",
+                                        "validatorArgs": [{
+                                            "allowEmpty": true,
+                                            "values": [".png", ".svg"]
+                                        }],
+                                        "description": "Add URL to an uploaded logo on either external server or uploaded in Labrador's file upload. Must be an .SVG or .PNG file."
+                                    },
+                                    "logoWidth": {
+                                        "contentType": "number",
+                                        "label": "Width of main logo in pixels",
+                                        "placeholder": "180",
+                                        "validator": "lab_api.v1.util.validator.isNumberWithinRange",
+                                        "description": "Set width of logo. Be careful to not set a width that is too large, as it can affect the layout of your header. This is prioritized over height.",
+                                        "validatorArgs": [{
+                                            "allowEmpty": true,
+                                            "min": 0,
+                                            "max": 5000
+                                        }]
+                                    },
+                                    "logoHeight": {
+                                        "contentType": "number",
+                                        "label": "Height of main logo in pixels",
+                                        "placeholder": "60",
+                                        "validator": "lab_api.v1.util.validator.isNumberWithinRange",
+                                        "description": "Set height of logo. Be careful to not set a height that is too large, as it can affect the layout of your header. Width is prioritized.",
+                                        "validatorArgs": [{
+                                            "allowEmpty": true,
+                                            "min": 0,
+                                            "max": 5000
+                                        }]
+                                    },
+                                    "logoHref": {
+                                        "contentType": "text",
+                                        "label": "Link for main logo",
+                                        "placeholder": "https://",
+                                        "description": "URL to navigate to when the main logo is clicked."
+                                    },
+                                    "logoAltText": {
+                                        "contentType": "text",
+                                        "label": "Alt text for main logo",
+                                        "placeholder": "Logo",
+                                        "description": "Descriptive alt text for the main logo image."
+                                    }
+                                }
                             },
-                            "logoWidth": {
-                                "contentType": "number",
-                                "label": "Width of main logo",
-                                "placeholder": "180",
-                                "validator": "lab_api.v1.util.validator.isNumberWithinRange",
-                                "description": "Set width of logo. Be careful to not set a width that is too large, as it can affect the layout of your header.",
-                                "validatorArgs": [{
-                                    "allowEmpty": true,
-                                    "min": 0,
-                                    "max": 5000
-                                }]
+                            "secondaryLogo": {
+                                "collapsable": true,
+                                "collapsed": true,
+                                "label": "Secondary logo",
+                                "items": {
+                                    "uploadedSecondaryFileUrl": {
+                                        "contentType": "text",
+                                        "label": "URL for uploaded secondary logo (optional)",
+                                        "placeholder": "https://",
+                                        "validator": "lab_api.v1.util.validator.containsValue",
+                                        "validatorArgs": [{
+                                            "allowEmpty": true,
+                                            "values": [".png", ".svg"]
+                                        }],
+                                        "description": "Add URL to an uploaded logo on either external server or uploaded in Labrador's file upload. Must be an .SVG or .PNG file."
+                                    },
+                                    "secondaryLogoWidth": {
+                                        "contentType": "number",
+                                        "label": "Width of secondary logo in pixels",
+                                        "placeholder": "180",
+                                        "validator": "lab_api.v1.util.validator.isNumberWithinRange",
+                                        "description": "Set width of secondary logo. Be careful to not set a width that is too large, as it can affect the layout of your header.",
+                                        "validatorArgs": [{
+                                            "allowEmpty": true,
+                                            "min": 0,
+                                            "max": 5000
+                                        }]
+                                    },
+                                    "secondaryLogoHeight": {
+                                        "contentType": "number",
+                                        "label": "Height of secondary logo in pixels",
+                                        "placeholder": "60",
+                                        "validator": "lab_api.v1.util.validator.isNumberWithinRange",
+                                        "description": "Set height of secondary logo. Be careful to not set a height that is too large, as it can affect the layout of your header.",
+                                        "validatorArgs": [{
+                                            "allowEmpty": true,
+                                            "min": 0,
+                                            "max": 5000
+                                        }]
+                                    },
+                                    "secondaryLogoHref": {
+                                        "contentType": "text",
+                                        "label": "Link for secondary logo",
+                                        "placeholder": "https://",
+                                        "description": "URL to navigate to when the secondary logo is clicked."
+                                    },
+                                    "secondaryLogoAltText": {
+                                        "contentType": "text",
+                                        "label": "Alt text for secondary logo",
+                                        "placeholder": "Logo",
+                                        "description": "Descriptive alt text for the secondary logo image."
+                                    }
+                                }
                             },
-                            "uploadedMailmojoFileUrl": {
-                                "contentType": "text",
-                                "label": "URL for uploaded Mailmojo logo",
-                                "placeholder": "https://",
-                                "validator": "lab_api.v1.util.validator.containsValue",
-                                "validatorArgs": [{
-                                    "allowEmpty": true,
-                                    "values": [".png"]
-                                }],
-                                "description": "Add URL to an uploaded logo on either external server or uploaded in Labrador's file upload to use on Mailmojo newsletters. Must be a .PNG file."
+                            "mobileLogo": {
+                                "collapsable": true,
+                                "collapsed": true,
+                                "label": "Mobile logo",
+                                "items": {
+                                    "uploadedMobileFileUrl": {
+                                        "contentType": "text",
+                                        "label": "URL for uploaded mobile logo",
+                                        "placeholder": "https://",
+                                        "validator": "lab_api.v1.util.validator.containsValue",
+                                        "validatorArgs": [{
+                                            "allowEmpty": true,
+                                            "values": [".png", ".svg"]
+                                        }],
+                                        "description": "Add URL to an uploaded logo on either external server or uploaded in Labrador's file upload. Must be an .SVG or .PNG file."
+                                    },
+                                    "mobileLogoWidth": {
+                                        "contentType": "number",
+                                        "label": "Width of mobile logo in pixels",
+                                        "placeholder": "180",
+                                        "validator": "lab_api.v1.util.validator.isNumberWithinRange",
+                                        "description": "Set width of mobile logo. Be careful to not set a width that is too large, as it can affect the layout of your header.",
+                                        "validatorArgs": [{
+                                            "allowEmpty": true,
+                                            "min": 0,
+                                            "max": 5000
+                                        }]
+                                    },
+                                    "mobileLogoHeight": {
+                                        "contentType": "number",
+                                        "label": "Height of mobile logo in pixels",
+                                        "placeholder": "60",
+                                        "validator": "lab_api.v1.util.validator.isNumberWithinRange",
+                                        "description": "Set height of mobile logo. Be careful to not set a height that is too large, as it can affect the layout of your header.",
+                                        "validatorArgs": [{
+                                            "allowEmpty": true,
+                                            "min": 0,
+                                            "max": 5000
+                                        }]
+                                    },
+                                    "mobileLogoHref": {
+                                        "contentType": "text",
+                                        "label": "Link for mobile logo",
+                                        "placeholder": "https://",
+                                        "description": "URL to navigate to when the mobile logo is clicked."
+                                    },
+                                    "mobileLogoAltText": {
+                                        "contentType": "text",
+                                        "label": "Alt text for mobile logo",
+                                        "placeholder": "Logo",
+                                        "description": "Descriptive alt text for the mobile logo image."
+                                    }
+                                }
                             },
-                            "mailmojoLogoWidth": {
-                                "contentType": "number",
-                                "label": "Width of mailmojo logo",
-                                "placeholder": "240",
-                                "validator": "lab_api.v1.util.validator.isNumberWithinRange",
-                                "description": "Set width of mailmojo logo.",
-                                "validatorArgs": [{
-                                    "allowEmpty": true,
-                                    "min": 0,
-                                    "max": 5000
-                                }]
+                            "mailmojoLogo": {
+                                "collapsable": true,
+                                "collapsed": true,
+                                "label": "Mailmojo logo",
+                                "items": {
+                                    "uploadedMailmojoFileUrl": {
+                                        "contentType": "text",
+                                        "label": "URL for uploaded Mailmojo logo",
+                                        "placeholder": "https://",
+                                        "validator": "lab_api.v1.util.validator.containsValue",
+                                        "validatorArgs": [{
+                                            "allowEmpty": true,
+                                            "values": [".png"]
+                                        }],
+                                        "description": "Add URL to an uploaded logo on either external server or uploaded in Labrador's file upload to use on Mailmojo newsletters. Must be a .PNG file."
+                                    },
+                                    "mailmojoLogoWidth": {
+                                        "contentType": "number",
+                                        "label": "Width of mailmojo logo in pixels",
+                                        "placeholder": "240",
+                                        "validator": "lab_api.v1.util.validator.isNumberWithinRange",
+                                        "description": "Set width of mailmojo logo.",
+                                        "validatorArgs": [{
+                                            "allowEmpty": true,
+                                            "min": 0,
+                                            "max": 5000
+                                        }]
+                                    },
+                                    "mailmojoLogoHeight": {
+                                        "contentType": "number",
+                                        "label": "Height of mailmojo logo in pixels",
+                                        "placeholder": "60",
+                                        "validator": "lab_api.v1.util.validator.isNumberWithinRange",
+                                        "description": "Set height of mailmojo logo.",
+                                        "validatorArgs": [{
+                                            "allowEmpty": true,
+                                            "min": 0,
+                                            "max": 5000
+                                        }]
+                                    },
+                                    "mailmojoLogoHref": {
+                                        "contentType": "text",
+                                        "label": "Link for Mailmojo logo",
+                                        "placeholder": "https://",
+                                        "description": "URL to navigate to when the Mailmojo logo is clicked."
+                                    },
+                                    "mailmojoLogoAltText": {
+                                        "contentType": "text",
+                                        "label": "Alt text for Mailmojo logo",
+                                        "placeholder": "Logo",
+                                        "description": "Descriptive alt text for the Mailmojo logo image."
+                                    }
+                                }
                             }
                         }
                     }
@@ -5954,194 +6458,201 @@
                                 "deletable": false,
                                 "sortable": true,
                                 "label": "Languages",
-                                "items": [{
-                                    "deletable": true,
-                                    "items": {
-                                        "name": {
-                                            "label": "Language switcher title",
-                                            "contentType": "text",
-                                            "placeholder": "English",
-                                            "defaultValue": "",
-                                            "validator": "Lab.Util.String.hasLength"
-                                        },
-                                        "language": {
-                                            "contentType": "select",
-                                            "label": "Language",
-                                            "defaultValue": "en-GB",
-                                            "validator": "Lab.Util.String.hasLength",
-                                            "options": [
-                                                { "label": "Afrikaans", "value": "af" },
-                                                { "label": "Albanian - shqip", "value": "sq" },
-                                                { "label": "Amharic - አማርኛ", "value": "am" },
-                                                { "label": "Arabic - العربية", "value": "ar" },
-                                                { "label": "Aragonese - aragonés", "value": "an" },
-                                                { "label": "Armenian - հայերեն", "value": "hy" },
-                                                { "label": "Asturian - asturianu", "value": "ast" },
-                                                { "label": "Azerbaijani - azərbaycan dili", "value": "az" },
-                                                { "label": "Basque - euskara", "value": "eu" },
-                                                { "label": "Belarusian - беларуская", "value": "be" },
-                                                { "label": "Bengali - বাংলা", "value": "bn" },
-                                                { "label": "Bosnian - bosanski", "value": "bs" },
-                                                { "label": "Breton - brezhoneg", "value": "br" },
-                                                { "label": "Bulgarian - български", "value": "bg" },
-                                                { "label": "Catalan - català", "value": "ca" },
-                                                { "label": "Central Kurdish - کوردی (دەستنوسی عەرەبی)", "value": "ckb" },
-                                                { "label": "Chinese - 中文", "value": "zh" },
-                                                { "label": "Chinese (Hong Kong) - 中文（香港）", "value": "zh-HK" },
-                                                { "label": "Chinese (Simplified) - 中文（简体）", "value": "zh-CN" },
-                                                { "label": "Chinese (Traditional) - 中文（繁體）", "value": "zh-TW" },
-                                                { "label": "Corsican", "value": "co" },
-                                                { "label": "Croatian - hrvatski", "value": "hr" },
-                                                { "label": "Czech - čeština", "value": "cs" },
-                                                { "label": "Danish - dansk", "value": "da-DK" },
-                                                { "label": "Dutch - Nederlands", "value": "nl-NL" },
-                                                { "label": "Dutch - Belgium", "value": "nl-BE" },
-                                                { "label": "English (Australia)", "value": "en-AU" },
-                                                { "label": "English (Canada)", "value": "en-CA" },
-                                                { "label": "English (India)", "value": "en-IN" },
-                                                { "label": "English (New Zealand)", "value": "en-NZ" },
-                                                { "label": "English (South Africa)", "value": "en-ZA" },
-                                                { "label": "English (United Kingdom)", "value": "en-GB" },
-                                                { "label": "English (United States)", "value": "en-US" },
-                                                { "label": "Esperanto - esperanto", "value": "eo" },
-                                                { "label": "Estonian - eesti", "value": "et-EE" },
-                                                { "label": "Faroese - føroyskt", "value": "fo" },
-                                                { "label": "Filipino", "value": "fil" },
-                                                { "label": "Finnish - suomi", "value": "fi-FI" },
-                                                { "label": "French (Canada) - français (Canada)", "value": "fr-CA" },
-                                                { "label": "French (France) - français (France)", "value": "fr-FR" },
-                                                { "label": "French (Switzerland) - français (Suisse)", "value": "fr-CH" },
-                                                { "label": "Galician - galego", "value": "gl" },
-                                                { "label": "Georgian - ქართული", "value": "ka" },
-                                                { "label": "German (Austria) - Deutsch (Österreich)", "value": "de-AT" },
-                                                { "label": "German (Germany) - Deutsch (Deutschland)", "value": "de-DE" },
-                                                { "label": "German (Liechtenstein) - Deutsch (Liechtenstein)", "value": "de-LI" },
-                                                { "label": "German (Switzerland) - Deutsch (Schweiz)", "value": "de-CH" },
-                                                { "label": "Greek - Ελληνικά", "value": "el" },
-                                                { "label": "Greenlandic - Kalaallisut", "value": "kl-GL" },
-                                                { "label": "Greenlandic - Danish", "value": "da-GL" },
-                                                { "label": "Guarani", "value": "gn" },
-                                                { "label": "Gujarati - ગુજરાતી", "value": "gu" },
-                                                { "label": "Hausa", "value": "ha" },
-                                                { "label": "Hawaiian - ʻŌlelo Hawaiʻi", "value": "haw" },
-                                                { "label": "Hebrew - עברית", "value": "he" },
-                                                { "label": "Hindi - हिन्दी", "value": "hi" },
-                                                { "label": "Hungarian - magyar", "value": "hu" },
-                                                { "label": "Icelandic - íslenska", "value": "is" },
-                                                { "label": "Indonesian - Indonesia", "value": "id" },
-                                                { "label": "Interlingua", "value": "ia" },
-                                                { "label": "Irish - Gaeilge", "value": "ga" },
-                                                { "label": "Italian - italiano", "value": "it" },
-                                                { "label": "Italian (Italy) - italiano (Italia)", "value": "it-IT" },
-                                                { "label": "Italian (Switzerland) - italiano (Svizzera)", "value": "it-CH" },
-                                                { "label": "Japanese - 日本語", "value": "ja" },
-                                                { "label": "Kannada - ಕನ್ನಡ", "value": "kn" },
-                                                { "label": "Kazakh - қазақ тілі", "value": "kk" },
-                                                { "label": "Khmer - ខ្មែរ", "value": "km" },
-                                                { "label": "Korean - 한국어", "value": "ko" },
-                                                { "label": "Kurdish - Kurdî", "value": "ku" },
-                                                { "label": "Kyrgyz - кыргызча", "value": "ky" },
-                                                { "label": "Lao - ລາວ", "value": "lo" },
-                                                { "label": "Latin", "value": "la" },
-                                                { "label": "Latvian - latviešu", "value": "lv" },
-                                                { "label": "Lingala - lingála", "value": "ln" },
-                                                { "label": "Lithuanian - lietuvių", "value": "lt" },
-                                                { "label": "Macedonian - македонски", "value": "mk" },
-                                                { "label": "Malay - Bahasa Melayu", "value": "ms" },
-                                                { "label": "Malayalam - മലയാളം", "value": "ml" },
-                                                { "label": "Maltese - Malti", "value": "mt" },
-                                                { "label": "Marathi - मराठी", "value": "mr" },
-                                                { "label": "Mongolian - монгол", "value": "mn" },
-                                                { "label": "Nepali - नेपाली", "value": "ne" },
-                                                { "label": "Norwegian Bokmål - norsk bokmål", "value": "nb-NO" },
-                                                { "label": "Norwegian Nynorsk - nynorsk", "value": "nn-NO" },
-                                                { "label": "Occitan", "value": "oc" },
-                                                { "label": "Oriya - ଓଡ଼ିଆ", "value": "or" },
-                                                { "label": "Oromo - Oromoo", "value": "om" },
-                                                { "label": "Pashto - پښتو", "value": "ps" },
-                                                { "label": "Persian - فارسی", "value": "fa" },
-                                                { "label": "Polish - polski", "value": "pl-PL" },
-                                                { "label": "Portuguese - português", "value": "pt" },
-                                                { "label": "Portuguese (Brazil) - português (Brasil)", "value": "pt-BR" },
-                                                { "label": "Portuguese (Portugal) - português (Portugal)", "value": "pt-PT" },
-                                                { "label": "Punjabi - ਪੰਜਾਬੀ", "value": "pa" },
-                                                { "label": "Quechua", "value": "qu" },
-                                                { "label": "Romanian - română", "value": "ro" },
-                                                { "label": "Romanian (Moldova) - română (Moldova)", "value": "mo" },
-                                                { "label": "Romansh - rumantsch", "value": "rm" },
-                                                { "label": "Russian - русский", "value": "ru" },
-                                                { "label": "Sami (Finland)", "value": "se-FI" },
-                                                { "label": "Sami (Norway)", "value": "se-NO" },
-                                                { "label": "Sami (Sweden)", "value": "se-SE" },
-                                                { "label": "Scottish Gaelic", "value": "gd" },
-                                                { "label": "Serbian - српски", "value": "sr" },
-                                                { "label": "Serbo - Croatian", "value": "sh" },
-                                                { "label": "Shona - chiShona", "value": "sn" },
-                                                { "label": "Sindhi", "value": "sd" },
-                                                { "label": "Sinhala - සිංහල", "value": "si" },
-                                                { "label": "Slovak - slovenčina", "value": "sk" },
-                                                { "label": "Slovenian - slovenščina", "value": "sl" },
-                                                { "label": "Somali - Soomaali", "value": "so" },
-                                                { "label": "Southern Sotho", "value": "st" },
-                                                { "label": "Spanish - español", "value": "es" },
-                                                { "label": "Spanish (Argentina) - español (Argentina)", "value": "es-AR" },
-                                                { "label": "Spanish (Latin America) - español (Latinoamérica)", "value": "es-419" },
-                                                { "label": "Spanish (Mexico) - español (México)", "value": "es-MX" },
-                                                { "label": "Spanish (Spain) - español (España)", "value": "es-ES" },
-                                                { "label": "Spanish (United States) - español (Estados Unidos)", "value": "es-US" },
-                                                { "label": "Sundanese", "value": "su" },
-                                                { "label": "Swahili - Kiswahili", "value": "sw" },
-                                                { "label": "Swedish - svenska", "value": "sv-SE" },
-                                                { "label": "Tajik - тоҷикӣ", "value": "tg" },
-                                                { "label": "Tamil - தமிழ்", "value": "ta" },
-                                                { "label": "Tatar", "value": "tt" },
-                                                { "label": "Telugu - తెలుగు", "value": "te" },
-                                                { "label": "Thai - ไทย", "value": "th" },
-                                                { "label": "Tigrinya - ትግርኛ", "value": "ti" },
-                                                { "label": "Tongan - lea fakatonga", "value": "to" },
-                                                { "label": "Turkish - Türkçe", "value": "tr" },
-                                                { "label": "Turkmen", "value": "tk" },
-                                                { "label": "Twi", "value": "tw" },
-                                                { "label": "Ukrainian - українська", "value": "uk" },
-                                                { "label": "Urdu - اردو", "value": "ur" },
-                                                { "label": "Uyghur", "value": "ug" },
-                                                { "label": "Uzbek - o‘zbek", "value": "uz" },
-                                                { "label": "Vietnamese - Tiếng Việt", "value": "vi" },
-                                                { "label": "Walloon - wa", "value": "wa" },
-                                                { "label": "Welsh - Cymraeg", "value": "cy" },
-                                                { "label": "Western Frisian", "value": "fy" },
-                                                { "label": "Xhosa", "value": "xh" },
-                                                { "label": "Yiddish", "value": "yi" },
-                                                { "label": "Yoruba - Èdè Yorùbá", "value": "yo" },
-                                                { "label": "Zulu - isiZulu", "value": "zu" }
-                                            ]
-                                        },
-                                        "fallbackUrl": {
-                                            "label": "Fallback URL",
-                                            "contentType": "text",
-                                            "placeholder": "https://en.example.com",
-                                            "defaultValue": "",
-                                            "validator": "Lab.Util.String.hasLength"
-                                        },
-                                        "autoSuggestTranslation": {
-                                            "label": "Add as suggestion for translation",
-                                            "contentType": "checkbox",
-                                            "defaultValue": true
-                                        },
-                                        "siteName": {
-                                            "label": "Site name",
-                                            "contentType": "text",
-                                            "placeholder": "Site name, as defined as 'Display name' or 'sitealias' on admin page 'Sites'",
-                                            "defaultValue": ""
-                                        },
-                                        "prototypeName": {
-                                            "label": "Prototype",
-                                            "contentType": "text",
-                                            "placeholder": "Prototype name, as defined on admin page 'Prototypes'",
-                                            "defaultValue": ""
+                                "items": [
+                                    {
+                                        "deletable": true,
+                                        "items": {
+                                            "name": {
+                                                "label": "Language switcher title",
+                                                "contentType": "text",
+                                                "placeholder": "English",
+                                                "defaultValue": "",
+                                                "validator": "Lab.Util.String.hasLength"
+                                            },
+                                            "language": {
+                                                "contentType": "select",
+                                                "label": "Language",
+                                                "defaultValue": "en-GB",
+                                                "validator": "Lab.Util.String.hasLength",
+                                                "options": [
+                                                    { "label": "Afrikaans", "value": "af" },
+                                                    { "label": "Albanian - shqip", "value": "sq" },
+                                                    { "label": "Amharic - አማርኛ", "value": "am" },
+                                                    { "label": "Arabic - العربية", "value": "ar" },
+                                                    { "label": "Aragonese - aragonés", "value": "an" },
+                                                    { "label": "Armenian - հայերեն", "value": "hy" },
+                                                    { "label": "Asturian - asturianu", "value": "ast" },
+                                                    { "label": "Azerbaijani - azərbaycan dili", "value": "az" },
+                                                    { "label": "Basque - euskara", "value": "eu" },
+                                                    { "label": "Belarusian - беларуская", "value": "be" },
+                                                    { "label": "Bengali - বাংলা", "value": "bn" },
+                                                    { "label": "Bosnian - bosanski", "value": "bs" },
+                                                    { "label": "Breton - brezhoneg", "value": "br" },
+                                                    { "label": "Bulgarian - български", "value": "bg" },
+                                                    { "label": "Catalan - català", "value": "ca" },
+                                                    { "label": "Central Kurdish - کوردی (دەستنوسی عەرەبی)", "value": "ckb" },
+                                                    { "label": "Chinese - 中文", "value": "zh" },
+                                                    { "label": "Chinese (Hong Kong) - 中文（香港）", "value": "zh-HK" },
+                                                    { "label": "Chinese (Simplified) - 中文（简体）", "value": "zh-CN" },
+                                                    { "label": "Chinese (Traditional) - 中文（繁體）", "value": "zh-TW" },
+                                                    { "label": "Corsican", "value": "co" },
+                                                    { "label": "Croatian - hrvatski", "value": "hr" },
+                                                    { "label": "Czech - čeština", "value": "cs" },
+                                                    { "label": "Danish - dansk", "value": "da-DK" },
+                                                    { "label": "Dutch - Nederlands", "value": "nl-NL" },
+                                                    { "label": "Dutch - Belgium", "value": "nl-BE" },
+                                                    { "label": "English (Australia)", "value": "en-AU" },
+                                                    { "label": "English (Canada)", "value": "en-CA" },
+                                                    { "label": "English (India)", "value": "en-IN" },
+                                                    { "label": "English (New Zealand)", "value": "en-NZ" },
+                                                    { "label": "English (South Africa)", "value": "en-ZA" },
+                                                    { "label": "English (United Kingdom)", "value": "en-GB" },
+                                                    { "label": "English (United States)", "value": "en-US" },
+                                                    { "label": "Esperanto - esperanto", "value": "eo" },
+                                                    { "label": "Estonian - eesti", "value": "et-EE" },
+                                                    { "label": "Faroese - føroyskt", "value": "fo" },
+                                                    { "label": "Filipino", "value": "fil" },
+                                                    { "label": "Finnish - suomi", "value": "fi-FI" },
+                                                    { "label": "French (Canada) - français (Canada)", "value": "fr-CA" },
+                                                    { "label": "French (France) - français (France)", "value": "fr-FR" },
+                                                    { "label": "French (Switzerland) - français (Suisse)", "value": "fr-CH" },
+                                                    { "label": "Galician - galego", "value": "gl" },
+                                                    { "label": "Georgian - ქართული", "value": "ka" },
+                                                    { "label": "German (Austria) - Deutsch (Österreich)", "value": "de-AT" },
+                                                    { "label": "German (Germany) - Deutsch (Deutschland)", "value": "de-DE" },
+                                                    { "label": "German (Liechtenstein) - Deutsch (Liechtenstein)", "value": "de-LI" },
+                                                    { "label": "German (Switzerland) - Deutsch (Schweiz)", "value": "de-CH" },
+                                                    { "label": "Greek - Ελληνικά", "value": "el" },
+                                                    { "label": "Greenlandic - Kalaallisut", "value": "kl-GL" },
+                                                    { "label": "Greenlandic - Danish", "value": "da-GL" },
+                                                    { "label": "Guarani", "value": "gn" },
+                                                    { "label": "Gujarati - ગુજરાતી", "value": "gu" },
+                                                    { "label": "Hausa", "value": "ha" },
+                                                    { "label": "Hawaiian - ʻŌlelo Hawaiʻi", "value": "haw" },
+                                                    { "label": "Hebrew - עברית", "value": "he" },
+                                                    { "label": "Hindi - हिन्दी", "value": "hi" },
+                                                    { "label": "Hungarian - magyar", "value": "hu" },
+                                                    { "label": "Icelandic - íslenska", "value": "is" },
+                                                    { "label": "Indonesian - Indonesia", "value": "id" },
+                                                    { "label": "Interlingua", "value": "ia" },
+                                                    { "label": "Irish - Gaeilge", "value": "ga" },
+                                                    { "label": "Italian - italiano", "value": "it" },
+                                                    { "label": "Italian (Italy) - italiano (Italia)", "value": "it-IT" },
+                                                    { "label": "Italian (Switzerland) - italiano (Svizzera)", "value": "it-CH" },
+                                                    { "label": "Japanese - 日本語", "value": "ja" },
+                                                    { "label": "Kannada - ಕನ್ನಡ", "value": "kn" },
+                                                    { "label": "Kazakh - қазақ тілі", "value": "kk" },
+                                                    { "label": "Khmer - ខ្មែរ", "value": "km" },
+                                                    { "label": "Korean - 한국어", "value": "ko" },
+                                                    { "label": "Kurdish - Kurdî", "value": "ku" },
+                                                    { "label": "Kyrgyz - кыргызча", "value": "ky" },
+                                                    { "label": "Lao - ລາວ", "value": "lo" },
+                                                    { "label": "Latin", "value": "la" },
+                                                    { "label": "Latvian - latviešu", "value": "lv" },
+                                                    { "label": "Lingala - lingála", "value": "ln" },
+                                                    { "label": "Lithuanian - lietuvių", "value": "lt" },
+                                                    { "label": "Macedonian - македонски", "value": "mk" },
+                                                    { "label": "Malay - Bahasa Melayu", "value": "ms" },
+                                                    { "label": "Malayalam - മലയാളം", "value": "ml" },
+                                                    { "label": "Maltese - Malti", "value": "mt" },
+                                                    { "label": "Marathi - मराठी", "value": "mr" },
+                                                    { "label": "Mongolian - монгол", "value": "mn" },
+                                                    { "label": "Nepali - नेपाली", "value": "ne" },
+                                                    { "label": "Norwegian Bokmål - norsk bokmål", "value": "nb-NO" },
+                                                    { "label": "Norwegian Nynorsk - nynorsk", "value": "nn-NO" },
+                                                    { "label": "Occitan", "value": "oc" },
+                                                    { "label": "Oriya - ଓଡ଼ିଆ", "value": "or" },
+                                                    { "label": "Oromo - Oromoo", "value": "om" },
+                                                    { "label": "Pashto - پښتو", "value": "ps" },
+                                                    { "label": "Persian - فارسی", "value": "fa" },
+                                                    { "label": "Polish - polski", "value": "pl-PL" },
+                                                    { "label": "Portuguese - português", "value": "pt" },
+                                                    { "label": "Portuguese (Brazil) - português (Brasil)", "value": "pt-BR" },
+                                                    { "label": "Portuguese (Portugal) - português (Portugal)", "value": "pt-PT" },
+                                                    { "label": "Punjabi - ਪੰਜਾਬੀ", "value": "pa" },
+                                                    { "label": "Quechua", "value": "qu" },
+                                                    { "label": "Romanian - română", "value": "ro" },
+                                                    { "label": "Romanian (Moldova) - română (Moldova)", "value": "mo" },
+                                                    { "label": "Romansh - rumantsch", "value": "rm" },
+                                                    { "label": "Russian - русский", "value": "ru" },
+                                                    { "label": "Sami (Finland)", "value": "se-FI" },
+                                                    { "label": "Sami (Norway)", "value": "se-NO" },
+                                                    { "label": "Sami (Sweden)", "value": "se-SE" },
+                                                    { "label": "Scottish Gaelic", "value": "gd" },
+                                                    { "label": "Serbian - српски", "value": "sr" },
+                                                    { "label": "Serbo - Croatian", "value": "sh" },
+                                                    { "label": "Shona - chiShona", "value": "sn" },
+                                                    { "label": "Sindhi", "value": "sd" },
+                                                    { "label": "Sinhala - සිංහල", "value": "si" },
+                                                    { "label": "Slovak - slovenčina", "value": "sk" },
+                                                    { "label": "Slovenian - slovenščina", "value": "sl" },
+                                                    { "label": "Somali - Soomaali", "value": "so" },
+                                                    { "label": "Southern Sotho", "value": "st" },
+                                                    { "label": "Spanish - español", "value": "es" },
+                                                    { "label": "Spanish (Argentina) - español (Argentina)", "value": "es-AR" },
+                                                    { "label": "Spanish (Latin America) - español (Latinoamérica)", "value": "es-419" },
+                                                    { "label": "Spanish (Mexico) - español (México)", "value": "es-MX" },
+                                                    { "label": "Spanish (Spain) - español (España)", "value": "es-ES" },
+                                                    { "label": "Spanish (United States) - español (Estados Unidos)", "value": "es-US" },
+                                                    { "label": "Sundanese", "value": "su" },
+                                                    { "label": "Swahili - Kiswahili", "value": "sw" },
+                                                    { "label": "Swedish - svenska", "value": "sv-SE" },
+                                                    { "label": "Tajik - тоҷикӣ", "value": "tg" },
+                                                    { "label": "Tamil - தமிழ்", "value": "ta" },
+                                                    { "label": "Tatar", "value": "tt" },
+                                                    { "label": "Telugu - తెలుగు", "value": "te" },
+                                                    { "label": "Thai - ไทย", "value": "th" },
+                                                    { "label": "Tigrinya - ትግርኛ", "value": "ti" },
+                                                    { "label": "Tongan - lea fakatonga", "value": "to" },
+                                                    { "label": "Turkish - Türkçe", "value": "tr" },
+                                                    { "label": "Turkmen", "value": "tk" },
+                                                    { "label": "Twi", "value": "tw" },
+                                                    { "label": "Ukrainian - українська", "value": "uk" },
+                                                    { "label": "Urdu - اردو", "value": "ur" },
+                                                    { "label": "Uyghur", "value": "ug" },
+                                                    { "label": "Uzbek - o‘zbek", "value": "uz" },
+                                                    { "label": "Vietnamese - Tiếng Việt", "value": "vi" },
+                                                    { "label": "Walloon - wa", "value": "wa" },
+                                                    { "label": "Welsh - Cymraeg", "value": "cy" },
+                                                    { "label": "Western Frisian", "value": "fy" },
+                                                    { "label": "Xhosa", "value": "xh" },
+                                                    { "label": "Yiddish", "value": "yi" },
+                                                    { "label": "Yoruba - Èdè Yorùbá", "value": "yo" },
+                                                    { "label": "Zulu - isiZulu", "value": "zu" }
+                                                ]
+                                            },
+                                            "fallbackUrl": {
+                                                "label": "Fallback URL",
+                                                "contentType": "text",
+                                                "placeholder": "https://en.example.com",
+                                                "defaultValue": "",
+                                                "validator": "Lab.Util.String.hasLength"
+                                            },
+                                            "autoSuggestTranslation": {
+                                                "label": "Add as suggestion for translation",
+                                                "contentType": "checkbox",
+                                                "defaultValue": true
+                                            },
+                                            "siteName": {
+                                                "label": "Site name",
+                                                "contentType": "text",
+                                                "placeholder": "Site name, as defined as 'Display name' or 'sitealias' on admin page 'Sites'",
+                                                "defaultValue": ""
+                                            },
+                                            "prototypeName": {
+                                                "label": "Prototype",
+                                                "contentType": "text",
+                                                "placeholder": "Prototype name, as defined on admin page 'Prototypes'",
+                                                "defaultValue": ""
+                                            },
+                                            "openInNewTab": {
+                                                "label": "Open translated page in new tab",
+                                                "contentType": "checkbox",
+                                                "defaultValue": false
+                                            }
                                         }
                                     }
-                                }]
+                                ]
                             }
                         }
                     }
@@ -6184,482 +6695,490 @@
                         "deletable": false,
                         "sortable": false,
                         "label": "Article pages",
-                        "items": [{
-                            "deletable": true,
-                            "label": "Settings",
-                            "labelstyles": ["sub-label"],
-                            "items": {
-                                "type": {
-                                    "label": "Type",
-                                    "contentType": "select",
-                                    "defaultValue": "front_rows",
-                                    "deletable": false,
-                                    "options": [
-                                        {
-                                            "value": "front_rows",
-                                            "label": "Front page replica"
-                                        },
-                                        {
-                                            "value": "browserFeed",
-                                            "label": "Infinite scroll - article teasers"
-                                        },
-                                        {
-                                            "value": "infiniteScroll",
-                                            "label": "Infinite scroll - articles (BETA)"
-                                        },
-                                        {
-                                            "value": "articlesByTag",
-                                            "label": "Articles by tag"
-                                        }
-                                    ]
-                                },
-                                "placement": {
-                                    "items": {
-                                        "key": {
-                                            "label": "Placement",
-                                            "contentType": "select",
-                                            "defaultValue": "article_bottom",
-                                            "deletable": false,
-                                            "options": [
-                                                {
-                                                    "value": "article_bottom",
-                                                    "label": "Below article"
-                                                },
-                                                {
-                                                    "value": "article_top",
-                                                    "label": "Above article"
-                                                },
-                                                {
-                                                    "value": "section_inline",
-                                                    "label": "Bodytext section"
-                                                },
-                                                {
-                                                    "value": "section_right",
-                                                    "label": "Bodytext section right"
-                                                }
-                                            ]
-                                        },
-                                        "index": {
-                                            "label": "Index to insert into",
-                                            "description": "Number implies where in the content order the element will be inserted. <br>One index count equates to one row on the front page. Index 0 will be at the top of the order.",
-                                            "contentType": "number",
-                                            "defaultValue": "",
-                                            "deletable": false
-                                        }
-                                    }
-                                },
-                                "excludeDuplicates": {
-                                    "label": "Skip if element exists",
-                                    "contentType": "checkbox",
-                                    "defaultValue": true
-                                },
-                                "metadata": {
-                                    "items": {
-                                        "css": {
-                                            "label": "Width",
-                                            "contentType": "select",
-                                            "defaultValue": "large-6 small-12",
-                                            "deletable": false,
-                                            "options": [
-                                                {
-                                                    "value": "large-12 small-12",
-                                                    "label": "Desktop: large, mobile: large"
-                                                },
-                                                {
-                                                    "value": "large-6 small-12",
-                                                    "label": "Desktop: medium, mobile: large"
-                                                },
-                                                {
-                                                    "value": "large-4 small-12",
-                                                    "label": "Desktop: small, mobile: large"
-                                                }
-                                            ],
-                                            "attributes": {
-                                                "data-require": "articlesByTag|front_rows",
-                                                "data-require-placement": "section_right"
+                        "items": [
+                            {
+                                "deletable": true,
+                                "label": "Settings",
+                                "labelstyles": ["sub-label"],
+                                "items": {
+                                    "type": {
+                                        "label": "Type",
+                                        "contentType": "select",
+                                        "defaultValue": "front_rows",
+                                        "deletable": false,
+                                        "options": [
+                                            {
+                                                "value": "front_rows",
+                                                "label": "Front page replica"
+                                            },
+                                            {
+                                                "value": "browserFeed",
+                                                "label": "Infinite scroll - article teasers"
+                                            },
+                                            {
+                                                "value": "infiniteScroll",
+                                                "label": "Infinite scroll - articles (BETA)"
+                                            },
+                                            {
+                                                "value": "articlesByTag",
+                                                "label": "Articles by tag"
                                             }
-                                        }
-                                    }
-                                },
-                                "content_data": {
-                                    "label": "Content data",
-                                    "labelstyles": ["sub-label"],
-                                    "items": {
-                                        "fields": {
-                                            "items": {
-                                                "contentType": {
-                                                    "label": "Element type",
-                                                    "contentType": "select",
-                                                    "defaultValue": "",
-                                                    "deletable": false,
-                                                    "options": [
-                                                        {
-                                                            "value": "row",
-                                                            "label": "Rows"
-                                                        },
-                                                        {
-                                                            "value": "article",
-                                                            "label": "Articles"
-                                                        }
-                                                    ],
-                                                    "attributes": {
-                                                        "data-require": "browserFeed"
-                                                    }
-                                                },
-                                                "pageId": {
-                                                    "label": "Display elements from page",
-                                                    "description": "Find the ID in the URL when editing the page used to create the element.",
-                                                    "contentType": "number",
-                                                    "defaultValue": "",
-                                                    "placeholder": "Page id like 123456",
-                                                    "deletable": false,
-                                                    "attributes": {
-                                                        "data-require": "browserFeed"
-                                                    }
-                                                },
-                                                "feed": {
-                                                    "label": "Feed",
-                                                    "description": "Name of feed to fetch articles from. If unset, all articles from the site will be fetched.",
-                                                    "contentType": "string",
-                                                    "defaultValue": "",
-                                                    "attributes": {
-                                                        "data-require": "infiniteScroll"
-                                                    }
-                                                },
-                                                "contentCount": {
-                                                    "label": "Number of elements",
-                                                    "contentType": "number",
-                                                    "defaultValue": 4,
-                                                    "deletable": false,
-                                                    "attributes": {
-                                                        "data-require": "browserFeed"
-                                                    }
-                                                },
-                                                "fragment_json": {
-                                                    "attributes": {
-                                                        "data-require": "front_rows"
-                                                    },
-                                                    "items": {
-                                                        "pageId": {
-                                                            "label": "Display elements from page",
-                                                            "description": "Find the ID in the URL when editing the page used to create the element.",
-                                                            "contentType": "number",
-                                                            "defaultValue": "",
-                                                            "placeholder": "Page id like 123456",
-                                                            "deletable": false
-                                                        },
-                                                        "start": {
-                                                            "label": "Start from row",
-                                                            "contentType": "number",
-                                                            "defaultValue": "0",
-                                                            "deletable": false
-                                                        },
-                                                        "count": {
-                                                            "label": "Number of rows to display",
-                                                            "contentType": "number",
-                                                            "defaultValue": 4,
-                                                            "deletable": false
-                                                        }
-                                                    }
-                                                },
-                                                "title": {
-                                                    "label": "Title",
-                                                    "description": "Title to display for the articles by tag element",
-                                                    "contentType": "text",
-                                                    "defaultValue": "",
-                                                    "placeholder": "Enter title for articles by tag",
-                                                    "deletable": false,
-                                                    "attributes": {
-                                                        "data-require": "articlesByTag"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "conditions": {
-                                    "addable": true,
-                                    "deletable": false,
-                                    "sortable": false,
-                                    "label": "Include or exclude insertion in specified articles / pages",
-                                    "labelstyles": ["sub-label"],
-                                    "items": [{
-                                        "deletable": true,
+                                        ]
+                                    },
+                                    "placement": {
                                         "items": {
-                                            "field": {
-                                                "deletable": false,
-                                                "label": "Field",
+                                            "key": {
+                                                "label": "Placement",
                                                 "contentType": "select",
-                                                "defaultValue": "primaryTags.section",
+                                                "defaultValue": "article_bottom",
+                                                "deletable": false,
                                                 "options": [
                                                     {
-                                                        "value": "primaryTags.section",
-                                                        "label": "Article Section"
+                                                        "value": "article_bottom",
+                                                        "label": "Below article"
                                                     },
                                                     {
-                                                        "value": "tags",
-                                                        "label": "Article Tag"
+                                                        "value": "article_top",
+                                                        "label": "Above article"
+                                                    },
+                                                    {
+                                                        "value": "section_inline",
+                                                        "label": "Bodytext section"
+                                                    },
+                                                    {
+                                                        "value": "section_right",
+                                                        "label": "Bodytext section right"
                                                     }
                                                 ]
                                             },
-                                            "operator": {
-                                                "deletable": false,
-                                                "label": "Operator",
-                                                "contentType": "select",
-                                                "defaultValue": "equals",
-                                                "options": [
-                                                    {
-                                                        "value": "equals",
-                                                        "label": "Equals"
-                                                    },
-                                                    {
-                                                        "value": "notEquals",
-                                                        "label": "Not equals"
-                                                    },
-                                                    {
-                                                        "value": "contains",
-                                                        "label": "Contains"
-                                                    },
-                                                    {
-                                                        "value": "notContains",
-                                                        "label": "Does not contain"
-                                                    }
-                                                ]
-                                            },
-                                            "value": {
-                                                "deletable": false,
-                                                "label": "Value",
-                                                "description": "Ensure the content is or is not inserted to articles with a certain section and or certain tags.",
-                                                "contentType": "text",
+                                            "index": {
+                                                "label": "Index to insert into",
+                                                "description": "Number implies where in the content order the element will be inserted. <br>One index count equates to one row on the front page. Index 0 will be at the top of the order.",
+                                                "contentType": "number",
                                                 "defaultValue": "",
-                                                "placeholder": "The value to check against"
+                                                "deletable": false
                                             }
                                         }
-                                    }]
+                                    },
+                                    "excludeDuplicates": {
+                                        "label": "Skip if element exists",
+                                        "contentType": "checkbox",
+                                        "defaultValue": true
+                                    },
+                                    "metadata": {
+                                        "items": {
+                                            "css": {
+                                                "label": "Width",
+                                                "contentType": "select",
+                                                "defaultValue": "large-6 small-12",
+                                                "deletable": false,
+                                                "options": [
+                                                    {
+                                                        "value": "large-12 small-12",
+                                                        "label": "Desktop: large, mobile: large"
+                                                    },
+                                                    {
+                                                        "value": "large-6 small-12",
+                                                        "label": "Desktop: medium, mobile: large"
+                                                    },
+                                                    {
+                                                        "value": "large-4 small-12",
+                                                        "label": "Desktop: small, mobile: large"
+                                                    }
+                                                ],
+                                                "attributes": {
+                                                    "data-require": "articlesByTag|front_rows",
+                                                    "data-require-placement": "section_right"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "content_data": {
+                                        "label": "Content data",
+                                        "labelstyles": ["sub-label"],
+                                        "items": {
+                                            "fields": {
+                                                "items": {
+                                                    "contentType": {
+                                                        "label": "Element type",
+                                                        "contentType": "select",
+                                                        "defaultValue": "",
+                                                        "deletable": false,
+                                                        "options": [
+                                                            {
+                                                                "value": "row",
+                                                                "label": "Rows"
+                                                            },
+                                                            {
+                                                                "value": "article",
+                                                                "label": "Articles"
+                                                            }
+                                                        ],
+                                                        "attributes": {
+                                                            "data-require": "browserFeed"
+                                                        }
+                                                    },
+                                                    "pageId": {
+                                                        "label": "Display elements from page",
+                                                        "description": "Find the ID in the URL when editing the page used to create the element.",
+                                                        "contentType": "number",
+                                                        "defaultValue": "",
+                                                        "placeholder": "Page id like 123456",
+                                                        "deletable": false,
+                                                        "attributes": {
+                                                            "data-require": "browserFeed"
+                                                        }
+                                                    },
+                                                    "feed": {
+                                                        "label": "Feed",
+                                                        "description": "Name of feed to fetch articles from. If unset, all articles from the site will be fetched.",
+                                                        "contentType": "string",
+                                                        "defaultValue": "",
+                                                        "attributes": {
+                                                            "data-require": "infiniteScroll"
+                                                        }
+                                                    },
+                                                    "contentCount": {
+                                                        "label": "Number of elements",
+                                                        "contentType": "number",
+                                                        "defaultValue": 4,
+                                                        "deletable": false,
+                                                        "attributes": {
+                                                            "data-require": "browserFeed"
+                                                        }
+                                                    },
+                                                    "fragment_json": {
+                                                        "attributes": {
+                                                            "data-require": "front_rows"
+                                                        },
+                                                        "items": {
+                                                            "pageId": {
+                                                                "label": "Display elements from page",
+                                                                "description": "Find the ID in the URL when editing the page used to create the element.",
+                                                                "contentType": "number",
+                                                                "defaultValue": "",
+                                                                "placeholder": "Page id like 123456",
+                                                                "deletable": false
+                                                            },
+                                                            "start": {
+                                                                "label": "Start from row",
+                                                                "contentType": "number",
+                                                                "defaultValue": "0",
+                                                                "deletable": false
+                                                            },
+                                                            "count": {
+                                                                "label": "Number of rows to display",
+                                                                "contentType": "number",
+                                                                "defaultValue": 4,
+                                                                "deletable": false
+                                                            }
+                                                        }
+                                                    },
+                                                    "title": {
+                                                        "label": "Title",
+                                                        "description": "Title to display for the articles by tag element",
+                                                        "contentType": "text",
+                                                        "defaultValue": "",
+                                                        "placeholder": "Enter title for articles by tag",
+                                                        "deletable": false,
+                                                        "attributes": {
+                                                            "data-require": "articlesByTag"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "conditions": {
+                                        "addable": true,
+                                        "deletable": false,
+                                        "sortable": false,
+                                        "label": "Include or exclude insertion in specified articles / pages",
+                                        "labelstyles": ["sub-label"],
+                                        "items": [
+                                            {
+                                                "deletable": true,
+                                                "items": {
+                                                    "field": {
+                                                        "deletable": false,
+                                                        "label": "Field",
+                                                        "contentType": "select",
+                                                        "defaultValue": "primaryTags.section",
+                                                        "options": [
+                                                            {
+                                                                "value": "primaryTags.section",
+                                                                "label": "Article Section"
+                                                            },
+                                                            {
+                                                                "value": "tags",
+                                                                "label": "Article Tag"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "operator": {
+                                                        "deletable": false,
+                                                        "label": "Operator",
+                                                        "contentType": "select",
+                                                        "defaultValue": "equals",
+                                                        "options": [
+                                                            {
+                                                                "value": "equals",
+                                                                "label": "Equals"
+                                                            },
+                                                            {
+                                                                "value": "notEquals",
+                                                                "label": "Not equals"
+                                                            },
+                                                            {
+                                                                "value": "contains",
+                                                                "label": "Contains"
+                                                            },
+                                                            {
+                                                                "value": "notContains",
+                                                                "label": "Does not contain"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "value": {
+                                                        "deletable": false,
+                                                        "label": "Value",
+                                                        "description": "Ensure the content is or is not inserted to articles with a certain section and/or certain tags.",
+                                                        "contentType": "text",
+                                                        "defaultValue": "",
+                                                        "placeholder": "The value to check against"
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
                                 }
                             }
-                        }]
+                    ]
                     },
                     "front": {
                         "addable": true,
                         "deletable": false,
                         "sortable": false,
                         "label": "Front pages",
-                        "items": [{
-                            "deletable": true,
-                            "label": "Settings",
-                            "labelstyles": ["sub-label"],
-                            "items": {
-                                "type": {
-                                    "label": "Type",
-                                    "contentType": "select",
-                                    "defaultValue": "front_rows",
-                                    "deletable": false,
-                                    "options": [
-                                        {
-                                            "value": "front_rows",
-                                            "label": "Front page replica"
-                                        },
-                                        {
-                                            "value": "browserFeed",
-                                            "label": "Infinite scroll - article teasers"
-                                        },
-                                        {
-                                            "value": "infiniteScroll",
-                                            "label": "Infinite scroll - articles (BETA)"
-                                        },
-                                        {
-                                            "value": "articlesByTag",
-                                            "label": "Articles by tag"
-                                        }
-                                    ]
-                                },
-                                "placement": {
-                                    "items": {
-                                        "key": {
-                                            "label": "Placement",
-                                            "contentType": "select",
-                                            "defaultValue": "row_index",
-                                            "deletable": false,
-                                            "options": [
-                                                {
-                                                    "value": "above_header",
-                                                    "label": "Above header"
-                                                },
-                                                {
-                                                    "value": "row_index",
-                                                    "label": "Row by index"
-                                                }
-                                            ]
-                                        },
-                                        "index": {
-                                            "label": "Index to insert into",
-                                            "description": "Number implies where in the content order the element will be inserted. <br>One index count equates to one row on the front page. Index 0 will be at the top of the order.",
-                                            "contentType": "number",
-                                            "defaultValue": "",
-                                            "deletable": false
-                                        }
-                                    }
-                                },
-                                "excludeDuplicates": {
-                                    "label": "Skip if element exists",
-                                    "contentType": "checkbox",
-                                    "defaultValue": true
-                                },
-                                "content_data": {
-                                    "label": "Content data",
-                                    "labelstyles": ["sub-label"],
-                                    "items": {
-                                        "fields": {
-                                            "items": {
-                                                "contentType": {
-                                                    "label": "Element type",
-                                                    "contentType": "select",
-                                                    "defaultValue": "",
-                                                    "deletable": false,
-                                                    "options": [
-                                                        {
-                                                            "value": "row",
-                                                            "label": "Rows"
-                                                        },
-                                                        {
-                                                            "value": "article",
-                                                            "label": "Articles"
-                                                        }
-                                                    ],
-                                                    "attributes": {
-                                                        "data-require": "browserFeed"
-                                                    }
-                                                },
-                                                "pageId": {
-                                                    "label": "Display elements from page",
-                                                    "description": "Find the ID in the URL when editing the page used to create the element.",
-                                                    "contentType": "number",
-                                                    "defaultValue": "",
-                                                    "placeholder": "Page id like 123456",
-                                                    "deletable": false,
-                                                    "attributes": {
-                                                        "data-require": "browserFeed"
-                                                    }
-                                                },
-                                                "feed": {
-                                                    "label": "Feed",
-                                                    "description": "Name of feed to fetch articles from. If unset, all articles from the site will be fetched.",
-                                                    "contentType": "string",
-                                                    "defaultValue": "",
-                                                    "attributes": {
-                                                        "data-require": "infiniteScroll"
-                                                    }
-                                                },
-                                                "contentCount": {
-                                                    "label": "Number of elements",
-                                                    "contentType": "number",
-                                                    "defaultValue": 4,
-                                                    "deletable": false,
-                                                    "attributes": {
-                                                        "data-require": "browserFeed"
-                                                    }
-                                                },
-                                                "fragment_json": {
-                                                    "attributes": {
-                                                        "data-require": "front_rows"
-                                                    },
-                                                    "items": {
-                                                        "pageId": {
-                                                            "label": "Display elements from page",
-                                                            "description": "Find the ID in the URL when editing the page used to create the element.",
-                                                            "contentType": "number",
-                                                            "defaultValue": "",
-                                                            "placeholder": "Page id like 123456",
-                                                            "deletable": false
-                                                        },
-                                                        "start": {
-                                                            "label": "Start from row",
-                                                            "contentType": "number",
-                                                            "defaultValue": "0",
-                                                            "deletable": false
-                                                        },
-                                                        "count": {
-                                                            "label": "Number of rows to display",
-                                                            "contentType": "number",
-                                                            "defaultValue": 4,
-                                                            "deletable": false
-                                                        }
-                                                    }
-                                                },
-                                                "title": {
-                                                    "label": "Title",
-                                                    "description": "Title to display for the articles by tag element",
-                                                    "contentType": "text",
-                                                    "defaultValue": "",
-                                                    "placeholder": "Enter title for articles by tag",
-                                                    "deletable": false,
-                                                    "attributes": {
-                                                        "data-require": "articlesByTag"
-                                                    }
-                                                }
+                        "items": [
+                            {
+                                "deletable": true,
+                                "label": "Settings",
+                                "labelstyles": ["sub-label"],
+                                "items": {
+                                    "type": {
+                                        "label": "Type",
+                                        "contentType": "select",
+                                        "defaultValue": "front_rows",
+                                        "deletable": false,
+                                        "options": [
+                                            {
+                                                "value": "front_rows",
+                                                "label": "Front page replica"
+                                            },
+                                            {
+                                                "value": "browserFeed",
+                                                "label": "Infinite scroll - article teasers"
+                                            },
+                                            {
+                                                "value": "infiniteScroll",
+                                                "label": "Infinite scroll - articles (BETA)"
+                                            },
+                                            {
+                                                "value": "articlesByTag",
+                                                "label": "Articles by tag"
                                             }
-                                        }
-                                    }
-                                },
-                                "conditions": {
-                                    "addable": true,
-                                    "deletable": false,
-                                    "sortable": false,
-                                    "label": "Include or exclude insertion in specified articles / pages",
-                                    "labelstyles": ["sub-label"],
-                                    "items": [{
-                                        "deletable": true,
+                                        ]
+                                    },
+                                    "placement": {
                                         "items": {
-                                            "field": {
-                                                "deletable": false,
-                                                "label": "Field",
+                                            "key": {
+                                                "label": "Placement",
                                                 "contentType": "select",
-                                                "defaultValue": "fields.hostpath",
+                                                "defaultValue": "row_index",
+                                                "deletable": false,
                                                 "options": [
                                                     {
-                                                        "value": "fields.hostpath",
-                                                        "label": "Front page host path"
+                                                        "value": "above_header",
+                                                        "label": "Above header"
+                                                    },
+                                                    {
+                                                        "value": "row_index",
+                                                        "label": "Row by index"
                                                     }
                                                 ]
                                             },
-                                            "operator": {
-                                                "deletable": false,
-                                                "label": "Operator",
-                                                "contentType": "select",
-                                                "defaultValue": "equals",
-                                                "options": [
-                                                    {
-                                                        "value": "equals",
-                                                        "label": "Equals"
-                                                    },
-                                                    {
-                                                        "value": "notEquals",
-                                                        "label": "Not equals"
-                                                    },
-                                                    {
-                                                        "value": "contains",
-                                                        "label": "Contains"
-                                                    },
-                                                    {
-                                                        "value": "notContains",
-                                                        "label": "Does not contain"
-                                                    }
-                                                ]
-                                            },
-                                            "value": {
-                                                "deletable": false,
-                                                "label": "Value",
-                                                "description": "Ensure the content is or is not inserted to certain pages by using host path. <br>Example if your page is www.mysite.com/current-affairs, host path is current-affairs.",
-                                                "contentType": "text",
+                                            "index": {
+                                                "label": "Index to insert into",
+                                                "description": "Number implies where in the content order the element will be inserted. <br>One index count equates to one row on the front page. Index 0 will be at the top of the order.",
+                                                "contentType": "number",
                                                 "defaultValue": "",
-                                                "placeholder": "The value to check against"
+                                                "deletable": false
                                             }
                                         }
-                                    }]
+                                    },
+                                    "excludeDuplicates": {
+                                        "label": "Skip if element exists",
+                                        "contentType": "checkbox",
+                                        "defaultValue": true
+                                    },
+                                    "content_data": {
+                                        "label": "Content data",
+                                        "labelstyles": ["sub-label"],
+                                        "items": {
+                                            "fields": {
+                                                "items": {
+                                                    "contentType": {
+                                                        "label": "Element type",
+                                                        "contentType": "select",
+                                                        "defaultValue": "",
+                                                        "deletable": false,
+                                                        "options": [
+                                                            {
+                                                                "value": "row",
+                                                                "label": "Rows"
+                                                            },
+                                                            {
+                                                                "value": "article",
+                                                                "label": "Articles"
+                                                            }
+                                                        ],
+                                                        "attributes": {
+                                                            "data-require": "browserFeed"
+                                                        }
+                                                    },
+                                                    "pageId": {
+                                                        "label": "Display elements from page",
+                                                        "description": "Find the ID in the URL when editing the page used to create the element.",
+                                                        "contentType": "number",
+                                                        "defaultValue": "",
+                                                        "placeholder": "Page id like 123456",
+                                                        "deletable": false,
+                                                        "attributes": {
+                                                            "data-require": "browserFeed"
+                                                        }
+                                                    },
+                                                    "feed": {
+                                                        "label": "Feed",
+                                                        "description": "Name of feed to fetch articles from. If unset, all articles from the site will be fetched.",
+                                                        "contentType": "string",
+                                                        "defaultValue": "",
+                                                        "attributes": {
+                                                            "data-require": "infiniteScroll"
+                                                        }
+                                                    },
+                                                    "contentCount": {
+                                                        "label": "Number of elements",
+                                                        "contentType": "number",
+                                                        "defaultValue": 4,
+                                                        "deletable": false,
+                                                        "attributes": {
+                                                            "data-require": "browserFeed"
+                                                        }
+                                                    },
+                                                    "fragment_json": {
+                                                        "attributes": {
+                                                            "data-require": "front_rows"
+                                                        },
+                                                        "items": {
+                                                            "pageId": {
+                                                                "label": "Display elements from page",
+                                                                "description": "Find the ID in the URL when editing the page used to create the element.",
+                                                                "contentType": "number",
+                                                                "defaultValue": "",
+                                                                "placeholder": "Page id like 123456",
+                                                                "deletable": false
+                                                            },
+                                                            "start": {
+                                                                "label": "Start from row",
+                                                                "contentType": "number",
+                                                                "defaultValue": "0",
+                                                                "deletable": false
+                                                            },
+                                                            "count": {
+                                                                "label": "Number of rows to display",
+                                                                "contentType": "number",
+                                                                "defaultValue": 4,
+                                                                "deletable": false
+                                                            }
+                                                        }
+                                                    },
+                                                    "title": {
+                                                        "label": "Title",
+                                                        "description": "Title to display for the articles by tag element",
+                                                        "contentType": "text",
+                                                        "defaultValue": "",
+                                                        "placeholder": "Enter title for articles by tag",
+                                                        "deletable": false,
+                                                        "attributes": {
+                                                            "data-require": "articlesByTag"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "conditions": {
+                                        "addable": true,
+                                        "deletable": false,
+                                        "sortable": false,
+                                        "label": "Include or exclude insertion in specified articles / pages",
+                                        "labelstyles": ["sub-label"],
+                                        "items": [
+                                            {
+                                                "deletable": true,
+                                                "items": {
+                                                    "field": {
+                                                        "deletable": false,
+                                                        "label": "Field",
+                                                        "contentType": "select",
+                                                        "defaultValue": "fields.hostpath",
+                                                        "options": [
+                                                            {
+                                                                "value": "fields.hostpath",
+                                                                "label": "Front page host path"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "operator": {
+                                                        "deletable": false,
+                                                        "label": "Operator",
+                                                        "contentType": "select",
+                                                        "defaultValue": "equals",
+                                                        "options": [
+                                                            {
+                                                                "value": "equals",
+                                                                "label": "Equals"
+                                                            },
+                                                            {
+                                                                "value": "notEquals",
+                                                                "label": "Not equals"
+                                                            },
+                                                            {
+                                                                "value": "contains",
+                                                                "label": "Contains"
+                                                            },
+                                                            {
+                                                                "value": "notContains",
+                                                                "label": "Does not contain"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "value": {
+                                                        "deletable": false,
+                                                        "label": "Value",
+                                                        "description": "Ensure the content is or is not inserted to certain pages by using host path. <br>Example if your page is www.mysite.com/current-affairs, host path is current-affairs.",
+                                                        "contentType": "text",
+                                                        "defaultValue": "",
+                                                        "placeholder": "The value to check against"
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
                                 }
                             }
-                        }]
+                        ]
                     }
                 }
             },
@@ -6689,6 +7208,9 @@
                 "fallbackToConfig": true,
                 "path": "config.customer.authorPages",
                 "allowSites": true,
+                "listener": {
+                    "import": "/view-resources/lib/admin/AuthorPagesAdmin.js"
+                },
                 "items": {
                     "enabled": {
                         "fallbackToConfig": true,
@@ -6711,21 +7233,26 @@
                         "label": "Enable for all authors",
                         "contentType": "checkbox"
                     },
-                    "path": {
+                    "lookupKey": {
                         "fallbackToConfig": true,
                         "deletable": false,
-                        "label": "Author Pages Path",
-                        "contentType": "text",
-                        "defaultValue": "",
-                        "placeholder": "author",
-                        "description": "This will be the URL path for the author pages, should just be a single word. Defaults to 'author'"
+                        "label": "Article lookup key",
+                        "description": "Field used to query articles for an author page.",
+                        "contentType": "select",
+                        "defaultValue": "slug",
+                        "options": [
+                            {"value": "slug", "label": "Slug"},
+                            {"value": "email", "label": "Email"},
+                            {"value": "slug_email", "label": "Slug + Email"}
+                        ]
                     }
                 }
             },
             "view": {
                 "title": "Author Pages",
                 "cssFiles": [
-                    "/css/cms/tools/ViewEditor.css"
+                    "/css/cms/tools/ViewEditor.css",
+                    "/view-resources/lib/admin/AuthorPagesAdmin.css"
                 ],
                 "jsFiles": [
                     "/js/cms/LabUtils/Tools/ViewEditor/Store.js",

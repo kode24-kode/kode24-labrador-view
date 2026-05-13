@@ -1,0 +1,31 @@
+{{ ^get.current.filtered.paywall.hasAccess }}
+    <div class="bodytext intro">
+    {{{ get.current.filtered.paywall.intro }}}
+    </div>
+    <div id="tulo-paywall">
+        <template id="paywall-loader-template">
+            <div class='lds-dual-ring'></div><p><i>Loading ..</i></p>
+        </template>
+        <div id="paywall-container"></div>
+    </div>
+
+    <script type="text/javascript">
+        const tuloEnvironment = "{{ getConfig.tulo.environment }}";
+        new TuloPaywall().Init({
+            url: tuloEnvironment === 'production' ? 'https://paywall.worldoftulo.com/api/paywall/lite' : 'https://payway-paywall-stage.adeprimo.se/api/paywall/lite',
+            organisationId: "{{{ getConfig.tulo.organisationId }}}",
+            titleCode: "{{{ getConfig.tulo.titleCode }}}",
+            returnUrl: "{{{ get.root.filtered.customer_front_url }}}/_labrador/paywall/v1/login?contentUrl={{{ get.root.filtered.specificUrl }}}",
+            trafficSource: "{{ #getConfig.tulo.trafficSource }}{{{ getConfig.tulo.trafficSource }}}{{ /getConfig.tulo.trafficSource }}{{ ^getConfig.tulo.trafficSource }}paywall{{ /getConfig.tulo.trafficSource }}",
+            accountOrigin: "{{{ getConfig.tulo.accountOrigin }}}",
+            shopUrl: "{{{ getConfig.tulo.shopUrl }}}",
+            loginUrl: "{{{ get.root.filtered.customer_front_url }}}/_labrador/paywall/v1/login",
+            debug: true
+        });
+    </script>
+{{ /get.current.filtered.paywall.hasAccess }}
+{{ #get.current.filtered.paywall.hasAccess }}
+    <div class="bodytext content-text">
+    {{{ get.current.filtered.paywall.bodytext }}}
+    </div>
+{{ /get.current.filtered.paywall.hasAccess }}

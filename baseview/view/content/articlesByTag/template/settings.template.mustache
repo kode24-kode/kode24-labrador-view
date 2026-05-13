@@ -4,7 +4,7 @@
             <label for="id-fields.query_json.site_id">Site</label>
             <select id="id-fields.query_json.site_id" name="fields.query_json.site_id">
                 {{ #get.current.filtered.siteOptions }}
-                <option value="{{ value }}"{{ #selected }} selected{{ /selected }}>{{ name }}</option>
+                    <option value="{{ value }}"{{ #selected }} selected{{ /selected }}>{{ name }}</option>
                 {{ /get.current.filtered.siteOptions }}
             </select>
         </div>      
@@ -18,11 +18,22 @@
         </div>
         <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Article options</h3>
         {{ #get.current.filtered.editDisplayOptions }}
-        <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
-            <label for="id-fields.displayOptions_json.{{ name }}">Display {{ name }}</label>
-            <input id="id-fields.displayOptions_json.{{ name }}" type="checkbox" value="1" name="fields.displayOptions_json.{{ name }}" {{ #value }}checked{{ /value }}>
-        </div>
+            <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.displayOptions_json.{{ name }}">Display {{ name }}</label>
+                <input id="id-fields.displayOptions_json.{{ name }}" type="checkbox" value="1" name="fields.displayOptions_json.{{ name }}" {{ #value }}checked{{ /value }}>
+            </div>
         {{ /get.current.filtered.editDisplayOptions }}
+        <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Layout options</h3>
+        <div class="lab-formgroup lab-grid lab-grid-gap lab-space-below-none">
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.hideOuterBorder">Hide outer border</label>
+                <input id="id-fields.hideOuterBorder" type="checkbox" name="fields.hideOuterBorder" value="1" {{ #get.current.fields.hideOuterBorder }}checked{{ /get.current.fields.hideOuterBorder }}>
+            </div>
+            <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
+                <label for="id-fields.hideInnerBorder">Hide border between articles</label>
+                <input id="id-fields.hideInnerBorder" type="checkbox" name="fields.hideInnerBorder" value="1" {{ #get.current.fields.hideInnerBorder }}checked{{ /get.current.fields.hideInnerBorder }}>
+            </div>
+        </div>
         <h3 class="lab-title lab-grid-large-12 lab-grid-gap lab-space-above-medium">Data options</h3>
         <div class="lab-formgroup-item lab-grid-large-4 lab-grid-small-12 lab-grid-gap lab-inline"">
             <label for="id-fields.hideTags">Hide tags</label>
@@ -31,6 +42,10 @@
         <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
             <label for="id-fields.usePageTags">Use page tags (article)</label>
             <input id="id-fields.usePageTags" type="checkbox" value="1" name="fields.usePageTags" {{ #get.current.fields.usePageTags }}checked="checked"{{ /get.current.fields.usePageTags }}>
+        </div>
+        <div class="lab-formgroup-item lab-grid-large-6 lab-grid-small-12 lab-grid-gap lab-inline">
+            <label for="id-fields.usePageSection">Only use the page section (article)</label>
+            <input id="id-fields.usePageSection" type="checkbox" value="1" name="fields.usePageSection" {{ #get.current.fields.usePageSection }}checked="checked"{{ /get.current.fields.usePageSection }}>
         </div>
         <div class="lab-formgroup-item lab-grid-large-12 lab-grid-small-12 lab-grid-gap">
             <label for="id-fields.tagsString">... or specify tags</label>

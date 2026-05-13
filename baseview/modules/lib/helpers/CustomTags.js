@@ -38,15 +38,22 @@ export class CustomTags {
             link: {
                 head_top: [],
                 head_bottom: []
+            },
+            noscript: {
+                head_top: [],
+                head_bottom: [],
+                body_top: [],
+                body_bottom: []
             }
         };
-        const filtered = tags.filter((tag) => (!tag.pageType || tag.pageType === pageType) && !(tag.skipEditor && isEditMode));
+        const filtered = tags.filter((tag) => (!tag.pageType || tag.pageType === pageType) && !(tag.skipEditor && isEditMode) && !(tag.skipFront && !isEditMode));
         for (const tag of Object.keys(result)) {
             for (const placement of Object.keys(result[tag])) {
                 result.meta[placement] = filtered.filter((item) => item.tag === 'meta').filter((item) => item.placement === placement).map((item) => this.createCustomTag(item));
                 result.script[placement] = filtered.filter((item) => item.tag === 'script').filter((item) => item.placement === placement).map((item) => this.createCustomTag(item));
                 result.style[placement] = filtered.filter((item) => item.tag === 'style').filter((item) => item.placement === placement).map((item) => this.createCustomTag(item));
                 result.link[placement] = filtered.filter((item) => item.tag === 'link').filter((item) => item.placement === placement).map((item) => this.createCustomTag(item));
+                result.noscript[placement] = filtered.filter((item) => item.tag === 'noscript').filter((item) => item.placement === placement).map((item) => this.createCustomTag(item));
             }
         }
         console.log(result);
@@ -61,6 +68,8 @@ export class CustomTags {
                 return this.createScriptTag(item);
             case 'style':
                 return this.createStyleTag(item);
+            case 'noscript':
+                return this.createNoscriptTag(item);
             default:
                 return this.createMetaTag(item);
         }
@@ -97,6 +106,11 @@ export class CustomTags {
     // <style>body { background-color: lightblue; }</style>
     static createStyleTag(item) {
         return `<style ${ this.parseAttributes(item.attributes) }>${ item.value ? this.parseVariables(item.value) : '' }</style>`;
+    }
+
+    // <noscript><img src="https://example.com/tracker.gif"></noscript>
+    static createNoscriptTag(item) {
+        return `<noscript ${ this.parseAttributes(item.attributes) }>${ item.value ? this.parseVariables(item.value) : '' }</noscript>`;
     }
 
 }

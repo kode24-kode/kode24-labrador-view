@@ -1,0 +1,21 @@
+<div class="bylines{{ #get.current.metadata.floatingBylines }} floating{{ /get.current.metadata.floatingBylines }}{{ #get.current.metadata.bylinesAboveTitle }} aboveTitle{{ /get.current.metadata.bylinesAboveTitle }}">
+    {{ #get.current.filtered.bylines }}
+        <div class="byline column" itemscope="" itemtype="http://schema.org/Person">
+            <div class="content">
+                {{ ^get.current.metadata.hideBylineImages }}
+                    {{ #imageUrl }}
+                        <figure>
+                            <img itemprop="image" src="{{{ imageUrl}}}">
+                        </figure>
+                    {{ /imageUrl}}
+                {{ /get.current.metadata.hideBylineImages }}
+                <address class="name">{{{ firstname }}} {{{ lastname }}}{{ #getConfig.contentbox_settings.article.show_byline_description }}{{ #description}}, <span class="author-description">{{{ description }}}</span>{{ /description}}{{ /getConfig.contentbox_settings.article.show_byline_description }}</address>
+            </div>
+        </div>
+    {{ /get.current.filtered.bylines }}
+    {{ #get.current.filtered.displayPublishedDate }}
+        <div class="article-published-wrapper">
+            <p class="article-published-date">{{{ get.current.filtered.publishedDate }}}</p>
+        </div>
+    {{ /get.current.filtered.displayPublishedDate }}
+</div>

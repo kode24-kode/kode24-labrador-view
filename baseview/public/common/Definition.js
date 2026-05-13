@@ -65,13 +65,17 @@ window.Dac.Definition = class {
                 });
 
                 clone.style.display = 'flex';
-                clone.style.top = `(${ dfn.offsetTop } + ${ dfn.offsetHeight } + 10)px`;
+                clone.style.top = `${ dfn.offsetTop + dfn.offsetHeight + 10 }px`;
                 const popup = document.querySelector('.definitionPopup');
-                if (popup.clientWidth + dfn.offsetLeft < window.innerWidth) {
-                    clone.style.left = `${ dfn.offsetLeft }px`;
-                } else {
-                    clone.style.left = '0.7rem';
-                    clone.style.right = '0.7rem';
+                const pageWidth = this.article && this.article.querySelector('.pageWidth') && this.article.querySelector('.pageWidth').offsetWidth;
+                if (pageWidth) {
+                    if ((popup.clientWidth + dfn.offsetLeft) < pageWidth) {
+                        clone.style.left = 'unset';
+                        clone.style.right = `${ pageWidth - (popup.clientWidth + dfn.offsetLeft) }px`;
+                    } else {
+                        clone.style.left = '0.7rem';
+                        clone.style.right = '0.7rem';
+                    }
                 }
             }
         }

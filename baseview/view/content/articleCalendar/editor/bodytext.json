@@ -1,0 +1,19 @@
+{
+    "contentMenus": {
+        "default": {
+            "labels": {
+                "before": ["lab-content-type"]
+            },
+            "items": {
+                "gridOverride": {
+                    "inheritPath": "menu/buttons/gridOverride.json",
+                    "group": "g3",
+                    "items": {
+                        "left_tiny": null,
+                        "right_tiny": null
+                    }
+                }
+            }
+        }
+    }
+}

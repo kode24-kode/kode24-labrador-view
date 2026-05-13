@@ -104,12 +104,13 @@
     },
     "droppable": {
         "active": true,
-        "accept": ["image", "timelineItem"],
+        "accept": ["image", "timelineItem", "markup", "twitter", "instagram", "article"],
         "drop": {
             "sourceType": {
-                "image": "replaceChild"
+                "image": "replaceChild",
+                "timelineItem": "addPositionedSibling"
             },
-            "default": "addPositionedSibling",
+            "default": "addChild",
             "siblingPosition": "horizontal"
         }
     },

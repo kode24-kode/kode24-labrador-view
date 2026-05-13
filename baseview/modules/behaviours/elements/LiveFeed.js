@@ -7,12 +7,19 @@ export default class LiveFeed {
         this.cache = new Map();
         this.defaultMaxCount = 100;
         this.isEditor = this.api.v1.app.mode.isEditor();
+        this.rootModel = this.api.v1.model.query.getRootModel();
     }
 
     onPrepareViewHelper(model, view) {
         const site = model.get('fields.site') || this.siteId;
         const maxNoticesCount = view.get('fields.maxNoticesCount') || this.defaultMaxCount;
-        const tags = (model.get('fields.tags') || '').toLowerCase().split(',').filter((tag) => tag !== '');
+        let tags = (model.get('fields.tags') || '').toLowerCase().split(',').filter((tag) => tag !== '');
+
+        if (tags.length === 0) {
+            tags = this.getNoticePageTags();
+            Sys.logger.info(`LiveFeed: No tags configured for the view, using notice page tags: ${ tags.join(', ') }`);
+        }
+
         const preparedTags = this.prepareTags(tags);
         const query = this.prepareQuery(preparedTags, false);
         const clientQuery = this.prepareQuery(preparedTags, true);
@@ -20,6 +27,16 @@ export default class LiveFeed {
         model.setFiltered('query', query);
         model.setFiltered('clientQuery', clientQuery);
         model.setFiltered('url', url);
+    }
+
+    getNoticePageTags() {
+        const noticeTagString = (this.rootModel.get('fields.noticeTagString') || '').toLowerCase();
+        Sys.logger.info(`LiveFeed: Fetching notice tags from root model field 'noticeTagString': ${ noticeTagString }`);
+        if (!noticeTagString) {
+            return [];
+        }
+
+        return noticeTagString.split(/[+/]/).map((tag) => tag.trim()).filter((tag) => tag !== '');
     }
 
     onReady(model, view) {

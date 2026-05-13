@@ -1,4 +1,5 @@
 @use "../../css_scss/components/vars" as *;
+@use "../../css_scss/mixins/content-animations" as *;
 
 /*
 Style for row
@@ -26,9 +27,15 @@ Note: main.scss includes structure/row/row from Lab 3
         z-index: -1;
     }
 
+    &:has(.row_header_text.animate) {
+        overflow: hidden;
+    }
+
     > .row_header_text {
         margin-left: $columns_gutter_outer;
         margin-right: $columns_gutter_outer;
+
+        @include text-animation-styles;
     }
 }
 
@@ -42,5 +49,3 @@ Note: main.scss includes structure/row/row from Lab 3
     width: calc(100vw - var(--lab-scrollbar-width));
     left: calc(50% - (100vw - var(--lab-scrollbar-width)) / 2);
 }
-
-

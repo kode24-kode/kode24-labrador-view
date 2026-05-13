@@ -651,10 +651,29 @@ Labels for border-with in menu-item border_settings
 }
 
 /* Do not animate text when editing */
-article.column .content .animate[contenteditable],
-article.column .content .animate:hover {
+.animate[contenteditable],
+.animate:hover,
+.flash[contenteditable],
+.flash:hover,
+.breaking[contenteditable],
+.breaking:hover,
+.breaking-red[contenteditable],
+.breaking-red:hover {
     -webkit-animation: none !important;
     animation: none !important;
+}
+
+.animate[contenteditable]::before,
+.animate[contenteditable]::after,
+.animate:hover::before,
+.animate:hover::after,
+.breaking[contenteditable]::before,
+.breaking:hover::before,
+.breaking-red[contenteditable]::before,
+.breaking-red:hover::before,
+.flash[contenteditable]::before,
+.flash:hover::before {
+    display: none;
 }
 
 /* Parallax */
@@ -966,11 +985,17 @@ section.main {
     &[data-lab-key="metadata.rounded_image_edge"],
     &[data-lab-key="metadata.border_radius"],
     &[data-lab-key="metadata.hover_text_color"],
-    &[data-lab-key="metadata.text_color"] {
+    &[data-lab-key="metadata.text_color"],
+    &[data-lab-key="metadata.activeTabTextColor"],
+    &[data-lab-key="metadata.inactiveTabHoverTextColor"]  {
         &.lab-selected:before {
             content: "";
         }
     }
+}
+
+.lab-colorpicker .lab-colorpicker-groups:has(.lab-colorpicker-group li[data-lab-key="metadata.inactiveTabHoverBackgroundColor"]) h3 {
+    white-space: break-spaces;
 }
 
 .lab-colorpicker .lab-colorpicker-groups ul li.lab-selected[data-lab-key="metadata.ui_text_color"]:before {
@@ -1531,75 +1556,19 @@ body.notice .notice-header .author[contenteditable] {
     pointer-events: none;
 }
 
-// Comment collection styling
-
-.hidden {
-    display: none !important;
-}
-
-.comment {
-  position: relative;
-  padding: 1rem 0.8rem;
-  width: 100%;
-  border: 3px solid #ea580c;
-  margin-bottom: 10px;
-  border-radius: 4px;
-
-  &.comment-resolved {
-    border-color: #C7C7C7;
-    background-color: #DDDDDD;
-    color: #222222;
-  }
-  
-}
-
-.comment-author {
-  font-weight: 400;
-  margin-bottom: 10px;
-}
-
-.comment-text {
-    font-weight: 400;
-    margin-left: 4px;
-    font-style: italic;
-    max-height: 70px;
-    overflow: hidden;
-    cursor: pointer;
-    &.expanded {
-        max-height: 100%;
-    }
-}
-
-.comment-btn-container {
+// Recipe image placeholder
+body.labFn-edit .lab-recipe-image:empty::after {
+    content: "Drop image here ...";
     display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    border: 2px dashed #afafaf;
+    font-size: 1.2em;
+    color: #999;
+    background-color: #f5f5f5;
 }
 
-.lab-collection {
-  .lab-collection-header {
-    .collabrador_filter_section {
-        margin-bottom: 15px;
-    }
-
-    .filter_label {
-        font-weight: 400;
-        margin-bottom: 8px;
-        font-size: 12px;
-        color: #525252;
-        width: 100%;
-    }
-
-    .collabrador_info_text {
-        font-size: 12px;
-        color: #999;
-        font-style: italic;
-        margin-top: 5px;
-    }
-
-    .new-comment-textarea {
-        height: unset;
-    }
-  }
+.lab-menulist .lab-collabrador-btn .lab-item-label {
+    color: #FF6F23;
 }

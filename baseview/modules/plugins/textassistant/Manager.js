@@ -20,7 +20,10 @@ export class Manager {
             cssLoaded: false
         };
         this.settings = {
-            minLength: 500
+            minLength: 500,
+            tags: {
+                preserveTagsWhenGenerating: this.api.v1.config.get('preserveTagsWhenGenerating') || false
+            }
         };
         this.writingStyles = Array.isArray(config.writingStyles) ? config.writingStyles : [];
         this.writingTones = Array.isArray(config.writingTones) ? config.writingTones : [];
@@ -161,8 +164,7 @@ export class Manager {
         });
     }
 
-    fetchByGroup(group, fields, { tone, style } = {}, aiSettings = { model: 'gpt-4o' }, retryFetch = false) {
-        console.log('FETCH BY GROUP');
+    fetchByGroup(group, fields, { tone, style } = {}, aiSettings = { model: 'gpt-4o' }, retryFetch = false, triggeredFrom = null) {
         return new Promise((resolve, reject) => {
             const bodytext = this.getBodytext();
             if (!bodytext) {
@@ -183,7 +185,7 @@ export class Manager {
                 resolve({});
                 return;
             } */
-            if (['title_subtitle', 'some_content', 'tags', 'seo_content', 'paywallSalesPitch'].includes(group.name)) {
+            if (['title_subtitle', 'some_content', 'tags', 'seo_content'].includes(group.name)) {
                 const params = {
                     featureName: group.name,
                     updateModel: false
@@ -197,7 +199,7 @@ export class Manager {
                         reject(error);
                     });
 
-            } else {
+            } else if (triggeredFrom !== 'generateSuggestionsButton') {
                 const language = this.setupLanguage();
 
                 const prompt = `${ this.api.v1.util.dom.renderTemplate(group.prompt, {
@@ -340,14 +342,14 @@ export class Manager {
     }
 
     // (Promise)
-    uiFetchByGroup(group, fields) {
+    uiFetchByGroup(group, fields, triggeredFrom = null) {
         return new Promise((resolve, reject) => {
             const tone = this.getUserSetting('writingTone');
             const style = this.getUserSetting('writingStyle');
             if (group.ui.refresh) {
                 group.ui.refresh.classList.add('lab-disabled', 'lab-busy');
             }
-            this.fetchByGroup(group, fields, { tone, style }).then((values) => {
+            this.fetchByGroup(group, fields, { tone, style }, { model: 'gpt-4o' }, false, triggeredFrom).then((values) => {
                 if (group.ui.refresh) {
                     group.ui.refresh.classList.remove('lab-disabled', 'lab-busy');
                 }
@@ -363,9 +365,9 @@ export class Manager {
     }
 
     // (Promise) Resolves an array of objects containing keys and values of suggestions
-    uiFetchAll() {
+    uiFetchAll(triggeredFrom = null) {
         return new Promise((resolve, reject) => {
-            const promises = this.groups.map((group) => this.uiFetchByGroup(group, group.fields));
+            const promises = this.groups.map((group) => this.uiFetchByGroup(group, group.fields, triggeredFrom));
             Promise.all(promises).then((results) => {
                 resolve(results);
             }).catch((error) => {
@@ -492,11 +494,19 @@ export class Manager {
                     if (result[field.name]) {
                         let value = result[field.name] || '';
                         if (field.name === 'tags') {
-                            value = [...result[field.name]];
+                            value = [...result[field.name]].map((tag) => tag.trim().toLowerCase());
                             const primaryTags = this.model.get('primaryTags');
                             if (primaryTags && primaryTags.section) {
                                 value.push(primaryTags.section);
-
+                            }
+                            if (this.settings.tags.preserveTagsWhenGenerating) {
+                                const currentTags = this.model.get(field.path) || [];
+                                for (const tag of currentTags) {
+                                    if (!value.includes(tag.toLowerCase())) {
+                                        // Append existing tag to the end of the array:
+                                        value.push(tag);
+                                    }
+                                }
                             }
                         }
                         field.setValue(value);
@@ -792,7 +802,7 @@ export class Manager {
                 selector: '#button-suggest',
                 event: 'click',
                 callback: () => {
-                    this.uiFetchAll();
+                    this.uiFetchAll('generateSuggestionsButton');
                 }
             }, {
                 selector: '#button-insert',

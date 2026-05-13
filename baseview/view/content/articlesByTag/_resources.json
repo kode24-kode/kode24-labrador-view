@@ -37,6 +37,13 @@
                         "content/bodytext/editor/grid_resize.json"
                     ]
                 }
+            },
+            "grid": {
+                "properties": {
+                    "default": [
+                        "content/grid/editor/child.json"
+                    ]
+                }
             }
         }
     }

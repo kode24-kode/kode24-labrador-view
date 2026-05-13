@@ -1,0 +1,34 @@
+// General styling
+.lab-texttospeech {
+    .content.hasContentPadding {
+        padding: 0.5rem;
+    }
+    .lab-placeholder {
+        padding: 2rem;
+        text-align: center;
+        background: #f5f5f5;
+        border: 2px dashed #ccc;
+
+        p {
+            margin: 0.5rem 0;
+
+            &:first-child {
+                font-weight: bold;
+            }
+
+            &:not(:first-child) {
+                font-size: 0.85em;
+                color: #666;
+            }
+        }
+    }
+}
+
+
+// Hide content box until Audio content is ready.
+// BeyondWords-specific rule:
+.lab-texttospeech.lab-tts--pending:not(:has(.beyondwords-player .user-interface)) {
+    display: none;
+}
+
+// Add rule for other providers below.

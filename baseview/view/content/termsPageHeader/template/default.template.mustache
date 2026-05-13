@@ -1,0 +1,29 @@
+<div data-element-guid="{{ get.current.guid }}" class="{{ #helper.trim }}
+    column lab-terms-page-header
+    {{ #style.collection }}box_decoration{{ /style.collection }}
+    {{ size.grid.css }}
+    {{ size.grid.absCss }}
+    {{ /helper.trim }}">
+    {{{ get.current.filtered.styleSheets }}}
+    <div class="{{ #helper.trim }}
+        lab-content
+        {{ #style.collection }}content_decoration{{ /style.collection }}
+        {{ /helper.trim }}" style="{{ #style.collection }}content_inline_style{{ /style.collection }}">
+
+        {{ #app.isEditor }}
+            <h2 class="lab-terms-page-header__title">Term Display Name</h2>
+            <p class="lab-terms-page-header__description">Term description will appear here on tag pages.</p>
+        {{ /app.isEditor }}
+
+        {{ ^app.isEditor }}
+        {{ #get.current.filtered.displayName }}
+            <h2 class="lab-terms-page-header__title">{{{ get.current.filtered.displayName }}}</h2>
+        {{ /get.current.filtered.displayName }}
+
+        {{ #get.current.filtered.description }}
+            <p class="lab-terms-page-header__description">{{{ get.current.filtered.description }}}</p>
+        {{ /get.current.filtered.description }}
+        {{ /app.isEditor }}
+
+    </div>
+</div>

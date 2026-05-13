@@ -94,8 +94,8 @@
         },
         "header": {
             "logo_link_text": "Przejdź do strony głównej",
-			"menuScrollerLeftButton": "Przewiń w lewo",
-			"menuScrollerRightButton": "Przewiń w prawo"
+            "menuScrollerLeftButton": "Przewiń w lewo",
+            "menuScrollerRightButton": "Przewiń w prawo"
         },
         "slack_notifier": {
             "publish": {
@@ -144,6 +144,9 @@
             "labelMostRead": "Najczęściej czytane",
             "titleMostRead": "Najczęściej czytane artykuły"
         },
+        "authorLatestArticles": {
+            "noBylines": "Brak byline w artykule"
+        },
         "infiniteScroll": {
             "readMore": "Kontynuuj czytanie"
         },
@@ -159,13 +162,17 @@
                 "talandeWebb": "Otwórz panel opcji Talande Webb",
                 "bluesky": "Udostępnij na Bluesky",
                 "reddit": "Udostępnij na Reddicie",
-                "whatsapp": "Udostępnij na WhatsAppie"
+                "whatsapp": "Udostępnij na WhatsAppie",
+                "print": "Wydrukuj stronę",
+                "googlenews": "Otwórz stronę Google News"
             }
         },
         "gallery": {
             "label": "Galeria",
             "seeAllImages": "Zobacz wszystkie obrazy",
-            "navigateToOriginal": "Przejdź do oryginalnej strony"
+            "navigateToOriginal": "Przejdź do oryginalnej strony",
+            "imageCountText": "zdjęć",
+            "autoDescription": "{{ n }} zdjęć z „{{ title }}”"
         },
         "weather": {
             "failedToFetch": "Nie udało się pobrać danych pogodowych",
@@ -185,6 +192,20 @@
                 "wind": "Wietrznie",
                 "unknown": "Nieznane"
             }
+        },
+        "recipe": {
+            "prepTimeLabel": "Czas przygotowania:",
+            "cookTimeLabel": "Czas gotowania:",
+            "totalTimeLabel": "Całkowity czas:",
+            "recipeYieldLabel": "Porcje:",
+            "keywordsLabel": "Słowa kluczowe:",
+            "caloriesLabel": "Kalorie:",
+            "dishLabel": "Danie:",
+            "cuisineLabel": "Kuchnia:",
+            "printButton": "Drukuj",
+            "publishedDate": "Data publikacji:",
+            "ingredientsTitle": "Składniki",
+            "instructionsTitle": "Instrukcje"
         }
     }
 }

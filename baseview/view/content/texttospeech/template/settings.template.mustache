@@ -1,0 +1,24 @@
+<form method="post">
+    <h2 class="lab-title lab-space-below-medium">Text-to-Speech Settings</h2>
+
+    <div class="lab-formgroup lab-grid lab-grid-gap lab-valign-top">
+
+        <div class="lab-formgroup-item lab-grid-large-12 lab-grid-gap lab-inline">
+            <!-- BeyondWords -->
+            {{ #getConfig.audio_settings.texttospeech.provider.isBeyondWords }}
+            <label for="fields.video">Enable video player</label>
+            <input type="checkbox"
+                   id="fields.video"
+                   name="fields.video"
+                   value="1"
+                   {{ #get.current.fields.video }}checked="checked"{{ /get.current.fields.video }}>
+            {{ /getConfig.audio_settings.texttospeech.provider.isBeyondWords }}
+
+            <!-- Fallback -->
+            {{ ^getConfig.audio_settings.texttospeech.provider.isBeyondWords }}
+            <p>No available settings</label>
+            {{ /getConfig.audio_settings.texttospeech.provider.isBeyondWords }}
+        </div>
+
+    </div>
+</form>

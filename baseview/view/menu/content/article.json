@@ -235,6 +235,120 @@
                             "attribute": "value"
                         }
                     ]
+                },
+                "hoverOptions": {
+                    "text": "Hover options",
+                    "icon": "labicon-animation",
+                    "group": "sg2_1",
+                    "title": "Image hover effects",
+                    "displayCondition": "hasChildOfType",
+                    "params": {
+                        "modelType": "image"
+                    },
+                    "items": {
+                        "hoverScale": {
+                            "text": "Scale effect",
+                            "icon": "labicon-textSizeUp",
+                            "group": "h1",
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.imageHoverScale",
+                                    "attribute": "value",
+                                    "valueTransformer": "lab-key-is-true"
+                                }
+                            ],
+                            "items": [
+                                {
+                                    "icon": "labicon-textSizeUp",
+                                    "text": "Scale up subtle (1.05)",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.imageHoverScale",
+                                    "onValue": "scale-up-subtle",
+                                    "offValue": null,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.imageHoverScale",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "icon": "labicon-textSizeUp",
+                                    "text": "Scale up (1.1)",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.imageHoverScale",
+                                    "onValue": "scale-up",
+                                    "offValue": null,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.imageHoverScale",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "hoverFilter": {
+                            "text": "Filter effect",
+                            "icon": "labicon-filter",
+                            "group": "h1",
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.imageHoverFilter",
+                                    "attribute": "value",
+                                    "valueTransformer": "lab-key-is-true"
+                                }
+                            ],
+                            "items": [
+                                {
+                                    "icon": "labicon-brightness",
+                                    "text": "Brighten (1.2)",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.imageHoverFilter",
+                                    "onValue": "filter-brighten",
+                                    "offValue": null,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.imageHoverFilter",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "icon": "labicon-contrast",
+                                    "text": "Darken (0.8)",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.imageHoverFilter",
+                                    "onValue": "filter-darken",
+                                    "offValue": null,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.imageHoverFilter",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "icon": "labicon-image",
+                                    "text": "Grayscale (0.8)",
+                                    "callback": "toggleKeyAndValue",
+                                    "key": "metadata.imageHoverFilter",
+                                    "onValue": "filter-grayscale",
+                                    "offValue": null,
+                                    "bindings": [
+                                        {
+                                            "path": "metadata.imageHoverFilter",
+                                            "attribute": "value"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
                 }
             }
         },
@@ -393,22 +507,95 @@
                         }
                     }
                 },
-                "byline": {
-                    "text": "Toggle bylines",
+                "bylines": {
+                    "text": "Bylines",
                     "icon": "labicon-user",
                     "group": "s1",
-                    "callback": "toggleKeyAndValue",
-                    "key": "fields.displayByline",
-                    "value": true,
                     "onValue": true,
                     "offValue": false,
-                    "valueTransformer": "toBoolean",
                     "bindings": [
                         {
                             "path": "fields.displayByline",
                             "attribute": "value"
                         }
-                    ]
+                    ],
+                    "items": {
+                        "toggleBylines": {
+                            "text": "Toggle bylines",
+                            "icon": "labicon-user",
+                            "group": "g1",
+                            "callback": "toggleKeyAndValue",
+                            "key": "fields.displayByline",
+                            "value": true,
+                            "onValue": true,
+                            "offValue": false,
+                            "valueTransformer": "toBoolean",
+                            "bindings": [
+                                {
+                                    "path": "fields.displayByline",
+                                    "attribute": "value"
+                                }
+                            ]
+                        },
+                        "bylinesAboveTitle": {
+                            "icon": "labicon-grid_list",
+                            "group": "g2",
+                            "text": "Above title",
+                            "callback": "toggleKeyAndValue",
+                            "autocloseSubmenuAfterAction": false,
+                            "key": "metadata.bylinesAboveTitle",
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.bylinesAboveTitle",
+                                    "attribute": "value"
+                                },
+                                {
+                                    "path": "metadata.floatingBylines",
+                                    "attribute": "disabled",
+                                    "valueTransformer": "toBoolean"
+                                }
+                            ]
+                        },
+                        "floatingBylines": {
+                            "icon": "labicon-image_caption",
+                            "group": "g2",
+                            "text": "Float above image",
+                            "callback": "toggleKeyAndValue",
+                            "autocloseSubmenuAfterAction": false,
+                            "key": "metadata.floatingBylines",
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.floatingBylines",
+                                    "attribute": "value"
+                                },
+                                {
+                                    "path": "metadata.bylinesAboveTitle",
+                                    "attribute": "disabled",
+                                    "valueTransformer": "toBoolean"
+                                }
+                            ]
+                        },
+                        "hideBylineImages": {
+                            "icon": "labicon-image_caption",
+                            "group": "g3",
+                            "text": "Hide byline images",
+                            "callback": "toggleKeyAndValue",
+                            "autocloseSubmenuAfterAction": false,
+                            "key": "metadata.hideBylineImages",
+                            "onValue": true,
+                            "offValue": false,
+                            "bindings": [
+                                {
+                                    "path": "metadata.hideBylineImages",
+                                    "attribute": "value"
+                                }
+                            ]
+                        }
+                    }
                 },
                 "publishedDate": {
                     "text": "Toggle published date",
@@ -469,6 +656,70 @@
                                 }
                             ],
                             "text": "Hide video text"
+                        },
+                        {
+                            "callback": "toggleKeyAndValue",
+                            "key": "fields.videoOverlayPosition",
+                            "group": "g3",
+                            "value": "top-left",
+                            "onValue": "top-left",
+                            "offValue": false,
+                            "autocloseSubmenuAfterAction": false,
+                            "bindings": [
+                                {
+                                    "path": "fields.videoOverlayPosition",
+                                    "attribute": "value"
+                                }
+                            ],
+                            "text": "Corner: top left"
+                        },
+                        {
+                            "callback": "toggleKeyAndValue",
+                            "key": "fields.videoOverlayPosition",
+                            "group": "g3",
+                            "value": "top-right",
+                            "onValue": "top-right",
+                            "offValue": false,
+                            "autocloseSubmenuAfterAction": false,
+                            "bindings": [
+                                {
+                                    "path": "fields.videoOverlayPosition",
+                                    "attribute": "value"
+                                }
+                            ],
+                            "text": "Corner: top right"
+                        },
+                        {
+                            "callback": "toggleKeyAndValue",
+                            "key": "fields.videoOverlayPosition",
+                            "group": "g3",
+                            "value": "bottom-left",
+                            "onValue": "bottom-left",
+                            "offValue": false,
+                            "autocloseSubmenuAfterAction": false,
+                            "bindings": [
+                                {
+                                    "path": "fields.videoOverlayPosition",
+                                    "attribute": "value"
+                                }
+                            ],
+                            "text": "Corner: bottom left"
+                        },
+                        {
+                            "callback": "toggleKeyAndValue",
+                            "key": "fields.videoOverlayPosition",
+                            "group": "g3",
+                            "value": "bottom-right",
+                            "onValue": "bottom-right",
+                            "offValue": false,
+                            "autocloseSubmenuAfterAction": false,
+                            "bindings": [
+                                {
+                                    "path": "fields.videoOverlayPosition",
+                                    "attribute": "value"
+                                }
+                            ],
+                            "text": "Corner: bottom right"
                         }
                     ]
                 },

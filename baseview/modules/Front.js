@@ -3,6 +3,7 @@ import { FragmentHelper } from './lib/helpers/FragmentHelper.js';
 import { PageExport } from './lib/helpers/PageExport.js';
 import { EsiHelper } from './lib/helpers/dynamic/EsiHelper.js';
 import { Spacing } from './lib/helpers/Spacing.js';
+import { TextToSpeechHelper } from './lib/helpers/TextToSpeechHelper.js';
 
 export default class {
 
@@ -74,6 +75,11 @@ export default class {
             }));
         }
 
+        // Auto-insert the TTS element for article pages when TTS is enabled.
+        if (rootModel && rootModel.getType() === 'page_article') {
+            TextToSpeechHelper.insertIfNeeded(this.api, rootModel);
+        }
+
         const esiHelper = new EsiHelper(this.api);
         esiHelper.register(rootModel, this.api.v1.site.getSite().alias);
 
@@ -101,6 +107,39 @@ export default class {
                 viewports: ['desktop', 'mobile'],
                 returnArray: false
             }));
+        }
+    }
+
+    // Apply a custom CSS class stored in metadata.elementClass to the element's root HTML tag.
+    // Set via "Set element class" in the editor's contextual menu (basemenu.json + Namespace.js).
+    // Runs for every element on every render, but exits immediately if no class is set.
+    onRendered(model, view) {
+        const elementClass = model.get('metadata.elementClass');
+        if (!elementClass) { return; }
+
+        const markup = view.getMarkup();
+        if (markup) {
+            // In the editor, view.getMarkup() returns a live DOM element — use classList directly.
+            elementClass.trim().split(/\s+/).filter(Boolean).forEach((c) => markup.classList.add(c));
+        } else {
+            // On the front-end, rendering is server-side (Node.js) and there is no DOM.
+            // view.getMarkup() returns null; the output is an HTML string instead.
+            // We inject the class into the first class=" attribute of the root element,
+            // then write the modified string back before the framework collects the final output.
+            const markupString = view.getMarkupString();
+
+            if (!markupString) { 
+				return; 
+			}
+
+            // Sanitize: only allow valid CSS class name characters to prevent HTML injection.
+            const classes = elementClass.trim().split(/\s+/).filter((c) => c && /^[a-zA-Z0-9_-]+$/.test(c)).join(' ');
+
+            if (!classes) { 
+				return; 
+			}
+
+            view.setMarkupString(markupString.replace('class="', `class="${classes} `));
         }
     }
 

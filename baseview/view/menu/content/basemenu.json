@@ -64,6 +64,24 @@
                     "inheritPath": "menu/buttons/pasteboard.json",
                     "text": "Pasteboard",
                     "group": "g2"
+                },
+                "elementClass": {
+                    "icon": "fi-css3",
+                    "text": "Set element class",
+                    "callback": "dispatch",
+                    "group": "g3",
+                    "onValue": true,
+                    "offValue": false,
+                    "bindings": [
+                        {
+                            "path": "metadata.elementClass",
+                            "attribute": "value",
+                            "valueTransformer": "toBoolean"
+                        }
+                    ],
+                    "params": {
+                        "function": "contextualmenu.callbacks.setElementClass"
+                    }
                 }
             }
         }
