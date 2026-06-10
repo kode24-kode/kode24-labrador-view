@@ -43,6 +43,7 @@
 
     </head>
     <body id="page-body" class="{{ #helper.trim }}
+        {{ > partial/site/kode24/scriptsbefore}}
         l4 front site_{{{ get.current.filtered.site.alias }}}
         {{ #fields.pageBackgroundColorStyleDark }} dark-mode{{ /fields.pageBackgroundColorStyleDark }}
         {{ #get.current.fields.pageBackgroundColor }}{{ get.current.fields.pageBackgroundColor }} custom-background-color{{ /get.current.fields.pageBackgroundColor }}
