@@ -40,10 +40,8 @@
         {{> partial/lab4/abtest/kilkaya }}
         {{ /getPreload.ab_collections }}
         {{ /app.isEditor }}
-
     </head>
     <body id="page-body" class="{{ #helper.trim }}
-        {{ > partial/site/kode24/scriptsbefore}}
         l4 front site_{{{ get.current.filtered.site.alias }}}
         {{ #fields.pageBackgroundColorStyleDark }} dark-mode{{ /fields.pageBackgroundColorStyleDark }}
         {{ #get.current.fields.pageBackgroundColor }}{{ get.current.fields.pageBackgroundColor }} custom-background-color{{ /get.current.fields.pageBackgroundColor }}
@@ -55,6 +53,7 @@
         "
         {{ #get.current.fields.pageBackgroundColorStyle }} style="background-color:{{ get.current.fields.pageBackgroundColorStyle }};{{ #get.current.fields.pageBackgroundColorStyleDark }}color:#fff;{{ /get.current.fields.pageBackgroundColorStyleDark }}"{{ /get.current.fields.pageBackgroundColorStyle }}
         {{ #render.partial }}page_body_tag_inside{{ /render.partial }}>
+        {{ > partial/site/kode24/scriptsbefore}}
         {{ > partial/lab4/page_body_prefix }}
 
         {{> partial/site/kode24/skipto}}
